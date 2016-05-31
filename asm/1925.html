@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 1925</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="190F.html">190F</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#1925">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="196E.html">196E</a></span></td>
+</tr>
+</table>
+<div class="description">1925: THE 'PRINTING CHARACTERS IN A BASIC LINE' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="4">
+<div class="details">
+
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="1925"></span>1925</td>
+<td class="instruction">LD A,E</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1926"></span>1926</td>
+<td class="instruction">AND A</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1927"></span>1927</td>
+<td class="instruction">RET M</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1928"></span>1928</td>
+<td class="instruction">JR $1937</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="4">
+<span id="192A"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="1A1B.html">1A1B</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="192A"></span>192A</td>
+<td class="instruction">XOR A</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="192B"></span>192B</td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="192C"></span>192C</td>
+<td class="instruction">INC A</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="192D"></span>192D</td>
+<td class="instruction">JR C,$192B</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="192F"></span>192F</td>
+<td class="instruction">SBC HL,BC</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1931"></span>1931</td>
+<td class="instruction">DEC A</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1932"></span>1932</td>
+<td class="instruction">JR Z,$1925</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1934"></span>1934</td>
+<td class="instruction">JP <a href="15EF.html">$15EF</a></td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="4">
+<span id="1937"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="1855.html">1855</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="1937"></span>1937</td>
+<td class="instruction">CALL <a href="2D1B.html">$2D1B</a></td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="193A"></span>193A</td>
+<td class="instruction">JR NC,$196C</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="193C"></span>193C</td>
+<td class="instruction">CP $21</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="193E"></span>193E</td>
+<td class="instruction">JR C,$196C</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1940"></span>1940</td>
+<td class="instruction">RES 2,(IY+$01)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1944"></span>1944</td>
+<td class="instruction">CP $CB</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1946"></span>1946</td>
+<td class="instruction">JR Z,$196C</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1948"></span>1948</td>
+<td class="instruction">CP ":"</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="194A"></span>194A</td>
+<td class="instruction">JR NZ,$195A</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="194C"></span>194C</td>
+<td class="instruction">BIT 5,(IY+$37)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1950"></span>1950</td>
+<td class="instruction">JR NZ,$1968</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1952"></span>1952</td>
+<td class="instruction">BIT 2,(IY+$30)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1956"></span>1956</td>
+<td class="instruction">JR Z,$196C</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1958"></span>1958</td>
+<td class="instruction">JR $1968</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="195A"></span>195A</td>
+<td class="instruction">CP "\""</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="195C"></span>195C</td>
+<td class="instruction">JR NZ,$1968</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="195E"></span>195E</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="195F"></span>195F</td>
+<td class="instruction">LD A,($5C6A)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1962"></span>1962</td>
+<td class="instruction">XOR $04</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1964"></span>1964</td>
+<td class="instruction">LD ($5C6A),A</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1967"></span>1967</td>
+<td class="instruction">POP AF</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="1968"></span>1968</td>
+<td class="instruction">SET 2,(IY+$01)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="196C"></span>196C</td>
+<td class="instruction">RST <a href="0010.html">$10</a></td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="196D"></span>196D</td>
+<td class="instruction">RET</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="190F.html">190F</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#1925">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="196E.html">196E</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+</footer>
+</body>
+</html>

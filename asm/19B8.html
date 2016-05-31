@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 19B8</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="1988.html">1988</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#19B8">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="19DD.html">19DD</a></span></td>
+</tr>
+</table>
+<div class="description">19B8: THE 'NEXT-ONE' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="4">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="08B6.html">08B6</a>, <a href="092C.html">092C</a>, <a href="155D.html">155D</a>, <a href="1795.html">1795</a>, <a href="196E.html">196E</a>, <a href="28B2.html">28B2</a> and <a href="2C02.html">2C02</a>.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="19B8"></span>19B8</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19B9"></span>19B9</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19BA"></span>19BA</td>
+<td class="instruction">CP $40</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19BC"></span>19BC</td>
+<td class="instruction">JR C,$19D5</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19BE"></span>19BE</td>
+<td class="instruction">BIT 5,A</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19C0"></span>19C0</td>
+<td class="instruction">JR Z,$19D6</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19C2"></span>19C2</td>
+<td class="instruction">ADD A,A</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19C3"></span>19C3</td>
+<td class="instruction">JP M,$19C7</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19C6"></span>19C6</td>
+<td class="instruction">CCF</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="19C7"></span>19C7</td>
+<td class="instruction">LD BC,$0005</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19CA"></span>19CA</td>
+<td class="instruction">JR NC,$19CE</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19CC"></span>19CC</td>
+<td class="instruction">LD C,$12</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="19CE"></span>19CE</td>
+<td class="instruction">RLA</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19CF"></span>19CF</td>
+<td class="instruction">INC HL</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19D0"></span>19D0</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19D1"></span>19D1</td>
+<td class="instruction">JR NC,$19CE</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19D3"></span>19D3</td>
+<td class="instruction">JR $19DB</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="19D5"></span>19D5</td>
+<td class="instruction">INC HL</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="19D6"></span>19D6</td>
+<td class="instruction">INC HL</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19D7"></span>19D7</td>
+<td class="instruction">LD C,(HL)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19D8"></span>19D8</td>
+<td class="instruction">INC HL</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19D9"></span>19D9</td>
+<td class="instruction">LD B,(HL)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19DA"></span>19DA</td>
+<td class="instruction">INC HL</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="19DB"></span>19DB</td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="19DC"></span>19DC</td>
+<td class="instruction">POP DE</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="1988.html">1988</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#19B8">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="19DD.html">19DD</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+</footer>
+</body>
+</html>

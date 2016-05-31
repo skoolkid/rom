@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 2DA2</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="2D8C.html">2D8C</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#2DA2">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="2DC1.html">2DC1</a></span></td>
+</tr>
+</table>
+<div class="description">2DA2: THE 'FLOATING-POINT TO BC' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="4">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="19FB.html">19FB</a>, <a href="1E94.html">1E94</a>, <a href="25AF.html">25AF</a> and <a href="2DD5.html">2DD5</a>.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="2DA2"></span>2DA2</td>
+<td class="instruction">RST <a href="0028.html">$28</a></td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DA3"></span>2DA3</td>
+<td class="instruction">DEFB $38</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DA4"></span>2DA4</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DA5"></span>2DA5</td>
+<td class="instruction">AND A</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DA6"></span>2DA6</td>
+<td class="instruction">JR Z,$2DAD</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DA8"></span>2DA8</td>
+<td class="instruction">RST <a href="0028.html">$28</a></td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DA9"></span>2DA9</td>
+<td class="instruction">DEFB $A2</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DAA"></span>2DAA</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DAB"></span>2DAB</td>
+<td class="instruction">DEFB $27</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DAC"></span>2DAC</td>
+<td class="instruction">DEFB $38</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="2DAD"></span>2DAD</td>
+<td class="instruction">RST <a href="0028.html">$28</a></td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DAE"></span>2DAE</td>
+<td class="instruction">DEFB $02</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DAF"></span>2DAF</td>
+<td class="instruction">DEFB $38</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DB0"></span>2DB0</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DB1"></span>2DB1</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DB2"></span>2DB2</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DB3"></span>2DB3</td>
+<td class="instruction">LD B,(HL)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DB4"></span>2DB4</td>
+<td class="instruction">CALL <a href="2D7F.html">$2D7F</a></td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DB7"></span>2DB7</td>
+<td class="instruction">XOR A</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DB8"></span>2DB8</td>
+<td class="instruction">SUB B</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DB9"></span>2DB9</td>
+<td class="instruction">BIT 7,C</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DBB"></span>2DBB</td>
+<td class="instruction">LD B,D</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DBC"></span>2DBC</td>
+<td class="instruction">LD C,E</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DBD"></span>2DBD</td>
+<td class="instruction">LD A,E</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DBE"></span>2DBE</td>
+<td class="instruction">POP DE</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DBF"></span>2DBF</td>
+<td class="instruction">POP HL</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="2DC0"></span>2DC0</td>
+<td class="instruction">RET</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="2D8C.html">2D8C</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#2DA2">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="2DC1.html">2DC1</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+</footer>
+</body>
+</html>

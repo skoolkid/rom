@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 0D4D</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="0C55.html">0C55</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#0D4D">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="0D6B.html">0D6B</a></span></td>
+</tr>
+</table>
+<div class="description">0D4D: THE 'TEMPORARY COLOUR ITEMS' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="4">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="0C55.html">0C55</a>, <a href="0D6B.html">0D6B</a>, <a href="0DAF.html">0DAF</a>, <a href="111D.html">111D</a>, <a href="1642.html">1642</a>, <a href="1C96.html">1C96</a>, <a href="1CBE.html">1CBE</a>, <a href="1FC9.html">1FC9</a>, <a href="22DC.html">22DC</a> and <a href="2382.html">2382</a>.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="0D4D"></span>0D4D</td>
+<td class="instruction">XOR A</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="0D4E"></span>0D4E</td>
+<td class="instruction">LD HL,($5C8D)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="0D51"></span>0D51</td>
+<td class="instruction">BIT 0,(IY+$02)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="0D55"></span>0D55</td>
+<td class="instruction">JR Z,$0D5B</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="0D57"></span>0D57</td>
+<td class="instruction">LD H,A</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="0D58"></span>0D58</td>
+<td class="instruction">LD L,(IY+$0E)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="0D5B"></span>0D5B</td>
+<td class="instruction">LD ($5C8F),HL</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="0D5E"></span>0D5E</td>
+<td class="instruction">LD HL,$5C91</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="0D61"></span>0D61</td>
+<td class="instruction">JR NZ,$0D65</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="0D63"></span>0D63</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="0D64"></span>0D64</td>
+<td class="instruction">RRCA</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="0D65"></span>0D65</td>
+<td class="instruction">XOR (HL)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="0D66"></span>0D66</td>
+<td class="instruction">AND $55</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="0D68"></span>0D68</td>
+<td class="instruction">XOR (HL)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="0D69"></span>0D69</td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="0D6A"></span>0D6A</td>
+<td class="instruction">RET</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="0C55.html">0C55</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#0D4D">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="0D6B.html">0D6B</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+</footer>
+</body>
+</html>

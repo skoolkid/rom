@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 1C22</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="1C1F.html">1C1F</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#1C22">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="1C56.html">1C56</a></span></td>
+</tr>
+</table>
+<div class="description">1C22: THE 'VARIABLE IN ASSIGNMENT' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="4">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="1C6C.html">1C6C</a>.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="1C22"></span>1C22</td>
+<td class="instruction">LD (IY+$37),$00</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C26"></span>1C26</td>
+<td class="instruction">JR NC,$1C30</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C28"></span>1C28</td>
+<td class="instruction">SET 1,(IY+$37)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C2C"></span>1C2C</td>
+<td class="instruction">JR NZ,$1C46</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="4">
+<span id="1C2E"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="1DAB.html">1DAB</a> and <a href="26C9.html">26C9</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="1C2E"></span>1C2E</td>
+<td class="instruction">RST <a href="0008.html">$08</a></td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C2F"></span>1C2F</td>
+<td class="instruction">DEFB $01</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="1C30"></span>1C30</td>
+<td class="instruction">CALL Z,<a href="2996.html">$2996</a></td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C33"></span>1C33</td>
+<td class="instruction">BIT 6,(IY+$01)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C37"></span>1C37</td>
+<td class="instruction">JR NZ,$1C46</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C39"></span>1C39</td>
+<td class="instruction">XOR A</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C3A"></span>1C3A</td>
+<td class="instruction">CALL <a href="2530.html">$2530</a></td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C3D"></span>1C3D</td>
+<td class="instruction">CALL NZ,<a href="2BF1.html">$2BF1</a></td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C40"></span>1C40</td>
+<td class="instruction">LD HL,$5C71</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C43"></span>1C43</td>
+<td class="instruction">OR (HL)</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C44"></span>1C44</td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C45"></span>1C45</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-2"><span id="1C46"></span>1C46</td>
+<td class="instruction">LD ($5C72),BC</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C4A"></span>1C4A</td>
+<td class="instruction">LD ($5C4D),HL</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C4D"></span>1C4D</td>
+<td class="instruction">RET</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C4E"></span>1C4E</td>
+<td class="instruction">POP BC</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C4F"></span>1C4F</td>
+<td class="instruction">CALL <a href="1C56.html">$1C56</a></td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C52"></span>1C52</td>
+<td class="instruction">CALL <a href="1BEE.html">$1BEE</a></td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-0"></td>
+<td class="address-1"><span id="1C55"></span>1C55</td>
+<td class="instruction">RET</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="1C1F.html">1C1F</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#1C22">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="1C56.html">1C56</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+</footer>
+</body>
+</html>
