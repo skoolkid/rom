@@ -1,7 +1,7 @@
 ;
 ; SkoolKit control file for the 48K Spectrum ROM.
 ;
-; Routine titles taken from 'The Complete Spectrum ROM Disassembly' by Dr Ian
+; Annotations taken from 'The Complete Spectrum ROM Disassembly' by Dr Ian
 ; Logan and Dr Frank O'Hara, published by Melbourne House.
 ;
 
@@ -10,6 +10,11 @@
 @ $0000 set-handle-unsupported-macros=1
 @ $0000 label=START
 c $0000 THE 'START'
+D $0000 The maskable interrupt is disabled and the #REGde register pair set to hold the 'top of possible RAM'.
+  $0000 Disable the 'keyboard interrupt'.
+  $0001 +00 for start (but +FF for 'NEW').
+  $0002 Top of possible RAM.
+  $0005 Jump forward.
 @ $0008 label=ERROR_1
 c $0008 THE 'ERROR' RESTART
 @ $0010 label=PRINT_A_1
