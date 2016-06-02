@@ -17,6 +17,8 @@ D $0000 The maskable interrupt is disabled and the #REGde register pair set to h
   $0005 Jump forward.
 @ $0008 label=ERROR_1
 c $0008 THE 'ERROR' RESTART
+D $0008 The error pointer is made to point to the position of the error.
+  $0008 The address reached by the interpreter is copied to the error pointer before proceeding.
 @ $0010 label=PRINT_A_1
 c $0010 THE 'PRINT A CHARACTER' RESTART
 s $0013
