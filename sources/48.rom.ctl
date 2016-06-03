@@ -21,6 +21,8 @@ D $0008 The error pointer is made to point to the position of the error.
   $0008 The address reached by the interpreter is copied to the error pointer before proceeding.
 @ $0010 label=PRINT_A_1
 c $0010 THE 'PRINT A CHARACTER' RESTART
+D $0010 The #REGa register holds the code of the character that is to be printed.
+  $0010 Jump forward immediately.
 s $0013
   $0013,5,5:$FF
 @ $0018 label=GET_CHAR
