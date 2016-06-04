@@ -24,18 +24,18 @@ c $0010 THE 'PRINT A CHARACTER' RESTART
 D $0010 The #REGa register holds the code of the character that is to be printed.
   $0010 Jump forward immediately.
 s $0013
-  $0013,5,5:$FF
+  $0013,5,5:$FF Unused locations.
 @ $0018 label=GET_CHAR
 c $0018 THE 'COLLECT CHARACTER' RESTART
 @ $001C label=TEST_CHAR
 @ $0020 label=NEXT_CHAR
 c $0020 THE 'COLLECT NEXT CHARACTER' RESTART
 s $0025
-  $0025,3,3:$FF
+  $0025,3,3:$FF Unused locations.
 @ $0028 label=FP_CALC
 c $0028 THE 'CALCULATOR' RESTART
 s $002B
-  $002B,5,5:$FF
+  $002B,5,5:$FF Unused locations.
 @ $0030 label=BC_SPACES
 c $0030 THE 'MAKE BC SPACES' RESTART
 @ $0038 label=MASK_INT
@@ -45,7 +45,7 @@ c $0038 THE 'MASKABLE INTERRUPT' ROUTINE
 c $0053 THE 'ERROR-2' ROUTINE
 @ $0055 label=ERROR_3
 s $005F
-  $005F,7,7:$FF
+  $005F,7,7:$FF Unused locations.
 @ $0066 label=RESET
 c $0066 THE 'NON-MASKABLE INTERRUPT' ROUTINE
 @ $0070 label=NO_RESET
@@ -2006,7 +2006,7 @@ B $385D,16,1
 @ $386A label=ONE
 @ $386C label=LAST
 s $386E
-  $386E,1170,1170:$FF
+  $386E,1170,1170:$FF These locations are 'spare'. They all hold +FF.
 @ $3D00 label=CHARSET
 b $3D00 Character set
   $3D00,8,b1 #UDG$3D00
