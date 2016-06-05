@@ -30,7 +30,7 @@ sys.stderr.write("Found SkoolKit in {}\n".format(skool2html.PACKAGE_DIR))
 def write_skool():
     stdout = sys.stdout
     sys.stdout = StringIO()
-    sna2skool.main(('-o', '0', '-H', '-c', ROM_CTL, ROM))
+    sna2skool.main(('-RHo', '0', '-c', ROM_CTL, ROM))
     if not os.path.isdir(BUILD_DIR):
         os.mkdir(BUILD_DIR)
     skoolfile = '{}/48.rom.skool'.format(BUILD_DIR)
