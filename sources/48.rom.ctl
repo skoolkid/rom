@@ -41,6 +41,8 @@ s $0025
   $0025,3,3:$FF Unused locations.
 @ $0028 label=FP_CALC
 c $0028 THE 'CALCULATOR' RESTART
+D $0028 The floating point calculator is entered at #R$335B.
+  $0028 Jump forward immediately.
 s $002B
   $002B,5,5:$FF Unused locations.
 @ $0030 label=BC_SPACES
