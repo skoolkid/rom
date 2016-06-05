@@ -44,7 +44,7 @@ def run_skool2asm():
     skool2asm.main(args)
 
 def run_skool2html():
-    skool2html_options = '-d {}/html'.format(BUILD_DIR)
+    skool2html_options = '-ad {}/html'.format(BUILD_DIR)
     skool2html_options += ' -S {}/sources'.format(ROM_HOME)
     args = skool2html_options.split() + sys.argv[1:] + [write_skool()]
     skool2html.main(args)
