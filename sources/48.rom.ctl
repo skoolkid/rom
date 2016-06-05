@@ -34,6 +34,9 @@ D $0018 The contents of the location currently addressed by CH-ADD are fetched. 
   $001F Return if it is so.
 @ $0020 label=NEXT_CHAR
 c $0020 THE 'COLLECT NEXT CHARACTER' RESTART
+D $0020 As a BASIC line is interpreted, this routine is called repeatedly to step along the line.
+  $0020 CH-ADD needs to be incremented.
+  $0023 Jump back to test the new value.
 s $0025
   $0025,3,3:$FF Unused locations.
 @ $0028 label=FP_CALC
