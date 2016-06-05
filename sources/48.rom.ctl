@@ -27,7 +27,11 @@ s $0013
   $0013,5,5:$FF Unused locations.
 @ $0018 label=GET_CHAR
 c $0018 THE 'COLLECT CHARACTER' RESTART
+D $0018 The contents of the location currently addressed by CH-ADD are fetched. A return is made if the value represents a printable character, otherwise CH-ADD is incremented and the tests repeated.
+  $0018 Fetch the value that is addressed by CH-ADD.
 @ $001C label=TEST_CHAR
+  $001C Find out if the character is printable.
+  $001F Return if it is so.
 @ $0020 label=NEXT_CHAR
 c $0020 THE 'COLLECT NEXT CHARACTER' RESTART
 s $0025
