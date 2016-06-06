@@ -164,16 +164,155 @@ D $0095 All the tokens used by the Spectrum are expanded by reference to this ta
   $0201,4,3:B1
 @ $0205 label=KEYTABLE_A
 b $0205 THE KEY TABLES
+D $0205 There are six separate key tables. The final character code obtained depends on the particular key pressed and the 'mode' being used.
+N $0205 (a) The main key table - L mode and CAPS SHIFT.
+  $0205 B
+  $0206 H
+  $0207 Y
+  $0208 6
+  $0209 5
+  $020A T
+  $020B G
+  $020C V
+  $020D N
+  $020E J
+  $020F U
+  $0210 7
+  $0211 4
+  $0212 R
+  $0213 F
+  $0214 C
+  $0215 M
+  $0216 K
+  $0217 I
+  $0218 8
+  $0219 3
+  $021A E
+  $021B D
+  $021C X
+  $021D SYMBOL SHIFT
+  $021E L
+  $021F O
+  $0220 9
+  $0221 2
+  $0222 W
+  $0223 S
+  $0224 Z
+  $0225 SPACE
+  $0226 ENTER
+  $0227 P
+  $0228 0
+  $0229 1
+  $022A Q
+  $022B A
 @ $022C label=KEYTABLE_B
-  $022C
+N $022C (b) Extended mode. Letter keys and unshifted.
+  $022C READ
+  $022D BIN
+  $022E LPRINT
+  $022F DATA
+  $0230 TAN
+  $0231 SGN
+  $0232 ABS
+  $0233 SQR
+  $0234 CODE
+  $0235 VAL
+  $0236 LEN
+  $0237 USR
+  $0238 PI
+  $0239 INKEY$
+  $023A PEEK
+  $023B TAB
+  $023C SIN
+  $023D INT
+  $023E RESTORE
+  $023F RND
+  $0240 CHR$
+  $0241 LLIST
+  $0242 COS
+  $0243 EXP
+  $0244 STR$
+  $0245 LN
 @ $0246 label=KEYTABLE_C
-  $0246
+N $0246 (c) Extended mode. Letter keys and either shift.
+  $0246 ~
+  $0247 BRIGHT
+  $0248 PAPER
+  $0249 \
+  $024A ATN
+  $024B {
+  $024C }
+  $024D CIRCLE
+  $024E IN
+  $024F VAL$
+  $0250 SCREEN$
+  $0251 ATTR
+  $0252 INVERSE
+  $0253 OVER
+  $0254 OUT
+  $0255 #CHR169
+  $0256 ASN
+  $0257 VERIFY
+  $0258 |
+  $0259 MERGE
+  $025A ]
+  $025B FLASH
+  $025C ACS
+  $025D INK
+  $025E [
+  $025F BEEP
 @ $0260 label=KEYTABLE_D
-  $0260
+N $0260 (d) Control codes. Digit keys and CAPS SHIFT.
+  $0260 DELETE
+  $0261 EDIT
+  $0262 CAPS LOCK
+  $0263 TRUE VIDEO
+  $0264 INV. VIDEO
+  $0265 Cursor left
+  $0266 Cursor down
+  $0267 Cursor up
+  $0268 Cursor right
+  $0269 GRAPHICS
 @ $026A label=KEYTABLE_E
-  $026A
+N $026A (e) Symbol code. Letter keys and symbol shift.
+  $026A STOP
+  $026B *
+  $026C ?
+  $026D STEP
+  $026E >=
+  $026F TO
+  $0270 THEN
+  $0271 #CHR8593
+  $0272 AT
+  $0273 -
+  $0274 +
+  $0275 =
+  $0276 .
+  $0277 ,
+  $0278 ;
+  $0279 "
+  $027A <=
+  $027B <
+  $027C NOT
+  $027D >
+  $027E OR
+  $027F /
+  $0280 <>
+  $0281 #CHR163
+  $0282 AND
+  $0283 :
 @ $0284 label=KEYTABLE_F
-  $0284
+N $0284 (f) Extended mode. Digit keys and symbol shift.
+  $0284 FORMAT
+  $0285 DEF FN
+  $0286 FN
+  $0287 LINE
+  $0288 OPEN
+  $0289 CLOSE
+  $028A MOVE
+  $028B ERASE
+  $028C POINT
+  $028D CAT
 @ $028E label=KEY_SCAN
 c $028E THE 'KEYBOARD SCANNING' SUBROUTINE
 @ $0296 label=KEY_LINE
