@@ -47,6 +47,9 @@ s $002B
   $002B,5,5:$FF Unused locations.
 @ $0030 label=BC_SPACES
 c $0030 THE 'MAKE BC SPACES' RESTART
+D $0030 This routine creates free locations in the work space. The number of locations is determined by the current contents of the #REGbc register pair.
+  $0030 Save the 'number'.
+  $0031 Fetch the present address of the start of the work space and save that also before proceeding.
 @ $0038 label=MASK_INT
 c $0038 THE 'MASKABLE INTERRUPT' ROUTINE
 @ $0048 label=KEY_INT
