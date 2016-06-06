@@ -70,6 +70,7 @@ c $007D THE 'SKIP-OVER' SUBROUTINE
 @ $0090 label=SKIPS
 @ $0095 label=TOKENS
 t $0095 THE TOKEN TABLE
+D $0095 All the tokens used by the Spectrum are expanded by reference to this table. The last code of each token is 'inverted' by having its bit 7 set.
   $0096,3,2:B1
   $0099,6,5:B1
   $009F,2,1:B1
@@ -363,6 +364,8 @@ c $0970 THE 'SAVE' CONTROL ROUTINE
 @ $0991 label=SA_1_SEC
 @ $09A1 label=CASSETTE
 t $09A1 THE CASSETTE MESSAGES
+D $09A1 Each message is given with the last character inverted (+80 hex.).
+  $09A1 Initial byte is stepped over.
   $09A2,31,30:B1
 @ $09C1 label=BLOCK_HDR
   $09C1,10,B1:8:B1
@@ -638,6 +641,8 @@ c $12A2 THE 'MAIN EXECUTION' LOOP
 @ $1386 label=MAIN_9
 @ $1391 label=REPORTS
 t $1391 THE REPORT MESSAGES
+D $1391 Each message is given with the last character inverted (+80 hex.).
+  $1391 Initial byte is stepped over.
   $1392,2,1:B1
   $1394,16,15:B1
   $13A4,18,17:B1
@@ -667,6 +672,7 @@ t $1391 THE REPORT MESSAGES
   $1516,15,14:B1
   $1525,18,17:B1
 @ $1537 label=COMMA_SPC
+N $1537 There are also the following two messages.
   $1537,2,1:B1
 @ $1539 label=COPYRIGHT
   $1539,28,B1:26:B1
