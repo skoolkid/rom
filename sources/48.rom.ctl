@@ -373,7 +373,19 @@ B $044B,16,1*6,3,1
 B $046D,1
 @ $046E label=SEMITONES
 b $046E THE 'SEMI-TONE' TABLE
-  $046E,60,5
+D $046E This table holds the frequencies of the twelve semi-tones in an octave.
+  $046E 261.63 Hz - C
+  $0473 277.18 Hz - C#
+  $0478 293.66 Hz - D
+  $047D 311.13 Hz - D#
+  $0482 329.63 Hz - E
+  $0487 349.23 Hz - F
+  $048C 369.99 Hz - F#
+  $0491 392.00 Hz - G
+  $0496 415.30 Hz - G#
+  $049B 440.00 Hz - A
+  $04A0 466.16 Hz - A#
+  $04A5 493.88 Hz - B
 @ $04AA label=PROGNAME
 c $04AA THE 'PROGRAM NAME' SUBROUTINE (ZX81)
 @ $04C2 nowarn
