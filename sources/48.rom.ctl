@@ -872,7 +872,14 @@ c $15C4 Report J - Invalid I/O device
 B $15C5,1
 @ $15C6 label=STRMDATA
 b $15C6 THE 'INITIAL STREAM DATA'
-  $15C6,14,2
+D $15C6 Initially there are seven streams - +FD to +03.
+  $15C6,2 Leads to channel 'K' (keyboard)
+  $15C8,2 Leads to channel 'S' (screen)
+  $15CA,2 Leads to channel 'R' (work space)
+  $15CC,2 Leads to channel 'K' (keyboard)
+  $15CE,2 Leads to channel 'K' (keyboard)
+  $15D0,2 Leads to channel 'S' (screen)
+  $15D2,2 Leads to channel 'P' (printer)
 @ $15D4 label=WAIT_KEY
 c $15D4 THE 'WAIT-KEY' SUBROUTINE
 @ $15DE label=WAIT_KEY1
