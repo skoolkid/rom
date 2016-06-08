@@ -972,7 +972,10 @@ B $1766,1
 @ $1767 label=OPEN_3
 @ $177A label=OPENSTRM
 b $177A THE 'OPEN STREAM LOOK-UP' TABLE
-  $177A,7,T1:1*3,1
+  $177A,2,T1:1 Channel 'K', offset +06 (#R$1781)
+  $177C,2,T1:1 Channel 'S', offset +08 (#R$1785)
+  $177E,2,T1:1 Channel 'P', offset +0A (#R$1789)
+  $1780 End marker.
 @ $1781 label=OPEN_K
 c $1781 THE 'OPEN-K' SUBROUTINE
 @ $1785 label=OPEN_S
