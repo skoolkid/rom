@@ -947,7 +947,10 @@ c $16E5 THE 'CLOSE #' COMMAND ROUTINE
 c $1701 THE 'CLOSE-2' SUBROUTINE
 @ $1716 label=CLOSESTRM
 b $1716 THE 'CLOSE STREAM LOOK-UP' TABLE
-  $1716,6,T1:1*3
+  $1716,2,T1:1 Channel 'K', offset +05 (#R$171C)
+  $1718,2,T1:1 Channel 'S', offset +03 (#R$171C)
+  $171A,2,T1:1 Channel 'P', offset +01 (#R$171C)
+E $1716 Note: There is no end marker at the end of this table.
 @ $171C label=CLOSE_STR
 c $171C THE 'CLOSE STREAM' SUBROUTINE
 @ $171E label=STR_DATA
