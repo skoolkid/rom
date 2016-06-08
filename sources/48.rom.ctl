@@ -901,7 +901,10 @@ c $1615 THE 'CHAN-FLAG' SUBROUTINE
 @ $162C label=CALL_JUMP
 @ $162D label=CHANCODE
 b $162D THE 'CHANNEL CODE LOOK-UP' TABLE
-B $162D,7,T1:1*3,1
+  $162D,2,T1:1 Channel 'K', offset +06 (#R$1634).
+  $162F,2,T1:1 Channel 'S', offset +12 (#R$1642).
+  $1631,2,T1:1 Channel 'P', offset +1B (#R$164D).
+  $1633,1 End marker.
 @ $1634 label=CHAN_K
 c $1634 THE 'CHANNEL 'K' FLAG' SUBROUTINE
 @ $1642 label=CHAN_S
