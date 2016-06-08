@@ -862,8 +862,11 @@ c $155D THE 'MAIN-ADD' SUBROUTINE
 @ $15AB label=MAIN_ADD2
 @ $15AF label=CHANINFO
 b $15AF THE 'INITIAL CHANNEL INFORMATION'
-  $15AF,5,2,2,T1
+D $15AF Initially there are four channels - 'K', 'S', 'R', & 'P' - for communicating with the 'keyboard', 'screen', 'work space' and 'printer'.  For each channel the output routine address comes before the input routine address and the channel's code.
+W $15AF,4,2
+  $15B3,1,T1
 L $15AF,5,4
+  $15C3,1 End marker
 @ $15C4 label=REPORT_J
 c $15C4 Report J - Invalid I/O device
 B $15C5,1
