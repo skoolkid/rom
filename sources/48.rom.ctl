@@ -2246,6 +2246,7 @@ s $386E
   $386E,1170,1170:$FF These locations are 'spare'. They all hold +FF.
 @ $3D00 label=CHARSET
 b $3D00 Character set
+D $3D00 These locations hold the 'character set'. There are 8-byte representations for all the characters with codes +20 (space) to +7F (#CHR169).
   $3D00,8,b1 #UDG$3D00
   $3D08,8,b1 #UDG$3D08
   $3D10,8,b1 #UDG$3D10
