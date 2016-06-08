@@ -711,7 +711,15 @@ c $0F81 THE 'ADD-CHAR' SUBROUTINE
 @ $0F92 label=ED_KEYS
 @ $0F95 nowarn
 b $0FA0 THE 'EDITING KEYS' TABLE
-  $0FA0,9,1
+  $0FA0 EDIT
+  $0FA1 Cursor left
+  $0FA2 Cursor right
+  $0FA3 Cursor down
+  $0FA4 Cursor up
+  $0FA5 DELETE
+  $0FA6 ENTER
+  $0FA7 SYMBOL SHIFT
+  $0FA8 GRAPHICS
 @ $0FA9 label=ED_EDIT
 c $0FA9 THE 'EDIT KEY' SUBROUTINE
 @ $0FC3 keep
