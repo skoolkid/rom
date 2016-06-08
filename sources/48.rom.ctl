@@ -1574,7 +1574,20 @@ c $2530 THE 'SYNTAX-Z' SUBROUTINE
 @ $2580 label=S_ATTR_S
 @ $2596 label=SCANFUNC
 b $2596 THE SCANNING FUNCTION TABLE
-  $2596,25,T1:1*4,2*8,1
+D $2596 This table contains 8 functions and 4 operators. It thus incorporates 5 new Spectrum functions and provides a neat way of accessing some functions and operators which already existed on the ZX81.
+  $2596,2,T1:1 #R$25B3
+  $2598,2,T1:1 #R$25E8
+  $259A,2,T1:1 #R$268D
+  $259C,2,T1:1 #R$25AF
+  $259E #R$25F5
+  $25A0 #R$25F8
+  $25A2 #R$2627
+  $25A4 #R$2634
+  $25A6 #R$268D
+  $25A8 #R$2668
+  $25AA #R$2672
+  $25AC #R$267B
+  $25AE End marker.
 @ $25AF label=S_U_PLUS
 c $25AF THE SCANNING FUNCTION ROUTINES
 @ $25B3 label=S_QUOTE
