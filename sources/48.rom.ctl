@@ -528,7 +528,24 @@ c $09F4 THE 'PRINT-OUT' ROUTINES
   $09F7,c2
 @ $0A04 nowarn
 b $0A11 THE 'CONTROL CHARACTER' TABLE
-  $0A11,18,1
+  $0A11 PRINT comma
+  $0A12 EDIT
+  $0A13 Cursor left
+  $0A14 Cursor right
+  $0A15 Cursor down
+  $0A16 Cursor up
+  $0A17 DELETE
+  $0A18 ENTER
+  $0A19 Not used
+  $0A1A Not used
+  $0A1B INK control
+  $0A1C PAPER control
+  $0A1D FLASH control
+  $0A1E BRIGHT control
+  $0A1F INVERSE control
+  $0A20 OVER control
+  $0A21 AT control
+  $0A22 TAB control
 @ $0A23 label=PO_BACK_1
 c $0A23 THE 'CURSOR LEFT' SUBROUTINE
 @ $0A38 label=PO_BACK_2
