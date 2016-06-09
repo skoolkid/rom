@@ -1075,105 +1075,230 @@ c $1A1B THE 'REPORT AND LINE NUMBER PRINTING' SUBROUTINE
 @ $1A42 label=OUT_NUM_4
 @ $1A48 label=SYNTAX
 b $1A48 THE SYNTAX TABLES
-  $1A48,50,1
+D $1A48 i. The offset table
+D $1A48 There is an offset value for each of the fifty BASIC commands.
+  $1A48 #R$1AF9
+  $1A49 #R$1B14
+  $1A4A #R$1B06
+  $1A4B #R$1B0A
+  $1A4C #R$1B10
+  $1A4D #R$1AFC
+  $1A4E #R$1B02
+  $1A4F #R$1AE2
+  $1A50 #R$1AE1
+  $1A51 #R$1AE3
+  $1A52 #R$1AE7
+  $1A53 #R$1AEB
+  $1A54 #R$1AEC
+  $1A55 #R$1AED
+  $1A56 #R$1AEE
+  $1A57 #R$1AEF
+  $1A58 #R$1AF0
+  $1A59 #R$1AF1
+  $1A5A #R$1AD9
+  $1A5B #R$1ADC
+  $1A5C #R$1A8A
+  $1A5D #R$1AC9
+  $1A5E #R$1ACC
+  $1A5F #R$1ACF
+  $1A60 #R$1AA8
+  $1A61 #R$1AF5
+  $1A62 #R$1AB8
+  $1A63 #R$1AA2
+  $1A64 #R$1AA5
+  $1A65 #R$1A90
+  $1A66 #R$1A7D
+  $1A67 #R$1A86
+  $1A68 #R$1A9F
+  $1A69 #R$1AE0
+  $1A6A #R$1AAE
+  $1A6B #R$1A7A
+  $1A6C #R$1AC5
+  $1A6D #R$1A98
+  $1A6E #R$1AB1
+  $1A6F #R$1A9C
+  $1A70 #R$1AC1
+  $1A71 #R$1AAB
+  $1A72 #R$1ADF
+  $1A73 #R$1AB5
+  $1A74 #R$1A81
+  $1A75 #R$1ABE
+  $1A76 #R$1AD2
+  $1A77 #R$1ABB
+  $1A78 #R$1A8D
+  $1A79 #R$1AD6
+N $1A7A ii. The parameter table
+N $1A7A For each of the fifty BASIC commands there are up to eight entries in the parameter table. These entries comprise command class details, required separators and, where appropriate, command routine addresses.
 @ $1A7A label=P_LET
-  $1A7A,3,1
+  $1A7A #R$1C1F
+  $1A7B,1,T1
+  $1A7C #R$1C4E
 @ $1A7D label=P_GO_TO
-  $1A7D,4,1,1,2
+  $1A7D #R$1C82(CLASS_06)
+  $1A7E #R$1C10
+W $1A7F
 @ $1A81 label=P_IF
-  $1A81,5,1*3,2
+  $1A81 #R$1C82(CLASS_06)
+  $1A82 THEN
+  $1A83 #R$1C11
+W $1A84
 @ $1A86 label=P_GO_SUB
-  $1A86,4,1,1,2
+  $1A86 #R$1C82(CLASS_06)
+  $1A87 #R$1C10
+W $1A88
 @ $1A8A label=P_STOP
-  $1A8A,3,1,2
+  $1A8A #R$1C10
+W $1A8B
 @ $1A8D label=P_RETURN
-  $1A8D,3,1,2
+  $1A8D #R$1C10
+W $1A8E
 @ $1A90 label=P_FOR
-  $1A90,8,1*6,2
-  $1A98,4,1,1,2
+  $1A90 #R$1C6C
+  $1A91,1,T1
+  $1A92 #R$1C82(CLASS_06)
+  $1A93 TO
+  $1A94 #R$1C82(CLASS_06)
+  $1A95 #R$1C11
+W $1A96
+@ $1A98 label=P_NEXT
+  $1A98 #R$1C6C
+  $1A99 #R$1C10
+W $1A9A
 @ $1A9C label=P_PRINT
-  $1A9C,3,1,2
+  $1A9C #R$1C11
+W $1A9D
 @ $1A9F label=P_INPUT
-  $1A9F,3,1,2
+  $1A9F #R$1C11
+W $1AA0
 @ $1AA2 label=P_DIM
-  $1AA2,3,1,2
+  $1AA2 #R$1C11
+W $1AA3
 @ $1AA5 label=P_REM
-  $1AA5,3,1,2
+  $1AA5 #R$1C11
+W $1AA6
 @ $1AA8 label=P_NEW
-  $1AA8,3,1,2
+  $1AA8 #R$1C10
+W $1AA9
 @ $1AAB label=P_RUN
-  $1AAB,3,1,2
+  $1AAB #R$1C0D
+W $1AAC
 @ $1AAE label=P_LIST
-  $1AAE,3,1,2
+  $1AAE #R$1C11
+W $1AAF
 @ $1AB1 label=P_POKE
-  $1AB1,4,1,1,2
+  $1AB1 #R$1C7A(CLASS_08)
+  $1AB2 #R$1C10
+W $1AB3
 @ $1AB5 label=P_RANDOM
-  $1AB5,3,1,2
+  $1AB5 #R$1C0D
+W $1AB6
 @ $1AB8 label=P_CONT
-  $1AB8,3,1,2
+  $1AB8 #R$1C10
+W $1AB9
 @ $1ABB label=P_CLEAR
-  $1ABB,3,1,2
+  $1ABB #R$1C0D
+W $1ABC
 @ $1ABE label=P_CLS
-  $1ABE,3,1,2
+  $1ABE #R$1C10
+W $1ABF
 @ $1AC1 label=P_PLOT
-  $1AC1,4,1,1,2
+  $1AC1 #R$1CBE
+  $1AC2 #R$1C10
+W $1AC3
 @ $1AC5 label=P_PAUSE
-  $1AC5,4,1,1,2
+  $1AC5 #R$1C82(CLASS_06)
+  $1AC6 #R$1C10
+W $1AC7
 @ $1AC9 label=P_READ
-  $1AC9,3,1,2
+  $1AC9 #R$1C11
+W $1ACA
 @ $1ACC label=P_DATA
-  $1ACC,3,1,2
+  $1ACC #R$1C11
+W $1ACD
 @ $1ACF label=P_RESTORE
-  $1ACF,3,1,2
+  $1ACF #R$1C0D
+W $1AD0
 @ $1AD2 label=P_DRAW
-  $1AD2,4,1,1,2
+  $1AD2 #R$1CBE
+  $1AD3 #R$1C11
+W $1AD4
 @ $1AD6 label=P_COPY
-  $1AD6,3,1,2
+  $1AD6 #R$1C10
+W $1AD7
 @ $1AD9 label=P_LPRINT
-  $1AD9,3,1,2
+  $1AD9 #R$1C11
+W $1ADA
 @ $1ADC label=P_LLIST
-  $1ADC,3,1,2
+  $1ADC #R$1C11
+W $1ADD
 @ $1ADF label=P_SAVE
-  $1ADF,1
+  $1ADF #R$1CDB
 @ $1AE0 label=P_LOAD
-  $1AE0,1
+  $1AE0 #R$1CDB
 @ $1AE1 label=P_VERIFY
-  $1AE1,1
+  $1AE1 #R$1CDB
 @ $1AE2 label=P_MERGE
-  $1AE2,2
+  $1AE2 #R$1CDB
 @ $1AE3 label=P_BEEP
-  $1AE3,4,1,1,2
+  $1AE3 #R$1C7A(CLASS_08)
+  $1AE4 #R$1C10
+W $1AE5
 @ $1AE7 label=P_CIRCLE
-  $1AE7,4,1,1,2
+  $1AE7 #R$1CBE
+  $1AE8 #R$1C11
+W $1AE9
 @ $1AEB label=P_INK
-  $1AEB,1
+  $1AEB #R$1C96(CLASS_07)
 @ $1AEC label=P_PAPER
-  $1AEC,1
+  $1AEC #R$1C96(CLASS_07)
 @ $1AED label=P_FLASH
-  $1AED,1
+  $1AED #R$1C96(CLASS_07)
 @ $1AEE label=P_BRIGHT
-  $1AEE,1
-  $1AEF,1
+  $1AEE #R$1C96(CLASS_07)
+@ $1AEF label=P_INVERSE
+  $1AEF #R$1C96(CLASS_07)
 @ $1AF0 label=P_OVER
-  $1AF0,1
+  $1AF0 #R$1C96(CLASS_07)
 @ $1AF1 label=P_OUT
-  $1AF1,4,1,1,2
+  $1AF1 #R$1C7A(CLASS_08)
+  $1AF2 #R$1C10
+W $1AF3
 @ $1AF5 label=P_BORDER
-  $1AF5,4,1,1,2
+  $1AF5 #R$1C82(CLASS_06)
+  $1AF6 #R$1C10
+W $1AF7
 @ $1AF9 label=P_DEF_FN
-  $1AF9,3,1,2
+  $1AF9 #R$1C11
+W $1AFA
 @ $1AFC label=P_OPEN
-  $1AFC,6,1*4,2
+  $1AFC #R$1C82(CLASS_06)
+  $1AFD,1,T1
+  $1AFE #R$1C8C(CLASS_0A)
+  $1AFF #R$1C10
+W $1B00
 @ $1B02 label=P_CLOSE
-  $1B02,4,1,1,2
+  $1B02 #R$1C82(CLASS_06)
+  $1B03 #R$1C10
+W $1B04
 @ $1B06 label=P_FORMAT
-  $1B06,4,1,1,2
+  $1B06 #R$1C8C(CLASS_0A)
+  $1B07 #R$1C10
+W $1B08
 @ $1B0A label=P_MOVE
-  $1B0A,6,1*4,2
+  $1B0A #R$1C8C(CLASS_0A)
+  $1B0B,1,T1
+  $1B0C #R$1C8C(CLASS_0A)
+  $1B0D #R$1C10
+W $1B0E
 @ $1B10 label=P_ERASE
-  $1B10,4,1,1,2
+  $1B10 #R$1C8C(CLASS_0A)
+  $1B11 #R$1C10
+W $1B12
 @ $1B14 label=P_CAT
-  $1B14,3,1,2
+  $1B14 #R$1C10
+E $1A48 Note: The requirements for the different command classes are as follows:
+E $1A48 #LIST { #R$1C10 - No further operands. } { #R$1C1F - Used in LET. A variable is required. } { #R$1C4E - Used in LET. An expression, numeric or string, must follow. } { #R$1C0D - A numeric expression may follow. Zero to be used in case of default. } { #R$1C6C - A single character variable must follow. } { #R$1C11 - A set of items may be given. } { #R$1C82(CLASS_06) - A numeric expression must follow. } { #R$1C96(CLASS_07) - Handles colour items. } { #R$1C7A(CLASS_08) - Two numeric expressions, separated by a comma, must follow. } { #R$1CBE - As for CLASS_08 but colour items may precede the expressions. } { #R$1C8C(CLASS_0A) - A string expression must follow. } { #R$1CDB - Handles cassette routines. } LIST#
+W $1B15
 @ $1B17 label=LINE_SCAN
 c $1B17 THE 'MAIN PARSER' OF THE BASIC INTERPRETER
 @ $1B28 label=STMT_LOOP
@@ -1220,11 +1345,11 @@ b $1C01 THE 'COMMAND CLASS' TABLE
   $1C04 #R$1C0D
   $1C05 #R$1C6C
   $1C06 #R$1C11
-  $1C07 #R$1C82
-  $1C08 #R$1C96
-  $1C09 #R$1C7A
+  $1C07 #R$1C82(CLASS_06)
+  $1C08 #R$1C96(CLASS_07)
+  $1C09 #R$1C7A(CLASS_08)
   $1C0A #R$1CBE
-  $1C0B #R$1C8C
+  $1C0B #R$1C8C(CLASS_0A)
   $1C0C #R$1CDB
 @ $1C0D label=CLASS_03
 c $1C0D THE 'COMMAND CLASSES - 00, 03 & 05'
