@@ -1653,7 +1653,20 @@ B $2757,2,1
 @ $2790 label=S_NEXT
 @ $2795 label=OPERATORS
 b $2795 THE TABLE OF OPERATORS
-  $2795,27,T1:1*8,2*5,1
+  $2795,2,T1:1 +
+  $2797,2,T1:1 -
+  $2799,2,T1:1 *
+  $279B,2,T1:1 /
+  $279D,2 #CHR8593
+  $279F,2,T1:1 =
+  $27A1,2,T1:1 >
+  $27A3,2,T1:1 <
+  $27A5,2 <=
+  $27A7,2 >=
+  $27A9,2 <>
+  $27AB,2 OR
+  $27AD,2 AND
+  $27AF,1 End marker.
 b $27B0 THE TABLE OF PRIORITIES
   $27B0,13,1
 @ $27BD label=S_FN_SBRN
