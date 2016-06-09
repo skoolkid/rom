@@ -2200,6 +2200,75 @@ D $32C5 This table holds five useful and frequently needed numbers: zero, one, a
   $32D3,4 ten (00 00 0A 00 00)
 @ $32D7 label=CALCADDR
 w $32D7 THE TABLE OF ADDRESSES
+D $32D7 This table is a look-up table of the addresses of the sixty-six operational subroutines of the calculator. The offsets used to index into the table are derived either from the operation codes used in the routine at #R$24FB (see #R$2734, etc.) or from the literals that follow a 'RST 28' instruction.
+  $32D7 00
+  $32D9 01
+  $32DB 02
+  $32DD 03
+  $32DF 04
+  $32E1 05
+  $32E3 06
+  $32E5 07
+  $32E7 08
+  $32E9 09
+  $32EB 0A
+  $32ED 0B
+  $32EF 0C
+  $32F1 0D
+  $32F3 0E
+  $32F5 0F
+  $32F7 10
+  $32F9 11
+  $32FB 12
+  $32FD 13
+  $32FF 14
+  $3301 15
+  $3303 16
+  $3305 17
+  $3307 18
+  $3309 19
+  $330B 1A
+  $330D 1B
+  $330F 1C
+  $3311 1D
+  $3313 1E
+  $3315 1F
+  $3317 20
+  $3319 21
+  $331B 22
+  $331D 23
+  $331F 24
+  $3321 25
+  $3323 26
+  $3325 27
+  $3327 28
+  $3329 29
+  $332B 2A
+  $332D 2B
+  $332F 2C
+  $3331 2D
+  $3333 2E
+  $3335 2F
+  $3337 30
+  $3339 31
+  $333B 32
+  $333D 33
+  $333F 34
+  $3341 35
+  $3343 36
+  $3345 37
+  $3347 38
+  $3349 39
+  $334B 3A
+  $334D 3B
+  $334F 3C
+  $3351 3D
+  $3353 3E
+  $3355 3F
+  $3357 40
+  $3359 41
+E $32D7 Note: The last four subroutines are multi-purpose subroutines and are entered with a parameter that is a copy of the right hand five bits of the original literal. The full set follows:
+E $32D7 #LIST { Offset 3E: series-06, series-08 & series-0C; literals 86, 88 & 8C. } { Offset 3F: stk-zero, stk-one, stk-half, stk-pi/2 & stk-ten; literals A0 to A4. } { Offset 40: st-mem-0, st-mem-1, st-mem-2, st-mem-3, st-mem-4 & st-mem-5; literals C0 to C5. } { Offset 41: get-mem-0, get-mem-1, get-mem-2, get-mem-3, get-mem-4 & get-mem-5; literals E0 to E5. } LIST#
 @ $335B label=CALCULATE
 c $335B THE 'CALCULATE' SUBROUTINE
 @ $335E label=GEN_ENT_1
