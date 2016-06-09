@@ -2188,11 +2188,16 @@ c $3297 THE 'RE-STACK' SUBROUTINE
 @ $32BD label=RS_STORE
 @ $32C5 label=CONSTANTS
 b $32C5 THE TABLE OF CONSTANTS
-B $32C5,18,3,4,2,5,4
+D $32C5 This table holds five useful and frequently needed numbers: zero, one, a half, a half of pi, and ten. The numbers are held in a condensed form which is expanded by the routine at #R$33C6 to give the required floating-point form.
+  $32C5,3 zero (00 00 00 00 00)
 @ $32C8 label=stk_one
+  $32C8,4 one (00 00 01 00 00)
 @ $32CC label=stk_half
+  $32CC,2 a half (80 00 00 00 00)
 @ $32CE label=stk_pi_2
+  $32CE,5 a half of pi (81 49 0F DA A2)
 @ $32D3 label=stk_ten
+  $32D3,4 ten (00 00 0A 00 00)
 @ $32D7 label=CALCADDR
 w $32D7 THE TABLE OF ADDRESSES
 @ $335B label=CALCULATE
