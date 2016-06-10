@@ -436,42 +436,193 @@ c $05E3 THE 'LD-EDGE-2' AND 'LD-EDGE-1' SUBROUTINES
 @ $05ED label=LD_SAMPLE
 @ $0605 label=SAVE_ETC
 c $0605 THE 'SAVE, LOAD, VERIFY & MERGE' COMMAND ROUTINES
+D $0605 This entry point is used for all four commands. The value held in T-ADDR, however, distinguishes between the four commands. The first part of the following routine is concerned with the construction of the 'header information' in the work space.
+  $0605 Drop the address - #R$1B52.
+  $0606 Reduce T-ADDR-lo by +E0, giving +00 for SAVE, +01 for LOAD, +02 for VERIFY and +03 for MERGE.
+  $060E Pass the parameters of the 'name' to the calculator stack.
+  $0611 Jump forward if checking syntax.
 @ $0616 keep
+  $0616 Allow seventeen locations for the header of a SAVE but thirty four for the other commands.
 @ $0621 label=SA_SPACE
-  $0627,c2
+  $0621 The required amount of space is made in the work space.
+  $0622 Copy the start address to the #REGix register pair.
+  $0625,8,2,c2,4 A program name can have up to ten characters but first enter eleven space characters into the prepared area.
 @ $0629 label=SA_BLANK
+  $062D A null name is +FF only.
+  $0631 The parameters of the name are fetched and its length is tested.
+  $0634 This is '-10'.
+  $0637 In effect jump forward if the length of the name is not too long (i.e. no more than ten characters).
+  $063C But allow for the LOADing, VERIFYing and MERGEing of programs with 'null' names or extra long names.
 @ $0642 label=REPORT_F
+N $0642 Report F - Invalid file name
+M $0642,2 Call the error handling routine.
 B $0643,1
 @ $0644 label=SA_NULL
+N $0644 Continue to handle the name of the program.
+  $0644 Jump forward if the name has a 'null' length.
 @ $0648 keep
+  $0648 But truncate longer names.
 @ $064B label=SA_NAME
+N $064B The name is now transferred to the work space (second location onwards).
+  $064B Copy the start address to the #REGhl register pair.
+  $064E Step to the second location.
+  $064F Switch the pointers over and copy the name.
 @ $0652 label=SA_DATA
+N $0652 The many different parameters, if any, that follow the command are now considered. Start by handling 'xxx "name" DATA'.
+  $0652 Is the present code the token 'DATA'?
+  $0655 Jump if not.
+  $0657 However it is not possible to have 'MERGE name DATA'.
+  $065F Advance CH-ADD.
+  $0660 Look in the variables area for the array.
+  $0663 Set bit 7 of the array's name.
+  $0665 Jump if handling an existing array.
 @ $0667 keep
+  $0667 Signal 'using a new array'.
+  $066A Consider the value in T-ADDR and give an error if trying to SAVE or VERIFY a new array.
 @ $0670 label=REPORT_2
+N $0670 Report 2 - Variable not found
+M $0670,2 Call the error handling routine.
 B $0671,1
 @ $0672 label=SA_V_OLD
+N $0672 Continue with the handling of an existing array.
+  $0672 Note: This fails to exclude simple strings.
+  $0675 Jump forward if checking syntax.
+  $067A Point to the 'low length' of the variable.
+  $067B The low length byte goes into the work space, followed by the high length byte.
+  $0684 Step past the length bytes.
 @ $0685 label=SA_V_NEW
+N $0685 The next part is common to both 'old' and 'new' arrays. Note: Syntax path error.
+  $0685 Copy the array's name.
+  $0688 Assume an array of numbers.
+  $068A Jump if it is so.
+  $068E It is an array of characters.
 @ $068F label=SA_V_TYPE
+  $068F Save the 'type' in the first location of the header area.
 @ $0692 label=SA_DATA_1
+N $0692 The last part of the statement is examined before joining the other pathways.
+  $0692 Save the pointer in #REGde.
+  $0693,3,1,c2 Is the next character a ')'?
+  $0696 Give report C if it is not.
+  $0698 Advance CH-ADD.
+  $0699 Move on to the next statement if checking syntax.
+  $069C Return the pointer to the #REGhl register pair before jumping forward. (The pointer indicates the start of an existing array's contents.)
 @ $06A0 label=SA_SCR
+N $06A0 Now consider 'SCREEN$'.
+  $06A0 Is the present code the token SCREEN$?
+  $06A2 Jump if not.
+  $06A4 However it is not possible to have 'MERGE name SCREEN$'.
+  $06AC Advance CH-ADD.
+  $06AD Move on to the next statement if checking syntax.
+  $06B0 The display area and the attribute area occupy +1B00 locations and these locations start at +4000; these details are passed to the header area in the work space.
+  $06C1 Jump forward.
 @ $06C3 label=SA_CODE
+N $06C3 Now consider 'CODE'.
+  $06C3 Is the present code the token 'CODE'?
+  $06C5 Jump if not.
+  $06C7 However it is not possible to have 'MERGE name CODE'.
+  $06CF Advance CH-ADD.
+  $06D0 Jump forward if the statement has not finished.
+  $06D5 However it is not possible to have 'SAVE name CODE' by itself.
+  $06DC Put a zero on the calculator stack - for the 'start'.
+  $06DF Jump forward.
 @ $06E1 label=SA_CODE_1
-  $06E5,c2
+N $06E1 Look for a 'starting address'.
+  $06E1 Fetch the first number.
+  $06E4,3,1,c2 Is the present character a comma?
+  $06E7 Jump if it is - the number was a 'starting address'.
+  $06E9 However refuse 'SAVE name CODE' that does not have a 'start' and a 'length'.
 @ $06F0 label=SA_CODE_2
+  $06F0 Put a zero on the calculator stack - for the 'length'.
+  $06F3 Jump forward.
 @ $06F5 label=SA_CODE_3
+N $06F5 Fetch the 'length' as it was specified.
+  $06F5 Advance CH-ADD.
+  $06F6 Fetch the 'length'.
 @ $06F9 label=SA_CODE_4
+N $06F9 The parameters are now stored in the header area of the work space.
+  $06F9 But move on to the next statement now if checking syntax.
+  $06FC Compress the 'length' into the #REGbc register pair and store it.
+  $0705 Compress the 'starting address' into the #REGbc register pair and store it.
+  $070E Transfer the 'pointer' to the #REGhl register pair as usual.
 @ $0710 label=SA_TYPE_3
+N $0710 'SCREEN$' and 'CODE' are both of type 3.
+  $0710 Enter the 'type' number.
+  $0714 Rejoin the other pathways.
 @ $0716 label=SA_LINE
+N $0716 Now consider 'LINE' and 'no further parameters'.
+  $0716 Is the present code the token 'LINE'?
+  $0718 Jump if it is.
+  $071A Move on to the next statement if checking syntax.
+  $071D When there are no further parameters an +80 is entered.
+  $0721 Jump forward.
 @ $0723 label=SA_LINE_1
+N $0723 Fetch the 'line number' that must follow 'LINE'.
+  $0723 However only allow 'SAVE name LINE number'.
+  $072A Advance CH-ADD.
+  $072B Pass the number to the calculator stack.
+  $072E Move on to the next statement if checking syntax.
+  $0731 Compress the 'line number' into the #REGbc register pair and store it.
 @ $073A label=SA_TYPE_0
+N $073A 'LINE' and 'no further parameters' are both of type 0.
+  $073A Enter the 'type' number.
+N $073E The parameters that describe the program, and its variables, are found and stored in the header area of the work space.
+  $073E The pointer to the end of the variables area.
+  $0741 The pointer to the start of the BASIC program.
+  $0745 Now perform the subtraction to find the length of the 'program + variables'; store the result.
+  $074E Repeat the operation but this time storing the length of the 'program' only.
+  $0759 Transfer the 'pointer' to the #REGhl register pair as usual.
 @ $075A label=SA_ALL
+N $075A In all cases the header information has now been prepared.
+N $075A #LIST { The location 'IX+00' holds the type number. } { Locations 'IX+01 to IX+0A' hold the name (+FF in 'IX+01' if null). } { Locations 'IX+0B & IX+0C' hold the number of bytes that are to be found in the 'data block'. } { Locations 'IX+0D to IX+10' hold a variety of parameters whose exact interpretation depends on the 'type'. } LIST#
+N $075A The routine continues with the first task being to separate SAVE from LOAD, VERIFY and MERGE.
+  $075A Jump forward when handling a SAVE command.
+N $0761 In the case of a LOAD, VERIFY or MERGE command the first seventeen bytes of the 'header area' in the work space hold the prepared information, as detailed above; and it is now time to fetch a 'header' from the tape.
+  $0761 Save the 'destination' pointer.
 @ $0762 keep
+  $0762 Form in the #REGix register pair the base address of the 'second header area'.
 @ $0767 label=LD_LOOK_H
+N $0767 Now enter a loop, leaving it only when a 'header' has been LOADed.
+  $0767 Make a copy of the base address.
 @ $0769 keep
+  $0769 LOAD seventeen bytes.
+  $076C Signal 'header'.
+  $076D Signal 'LOAD'.
+  $076E Now look for a header.
+  $0771 Retrieve the base address.
+  $0773 Go round the loop until successful.
+N $0775 The new 'header' is now displayed on the screen but the routine will only proceed if the 'new' header matches the 'old' header.
+  $0775 Ensure that channel 'S' is open.
+  $077A Set the scroll counter.
+  $077E Signal 'names do not match'.
+  $0780 Compare the 'new' type against the 'old' type.
+  $0786 Jump if the 'types' do not match.
+  $0788 But if they do, signal 'ten characters are to match'.
 @ $078A label=LD_TYPE
+  $078A Clearly the 'header' is nonsense if 'type 4 or more'.
 @ $078E ssub=LD DE,$09C1-1
+N $078E The appropriate message - 'Program:', 'Number array:', 'Character array:' or 'Bytes:' is printed.
+  $078E The base address of the message block.
+  $0791 Save the #REGc register whilst the appropriate message is printed.
+N $0796 The 'new name' is printed and as this is done the 'old' and the 'new' names are compared.
+  $0796 Make the #REGde register pair point to the 'new name' and the #REGhl register pair to the 'old name'.
+  $079D Ten characters are to be considered.
+  $079F Jump forward if the match is to be against an actual name.
+  $07A3 But if the 'old name' is 'null' then signal 'ten characters already match'.
 @ $07A6 label=LD_NAME
+N $07A6 A loop is entered to print the characters of the 'new name'. The name will be accepted if the 'counter' reaches zero, at least.
+  $07A6 Consider each character of the 'new name' in turn.
+  $07A8 Match it against the appropriate character of the 'old name'.
+  $07AA Do not count it if it does not does not match.
 @ $07AD label=LD_CH_PR
+  $07AD Print the 'new' character.
+  $07AE Loop for ten characters.
+  $07B0 Accept the name only if the counter has reached zero.
+  $07B4 Follow the 'new name' with a 'carriage return'.
+N $07B7 The correct header has been found and the time has come to consider the three commands LOAD, VERIFY, & MERGE separately.
+  $07B7 Fetch the pointer.
+  $07B8 'SCREEN$' and 'CODE' are handled with VERIFY.
+  $07BF Jump forward if using a LOAD command.
+  $07C6 Jump forward if using a MERGE command; continue into #R$07CB with a VERIFY command.
 @ $07CB label=VR_CONTRL
 c $07CB THE 'VERIFY' CONTROL ROUTINE
 @ $07E9 label=VR_CONT_1
