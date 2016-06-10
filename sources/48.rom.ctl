@@ -52,7 +52,14 @@ D $0030 This routine creates free locations in the work space. The number of loc
   $0031 Fetch the present address of the start of the work space and save that also before proceeding.
 @ $0038 label=MASK_INT
 c $0038 THE 'MASKABLE INTERRUPT' ROUTINE
+D $0038 The real time clock is incremented and the keyboard scanned whenever a maskable interrupt occurs.
+  $0038 Save the current values held in these registers.
+  $003A The lower two bytes of the frame counter are incremented every 20 ms. (U.K.) The highest byte of the frame counter is only incremented when the value of the lower two bytes is zero.
 @ $0048 label=KEY_INT
+  $0048 Save the current values held in these registers.
+  $004A Now scan the keyboard.
+  $004D Restore the values.
+  $0051 The maskable interrupt is enabled before returning.
 @ $0053 label=ERROR_2
 c $0053 THE 'ERROR-2' ROUTINE
 @ $0055 label=ERROR_3
