@@ -6,6 +6,7 @@
 ;
 
 @ $0000 start
+@ $0000 replace=/#power/#CHR(8593)
 @ $0000 org=$0000
 @ $0000 set-handle-unsupported-macros=1
 @ $0000 label=START
@@ -289,7 +290,7 @@ N $026A (e) Symbol code. Letter keys and symbol shift.
   $026E >=
   $026F TO
   $0270 THEN
-  $0271 #CHR8593
+  $0271 #power
   $0272 AT
   $0273 -
   $0274 +
@@ -1940,7 +1941,7 @@ b $2795 THE TABLE OF OPERATORS
   $2797,2,T1:1 -
   $2799,2,T1:1 *
   $279B,2,T1:1 /
-  $279D,2 #CHR8593
+  $279D,2 #power
   $279F,2,T1:1 =
   $27A1,2,T1:1 >
   $27A3,2,T1:1 <
@@ -1954,7 +1955,7 @@ b $27B0 THE TABLE OF PRIORITIES
   $27B0 -
   $27B1 *
   $27B2 /
-  $27B3 #CHR8593
+  $27B3 #power
   $27B4 OR
   $27B5 AND
   $27B6 <=
@@ -2201,59 +2202,267 @@ B $2DA9,4,1
 @ $2DAD label=FP_DELETE
 B $2DAE,2,1
 @ $2DC1 label=LOG_2_A
-c $2DC1 THE 'LOG(2#CHR(8593)A)' SUBROUTINE
+c $2DC1 THE 'LOG(2#powerA)' SUBROUTINE
 B $2DCC,9,1*2,4,1
 @ $2DD5 label=FP_TO_A
 c $2DD5 THE 'FLOATING-POINT TO A' SUBROUTINE
 @ $2DE1 label=FP_A_END
 @ $2DE3 label=PRINT_FP
 c $2DE3 THE 'PRINT A FLOATING-POINT NUMBER' SUBROUTINE
-B $2DE4,10,1
-  $2DEE,c2
+D $2DE3 This subroutine prints x, the 'last value' on the calculator stack. The print format never occupies more than 14 spaces.
+D $2DE3 The 8 most significant digits of x, correctly rounded, are stored in an ad hoc print buffer in mem-3 and mem-4. Small numbers, numerically less than 1, and large numbers, numerically greater than 2#power27, are dealt with separately. The former are multiplied by 10#powern, where n is the approximate number of leading zeros after the decimal, while the latter are divided by 10#power(n-7), where n is the approximate number of digits before the decimal. This brings all numbers into the middle range, and the number of digits required before the decimal is built up in the second byte of mem-5. Finally the printing is done, using E-format if there are more than 8 digits before the decimal or, for small numbers, more than 4 leading zeros after the decimal.
+D $2DE3 The following program shows the range of print formats:
+D $2DE3 10 FOR a=-11 TO 12: PRINT SGN a*9#powera,: NEXT a
+D $2DE3 i. First the sign of x is taken care of:
+D $2DE3 #LIST { If x is negative, the subroutine jumps to #R$2DF2, takes ABS x and prints the minus sign. } { If x is zero, x is deleted from the calculator stack, a '0' is printed and a return is made from the subroutine. } { If x is positive, the subroutine just continues. } LIST#
+  $2DE3 Use the calculator.
+B $2DE4,1 #R$33C0: x, x
+B $2DE5,1 #R$3506: x, (1/0) Logical value of x.
+B $2DE6,2 #R$368F to #R$2DF2: x
+B $2DE8,1 #R$33C0: x, x
+B $2DE9,1 #R$34F9: x, (1/0) Logical value of x.
+B $2DEA,2 #R$368F to #R$2DF8: x Hereafter x'=ABS x.
+B $2DEC,1 #R$33A1: -
+B $2DED,1 #R$369B: -
+  $2DEE,c2 Enter the character code for '0'.
+  $2DF0 Print the '0'.
+  $2DF1 Finished as the 'last value' is zero.
 @ $2DF2 label=PF_NEGTVE
-B $2DF2,2,1
-  $2DF4,c2
+B $2DF2,1 #R$346A: x' x'=ABS x.
+B $2DF3,1 #R$369B: x'
+  $2DF4,c2 Enter the character code for '-'.
+  $2DF6 Print the '-'.
+  $2DF7 Use the calculator again.
 @ $2DF8 label=PF_POSTVE
-B $2DF8,6,1
+B $2DF8,4,1,3 #R$341B(stk_zero): The 15 bytes of mem-3, mem-4 and mem-5 are now initialised to zero to be used for a print buffer and two counters.
+B $2DFC,1 #R$33A1: The stack is cleared, except for x'.
+B $2DFD,1 #R$369B: x'
+  $2DFE #REGhl', which is used to hold calculator offsets (e.g. for 'STR$'), is saved on the machine stack.
+N $2E01 ii. This is the start of a loop which deals with large numbers. Every number x is first split into its integer part i and the fractional part f. If i is a small integer, i.e. if -65535 <= i <= 65535, it is stored in #REGde' for insertion into the print buffer.
 @ $2E01 label=PF_LOOP
-B $2E02,9,1
+  $2E01 Use the calculator again.
+B $2E02,1 #R$33C0: x', x'
+B $2E03,1 #R$36AF: x', INT (x')=i
+B $2E04,1 #R$342D(st_mem_2): (i is stored in mem-2).
+B $2E05,1 #R$300F: x'-i=f
+B $2E06,1 #R$340F(get_mem_2): f, i
+B $2E07,1 #R$343C: i, f
+B $2E08,1 #R$342D(st_mem_2): (f is stored in mem-2).
+B $2E09,1 #R$33A1: i
+B $2E0A,1 #R$369B: i
+  $2E0B Is i a small integer (first byte zero) i.e. is ABS i <= 65535?
+  $2E0D Jump if it is not.
+  $2E0F i is copied to #REGde (i, like x', >=0).
+  $2E12 #REGb is set to count 16 bits.
+  $2E14 #REGd is copied to #REGa for testing: is it zero?
+  $2E16 Jump if it is not zero.
+  $2E18 Now test #REGe.
+  $2E19 Jump if #REGde is zero: x is a pure fraction.
+  $2E1B Move #REGe to #REGd and set #REGb for 8 bits: #REGd was zero and #REGe was not.
 @ $2E1E label=PF_SAVE
+  $2E1E Transfer #REGde to #REGde', via the machine stack, to be moved into the print buffer at #R$2E7B.
+  $2E22 Jump forward.
+N $2E24 iii. Pure fractions are multiplied by 10#powern, where n is the approximate number of leading zeros after the decimal; and -n is added to the second byte of mem-5, which holds the number of digits needed before the decimal; a negative number here indicates leading zeros after the decimal;
 @ $2E24 label=PF_SMALL
-B $2E25,2,1
-B $2E3A,6,1
+  $2E24 i (i=zero here)
+B $2E25,1 #R$340F(get_mem_2): i, f
+B $2E26,1 #R$369B: i, f
+N $2E27 Note that the stack is now unbalanced. An extra byte 'DEFB +02, delete' is needed immediately after the RST 28. Now an expression like "2" +STR$ 0.5 is evaluated incorrectly as 0.5; the zero left on the stack displaces the "2" and is treated as a null string. Similarly all the string comparisons can yield incorrect values if the second string takes the form STR$ x where x is numerically less than 1; e.g. the expression "50"<STR$ 0.1 yields the logical value "true"; once again "" is used instead of "50".
+  $2E27 The exponent byte e of f is copied to #REGa.
+  $2E28 #REGa becomes e-126 dec i.e. e'+2, where e' is the true exponent of f.
+  $2E2A The construction #REGa=ABS INT (LOG (2#power#REGa)) is performed (LOG is to base 10); i.e. #REGa=n, say: n is copied from #REGa to #REGd.
+  $2E2E The current count is collected from the second byte of mem-5 and n is subtracted from it.
+  $2E35 n is copied from #REGd to #REGa.
+  $2E36 y=f*10#powern is formed and stacked.
+  $2E39 i, y
+B $2E3A,1 #R$33C0: i, y, y
+B $2E3B,1 #R$36AF: i, y, INT (y) = i2
+B $2E3C,1 #R$342D(st_mem_1): (i2 is copied to mem-1).
+B $2E3D,1 #R$300F: i, y - i2
+B $2E3E,1 #R$340F(get_mem_1): i, y - i2, i2
+B $2E3F,1 #R$369B: i, f2, i2 (f2 = y - i2)
+  $2E40 i2 is transferred from the stack to #REGa.
+  $2E43 The pointer to f2 is saved.
+  $2E44 i2 is stored in the first byte of mem-3: a digit for printing.
+  $2E47 i2 will not count as a digit for printing if it is zero; #REGa is manipulated so that zero will produce zero but a non-zero digit will produce 1.
+  $2E4B The zero or one is inserted into the first byte of mem-5 (the number of digits for printing) and added to the second byte of mem-5 (the number of digits before the decimal).
+  $2E52 The pointer to f2 is restored.
+  $2E53 Jump to store f2 in buffer (#REGhl now points to f2, #REGde to i2).
+N $2E56 iv. Numbers greater than 2#power27 are similarly multiplied by 2#power(-n+7), reducing the number of digits before the decimal to 8, and the loop is re-entered at #R$2E01.
 @ $2E56 label=PF_LARGE
+  $2E56 e-80 hex = e', the true exponent of i.
+  $2E58 Is e' less than 28 decimal?
+  $2E5A Jump if it is less.
+  $2E5C n is formed in #REGa.
+  $2E5F And reduced to n-7.
+  $2E61 Then copied to #REGb.
+  $2E62 n-7 is added in to the second byte of mem-5, the number of digits required before the decimal in x.
+  $2E67 Then i is multiplied by 10#power(-n+7). This will bring it into medium range for printing.
+  $2E6D Round the loop again to deal with the now medium-sized number.
+N $2E6F v. The integer part of x is now stored in the print buffer in mem-3 and mem-4.
 @ $2E6F label=PF_MEDIUM
+  $2E6F #REGde now points to i, #REGhl to f.
+  $2E70 The mantissa of i is now in #REGd', #REGe', #REGd, #REGe.
+  $2E73 Get the exchange registers.
+  $2E74 True numerical bit 7 to #REGd'.
+  $2E76 Exponent byte e of i to #REGa.
+  $2E77 Back to the main registers.
+  $2E78 True exponent e'=e-80 hex to #REGa.
+  $2E7A This gives the required bit count.
+N $2E7B Note that the case where i is a small integer (less than 65536) re-enters here.
 @ $2E7B label=PF_BITS
+  $2E7B The mantissa of i is now rotated left and all the bits of i are thus shifted into mem-4 and each byte of mem-4 is decimal adjusted at each shift.
+  $2E84 Back to the main registers.
+  $2E85 Address of fifth byte of mem-4 to #REGhl; count of 5 bytes to #REGc.
 @ $2E8A label=PF_BYTES
+  $2E8A Get the byte of mem-4.
+  $2E8B Shift it left, taking in the new bit.
+  $2E8C Decimal adjust the byte.
+  $2E8D Restore it to mem-4.
+  $2E8E Point to next byte of mem-4.
+  $2E8F Decrease the byte count by one.
+  $2E90 Jump for each byte of mem-4.
+  $2E92 Jump for each bit of INT (x).
+N $2E94 Decimal adjusting each byte of mem-4 gave 2 decimal digits per byte, there being at most 9 digits. The digits will now be re-packed, one to a byte, in mem-3 and mem-4, using the instruction RLD.
+  $2E94 #REGa is cleared to receive the digits.
+  $2E95 Source address: first byte of mem-4.
+  $2E98 Destination: first byte of mem-3.
+  $2E9B There are at most 9 digits.
+  $2E9D The left nibble of mem-4 is discarded.
+  $2E9F FF in #REGc will signal a leading zero, 00 will signal a non-leading zero.
 @ $2EA1 label=PF_DIGITS
+  $2EA1 Left nibble of (#REGhl) to #REGa, right nibble of (#REGhl) to left.
+  $2EA3 Jump if digit in #REGa is not zero.
+  $2EA5 Test for a leading zero: it will now give zero reset.
+  $2EA7 Jump if it was a leading zero.
 @ $2EA9 label=PF_INSERT
+  $2EA9 Insert the digit now.
+  $2EAA Point to next destination.
+  $2EAB One more digit for printing, and one more before the decimal.
+  $2EB1 Change the flag from leading zero to other zero.
 @ $2EB3 label=PF_TEST_2
+  $2EB3 The source pointer needs to be incremented on every second passage through the loop, when #REGb is odd.
 @ $2EB8 label=PF_ALL_9
+  $2EB8 Jump back for all 9 digits.
+  $2EBA Get counter: were there 9 digits excluding leading zeros?
+  $2EBF If not, jump to get more digits.
+  $2EC1 Prepare to round: reduce count to 8.
+  $2EC4 Compare 9th digit, byte 4 of mem-4, with 4 to set carry for rounding up.
+  $2EC9 Jump forward to round up.
 @ $2ECB label=PF_MORE
-B $2ECC,3,1
+  $2ECB Use the calculator again.
+B $2ECC,1 - (i is now deleted).
+B $2ECD,1 f
+B $2ECE,1 f
+B $2ECC,1 #R$33A1: - (i is now deleted).
+B $2ECD,1 #R$340F(get_mem_2): f
+B $2ECE,1 #R$369B: f
+N $2ECF vi. The fractional part of x is now stored in the print buffer.
 @ $2ECF label=PF_FRACTN
+  $2ECF #REGde now points to f.
+  $2ED0 The mantissa of f is now in #REGd', #REGe', #REGd, #REGe.
+  $2ED3 Get the exchange registers.
+  $2ED4 The exponent of f is reduced to zero, by shifting the bits of f 80 hex - e places right, where #REGl' contained e.
+  $2ED9 True numerical bit to bit 7 of #REGd'.
+  $2EDB Restore the main registers.
+  $2EDC Now make the shift.
+  $2EDF Get the digit count.
+  $2EE2 Are there already 8 digits?
+  $2EE4 If not, jump forward.
+  $2EE6 If 8 digits, just use f to round i up, rotating #REGd' left to set the carry.
+  $2EE9 Restore main registers and jump forward to round up.
 @ $2EEC keep
 @ $2EEC label=PF_FR_DGT
+  $2EEC Initial zero to #REGc, count of 2 to #REGb.
 @ $2EEF label=PF_FR_EXX
+  $2EEF #REGd'#REGe'#REGd#REGe is multiplied by 10 in 2 stages, first #REGde then #REGde', each byte by byte in 2 steps, and the integer part of the result is obtained in #REGc to be passed into the print buffer.
+  $2EF9 The count and the result alternate between #REGbc and #REGbc'.
+  $2EFC Loop back once through the exchange registers.
+  $2EFE The start - 1st byte of mem-3.
+  $2F01 Result to #REGa for storing.
+  $2F02 Count of digits so far in number to #REGc.
+  $2F05 Address the first empty byte.
+  $2F06 Store the next digit.
+  $2F07 Step up the count of digits.
+  $2F0A Loop back until there are 8 digits.
+N $2F0C vii. The digits stored in the print buffer are rounded to a maximum of 8 digits for printing.
 @ $2F0C label=PF_ROUND
+  $2F0C Save the carry flag for the rounding.
+  $2F0D Base address of number: mem-3, byte 1.
+  $2F10 Offset (number of digits in number) to #REGbc.
+  $2F15 Address the last byte of the number.
+  $2F16 Copy #REGc to #REGb as the counter.
+  $2F17 Restore the carry flag.
 @ $2F18 label=PF_RND_LP
+  $2F18 This is the last byte of the number.
+  $2F19 Get the byte into #REGa.
+  $2F1A Add in the carry i.e. round up.
+  $2F1C Store the rounded byte in the buffer.
+  $2F1D If the byte is 0 or 10, #REGb will be decremented and the final zero (or the 10) will not be counted for printing.
+  $2F22 Reset the carry for a valid digit.
+  $2F23 Jump if carry reset.
 @ $2F25 label=PF_R_BACK
+  $2F25 Jump back for more rounding or more final zeros.
+  $2F27 There is overflow to the left; an extra 1 is needed here.
+  $2F2A It is also an extra digit before the decimal.
 @ $2F2D label=PF_COUNT
-B $2F31,2,1
+  $2F2D #REGb now sets the count of the digits to be printed (final zeros will not be printed).
+  $2F30 f is to be deleted.
+B $2F31,1 #R$33A1: -
+B $2F32,1 #R$369B: -
+  $2F33 The calculator offset saved on the stack is restored to #REGhl'.
+N $2F36 viii. The number can now be printed. First #REGc will be set to hold the number of digits to be printed, not counting final zeros, while #REGb will hold the number of digits required before the decimal.
+  $2F36 The counters are set.
+  $2F3A The start of the digits.
+  $2F3D If more than 9, or fewer than minus 4, digits are required before the decimal, then E-format will be needed.
+  $2F42 Fewer than 4 means more than 4 leading zeros after the decimal.
 @ $2F46 label=PF_NOT_E
+  $2F46 Are there no digits before the decimal? If so, print an initial zero.
+N $2F4A The next entry point is also used to print the digits needed for E-format printing.
 @ $2F4A label=PF_E_SBRN
+  $2F4A Start by setting #REGa to zero.
+  $2F4B Subtract #REGb: minus will mean there are digits before the decimal; jump forward to print them.
+  $2F4F #REGa is now required as a counter.
+  $2F50 Jump forward to print the decimal part.
 @ $2F52 label=PF_OUT_LP
+  $2F52 Copy the number of digits to be printed to #REGa. If #REGa is 0, there are still final zeros to print (#REGb is non-zero), so jump.
+  $2F56 Get a digit from the print buffer.
+  $2F57 Point to the next digit.
+  $2F58 Decrease the count by one.
 @ $2F59 label=PF_OUT_DT
+  $2F59 Print the appropriate digit.
+  $2F5C Loop back until #REGb is zero.
 @ $2F5E label=PF_DC_OUT
-  $2F62,c2
+  $2F5E It is time to print the decimal, unless #REGc is now zero; in that case, return - finished.
+  $2F61 Add 1 to #REGb - include the decimal.
+  $2F62,c2 Put the code for '.' into #REGa.
 @ $2F64 label=PF_DEC_0S
-  $2F65,c2
+  $2F64 Print the '.'.
+  $2F65,c2 Enter the character code for '0'.
+  $2F67 Loop back to print all needed zeros.
+  $2F69 Set the count for all remaining digits.
+  $2F6A Jump back to print them.
 @ $2F6C label=PF_E_FRMT
-  $2F73,c2
-  $2F7F,c2
+  $2F6C The count of digits is copied to #REGd.
+  $2F6D It is decremented to give the exponent.
+  $2F6E One digit is required before the decimal in E-format.
+  $2F70 All the part of the number before the 'E' is now printed.
+  $2F73,c2 Enter the character code for 'E'.
+  $2F75 Print the 'E'.
+  $2F76 Exponent to #REGc now for printing.
+  $2F77 And to #REGa for testing.
+  $2F78 Its sign is tested.
+  $2F79 Jump if it is positive.
+  $2F7C Otherwise, negate it in #REGa.
+  $2F7E Then copy it back to #REGc for printing.
+  $2F7F,c2 Enter the character code for '-'.
+  $2F81 Jump to print the sign.
 @ $2F83 label=PF_E_POS
-  $2F83,c2
+  $2F83,c2 Enter the character code for '+'.
 @ $2F85 label=PF_E_SIGN
+  $2F85 Now print the sign: '+' or '-'.
+  $2F86 #REGbc holds the exponent for printing.
+  $2F88 Jump back to print it and finish.
 @ $2F8B label=CA_10A_C
 c $2F8B THE 'CA=10*A+C' SUBROUTINE
 @ $2F9B label=PREP_ADD
