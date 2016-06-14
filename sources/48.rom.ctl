@@ -1873,30 +1873,209 @@ B $2349,4,1
 B $2353,3,1
 B $235B,19,1
 @ $2382 label=DRAW
-c $2382 THE DRAW COMMAND ROUTINE
-  $2383,c2
+c $2382 THE 'DRAW' COMMAND ROUTINE
+D $2382 This routine is entered with the co-ordinates of a point X0, Y0, say, in COORDS. If only two parameters X, Y are given with the DRAW command, it draws an approximation to a straight line from the point X0, Y0 to X0+X, Y0+Y. If a third parameter G is given, it draws an approximation to a circular arc from X0, Y0 to X0+X, Y0+Y turning anti-clockwise through an angle G radians.
+D $2382 The routine has four parts:
+D $2382 #LIST { i. Just draws a line if only 2 parameters are given or if the diameter of the implied circle is less than 1. } { ii. Calls #R$247D to set the first parameters. } { iii. Sets up the remaining parameters, including the initial displacements for the first arc. } { iv. Enters the arc-drawing loop and draws the arc as a series of smaller arcs approximated by straight lines, calling the line-drawing subroutine at #R$24B7 as necessary. } LIST#
+D $2382 Two subroutines, #R$247D and #R$24B7, follow the main routine. The above 4 parts of the main routine will now be treated in turn.
+D $2382 i. If there are only 2 parameters, a jump is made to #R$2477. A line is also drawn if the quantity Z=(ABS X + ABS Y)/ABS SIN(G/2) is less than 1. Z lies between 1 and 1.5 times the diameter of the implied circle. In this section mem-0 is set to SIN (G/2), mem-1 to Y, and mem-5 to G.
+  $2382 Get the current character.
+  $2383,4,c2,2 If it is a comma, then jump.
+  $2387 Move on to next statement if checking syntax.
+  $238A Jump to just draw the line.
 @ $238D label=DR_3_PRMS
-B $2395,11,1
+  $238D Get next character (the angle).
+  $238E Angle to calculator stack.
+  $2391 Move on to next statement if checking syntax.
+  $2394 X, Y, G are on the stack.
+B $2395,1 #R$342D(st_mem_5): (G is copied to mem-5)
+B $2396,1 #R$341B(stk_half): X, Y, G, 0.5
+B $2397,1 #R$30CA: X, Y, G/2
+B $2398,1 #R$37B5: X, Y, SIN (G/2)
+B $2399,1 #R$33C0: X, Y, SIN (G/2), SIN (G/2)
+B $239A,1 #R$3501: X, Y, SIN (G/2), (0/1)
+B $239B,1 #R$3501: X, Y, SIN (G/2), (1/0)
+B $239C,1 #R$368F: X, Y, SIN (G/2)
+B $239D,1 to #R$23A3 (if SIN (G/2)=0 i.e. G=2#piN just draw a straight line).
+B $239E,1 #R$33A1: X, Y
+B $239F,1 #R$369B
+  $23A0 Line X0, Y0 to X0+X, Y0+Y.
 @ $23A3 label=DR_SIN_NZ
-B $23A3,18,1
-B $23BB,3,1
+B $23A3,1 #R$342D(st_mem_0): (SIN (G/2) is copied to mem-0)
+B $23A4,1 #R$33A1: X, Y are now on the stack.
+B $23A5,1 #R$342D(st_mem_1): (Y is copied to mem-1).
+B $23A6,1 #R$33A1: X
+B $23A7,1 #R$33C0: X, X
+B $23A8,1 #R$346A: X, X' (X'=ABS X)
+B $23A9,1 #R$340F(get_mem_1): X, X', Y
+B $23AA,1 #R$343C: X, Y, X'
+B $23AB,1 #R$340F(get_mem_1): X, Y, X', Y
+B $23AC,1 #R$346A: X, Y, X', Y' (Y'=ABS Y)
+B $23AD,1 #R$3014: X, Y, X'+Y'
+B $23AE,1 #R$340F(get_mem_0): X, Y, X'+Y', SIN (G/2)
+B $23AF,1 #R$31AF: X, Y, (X'+Y')/SIN (G/2)=Z', say
+B $23B0,1 #R$346A: X, Y, Z (Z=ABS Z')
+B $23B1,1 #R$340F(get_mem_0): X, Y, Z, SIN (G/2)
+B $23B2,1 #R$343C: X, Y, SIN (G/2), Z
+B $23B3,1 #R$3297: (Z is re-stacked to make sure that its exponent is available).
+B $23B4,1 #R$369B
+  $23B5 Get exponent of Z.
+  $23B6 If Z is greater than or equal to 1, jump.
+  $23BA X, Y, SIN (G/2), Z
+B $23BB,1 #R$33A1: X, Y, SIN (G/2)
+B $23BC,1 #R$33A1: X, Y
+B $23BD,1 #R$369B
+  $23BE Just draw the line from X0, Y0 to X0+X, Y0+Y.
+N $23C1 ii. Just calls #R$247D. This subroutine saves in the #REGb register the number of shorter arcs required for the complete arc, viz. A=4*INT (G'*SQR Z/8)+4, where G' = mod G, or 252 if this expression exceeds 252 (as can happen with a large chord and a small angle). So A is 4, 8, 12, ... , up to 252. The subroutine also stores in mem-0 to mem-4 the quantities G/A, SIN (G/2*A), 0, COS (G/A), SIN (G/A).
 @ $23C1 label=DR_PRMS
-B $23C6,55,1
-B $2406,2,1
-B $240F,4,1
-B $241A,5,1
+  $23C1 The subroutine is called.
+N $23C4 iii. Sets up the rest of the parameters as follow. The stack will hold these 4 items, reading up to the top: X0+X and Y0+Y as end of last arc; then X0 and Y0 as beginning of first arc. Mem-0 will hold X0 and mem-5 Y0. Mem-1 and mem-2 will hold the initial displacements for the first arc, U and V; and mem-3 and mem-4 will hold COS (G/A) and SIN (G/A) for use in the arc-drawing loop.
+N $23C4 The formulae for U and V can be explained as follows. Instead of stepping along the final chord, of length L, say, with displacements X and Y, we want to step along an initial chord (which may be longer) of length L*W, where W=SIN (G/2*A)/SIN (G/2), with displacements X*W and Y*W, but turned through an angle - (G/2 - G/2*A), hence with true displacements:
+N $23C4 #LIST { U = Y*W*SIN (G/2 - G/2*A) + X*W*COS (G/2 - G/2*A) } { Y = Y*W*COS (G/2 - G/2*A) - X*W*SIN (G/2 - G/2*A) } LIST#
+N $23C4 These formulae can be checked from a diagram, using the normal expansion of COS (P - Q) and SIN (P - Q), where Q = G/2 - G/2*A.
+  $23C4 Save the arc-counter in #REGb.
+  $23C5 X, Y, SIN(G/2), Z
+B $23C6,1 #R$33A1: X, Y, SIN(G/2)
+B $23C7,1 #R$340F(get_mem_1): X, Y, SIN(G/2), SIN(G/2*A)
+B $23C8,1 #R$343C: X, Y, SIN(G/2*A), SIN(G/2)
+B $23C9,1 #R$31AF: X, Y, SIN(G/2*A)/SIN(G/2)=W
+B $23CA,1 #R$342D(st_mem_1): (W is copied to mem-1).
+B $23CB,1 #R$33A1: X, Y
+B $23CC,1 #R$343C: Y, X
+B $23CD,1 #R$33C0: Y, X, X
+B $23CE,1 #R$340F(get_mem_1): Y, X, X, W
+B $23CF,1 #R$30CA: Y, X, X*W
+B $23D0,1 #R$342D(st_mem_2): (X*W is copied to mem-2).
+B $23D1,1 #R$33A1: Y, X
+B $23D2,1 #R$343C: X, Y
+B $23D3,1 #R$33C0: X, Y, Y
+B $23D4,1 #R$340F(get_mem_1): X, Y, Y, W
+B $23D5,1 #R$30CA: X, Y, Y*W
+B $23D6,1 #R$340F(get_mem_2): X, Y, Y*W, X*W
+B $23D7,1 #R$340F(get_mem_5): X, Y, Y*W, X*W,G
+B $23D8,1 #R$340F(get_mem_0): X, Y, Y*W, X*W, G, G/A
+B $23D9,1 #R$300F: X, Y, Y*W, X*W, G-G/A
+B $23DA,1 #R$341B(stk_half): X, Y, Y*W, X*W, G-G/A, 1/2
+B $23DB,1 #R$30CA: X, Y, Y*W, X*W, G/2-G/2*A=F
+B $23DC,1 #R$33C0: X, Y, Y*W, X*W, F, F
+B $23DD,1 #R$37B5: X, Y, Y*W, X*W, F, SIN F
+B $23DE,1 #R$342D(st_mem_5): (SIN F is copied to mem-5).
+B $23DF,1 #R$33A1: X, Y, Y*W, X*W,F
+B $23E0,1 #R$37AA: X, Y, Y*W, X*W, COS F
+B $23E1,1 #R$342D(st_mem_0): (COS F is copied to mem-0).
+B $23E2,1 #R$33A1: X, Y, Y*W, X*W
+B $23E3,1 #R$342D(st_mem_2): (X*W is copied to mem-2).
+B $23E4,1 #R$33A1: X, Y, Y*W
+B $23E5,1 #R$342D(st_mem_1): (Y*W is copied to mem-1).
+B $23E6,1 #R$340F(get_mem_5): X, Y, Y*W, SIN F
+B $23E7,1 #R$30CA: X, Y, Y*W*SIN F
+B $23E8,1 #R$340F(get_mem_0): X, Y, Y*W*SIN F, X*W
+B $23E9,1 #R$340F(get_mem_2): X, Y, Y*W*SIN F, X*W, COS F
+B $23EA,1 #R$30CA: X, Y, Y*W*SIN F, X*W*COS F
+B $23EB,1 #R$3014: X, Y, Y*W*SIN F+X*W*COS F=U
+B $23EC,1 #R$340F(get_mem_1): X, Y, U, Y*W
+B $23ED,1 #R$343C: X, Y, Y*W, U
+B $23EE,1 #R$342D(st_mem_1): (U is copied to mem-1)
+B $23EF,1 #R$33A1: X, Y, Y*W
+B $23F0,1 #R$340F(get_mem_0): X, Y, Y*W, COS F
+B $23F1,1 #R$30CA: X, Y, Y*W*COS F
+B $23F2,1 #R$340F(get_mem_2): X, Y, Y*W*COS F, X*W
+B $23F3,1 #R$340F(get_mem_5): X, Y, Y*W*COS F, X*W, SIN F
+B $23F4,1 #R$30CA: X, Y, Y*W*COS F, X*W*SIN F
+B $23F5,1 #R$300F: X, Y, Y*W*COS F - X*W*SIN F=V
+B $23F6,1 #R$342D(st_mem_2): (V is copied to mem-2).
+B $23F7,1 #R$346A: X, Y, V' (V'=ABS V)
+B $23F8,1 #R$340F(get_mem_1): X, Y, V', U
+B $23F9,1 #R$346A: X, Y, V', U' (U'=ABS U)
+B $23FA,1 #R$3014: X, Y, U'+V'
+B $23FB,1 #R$33A1: X, Y
+B $23FC,1 #R$369B: (#REGde now points to U'+V').
+  $23FD Get exponent of U'+V'.
+  $23FE If U'+V' is less than 1, just tidy the stack and draw the line from X0, Y0 to X0+X, Y0+Y.
+  $2404 Otherwise, continue with the parameters: X, Y, on the stack.
+B $2406,1 #R$343C: Y, X
+B $2407,1 #R$369B
+  $2408 Get X0 into #REGa and so on to the stack.
+  $240E Y, X, X0
+B $240F,1 #R$342D(st_mem_0): (X0 is copied to mem-0).
+B $2410,1 #R$3014: Y, X0+X
+B $2411,1 #R$343C: X0+X, Y
+B $2412,1 #R$369B
+  $2413 Get Y0 into #REGa and so on to the stack.
+  $2419 X0+X, Y, Y0
+B $241A,1 #R$342D(st_mem_5): (Y0 is copied to mem-5).
+B $241B,1 #R$3014: X0+X, Y0+Y
+B $241C,1 #R$340F(get_mem_0): X0+X, Y0+Y, X0
+B $241D,1 #R$340F(get_mem_5): X0+X, Y0+Y, X0, Y0
+B $241E,1 #R$369B
+  $241F Restore the arc-counter in #REGb.
+N $2420 iv. The arc-drawing loop. This is entered at #R$2439 with the co-ordinates of the starting point on top of the stack, and the initial displacements for the first arc in mem-1 and mem-2. It uses simple trigonometry to ensure that all subsequent arcs will be drawn to points that lie on the same circle as the first two, subtending the same angle at the centre. It can be shown that if 2 points X1, Y1 and X2, Y2 lie on a circle and subtend an angle N at the centre, which is also the origin of co-ordinates, then X2 = X1*COS N - Y1*SIN N, and Y2 = X1*SIN N + Y1*COS N. But because the origin is here at the increments, say Un = Xn+1 - Xn and Vn = Yn+1 - Yn, thus achieving the desired result. The stack is shown below on the (n+1)th pass through the loop, as Xn and Yn are incremented by Un and Vn, after these are obtained from Un-1 and Vn-1. The 4 values on the top of the stack at #R$2425 are, in DRAW, reading upwards, X0+X, Y0+Y, Xn and Yn but to save space these are not shown until #R$2439. For the initial values in CIRCLE, see the end of CIRCLE, above. In CIRCLE too, the angle G must be taken to be 2#pi.
 @ $2420 label=DRW_STEPS
+  $2420 #REGb counts the passes through the loop.
+  $2421 Jump when #REGb has reached zero.
+  $2423 Jump into the loop to start.
 @ $2425 label=ARC_LOOP
-B $2426,19,1
+  $2425 (See text above for the stack).
+B $2426,1 #R$340F(get_mem_1): Un-1
+B $2427,1 #R$33C0: Un-1, Un-1
+B $2428,1 #R$340F(get_mem_3): Un-1, Un-1, COS(G/A)
+B $2429,1 #R$30CA: Un-1, Un-1*COS(G/A)
+B $242A,1 #R$340F(get_mem_2): Un-1, Un-1*COS(G/A), Vn-1
+B $242B,1 #R$340F(get_mem_4): Un-1, Un-1*COS(G/A), Vn-1, SIN(G/A)
+B $242C,1 #R$30CA: Un-1, Un-1*COS(G/A), Vn-1*SIN(G/A)
+B $242D,1 #R$300F: Un-1, Un-1*COS(G/A)-Vn-1*SIN(G/A)=Un
+B $242E,1 #R$342D(st_mem_1): (Un is copied to mem-1).
+B $242F,1 #R$33A1: Un-1
+B $2430,1 #R$340F(get_mem_4): Un-1, SIN(G/A)
+B $2431,1 #R$30CA: Un-1*SIN(G/A)
+B $2432,1 #R$340F(get_mem_2): Un-1*SIN(G/A), Vn-1
+B $2433,1 #R$340F(get_mem_3): Un-1*SIN(G/A), Vn-1, COS(G/A)
+B $2434,1 #R$30CA: Un-1*SIN(G/A), Vn-1*COS(G/A)
+B $2435,1 #R$3014: Un-1*SIN(G/A)+Vn-1*COS(G/A)=Vn
+B $2436,1 #R$342D(st_mem_2): (Vn is copied to mem-2).
+B $2437,1 #R$33A1: (As noted in the text, the stack in fact holds X0+X, Y0+Y, Xn and Yn).
+B $2438,1 #R$369B
 @ $2439 label=ARC_START
-B $243B,6,1
-B $2448,8,1
-B $2457,2,1
+  $2439 Save the arc-counter.
+  $243A X0+X, Y0+y, Xn, Yn
+B $243B,1 #R$342D(st_mem_0): (Yn is copied to mem-0).
+B $243C,1 #R$33A1: X0+X, Y0+Y, Xn
+B $243D,1 #R$340F(get_mem_1): X0+X, Y0+Y, Xn, Un
+B $243E,1 #R$3014: X0+X, Y0+Y, Xn+Un=Xn+1
+B $243F,1 #R$33C0: X0+X, Y0+Y, Xn+1, Xn+1
+B $2440,1 #R$369B
+  $2441 Next Xn', the approximate value of Xn reached by the line-drawing subroutine is copied to #REGa and hence to the stack.
+  $2447 X0+X, Y0+Y, Xn+1, Xn'
+B $2448,1 #R$300F: X0+X, Y0+Y, Xn+1, Xn+1, Xn'-Xn'=Un'
+B $2449,1 #R$340F(get_mem_0): X0+X, Y0+Y, Xn+1, Un', Yn
+B $244A,1 #R$340F(get_mem_2): X0+X, Y0+Y, Xn+1, Un', Yn, Vn
+B $244B,1 #R$3014: X0+X, Y0+Y, Xn+1, Un', Yn+Vn=Yn+1
+B $244C,1 #R$342D(st_mem_0): (Yn+1 is copied to mem-0).
+B $244D,1 #R$343C: X0+X, Y0+Y, Xn+1, Yn+1, Un'
+B $244E,1 #R$340F(get_mem_0): X0+X, Y0+Y, Xn+1, Yn+1, Un', Yn+1
+B $244F,1 #R$369B
+  $2450 Yn', approximate like Xn', is copied to #REGa and hence to the stack.
+  $2456 X0+X, Y0+Y, Xn+1, Yn+1, Un', Yn+1, Yn'
+B $2457,1 #R$300F: X0+X, Y0+Y, Xn+1, Yn+1, Un', Vn'
+B $2458,1 #R$369B
+  $2459 The next 'arc' is drawn.
+  $245C The arc-counter is restored.
+  $245D Jump if more arcs to draw.
 @ $245F label=ARC_END
-B $2460,4,1
-B $246B,3,1
-B $2475,2,1
+B $2460,2,1 #R$33A1: The co-ordinates of the end of the last arc that was drawn are now deleted from the stack.
+B $2462,1 #R$343C: Y0+Y, X0+X
+B $2463,1 #R$369B
+  $2464,6 The X-co-ordinate of the end of the last arc that was drawn, say Xz', is copied to the stack.
+B $246B,1 #R$300F: Y0+Y, X0+X-Xz'
+B $246C,1 #R$343C: X0+X-Xz', Y0+Y
+B $246D,1 #R$369B
+  $246E The Y-co-ordinate is obtained.
+  $2474 X0+X-Xz', Y0+Y, Yz'
+B $2475,1 #R$300F: X0+X-Xz', Y0+Y-Yz'
+B $2476,1 #R$369B
 @ $2477 label=LINE_DRAW
+  $2477 The final arc is drawn to reach X0+X, Y0+Y (or close the circle).
+  $247A Exit, setting temporary colours.
 @ $247D label=CD_PRMS1
 c $247D THE 'INITIAL PARAMETERS' SUBROUTINE
 B $247E,12,1
