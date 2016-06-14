@@ -6,6 +6,7 @@
 ;
 
 @ $0000 start
+@ $0000 replace=/#pi/#CHR(960)
 @ $0000 replace=/#power/#CHR(8593)
 @ $0000 org=$0000
 @ $0000 set-handle-unsupported-macros=1
@@ -1953,39 +1954,153 @@ D $2596 This table contains 8 functions and 4 operators. It thus incorporates 5 
   $25AE End marker.
 @ $25AF label=S_U_PLUS
 c $25AF THE SCANNING FUNCTION ROUTINES
+  $25AF For unary plus, simply move on to the next character and jump back to the main re-entry of #R$24FB.
+N $25B3 The 'scanning QUOTE' routine. This routine deals with string quotes, whether simple like "name" or more complex like "a ""white"" lie" or the seemingly redundant VAL$ """a""".
 @ $25B3 label=S_QUOTE
+  $25B3 Fetch the current character.
+  $25B4 Point to the start of the string.
+  $25B5 Save the start address.
 @ $25B6 keep
+  $25B6 Set the length to zero.
+  $25B9 Call the "matching" subroutine.
+  $25BC Jump if zero reset - no more quotes.
 @ $25BE label=S_Q_AGAIN
+  $25BE Call it again for a third quote.
+  $25C1 And again for the fifth, seventh etc.
+  $25C3 If testing syntax, jump to reset bit 6 of FLAGS and to continue scanning.
+  $25C8 Make space in the work space for the string and the terminating quote.
+  $25C9 Get the pointer to the start.
+  $25CA Save the pointer to the first space.
 @ $25CB label=S_Q_COPY
-  $25CF,c2
-  $25D5,c2
+  $25CB Get a character from the string.
+  $25CC Point to the next one.
+  $25CD Copy last one to work space.
+  $25CE Point to the next space.
+  $25CF,c2 Is last character a '"'?
+  $25D1 If not, jump to copy next one.
+  $25D3,6,2,c2,2 But if it was, do not copy next one; if next one is a '"', jump to copy the one after it; otherwise, finished with copying.
 @ $25D9 label=S_Q_PRMS
+  $25D9 Get true length to #REGbc.
+N $25DA Note that the first quote was not counted into the length; the final quote was, and is discarded now. Inside the string, the first, third, fifth, etc., quotes were counted in but the second, fourth, etc., were not.
+  $25DA Restore start of copied string.
 @ $25DB label=S_STRING
+  $25DB This is FLAGS; this entry point is used whenever bit 6 is to be reset and a string stacked if executing a line. This is done now.
+  $25E5 Jump to continue scanning the line.
+N $25E8 Note that in copying the string to the work space, every two pairs of string quotes inside the string ("") have been reduced to one pair of string quotes(").
 @ $25E8 label=S_BRACKET
-  $25EC,c2
+  $25E8 The 'scanning BRACKET routine' simply gets the character and calls #R$24FB recursively.
+  $25EC,5,c2,3 Report the error if no matching bracket.
+  $25F1 Continue scanning.
 @ $25F5 label=S_FN
+  $25F5 The 'scanning FN' routine.
+N $25F8 This routine, for user-defined functions, just jumps to the 'scanning FN' subroutine.
 @ $25F8 label=S_RND
-B $2605,18,1*9,3,1
+  $25F8 Unless syntax is being checked, jump to calculate a random number.
+  $25FD Fetch the current value of SEED.
+  $2601 Put it on the calculator stack.
+  $2604 Now use the calculator,
+B $2605,1 #R$341B(stk_one)
+B $2606,1 #R$3014: The 'last value' is now SEED+1.
+B $2607,3,1,2 #R$33C6: Put the decimal number 75 on the calculator stack.
+B $260A,1 #R$30CA: 'last value' (SEED+1)*75.
+B $260B,6,1,5 #R$33C6: Put the decimal number 65537 on the calculator stack.
+B $2611,1 #R$36A0: Divide (SEED+1)*75 by 65537 to give a 'remainder' and an 'answer'.
+B $2612,1 #R$33A1: Discard the 'answer'.
+B $2613,1 #R$341B(stk_one)
+B $2614,1 #R$300F: The 'last value' is now 'remainder' - 1.
+B $2615,1 #R$33C0: Make a copy of the 'last value'.
+B $2616,1 #R$369B: The calculation is finished.
+  $2617 Use the 'last value' to give the new value for SEED.
+  $261E Fetch the exponent of 'last value'.
+  $261F Jump forward if the exponent is zero.
+  $2622 Reduce the exponent, i.e. divide 'last value' by 65536 to give the required 'last value'.
 @ $2625 label=S_RND_END
+  $2625 Jump past the #R$2627 routine.
+N $2627 The 'scanning-PI' routine. Unless syntax is being checked the value of 'PI' is calculated and forms the 'last value' on the calculator stack.
 @ $2627 label=S_PI
-B $262D,2,1
+  $2627 Test for syntax checking.
+  $262A Jump if required.
+  $262C Now use the calculator.
+B $262D,1 #R$341B(stk_pi_2): The value of #pi/2 is put on the calculator stack as the 'last value'.
+B $262E,1 #R$369B
+  $262F The exponent is incremented thereby doubling the 'last value' giving #pi.
 @ $2630 label=S_PI_END
+  $2630 Move on to the next character.
+  $2631 Jump forward.
 @ $2634 keep
 @ $2634 label=S_INKEY
-  $2638,c2
+  $2634 Priority +10 hex, operation code +5A for the 'read-in' subroutine.
+  $2638,5,c2,3 If next char. is '#', jump. There will be a numerical argument.
+  $263D This is FLAGS.
+  $2640 Reset bit 6 for a string result.
+  $2642 Test for syntax checking.
+  $2644 Jump if required.
+  $2646 Fetch a key-value in #REGde.
+  $2649 Prepare empty string; stack it if too many keys pressed.
+  $264D Test the key value; stack empty string if unsatisfactory.
+  $2652 +FF to #REGd for 'L' mode (bit 3 set).
+  $2653 Key-value to #REGe for decoding.
+  $2654 Decode the key-value.
+  $2657 Save the ASCII value briefly.
 @ $2658 keep
+  $2658 One space is needed in the work space.
+  $265B Make it now.
+  $265C Restore the ASCII value.
+  $265D Prepare to stack it as a string.
+  $265E Its length is one.
 @ $2660 label=S_IK_STK
+  $2660 Complete the length parameter.
+  $2662 Stack the required string.
 @ $2665 label=S_INK_EN
+  $2665 Jump forward.
 @ $2668 label=S_SCREEN
+  $2668 Check that 2 co-ordinates are given.
+  $266B Call the subroutine unless checking syntax; then get the next character and jump back.
 @ $2672 label=S_ATTR
+  $2672 Check that 2 co-ordinates are given.
+  $2675 Call the subroutine unless checking syntax; then get the next character and jump forward.
 @ $267B label=S_POINT
+  $267B Check that 2 co-ordinates are given.
+  $267E Call the subroutine unless checking syntax; then get the next character and jump forward.
 @ $2684 label=S_ALPHNUM
-  $2689,c2
+  $2684 Is the character alphanumeric?
+  $2687 Jump if not a letter or a digit.
+  $2689,4,c2,2 Now jump if it is a letter; otherwise continue on into #R$268D.
+N $268D The 'scanning DECIMAL' routine which follows deals with a decimal point or a number that starts with a digit. It also takes care of the expression 'BIN', which is dealt with in the 'decimal to floating-point' subroutine.
 @ $268D label=S_DECIMAL
+  $268D Jump forward if a line is being executed.
+N $2692 The action taken is now very different for syntax checking and line execution. If syntax is being checked then the floating-point form has to be calculated and copied into the actual BASIC line. However when a line is being executed the floating-point form will always be available so it is copied to the calculator stack to form a 'last value'.
+N $2692 During syntax checking:
+  $2692 The floating-point form is found.
+  $2695 Set #REGhl to point one past the last digit.
 @ $2696 keep
+  $2696 Six locations are required.
+  $2699 Make the room in the BASIC line.
+  $269C Point to the first free space.
+  $269D Enter the number marker code.
+  $269F Point to the second location.
+  $26A0 This pointer is wanted in #REGde.
+  $26A1 Fetch the 'old' STKEND.
+  $26A4 There are 5 bytes to move.
+  $26A6 Clear the carry flag.
+  $26A7 The 'new' STKEND = 'old' STKEND - 5.
+  $26A9 Move the floating-point number from the calculator stack to the line.
+  $26AE Put the line pointer in #REGhl.
+  $26AF Point to the last byte added.
+  $26B0 This sets CH-ADD.
+  $26B3 Jump forward.
+N $26B5 During line execution:
 @ $26B5 label=S_STK_DEC
+  $26B5 Get the current character.
 @ $26B6 label=S_SD_SKIP
+  $26B6 Now move on to the next character in turn until the number marker code (0E hex) is found.
+  $26BC Point to the first byte of the number.
+  $26BD Move the floating-point number.
+  $26C0 Set CH-ADD.
+N $26C3 A numeric result has now been identified, coming from RND, PI, ATTR, POINT or a decimal number, therefore bit 6 of FLAGS must be set.
 @ $26C3 label=S_NUMERIC
+  $26C3 Set the numeric marker flag.
+  $26C7 Jump forward.
 @ $26C9 label=S_LETTER
 c $26C9 THE SCANNING VARIABLE ROUTINE
 @ $26DD label=S_CONT_1
