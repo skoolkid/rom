@@ -1713,28 +1713,104 @@ c $2070 THE 'ALTER STREAM' SUBROUTINE
   $2070,c2
 @ $2089 label=INPUT
 c $2089 THE 'INPUT' COMMAND ROUTINE
+D $2089 This routine allows for values entered from the keyboard to be assigned to variables. It is also possible to have print items embedded in the INPUT statement and these items are printed in the lower part of the display.
+  $2089 Jump forward if syntax is being checked.
+  $208E Open channel 'K'.
+  $2093 The lower part of the display is cleared.
 @ $2096 label=INPUT_1
+  $2096 Signal that the lower screen is being handled. Reset all other bits.
+  $209A Call the subroutine to deal with the INPUT items.
+  $209D Move on to the next statement if checking syntax.
+  $20A0 Fetch the current print position.
+  $20A4 Jump forward if the current position is above the lower screen.
+  $20AA Otherwise set the print position to the top of the lower screen.
 @ $20AD label=INPUT_2
+  $20AD Reset S-POSN.
+  $20B1 Now set the scroll counter.
+  $20B7 Signal 'main screen'.
+  $20BB Set the system variables and exit via #R$0D6E.
+N $20C1 The INPUT items and embedded PRINT items are dealt with in turn by the following loop.
 @ $20C1 label=IN_ITEM_1
-  $20C6,c2
-  $20CF,c2
+  $20C1 Consider first any position control characters.
+  $20C6,4,c2,2 Jump forward if the present character is not a '('.
+  $20CA Fetch the next character.
+  $20CB Now call the PRINT command routine to handle the items inside the brackets.
+  $20CE Fetch the present character.
+  $20CF,5,c2,3 Give report C unless the character is a ')'.
+  $20D4 Fetch the next character and jump forward to see if there are any further INPUT items.
+N $20D8 Now consider whether INPUT LINE is being used.
 @ $20D8 label=IN_ITEM_2
+  $20D8 Jump forward if it is not 'LINE'.
+  $20DC Advance CH-ADD.
+  $20DD Determine the destination address for the variable.
+  $20E0 Signal 'using INPUT LINE'.
+  $20E4 Give report C unless using a string variable.
+  $20EB Jump forward to issue the prompt message.
+N $20ED Proceed to handle simple INPUT variables.
 @ $20ED label=IN_ITEM_3
+  $20ED Jump to consider going round the loop again if the present character is not a letter.
+  $20F3 Determine the destination address for the variable.
+  $20F6 Signal 'not INPUT LINE'.
+N $20FA The prompt message is now built up in the work space.
 @ $20FA label=IN_PROMPT
+  $20FA Jump forward if only checking syntax.
+  $2100 The work space is set to null.
+  $2103 This is FLAGX.
+  $2106 Signal 'string result'.
+  $2108 Signal 'INPUT mode'.
 @ $210A keep
+  $210A Allow the prompt message only a single location.
+  $210D Jump forward if using 'LINE'.
+  $2111 Jump forward if awaiting a numeric entry.
+  $2118 A string entry will need three locations.
 @ $211A label=IN_PR_1
+  $211A Bit 6 of FLAGX will become set for a numeric entry.
 @ $211C label=IN_PR_2
-  $2124,c2
+  $211C The required number of locations is made available.
+  $211D A 'carriage return' goes into the last location.
+  $211F Test bit 6 of the #REGc register and jump forward if only one location was required.
+  $2124,5,c2,3 A 'double quotes' character goes into the first and second locations.
 @ $2129 label=IN_PR_3
+  $2129 The position of the cursor can now be saved.
+N $212C In the case of INPUT LINE the EDITOR can be called without further preparation but for other types of INPUT the error stack has to be changed so as to trap errors.
+  $212C Jump forward with 'INPUT LINE'.
+  $2132 Save the current values of CH-ADD and ERR-SP on the machine stack.
 @ $213A nowarn
 @ $213A label=IN_VAR_1
+  $213A This will be the 'return point' in case of errors.
+  $213E Only change the error stack pointer if using channel 'K'.
 @ $2148 label=IN_VAR_2
+  $2148 Set #REGhl to the start of the INPUT line and remove any floating-point forms. (There will not be any except perhaps after an error.)
+  $214E Signal 'no error yet'.
+  $2152 Now get the INPUT and with the syntax/run flag indicating syntax, check the INPUT for errors; jump if in order; return to IN-VAR-1 if not.
 @ $215E label=IN_VAR_3
+  $215E Get a 'LINE'.
+N $2161 All the system variables have to be reset before the actual assignment of a value can be made.
 @ $2161 label=IN_VAR_4
+  $2161 The cursor address is reset.
+  $2165 The jump is taken if using other than channel 'K'.
+  $216A The input-line is copied to the display and the position in ECHO-E made the current position in the lower screen.
 @ $2174 label=IN_VAR_5
+  $2174 This is FLAGX.
+  $2177 Signal 'edit mode'.
+  $2179 Jump forward if handling an INPUT LINE.
+  $217F Drop the address IN-VAR-1.
+  $2180 Reset the ERR-SP to its original address.
+  $2184 Save the original CH-ADD address in X-PTR.
+  $2188 Now with the syntax/run flag indicating 'run' make the assignment.
+  $218F Restore the original address to CH-ADD and clear X-PTR.
+  $2199 Jump forward to see if there are further INPUT items.
 @ $219B label=IN_VAR_6
+  $219B The length of the 'LINE' in the work space is found.
+  $21A5 #REGde points to the start and #REGbc holds the length.
+  $21A7 These parameters are stacked and the actual assignment made.
+  $21AD Also jump forward to consider further items.
+N $21AF Further items in the INPUT statement are considered.
 @ $21AF label=IN_NEXT_1
+  $21AF Handle any print items.
 @ $21B2 label=IN_NEXT_2
+  $21B2 Handle any position controllers.
+  $21B5 Go around the loop again if there are further items; otherwise return.
 @ $21B9 label=IN_ASSIGN
 c $21B9 THE 'IN-ASSIGN' SUBROUTINE
 @ $21CE label=REPORT_C_2
