@@ -1861,17 +1861,84 @@ c $2307 THE 'STK-TO-BC' SUBROUTINE
 @ $2314 label=STK_TO_A
 c $2314 THE 'STK-TO-A' SUBROUTINE
 @ $2320 label=CIRCLE
-c $2320 THE CIRCLE COMMAND ROUTINE
-  $2321,c2
-B $232E,3,1
-B $2337,2,1
+c $2320 THE 'CIRCLE' COMMAND ROUTINE
+D $2320 This routine draws an approximation to the circle with centre co-ordinates X and Y and radius Z. These numbers are rounded to the nearest integer before use. Thus Z must be less than 87.5, even when (X,Y) is in the centre of the screen. The method used is to draw a series of arcs approximated by straight lines.
+D $2320 CIRCLE has four parts:
+D $2320 #LIST { i. Tests the radius. If its modulus is less than 1, just plot X,Y. } { ii. Calls #R$247D, which is used to set the initial parameters for both CIRCLE and DRAW. } { iii. Sets up the remaining parameters for CIRCLE, including the initial displacement for the first 'arc' (a straight line in fact). } { iv. Jumps to #R$2420 to use the arc-drawing loop. } LIST#
+D $2320 Parts i. to iii. will now be explained in turn.
+D $2320 i. The radius, say Z', is obtained from the calculator stack. Its modulus Z is formed and used from now on. If Z is less than 1, it is deleted from the stack and the point X,Y is plotted by a jump to PLOT.
+  $2320 Get the present character.
+  $2321,c2 Test for comma.
+  $2323 If not so, report the error.
+  $2326 Get next character (the radius).
+  $2327 Radius to calculator stack.
+  $232A Move to consider next statement if checking syntax.
+  $232D Use calculator.
+B $232E,1 #R$346A: X, Y, Z
+B $232F,1 #R$3297: Z is re-stacked; its exponent is therefore available.
+B $2330,1 #R$369B
+  $2331 Get exponent of radius.
+  $2332 Test whether radius less than 1.
+  $2334 If not, jump.
+  $2336 If less, delete it from the stack.
+B $2337,1 #R$33A1: X, Y
+B $2338,1 #R$369B
+  $2339 Just plot the point X, Y.
+N $233B ii. 2#pi is stored in mem-5 and #R$247D is called. This subroutine stores in the #REGb register the number of arcs required for the circle, viz. A=4*INT (#pi*SQR Z/4)+4, hence 4, 8, 12, etc., up to a maximum of 32. It also stores in mem-0 to mem-4 the quantities 2#pi/A, SIN(#pi/A), 0, COS (2#pi/A) and SIN (2#pi/A).
 @ $233B label=C_R_GRE_1
-B $233C,2,1
-B $2341,3,1
+B $233C,1 #R$341B(stk_pi_2): X, Y, Z, #pi/2
+B $233D,1 #R$369B
+  $233E Now increase exponent to 83 hex, changing #pi/2 into 2#pi.
+  $2340 X, Y, Z, 2#pi.
+B $2341,1 #R$342D(st_mem_5): (2#pi is copied to mem-5)
+B $2342,1 #R$33A1: X, Y, Z
+B $2343,1 #R$369B
+  $2344 Set the initial parameters.
+N $2347 iii. A test is made to see whether the initial 'arc' length is less than 1. If it is, a jump is made simply to plot X, Y. Otherwise, the parameters are set: X+Z and X-Z*SIN (#pi/A) are stacked twice as start and end point, and copied to COORDS as well; zero and 2*Z*SIN (#pi/A) are stored in mem-1 and mem-2 as initial increments, giving as first 'arc' the vertical straight line joining X+Z, y-Z*SIN (#pi/A) and X+Z, Y+Z*SIN (#pi/A). The arc-drawing loop at #R$2420 will ensure that all subsequent points remain on the same circle as these two points, with incremental angle 2#pi/A. But it is clear that these 2 points in fact subtend this angle at the point X+Z*(1-COS (#pi/A)), Y not at X, Y. Hence the end points of each arc of the circle are displaced right by an amount 2*(1-COS (#pi/A)), which is less than half a pixel, and rounds to one pixel at most.
 @ $2347 label=C_ARC_GE1
-B $2349,4,1
-B $2353,3,1
-B $235B,19,1
+  $2347 Save the arc-count in #REGb.
+  $2348 X, Y, Z
+B $2349,1 #R$33C0: X, Y, Z, Z
+B $234A,1 #R$340F(get_mem_1): X, Y, Z, Z, SIN (#pi/A)
+B $234B,1 #R$30CA: X, Y, Z, Z*SIN (#pi/A)
+B $234C,1 #R$369B
+  $234D Z*SIN (#pi/A) is half the initial 'arc' length; it is tested to see whether it is less than 0.5.
+  $2350 If not, the jump is made.
+  $2352
+B $2353,1 #R$33A1: X, Y, Z
+B $2354,1 #R$33A1: X, Y
+B $2355,1 #R$369B
+  $2356 Clear the machine stack.
+  $2357 Jump to plot X, Y.
+  $235A X, Y, Z, Z*SIN (#pi/A)
+B $235B,1 #R$342D(st_mem_2): (Z*SIN (#pi/A) to mem-2 for now)
+B $235C,1 #R$343C: X, Y, Z*SIN (#pi/A), Z
+B $235D,1 #R$342D(st_mem_0): X, Y, Z*SIN (#pi/A), Z (Z is copied to mem-0)
+B $235E,1 #R$33A1: X, Y, Z*SIN (#pi/A)
+B $235F,1 #R$300F: X, Y-Z*SIN (#pi/A)
+B $2360,1 #R$343C: Y-Z*SIN (#pi/A), X
+B $2361,1 #R$340F(get_mem_0): Y-Z*SIN (#pi/A), X, Z
+B $2362,1 #R$3014: Y-Z*SIN (#pi/A), X+Z
+B $2363,1 #R$342D(st_mem_0): (X+Z is copied to mem-0)
+B $2364,1 #R$343C: X+Z, Y-Z*SIN (#pi/A)
+B $2365,1 #R$33C0: X+Z, Y-Z*SIN (#pi/A), Y-Z*SIN (#pi/A)
+B $2366,1 #R$340F(get_mem_0): sa, sb, sb, sa
+B $2367,1 #R$343C: sa, sb, sa, sb
+B $2368,1 #R$33C0: sa, sb, sa, sb, sb
+B $2369,1 #R$340F(get_mem_0): sa, sb, sa, sb, sb, sa
+B $236A,1 #R$341B(stk_zero): sa, sb, sa, sb, sb, sa, 0
+B $236B,1 #R$342D(st_mem_1): (mem-1 is set to zero)
+B $236C,1 #R$33A1: sa, sb, sa, sb, sb, sa
+B $236D,1 #R$369B
+N $236E (Here sa denotes X+Z and sb denotes Y-Z*SIN (#pi/A).)
+  $236E Incrementing the exponent byte of mem-2 sets mem-2 to 2*Z*SIN(#pi/A).
+  $2371 The last value X+Z is moved from the stack to #REGa and copied to #REGl.
+  $2375 It is saved in #REGhl.
+  $2376 Y-Z*SIN (#pi/A) goes from the stack to #REGa and is copied to #REGh. #REGhl now holds the initial point.
+  $237B It is copied to COORDS.
+  $237E The arc-count is restored.
+  $237F The jump is made to #R$2420.
+E $2320 (The stack now holds X+Z, Y-Z*SIN (#pi/A), Y-Z*SIN (#pi/A), X+Z.)
 @ $2382 label=DRAW
 c $2382 THE 'DRAW' COMMAND ROUTINE
 D $2382 This routine is entered with the co-ordinates of a point X0, Y0, say, in COORDS. If only two parameters X, Y are given with the DRAW command, it draws an approximation to a straight line from the point X0, Y0 to X0+X, Y0+Y. If a third parameter G is given, it draws an approximation to a circular arc from X0, Y0 to X0+X, Y0+Y turning anti-clockwise through an angle G radians.
