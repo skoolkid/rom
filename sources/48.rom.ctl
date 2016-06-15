@@ -3242,10 +3242,53 @@ c $37DA THE 'TAN' FUNCTION
 B $37DB,6,1
 @ $37E2 label=atn
 c $37E2 THE 'ARCTAN' FUNCTION
-B $37EB,13,1
+D $37E2 This subroutine handles the function ATN X and is the last of the four routines that use the #R$3449(series generator) to produce Chebyshev polynomials. It returns a real number between -#pi/2 and #pi/2, which is equal to the value in radians of the angle whose tan is X.
+D $37E2 The approximation to ATN X is found as follows:
+D $37E2 i. The values W and Y are found for three cases of X, such that:
+D $37E2 #LIST { if -1<X<1 then W=0, Y=X (case i) } { if 1<=X then W=#pi/2, Y=-1/X (case ii) } { if X<=-1 then W=-#pi/2, Y=-1/X (case iii) } LIST#
+D $37E2 In each case, -1<=Y<=1, as required for the series to converge.
+D $37E2 ii. The argument Z is formed, such that:
+D $37E2 #LIST { if -1<X<1 then Z=2*Y*Y-1=2*X*X-1 (case i) } { otherwise Z=2*Y*Y-1=2/(X*X)-1 (cases ii and iii) } LIST#
+D $37E2 iii. The #R$3449(series generator) is used to produce the required function.
+D $37E2 iv. Finally a simple multiplication and addition give ATN X.
+D $37E2 Perform step i.
+  $37E2 Use the full floating-point form of X.
+  $37E5 Fetch the exponent of X.
+  $37E6 Jump forward for case i: Y=X.
+  $37EA X
+B $37EB,1 #R$341B(stk_one): X, 1
+B $37EC,1 #R$346E: X, -1
+B $37ED,1 #R$343C: -1, X
+B $37EE,1 #R$31AF: -1/X
+B $37EF,1 #R$33C0: -1/X, -1/X
+B $37F0,1 #R$3506: -1/X, (1/0)
+B $37F1,1 #R$341B(stk_pi_2): -1/X, (1/0), #pi/2
+B $37F2,1 #R$343C: -1/X, #pi/2, (1/0)
+B $37F3,2,1 #R$368F to #R$37FA for case ii: -1/X, #pi/2
+B $37F5,1 #R$346E: -1/X, -#pi/2
+B $37F6,2,1 #R$3686 to #R$37FA for case iii: -1/X, -#pi/2
 @ $37F8 label=SMALL
-B $37F9,57,1*15,2,1,2,1,2,1,3,1,3,1,2,1,4,1,4,1,4,1,4,1
+B $37F9,1 #R$341B(stk_zero): Y, 0; continue for case i: W=0
+N $37FA Perform step ii.
 @ $37FA label=CASES
+B $37FA,1 #R$343C: W, Y
+B $37FB,1 #R$33C0: W, Y, Y
+B $37FC,1 #R$33C0: W, Y, Y, Y
+B $37FD,1 #R$30CA: W, Y, Y*Y
+B $37FE,1 #R$33C0: W, Y, Y*Y, Y*Y
+B $37FF,1 #R$3014: W, Y, 2*Y*Y
+B $3800,1 #R$341B(stk_one): W, Y, 2*Y*Y, 1
+B $3801,1 #R$300F: W, Y, 2*Y*Y-1=Z
+N $3802 Perform step iii, passing to the #R$3449(series generator) the parameter '12' decimal, and the twelve constants required.
+B $3802,1 #R$3449(series_0C): W, Y, Z
+B $3803,44,2,2,3,3,3,4,4,3,5
+N $382F At the end of the last loop the 'last value' is:
+N $382F #LIST { ATN X/X (case i) } { ATN (-1/X)/(-1/X) (cases ii and iii) } LIST#
+N $382F Perform step iv.
+B $382F,1 #R$30CA: W, ATN X (case i) or W, ATN (-1/X) (cases ii and iii)
+B $3830,1 #R$3014: ATN X (all cases now)
+B $3831,1 #R$369B
+  $3832 Finished: 'last value'=ATN X.
 @ $3833 label=asn
 c $3833 THE 'ARCSIN' FUNCTION
 B $3834,14,1
