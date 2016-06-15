@@ -3149,13 +3149,58 @@ B $36B7,12,1
 @ $36C2 label=EXIT
 @ $36C4 label=EXP
 c $36C4 THE 'EXPONENTIAL' FUNCTION
-B $36C5,52,1*3,4,1*13,2,1,3,1,3,1,4,1,4,1,4,1,4,1
+D $36C4 This subroutine handles the function EXP X and is the first of four routines that use the #R$3449(series generator) to produce Chebyshev polynomials.
+D $36C4 The approximation to EXP X is found as follows:
+D $36C4 #LIST { i. X is divided by LN 2 to give Y, so that 2**Y is now the required result. } { ii. The value N is found, such that N=INT Y. } { iii. The value W=Y-N is found; 0<=W<=1, as required for the series to converge. } { iv. The argument Z=2*W-1 is formed. } { v. The #R$3449(series generator) is used to return 2**W. } { vi. Finally N is added to the exponent, giving 2**(N+W), which is 2**Y and therefore the required answer. } LIST#
+  $36C4 X
+N $36C5 Perform step i.
+B $36C5,1 #R$3297: X (in full floating-point form)
+B $36C6,6,1,5 #R$33C6: X, 1/LN 2
+B $36CC,1 #R$30CA: X/LN 2=Y
+N $36CD Perform step ii.
+B $36CD,1 #R$33C0
+B $36CD,1 #R$33C0: Y, Y
+B $36CE,1 #R$36AF: Y, INT Y=N
+B $36CF,1 #R$342D(st_mem_3): Y, N (mem-3 holds N)
+N $36D0 Perform step iii.
+B $36D0,1 #R$300F
+B $36D0,1 #R$300F: Y-N=W
+N $36D1 Perform step iv.
+B $36D1,1 #R$33C0
+B $36D1,1 #R$33C0: W, W
+B $36D2,1 #R$3014: 2*W
+B $36D3,1 #R$341B(stk_one): 2*W, 1
+B $36D4,1 #R$300F: 2*W-1=Z
+N $36D5 Perform step v, passing to the #R$3449(series generator) the parameter '8' and the eight constants required.
+B $36D5,1 #R$3449(series_08): Z
+B $36D6,33,2,3,4,4,5
+N $36F7 At the end of the last loop the 'last value' is 2**W.
+N $36F7 Perform step vi.
+B $36F7,1 #R$340F(get_mem_3): 2**W, N
+B $36F8,1 #R$369B
+  $36F9 The absolute value of N mod 256 decimal is put into the #REGa register.
+  $36FC Jump forward if N was negative.
+  $36FE Error if ABS N>255 dec.
+  $3700 Now add ABS N to the exponent.
+  $3701 Jump unless e>255 dec.
+N $3703 Report 6 - Number too big
 @ $3703 label=REPORT_6_2
+M $3703,2 Call the error handling routine.
 B $3704,1
 @ $3705 label=N_NEGTV
+  $3705 The result is to be zero if N<-255 decimal.
+  $3707 Subtract ABS N from the exponent as N was negative.
+  $3708 Zero result if e less than zero.
+  $370A Minus e is changed to e.
 @ $370C label=RESULT_OK
+  $370C The exponent, e, is entered.
+  $370D Finished: 'last value' is EXP X.
 @ $370E label=RSLT_ZERO
-B $370F,3,1
+  $370E Use the calculator to make the 'last value' zero.
+B $370F,1 #R$33A1 (the stack is now empty)
+B $3710,1 #R$341B(stk_zero): 0
+B $3711,1 #R$369B
+  $3712 Finished, with EXP X=0.
 @ $3713 label=ln
 c $3713 THE 'NATURAL LOGARITHM' FUNCTION
 D $3713 This subroutine handles the function LN X and is the second of the four routines that use the #R$3449(series generator) to produce Chebyshev polynomials.
