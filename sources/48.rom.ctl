@@ -3280,8 +3280,29 @@ c $37AA THE 'COSINE' FUNCTION
 B $37AB,10,1
 @ $37B5 label=sin
 c $37B5 THE 'SINE' FUNCTION
-B $37B6,35,1*12,2,1,3,1,4,1,4,1,4,1
+D $37B5 This subroutine handles the function SIN X and is the third of the four routines that use the #R$3449(series generator) to produce Chebyshev polynomials.
+D $37B5 The approximation to SIN X is found as follows:
+D $37B5 #LIST { i. The argument X is reduced to W, such that SIN (#pi*W/2)=SIN X. Note that -1<=W<=1, as required for the series to converge. } { ii. The argument Z=2*W*W-1 is formed. } { iii. The #R$3449(series generator) is used to return (SIN (#pi*W/2))/W. } { iv. Finally a simple multiplication by W gives SIN X. } LIST#
+  $37B5 X
+N $37B6 Perform step i.
+B $37B6,1 #R$3783: W
+N $37B7 Perform step ii. The subroutine from now on is common to both the SINE and COSINE functions.
 @ $37B7 label=C_ENT
+B $37B7,1 #R$33C0: W, W
+B $37B8,1 #R$33C0: W, W, W
+B $37B9,1 #R$30CA: W, W*W
+B $37BA,1 #R$33C0: W, W*W, W*W
+B $37BB,1 #R$3014: W, 2*W*W
+B $37BC,1 #R$341B(stk_one): W, 2*W*W, 1
+B $37BD,1 #R$300F: W, 2*W*W-1=Z
+N $37BE Perform step iii, passing to the #R$3449(series generator) the parameter '6' and the six constants required.
+B $37BE,1 #R$3449(series_06): W, Z
+B $37BF,24,2,3,4,5
+N $37D7 At the end of the last loop the 'last value' is (SIN (#pi*W/2))/W.
+N $37D7 Perform step iv.
+B $37D7,1 #R$30CA: SIN (#pi*W/2)=SIN X (or COS X)
+B $37D8,1 #R$369B
+  $37D9 Finished: 'last value'=SIN X (or COS X).
 @ $37DA label=tan
 c $37DA THE 'TAN' FUNCTION
 B $37DB,6,1
