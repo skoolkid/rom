@@ -3158,13 +3158,72 @@ B $3704,1
 B $370F,3,1
 @ $3713 label=ln
 c $3713 THE 'NATURAL LOGARITHM' FUNCTION
-B $3714,6,1
+D $3713 This subroutine handles the function LN X and is the second of the four routines that use the #R$3449(series generator) to produce Chebyshev polynomials.
+D $3713 The approximation to LN X is found as follows:
+D $3713 #LIST { i. X is tested and report A is given if X is not positive. } { ii. X is then split into its true exponent, e', and its mantissa X'=X/(2**e'), where 0.5<=X'<1. } { iii. The required value Y1 or Y2 is formed: if X'>0.8 then Y1=e'*LN 2, otherwise Y2=(e'-1)*LN 2. } { iv. If X'>0.8 then the quantity X'-1 is stacked; otherwise 2*X'-1 is stacked. } { v. Now the argument Z is formed, being 2.5*X'-3 if X'>0.8, otherwise 5*X'-3. In each case, -1<=Z<=1, as required for the series to converge. } { vi. The #R$3449(series generator) is used to produce the required function. } { vii. Finally a simple multiplication and addition leads to LN X being returned as the 'last value'. } LIST#
+  $3713 X
+N $3714 Perform step i.
+B $3714,1 #R$3297: X (in full floating-point form)
+B $3715,1 #R$33C0: X, X
+B $3716,1 #R$34F9: X, (1/0)
+B $3717,1 #R$368F to #R$371C: X
+B $3718,1 #R$30CA: X
+B $3719,1 #R$369B: X
 @ $371A label=REPORT_A_2
-B $371B,4,1
+N $371A Report A - Invalid argument
+M $371A,2 Call the error handling routine.
+B $371B,1
+N $371C Perform step ii.
 @ $371C label=VALID
-B $3726,21,1*8,4,1
+B $371C,1 #R$341B(stk_zero): X, 0 (the deleted 1 is overwritten with zero)
+B $371D,1 #R$33A1: X
+B $371E,1 #R$369B: X
+  $371F The exponent, e, goes into #REGa.
+  $3720 X is reduced to X'.
+  $3722 The stack holds: X', e.
+  $3725 X', e
+B $3726,3,1,2 #R$33C6: X', e, 128 (decimal)
+B $3729,1 #R$300F: X', e'
+N $372A Perform step iii.
+B $372A,1 #R$343C: e', X'
+B $372B,1 #R$33C0: e', X', X'
+B $372C,6,1,5 #R$33C6: e', X', X', 0.8 (decimal)
+B $3732,1 #R$300F: e', X', X'-0.8
+B $3733,1 #R$34F9: e', X', (1/0)
+B $3734,2,1 #R$368F to #R$373D: e', X'
+B $3736,1 #R$343C: X', e'
+B $3737,1 #R$341B(stk_one): X', e', 1
+B $3738,1 #R$300F: X', e'-1
+B $3739,1 #R$343C: e'-1, X'
+B $373A,1 #R$369B
+  $373B Double X' to give 2*X'.
+  $373C e'-1, 2*X'
 @ $373D label=GRE_8
-B $373D,69,1*3,4,1*19,2,1,2,1,2,1,3,1,3,1,3,1,4,1,4,1,4,1,4,1
+B $373D,1 #R$343C: X', e' (X'>0.8) or 2*X', e'-1 (X'<=0.8)
+B $373E,6,1,5 #R$33C6: X', e', LN 2 or 2*X', e'-1, LN 2
+B $3744,1 #R$30CA: X', e'*LN 2=Y1 or 2*X', (e'-1)*LN 2=Y2
+N $3745 Perform step iv.
+B $3745,1 #R$343C: Y1, X' (X'>0.8) or Y2, 2*X' (X'<=0.8)
+B $3746,1 #R$341B(stk_half):  Y1, X', .5 or Y2, 2*X', .5
+B $3747,1 #R$300F: Y1, X'-.5 or Y2, 2*X'-.5
+B $3748,1 #R$341B(stk_half): Y1, X'-.5, .5 or Y2, 2*X'-.5, .5
+B $3749,1 #R$300F: Y1, X'-1 or Y2, 2*X'-1
+N $374A Perform step v.
+B $374A,1 #R$33C0: Y, X'-1, X'-1 or Y2, 2*X'-1, 2*X'-1
+B $374B,3,1,2 #R$33C6:  Y1, X'-1, X'-1, 2.5 (decimal) or Y2, 2*X'-1, 2*X'-1, 2.5
+B $374E,1 #R$30CA: Y1, X'-1, 2.5*X'-2.5 or Y2, 2*X'-1, 5*X'-2.5
+B $374F,1 #R$341B(stk_half): Y1, X'-1, 2.5*X'-2.5, .5 or Y2, 2*X'-1, 5*X'-2.5, .5
+B $3750,1 #R$300F: Y1, X'-1, 2.5*X'-3=Z or Y2, 2*X'-1, 5*X'-3=Z
+N $3751 Perform step vi, passing to the #R$3449(series generator) the parameter '12' decimal, and the twelve constants required.
+B $3751,1 #R$3449(series_0C): Y1, X'-1, Z or Y2, 2*X'-1, Z
+B $3752,45,2,2,3,3,3,4,4,4,5,5,5,5
+N $377F At the end of the last loop the 'last value' is:
+N $377F #LIST { LN X'/(X'-1) if X'>0.8 } { LN (2*X')/(2*X'-1) if X'<=0.8 } LIST#
+N $377F Perform step vii.
+B $377F,1 #R$30CA: Y1=LN (2**e'), LN X' or Y2=LN (2**(e'-1)), LN (2*X')
+B $3780,1 #R$3014: LN (2**e')*X')=LN X or LN (2**(e'-1)*2*X')=LN X
+B $3781,1 #R$369B: LN X
+  $3782 Finished: 'last value' is LN X.
 @ $3783 label=get_argt
 c $3783 THE 'REDUCE ARGUMENT' SUBROUTINE
 B $3784,28,1*3,4,1
