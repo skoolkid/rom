@@ -372,13 +372,78 @@ c $03B5 THE 'BEEPER' SUBROUTINE
 @ $03F6 label=BE_END
 @ $03F8 label=BEEP
 c $03F8 THE 'BEEP' COMMAND ROUTINE
-B $03F9,14,1*6,4,1
+D $03F8 The subroutine is entered with two numbers on the calculator stack. The topmost number (P) represents the 'pitch' of the note and the number underneath it (t) represents the 'duration'.
+  $03F8 The floating-point calculator is used to manipulate the two values: t, P.
+B $03F9,1 #R$33C0: t, P, P
+B $03FA,1 #R$36AF: t, P, i (where i=INT P)
+B $03FB,1 #R$342D(st_mem_0): t, P, i (mem-0 holds i)
+B $03FC,1 #R$300F: t, p (where p is the fractional part of P)
+B $03FD,6,1,5 #R$33C6: Stack the decimal value K=0.0577622606 (which is a little below 12*(2#power0.5)-1)
+B $0403,1 #R$30CA: t, pK
+B $0404,1 #R$341B(stk_one): t, pK, 1
+B $0405,1 #R$3014: t, pK+1
+B $0406,1 #R$369B
+N $0407 Now perform several tests on i, the integer part of the 'pitch'.
+  $0407 This is 'mem-0-1st' (MEMBOT).
+  $040A Fetch the exponent of i.
+  $040B Give an error if i is not in the integral (short) form.
+  $040E Copy the sign byte to the #REGc register.
+  $0410 Copy the low-byte to the #REGb register, and to the #REGa register.
+  $0413 Again give report B if i does not satisfy the test: -128<=i<=+127.
+  $041C Fetch the low-byte and test it further.
+  $041F Accept -60<=i<=67.
+  $0422 Reject -128 to -61.
+N $0425 Note: The range +70 to +127 will be rejected later on.
+N $0425 The correct frequency for the 'pitch' i can now be found.
 @ $0425 label=BE_i_OK
+  $0425 Start '6' octaves below middle C.
 @ $0427 label=BE_OCTAVE
-B $0439,2,1
-B $043F,4,1
-B $044B,16,1*6,3,1
+  $0427 Repeatedly reduce i in order to find the correct octave.
+  $042C Add back the last subtraction.
+  $042E Save the octave number.
+  $042F The base address of the '#R$046E(semitone table)'.
+  $0432 Consider the table and pass the 'A th.' value to the calculator stack. (Call it C.)
+N $0438 Now the fractional part of the 'pitch' can be taken into consideration.
+  $0438 t, pK+1, C
+B $0439,1 #R$30CA: t, C(pK+1)
+B $043A,1 #R$369B
+N $043B The final frequency f is found by modifying the 'last value' according to the octave number.
+  $043B Fetch the octave number.
+  $043C Multiply the 'last value' by 2 to the power of the octave number.
+  $043E t, f
+B $043F,1 #R$342D(st_mem_0): Copy the frequency (f) to mem-0
+B $0440,1 #R$33A1: t
+N $0441 Attention is now turned to the 'duration'.
+B $0441,1 #R$33C0
+B $0441,1 #R$33C0: t, t
+B $0442,1 #R$369B
+  $0443 The value 'INT t' must be in the range +00 to +0A.
+N $044A The number of complete cycles in the 'beep' is given by f*t so this value is now found.
+  $044A t
+B $044B,1 #R$340F(get_mem_0): t, f
+B $044C,1 #R$30CA: f*t
+N $044D The result is left on the calculator stack whilst the length of the 'timing loop' required for the 'beep' is computed;
+B $044D,1 #R$340F(get_mem_0)
+B $044D,1 #R$340F(get_mem_0): f*t, f
+B $044E,6,1,5 #R$33C6: Stack the value (3.5*10#power6)/8=437500
+B $0454,1 #R$343C: f*t, 437500, f
+B $0455,1 #R$31AF: f*t, 437500/f
+B $0456,3,1,2 #R$33C6: f*t, 437500/f, 30.125 (dec.)
+B $0459,1 #R$300F: f*t, 437500/f-30.125
+B $045A,1 #R$369B
+N $045B Note: The value 437500/f gives the 'half-cycle' length of the note and reducing it by 30.125 allows for 120.5 T states in which to actually produce the note and adjust the counters etc.
+N $045B The values can now be transferred to the required registers.
+  $045B The 'timing loop' value is compressed into the #REGbc register pair and saved.
+N $045F Note: If the timing loop value is too large then an error will occur (returning via #R$0008), thereby excluding 'pitch' values of +70 to +127.
+  $045F The f*t value is compressed into the #REGbc register pair.
+  $0462 Move the 'timing loop' value to the #REGhl register pair.
+  $0463 Move the f*t value to the #REGde register pair.
+N $0465 However before making the 'beep' test the value f*t.
+  $0465 Return if f*t has given the result of 'no cycles' required.
+  $0468 Decrease the cycle number and jump to #R$03B5 (making at least one pass).
+N $046C Report B - integer out of range
 @ $046C label=REPORT_B
+M $046C,2 Call the error handling routine.
 B $046D,1
 @ $046E label=SEMITONES
 b $046E THE 'SEMI-TONE' TABLE
