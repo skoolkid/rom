@@ -3322,10 +3322,32 @@ c $36A0 THE 'MODULUS' SUBROUTINE
 B $36A1,13,1
 @ $36AF label=int
 c $36AF THE 'INT' FUNCTION
-B $36B0,6,1
+D $36AF This subroutine handles the function INT X and returns a 'last value' that is the 'integer part' of the value supplied. Thus INT 2.4 gives 2 but as the subroutine always rounds the result down INT -2.4 gives -3.
+D $36AF The subroutine uses #R$3214 to produce I(X) such that I(2.4)=2 and I(-2.4)=-2. Thus, INT X is given by I(X) when X>=0, and by I(X)-1 for negative values of X that are not already integers, when the result is, of course, I(X).
+  $36AF X
+B $36B0,1 #R$33C0: X, X
+B $36B1,1 #R$3506: X, (1/0)
+B $36B2,2,1 #R$368F to #R$36B7: X
+N $36B4 For values of X that have been shown to be greater than or equal to zero there is no jump and I(X) is readily found.
+B $36B4,1 #R$3214: I(X)
+B $36B5,1 #R$369B
+  $36B6 Finished.
+N $36B7 When X is a negative integer I(X) is returned, otherwise I(X)-1 is returned.
 @ $36B7 label=X_NEG
-B $36B7,12,1
+B $36B7,1 #R$33C0: X, X
+B $36B8,1 #R$3214: X, I(X)
+B $36B9,1 #R$342D(st_mem_0): X, I(X) (mem-0 holds I(X))
+B $36BA,1 #R$300F: X-I(X)
+B $36BB,1 #R$340F(get_mem_0): X-I(X), I(X)
+B $36BC,1 #R$343C: I(X), X-I(X)
+B $36BD,1 #R$3501: I(X), (1/0)
+B $36BE,2,1 #R$368F to #R$36C2: I(X)
+N $36C0 The jump is made for values of X that are negative integers, otherwise there is no jump and I(X)-1 is calculated.
+B $36C0,1 #R$341B(stk_one): I(X), 1
+B $36C1,1 #R$300F: I(X)-1
+N $36C2 In either case the subroutine finishes with;
 @ $36C2 label=EXIT
+B $36C2,1 #R$369B: I(X) or I(X)-1
 @ $36C4 label=EXP
 c $36C4 THE 'EXPONENTIAL' FUNCTION
 D $36C4 This subroutine handles the function EXP X and is the first of four routines that use the #R$3449(series generator) to produce Chebyshev polynomials.
