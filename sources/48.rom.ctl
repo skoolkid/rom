@@ -2210,10 +2210,57 @@ B $2476,1 #R$369B
   $247A Exit, setting temporary colours.
 @ $247D label=CD_PRMS1
 c $247D THE 'INITIAL PARAMETERS' SUBROUTINE
-B $247E,12,1
+D $247D This subroutine is called by both #R$2320 and #R$2382 to set their initial parameters. It is called by #R$2320 with X, Y and the radius Z on the top of the stack, reading upwards. It is called by #R$2382 with its own X, Y, SIN (G/2) and Z, as defined in #R$2382 i., on the top of the stack. In what follows the stack is only shown from Z upwards.
+D $247D The subroutine returns in #REGb the arc-count A as explained in both #R$2320 and #R$2382, and in mem-0 to mem-5 the quantities G/A, SIN (G/2*A), 0, COS (G/A), SIN (G/A) and G. For a circle, G must be taken to be equal to 2#pi.
+  $247D Z
+B $247E,1 #R$33C0: Z, Z
+B $247F,1 #R$384A: Z, SQR Z
+B $2480,3,1,2 #R$33C6: Z, SQR Z, 2
+B $2483,1 #R$343C: Z, 2, SQR Z
+B $2484,1 #R$31AF: Z, 2/SQR Z
+B $2485,1 #R$340F(get_mem_5): Z, 2/SQR Z, G
+B $2486,1 #R$343C: Z, G, 2/SQR Z
+B $2487,1 #R$31AF: Z, G*SQR Z/2
+B $2488,1 #R$346A: Z, G'*SQR Z/2 (G' = mod G)
+B $2489,1 #R$369B: Z, G'*SQR Z/2 = A1, say
+  $248A A1 to #REGa from the stack, if possible.
+  $248D If A1 rounds to 256 or more, use 252.
+  $248F 4*INT (A1/4) to #REGa.
+  $2491 Add 4, giving the arc-count A.
+  $2493 Jump if still under 256.
+  $2495 Here, just use 252 decimal.
 @ $2495 label=USE_252
+  $2497 Now save the arc-count.
 @ $2497 label=DRAW_SAVE
-B $249C,25,1
+  $2498 Copy it to calculator stack too.
+  $249B Z, A
+B $249C,1 #R$340F(get_mem_5): Z, A, G
+B $249D,1 #R$343C: Z, G, A
+B $249E,1 #R$31AF: Z, G/A
+B $249F,1 #R$33C0: Z, G/A, G/A
+B $24A0,1 #R$37B5: Z, G/A, SIN (G/A)
+B $24A1,1 #R$342D(st_mem_4): (SIN (G/A) is copied to mem-4)
+B $24A2,1 #R$33A1: Z, G/A
+B $24A3,1 #R$33C0: Z, G/A, G/A
+B $24A4,1 #R$341B(stk_half): Z, G/A, G/A, 0.5
+B $24A5,1 #R$30CA: Z, G/A, G/2*A
+B $24A6,1 #R$37B5: Z, G/A, SIN (G/2*A)
+B $24A7,1 #R$342D(st_mem_1): (SIN (G/2*A) is copied to mem-1)
+B $24A8,1 #R$343C: Z, SIN (G/2*A), G/A
+B $24A9,1 #R$342D(st_mem_0): (G/A is copied to mem-0)
+B $24AA,1 #R$33A1: Z, SIN (G/2*A)=S
+B $24AB,1 #R$33C0: Z, S, S
+B $24AC,1 #R$30CA: Z, S*S
+B $24AD,1 #R$33C0: Z, S*S, S*S
+B $24AE,1 #R$3014: Z, 2*S*S
+B $24AF,1 #R$341B(stk_one): Z, 2*S*S, 1
+B $24B0,1 #R$300F: Z, 2*S*S-1
+B $24B1,1 #R$346E: Z, 1-2*S*S=COS (G/A)
+B $24B2,1 #R$342D(st_mem_3): (COS (G/A) is copied to mem-3)
+B $24B3,1 #R$33A1: Z
+B $24B4,1 #R$369B
+  $24B5 Restore the arc-count to #REGb.
+  $24B6 Finished.
 @ $24B7 label=DRAW_LINE
 c $24B7 THE LINE-DRAWING SUBROUTINE
 @ $24C4 label=DL_X_GE_Y
