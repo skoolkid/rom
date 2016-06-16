@@ -3450,10 +3450,47 @@ B $3781,1 #R$369B: LN X
   $3782 Finished: 'last value' is LN X.
 @ $3783 label=get_argt
 c $3783 THE 'REDUCE ARGUMENT' SUBROUTINE
-B $3784,28,1*3,4,1
+D $3783 This subroutine transforms the argument X of SIN X or COS X into a value V.
+D $3783 The subroutine first finds the value Y=X/2#pi-INT(X/2#pi+0.5), where 0.5<=Y<0.5.
+D $3783 The subroutine returns with:
+D $3783 #LIST { V=4*Y if -1<=4*Y<=1 (case i) } { or V=2-4*Y if 1<4*Y<2 (case ii) } { or V=-4*Y-2 if -2<=4*Y<-1 (case iii) } LIST#
+D $3783 In each case, -1<=V<=1 and SIN (#piV/2)=SIN X.
+  $3783 X
+B $3784,1 #R$3297: X (in full floating-point form)
+B $3785,6,1,5 #R$33C6: X, 1/2#pi
+B $378B,1 #R$30CA: X/2#pi
+B $378C,1 #R$33C0: X/2#pi, X/2#pi
+B $378D,1 #R$341B(stk_half): X/2#pi, X/2#pi, 0.5
+B $378E,1 #R$3014: X/2#pi, X/2#pi+0.5
+B $378F,1 #R$36AF: X/2#pi, INT (X/2#pi+0.5)
+B $3790,1 #R$300F: X/2#pi-INT (X/2#pi+0.5)=Y
+N $3791 Note: Adding 0.5 and taking INT rounds the result to the nearest integer.
+B $3791,1 #R$33C0: Y, Y
+B $3792,1 #R$3014: 2*Y
+B $3793,1 #R$33C0: 2*Y, 2*Y
+B $3794,1 #R$3014: 4*Y
+B $3795,1 #R$33C0: 4*Y, 4*Y
+B $3796,1 #R$346A: 4*Y, ABS (4*Y)
+B $3797,1 #R$341B(stk_one): 4*Y, ABS (4*Y), 1
+B $3798,1 #R$300F: 4*Y, ABS (4*Y)-1=Z
+B $3799,1 #R$33C0: 4*Y, Z, Z
+B $379A,1 #R$34F9: 4*Y, Z, (1/0)
+B $379B,1 #R$342D(st_mem_0): (mem-0 holds the result of the test)
+B $379C,2,1 #R$368F to #R$37A1: 4*Y, Z
+B $379E,1 #R$33A1: 4*Y
+B $379F,1 #R$369B: 4*Y=V (case i)
+  $37A0 Finished.
+N $37A1 If the jump was made then continue.
 @ $37A1 label=ZPLUS
-B $37A1,8,1
+B $37A1,1 #R$341B(stk_one): 4*Y, Z, 1
+B $37A2,1 #R$300F: 4*Y, Z-1
+B $37A3,1 #R$343C: Z-1, 4*Y
+B $37A4,1 #R$3506: Z-1, (1/0)
+B $37A5,2,1 #R$368F to #R$37A8: Z-1
+B $37A7,1 #R$346E: 1-Z
+B $37A8,1 #R$369B: 1-Z=V (case ii) or Z-1=V (case iii)
 @ $37A8 label=YNEG
+  $37A9 Finished.
 @ $37AA label=cos
 c $37AA THE 'COSINE' FUNCTION
 B $37AB,10,1
