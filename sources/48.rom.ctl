@@ -3582,11 +3582,42 @@ c $384A THE 'SQUARE ROOT' FUNCTION
 B $384B,6,1
 @ $3851 label=to_power
 c $3851 THE 'EXPONENTIATION' OPERATION
-B $3852,8,1
+D $3851 This subroutine performs the binary operation of raising the first number, X, to the power of the second number, Y.
+D $3851 The subroutine treats the result X**Y as being equivalent to EXP (Y*LN X). It returns this value unless X is zero, in which case it returns 1 if Y is also zero (0**0=1), returns zero if Y is positive, and reports arithmetic overflow if Y is negative.
+  $3851 X, Y
+B $3852,1 #R$343C: Y, X
+B $3853,1 #R$33C0: Y, X, X
+B $3854,1 #R$3501: Y, X, (1/0)
+B $3855,2,1 #R$368F to #R$385D: Y, X
+N $3857 The jump is made if X=0, otherwise EXP (Y*LN X) is formed.
+B $3857,1 #R$3713: Y, LN X
+N $3858 Giving report A if X is negative.
+B $3858,1 #R$30CA: Y*LN X
+B $3859,1 #R$369B
+  $385A Exit via #R$36C4 to form EXP (Y*LN X).
+N $385D The value of X is zero so consider the three possible cases involved.
 @ $385D label=XIS0
-B $385D,16,1
+B $385D,1 #R$33A1: Y
+B $385E,1 #R$33C0: Y, Y
+B $385F,1 #R$3501: Y, (1/0)
+B $3860,2,1 #R$368F to #R$386A: Y
+N $3862 The jump is made if X=0 and Y=0, otherwise proceed.
+B $3862,1 #R$341B(stk_zero): Y, 0
+B $3863,1 #R$343C: 0, Y
+B $3864,1 #R$34F9: 0, (1/0)
+B $3865,2,1 #R$368F to #R$386C: 0
+N $3867 The jump is made if X=0 and Y is positive, otherwise proceed.
+B $3867,1 #R$341B(stk_one): 0, 1
+B $3868,1 #R$343C: 1, 0
+B $3869,1 #R$31AF: Exit via #R$31AF as dividing by zero gives 'arithmetic overflow'.
+N $386A The result is to be 1 for the operation.
 @ $386A label=ONE
+B $386A,1 #R$33A1: -
+B $386B,1 #R$341B(stk_one): 1
+N $386C Now return with the 'last value' on the stack being 0**Y.
 @ $386C label=LAST
+B $386C,1 #R$369B: (1/0)
+  $386D Finished: 'last value' is 0 or 1.
 s $386E
   $386E,1170,1170:$FF These locations are 'spare'. They all hold +FF.
 @ $3D00 label=CHARSET
