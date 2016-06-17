@@ -3494,7 +3494,24 @@ c $368F THE 'JUMP ON TRUE' SUBROUTINE
 c $369B THE 'END-CALC' SUBROUTINE
 @ $36A0 label=n_mod_m
 c $36A0 THE 'MODULUS' SUBROUTINE
-B $36A1,13,1
+D $36A0 This subroutine calculates N (mod M), where M is a positive integer held at the top of the calculator stack (the 'last value'), and N is the integer held on the stack beneath M.
+D $36A0 The subroutine returns the integer quotient INT (N/M) at the top of the calculator stack (the 'last value'), and the remainder N-INT (N/M) in the second place on the stack.
+D $36A0 This subroutine is called during the calculation of a random number to reduce N mod 65537 decimal.
+  $36A0 N, M
+B $36A1,1 #R$342D(st_mem_0): N, M (mem-0 holds M)
+B $36A2,1 #R$33A1: N
+B $36A3,1 #R$33C0: N, N
+B $36A4,1 #R$340F(get_mem_0): N, N, M
+B $36A5,1 #R$31AF: N, N/M
+B $36A6,1 #R$36AF: N, INT (N/M)
+B $36A7,1 #R$340F(get_mem_0): N, INT (N/M), M
+B $36A8,1 #R$343C: N, M, INT (N/M)
+B $36A9,1 #R$342D(st_mem_0): N, M, INT (N/M) (mem-0 holds INT (N/M))
+B $36AA,1 #R$30CA: N, M*INT (N/M)
+B $36AB,1 #R$300F: N-M*INT (N/M)
+B $36AC,1 #R$340F(get_mem_0): N-M*INT (N/M), INT (N/M)
+B $36AD,1 #R$369B
+  $36AE Finished.
 @ $36AF label=int
 c $36AF THE 'INT' FUNCTION
 D $36AF This subroutine handles the function INT X and returns a 'last value' that is the 'integer part' of the value supplied. Thus INT 2.4 gives 2 but as the subroutine always rounds the result down INT -2.4 gives -3.
