@@ -2688,29 +2688,93 @@ c $2C8D THE 'ALPHA' SUBROUTINE
   $2C98,c2
 @ $2C9B label=DEC_TO_FP
 c $2C9B THE 'DECIMAL TO FLOATING POINT' SUBROUTINE
+D $2C9B As part of syntax checking decimal numbers that occur in a BASIC line are converted to their floating-point forms. This subroutine reads the decimal number digit by digit and gives its result as a 'last value' on the calculator stack. But first it deals with the alternative notation BIN, which introduces a sequence of 0's and 1's giving the binary representation of the required number.
+  $2C9B Is the character a 'BIN'?
+  $2C9D Jump if it is not 'BIN'.
 @ $2C9F keep
+  $2C9F Initialise result to zero in #REGde.
 @ $2CA2 label=BIN_DIGIT
-  $2CA3,c2
+  $2CA2 Get the next character.
+  $2CA3,c2 Subtract the character code for '1'.
+  $2CA5 0 now gives 0 with carry set; 1 gives 0 with carry reset.
+  $2CA7 Any other character causes a jump to #R$2CB3 and will be checked for syntax during or after scanning.
+  $2CA9 Result so far to #REGhl now.
+  $2CAA Complement the carry flag.
+  $2CAB Shift the result left, with the carry going to bit 0.
+  $2CAD Report overflow if more than 65535.
+  $2CB0 Return the result so far to #REGde.
+  $2CB1 Jump back for next 0 or 1.
 @ $2CB3 label=BIN_END
+  $2CB3 Copy result to #REGbc for stacking.
+  $2CB5 Jump forward to stack the result.
+N $2CB8 For other numbers, first any integer part is converted; if the next character is a decimal, then the decimal fraction is considered.
 @ $2CB8 label=NOT_BIN
-  $2CB8,c2
-  $2CBF,c2
+  $2CB8,c2 Is the first character a '.'?
+  $2CBA If so, jump forward.
+  $2CBC Otherwise, form a 'last value' of the integer.
+  $2CBF,c2 Is the next character a '.'?
+  $2CC1 Jump forward to see if it is an 'E'.
+  $2CC3 Get the next character.
+  $2CC4 Is it a digit?
+  $2CC7 Jump if not (e.g. 1.E4 is allowed).
+  $2CC9 Jump forward to deal with the digits after the decimal point.
 @ $2CCB label=DECIMAL
+  $2CCB If the number started with a decimal, see if the next character is a digit.
+  $2CCF Report the error if it is not.
 @ $2CCF label=DEC_RPT_C
-B $2CD3,2,1
+  $2CD2 Use the calculator to stack zero as the integer part of such numbers.
+B $2CD3,1 #R$341B(stk_zero)
+B $2CD4,1 #R$369B
 @ $2CD5 label=DEC_STO_1
-B $2CD6,4,1
+  $2CD5 Use the calculator to copy the number 1 to mem-0.
+B $2CD6,1 #R$341B(stk_one)
+B $2CD7,1 #R$342D(st_mem_0)
+B $2CD8,1 #R$33A1
+B $2CD9,1 #R$369B
+N $2CDA For each passage of the following loop, the number (N) saved in the memory area mem-0 is fetched, divided by 10 and restored, i.e. N goes from 1 to .1 to .01 to .001 etc. The present digit (D) is multiplied by N/10 and added to the 'last value' (V), giving V+D*N/10.
 @ $2CDA label=NXT_DGT_1
-B $2CE1,7,1
+  $2CDA Get the present character.
+  $2CDB If it is a digit (D) then stack it.
+  $2CDE If not jump forward.
+  $2CE0 Now use the calculator.
+B $2CE1,1 #R$340F(get_mem_0): V, D, N
+B $2CE2,1 #R$341B(stk_ten): V, D, N, 10
+B $2CE3,1 #R$31AF: V, D, N/10
+B $2CE4,1 #R$342D(st_mem_0): V, D, N/10 (N/10 is copied to mem-0)
+B $2CE5,1 #R$30CA: V, D*N/10
+B $2CE6,1 #R$3014: V+D*N/10
+B $2CE7,1 #R$369B
+  $2CE8 Get the next character.
+  $2CE9 Jump back (one more byte than needed) to consider it.
+N $2CEB Next consider any 'E notation', i.e. the form xEm or xem where m is a positive or negative integer.
 @ $2CEB label=E_FORMAT
-  $2CEB,c2
-  $2CEF,c2
+  $2CEB,c2 Is the present character an 'E'?
+  $2CED Jump forward if it is.
+  $2CEF,c2 Is it an 'e'?
+  $2CF1 Finished unless it is so.
 @ $2CF2 label=SIGN_FLAG
-  $2CF5,c2
-  $2CF9,c2
+  $2CF2 Use #REGb as a sign flag, FF for '+'.
+  $2CF4 Get the next character.
+  $2CF5,c2 Is it a '+'?
+  $2CF7 Jump forward.
+  $2CF9,c2 Is it a '-'?
+  $2CFB Jump if neither '+' nor '-'.
+  $2CFD Change the sign of the flag.
 @ $2CFE label=SIGN_DONE
+  $2CFE Point to the first digit.
 @ $2CFF label=ST_E_PART
+  $2CFF Is it indeed a digit?
+  $2D02 Report the error if not.
+  $2D04 Save the flag in #REGb briefly.
+  $2D05 Stack ABS m, where m is the exponent.
+  $2D08 Transfer ABS m to #REGa.
+  $2D0B Restore the sign flag to #REGb.
+  $2D0C Report the overflow now if ABS m is greater than 255 or indeed greater than 127 (other values greater than about 39 will be detected later).
+  $2D13 Test the sign flag in #REGb; '+' (i.e. +FF) will now set the zero flag.
+  $2D14 Jump if sign of m is '+'.
+  $2D16 Negate m if sign is '-'.
 @ $2D18 label=E_FP_JUMP
+  $2D18 Jump to assign to the 'last value' the result of x*10#powerm.
 @ $2D1B label=NUMERIC
 c $2D1B THE 'NUMERIC' SUBROUTINE
   $2D1B,c2
