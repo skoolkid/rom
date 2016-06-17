@@ -3755,7 +3755,24 @@ B $3831,1 #R$369B
   $3832 Finished: 'last value'=ATN X.
 @ $3833 label=asn
 c $3833 THE 'ARCSIN' FUNCTION
-B $3834,14,1
+D $3833 This subroutine handles the function ASN X and returns a real real number from -#pi/2 to #pi/2 inclusive which is equal to the value in radians of the angle whose sine is X. Thereby if Y=ASN X then X=SIN Y.
+D $3833 This subroutine uses the trigonometric identity TAN (Y/2)=SIN Y/1(1+COS Y) to obtain TAN (Y/2) and hence (using ATN) Y/2 and finally Y.
+  $3833 X
+B $3834,1 #R$33C0: X, X
+B $3835,1 #R$33C0: X, X, X
+B $3836,1 #R$30CA: X, X*X
+B $3837,1 #R$341B(stk_one): X, X*X, 1
+B $3838,1 #R$300F: X, X*X-1
+B $3839,1 #R$346E: X, 1-X*X
+B $383A,1 #R$384A: X, SQR (1-X*X)
+B $383B,1 #R$341B(stk_one): X, SQR (1-X*X), 1
+B $383C,1 #R$3014: X, 1+SQR (1-X*X)
+B $383D,1 #R$31AF: X/(1+SQR (1-X*X))=TAN (Y/2)
+B $383E,1 #R$37E2: Y/2
+B $383F,1 #R$33C0: Y/2, Y/2
+B $3840,1 #R$3014: Y=ASN X
+B $3841,1 #R$369B
+  $3842 Finished: 'last value'=ASN X.
 @ $3843 label=acs
 c $3843 THE 'ARCCOS' FUNCTION
 B $3844,5,1
