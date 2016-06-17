@@ -2943,10 +2943,31 @@ c $2D8C THE 'INT-STORE' SUBROUTINE
 @ $2D8E label=INT_STORE
 @ $2DA2 label=FP_TO_BC
 c $2DA2 THE 'FLOATING-POINT TO BC' SUBROUTINE
-B $2DA3,1
-B $2DA9,4,1
+D $2DA2 This subroutine is used to compress the floating-point 'last value' on the calculator stack into the #REGbc register pair. If the result is too large, i.e. greater than 65536 decimal, then the subroutine returns with the carry flag set. If the 'last value' is negative then the zero flag is reset. The low byte of the result is also copied to the #REGa register.
+  $2DA2 Use the calculator to make #REGhl point to STKEND-5.
+B $2DA3,1 #R$369B
+  $2DA4 Collect the exponent byte of the 'last value'; jump if it is zero, indicating a 'small integer'.
+  $2DA8 Now use the calculator to round the 'last value' (V) to the nearest integer, which also changes it to 'small integer' form on the calculator stack if that is possible, i.e. if -65535.5<=V<65535.5.
+B $2DA9,1 #R$341B(stk_half): V, 0.5
+B $2DAA,1 #R$3014: V+0.5
+B $2DAB,1 #R$36AF: INT (V+0.5)
+B $2DAC,1 #R$369B
 @ $2DAD label=FP_DELETE
-B $2DAE,2,1
+  $2DAD Use the calculator to delete the integer from the stack; #REGde still points to it in memory (at STKEND).
+B $2DAE,1 #R$33A1
+B $2DAF,1 #R$369B
+  $2DB0 Save both stack pointers.
+  $2DB2 #REGhl now points to the number.
+  $2DB3 Copy the first byte to #REGb.
+  $2DB4 Copy bytes 2, 3 and 4 to #REGc, #REGe and #REGd.
+  $2DB7 Clear the #REGa register.
+  $2DB8 This sets the carry unless #REGb is zero.
+  $2DB9 This sets the zero flag if the number is positive (NZ denotes negative).
+  $2DBB Copy the high byte to #REGb.
+  $2DBC And the low byte to #REGc.
+  $2DBD Copy the low byte to #REGa too.
+  $2DBE Restore the stack pointers.
+  $2DC0 Finished.
 @ $2DC1 label=LOG_2_A
 c $2DC1 THE 'LOG(2#powerA)' SUBROUTINE
 B $2DCC,9,1*2,4,1
