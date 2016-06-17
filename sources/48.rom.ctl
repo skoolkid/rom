@@ -2793,16 +2793,48 @@ B $2D3D,2,1
 B $2D45,5,1
 @ $2D4F label=E_TO_FP
 c $2D4F THE 'E-FORMAT TO FLOATING-POINT' SUBROUTINE
+D $2D4F This subroutine gives a 'last value' on the top of the calculator stack that is the result of converting a number given in the form xEm, where m is a positive or negative integer. The subroutine is entered with x at the top of the calculator stack and m in the #REGa register.
+D $2D4F The method used is to find the absolute value of m, say p, and to multiply or divide x by 10#powerp according to whether m is positive or negative.
+D $2D4F To achieve this, p is shifted right until it is zero, and x is multiplied or divided by 10#power(2#powern) for each set bit b(n) of p. Since p is never much more than decimal 39, bits 6 and 7 of p will not normally be set.
+  $2D4F Test the sign of m by rotating bit 7 of #REGa into the carry without changing #REGa.
+  $2D51 Jump if m is positive.
+  $2D53 Negate m in #REGa without disturbing the carry flag.
 @ $2D55 label=E_SAVE
-B $2D5D,2,1
+  $2D55 Save m in #REGa briefly.
+  $2D56 This is MEMBOT; a sign flag is now stored in the first byte of mem-0, i.e. 0 for '+' and 1 for '-'.
+  $2D5C The stack holds x.
+B $2D5D,1 #R$341B(stk_ten): x, 10 (decimal)
+B $2D5E,1 #R$369B: x, 10
+  $2D5F Restore m in #REGa.
 @ $2D60 label=E_LOOP
-B $2D66,10,1
+  $2D60 In the loop, shift out the next bit of m, modifying the carry and zero flags appropriately; jump if carry reset.
+  $2D64 Save the rest of m and the flags.
+  $2D65 The stack holds x' and 10#power(2#powern), where x' is an interim stage in the multiplication of x by 10#powerm, and n=0, 1, 2, 3, 4 or 5.
+B $2D66,1 #R$342D(st_mem_1): (10#power(2#powern) is copied to mem-1)
+B $2D67,1 #R$340F(get_mem_0): x', 10#power(2#powern), (1/0)
+B $2D68,2,1 #R$368F to #R$2D6D: x', 10#power(2#powern)
+B $2D6A,1 #R$30CA: x'*10#power(2#powern)= x"
+B $2D6B,2,1 #R$3686 to #R$2D6E: x''
 @ $2D6D label=E_DIVSN
+B $2D6D,1 #R$31AF: x/10#power(2#powern)=x'' (x'' is x'*10#power(2#powern) or x'/10#power(2#powern) according as m is '+' or '-')
 @ $2D6E label=E_FETCH
+B $2D6E,1 #R$340F(get_mem_1): x'', 10#power(2#powern)
+B $2D6F,1 #R$369B: x'', 10#power(2#powern)
+  $2D70 Restore the rest of m in #REGa, and the flags.
 @ $2D71 label=E_TST_END
-B $2D75,3,1
+  $2D71 Jump if m has been reduced to zero.
+  $2D73 Save the rest of m in #REGa.
+  $2D74 x'', 10#power(2#powern)
+B $2D75,1 #R$33C0: x'', 10#power(2#powern), 10#power(2#powern)
+B $2D76,1 #R$30CA: x'', 10#power(2#power(n+1))
+B $2D77,1 #R$369B: x'', 10#power(2#power(n+1))
+  $2D78 Restore the rest of m in #REGa.
+  $2D79 Jump back for all bits of m.
 @ $2D7B label=E_END
-B $2D7C,2,1
+  $2D7B Use the calculator to delete the final power of 10 reached leaving the 'last value' x*10#powerm on the stack.
+B $2D7C,1 #R$33A1
+B $2D7D,1 #R$369B
+  $2D7E
 @ $2D7F label=INT_FETCH
 c $2D7F THE 'INT-FETCH' SUBROUTINE
 @ $2D8C label=P_INT_STO
