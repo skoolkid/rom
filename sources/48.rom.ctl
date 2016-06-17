@@ -3707,7 +3707,19 @@ B $37A8,1 #R$369B: 1-Z=V (case ii) or Z-1=V (case iii)
   $37A9 Finished.
 @ $37AA label=cos
 c $37AA THE 'COSINE' FUNCTION
-B $37AB,10,1
+D $37AA This subroutine handles the function COS X and returns a 'last value' 'that is an approximation to COS X.
+D $37AA The subroutine uses the expression COS X=SIN (#piW/2), where -1<=W<=1.
+D $37AA In deriving W for X the subroutine uses the test result obtained in the previous subroutine and stored for this purpose in mem-0. It then jumps to the #R$37B5 subroutine, entering at #R$37B7, to produce a 'last value' of COS X.
+  $37AA X
+B $37AB,1 #R$3783: V
+B $37AC,1 #R$346A: ABS V
+B $37AD,1 #R$341B(stk_one): ABS V, 1
+B $37AE,1 #R$300F: ABS V-1
+B $37AF,1 #R$340F(get_mem_0): ABS V-1, (1/0)
+B $37B0,2,1 #R$368F to #R$37B7: ABS V-1=W
+N $37B2 If the jump was not made then continue.
+B $37B2,1 #R$346E: 1-ABS V
+B $37B3,2,1 #R$3686 to #R$37B7: 1-ABS V=W
 @ $37B5 label=sin
 c $37B5 THE 'SINE' FUNCTION
 D $37B5 This subroutine handles the function SIN X and is the third of the four routines that use the #R$3449(series generator) to produce Chebyshev polynomials.
