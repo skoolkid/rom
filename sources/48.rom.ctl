@@ -1707,10 +1707,32 @@ c $1D86 THE 'LOOK-PROG' SUBROUTINE
 @ $1DA3 label=LOOK_P_2
 @ $1DAB label=NEXT
 c $1DAB THE 'NEXT' COMMAND ROUTINE
-B $1DBE,6,1
+D $1DAB The 'variable in assignment' has already been determined (see #R$1C6C), and it remains to change the VALUE as required.
+  $1DAB Jump to give the error report if the variable was not found.
+  $1DB2 The address of the variable is fetched and the name tested further.
+N $1DB9 Next the variable's VALUE (v) and STEP (s) are manipulated by the calculator.
+  $1DB9 Step past the name.
+  $1DBA Make the variable a temporary 'memory area'.
+  $1DBD -
+B $1DBE,1 #R$340F(get_mem_0): v
+B $1DBF,1 #R$340F(get_mem_2): v, s
+B $1DC0,1 #R$3014: v+s
+B $1DC1,1 #R$342D(st_mem_0): v+s (v is replaced by v+s in mem-0)
+B $1DC2,1 #R$33A1: -
+B $1DC3,1 #R$369B: -
+N $1DC4 The result of adding the VALUE and the STEP is now tested against the LIMIT by calling #R$1DDA.
+  $1DC4 Test the new VALUE against the LIMIT.
+  $1DC7 Return now if the FOR-NEXT loop has been completed.
+N $1DC8 Otherwise collect the 'looping' line number and statement.
+  $1DC8 Find the address of the low byte of the looping line number.
 @ $1DCB keep
+  $1DCF Now fetch this line number.
+  $1DD3 Followed by the statement number.
+  $1DD4 Exchange the numbers before jumping forward to treat them as the destination line of a GO TO command.
+N $1DD8 Report 1 - NEXT without FOR
 @ $1DD8 label=REPORT_1
-B $1DD9,1
+M $1DD8,2 Call the error handling routine.
+B $1DD9,1 #R$368F
 @ $1DDA label=NEXT_LOOP
 c $1DDA THE 'NEXT-LOOP' SUBROUTINE
 D $1DDA This subroutine is used to determine whether the LIMIT (l) has been exceeded by the present VALUE (v). Note has to be taken of the sign of the STEP (s).
