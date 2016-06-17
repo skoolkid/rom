@@ -1625,16 +1625,80 @@ B $1CF7,2,1
 @ $1D00 label=IF_1
 @ $1D03 label=FOR
 c $1D03 THE 'FOR' COMMAND ROUTINE
+D $1D03 This command routine is entered with the VALUE and the LIMIT of the FOR statement already on the top of the calculator stack.
+  $1D03 Jump forward unless a 'STEP' is given.
+  $1D07 Advance CH-ADD and fetch the value of the STEP.
+  $1D0B Move on to the next statement if checking syntax; otherwise jump forward.
+N $1D10 There has not been a STEP supplied so the value '1' is to be used.
 @ $1D10 label=F_USE_1
-B $1D14,2,1
+  $1D10 Move on to the next statement if checking syntax
+  $1D13 Otherwise use the calculator to place a '1' on the calculator stack.
+B $1D14,1 #R$341B(stk_one)
+B $1D15,1 #R$369B
+N $1D16 The three values on the calculator stack are the VALUE (v), the LIMIT (l) and the STEP (s). These values now have to be manipulated.
 @ $1D16 label=F_REORDER
-B $1D17,6,1
+  $1D16 v, l, s
+B $1D17,1 #R$342D(st_mem_0): v, l, s (mem-0=s)
+B $1D18,1 #R$33A1: v, l
+B $1D19,1 #R$343C: l, v
+B $1D1A,1 #R$340F(get_mem_0): l, v, s
+B $1D1B,1 #R$343C: l, s, v
+B $1D1C,1 #R$369B
+N $1D1D #REGa FOR control variable is now established and treated as a temporary calculator memory area.
+  $1D1D The variable is found, or created if needed (v is used).
+  $1D20 Make it a 'memory area'.
+N $1D23 The variable that has been found may be a simple numeric variable using only six locations in which case it will need extending.
+  $1D23 Fetch the variable's single character name.
+  $1D25 Ensure bit 7 of the name is set.
 @ $1D27 keep
+  $1D27 It will have six locations at least.
+  $1D2A Make #REGhl point after them.
+  $1D2B Rotate the name and jump if it was already a FOR variable.
+  $1D2E Otherwise create thirteen more locations.
+  $1D33 Again make #REGhl point to the LIMIT position.
+N $1D34 The initial values for the LIMIT and the STEP are now added.
 @ $1D34 label=F_L_S
-B $1D36,3,1
+  $1D34 The pointer is saved.
+  $1D35 l, s
+B $1D36,1 #R$33A1: l
+B $1D37,1 #R$33A1: -
+B $1D38,1 #R$369B: #REGde still points to 'l'
+  $1D39 The pointer is restored and both pointers exchanged.
+  $1D3B The ten bytes of the LIMIT and the STEP are moved.
+N $1D3F The looping line number and statement number are now entered.
+  $1D3F The current line number.
+  $1D42 Exchange the registers before adding the line number to the FOR control variable.
+  $1D46 The looping statement is always the next statement whether it exists or not.
+N $1D4C The #R$1DDA subroutine is called to test the possibility of a 'pass' and a return is made if one is possible; otherwise the statement after for FOR - NEXT loop has to be identified.
+  $1D4C Is a 'pass' possible?
+  $1D4F Return now if it is.
+  $1D50 Fetch the variable's name.
+  $1D53 Copy the present line number to NEWPPC.
+  $1D59 Fetch the current statement number and two's complement it.
+  $1D5E Transfer the result to the #REGd register.
+  $1D5F Fetch the current value of CH-ADD.
+  $1D62 The search will be for 'NEXT'.
+N $1D64 Now a search is made in the program area, from the present point onwards, for the first occurrence of NEXT followed by the correct variable.
 @ $1D64 label=F_LOOP
+  $1D64 Save the variable's name.
+  $1D65 Fetch the current value of NXTLIN.
+  $1D69 The program area is now searched and #REGbc will change with each new line examined.
+  $1D6C Upon return save the pointer.
+  $1D70 Restore the variable's name.
+  $1D71 If there are no further NEXTs then give an error.
+  $1D73 Advance past the NEXT that was found.
+  $1D74 Allow for upper and lower case letters before the new variable name is tested.
+  $1D77 Jump forward if it matches.
+  $1D79 Advance CH-ADD again and jump back if not the correct variable.
+N $1D7C NEWPPC holds the line number of the line in which the correct NEXT was found. Now the statement number has to be found and stored in NSPPC.
 @ $1D7C label=F_FOUND
+  $1D7C Advance CH-ADD.
+  $1D7D The statement counter in the #REGd register counted statements back from zero so it has to be subtracted from '1'.
+  $1D80 The result is stored.
+  $1D83 Now return - to #R$1B76.
+N $1D84 REPORT I - FOR without NEXT
 @ $1D84 label=REPORT_I
+M $1D84,2 Call the error handling routine.
 B $1D85,1
 @ $1D86 label=LOOK_PROG
 c $1D86 THE 'LOOK-PROG' SUBROUTINE
