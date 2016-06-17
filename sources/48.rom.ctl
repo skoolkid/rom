@@ -1713,10 +1713,25 @@ B $1DBE,6,1
 B $1DD9,1
 @ $1DDA label=NEXT_LOOP
 c $1DDA THE 'NEXT-LOOP' SUBROUTINE
-B $1DDB,12,1
+D $1DDA This subroutine is used to determine whether the LIMIT (l) has been exceeded by the present VALUE (v). Note has to be taken of the sign of the STEP (s).
+D $1DDA The subroutine returns the carry flag set if the LIMIT is exceeded.
+  $1DDA -
+B $1DDB,1 #R$340F(get_mem_1): l
+B $1DDC,1 #R$340F(get_mem_0): l, v
+B $1DDD,1 #R$340F(get_mem_2): l, v, s
+B $1DDE,1 #R$3506: l, v,( 1/0)
+B $1DDF,2,1 #R$368F to #R$1DE2: l, v, (1/0)
+B $1DE1,1 #R$343C: v, l
 @ $1DE2 label=NEXT_1
+B $1DE2,1 #R$300F: v-l or l-v
+B $1DE3,1 #R$34F9: (1/0)
+B $1DE4,2,1 #R$368F to #R$1DE9: (1/0)
+B $1DE6,1 #R$369B: -
+  $1DE7 Clear the carry flag and return - loop is possible.
+N $1DE9 However if the loop is impossible the carry flag has to be set.
 @ $1DE9 label=NEXT_2
-B $1DE9,1
+B $1DE9,1 #R$369B: -
+  $1DEA Set the carry flag and return.
 @ $1DEC label=READ_3
 c $1DEC THE 'READ' COMMAND ROUTINE
 @ $1DED label=READ
