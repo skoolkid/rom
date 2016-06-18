@@ -2986,7 +2986,15 @@ B $2DAF,1 #R$369B
   $2DC0 Finished.
 @ $2DC1 label=LOG_2_A
 c $2DC1 THE 'LOG(2#powerA)' SUBROUTINE
-B $2DCC,9,1*2,4,1
+D $2DC1 This subroutine calculates the approximate number of digits before the decimal in x, the number to be printed, or, if there are no digits before the decimal, then the approximate number of leading zeros after the decimal. It is entered with the #REGa register containing e', the true exponent of x, or e'-2, and calculates z=log to the base 10 of (2#power#REGa). It then sets #REGa equal to ABS INT (z+0.5), as required, using #R$2DD5 for this purpose.
+  $2DC1 The integer #REGa is stacked, either as 00 00 #REGa 00 00 (for positive #REGa) or as 00 FF #REGa FF 00 (for negative #REGa).
+  $2DC4 These bytes are first loaded into #REGa, #REGe, #REGd, #REGc, #REGb and then #R$2AB6 is called to put the number on the calculator stack.
+  $2DCB The calculator is used
+B $2DCC,6,1,5 #R$33C6: log 2 to the base 10 is now stacked
+B $2DD2,1 #R$30CA: #REGa*log 2 i.e. log (2#power#REGa)
+B $2DD3,1 #R$36AF: INT log (2#power#REGa)
+B $2DD4,1 #R$369B
+E $2DC1 The subroutine continues into #R$2DD5 to complete the calculation.
 @ $2DD5 label=FP_TO_A
 c $2DD5 THE 'FLOATING-POINT TO A' SUBROUTINE
 @ $2DE1 label=FP_A_END
