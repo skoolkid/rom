@@ -2890,8 +2890,24 @@ c $2D2B THE 'STACK-BC' SUBROUTINE
 B $2D38,1
 @ $2D3B label=INT_TO_FP
 c $2D3B THE 'INTEGER TO FLOATING-POINT' SUBROUTINE
-B $2D3D,2,1
-B $2D45,5,1
+D $2D3B This subroutine returns a 'last value' on the calculator stack that is the result of converting an integer in a BASIC line, i.e. the integer part of the decimal number or the line number, to its floating-point form.
+D $2D3B Repeated calls to #R$0074 fetch each digit of the integer in turn. An exit is made when a code that does not represent a digit has been fetched.
+  $2D3B Save the first digit - in #REGa.
+  $2D3C Use the calculator.
+B $2D3D,1 #R$341B(stk_zero): (the 'last value' is now zero)
+B $2D3E,1 #R$369B
+  $2D3F Restore the first digit.
+N $2D40 Now a loop is set up. As long as the code represents a digit then the floating-point form is found and stacked under the 'last value' (V, initially zero). V is then multiplied by decimal 10 and added to the 'digit' to form a new 'last value' which is carried back to the start of the loop.
+@ $2D40 label=NXT_DGT_2
+  $2D40 If the code represents a digit (D) then stack the floating-point form; otherwise return.
+  $2D44 Use the calculator.
+B $2D45,1 #R$343C: D, V
+B $2D46,1 #R$341B(stk_ten): D, V, 10
+B $2D47,1 #R$30CA: D, 10*V
+B $2D48,1 #R$3014: D+10*V
+B $2D49,1 #R$369B: D+10*V (this is 'V' for the next pass through the loop)
+  $2D4A The next code goes into #REGa.
+  $2D4D Loop back with this code.
 @ $2D4F label=E_TO_FP
 c $2D4F THE 'E-FORMAT TO FLOATING-POINT' SUBROUTINE
 D $2D4F This subroutine gives a 'last value' on the top of the calculator stack that is the result of converting a number given in the form xEm, where m is a positive or negative integer. The subroutine is entered with x at the top of the calculator stack and m in the #REGa register.
