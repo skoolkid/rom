@@ -3897,7 +3897,16 @@ c $3843 THE 'ARCCOS' FUNCTION
 B $3844,5,1
 @ $384A label=sqr
 c $384A THE 'SQUARE ROOT' FUNCTION
-B $384B,6,1
+D $384A  This subroutine handles the function SQR X and returns the positive square root of the real number X if X is positive, and zero if X is zero. A negative value of X gives rise to report A - invalid argument (via #R$3851).
+D $384A This subroutine treats the square root operation as being X**0.5 and therefore stacks the value 0.5 and proceeds directly into #R$3851.
+  $384A X
+B $384B,1 #R$33C0: X, X
+B $384C,1 #R$3501: X, (1/0)
+B $384D,2,1 #R$368F to #R$386C: X
+N $384F The jump is made if X=0; otherwise continue with:
+B $384F,1 #R$341B(stk_half): X, 0.5
+B $3850,1 #R$369B
+E $384A Continue into #R$3851 to find the result of X**0.5.
 @ $3851 label=to_power
 c $3851 THE 'EXPONENTIATION' OPERATION
 D $3851 This subroutine performs the binary operation of raising the first number, X, to the power of the second number, Y.
