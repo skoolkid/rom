@@ -3894,7 +3894,15 @@ B $3841,1 #R$369B
   $3842 Finished: 'last value'=ASN X.
 @ $3843 label=acs
 c $3843 THE 'ARCCOS' FUNCTION
-B $3844,5,1
+D $3843 This subroutine handles the function ACS X and returns a real number from 0 to #pi inclusive which is equal to the value in radians of the angle whose cosine is X.
+D $3843 This subroutine uses the relation ACS X=#pi/2-ASN X.
+  $3843 X
+B $3844,1 #R$3833: ASN X
+B $3845,1 #R$341B(stk_pi_2): ASN X, #pi/2
+B $3846,1 #R$300F: ASN X-#pi/2
+B $3847,1 #R$346E: #pi/2-ASN X=ACS X
+B $3848,1 #R$369B
+  $3849 Finished: 'last value'=ACS X.
 @ $384A label=sqr
 c $384A THE 'SQUARE ROOT' FUNCTION
 D $384A  This subroutine handles the function SQR X and returns the positive square root of the real number X if X is positive, and zero if X is zero. A negative value of X gives rise to report A - invalid argument (via #R$3851).
