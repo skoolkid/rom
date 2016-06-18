@@ -3814,7 +3814,15 @@ B $37D8,1 #R$369B
   $37D9 Finished: 'last value'=SIN X (or COS X).
 @ $37DA label=tan
 c $37DA THE 'TAN' FUNCTION
-B $37DB,6,1
+D $37DA This subroutine handles the function TAN X. It simply returns SIN X/COS X, with arithmetic overflow if COS X=0.
+  $37DA X
+B $37DB,1 #R$33C0: X, X
+B $37DC,1 #R$37B5: X, SIN X
+B $37DD,1 #R$343C: SIN X, X
+B $37DE,1 #R$37AA: SIN X, COS X
+B $37DF,1 #R$31AF: SIN X/COS X=TAN X (report arithmetic overflow if needed)
+B $37E0,1 #R$369B: TAN X
+  $37E1 Finished: 'last value'=TAN X.
 @ $37E2 label=atn
 c $37E2 THE 'ARCTAN' FUNCTION
 D $37E2 This subroutine handles the function ATN X and is the last of the four routines that use the #R$3449(series generator) to produce Chebyshev polynomials. It returns a real number between -#pi/2 and #pi/2, which is equal to the value in radians of the angle whose tan is X.
