@@ -1631,8 +1631,17 @@ c $1CEE THE 'STOP' COMMAND ROUTINE
 B $1CEF,1
 @ $1CF0 label=IF_CMD
 c $1CF0 THE 'IF' COMMAND ROUTINE
-B $1CF7,2,1
+D $1CF0 On entry the value of the expression between the IF and the THEN is the 'last value' on the calculator stack. If this is logically true then the next statement is considered; otherwise the line is considered to have been finished.
+  $1CF0 Drop the return address - #R$1B76.
+  $1CF1 Jump forward if checking syntax.
+N $1CF6 Now use the calculator to 'delete' the last value on the calculator stack but leave the #REGde register pair addressing the first byte of the value.
+  $1CF6 Use the calculator.
+B $1CF7,1 #R$33A1
+B $1CF8,1 #R$369B
+  $1CF9 Make #REGhl point to the first byte and call #R$34E9.
+  $1CFD If the value was 'FALSE' jump to the next line.
 @ $1D00 label=IF_1
+  $1D00 But if 'TRUE' jump to the next statement (after the THEN).
 @ $1D03 label=FOR
 c $1D03 THE 'FOR' COMMAND ROUTINE
 D $1D03 This command routine is entered with the VALUE and the LIMIT of the FOR statement already on the top of the calculator stack.
