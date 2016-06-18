@@ -2562,29 +2562,134 @@ N $26C3 A numeric result has now been identified, coming from RND, PI, ATTR, POI
   $26C7 Jump forward.
 @ $26C9 label=S_LETTER
 c $26C9 THE SCANNING VARIABLE ROUTINE
+D $26C9 When a variable name has been identified a call is made to #R$28B2 which looks through those variables that already exist in the variables area (or in the program area at DEF FN statements for a user-defined function FN). If an appropriate numeric value is found then it is copied to the calculator stack using #R$33B4. However a string or string array entry has to have the appropriate parameters passed to the calculator stack by #R$2996 (or in the case of a user-defined function, by #R$2951 as called from #R$28B2).
+  $26C9 Look in the existing variables for the matching entry.
+  $26CC An error is reported if there is no existing entry.
+  $26CF Stack the parameters of the string entry/return numeric element base address.
+  $26D2 Fetch FLAGS.
+  $26D5 Test bits 6 and 7 together.
+  $26D7 Jump if one or both bits are reset.
+  $26D9 A numeric value is to be stacked.
+  $26DA Move the number.
 @ $26DD label=S_CONT_1
+  $26DD Jump forward.
+N $26DF The character is tested against the code for '-', thus identifying the 'unary minus' operation.
+N $26DF Before the actual test the #REGb register is set to hold the priority +09 and the #REGc register the operation code +DB that are required for this operation.
 @ $26DF keep
 @ $26DF label=S_NEGATE
-  $26E2,c2
+  $26DF Priority +09, operation code +DB.
+  $26E2,c2 Is it a '-'?
+  $26E4 Jump forward if it is 'unary minus'.
+N $26E6 Next the character is tested against the code for 'VAL$', with priority 16 decimal and operation code 18 hex.
 @ $26E6 keep
+  $26E6 Priority 16 dec, operation code +18 hex.
+  $26E9 Is it 'VAL$'?
+  $26EB Jump forward if it is 'VAL$'.
+N $26ED The present character must now represent one of the functions CODE to NOT, with codes +AF to +C3.
+  $26ED The range of the functions is changed from +AF to +C3 to range +00 to +14 hex.
+  $26EF Report an error if out of range.
+N $26F2 The function 'NOT' is identified and dealt with separately from the others.
 @ $26F2 keep
+  $26F2 Priority +04, operation code +F0.
+  $26F5 Is it the function 'NOT'?
+  $26F7 Jump if it is so.
+  $26F9 Check the range again.
+N $26FC The remaining functions have priority 16 decimal. The operation codes for these functions are now calculated. Functions that operate on strings need bit 6 reset and functions that give string results need bit 7 reset in their operation codes.
+  $26FC Priority 16 decimal.
+  $26FE The function range is now +DC to +EF.
+  $2700 Transfer the operation code.
+  $2701 Separate CODE, VAL and LEN which operate on strings to give numerical results.
 @ $2707 label=S_NO_TO_S
+  $2707 Separate STR$ and CHR$ which operate on numbers to give string results.
+  $270B Mark the operation codes. The other operation codes have bits 6 and 7 both set.
+N $270D The priority code and the operation code for the function being considered are now pushed on to the machine stack. A hierarchy of operations is thereby built up.
 @ $270D label=S_PUSH_PO
+  $270D Stack the priority and operation codes before moving on to consider the next part of the expression.
+N $2712 The scanning of the line now continues. The present argument may be followed by a '(', a binary operator or, if the end of the expression has been reached, then e.g. a carriage return character or a colon, a separator or a 'THEN'.
 @ $2712 label=S_CONT_2
+  $2712 Fetch the present character.
 @ $2713 label=S_CONT_3
-  $2713,c2
+  $2713,4,c2,2 Jump forward if it is not a '(', which indicates a parenthesised expression.
+N $2717 If the 'last value' is numeric then the parenthesised expression is a true sub-expression and must be evaluated by itself. However if the 'last value' is a string then the parenthesised expression represents an element of an array or a slice of a string. A call to #R$2A52 modifies the parameters of the string as required.
+  $2717 Jump forward if dealing with a numeric parenthesised expression.
+  $271D Modify the parameters of the 'last value'.
+  $2720 Move on to consider the next character.
+N $2723 If the present character is indeed a binary operator it will be given an operation code in the range +C3 to +CF hex, and the appropriate priority code.
 @ $2723 label=S_OPERTR
+  $2723 Original code to #REGbc to index into the #R$2795(table of operators).
+  $2726 The pointer to the table.
+  $2729 Index into the table.
+  $272C Jump forward if no operation found.
+  $272E Get required code from the table.
 @ $272F nowarn
+  $272F The pointer to the priority table (26ED+C3 gives #R$27B0 as the first address).
+  $2732 Index into the table.
+  $2733 Fetch the appropriate priority.
+N $2734 The main loop of this subroutine is now entered. At this stage there are:
+N $2734 #LIST { i. A 'last value' on the calculator stack. } { ii. The starting priority marker on the machine stack below a hierarchy, of unknown size, of function and binary operation codes. This hierarchy may be null. } { iii. The #REGbc register pair holding the 'present' operation and priority, which if the end of an expression has been reached will be priority zero. } LIST#
+N $2734 Initially the 'last' operation and priority are taken off the machine stack and compared against the 'present' operation and priority.
 @ $2734 label=S_LOOP
+  $2734 he 'last' priority then an exit is made from the loop as the 'present' priority is considered to bind tighter than the 'last' priority.
+  $2735 inding, then the operation specified as the 'last' operation is performed. The 'present' operation and priority go back on the machine stack to be carried round the loop again. In this manner the hierarchy of functions and binary operations that have been queued are dealt with in the correct order.
+  $2734 Get the 'last' operation and priority.
+  $2735 The priority goes to the #REGa register.
+  $2736 Compare 'last' against 'present'.
+  $2737 Exit to wait for the argument.
+  $2739 Are both priorities zero?
+  $273A Exit via #R$0018 thereby making 'last value' the required result.
+N $273D Before the 'last' operation is performed, the 'USR' function is separated into 'USR number' and 'USR string' according as bit 6 of FLAGS was set or reset when the argument of the function was stacked as the 'last value'.
+  $273D Stack the 'present' values.
+  $273E This is FLAGS.
+  $2741 The 'last' operation is compared with the code for USR, which will give 'USR number' unless modified; jump if not 'USR'.
+  $2746 Test bit 6 of FLAGS.
+  $2748 Jump if it is set ('USR number').
+  $274A Modify the 'last' operation code: 'offset' 19, +80 for string input and numerical result ('USR string').
 @ $274C label=S_STK_LST
-B $2757,2,1
+  $274C Stack the 'last' values briefly.
+  $274D Do not perform the actual operation if syntax is being checked.
+  $2752 The 'last' operation code.
+  $2753 Strip off bits 6 and 7 to convert the operation code to a calculator offset.
+  $2756 Now use the calculator.
+B $2757,1 #R$33A2: (perform the actual operation)
+B $2758,1 #R$369B
+  $2759 Jump forward.
+N $275B An important part of syntax checking involves the testing of the operation to ensure that the nature of the 'last value' is of the correct type for the operation under consideration.
 @ $275B label=S_SYNTEST
+  $275B Get the 'last' operation code.
+  $275C This tests the nature of the 'last value' against the requirement of the operation. They are to be the same for correct syntax.
 @ $2761 label=S_RPORT_C_2
+  $2761 Jump if syntax fails.
+N $2764 Before jumping back to go round the loop again the nature of the 'last value' must be recorded in FLAGS.
 @ $2764 label=S_RUNTEST
+  $2764 Get the 'last' operation code.
+  $2765 This is FLAGS.
+  $2768 Assume result to be numeric.
+  $276A Jump forward if the nature of 'last value' is numeric.
+  $276E It is a string.
 @ $2770 label=S_LOOPEND
+  $2770 Get the 'present' values into #REGbc.
+  $2771 Jump back.
+N $2773 Whenever the 'present' operation binds tighter, the 'last' and the 'present' values go back on the machine stack. However if the 'present' operation requires a string as its operand then the operation code is modified to indicate this requirement.
 @ $2773 label=S_TIGHTER
+  $2773 The 'last' values go on the stack.
+  $2774 Get the 'present' operation code.
+  $2775 Do not modify the operation code if dealing with a numeric operand.
+  $277B Clear bits 6 and 7.
+  $277D Increase the code by +08 hex.
+  $277F Return the code to the #REGc register.
+  $2780 Is the operation 'AND'?
+  $2782 Jump if it is not so.
+  $2784 'AND' requires a numeric operand.
+  $2786 Jump forward.
 @ $2788 label=S_NOT_AND
+  $2788 The operations -, *, /, #power and OR are not possible between strings.
+  $278A Is the operation a '+'?
+  $278C Jump if it is so.
+  $278E The other operations yield a numeric result.
 @ $2790 label=S_NEXT
+  $2790 The 'present' values go on the machine stack.
+  $2791 Consider the next character.
+  $2792 Go around the loop again.
 @ $2795 label=OPERATORS
 b $2795 THE TABLE OF OPERATORS
   $2795,2,T1:1 +
