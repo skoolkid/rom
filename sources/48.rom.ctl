@@ -2843,23 +2843,120 @@ c $2AEE THE 'DE,(DE+1)' SUBROUTINE
 c $2AF4 THE 'GET-HL*DE' SUBROUTINE
 @ $2AFF label=LET
 c $2AFF THE 'LET' COMMAND ROUTINE
+D $2AFF This is the actual assignment routine for the LET, READ and INPUT commands.
+D $2AFF When the destination variable is a 'newly declared variable' then DEST will point to the first letter of the variable's name as it occurs in the BASIC line. Bit 1 of FLAGX will be set.
+D $2AFF However if the destination variable 'exists already' then bit 1 of FLAGX will be reset and DEST will point for a numeric variable to the location before the five bytes of the 'old number', and for a string variable to the first location of the 'old string'. The use of DEST in this manner applies to simple variables and to elements of arrays.
+D $2AFF Bit 0 of FLAGX is set if the destination variable is a 'complete' simple string variable. (Signalling - delete the old copy.) Initially the current value of DEST is collected and bit 1 of FLAGS tested.
+  $2AFF Fetch the present address in DEST.
+  $2B02 Jump if handling a variable that 'exists already'.
+N $2B08 #REGa 'newly declared variable' is being used. So first the length of its name is found.
 @ $2B08 keep
+  $2B08 Presume dealing with a numeric variable - 5 bytes.
+N $2B0B Enter a loop to deal with the characters of a long name. Any spaces or colour codes in the name are ignored.
 @ $2B0B label=L_EACH_CH
+  $2B0B Add '1' to the counter for each character of a name.
 @ $2B0C label=L_NO_SP
-  $2B0E,c2
-  $2B24,c2
+  $2B0C Move along the variable's name.
+  $2B0D Fetch the 'present code'.
+  $2B0E,4,c2,2 Jump back if it is a 'space'; thereby Ignoring spaces.
+  $2B12 Jump forward if the code is +21 to +FF.
+  $2B14 Accept, as a final code, those in the range +00 to +0F.
+  $2B18 Also accept the range +16 to +1F.
+  $2B1C Step past the control code after any of INK to OVER.
+  $2B1D Jump back as these control codes are treated as spaces.
+N $2B1F Separate 'numeric' and 'string' names.
+  $2B1F Is the code alphanumeric?
+  $2B22 If It is so then accept it as a character of a 'long' name.
+  $2B24,c2 Is the present code a '$'?
+  $2B26 Jump forward as handling a 'newly declared' simple string.
+N $2B29 The 'newly declared numeric variable' presently being handled will require '#REGbc' spaces in the variables area for its name and its value. The room is made available and the name of the variable is copied over with the characters being 'marked' as required.
 @ $2B29 label=L_SPACES
+  $2B29 Copy the 'length' to #REGa.
+  $2B2A Make #REGhl point to the '80-byte' at the end of the variables area.
+  $2B2E Now open up the variables area. Note: In effect '#REGbc' spaces are made before the displaced '80-byte'.
+  $2B31 Point to the first 'new' byte.
+  $2B32 Make #REGde point to the second 'new' byte.
+  $2B34 Save this pointer.
+  $2B35 Fetch the pointer to the start of the name.
+  $2B38 Make #REGde point to the first 'new' byte.
+  $2B39 Make #REGb hold the 'number of extra letters' that are found in a 'long name'.
+  $2B3C Jump forward if dealing with a variable with a 'short name'.
+N $2B3E The 'extra' codes of a long name are passed to the variables area.
 @ $2B3E label=L_CHAR
+  $2B3E Point to each 'extra' code.
+  $2B3F Fetch the code.
+  $2B40 Accept codes from +21 to +FF; ignore codes +00 to +20.
+  $2B44 Set bit 5, as for lower case letters.
+  $2B46 Transfer the codes in turn to the 2nd 'new' byte onwards.
+  $2B48 Go round the loop for all the 'extra' codes.
+N $2B4A The last code of a 'long' name has to be ORed with +80.
+  $2B4A Mark the code as required and overwrite the last code.
+N $2B4D The first letter of the name of the variable being handled is now considered.
+  $2B4D Prepare to mark the letter of a 'long' name.
 @ $2B4F label=L_SINGLE
+  $2B4F Fetch the pointer to the letter.
+  $2B52 #REGa holds +00 for a 'short' name and +C0 for a 'long' name.
+  $2B53 Set bit 5, as for lower case letters.
+  $2B55 Drop the pointer now.
+N $2B56 The subroutine #R$2BEA is now called to enter the 'letter' into its appropriate location.
+  $2B56 Enter the letter and return with #REGhl pointing to 'new 80-byte'.
+N $2B59 The 'last value' can now be transferred to the variables area. Note that at this point #REGhl always points to the location after the five locations allotted to the number.
 @ $2B59 label=L_NUMERIC
-B $2B5B,2,1
+N $2B59 A 'RST 28' instruction is used to call the calculator and the 'last value' is deleted. However this value is not overwritten.
+  $2B59 Save the 'destination' pointer.
+  $2B5A Use the calculator to move STKEND back five bytes.
+B $2B5B,1 #R$33A1
+B $2B5C,1 #R$369B
+  $2B5D Restore the pointer.
 @ $2B5E keep
+  $2B5E Give the number a 'length' of five bytes.
+  $2B61 Make #REGhl point to the first of the five locations and jump forward to make the actual transfer.
+N $2B66 Come here if considering a variable that 'exists already'. First bit 6 of FLAGS is tested so as to separate numeric variables from string or array of string variables.
 @ $2B66 label=L_EXISTS
+  $2B66 Jump forward if handling any kind of string variable.
+N $2B6C For numeric variables the 'new' number overwrites the 'old' number. So first #REGhl has to be made to point to the location after the five bytes of the existing entry. At present #REGhl points to the location before the five bytes.
 @ $2B6C keep
+  $2B6C The five bytes of a number + 1.
+  $2B6F #REGhl now points 'after'.
+  $2B70 Jump back to make the actual transfer.
+N $2B72 The parameters of the string variable are fetched and complete simple strings separated from 'sliced' strings and array strings.
 @ $2B72 label=L_DELETE
-  $2B89,c2
+  $2B72 Fetch the 'start'. Note: This line is redundant.
+  $2B75 Fetch the 'length'.
+  $2B79 Jump if dealing with a complete simple string; the old string will need to be 'deleted' in this case only.
+N $2B7F When dealing with a 'slice' of an existing simple string, a 'slice' of a string from an array of strings or a complete string from an array of strings there are two distinct stages involved. The first is to build up the 'new' string in the work space, lengthening or shortening it as required. The second stage is then to copy the 'new' string to its allotted room in the variables area.
+N $2B7F However do nothing if the string has no 'length'.
+  $2B7F Return if the string is a null string.
+N $2B82 Then make the required number of spaces available in the work space.
+  $2B82 Save the 'start' (DEST).
+  $2B83 Make the necessary amount of room in the work space.
+  $2B84 Save the pointer to the first location.
+  $2B85 Save the 'length' for use later on.
+  $2B86 Make #REGde point to the last location.
+  $2B88 Make #REGhl point 'one past' the new locations.
+  $2B89,c2 Enter a 'space' character.
+  $2B8B Copy this character into all the new locations. Finish with #REGhl pointing to the first new location.
+N $2B8D The parameters of the string being handled are now fetched from the calculator stack.
+  $2B8D Save the pointer briefly.
+  $2B8E Fetch the 'new' parameters.
+  $2B91 Restore the pointer.
+N $2B92 Note: At this point the required amount of room has been made available in the work space for the 'variable in assignment'. e.g. For statement - LET A$(4 to 8)="abcdefg" - five locations have been made.
+N $2B92 The parameters fetched above as a 'last value' represent the string that is to be copied into the new locations with Procrustean lengthening or shortening as required.
+N $2B92 The length of the 'new' string is compared to the length of the room made available for it.
+  $2B92 'Length' of new area to #REGhl. 'Pointer' to new area to stack.
+  $2B93 Compare the two 'lengths' and jump forward if the 'new' string will fit into the room, i.e. no shortening required.
+  $2B99 However modify the 'new' length if it is too long.
 @ $2B9B label=L_LENGTH
+  $2B9B 'Length' of new area to stack. 'Pointer' to new area to #REGhl.
+N $2B9C As long as the new string is not a 'null string' it is copied into the work space. Procrustean lengthening is achieved automatically if the 'new' string is shorter than the room available for it.
+  $2B9C 'Start' of new string to #REGhl. 'Pointer' to new area to #REGde.
+  $2B9D Jump forward if the 'new' string is a 'null' string.
+  $2BA1 Otherwise move the 'new' string to the work space.
+N $2BA3 The values that have been saved on the machine stack are restored.
 @ $2BA3 label=L_IN_W_S
+  $2BA3 'Length' of new area.
+  $2BA4 'Pointer' to new area.
+  $2BA5 The start - the pointer to the 'variable in assignment' which was originally in DEST. #R$2BA6 is now used to pass the 'new' string to the variables area.
 @ $2BA6 label=L_ENTER
 c $2BA6 THE 'L-ENTER' SUBROUTINE
 @ $2BAF label=L_ADD
