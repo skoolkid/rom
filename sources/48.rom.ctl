@@ -3716,17 +3716,44 @@ c $3524 THE 'NUMBER AND NUMBER' OPERATION
 c $352D THE 'STRING AND NUMBER' OPERATION
 @ $353B label=no_l_eql
 c $353B THE 'COMPARISON' OPERATIONS
+D $353B This subroutine is used to perform the twelve possible comparison operations (offsets 09 to 0E and 11 to 16: 'no-l-eql', 'no-gr-eq', 'nos-neql', 'no-grtr', 'no-less', 'nos-eql', 'str-l-eql', 'str-gr-eq', 'strs-neql', 'str-grtr', 'str-less' and 'strs-eql'). The single operation offset is present in the #REGb register at the start of the subroutine.
+  $353B The single offset goes to the #REGa register.
+  $353C The range is now 01-06 and 09-0E.
+  $353E This range is changed to 00-02, 04-06, 08-0A and 0C-0E.
 @ $3543 label=EX_OR_NOT
+  $3543 Then reduced to 00-07 with carry set for 'greater than or equal to' and 'less than'; the operations with carry set are then treated as their complementary operation once their values have been exchanged.
 @ $354E label=NU_OR_STR
+  $354E The numerical comparisons are now separated from the string comparisons by testing bit 2.
+  $3552 The numerical operations now have the range 00-01 with carry set for 'equal' and 'not equal'.
+  $3553 Save the offset.
+  $3554 The numbers are subtracted for the final tests.
 @ $3559 label=STRINGS
+  $3559 The string comparisons now have the range 02-03 with carry set for 'equal' and 'not equal'.
+  $355A Save the offset.
+  $355B The lengths and starting addresses of the strings are fetched from the calculator stack.
+  $3563,1 The length of the second string.
 @ $3564 label=BYTE_COMP
+  $3568,2 Jump unless the second string is null.
 @ $356B label=SECND_LOW
+  $356B,1 Here the second string is either null or less than the first.
+  $356F The carry is complemented to give the correct test results.
 @ $3572 label=BOTH_NULL
+  $3572,3 Here the carry is used as it stands.
 @ $3575 label=SEC_PLUS
+  $3576 The first string is now null, the second not.
+  $3578 Neither string is null, so their next bytes are compared.
+  $357A Jump if the first byte is less.
+  $357C Jump if the second byte is less.
+  $357E,7 The bytes are equal; so the lengths are decremented and a jump is made to #R$3564 to compare the next bytes of the reduced strings.
 @ $3585 label=FRST_LESS
+  $3587 The carry is cleared here for the correct test results.
 @ $3588 label=STR_TEST
-B $358A,2,1
+  $3588 For the string tests, a zero is put on to the calculator stack.
+B $358A,1 #R$341B(stk_zero)
+B $358B,1 #R$369B
 @ $358C label=END_TESTS
+  $358C These three tests, called as needed, give the correct results for all twelve comparisons. The initial carry is set for 'not equal' and 'equal', and the final carry is set for 'greater than', 'less than' and 'equal'.
+  $359B Finished.
 @ $359C label=strs_add
 c $359C THE 'STRING CONCATENATION' OPERATION
 @ $35B7 label=OTHER_STR
