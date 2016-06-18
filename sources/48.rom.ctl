@@ -1185,11 +1185,21 @@ B $1726,1
 @ $1727 label=STR_DATA1
 @ $1736 label=OPEN
 c $1736 THE 'OPEN#' COMMAND ROUTINE
-B $1737,2,1
-  $174A,c2
-  $174E,c2
-  $1752,c2
+D $1736 This command allows the user to OPEN streams. A channel code must be supplied and it must be 'K', 'k', 'S', 's', 'P', or 'p'.
+D $1736 Note that no attempt is made to give streams +00 to +03 their initial data.
+  $1736 Use the calculator to exchange the stream number and the channel code.
+B $1737,1 #R$343C
+B $1738,1 #R$369B
+  $1739 Fetch the data for the stream.
+  $173C Jump forward if both bytes of the data are zero, i.e. the stream was in a closed state.
+  $1740 Save #REGhl.
+  $1741 Fetch CHANS - the base address of the channel information and find the code of the channel associated with the stream being OPENed.
+  $1749 Return #REGhl.
+  $174A,12,c2,2,c2,2,c2,2 The code fetched from the channel information area must be 'K', 'S' or 'P'; give an error if it is not.
 @ $1756 label=OPEN_1
+  $1756 Collect the appropriate data in #REGde.
+  $1759 Enter the data into the two bytes in the stream information area.
+  $175C Finally return.
 @ $175D label=OPEN_2
 c $175D THE 'OPEN-2' SUBROUTINE
 @ $1765 label=REPORT_F_2
