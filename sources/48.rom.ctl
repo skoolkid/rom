@@ -1623,9 +1623,16 @@ c $1CBE THE 'COMMAND CLASS 09' ROUTINE
 c $1CDB THE 'COMMAND CLASS 0B' ROUTINE
 @ $1CDE label=FETCH_NUM
 c $1CDE THE 'FETCH A NUMBER' SUBROUTINE
-  $1CE2,c2
+D $1CDE This subroutine leads to a following numeric expression being evaluated but zero being used instead if there is no expression.
+  $1CDE Jump forward if at the end of a line.
+  $1CE2,4,c2,2 But jump to #R$1C82 unless at the end of a statement.
+N $1CE6 The calculator is now used to add the value zero to the calculator stack.
 @ $1CE6 label=USE_ZERO
-B $1CEB,2,1
+  $1CE6 Do not perform the operation if syntax is being checked.
+  $1CEA Use the calculator.
+B $1CEB,1 #R$341B(stk_zero)
+B $1CEC,1 #R$369B
+  $1CED Return with zero added to the stack.
 @ $1CEE label=STOP
 c $1CEE THE 'STOP' COMMAND ROUTINE
 B $1CEF,1
