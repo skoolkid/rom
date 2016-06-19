@@ -1094,22 +1094,81 @@ c $11B7 THE 'NEW COMMAND' ROUTINE
 @ $1296 ssub=LD DE,$1539-1
 @ $12A2 label=MAIN_EXEC
 c $12A2 THE 'MAIN EXECUTION' LOOP
+D $12A2 The main loop controls the 'editing mode', the execution of direct commands and the production of reports.
+  $12A2 The lower part of the screen is to be two lines in size.
+  $12A6 Produce an automatic listing.
 @ $12A9 label=MAIN_1
+  $12A9 All the areas from E-LINE onwards are given their minimum configurations.
 @ $12AC label=MAIN_2
+  $12AC Channel 'K' is opened before calling the #R$0F2C.
+  $12B1 The #R$0F2C is called to allow the user to build up a BASIC line.
+  $12B4 The current line is scanned for correct syntax.
+  $12B7 Jump forward if the syntax is correct.
+  $12BD Jump forward if other than channel 'K' is being used.
+  $12C3 Point to the start of the line with the error.
+  $12C6 Remove the floating-point forms from this line.
+  $12C9 Reset ERR-NR and jump back to #R$12AC leaving the listing unchanged.
+N $12CF The 'edit-line' has passed syntax and the three types of line that are possible have to be distinguished from each other.
 @ $12CF label=MAIN_3
+  $12CF Point to the start of the line.
+  $12D2 Set CH-ADD to the start also.
+  $12D5 Fetch any line number into #REGbc.
+  $12D8 Is the line number a valid one?
+  $12DA Jump if it is so, and add the new line to the existing program.
+  $12DD Fetch the first character of the line and see if the line is 'carriage return only'.
+  $12E0 If it is then jump back.
+N $12E2 The 'edit-line' must start with a direct BASIC command so this line becomes the first line to be interpreted.
+  $12E2 Clear the whole display unless the flag says it is unnecessary.
+  $12E9 Clear the lower part anyway.
+  $12EC Set the appropriate value for the scroll counter.
+  $12F4 Signal 'line execution'.
+  $12F8 Ensure ERR-NR is correct.
+  $12FC Deal with the first statement in the line.
+  $1300 Now the line is interpreted. Note: The address #R$1303 goes on to the machine stack and is addressed by ERR-SP.
+N $1303 After the line has been interpreted and all the actions consequential to it have been completed a return is made to #R$1303, so that a report can be made.
 @ $1303 label=MAIN_4
+  $1303 The maskable interrupt must be enabled.
+  $1304 Signal 'ready for a new key'.
+  $1308 Empty the printer buffer if it has been used.
+  $130F Fetch the error number and increment it.
 @ $1313 label=MAIN_G
+  $1313 Save the new value.
 @ $1314 keep
+  $1314 The system variables FLAGX, X-PTR-hi & DEFADD are all set to zero.
 @ $1320 keep
+  $1320 Ensure that stream +00 points to channel 'K'.
+  $1326 Clear all the work areas and the calculator stack.
+  $1329 Signal 'editing mode'.
+  $132D Clear the lower screen.
+  $1330 Signal 'the lower screen will require clearing'.
+  $1334 Fetch the report value.
+  $1335 Make a copy in #REGb.
+  $1336 Jump forward with report numbers '0 to 9'.
+  $133A Add the ASCII letter offset value.
 @ $133C label=MAIN_5
-  $133F,c2
+  $133C,6,3,c2,1 Print the report code and follow it with a 'space'.
+  $1342 Fetch the report value (used to identify the required report message).
+  $1343 Print the message.
+  $1349 Follow it by a 'comma' and a 'space'.
 @ $134A ssub=LD DE,$1537-1
-  $1357,c2
+  $1350 Now fetch the current line number and print it as well.
+  $1357,3,c2,1 Follow it by a ':'.
+  $135A Fetch the current statement number into the #REGbc register pair and print it.
+  $1362 Clear the editing area.
+  $1365 Fetch the error number again.
+  $1368 Increment it as usual.
+  $1369 If the program was completed successfully there cannot be any 'CONTinuing' so jump.
+  $136B If the program halted with 'STOP statement' or 'BREAK into program' CONTinuing will be from the next statement; otherwise SUBPPC is unchanged.
 @ $1373 label=MAIN_6
 @ $1376 keep
 @ $1376 label=MAIN_7
+  $1376 The system variables OLDPPC & OSPCC have now to be made to hold the CONTinuing line and statement numbers.
+  $137C The values used will be those in PPC & SUBPPC unless NSPPC indicates that the 'break' occurred before a 'jump' (i.e. after a GO TO statement etc.).
 @ $1384 label=MAIN_8
 @ $1386 label=MAIN_9
+  $1386 NSPPC is reset to indicate 'no jump'.
+  $138A 'K mode' is selected.
+  $138E And finally the jump back is made but no program listing will appear until requested.
 @ $1391 label=REPORTS
 t $1391 THE REPORT MESSAGES
 D $1391 Each message is given with the last character inverted (+80 hex.).
