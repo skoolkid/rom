@@ -2877,39 +2877,148 @@ b $27B0 THE TABLE OF PRIORITIES
   $27BC +
 @ $27BD label=S_FN_SBRN
 c $27BD THE 'SCANNING FUNCTION' SUBROUTINE
-  $27CA,c2
+D $27BD This subroutine evaluates a user defined function which occurs in a BASIC line. The subroutine can be considered in four stages:
+D $27BD #LIST { i. The syntax of the FN statement is checked during syntax checking. } { ii. During line execution, a search is made of the program area for a DEF FN statement, and the names of the functions are compared, until a match is found - or an error is reported. } { iii. The arguments of the FN are evaluated by calls to #R$24FB. } { iv. The function itself is evaluated by calling #R$24FB, which in turn calls #R$28B2 and so #R$2951. } LIST#
+  $27BD Unless syntax is being checked, a jump is made to #R$27F7.
+  $27C2 Get the first character of the name.
+  $27C3 If it is not alphabetic, then report the error.
+  $27C9 Get the next character.
+  $27CA,c2 Is it a '$'?
+  $27CC Save the zero flag on the stack.
+  $27CD Jump if it was not a '$'.
+  $27CF But get the next character if it was.
 @ $27D0 label=SF_BRKT_1
-  $27D0,c2
-  $27D5,c2
+  $27D0,4,c2,2 If the character is not a '(', then report the error.
+  $27D4 Get the next character.
+  $27D5,c2 Is it a ')'?
+  $27D7 Jump if it is; there are no arguments.
 @ $27D9 label=SF_ARGMTS
-  $27DD,c2
+  $27D9 Within the loop, call #R$24FB to check the syntax of each argument and to insert floating-point numbers.
+  $27DC,5,1,c2,2 Get the character which follows the argument; if it is not a ',' then jump - no more arguments.
+  $27E1 Get the first character in the next argument.
+  $27E2 Loop back to consider this argument.
 @ $27E4 label=SF_BRKT_2
-  $27E4,c2
+  $27E4,c2 Is the current character a ')'?
 @ $27E6 label=SF_RPRT_C
+  $27E6 Report the error if it is not.
 @ $27E9 label=SF_FLAG_6
+  $27E9 Point to the next character in the BASIC line.
+  $27EA This is FLAGS; assume a string-valued function and reset bit 6 of FLAGS.
+  $27EF Restore the zero flag, jump if the FN is indeed string-valued.
+  $27F2 Otherwise, set bit 6 of FLAGS.
 @ $27F4 label=SF_SYN_EN
+  $27F4 Jump back to continue scanning the line.
+N $27F7 ii. During line execution, a search must first be made for a DEF FN statement.
 @ $27F7 label=SF_RUN
+  $27F7 Get the first character of the name.
+  $27F8 Reset bit 5 for upper case.
+  $27FA Copy the name to #REGb.
+  $27FB Get the next character.
+  $27FC,c2 Subtract 24 hex, the code for '$'.
+  $27FE Copy the result to #REGc (zero for a string, non-zero for a numerical function).
+  $27FF Jump if non-zero: numerical function.
+  $2801 Get the next character, the '('.
 @ $2802 label=SF_ARGMT1
+  $2802 Get 1st character of 1st argument.
+  $2803 Save the pointer to it on the stack.
+  $2804 Point to the start of the program.
+  $2807 Go back one location.
 @ $2808 keep
 @ $2808 label=SF_FND_DF
+  $2808 The search will be for 'DEF FN'.
+  $280B Save the name and 'string status'.
+  $280C Search the program now.
+  $280F Restore the name and status.
+  $2810 Jump if a DEF FN statement found.
+N $2812 REPORT P - FN without DEF.
 @ $2812 label=REPORT_P
+M $2812,2 Call the error handling routine.
 B $2813,1
+N $2814 When a DEF FN statement is found, the name and status of the two functions are compared; if they do not match, the search is resumed.
 @ $2814 label=SF_CP_DEF
-  $2820,c2
+  $2814 Save the pointer to the DEF FN character in case the search has to be resumed.
+  $2815 Get the name of the DEF FN function.
+  $2818 Reset bit 5 for upper case.
+  $281A Does it match the FN name?
+  $281B Jump if it does not match.
+  $281D Get the next character in the DEF FN.
+  $2820,c2 Subtract 24 hex, the code for '$'.
+  $2822 Compare the status with that of FN.
+  $2823 Jump if complete match now found.
 @ $2825 label=SF_NOT_FD
+  $2825 Restore the pointer to the 'DEF FN'.
+  $2826 Step back one location.
 @ $2827 keep
+  $2827 Use the search routine to find the end of the DEF FN statement, preparing for the next search; save the name and status meanwhile.
+  $282F Jump back for a further search.
+N $2831 iii. The correct DEF FN statement has now been found. The arguments of the FN statement will be evaluated by repeated calls of #R$24FB, and their 5 byte values (or parameters, for strings) will be inserted into the DEF FN statement in the spaces made there at syntax checking. #REGhl will be used to point along the DEF FN statement (calling #R$28AB as needed) while CH-ADD points along the FN statement (calling #R$0020 as needed).
 @ $2831 label=SF_VALUES
-  $283F,c2
+  $2831 If #REGhl is now pointing to a '$', move on to the '('.
+  $2835 Discard the pointer to 'DEF FN'.
+  $2836 Get the pointer to the first argument of FN, and copy it to CH-ADD.
+  $283B Move past the '(' now.
+  $283E Save this pointer on the stack.
+  $283F,c2 Is it pointing to a ')'?
+  $2841 If so, jump: FN has no arguments.
 @ $2843 label=SF_ARG_LP
+  $2843 Point to the next code.
+  $2844 Put the code into #REGa.
+  $2845 Is it the 'number marker' code, 0E hex?
+  $2847 Set bit 6 of #REGd for a numerical argument.
+  $2849 Jump on zero: numerical argument.
+  $284B Now ensure that #REGhl is pointing to the '$' character (not e.g. to a control code).
+  $284F #REGhl now points to the 'number marker'.
+  $2850 Bit 6 of #REGd is reset: string argument.
 @ $2852 label=SF_ARG_VL
+  $2852 Point to the 1st of the 5 bytes in DEF FN.
+  $2853 Save this pointer on the stack.
+  $2854 Save the 'string status' of the argument.
+  $2855 Now evaluate the argument.
+  $2858 Get the no./string flag into #REGa.
+  $2859 Test bit 6 of it against the result of #R$24FB.
+  $285E Give report Q if they did not match.
+  $2860 Get the pointer to the first of the 5 spaces in DEF FN into #REGde.
+  $2862 Point #REGhl at STKEND.
 @ $2865 keep
-  $2874,c2
-  $287A,c2
+  $2865 #REGbc will count 5 bytes to be moved.
+  $2868 First, decrease STKEND by 5, so deleting the 'last value' from the stack.
+  $286D Copy the 5 bytes into the spaces in DEF FN.
+  $286F Point #REGhl at the next code.
+  $2870 Ensure that #REGhl points to the character after the 5 bytes.
+  $2874,c2 Is it a ')'?
+  $2876 Jump if it is: no more arguments in the DEF FN statement.
+  $2878 It is a ',': save the pointer to it.
+  $2879 Get the character after the last argument that was evaluated from FN.
+  $287A,4,c2,2 If it is not a ',' jump: mismatched arguments of FN and DEF FN.
+  $287E Point CH-ADD to the next argument of FN.
+  $287F Point #REGhl to the ',' in DEF FN again.
+  $2880 Move #REGhl on to the next argument in DEF FN.
+  $2883 Jump back to consider this argument.
 @ $2885 label=SF_R_BR_2
-  $2887,c2
+  $2885 Save the pointer to the ')' in DEF FN.
+  $2886 Get the character after the last argument in FN.
+  $2887,c2 Is it a ')'?
+  $2889 If so, jump to evaluate the function; but if not, give report Q.
+N $288B REPORT Q - Parameter error.
 @ $288B label=REPORT_Q
+M $288B,2 Call the error handling routine.
 B $288C,1
+N $288D iv. Finally, the function itself is evaluated by calling #R$24FB, after first setting DEFADD to hold the address of the arguments as they occur in the DEF FN statement.  This ensures that #R$28B2, when called by #R$24FB, will first search these arguments for the required values, before making a search of the variables area.
 @ $288D label=SF_VALUE
+  $288D Restore pointer to ')' in DEF FN.
+  $288E Get this pointer into #REGhl.
+  $288F Insert it into CH-ADD.
+  $2892 Get the old value of DEFADD.
+  $2895 Stack it, and get the start address of the arguments area of DEF FN into DEFADD.
+  $2899 Save address of ')' in FN.
+  $289A Move CH-ADD on past ')' and '=' to the start of the expression for the function in DEF FN.
+  $289C Now evaluate the function.
+  $289F Restore the address of ')' in FN.
+  $28A0 Store it in CH-ADD.
+  $28A3 Restore original value of DEFADD.
+  $28A4 Put it back into DEFADD.
+  $28A7 Get the next character in the BASIC line.
+  $28A8 Jump back to continue scanning.
 @ $28AB label=FN_SKPOVR
 c $28AB THE 'FUNCTION SKIPOVER' SUBROUTINE
 @ $28B2 label=LOOK_VARS
