@@ -708,13 +708,62 @@ c $0802 THE 'LOAD A DATA BLOCK' SUBROUTINE
 B $0807,1
 @ $0808 label=LD_CONTRL
 c $0808 THE 'LOAD' CONTROL ROUTINE
+D $0808 This routine controls the LOADing of a BASIC program, and its variables, or an array.
+  $0808 Fetch the 'number of bytes' as given in the 'new header'.
+  $080E Save the 'destination pointer'.
+  $080F Jump forward unless trying to LOAD a previously undeclared array.
+  $0813 Add three bytes to the length - for the name, the low length and the high length of a new variable.
+  $0817 Jump forward.
+N $0819 Consider now if there is enough room in memory for the new data block.
 @ $0819 label=LD_CONT_1
+  $0819 Fetch the size of the existing 'program+variables or array'.
+  $0820 Jump forward if no extra room will be required (taking into account the reclaiming of the presently used memory).
+N $0825 Make the actual test for room.
 @ $0825 keep
 @ $0825 label=LD_CONT_2
+  $0825 Allow an overhead of five bytes.
+  $0829 Move the result to the #REGbc register pair and make the test.
+N $082E Now deal with the LOADing of arrays.
 @ $082E label=LD_DATA
+  $082E Fetch the 'pointer' anew.
+  $082F Jump forward if LOADing a BASIC program.
+  $0835 Jump forward if LOADing a new array.
+  $0839 Fetch the 'length' of the existing array by collecting the length bytes from the variables area.
+  $083D Point to its old name.
+  $083E Add three bytes to the length - one for the name and two for the 'length'.
+  $0841 Save the #REGix register pair temporarily whilst the old array is reclaimed.
+N $084C Space is now made available for the new array - at the end of the present variables area.
 @ $084C label=LD_DATA_1
+  $084C Find the pointer to the end-marker of the variables area - the '80-byte'.
+  $0850 Fetch the 'length' of the new array.
+  $0856 Save this 'length'.
+  $0857 Add three bytes - one for the name and two for the 'length'.
+  $085A '#REGix+0E' of the old header gives the name of the array.
+  $085D The name is saved whilst the appropriate amount of room is made available. In effect '#REGbc' spaces before the 'new 80-byte'.
+  $0863 The name is entered.
+  $0864 The 'length' is fetched and its two bytes are also entered.
+  $0869 #REGhl now points to the first location that is to be filled with data from the tape.
+  $086A This address is moved to the #REGix register pair; the carry flag set; 'data block' is signalled; and the block LOADed.
+N $0873 Now deal with the LOADing of a BASIC program and its variables
 @ $0873 label=LD_PROG
+  $0873 Save the 'destination pointer'.
+  $0874 Find the address of the end marker of the current variables area - the '80-byte'.
+  $0878 Save #REGix temporarily.
+  $087C Fetch the 'length' of the new data block.
+  $0882 Keep a copy of the 'length' whilst the present program and variables areas are reclaimed.
+  $0887 Save the pointer to the program area and the length of the new data block.
+  $0889 Make sufficient room available for the new program and its variables.
+  $088C Restore the #REGix register pair.
+  $0890 The system variable VARS has also to be set for the new program.
+  $089B If a line number was specified then it too has to be considered.
+  $08A1 Jump if 'no number'; otherwise set NEWPPC and NSPPC.
+N $08AD The data block can now be LOADed.
 @ $08AD label=LD_PROG_1
+  $08AD Fetch the 'length'.
+  $08AE Fetch the 'start'.
+  $08B0 Signal 'LOAD'.
+  $08B1 Signal 'data block' only.
+  $08B3 Now LOAD it.
 @ $08B6 label=ME_CONTRL
 c $08B6 THE 'MERGE' CONTROL ROUTINE
 @ $08D2 label=ME_NEW_LP
