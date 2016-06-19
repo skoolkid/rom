@@ -4083,13 +4083,106 @@ c $3004 THE 'ADD-BACK' SUBROUTINE
 c $300F THE 'SUBTRACTION' OPERATION
 @ $3014 label=addition
 c $3014 THE 'ADDITION' OPERATION
+D $3014 The first of three major arithmetical subroutines, this subroutine carries out the floating-point addition of two numbers, each with a 4-byte mantissa and a 1-byte exponent. In these three subroutines, the two numbers at the top of the calculator stack are added/multiplied/divided to give one number at the top of the calculator stack, a 'last value'.
+D $3014 #REGhl points to the second number from the top, the augend/multiplier/dividend. #REGde points to the number at the top of the calculator stack, the addend/multiplicand/divisor. Afterwards #REGhl points to the resultant 'last value' whose address can also be considered to be STKEND-5.
+D $3014 But the addition subroutine first tests whether the 2 numbers to be added are 'small integers'. If they are, it adds them quite simply in #REGhl and #REGbc, and puts the result directly on the stack. No twos complementing is needed before or after the addition, since such numbers are held on the stack in twos complement form, ready for addition.
+  $3014 Test whether the first bytes of both numbers are zero.
+  $3016 If not, jump for full addition.
+  $3018 Save the pointer to the second number.
+  $3019 Point to the second byte of the first number and save that pointer too.
+  $301B Point to the less significant byte.
+  $301C Fetch it in #REGe.
+  $301D Point to the more significant byte.
+  $301E Fetch it in #REGd.
+  $301F Move on to the second byte of the second number.
+  $3022 Fetch it in #REGa (this is the sign byte).
+  $3023 Point to the less significant byte.
+  $3024 Fetch it in #REGc.
+  $3025 Point to the more significant byte.
+  $3026 Fetch it in #REGb.
+  $3027 Fetch the pointer to the sign byte of the first number; put it in #REGde, and the number in #REGhl.
+  $3029 Perform the addition: result in #REGhl.
+  $302A Result to #REGde, sign byte to #REGhl.
+  $302B Add the sign bytes and the carry into #REGa; this will detect any overflow.
+  $302D A non-zero #REGa now indicates overflow.
+  $302F Jump to reset the pointers and to do full addition.
+  $3031 Define the correct sign byte for the result.
+  $3032 Store it on the stack.
+  $3033 Point to the next location.
+  $3034 Store the low byte of the result.
+  $3035 Point to the next location.
+  $3036 Store the high byte of the result.
+  $3037 Move the pointer back to address the first byte of the result.
+  $303A Restore STKEND to #REGde.
+  $303B Finished.
+N $303C Note that the number -65536 decimal can arise here in the form 00 FF 00 00 00 as the result of the addition of two smaller negative integers, e.g. -65000 and -536. It is simply stacked in this form. This is a mistake. The Spectrum system cannot handle this number.
 @ $303C label=ADDN_OFLW
+N $303C Most functions treat it as zero, and it is printed as -1E-38, obtained by treating is as 'minus zero' in an illegitimate format.
+N $303C One possible remedy would be to test for this number at about byte #R$3032 and, if it is present, to make the second byte 80 hex and the first byte 91 hex, so producing the full five-byte floating-point form of the number, i.e. 91 80 00 00 00, which causes no problems. See also the #R$3225(remarks in 'truncate').
+  $303C Restore the pointer to the first number.
+  $303D Restore the pointer to the second number.
 @ $303E label=FULL_ADDN
+  $303E Re-stack both numbers in full five-byte floating-point form.
+N $3041 The full addition subroutine first calls #R$2F9B for each number, then gets the two numbers from the calculator stack and puts the one with the smaller exponent into the addend position. It then calls #R$2FDD to shift the addend up to 32 decimal places right to line it up for addition. The actual addition is done in a few bytes, a single shift is made for carry (overflow to the left) if needed, the result is twos complemented if negative, and any arithmetic overflow is reported; otherwise the subroutine jumps to #R$3155 to normalise the result and return it to the stack with the correct sign bit inserted into the second byte.
+  $3041 Exchange the registers.
+  $3042 Save the next literal address.
+  $3043 Exchange the registers.
+  $3044 Save pointer to the addend.
+  $3045 Save pointer to the augend.
+  $3046 Prepare the augend.
+  $3049 Save its exponent in #REGb.
+  $304A Exchange the pointers.
+  $304B Prepare the addend.
+  $304E Save its exponent in #REGc.
+  $304F If the first exponent is smaller, keep the first number in the addend position; otherwise change the exponents and the pointers back again.
 @ $3055 label=SHIFT_LEN
+  $3055 Save the larger exponent in #REGa.
+  $3056 The difference between the exponents is the length of the shift right.
+  $3057 Get the two numbers from the stack.
+  $305A Shift the addend right.
+  $305D Restore the larger exponent.
+  $305E #REGhl is to point to the result.
+  $305F Store the exponent of the result.
+  $3060 Save the pointer again.
+  $3061 M4 to #REGh and M5 to #REGl (see #R$2FBA).
+  $3063 Add the two right bytes.
+  $3064 N2 to #REGh' and N3 to #REGl' (see #R$2FBA).
+  $3066 Add left bytes with carry.
+  $3068 Result back in #REGd'#REGe'.
+  $3069 Add #REGh', #REGl' and the carry; the resulting mechanisms will ensure that a single shift right is called if the sum of 2 positive numbers has overflowed left, or the sum of 2 negative numbers has not overflowed left.
+  $306F The result is now in #REGd#REGe#REGd'#REGe'.
+  $3070 Get the pointer to the exponent.
+  $3071 The test for shift (#REGh', #REGl' were +00 for positive numbers and +FF for negative numbers).
+  $3074 #REGa counts a single shift right.
+  $3076 The shift is called.
+  $3079 Add 1 to the exponent; this may lead to arithmetic overflow.
 @ $307C label=TEST_NEG
+  $307C Test for negative result: get sign bit of #REGl' into #REGa (this now correctly indicates the sign of the result).
+  $3081 Store it in the second byte position of the result on the calculator stack.
+  $3084 If it is zero, then do not twos complement the result.
+  $3086 Get the first byte.
+  $3087 Negate it.
+  $3089 Complement the carry for continued negation, and store byte.
+  $308B Get the next byte.
+  $308C Ones complement it.
+  $308D Add in the carry for negation.
+  $308F Store the byte.
+  $3090 Proceed to get next byte into the #REGa register.
+  $3092 Ones complement it.
+  $3093 Add in the carry for negation.
+  $3095 Store the byte.
+  $3096 Get the last byte.
+  $3097 Ones complement it.
+  $3098 Add in the carry for negation.
+  $309A Done if no carry.
+  $309C Else, get .5 into mantissa and add 1 to the exponent; this will be needed when two negative numbers add to give an exact power of 2, and it may lead to arithmetic overflow.
 @ $309F label=ADD_REP_6
+  $309F Give the error if required.
 @ $30A3 label=END_COMPL
+  $30A3 Store the last byte.
 @ $30A5 label=GO_NC_MLT
+  $30A5 Clear the carry flag.
+  $30A6 Exit via #R$3155.
 @ $30A9 label=HL_HLxDE
 c $30A9 THE 'HL=HL*DE' SUBROUTINE
 @ $30AE keep
