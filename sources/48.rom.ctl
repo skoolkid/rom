@@ -3139,26 +3139,127 @@ N $288D iv. Finally, the function itself is evaluated by calling #R$24FB, after 
 c $28AB THE 'FUNCTION SKIPOVER' SUBROUTINE
 @ $28B2 label=LOOK_VARS
 c $28B2 THE 'LOOK-VARS' SUBROUTINE
-  $28C3,c2
-  $28C9,c2
+D $28B2 This subroutine is called whenever a search of the variables area or of the arguments of a DEF FN statement is required. The subroutine is entered with the system variable CH-ADD pointing to the first letter of the name of the variable whose location is being sought. The name will be in the program area or the work space. The subroutine initially builds up a discriminator byte, in the #REGc register, that is based on the first letter of the variable's name. Bits 5 and 6 of this byte indicate the type of the variable that is being handled.
+D $28B2 The #REGb register is used as a bit register to hold flags.
+  $28B2 Presume a numeric variable.
+  $28B6 Get the first character into #REGa.
+  $28B7 Is it alphabetic?
+  $28BA Give an error report if it is not so.
+  $28BD Save the pointer to the first letter.
+  $28BE Transfer bits 0 to 4 of the letter to the #REGc register; bits 5 and 7 are always reset.
+  $28C1 Get the second character into #REGa.
+  $28C2 Save this pointer also.
+  $28C3,c2 Is the second character a '('?
+  $28C5 Separate arrays of numbers.
+  $28C7 Now set bit 6.
+  $28C9,c2 Is the second character a '$'?
+  $28CB Separate all the strings.
+  $28CD Now set bit 5.
+  $28CF If the variable's name has only one character then jump forward.
+N $28D4 Now find the end character of a name that has more than one character.
 @ $28D4 label=V_CHAR
+  $28D4 Is the character alphanumeric?
+  $28D7 Jump out of the loop when the end of the name is found.
+  $28D9 Mark the discriminator byte.
+  $28DB Get the next character.
+  $28DC Go back to test it.
+N $28DE Simple strings and arrays of strings require that bit 6 of FLAGS is reset.
 @ $28DE label=V_STR_VAR
+  $28DE Step CH-ADD past the '$'.
+  $28DF Reset bit 6 to indicate a string.
+N $28E3 If DEFADD-hi is non-zero, indicating that a 'function' (a 'FN') is being evaluated, and if in 'run-time', a search will be made of the arguments in the DEF FN statement.
 @ $28E3 label=V_TEST_FN
+  $28E3 Is DEFADD-hi zero?
+  $28E7 If so, jump forward.
+  $28E9 In 'run-time'?
+  $28EC If so, jump forward to search the DEF FN statement.
+N $28EF Otherwise (or if the variable was not found in the DEF FN statement) a search of variables area will be made, unless syntax is being checked.
 @ $28EF label=V_RUN_SYN
+  $28EF Copy the discriminator byte to the #REGb register.
+  $28F0 Jump forward if in 'run-time'.
+  $28F5 Move the discriminator to #REGa.
+  $28F6 Drop the character code part.
+  $28F8 Indicate syntax by setting bit 7.
+  $28FA Restore the discriminator.
+  $28FB Jump forward to continue.
+N $28FD A BASIC line is being executed so make a search of the variables area.
 @ $28FD label=V_RUN
+  $28FD Pick up the VARS pointer.
+N $2900 Now enter a loop to consider the names of the existing variables.
 @ $2900 label=V_EACH
+  $2900 The first letter of each existing variable.
+  $2901 Match on bits 0 to 6.
+  $2903 Jump when the '80-byte' is reached.
+  $2905 The actual comparison.
+  $2906 Jump forward if the first characters do not match.
+  $2908 Rotate #REGa leftwards and then double it to test bits 5 and 6.
+  $290A Strings and array variables.
+  $290D Simple numeric and FOR-NEXT variables.
+N $290F Long names are required to be matched fully.
+  $290F Take a copy of the pointer to the second character.
+  $2911 Save the first letter pointer.
 @ $2912 label=V_MATCHES
+  $2912 Consider the next character.
 @ $2913 label=V_SPACES
-  $2915,c2
+  $2913 Fetch each character in turn.
+  $2914 Point to the next character.
+  $2915,c2 Is the character a 'space'?
+  $2917 Ignore the spaces.
+  $2919 Set bit 5 so as to match lower and upper case letters.
+  $291B Make the comparison.
+  $291C Back for another character if it does match.
+  $291E Will it match with bit 7 set?
+  $2920 Try it.
+  $2921 Jump forward if the 'last characters' do not match.
+  $2923 Check that the end of the name has been reached before jumping forward.
+N $2929 In all cases where the names fail to match the #REGhl register pair has to be made to point to the next variable in the variables area.
 @ $2929 label=V_GET_PTR
+  $2929 Fetch the pointer.
 @ $292A label=V_NEXT
+  $292A Save #REGb and #REGc briefly.
+  $292B #REGde is made to point to the next variable.
+  $292E Switch the two pointers.
+  $292F Get #REGb and #REGc back.
+  $2930 Go around the loop again.
+N $2932 Come here if no entry was found with the correct name.
 @ $2932 label=V_80_BYTE
+  $2932 Signal 'variable not found'.
+N $2934 Come here if checking syntax.
 @ $2934 label=V_SYNTAX
-  $2936,c2
+  $2934 Drop the pointer to the second character.
+  $2935 Fetch the present character.
+  $2936,c2 Is it a '('?
+  $2938 Jump forward if so.
+  $293A Indicate not dealing with an array and jump forward.
+N $293E Come here when an entry with the correct name was found.
 @ $293E label=V_FOUND_1
+  $293E Drop the saved variable pointer.
 @ $293F label=V_FOUND_2
+  $293F Drop the second character pointer.
+  $2940 Drop the first letter pointer.
+  $2941 Save the 'last' letter pointer.
+  $2942 Fetch the current character.
+N $2943 If the matching variable name has more than a single letter then the other characters must be passed over.
+N $2943 Note: This appears to have been done already at #R$28D4.
 @ $2943 label=V_PASS
+  $2943 Is it alphanumeric?
+  $2946 Jump when the end of the name has been found.
+  $2948 Fetch the next character.
+  $2949 Go back and test it.
+N $294B The exit-parameters are now set.
 @ $294B label=V_END
+  $294B #REGhl holds the pointer to the letter of a short name or the 'last' character of a long name.
+  $294C Rotate the whole register.
+  $294E Specify the state of bit 6.
+  $2950 Finished.
+E $28B2 The exit-parameters for the subroutine can be summarised as follows.
+E $28B2 The system variable CH-ADD points to the first location after the name of the variable as it occurs in the BASIC line.
+E $28B2 When 'variable not found':
+E $28B2 #LIST { The carry flag is set. } { The zero flag is set only when the search was for an array variable. } { The #REGhl register pair points to the first letter of the name of the variable as it occurs in the BASIC line. } LIST#
+E $28B2 When 'variable found':
+E $28B2 #LIST { The carry flag is reset. } { The zero flag is set for both simple string variables and all array variables. } { The #REGhl register pair points to the letter of a 'short' name, or the last character of a 'long' name, of the existing entry that was found in the variables area. } LIST#
+E $28B2 In all cases bits 5 and 6 of the #REGc register indicate the type of variable being handled. Bit 7 is the complement of the SYNTAX/RUN flag. But only when the subroutine is used in 'runtime' will bits 0 to 4 hold the code of the variable's letter.
+E $28B2 In syntax time the return is always made with the carry flag reset. The zero flag is set for arrays and reset for all other variables, except that a simple string name incorrectly followed by a '$' sets the zero flag and, in the case of SAVE "name" DATA a$(), passes syntax as well.
 @ $2951 label=STK_F_ARG
 c $2951 THE 'STACK FUNCTION ARGUMENT' SUBROUTINE
   $2955,c2
