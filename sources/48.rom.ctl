@@ -3115,7 +3115,19 @@ c $2D22 THE 'STK-DIGIT' SUBROUTINE
 c $2D28 THE 'STACK-A' SUBROUTINE
 @ $2D2B label=STACK_BC
 c $2D2B THE 'STACK-BC' SUBROUTINE
-B $2D38,1
+D $2D2B This subroutine gives the floating-point form for the absolute binary value currently held in the #REGbc register pair.
+D $2D2B The form used in this and hence in the two previous subroutines as well is the one reserved in the Spectrum for small integers n, where -65535<=n<=65535. The first and fifth bytes are zero; the third and fourth bytes are the less significant and more significant bytes of the 16 bit integer n in two's complement form (if n is negative, these two bytes hold 65536+n); and the second byte is a sign byte, 00 for '+' and FF for '-'.
+  $2D2B Re-initialise #REGiy to ERR-NR.
+  $2D2F Clear the #REGa register.
+  $2D30 And the #REGe register, to indicate '+'.
+  $2D31 Copy the less significant byte to #REGd.
+  $2D32 And the more significant byte to #REGc.
+  $2D33 Clear the #REGb register.
+  $2D34 Now stack the number.
+  $2D37 Use the calculator to make #REGhl point to STKEND-5.
+B $2D38,1 #R$369B
+  $2D39 Clear the carry flag.
+  $2D3A Finished.
 @ $2D3B label=INT_TO_FP
 c $2D3B THE 'INTEGER TO FLOATING-POINT' SUBROUTINE
 D $2D3B This subroutine returns a 'last value' on the calculator stack that is the result of converting an integer in a BASIC line, i.e. the integer part of the decimal number or the line number, to its floating-point form.
