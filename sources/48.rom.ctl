@@ -3120,34 +3120,147 @@ c $2951 THE 'STACK FUNCTION ARGUMENT' SUBROUTINE
 @ $2991 label=SFA_END
 @ $2996 label=STK_VAR
 c $2996 THE 'STK-VAR' SUBROUTINE
+D $2996 This subroutine is used either to find the parameters that define an existing string entry in the variables area, or to return in the #REGhl register pair the base address of a particular element or an array of numbers. When called from #R$2C02 the subroutine only checks the syntax of the BASIC statement.
+D $2996 Note that the parameters that define a string may be altered by calling #R$2A52 if this should be specified.
+D $2996 Initially the #REGa and the #REGb registers are cleared and bit 7 of the #REGc register is tested to determine whether syntax is being checked.
+  $2996 Clear the array flag.
+  $2997 Clear the #REGb register for later.
+  $2998 Jump forward if syntax is being checked.
+N $299C Next, simple strings are separated from array variables.
+  $299C Jump forward if dealing with an array variable.
+N $29A0 The parameters for a simple string are readily found.
+  $29A0 Signal 'a simple string'.
 @ $29A1 label=SV_SIMPLE
+  $29A1 Move along the entry.
+  $29A2 Pick up the low length counter.
+  $29A3 Advance the pointer.
+  $29A4 Pick up the high length pointer.
+  $29A5 Advance the pointer.
+  $29A6 Transfer the pointer to the actual string.
+  $29A7 Pass these parameters to the calculator stack.
+  $29AA Fetch the present character and jump forward to see if a 'slice' is required.
+N $29AE The base address of an element in an array is now found. Initially the 'number of dimensions' is collected.
 @ $29AE label=SV_ARRAYS
-  $29BB,c2
+  $29AE Step past the length bytes.
+  $29B1 Collect the 'number of dimensions'.
+  $29B2 Jump forward if handling an array of numbers.
+N $29B6 If an array of strings has its 'number of dimensions' equal to '1' then such an array can be handled as a simple string.
+  $29B6 Decrease the 'number of dimensions' and jump if the number is now zero.
+N $29B9 Next a check is made to ensure that in the BASIC line the variable is followed by a subscript.
+  $29B9 Save the pointer in #REGde.
+  $29BA Get the present character.
+  $29BB,c2 Is it a '('?
+  $29BD Report the error if it is not so.
+  $29BF Restore the pointer.
+N $29C0 For both numeric arrays and arrays of strings the variable pointer is transferred to the #REGde register pair before the subscript is evaluated.
 @ $29C0 label=SV_PTR
+  $29C0 Pass the pointer to #REGde.
+  $29C1 Jump forward.
+N $29C3 The following loop is used to find the parameters of a specified element within an array. The loop is entered at the mid-point - #R$29E7 - where the element count is set to zero.
+N $29C3 The loop is accessed '#REGb' times, this being, for a numeric array, equal to the number of dimensions that are being used, but for an array of strings '#REGb' is one less than the number of dimensions in use as the last subscript is used to specify a 'slice' of the string.
 @ $29C3 label=SV_COMMA
-  $29C6,c2
-  $29D2,c2
+  $29C3 Save the counter.
+  $29C4 Get the present character.
+  $29C5 Restore the counter.
+  $29C6,c2 Is the present character a ','?
+  $29C8 Jump forward to consider another subscript.
+  $29CA If a line is being executed then there is an error.
+  $29CE Jump forward if dealing with an array of strings.
+  $29D2,c2 Is the present character a ')'?
+  $29D4 Report an error if not so.
+  $29D6 Advance CH-ADD.
+  $29D7 Return as the syntax is correct.
+N $29D8 For an array of strings the present subscript may represent a 'slice', or the subscript for a 'slice' may yet be present in the BASIC line.
 @ $29D8 label=SV_CLOSE
-  $29D8,c2
+  $29D8,c2 Is the present character a ')'?
+  $29DA Jump forward and check whether there is another subscript.
+  $29DC Is the present character a 'TO'?
+  $29DE It must not be otherwise.
 @ $29E0 label=SV_CH_ADD
+  $29E0 Get the present character.
+  $29E1 Point to the preceding character and set CH-ADD.
+  $29E5 Evaluate the 'slice'.
+N $29E7 Enter the loop here.
 @ $29E7 keep
 @ $29E7 label=SV_COUNT
+  $29E7 Set the counter to zero.
 @ $29EA label=SV_LOOP
-  $29F3,c2
+  $29EA Save the counter briefly.
+  $29EB Advance CH-ADD.
+  $29EC Restore the counter.
+  $29ED Fetch the discriminator byte.
+  $29EE Jump unless checking the syntax for an array of strings.
+  $29F2 Get the present character.
+  $29F3,c2 Is it a ')'?
+  $29F5 Jump forward as finished counting elements.
+  $29F7 Is to 'TO'?
+  $29F9 Jump back if dealing with a 'slice'.
 @ $29FB label=SV_MULT
+  $29FB Save the dimension-number counter and the discriminator byte.
+  $29FC Save the element-counter.
+  $29FD Get a dimension-size into #REGde.
+  $2A00 The counter moves to #REGhl and the variable pointer is stacked.
+  $2A01 The counter moves to #REGde and the dimension-size to #REGhl.
+  $2A02 Evaluate the next subscript.
+  $2A05 Give an error if out of range.
+  $2A07 The result of the evaluation is decremented as the counter is to count the elements occurring before the specified element.
+  $2A08 Multiply the counter by the dimension-size.
+  $2A0B Add the result of #R$2ACC to the present counter.
+  $2A0C Fetch the variable pointer.
+  $2A0D Fetch the dimension-number and the discriminator byte.
+  $2A0E Keep going round the loop until '#REGb' equals zero.
+N $2A10 The SYNTAX/RUN flag is checked before arrays of strings are separated from arrays of numbers.
+  $2A10 Report an error if checking syntax at this point.
 @ $2A12 label=SV_RPT_C
-  $2A1C,c2
+  $2A14 Save the counter.
+  $2A15 Jump forward if handling an array of strings.
+N $2A19 When dealing with an array of numbers the present character must be a ')'.
+  $2A19 Transfer the variable pointer to the #REGbc register pair.
+  $2A1B Fetch the present character.
+  $2A1C,c2 Is it a ')'?
+  $2A1E Jump past the error report unless it is needed.
+N $2A20 Report 3 - Subscript out of range.
 @ $2A20 label=REPORT_3
+M $2A20,2 Call the error handling routine.
 B $2A21,1
+N $2A22 The address of the location before the actual floating-point form can now be calculated.
 @ $2A22 label=SV_NUMBER
+  $2A22 Advance CH-ADD.
+  $2A23 Fetch the counter.
 @ $2A24 keep
+  $2A24 There are 5 bytes to each element in an array of numbers.
+  $2A27 Compute the total number of bytes before the required element.
+  $2A2A Make #REGhl point to the location before the required element.
+  $2A2B Return with this address.
+N $2A2C When dealing with an array of strings the length of an element is given by the last 'dimension-size'. The appropriate parameters are calculated and then passed to the calculator stack.
 @ $2A2C label=SV_ELEM
-  $2A3D,c2
-  $2A41,c2
+  $2A2C Fetch the last dimension-size.
+  $2A2F The variable pointer goes on the stack and the counter to #REGhl.
+  $2A30 Multiply 'counter' by 'dimension-size'.
+  $2A33 Fetch the variable pointer.
+  $2A34 This gives #REGhl pointing to the location before the string.
+  $2A35 So point to the actual 'start'.
+  $2A36 Transfer the last dimension-size to #REGbc to form the 'length'.
+  $2A38 Move the 'start' to #REGde.
+  $2A39 Pass these parameters to the calculator stack. Note: The first parameter is zero indicating a string from an 'array of strings' and hence the existing entry is not to be reclaimed.
+N $2A3C There are three possible forms of the last subscript:
+N $2A3C #LIST { A$(2,4 TO 8) } { A$(2)(4 TO 8) } { A$(2) } LIST#
+N $2A3C The last of these is the default form and indicates that the whole string is required.
+  $2A3C Get the present character.
+  $2A3D,c2 Is it a ')'?
+  $2A3F Jump if it is so.
+  $2A41,c2 Is it a ','?
+  $2A43 Report the error if not so.
 @ $2A45 label=SV_SLICE
+  $2A45 Use #R$2A52 to modify the set of parameters.
 @ $2A48 label=SV_DIM
-@ $2A49 label=SV_SLICE?
-  $2A49,c2
+  $2A48 Fetch the next character.
+@ $2A49 label=SV_SLICE2
+  $2A49,c2 Is It a '('?
+  $2A4B Jump back if there is a 'slice' to be considered.
+N $2A4D When finished considering the last subscript a return can be made.
+  $2A4D Signal - string result.
+  $2A51 Return with the parameters of the required string forming a 'last value' on the calculator stack.
 @ $2A52 label=SLICING
 c $2A52 THE 'SLICING' SUBROUTINE
   $2A59,c2
