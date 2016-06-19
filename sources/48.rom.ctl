@@ -3837,25 +3837,130 @@ c $30A9 THE 'HL=HL*DE' SUBROUTINE
 c $30C0 THE 'PREPARE TO MULTIPLY OR DIVIDE' SUBROUTINE
 @ $30CA label=multiply
 c $30CA THE 'MULTIPLICATION' OPERATION
+D $30CA This subroutine first tests whether the two numbers to be multiplied are 'small integers'. If they are, it uses #R$2D7F to get them from the stack, #R$30A9 to multiply them and #R$2D8E to return the result to the stack. Any overflow of this 'short multiplication' (i.e. if the result is not itself a 'small integer') causes a jump to multiplication in full five byte floating-point form (see below).
+  $30CA Test whether the first bytes of both numbers are zero.
+  $30CC If not, jump for 'long' multiplication.
+  $30CE Save the pointers to the second number.
+  $30CF And to the first number.
+  $30D0 And to the second number yet again.
+  $30D1 Fetch sign in #REGc, number in #REGde.
+  $30D4 Number to #REGhl now.
+  $30D5 Number to stack, second pointer to #REGhl.
+  $30D6 Save first sign in #REGb.
+  $30D7 Fetch second sign in #REGc, number in #REGde.
+  $30DA Form sign of result in #REGa: like signs give plus (00), unlike give minus (FF).
+  $30DC Store sign of result in #REGc.
+  $30DD Restore the first number to #REGhl.
+  $30DE Perform the actual multiplication.
+  $30E1 Store the result in #REGde.
+  $30E2 Restore the pointer to the first number.
+  $30E3 Jump on overflow to 'full' multiplication.
+  $30E5 These 5 bytes ensure that 00 FF 00 00 00 is replaced by zero; that they should not be needed if this number were excluded from the system is noted at #R$303C.
 @ $30EA label=MULT_RSLT
+  $30EA Now store the result on the stack.
+  $30ED Restore STKEND to #REGde.
+  $30EE Finished.
 @ $30EF label=MULT_OFLW
+  $30EF Restore the pointer to the second number.
 @ $30F0 label=MULT_LONG
+  $30F0 Re-stack both numbers in full five byte floating-point form.
+N $30F3 The full multiplication subroutine prepares the first number for multiplication by calling #R$30C0, returning if it is zero; otherwise the second number is prepared by again calling #R$30C0, and if it is zero the subroutine goes to set the result to zero. Next it fetches the two numbers from the calculator stack and multiplies their mantissas in the usual way, rotating the first number (treated as the multiplier) right and adding in the second number (the multiplicand) to the result whenever the multiplier bit is set. The exponents are then added together and checks are made for overflow and for underflow (giving the result zero). Finally, the result is normalised and returned to the calculator stack with the correct sign bit in the second byte.
+  $30F3 #REGa is set to zero so that the sign of the first number will go into #REGa.
+  $30F4 Prepare the first number, and return if zero. (Result already zero.)
+  $30F8 Exchange the registers.
+  $30F9 Save the next literal address.
+  $30FA Exchange the registers.
+  $30FB Save the pointer to the multiplicand.
+  $30FC Exchange the pointers.
+  $30FD Prepare the 2nd number.
+  $3100 Exchange the pointers again.
+  $3101 Jump forward if 2nd number is zero.
+  $3103 Save the pointer to the result.
+  $3104 Get the two numbers from the stack.
+  $3107 M5 to #REGa (see #R$2FBA).
+  $3108 Prepare for a subtraction.
+  $3109 Initialise #REGhl to zero for the result.
+  $310B Exchange the registers.
+  $310C Save M1 and N1 (see #R$2FBA).
+  $310D Also initialise #REGhl' for the result.
+  $310F Exchange the registers.
+  $3110 #REGb counts thirty three shifts.
+  $3112 Jump forward into the loop.
+N $3114 Now enter the multiplier loop.
 @ $3114 label=MLT_LOOP
+  $3114 Jump forward to #R$311B if no carry, i.e. the multiplier bit was reset.
+  $3116 Else, add the multiplicand in #REGd'#REGe'#REGde (see #R$2FBA) into the result being built up in #REGh'#REGl'#REGhl.
 @ $311B label=NO_ADD
+  $311B Whether multiplicand was added or not, shift result right in #REGh'#REGl'#REGhl; the shift is done by rotating each byte with carry, so that any bit that drops into the carry is picked up by the next byte, and the shift continued into #REGb'#REGc'#REGc#REGa.
 @ $3125 label=STRT_MLT
+  $3125 Shift right the multiplier in #REGb'#REGc'#REGc#REGa (see #R$2FBA and above).
+  $3128 A final bit dropping into the carry will trigger another add of the multiplicand to the result.
+  $312E Loop 33 times to get all the bits.
+  $3130 Move the result from #REGh'#REGl'#REGhl to #REGd'#REGe'#REGde.
+N $3134 Now add the exponents together.
+  $3134 Restore the exponents - M1 and N1.
+  $3135 Restore the pointer to the exponent byte.
+  $3136 Get the sum of the two exponent bytes in #REGa, and the correct carry.
+  $3138 If the sum equals zero then clear the carry; else leave it unchanged.
 @ $313B label=MAKE_EXPT
+  $313B Prepare to increase the exponent by +80.
+N $313D The rest of the subroutine is common to both #R$30CA and #R$31AF.
 @ $313D label=DIVN_EXPT
+  $313D These few bytes very cleverly make the correct exponent byte. Rotating left then right gets the exponent byte (true exponent plus +80) into #REGa.
+  $3140 If the sign flag is reset, no report of arithmetic overflow needed.
+  $3143 Report the overflow if carry reset.
+  $3145 Clear the carry now.
 @ $3146 label=OFLW1_CLR
+  $3146 The exponent byte is now complete; but if #REGa is zero a further check for overflow is needed.
+  $314B If there is no carry set and the result is already in normal form (bit 7 of #REGd' set) then there is overflow to report; but if bit 7 of #REGd' is reset, the result in just in range, i.e. just under 2**127.
 @ $3151 label=OFLW2_CLR
+  $3151 Store the exponent byte, at last.
+  $3152 Pass the fifth result byte to #REGa for the normalisation sequence, i.e. the overflow from #REGl into #REGb'.
+N $3155 The remainder of the subroutine deals with normalisation and is common to all the arithmetic routines.
 @ $3155 label=TEST_NORM
+  $3155 If no carry then normalise now.
+  $3157 Else, deal with underflow (zero result) or near underflow (result 2**-128): return exponent to #REGa, test if #REGa is zero (case 2**-128) and if so produce 2**-128 if number is normal; otherwise produce zero. The exponent must then be set to zero (for zero) or 1 (for 2**-128).
 @ $3159 label=NEAR_ZERO
 @ $315D label=ZERO_RSLT
 @ $315E label=SKIP_ZERO
+  $3164 Restore the exponent byte.
+  $3165 Jump if case 2**-128.
+  $3167 Otherwise, put zero into second byte of result on the calculator stack.
+  $316A Jump forward to transfer the result.
+N $316C The actual normalisation operation.
 @ $316C label=NORMALISE
+  $316C Normalise the result by up to 32 shifts left of #REGd'#REGe'#REGde (with #REGa adjoined) until bit 7 of #REGd' is set. #REGa holds zero after addition so no precision is gained or lost; #REGa holds the fifth byte from #REGb' after multiplication or division; but as only about 32 bits can be correct, no precision is lost. Note that #REGa is rotated circularly, with branch at carry...eventually a random process.
 @ $316E label=SHIFT_ONE
+  $317F The exponent is decremented on each shift.
+  $3180 If the exponent becomes zero, then number from 2**-129 are rounded up to 2**-128.
+  $3182 Loop back, up to 32 times.
+  $3184 If bit 7 never became 1 then the whole result is to be zero.
+N $3186 Finish the normalisation by considering the 'carry'.
 @ $3186 label=NORML_NOW
+  $3186 After normalisation add back any final carry that went into #REGa. Jump forward if the carry does not ripple right back.
+  $318E If it should ripple right back then set mantissa to 0.5 and increment the exponent. This action may lead to arithmetic overflow (final case).
+N $3195 The final part of the subroutine involves passing the result to the bytes reserved for it on the calculator stack and resetting the pointers.
 @ $3195 label=OFLOW_CLR
+  $3195 Save the result pointer.
+  $3196 Point to the sign byte in the result.
+  $3197 The result is moved from #REGd'#REGe'#REGde to #REGbc#REGde, and then to #REGa#REGc#REGde.
+  $319C The sign bit is retrieved from its temporary store and transferred to its correct position of bit 7 of the first byte of the mantissa.
+  $31A0 The first byte is stored.
+  $31A1 Next.
+  $31A2 The second byte is stored.
+  $31A3 Next.
+  $31A4 The third byte is stored.
+  $31A5 Next.
+  $31A6 The fourth byte is stored.
+  $31A7 Restore the pointer to the result.
+  $31A8 Restore the pointer to second number.
+  $31A9 Exchange the register.
+  $31AA Restore the next literal address.
+  $31AB Exchange the registers.
+  $31AC Finished.
+N $31AD Report 6 - Arithmetic overflow.
 @ $31AD label=REPORT_6
+M $31AD,2 Call the error handling routine.
 B $31AE,1
 @ $31AF label=division
 c $31AF THE 'DIVISION' OPERATION
