@@ -1077,21 +1077,88 @@ c $1190 THE 'SET-HL' AND 'SET-DE' SUBROUTINES
 c $11A7 THE 'REMOVE-FP' SUBROUTINE
 @ $11AA keep
 @ $11B7 label=NEW
-c $11B7 THE 'NEW COMMAND' ROUTINE
+c $11B7 THE 'NEW' COMMAND ROUTINE
+  $11B7 Disable the maskable interrupt.
+  $11B8 The NEW flag.
+  $11BA The existing value of RAMTOP is preserved.
+  $11BE Load the alternate registers with the following system variables (P-RAMT, RASP, PIP, UDG). All of which will also be preserved.
+N $11CB The main entry point.
 @ $11CB label=START_NEW
+  $11CB Save the flag for later.
+  $11CC Make the border white in colour.
+  $11D0 Set the I register to hold the value of +3F.
+  $11D4,6 Wait 24 T states.
+N $11DA Now the memory is checked.
 @ $11DA label=RAM_CHECK
+  $11DA Transfer the value in #REGde (#R$0000=+FFFF, #R$11B7=RAMTOP).
 @ $11DC label=RAM_FILL
+  $11DC Enter the value of +02 into every location above +3FFF.
 @ $11E2 label=RAM_READ
+  $11E2 Prepare for true subtraction.
+  $11E3 The carry flag will become reset when the top is reached.
+  $11E6 Update the pointer.
+  $11E7 Jump when at top.
+  $11E9 +02 goes to +01.
+  $11EA But if zero then RAM is faulty. Use current #REGhl as top.
+  $11EC +01 goes to +00.
+  $11ED Step to the next test unless it fails.
 @ $11EF label=RAM_DONE
+  $11EF #REGhl points to the last actual location in working order.
+N $11F0 Next restore the 'preserved' system variables. (Meaningless when coming from #R$0000.)
+  $11F0 Restore P-RAMT, RASP, PIP and UDG.
+  $11FD Test the #R$0000/#R$11B7 flag.
+  $11FE Jump forward if coming from the #R$11B7 command routine.
+N $1200 Overwrite the system variables when coming from #R$0000 and initialise the user-defined graphics area.
+  $1200 Top of physical RAM.
 @ $1203 nowarn
+  $1203 Last byte of 'U' in character set.
 @ $1206 keep
+  $1206 There are this number of bytes in twenty one letters.
+  $1209 Switch the pointers.
+  $120A Now copy the character forms of the letter 'A' to 'U'.
+  $120C Switch the pointers back.
+  $120D Point to the first byte.
+  $120E Now set UDG.
+  $1211 Down one location.
 @ $1212 keep
+  $1212 Set the system variables RASP and PIP.
+N $1219 The remainder of the routine is common to both the #R$0000 and the #R$11B7 operations.
 @ $1219 label=RAM_SET
+  $1219 Set RAMTOP.
 @ $121C ssub=LD HL,$3D00-$100
+  $121C Initialise the system variable CHARS.
+N $1222 Next the machine stack is set up.
+  $1222 The top location is made to hold +3E.
+  $1227 The next location is left holding zero.
+  $1228 These two locations represent the 'last entry'.
+  $1229 Step down two locations to find the correct value for ERR-SP.
+N $122E The initialisation routine continues with:
+  $122E Interrupt mode 1 is used.
+  $1230 #REGiy holds +ERR-NR always.
+  $1234 The maskable interrupt can now be enabled.  The real-time clock will be updated and the keyboard scanned every 1/50th of a second.
+  $1235 The base address of the channel information area.
+  $123B The initial channel data is moved from the table (#R$15AF) to the channel information area.
 @ $123E keep
+  $1244 The system variable DATADD is made to point to the last location of the channel data.
+  $1249 And PROG and VARS to the the location after that.
+  $1250 The end-marker of the variables area.
+  $1252 Move on one location to find the value for E-LINE.
+  $1256 Make the edit-line be a single 'carriage return' character.
+  $1259 Now enter an end marker.
+  $125B Move on one location to find the value for WORKSP, STKBOT and STKEND.
+  $1265 Initialise the colour system variables to FLASH 0, BRIGHT 0, PAPER 7, INK 0.
 @ $1270 keep
+  $1270 Initialise the system variables REPDEL and REPPER.
+  $1276 Make KSTATE-0 hold +FF.
+  $1279 Make KSTATE-4 hold +FF.
+  $127C Next move the initial stream data from its table to the streams area.
 @ $1282 keep
+  $1287 Signal 'printer in use' and clear the printer buffer.
+  $128E Set the size of the lower part of the display and clear the whole display.
+  $1295 Now print the message '#CHR169 1982 Sinclair Research Ltd' on the bottom line.
 @ $1296 ssub=LD DE,$1539-1
+  $129C Signal 'the lower part will required to be cleared'.
+  $12A0 Jump forward into the main execution loop.
 @ $12A2 label=MAIN_EXEC
 c $12A2 THE 'MAIN EXECUTION' LOOP
 D $12A2 The main loop controls the 'editing mode', the execution of direct commands and the production of reports.
