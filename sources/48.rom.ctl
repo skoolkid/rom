@@ -847,21 +847,91 @@ c $0C41 THE 'TABLE SEARCH' SUBROUTINE
 @ $0C44 label=PO_STEP
 @ $0C55 label=PO_SCR
 c $0C55 THE 'TEST FOR SCROLL' SUBROUTINE
+D $0C55 This subroutine is called whenever there might be the need to scroll the display. This occurs on three occasions:
+D $0C55 #LIST { when handling a 'carriage return' character } { when using AT in an INPUT line } { when the current line is full and the next line has to be used } LIST#
+D $0C55 On entry the #REGb register holds the line number under test.
+  $0C55 Return immediately if the printer is being used.
 @ $0C5A nowarn
+  $0C5A Pre-load the machine stack with the address of #R$0DD9.
+  $0C5E Transfer the line number.
+  $0C5F Jump forward if considering 'INPUT ... AT ..'.
+  $0C66 Return, via #R$0DD9, if the line number is greater than the value of DF-SZ; give report 5 if it is less; otherwise continue.
+  $0C6C Jump forward unless dealing with an 'automatic listing'.
+  $0C72 Fetch the line counter.
+  $0C75 Decrease this counter.
+  $0C76 Jump forward if the listing is to be scrolled.
+  $0C78 Otherwise open channel 'K', restore the stack pointer, flag that the automatic listing has finished and return via #R$0DD9.
+N $0C86 Report 5 - Out of screen
 @ $0C86 label=REPORT_5
+M $0C86,2 Call the error handling routine.
 B $0C87,1
+N $0C88 Now consider if the prompt 'scroll?' is required.
 @ $0C88 label=PO_SCR_2
+  $0C88 Decrease the scroll counter and proceed to give the prompt only if it becomes zero.
+N $0C8D Proceed to give the prompt message.
+  $0C8D The counter is reset.
+  $0C93 The current values of ATTR-T and MASK-T are saved.
+  $0C97 The current value of P-FLAG is saved.
+  $0C9B Channel 'K' is opened.
+  $0CA0 The message 'scroll?' is message '0'. This message is now printed.
 @ $0CA1 nowarn
+  $0CA7 Signal 'clear the lower screen after a keystroke'.
+  $0CAB This is FLAGS.
+  $0CAE Signal 'L mode'.
+  $0CB0 Signal 'no key yet'.
+  $0CB2 Note: #REGde should be pushed also.
+  $0CB3 Fetch a single key code.
+  $0CB6 Restore the registers.
+  $0CB7,14,c2,8,c2,2 There is a jump forward to #R$0D00 - 'BREAK - CONT repeats' - if the keystroke was 'BREAK', 'STOP', 'N' or 'n'; otherwise accept the keystroke as indicating the need to scroll the display.
+  $0CC5 Open channel 'S'.
+  $0CCA Restore the value of P-FLAG.
+  $0CCE Restore the values of ATTR-T and MASK-T.
+N $0CD2 The display is now scrolled.
 @ $0CD2 label=PO_SCR_3
+  $0CD2 The whole display is scrolled.
+  $0CD5 The line and column numbers for the start of the line above the lower part of the display are found and saved.
+  $0CDC The corresponding attribute byte for this character area is then found. The #REGhl register pair holds the address of the byte.
+N $0CE8 The line in question will have 'lower part' attribute values and the new line at the bottom of the display may have 'ATTR-P' values so the attribute values are exchanged.
+  $0CE8 #REGde points to the first attribute byte of the bottom line.
+  $0CEB The value is fetched.
+  $0CEC The 'lower part' value.
+  $0CED There are thirty two bytes.
+  $0CEF Exchange the pointers.
 @ $0CF0 label=PO_SCR_3A
+  $0CF0 Make the first exchange and then proceed to use the same values for the thirty two attribute bytes of the two lines being handled.
+  $0CF6 The line and column numbers of the bottom line of the 'upper part' are fetched before returning.
+N $0CF8 The 'scroll?' message.
 @ $0CF8 label=SCROLL
-B $0CF8,1
-T $0CF9,7,6:B1
+B $0CF8,1 Initial marker - stepped over.
+T $0CF9,7,6:B1 The '?' is inverted.
+N $0D00 Report D - BREAK - CONT repeats
 @ $0D00 label=REPORT_D_2
+M $0D00,2 Call the error handling routine.
 B $0D01,1
+N $0D02 The lower part of the display is handled as follows:
 @ $0D02 label=PO_SCR_4
+  $0D02 The 'out of screen' error is given if the lower part is going to be 'too large' and a return made if scrolling is unnecessary.
+  $0D0C The #REGa register will now hold 'the number of scrolls to be made'.
+  $0D0E The line and column numbers are now saved.
+  $0D0F The 'scroll number', ATTR-T, MASK-T & P-FLAG are all saved.
+  $0D18 The 'permanent' colour items are to be used.
+  $0D1B The 'scroll number' is fetched.
+N $0D1C The lower part of the screen is now scrolled '#REGa' number of times.
 @ $0D1C label=PO_SCR_4A
+  $0D1C Save the 'number'.
+  $0D1D This is DF-SZ.
+  $0D20 The value in DF-SZ is incremented; the #REGb register set to hold the former value and the #REGa register the new value.
+  $0D24 This is S-POSN-hi.
+  $0D27 The jump is taken if only the lower part of the display is to be scrolled (#REGb=old DF-SZ).
+  $0D2A Otherwise S-POSN-hi is incremented and the whole display scrolled (#REGb=+18).
 @ $0D2D label=PO_SCR_4B
+  $0D2D Scroll '#REGb' lines.
+  $0D30 Fetch and decrement the 'scroll number'.
+  $0D32 Jump back until finished.
+  $0D34 Restore the value of P-FLAG.
+  $0D38 Restore the values of ATTR-T and MASK-T.
+  $0D3C In case S-POSN has been changed #R$0DD9 is called to give a matching value to DF-CC.
+  $0D47 Reset the flag to indicate that the lower screen is being handled, fetch the line and column numbers, and then return.
 @ $0D4D label=TEMPS
 c $0D4D THE 'TEMPORARY COLOUR ITEMS' SUBROUTINE
 @ $0D5B label=TEMPS_1
