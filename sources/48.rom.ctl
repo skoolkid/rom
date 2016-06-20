@@ -945,18 +945,79 @@ N $08AD The data block can now be LOADed.
   $08B3 Now LOAD it.
 @ $08B6 label=ME_CONTRL
 c $08B6 THE 'MERGE' CONTROL ROUTINE
+D $08B6 There are three main parts to this routine.
+D $08B6 #LIST { Load the data block into the work space. } { Merge the lines of the new program into the old program. } { Merge the new variables into the old variables. } LIST#
+D $08B6 Start therefore with the loading of the data block.
+  $08B6 Fetch the 'length' of the data block.
+  $08BC Save a copy of the 'length'.
+  $08BD Now make 'length+1' locations available in the work space.
+  $08BF Place an end marker in the extra location.
+  $08C1 Move the 'start' pointer to the #REGhl register pair.
+  $08C2 Fetch the original 'length'.
+  $08C3 Save a copy of the 'start'.
+  $08C4 Now set the #REGix register pair for the actual load.
+  $08C7 Signal 'LOAD'.
+  $08C8 Signal 'data block only'.
+  $08CA Load the data block.
+N $08CD The lines of the new program are merged with the lines of the old program.
+  $08CD Fetch the 'start' of the new program.
+  $08CE Initialise #REGde to the 'start' of the old program.
+N $08D2 Enter a loop to deal with the lines of the new program.
 @ $08D2 label=ME_NEW_LP
+  $08D2 Fetch a line number and test it.
+  $08D5 Jump when finished with all the lines.
+N $08D7 Now enter an inner loop to deal with the lines of the old program.
 @ $08D7 label=ME_OLD_LP
+  $08D7 Fetch the high line number byte and compare it. Jump forward if it does not match but in any case advance both pointers.
+  $08DD Repeat the comparison for the low line number bytes.
 @ $08DF label=ME_OLD_L1
+  $08DF Now retreat the pointers.
+  $08E1 Jump forward if the correct place has been found for a line of the new program.
+  $08E3 Otherwise find the address of the start of the next old line.
+  $08E9 Go round the loop for each of the 'old lines'.
 @ $08EB label=ME_NEW_L2
+  $08EB Enter the 'new line' and go round the outer loop again.
+N $08F0 In a similar manner the variables of the new program are merged with the variables of the old program.
 @ $08F0 label=ME_VAR_LP
+  $08F0 the new variables in turn.
+  $08F0 Fetch each variable name in turn and test it.
+  $08F2 Return when all the variables have been considered.
+  $08F5 Save the current new pointer.
+  $08F6 Fetch VARS (for the old program).
+N $08F9 Now enter an inner loop to search the existing variables area.
 @ $08F9 label=ME_OLD_VP
+  $08F9 Fetch each variable name and test it.
+  $08FC Jump forward once the end marker is found. (Make an 'addition'.)
+  $08FE Compare the names (first bytes).
+  $08FF Jump forward to consider it further, returning here if it proves not to match fully.
 @ $0901 label=ME_OLD_V1
+  $0901 Save the new variable's name whilst the next 'old variable' is located.
+  $0906 Restore the pointer to the #REGde register pair and go round the loop again.
+N $0909 The old and new variables match with respect to their first bytes but variables with long names will need to be matched fully.
 @ $0909 label=ME_OLD_V2
+  $0909 Consider bits 7, 6 and 5 only.
+  $090B Accept all the variable types except 'long named variables'.
+  $090F Make #REGde point to the first character of the 'new name'.
+  $0911 Save the pointer to the 'old name'.
+N $0912 Enter a loop to compare the letters of the long names.
 @ $0912 label=ME_OLD_V3
+  $0912 Update both the 'old' and the 'new' pointers.
+  $0914 Compare the two letters Jump forward if the match fails.
+  $0918 Go round the loop until the 'last character' is found.
+  $091B Fetch the pointer to the start of the 'old' name and jump forward - successful.
 @ $091E label=ME_OLD_V4
+  $091E Fetch the pointer and jump back - unsuccessful.
+N $0921 Come here if the match was found.
 @ $0921 label=ME_VAR_L1
+  $0921 Signal 'replace' variable.
+N $0923 And here if not. (#REGa holds +80 - variable to be 'added'.)
 @ $0923 label=ME_VAR_L2
+  $0923 Fetch pointer to 'new' name.
+  $0924 Switch over the registers.
+  $0925 The zero flag is to be set if there is to be a 'replacement', reset for an 'addition'.
+  $0926 Signal 'handling variables'.
+  $0927 Now make the entry.
+  $092A Go round the loop to consider the next new variable.
 @ $092C label=ME_ENTER
 c $092C THE 'MERGE A LINE OR A VARIABLE' SUBROUTINE
 @ $093E label=ME_ENT_1
