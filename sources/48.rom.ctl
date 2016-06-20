@@ -516,23 +516,85 @@ c $04AA THE 'PROGRAM NAME' SUBROUTINE (ZX81)
 @ $04C2 nowarn
 @ $04C2 label=SA_BYTES
 c $04C2 THE 'SA-BYTES' SUBROUTINE
+D $04C2 This subroutine is called to save the header information and later the actual program/data block to tape.
+  $04C2 Pre-load the machine stack with the address #R$053F.
 @ $04C6 keep
+  $04C6 This constant will give a leader of about 5 seconds for a 'header'.
+  $04C9 Jump forward if saving a header.
 @ $04CD keep
+  $04CD This constant will give a leader of about 2 seconds for a program/data block.
 @ $04D0 label=SA_FLAG
+  $04D0 The flag is saved.
+  $04D1 The 'length' is incremented and the 'base address' reduced to allow for the flag.
+  $04D4 The maskable interrupt is disabled during the save.
+  $04D5 Signal 'MIC on' and border to be red.
+  $04D7 Give a value to #REGb.
+N $04D8 A loop is now entered to create the pulses of the leader. Both the 'MIC on' and the 'MIC off' pulses are 2,168 T states in length. The colour of the border changes from red to cyan with each 'edge'.
 @ $04D8 label=SA_LEADER
+N $04D8 Note:             An 'edge' will be a transition either from 'on' to 'off', or from 'off' to 'on'.
+  $04D8 The main timing period.
+  $04DA MIC on/off, border red/cyan, on each pass.
+  $04DE The main timing constant.
+  $04E0 Decrease the low counter.
+  $04E1 Jump back for another pulse.
+  $04E3 Allow for the longer path (reduce by 13 T states).
+  $04E4 Decrease the high counter.
+  $04E5 Jump back for another pulse until completion of the leader.
+N $04E8 A sync pulse is now sent.
 @ $04EA label=SA_SYNC_1
+  $04EA MIC off for 667 T states from 'OUT to OUT'.
+  $04EC MIC on and red.
+  $04EE Signal 'MIC off and cyan'.
+  $04F0 MIC on for 735 T States from 'OUT to OUT'.
 @ $04F2 label=SA_SYNC_2
+  $04F4 Now MIC off and border cyan.
+N $04F6 The header v. program/data flag will be the first byte to be saved.
 @ $04F6 keep
+  $04F6 +3B is a timing constant; +0E signals 'MIC off and yellow'.
+  $04F9 Fetch the flag and pass it to the #REGl register for 'sending'.
+  $04FB Jump forward into the saving loop.
+N $04FE The byte saving loop is now entered. The first byte to be saved is the flag; this is followed by the actual data bytes and the final byte sent is the parity byte that is built up by considering the values of all the earlier bytes.
 @ $04FE label=SA_LOOP
+  $04FE The 'length' counter is tested and the jump taken when it has reached zero.
+  $0502 Fetch the next byte that is to be saved.
 @ $0505 label=SA_LOOP_P
+  $0505 Fetch the current 'parity'.
+  $0506 Include the present byte.
 @ $0507 label=SA_START
+  $0507 Restore the 'parity'. Note that on entry here the 'flag' value initialises 'parity'.
+  $0508 Signal 'MIC on and blue'.
+  $050A Set the carry flag. This will act as a 'marker' for the 8 bits of a byte.
+  $050B Jump forward.
+N $050E When it is time to send the 'parity' byte then it is transferred to the #REGl register for saving.
 @ $050E label=SA_PARITY
+  $050E Get final 'parity' value.
+  $050F Jump back.
+N $0511 The following inner loop produces the actual pulses. The loop is entered at #R$0514 with the type of the bit to be saved indicated by the carry flag. Two passes of the loop are made for each bit thereby making an 'off pulse' and an 'on pulse'. The pulses for a reset bit are shorter by 855 T states.
 @ $0511 label=SA_BIT_2
+  $0511 Come here on the second pass and fetch 'MIC off and yellow'.
+  $0512 Set the zero flag to show 'second pass'.
 @ $0514 label=SA_BIT_1
+  $0514 The main timing loop; always 801 T states on a second pass.
+  $0516 Jump, taking the shorter path, if saving a '0'.
+  $0518 However if saving a '1' then add 855 T states.
 @ $051A label=SA_SET
 @ $051C label=SA_OUT
+  $051C On the first pass 'MIC on and blue' and on the second pass 'MIC off and yellow'.
+  $051E Set the timing constant for the second pass.
+  $0520 Jump back at the end of the first pass; otherwise reclaim 13 T states.
+  $0523 Clear the carry flag and set #REGa to hold +01 (MIC on and blue) before continuing into the '8 bit loop'.
+N $0525 The '8 bit loop' is entered initially with the whole byte in the #REGl register and the carry flag set. However it is re-entered after each bit has been saved until the point is reached when the 'marker' passes to the carry flag leaving the #REGl register empty.
 @ $0525 label=SA_8_BITS
+  $0525 Move bit 7 to the carry and the 'marker' leftwards.
+  $0527 Save the bit unless finished with the byte.
+  $052A Decrease the 'counter'.
+  $052B Advance the 'base address'.
+  $052D Set the timing constant for the first bit of the next byte.
+  $052F Return (to #R$053F) if the BREAK key is being pressed.
+  $0535 Otherwise test the 'counter' and jump back even if it has reached zero (so as to send the 'parity' byte).
+  $053A Exit when the 'counter' reaches +FFFF. But first give a short delay.
 @ $053C label=SA_DELAY
+E $04C2 Note: a reset bit will give a 'MIC off' pulse of 855 T states followed by a 'MIC on' pulse of 855 T states, whereas a set bit will give pulses of exactly twice as long. Note also that there are no gaps either between the sync pulse and the first bit of the flag, or between bytes.
 @ $053F label=SA_LD_RET
 c $053F THE 'SA/LD-RET' SUBROUTINE
 @ $0552 label=REPORT_D
