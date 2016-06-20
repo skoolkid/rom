@@ -489,20 +489,86 @@ B $0553,1
 @ $0554 label=SA_LD_END
 @ $0556 label=LD_BYTES
 c $0556 THE 'LD-BYTES' SUBROUTINE
+D $0556 This subroutine is called to load the header information and later load or verify an actual block of data from a tape.
+  $0556 This resets the zero flag. (#REGd cannot hold +FF.)
+  $0557 The #REGa register holds +00 for a header and +FF for a block of data. The carry flag is reset for verifying and set for loading.
+  $0558 Restore #REGd to its original value.
+  $0559 The maskable interrupt is now disabled.
+  $055A The border is made white.
 @ $055E nowarn
+  $055E Preload the machine stack with the address #R$053F.
+  $0562 Make an initial read of port '254'.
+  $0564 Rotate the byte obtained but keep only the EAR bit.
+  $0567 Signal red border.
+  $0569 Store the value in the #REGc register (+22 for 'off' and +02 for 'on' - the present EAR state).
+  $056A Set the zero flag.
+N $056B The first stage of reading a tape involves showing that a pulsing signal actually exists (i.e. 'on/off' or 'off/on' edges).
 @ $056B label=LD_BREAK
+  $056B Return if the BREAK key is being pressed.
 @ $056C label=LD_START
+  $056C Return with the carry flag reset if there is no 'edge' within approx. 14,000 T states. But if an 'edge' is found the border will go cyan.
+N $0571 The next stage involves waiting a while and then showing that the signal is still pulsing.
 @ $0571 keep
+  $0571 The length of this waiting period will be almost one second in duration.
 @ $0574 label=LD_WAIT
+  $057B Continue only if two edges are found within the allowed time period.
+N $0580 Now accept only a 'leader signal'.
 @ $0580 label=LD_LEADER
+  $0580 The timing constant.
+  $0582 Continue only if two edges are found within the allowed time period.
+  $0587 However the edges must have been found within about 3,000 T states of each other.
+  $058C Count the pair of edges in the #REGh register until '256' pairs have been found.
+N $058F After the leader come the 'off' and 'on' parts of the sync pulse.
 @ $058F label=LD_SYNC
+  $058F The timing constant.
+  $0591 Every edge is considered until two edges are found close together - these will be the start and finishing edges of the 'off' sync pulse.
+  $059B The finishing edge of the 'on' pulse must exist. (Return carry flag reset.)
+N $059F The bytes of the header or the program/data block can now be loaded or verified. But the first byte is the type flag.
+  $059F The border colours from now on will be blue and yellow.
+  $05A3 Initialise the 'parity matching' byte to zero.
+  $05A5 Set the timing constant for the flag byte.
+  $05A7 Jump forward into the byte loading loop.
+N $05A9 The byte loading loop is used to fetch the bytes one at a time. The flag byte is first. This is followed by the data bytes and the last byte is the 'parity' byte.
 @ $05A9 label=LD_LOOP
+  $05A9 Fetch the flags.
+  $05AA Jump forward only when handling the first byte.
+  $05AC Jump forward if verifying a tape.
+  $05AE Make the actual load when required.
+  $05B1 Jump forward to load the next byte.
 @ $05B3 label=LD_FLAG
+  $05B3 Keep the carry flag in a safe place temporarily.
+  $05B5 Return now if the type flag does not match the first byte on the tape. (Carry flag reset.)
+  $05B7 Restore the carry flag now.
+  $05BA Increase the counter to compensate for its 'decrease' after the jump.
+N $05BD If a data block is being verified then the freshly loaded byte is tested against the original byte.
 @ $05BD label=LD_VERIFY
+  $05BD Fetch the original byte.
+  $05C0 Match it against the new byte.
+  $05C1 Return if 'no match'. (Carry flag reset.)
+N $05C2 A new byte can now be collected from the tape.
 @ $05C2 label=LD_NEXT
+  $05C2 Increase the 'destination'.
 @ $05C4 label=LD_DEC
+  $05C4 Decrease the 'counter'.
+  $05C5 Save the flags.
+  $05C6 Set the timing constant.
 @ $05C8 label=LD_MARKER
+  $05C8 Clear the 'object' register apart from a 'marker' bit.
+N $05CA The following loop is used to build up a byte in the #REGl register.
 @ $05CA label=LD_8_BITS
+  $05CA Find the length of the 'off' and 'on' pulses of the next bit.
+  $05CD Return if the time period is exceeded. (Carry flag reset.)
+  $05CE Compare the length against approx. 2,400 T states, resetting the carry flag for a '0' and setting it for a '1'.
+  $05D1 Include the new bit in the #REGl register.
+  $05D3 Set the timing constant for the next bit.
+  $05D5 Jump back whilst there are still bits to be fetched.
+N $05D8 The 'parity matching' byte has to be updated with each new byte.
+  $05D8 Fetch the 'parity matching' byte and include the new byte.
+  $05DA Save it once again.
+N $05DB Passes round the loop are made until the 'counter' reaches zero. At that point the 'parity matching' byte should be holding zero.
+  $05DB Make a further pass if the #REGde register pair does not hold zero.
+  $05DF Fetch the 'parity matching' byte.
+  $05E0 Return with the carry flag set if the value is zero. (Carry flag reset if in error.)
 @ $05E3 label=LD_EDGE_2
 c $05E3 THE 'LD-EDGE-2' AND 'LD-EDGE-1' SUBROUTINES
 @ $05E7 label=LD_EDGE_1
