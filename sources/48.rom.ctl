@@ -1339,17 +1339,63 @@ c $107F THE 'ED-ERROR' SUBROUTINE
 c $1097 THE 'CLEAR-SP' SUBROUTINE
 @ $10A8 label=KEY_INPUT
 c $10A8 THE 'KEYBOARD INPUT' SUBROUTINE
-  $10C5,c2
+D $10A8 This important subroutine returns the code of the last key to have been pressed, but note that CAPS LOCK, the changing of the mode and the colour control parameters are handled within the subroutine.
+  $10A8 Copy the edit-line or the INPUT-line to the screen if the mode has changed.
+  $10AF Return with both carry and zero flags reset if no new key has been pressed.
+  $10B5 Otherwise fetch the code and signal that it has been taken.
+  $10BC Save the code temporarily.
+  $10BD Clear the lower part of the display if necessary, e.g. after 'scroll?'.
+  $10C4 Fetch the code.
+  $10C5,4,c2,2 Accept all characters and token codes.
+  $10C9 Jump forward with most of the control character codes.
+  $10CD Jump forward with the 'mode' codes and the CAPS LOCK code.
+N $10D1 Now deal with the FLASH, BRIGHT and INVERSE codes.
+  $10D1 Save the code.
+  $10D2 Keep only bit 0.
+  $10D4 #REGc holds +00 (=OFF) or +01 (=ON).
+  $10D5 Fetch the code.
+  $10D6 Rotate it once (losing bit 0).
+  $10D7 Increase it by +12 giving +12 for FLASH, +13 for BRIGHT, and +14 for INVERSE.
+N $10DB The CAPS LOCK code and the mode codes are dealt with 'locally'.
 @ $10DB label=KEY_M_CL
+  $10DB Jump forward with 'mode' codes.
+  $10DD This is FLAGS2.
+  $10E0 Flip bit 3 of FLAGS2. This is the CAPS LOCK flag.
+  $10E4 Jump forward.
 @ $10E6 label=KEY_MODE
+  $10E6 Check the lower limit.
+  $10E9 Reduce the range.
+  $10EB This is MODE.
+  $10EE Has it been changed?
+  $10EF Enter the new 'mode' code.
+  $10F0 Jump if it has changed; otherwise make it 'L mode'.
 @ $10F4 label=KEY_FLAG
+  $10F4 Signal 'the mode might have changed'.
+  $10F8 Reset the carry flag and return.
+N $10FA The control key codes (apart from FLASH, BRIGHT and INVERSE) are manipulated.
 @ $10FA label=KEY_CONTR
+  $10FA Save the code.
+  $10FB Make the #REGc register hold the parameter (+00 to +07).
+  $10FE #REGa now holds the INK code.
+  $1100 But if the code was an 'unshifted' code then make #REGa hold the PAPER code.
+N $1105 The parameter is saved in K-DATA and the channel address changed from #R$10A8 to #R$110D.
 @ $1105 label=KEY_DATA
+  $1105 Save the parameter.
 @ $1108 nowarn
+  $1108 This is #R$110D.
+  $110B Jump forward.
+N $110D Note: on the first pass entering at #R$10A8 the #REGa register is returned holding a 'control code' and then on the next pass, entering at #R$110D, it is the parameter that is returned.
 @ $110D label=KEY_NEXT
+  $110D Fetch the parameter.
 @ $1110 nowarn
+  $1110 This is #R$10A8.
+N $1113 Now set the input address in the first channel area.
 @ $1113 label=KEY_CHAN
+  $1113 Fetch the channel address.
+  $1118 Now set the input address.
+N $111B Finally exit with the required code in the #REGa register.
 @ $111B label=KEY_DONE_2
+  $111B Show a code has been found and return.
 @ $111D label=ED_COPY
 c $111D THE 'LOWER SCREEN COPYING' SUBROUTINE
 @ $1130 nowarn
