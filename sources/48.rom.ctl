@@ -3142,15 +3142,62 @@ c $24FB THE 'SCANNING' SUBROUTINE
 @ $2530 label=SYNTAX_Z
 c $2530 THE 'SYNTAX-Z' SUBROUTINE
 @ $2535 label=S_SCRN_S
+c $2535 THE 'SCANNING SCREEN$' SUBROUTINE
+D $2535 This subroutine is used to find the character that appears at line x, column y of the screen. It only searches the character set 'pointed to' by CHARS.
+D $2535 Note: this is normally the characters +20 (space) to +7F (#CHR(169)) although the user can alter CHARS to match for other characters, including user-defined graphics.
+@ $2535 label=S_SCRN_S
+  $2535 x to #REGc, y to #REGb; 0<=x<=23 decimal; 0<=y<=31 decimal.
 @ $253B keep
+  $2538 CHARS plus 256 decimal gives #REGhl pointing to the character set.
+  $253F x is copied to #REGa.
+  $2540 The number 32*(x mod 8)+y is formed in #REGa and copied to #REGe. This is the low byte of the required screen address.
+  $2547 x is copied to #REGa again.
+  $2548 Now the number 64+8*INT (x/8) is inserted into #REGd. #REGde now holds the screen address.
+  $254D #REGb counts the 96 characters.
 @ $254F label=S_SCRN_LP
+  $254F Save the count.
+  $2550 And the screen pointer.
+  $2551 And the character set pointer.
+  $2552 Get first row of screen character.
+  $2553 Match with row from character set.
+  $2554 Jump if direct match found.
+  $2556 Now test for match with inverse character (get +00 in #REGa from +FF).
+  $2557 Jump if neither match found.
+  $2559 Restore +FF to #REGa.
 @ $255A label=S_SC_MTCH
+  $255A Inverse status (+00 or +FF) to #REGc.
+  $255B #REGb counts through the other 7 rows.
 @ $255D label=S_SC_ROWS
+  $255D Move #REGde to next row (add 256 dec.).
+  $255E Move #REGhl to next row (i.e. next byte).
+  $255F Get the screen row.
+  $2560 Match with row from the ROM.
+  $2561 Include the inverse status.
+  $2562 Jump if row fails to match.
+  $2564 Jump back till all rows done.
+  $2566 Discard character set pointer.
+  $2567 And screen pointer.
+  $2568 Final count to #REGbc.
+  $2569 Last character code in set plus one.
+  $256B #REGa now holds required code.
 @ $256C keep
+  $256C One space is now needed in the work space.
+  $256F Make the space.
+  $2570 Put the character into it.
+  $2571 Jump to stack the character.
 @ $2573 label=S_SCR_NXT
+  $2573 Restore character set pointer.
 @ $2574 keep
+  $2574 Move it on 8 bytes, to the next character in the set.
+  $2578 Restore the screen pointer.
+  $2579 And the counter.
+  $257A Loop back for the 96 characters.
+  $257C Stack the empty string (length zero).
 @ $257D label=S_SCR_STO
+  $257D Jump to stack the matching character, or the null string if no match is found.
+E $2535 Note: this exit, via #R$2AB2, is a mistake as it leads to 'double storing' of the string result (see #R$25DB). The instruction line should be 'RET'.
 @ $2580 label=S_ATTR_S
+c $2580 THE 'SCANNING ATTRIBUTES' SUBROUTINE
 @ $2596 label=SCANFUNC
 b $2596 THE SCANNING FUNCTION TABLE
 D $2596 This table contains 8 functions and 4 operators. It thus incorporates 5 new Spectrum functions and provides a neat way of accessing some functions and operators which already existed on the ZX81.
