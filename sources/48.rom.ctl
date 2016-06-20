@@ -1850,13 +1850,49 @@ c $17F9 THE 'LIST' ENTRY POINT
 @ $1835 label=LIST_ALL_1
 @ $1855 label=OUT_LINE
 c $1855 THE 'PRINT A WHOLE BASIC LINE' SUBROUTINE
+D $1855 The #REGhl register pair points to the start of the line - the location holding the high byte of the line number.
+D $1855 Before the line number is printed it is tested to determine whether it comes before the 'current' line, is the 'current' line, or comes after.
+  $1855 Fetch the 'current' line number and compare it.
+  $185C Pre-load the #REGd register with the current line cursor.
+  $185E Jump forward if printing the 'current' line.
 @ $1860 keep
+  $1860 Load the #REGd register with zero (it is not the cursor) and set #REGe to hold +01 if the line is before the 'current' line and +00 if after. (The carry flag comes from #R$1980.)
 @ $1865 label=OUT_LINE1
+  $1865 Save the line marker.
+  $1868,5 Fetch the high byte of the line number and make a full return if the listing has been finished.
+  $186E The line number can now be printed - with leading spaces.
+  $1871 Move the pointer on to address the first command code in the line.
+  $1874 Signal 'leading space allowed'.
+  $1878 Fetch the cursor code and jump forward unless the cursor is to be printed.
+  $187C So print the cursor now.
 @ $187D label=OUT_LINE2
+  $187D Signal 'no leading space now'.
 @ $1881 label=OUT_LINE3
+  $1881 Save the registers.
+  $1882 Move the pointer to #REGde.
+  $1883 Signal 'not in quotes'.
+  $1887 This is FLAGS.
+  $188A Signal 'print in K-mode'.
+  $188C Jump forward unless in INPUT mode.
+  $1892 Signal 'print in L-mode'.
+N $1894 Now enter a loop to print all the codes in the rest of the BASIC line - jumping over floating-point forms as necessary.
 @ $1894 label=OUT_LINE4
+  $1894 Fetch the syntax error pointer and jump forward unless it is time to print the error marker.
+  $189C,5,c2,3 Print the error marker now. It is a flashing '?'.
 @ $18A1 label=OUT_LINE5
+  $18A1 Consider whether to print the cursor.
+  $18A4 Move the pointer to #REGhl now.
+  $18A5 Fetch each character in turn.
+  $18A6 If the character is a 'number marker' then the hidden floating-point form is not to be printed.
+  $18A9 Update the pointer for the next pass.
+  $18AA Is the character a 'carriage return'?
+  $18AC Jump if it is.
+  $18AE Switch the pointer to #REGde.
+  $18AF Print the character.
+  $18B2 Go around the loop for at least one further pass.
+N $18B4 The line has now been printed.
 @ $18B4 label=OUT_LINE6
+  $18B4 Restore the #REGde register pair and return.
 @ $18B6 label=NUMBER
 c $18B6 THE 'NUMBER' SUBROUTINE
 @ $18C1 label=OUT_FLASH
