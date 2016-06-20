@@ -3688,17 +3688,90 @@ c $2BEA THE 'L-FIRST' SUBROUTINE
 c $2BF1 THE 'STK-FETCH' SUBROUTINE
 @ $2C02 label=DIM
 c $2C02 THE 'DIM' COMMAND ROUTINE
+D $2C02 This routine establishes new arrays in the variables area. The routine starts by searching the existing variables area to determine whether there is an existing array with the same name. If such an array is found then it is 'reclaimed' before the new array is established.
+D $2C02 A new array will have all its elements set to zero if it is a numeric array, or to 'spaces' if it is an array of strings.
+  $2C02 Search the variables area.
 @ $2C05 label=D_RPORT_C
+  $2C05 Give report C as there has been an error.
+  $2C08 Jump forward if in 'run time'.
+  $2C0D Test the syntax for string arrays as if they were numeric.
+  $2C0F Check the syntax of the parenthesised expression.
+  $2C12 Move on to consider the next statement as the syntax was satisfactory.
+N $2C15 An 'existing array' is reclaimed.
 @ $2C15 label=D_RUN
+  $2C15 Jump forward if there is no 'existing array'.
+  $2C17 Save the discriminator byte.
+  $2C18 Find the start of the next variable.
+  $2C1B Reclaim the 'existing array'.
+  $2C1E Restore the discriminator byte.
+N $2C1F The initial parameters of the new array are found.
 @ $2C1F label=D_LETTER
+  $2C1F Set bit 7 in the discriminator byte.
+  $2C21 Make the dimension counter zero.
+  $2C23 Save the counter and the discriminator byte.
 @ $2C24 keep
+  $2C24 The #REGhl register pair is to hold the size of the elements in the array: '1' for a string array, '5' for a numeric array.
 @ $2C2D label=D_SIZE
+  $2C2D Element size to #REGde.
+N $2C2E The following loop is accessed for each dimension that is specified in the parenthesised expression of the DIM statement. The total number of bytes required for the elements of the array is built up in the #REGde register pair.
 @ $2C2E label=D_NO_LOOP
-  $2C42,c2
-  $2C46,c2
-  $2C7A,c2
+  $2C2E Advance CH-ADD on each pass..
+  $2C2F Set a 'limit value'.
+  $2C31 Evaluate a parameter.
+  $2C34 Give an error if 'out of range'.
+  $2C37 Fetch the dimension counter and the discriminator byte.
+  $2C38 Save the parameter on each pass through the loop.
+  $2C39 Increase the dimension counter on each pass also.
+  $2C3A Restack the dimension counter and the discriminator byte.
+  $2C3B The parameter is moved to the #REGhl register pair.
+  $2C3D The byte total is built up in #REGhl and then transferred to #REGde.
+  $2C41,5,1,c2,2 Get the present character and go around the loop again if there is another dimension.
+N $2C46 At this point the #REGde register pair indicates the number of bytes required for the elements of the new array and the size of each dimension is stacked, on the machine stack.
+N $2C46 Now check that there is indeed a closing bracket to the parenthesised expression.
+  $2C46,c2 Is it a ')'?
+  $2C48 Jump back if not so.
+  $2C4A Advance CH-ADD past it.
+N $2C4B Allowance is now made for the dimension sizes.
+  $2C4B Fetch the dimension counter and the discriminator byte.
+  $2C4C Pass the discriminator byte to the #REGa register for later.
+  $2C4D Move the counter to #REGl.
+  $2C4E Clear the #REGh register.
+  $2C50 Increase the dimension counter by two and double the result and form the correct overall length for the variable by adding the element byte total.
+  $2C54 Give the report 'Out of memory' if required.
+  $2C57 Save the element byte total.
+  $2C58 Save the dimension counter and the discriminator byte.
+  $2C59 Save the overall length also.
+  $2C5A Move the overall length to #REGbc.
+N $2C5C The required amount of room is made available for the new array at the end of the variables area.
+  $2C5C Make the #REGhl register pair point to the '80-byte'.
+  $2C60 The room is made available.
+  $2C63 #REGhl is made to point to the first new location.
+N $2C64 The parameters are now entered.
+  $2C64 The letter, suitably marked, is entered first.
+  $2C65 The overall length is fetched and decreased by '3'.
+  $2C69 Advance #REGhl.
+  $2C6A Enter the low length.
+  $2C6B Advance #REGhl.
+  $2C6C Enter the high length.
+  $2C6D Fetch the dimension counter.
+  $2C6E Move it to the #REGa register.
+  $2C6F Advance #REGhl.
+  $2C70 Enter the dimension count.
+N $2C71 The elements of the new array are now 'cleared'.
+  $2C71 #REGhl is made to point to the last location of the array and #REGde to the location before that one.
+  $2C74,8,6,c2 Enter a zero into the last location but overwrite it with 'space' if dealing with an array of strings.
 @ $2C7C label=DIM_CLEAR
+  $2C7C Fetch the element byte total.
+  $2C7D Clear the array + one extra location.
+N $2C7F The 'dimension sizes' are now entered.
 @ $2C7F label=DIM_SIZES
+  $2C7F Get a dimension size.
+  $2C80 Enter the high byte.
+  $2C81 Back one.
+  $2C82 Enter the low byte.
+  $2C83 Back one.
+  $2C84 Decrease the dimension counter.
+  $2C85 Repeat the operation until all the dimensions have been considered; then return.
 @ $2C88 label=ALPHANUM
 c $2C88 THE 'ALPHANUM' SUBROUTINE
 @ $2C8D label=ALPHA
