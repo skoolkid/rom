@@ -1398,13 +1398,51 @@ N $111B Finally exit with the required code in the #REGa register.
   $111B Show a code has been found and return.
 @ $111D label=ED_COPY
 c $111D THE 'LOWER SCREEN COPYING' SUBROUTINE
+D $111D This subroutine is called whenever the line in the editing area or the INPUT area is to be printed in the lower part of the screen.
+  $111D Use the permanent colours.
+  $1120 Signal that the 'mode is to be considered unchanged' and the 'lower screen does not need clearing'.
+  $1128 Save the current value of S-POSNL.
+  $112C Keep the current value of ERR-SP.
 @ $1130 nowarn
+  $1130 This is #R$1167.
+  $1133 Push this address on to the machine stack to make #R$1167 the entry point following an error.
+  $1138 Push the value of ECHO-E on to the stack.
+  $113C Make #REGhl point to the start of the space and #REGde the end.
+  $1141 Now print the line.
+  $1144 Exchange the pointers and print the cursor.
+  $1148 Next fetch the current value of S-POSNL and exchange it with ECHO-E.
+  $114C Pass ECHO-E to #REGde.
+  $114D Again fetch the permanent colours.
+N $1150 The remainder of any line that has been started is now completed with spaces printed with the 'permanent' PAPER colour.
 @ $1150 label=ED_BLANK
+  $1150 Fetch the current line number and subtract the old line number.
+  $1154 Jump forward if no 'blanking' of lines required.
+  $1156 Jump forward if not on the same line.
+  $1158 Fetch the old column number and subtract the new column number.
+  $115C Jump if no spaces required.
 @ $115E label=ED_SPACES
-  $115E,c2
+  $115E,c2 A 'space'.
+  $1160 Save the old values.
+  $1161 Print it.
+  $1164 Fetch the old values.
+  $1165 Back again.
+N $1167 New deal with any errors.
 @ $1167 label=ED_FULL
+  $1167 Give out a 'rasp'.
+  $1172 Cancel the error number.
+  $1176 Fetch the current value of S-POSNL and jump forward.
+N $117C The normal exit upon completion of the copying over of the edit or the INPUT line.
 @ $117C label=ED_C_DONE
+  $117C The new position value.
+  $117D The 'error address'.
+N $117E But come here after an error.
 @ $117E label=ED_C_END
+  $117E The old value of ERR-SP is restored.
+  $1182 Fetch the old value of S-POSNL.
+  $1183 Save the new position values.
+  $1184 Set the system variables.
+  $1187 The old value of S-POSNL goes into ECHO-E.
+  $118B X-PTR is cleared in a suitable manner and the return made.
 @ $1190 label=SET_HL
 c $1190 THE 'SET-HL' AND 'SET-DE' SUBROUTINES
 @ $1195 label=SET_DE
