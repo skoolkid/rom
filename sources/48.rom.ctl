@@ -2327,20 +2327,78 @@ c $21D6 THE 'IN-CHAN-K' SUBROUTINE
   $21DE,c2
 @ $21E1 label=CO_TEMP_1
 c $21E1 THE 'COLOUR ITEM' ROUTINES
+D $21E1 This set of routines can be readily divided into two parts:
+D $21E1 #LIST { i. The embedded colour item' handler. } { ii. The 'colour system variable' handler. } LIST#
+D $21E1 i. Embedded colour items are handled by calling #R$0010 as required.
+D $21E1 A loop is entered to handle each item in turn. The entry point is at #R$21E2.
+  $21E1 Consider the next character in the BASIC statement.
 @ $21E2 label=CO_TEMP_2
-  $21E7,c2
-  $21EB,c2
+  $21E2 Jump forward to see if the present code represents an embedded 'temporary' colour item. Return carry set if not a colour item.
+  $21E6 Fetch the present character.
+  $21E7,8,c2,2,c2,2 Jump back if it is either a ',' or a ';'; otherwise there has been an error.
+  $21EF Exit via 'report C'.
 @ $21F2 label=CO_TEMP_3
+  $21F2 Return with the carry flag set if the code is not in the range +D9 to +DE (INK to OVER).
+  $21F9 The colour item code is preserved whilst CH-ADD is advanced to address the parameter that follows it.
+N $21FC The colour item code and the parameter are now 'printed' by calling #R$0010 on two occasions.
 @ $21FC label=CO_TEMP_4
+  $21FC The token range (+D9 to +DE) is reduced to the control character range (+10 to +15).
+  $21FE The control character code is preserved whilst the parameter is moved to the calculator stack.
+  $2203 A return is made at this point if syntax is being checked.
+  $2207 The control character code is preserved whilst the parameter is moved to the #REGd register.
+  $220D The control character is sent out.
+  $220E Then the parameter is fetched and sent out before returning.
+N $2211 ii. The colour system variables - ATTR-T, MASK-T and P-FLAG - are altered as required. On entry the control character code is in the #REGa register and the parameter is in the #REGd register.
 @ $2211 label=CO_TEMP_5
+N $2211 Note that all changes are to the 'temporary' system variables.
+  $2211 Reduce the range and jump forward with INK and PAPER.
+  $2217 Reduce the range once again and jump forward with FLASH and BRIGHT.
+N $221D The colour control code will now be +01 for INVERSE and +02 for OVER and the system variable P-FLAG is altered accordingly.
+  $221D Prepare to jump with OVER.
+  $221F Fetch the parameter.
+  $2220 Prepare the mask for OVER.
+  $2222 Now jump.
+  $2224 Bit 2 of the #REGa register is to be reset for INVERSE 0 and set for INVERSE 1; the mask is to have bit 2 set.
 @ $2228 label=CO_TEMP_6
+  $2228 Save the #REGa register whilst the range is tested.
+  $2229 The correct range for INVERSE and OVER is only '0-1'.
+  $222E Restore the #REGa register.
+  $222F It is P-FLAG that is to be changed.
+  $2232 Exit via #R$226C and alter P-FLAG using '#REGb' as a mask, i.e. bit 0 for OVER and bit 2 for INVERSE.
+N $2234 PAPER and INK are dealt with by the following routine. On entry the carry flag is set for INK.
 @ $2234 label=CO_TEMP_7
+  $2234 Fetch the parameter.
+  $2235 Prepare the mask for INK.
+  $2237 Jump forward with INK.
+  $2239 Multiply the parameter for PAPER by eight.
+  $223C Prepare the mask for PAPER.
 @ $223E label=CO_TEMP_8
+  $223E Save the parameter in the #REGc register whilst the range of the parameter is tested.
+  $223F Fetch the original value.
+  $2240 Only allow PAPER/INK a range of '0' to '9'.
+N $2244 Report K - Invalid colour.
 @ $2244 label=REPORT_K
+M $2244,2 Call the error handling routine.
 B $2245,1
+N $2246 Continue to handle PAPER and INK.
 @ $2246 label=CO_TEMP_9
+  $2246 Prepare to alter ATTR-T, MASK-T and P-FLAG.
+  $2249 Jump forward with PAPER/INK '0' to '7'.
+  $224D Fetch the current value of ATTR-T and use it unchanged, by jumping forward, with PAPER/INK '8'.
+  $2250 But for PAPER/INK '9' the PAPER and INK colours have to be black and white.
+  $2254 Jump for black INK/PAPER, but continue for white INK/PAPER.
 @ $2257 label=CO_TEMP_A
+  $2257 Move the value to the #REGc register.
+N $2258 The mask (#REGb) and the value (#REGc) are now used to change ATTR-T.
 @ $2258 label=CO_TEMP_B
+  $2258 Move the value.
+  $2259 Now change ATTR-T as needed.
+N $225C Next MASK-T is considered.
+  $225C The bits of MASK-T are set only when using PAPER/INK '8' or '9'.
+  $2260 Now change MASK-T as needed.
+N $2263 Next P-FLAG is considered.
+  $2263 The appropriate mask is built up in the #REGb register in order to change bits 4 and 6 as necessary.
+  $2268 The bits of P-FLAG are set only when using PAPER/INK '9'. Continue into #R$226C to manipulate P-FLAG.
 @ $226C label=CO_CHANGE
 c $226C THE 'CO-CHANGE' SUBROUTINE
 @ $227D label=CO_TEMP_D
