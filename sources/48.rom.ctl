@@ -1077,19 +1077,58 @@ c $0A69 THE 'PRINT A QUESTION MARK' SUBROUTINE
 @ $0A6D nowarn
 @ $0A6D label=PO_TV_2
 c $0A6D THE 'CONTROL CHARACTERS WITH OPERANDS' ROUTINE
+D $0A6D The control characters from INK to OVER require a single operand whereas the control characters AT and TAB are required to be followed by two operands.
+D $0A6D The present routine leads to the control character code being saved in TVDATA-lo, the first operand in TVDATA-hi or the #REGa register if there is only a single operand required, and the second operand in the #REGa register.
+  $0A6D Save the first operand in TVDATA-hi and change the address of the 'output' routine to #R$0A87.
+N $0A75 Enter here when handling the characters AT and TAB.
 @ $0A75 nowarn
 @ $0A75 label=PO_2_OPER
+  $0A75 The character code will be saved in TVDATA-lo and the address of the 'output' routine changed to #R$0A6D.
+N $0A7A Enter here when handling the colour items - INK to OVER.
 @ $0A7A nowarn
 @ $0A7A label=PO_1_OPER
+  $0A7A The 'output' routine is to be changed to #R$0A87.
 @ $0A7D label=PO_TV_1
+  $0A7D Save the control character code.
+N $0A80 The current 'output' routine address is changed temporarily.
+  $0A80 #REGhl will point to the 'output' routine address.
+  $0A83 Enter the new 'output' routine address and thereby force the next character code to be considered as an operand.
+N $0A87 Once the operands have been collected the routine continues.
 @ $0A87 nowarn
 @ $0A87 label=PO_CONT
+  $0A87 Restore the original address for #R$09F4.
+  $0A8D Fetch the control code and the first operand if there are indeed two operands.
+  $0A90 The 'last' operand and the control code are moved.
+  $0A92 Jump forward if handling INK to OVER.
+  $0A97 Jump forward if handling TAB.
+N $0A99 Now deal with the AT control character.
+  $0A99 The line number.
+  $0A9A The column number.
+  $0A9B Reverse the column number, i.e. +00 to +1F becomes +1F to +00.
+  $0A9E Must be in range.
+  $0AA0 Add in the offset to give #REGc holding +21 to +02.
+  $0AA3 Jump forward if handling the printer.
+  $0AA9 Reverse the line number, i.e. +00 to +15 becomes +16 to +01.
 @ $0AAC label=PO_AT_ERR
+  $0AAC If appropriate jump forward.
+  $0AAF The range +16 to +01 becomes +17 to +02.
+  $0AB1 And now +18 to +03.
+  $0AB2 If printing in the lower part of the screen then consider whether scrolling is needed.
+  $0AB9 Give report 5 - Out of screen, if required.
 @ $0ABF label=PO_AT_SET
+  $0ABF Return via #R$0DD9 and #R$0ADC.
+N $0AC2 And the TAB control character.
 @ $0AC2 label=PO_TAB
+  $0AC2 Fetch the first operand.
 @ $0AC3 label=PO_FILL
+  $0AC3 The current print position.
+  $0AC6 Add the current column value.
+  $0AC7 Find how many spaces, modulo 32, are required and return if the result is zero.
+  $0ACB Use #REGd as the counter.
+  $0ACC Suppress 'leading space'.
 @ $0AD0 label=PO_SPACE
-  $0AD0,c2
+  $0AD0,8,c2,6 Print '#REGd' number of spaces.
+  $0AD8 Now finished.
 @ $0AD9 label=PO_ABLE
 c $0AD9 PRINTABLE CHARACTER CODES
 @ $0ADC label=PO_STORE
