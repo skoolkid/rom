@@ -4814,12 +4814,51 @@ M $31AD,2 Call the error handling routine.
 B $31AE,1
 @ $31AF label=division
 c $31AF THE 'DIVISION' OPERATION
+D $31AF This subroutine first prepares the divisor by calling #R$30C0, reporting arithmetic overflow if it is zero; then it prepares the dividend again calling #R$30C0, returning if it is zero. Next it fetches the two numbers from the calculator stack and divides their mantissa by means of the usual restoring division, trial subtracting the divisor from the dividend and restoring if there is carry, otherwise adding 1 to the quotient. The maximum precision is obtained for a 4-byte division, and after subtracting the exponents the subroutine exits by joining the later part of #R$30CA.
+  $31AF Use full floating-point forms.
+  $31B2 Exchange the pointers.
+  $31B3 #REGa is set to 0, so that the sign of the first number will go into #REGa.
+  $31B4 Prepare the divisor and give the report for arithmetic overflow if it is zero.
+  $31B9 Exchange the pointers.
+  $31BA Prepare the dividend and return if it is zero (result already zero).
+  $31BE Exchange the pointers.
+  $31BF Save the next literal address.
+  $31C0 Exchange the registers.
+  $31C1 Save pointer to divisor.
+  $31C2 Save pointer to dividend.
+  $31C3 Get the two numbers from the stack.
+  $31C6 Exchange the registers.
+  $31C7 Save M1 and N1 (the exponent bytes) on the machine stack.
+  $31C8 Copy the four bytes of the dividend from registers #REGb'#REGc'#REGc#REGb (i.e. M2, M3, M4 and M5; see #R$2FBA) to the registers #REGh'#REGl'#REGhl.
+  $31CD Clear #REGa and reset the carry flag.
+  $31CE #REGb will count upwards from -33 to -1 (+DF to +FF), looping on minus and will jump again on zero for extra precision.
+  $31D0 Jump forward into the division loop for the first trial subtraction.
+N $31D2 Now enter the division loop.
 @ $31D2 label=DIV_LOOP
+  $31D2 Shift the result left into #REGb'#REGc'#REGc#REGa, shifting out the bits already there, picking up 1 from the carry whenever it is set, and rotating left each byte with carry to achieve the 32-bit shift.
 @ $31DB label=DIV_34TH
+  $31DB Move what remains of the dividend left in #REGh'#REGl'#REGhl before the next trial subtraction; if a bit drops into the carry, force no restore and a bit for the quotient, thus retrieving the lost bit and allowing a full 32-bit divisor.
 @ $31E2 label=DIV_START
+  $31E2 Trial subtract divisor in #REGd'#REGe'#REGde from rest of dividend in #REGh'#REGl'#REGhl; there is no initial carry (see previous step).
+  $31E8 Jump forward if there is no carry.
+  $31EA Otherwise restore, i.e. add back the divisor. Then clear the carry so that there will be no bit for the quotient (the divisor 'did not go').
+  $31F0 Jump forward to the counter.
 @ $31F2 label=SUBN_ONLY
+  $31F2 Just subtract with no restore and go on to set the carry flag because the lost bit of the dividend is to be retrieved and used for the quotient.
 @ $31F9 label=NO_RSTORE
+  $31F9 One for the quotient in #REGb'#REGc'#REGc#REGa.
 @ $31FA label=COUNT_ONE
+  $31FA Step the loop count up by one.
+  $31FB Loop 32 times for all bits.
+  $31FE Save any 33rd bit for extra precision (the present carry).
+  $31FF Trial subtract yet again for any 34th bit; the PUSH AF above saves this bit too.
+N $3201 Note: this jump is made to the wrong place. No 34th bit will ever be obtained without first shifting the dividend. Hence important results like 1/10 and 1/1000 are not rounded up as they should be. Rounding up never occurs when it depends on the 34th bit. The jump should have been to #R$31DB above, i.e. byte 3200 hex in the ROM should read DA hex (128 decimal) instead of E1 hex (225 decimal).
+  $3201 Now move the four bytes that form the mantissa of the result from #REGb'#REGc'#REGc#REGa to #REGd'#REGe'#REGde.
+  $3206 Then put the 34th and 33rd bits into #REGb' to be picked up on normalisation.
+  $320D Restore the exponent bytes M1 and N1.
+  $320E Restore the pointer to the result.
+  $320F Get the difference between the two exponent bytes into #REGa and set the carry flag if required.
+  $3211 Exit via #R$313D.
 @ $3214 label=truncate
 c $3214 THE 'INTEGER TRUNCATION TOWARDS ZERO' SUBROUTINE
 D $3214 This subroutine (say I(x)) returns the result of integer truncation of x, the 'last value', towards zero. Thus I(2.4) is 2 and I(-2.4) is -2. The subroutine returns at once if x is in the form of a 'short integer'. It returns zero if the exponent byte of x is less than 81 hex (ABS x is less than 1). If I(x) is a 'short integer' the subroutine returns it in that form. It returns x if the exponent byte is A0 hex or greater (x has no significant non-integral part). Otherwise the correct number of bytes of x are set to zero and, if needed, one more byte is split with a mask.
