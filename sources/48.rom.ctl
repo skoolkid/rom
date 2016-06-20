@@ -4576,20 +4576,92 @@ c $31AF THE 'DIVISION' OPERATION
 @ $31FA label=COUNT_ONE
 @ $3214 label=truncate
 c $3214 THE 'INTEGER TRUNCATION TOWARDS ZERO' SUBROUTINE
+D $3214 This subroutine (say I(x)) returns the result of integer truncation of x, the 'last value', towards zero. Thus I(2.4) is 2 and I(-2.4) is -2. The subroutine returns at once if x is in the form of a 'short integer'. It returns zero if the exponent byte of x is less than 81 hex (ABS x is less than 1). If I(x) is a 'short integer' the subroutine returns it in that form. It returns x if the exponent byte is A0 hex or greater (x has no significant non-integral part). Otherwise the correct number of bytes of x are set to zero and, if needed, one more byte is split with a mask.
+  $3214 Get the exponent byte of x into #REGa.
+  $3215 If #REGa is zero, return since x is already a small integer.
+  $3217 Compare e, the exponent, to 81 hex.
+  $3219 Jump if e is greater than 80 hex.
+  $321B Else, set the exponent to zero; enter 32 decimal (20 hex) into #REGa and jump forward to #R$3272 to make all the bits of x be zero.
 @ $3221 label=T_GR_ZERO
+  $3221 Compare e to 91 hex, 145 decimal.
+  $3223 Jump if e not 91 hex.
+N $3225 The next 26 bytes seem designed to test whether x is in fact -65536 decimal, i.e. 91 80 00 00 00, and if it is, to set it to 00 FF 00 00 00. This is a mistake. As #R$303C(already stated), the Spectrum system cannot handle this number. The result here is simply to make INT (-65536) return the value -1. This is a pity, since the number would have been perfectly all right if left alone. The remedy would seem to be simply to omit the 28 bytes from 3223 above to 323E inclusive from the program.
+  $3225 #REGhl is pointed at the fourth byte of x, where the 17 bits of the integer part of x end after the first bit.
+  $3228 The first bit is obtained in #REGa, using 80 hex as a mask.
+  $322B That bit and the previous 8 bits are tested together for zero.
+  $322D #REGhl is pointed at the second byte of x.
+  $322E If already non-zero, the test can end.
+  $3230 Otherwise, the test for -65536 is now completed: 91 80 00 00 00 will leave the zero flag set now.
 @ $3233 label=T_FIRST
+  $3233 #REGhl is pointed at the first byte of x.
+  $3234 If zero reset, the jump is made.
+  $3236 The first byte is set to zero.
+  $3237 #REGhl points to the second byte.
+  $3238 The second byte is set to FF.
+  $323A #REGhl again points to the first byte.
+  $323B The last 24 bits are to be zero.
+  $323D The jump to #R$3272 completes the number 00 FF 00 00 00.
+N $323F If the exponent byte of x is between 81 and 90 hex (129 and 144 decimal) inclusive, I(x) is a 'small integer', and will be compressed into one or two bytes. But first a test is made to see whether x is, after all, large.
 @ $323F label=T_SMALL
+  $323F Jump with exponent byte 92 or more (it would be better to jump with 91 too).
+  $3241 Save STKEND in #REGde.
+  $3242 Range 129<=#REGa<=144 becomes 126>=#REGa>=111.
+  $3243 Range is now 15>=#REGa>=0.
+  $3245 Point #REGhl at second byte.
+  $3246 Second byte to #REGd.
+  $3247 Point #REGhl at third byte.
+  $3248 Third byte to #REGe.
+  $3249 Point #REGhl at first byte again.
+  $324B Assume a positive number.
+  $324D Now test for negative (bit 7 set).
+  $324F Jump if positive after all.
+  $3251 Change the sign.
 @ $3252 label=T_NUMERIC
+  $3252 Insert true numeric bit, 1, in #REGd.
+  $3254 Now test whether #REGa>=8 (one byte only) or two bytes needed.
+  $3257 Leave #REGa unchanged.
+  $3258 Jump if two bytes needed.
+  $325A Put the one byte into #REGe.
+  $325B And set #REGd to zero.
+  $325D Now 1<=#REGa<=7 to count the shifts needed.
 @ $325E label=T_TEST
+  $325E Jump if no shift needed.
+  $3260 #REGb will count the shifts.
 @ $3261 label=T_SHIFT
+  $3261 Shift #REGd and #REGe right #REGb times to produce the correct number.
+  $3265 Loop until #REGb is zero.
 @ $3267 label=T_STORE
+  $3267 Store the result on the stack.
+  $326A Restore STKEND to #REGde.
+  $326B Finished.
+N $326C Large values of x remain to be considered.
 @ $326C label=T_EXPNENT
+  $326C Get the exponent byte of x into #REGa.
 @ $326D label=X_LARGE
+  $326D Subtract 160 decimal, A0 hex, from e.
+  $326F Return on plus - x has no significant non-integral part. (If the true exponent were reduced to zero, the 'binary point' would come at or after the end of the four bytes of the mantissa.)
+  $3270 Else, negate the remainder; this gives the number of bits to become zero (the number of bits after the 'binary point').
+N $3272 Now the bits of the mantissa can be cleared.
 @ $3272 label=NIL_BYTES
+  $3272 Save the current value of #REGde (STKEND).
+  $3273 Make #REGhl point one past the fifth byte.
+  $3274 #REGhl now points to the fifth byte of x.
+  $3275 Get the number of bits to be set to zero in #REGb and divide it by 8 to give the number of whole bytes implied.
+  $327C Jump forward if the result is zero.
 @ $327E label=BYTE_ZERO
+  $327E Else, set the bytes to zero; #REGb counts them.
 @ $3283 label=BITS_ZERO
+  $3283 Get #REGa (mod 8); this is the number of bits still to be set to zero.
+  $3285 Jump to the end if nothing more to do.
+  $3287 #REGb will count the bits now.
+  $3288 Prepare the mask.
 @ $328A label=LESS_MASK
+  $328A With each loop a zero enters the mask from the right and thereby a mask of the correct length is produced.
+  $328E The unwanted bits of (#REGhl) are lost as the masking is performed.
 @ $3290 label=IX_END
+  $3290 Return the pointer to #REGhl.
+  $3291 Return STKEND to #REGde.
+  $3292 Finished.
 @ $3293 label=RE_ST_TWO
 c $3293 THE 'RE-STACK TWO' SUBROUTINE
 @ $3296 label=RESTK_SUB
