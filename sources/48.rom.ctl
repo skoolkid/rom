@@ -2463,21 +2463,49 @@ c $1F3A THE 'PAUSE' COMMAND ROUTINE
 c $1F54 THE 'BREAK-KEY' SUBROUTINE
 @ $1F60 label=DEF_FN
 c $1F60 THE 'DEF FN' COMMAND ROUTINE
+D $1F60 During syntax checking a DEF FN statement is checked to ensure that it has the correct form. Space is also made available for the result of evaluating the function.
+D $1F60 But in 'run-time' a DEF FN statement is passed by.
+  $1F60 Jump forward if checking syntax.
+  $1F65 Otherwise pass by the 'DEF FN' statement.
+N $1F6A First consider the variable of the function.
 @ $1F6A label=DEF_FN_1
-  $1F74,c2
+  $1F6A Signal 'a numeric variable'.
+  $1F6E Check that the present code is a letter.
+  $1F71 Jump forward if not.
+  $1F73 Fetch the next character.
+  $1F74,4,c2,2 Jump forward unless it is a '$'.
+  $1F78 Change bit 6 as it is a string variable.
+  $1F7C Fetch the next character.
 @ $1F7D label=DEF_FN_2
-  $1F7D,c2
-  $1F82,c2
+  $1F7D,4,c2,2 A '(' must follow the variable's name.
+  $1F81 Fetch the next character.
+  $1F82,4,c2,2 Jump forward if it is a ')' as there are no parameters of the function.
+N $1F86 A loop is now entered to deal with each parameter in turn.
 @ $1F86 label=DEF_FN_3
+  $1F86 The present code must be a letter.
 @ $1F89 label=DEF_FN_4
-  $1F8E,c2
+  $1F8C Save the pointer in #REGde.
+  $1F8D Fetch the next character.
+  $1F8E,4,c2,2 Jump forward unless it is a '$'.
+  $1F92 Otherwise save the new pointer in #REGde instead.
+  $1F93 Fetch the next character.
 @ $1F94 label=DEF_FN_5
+  $1F94 Move the pointer to the last character of the name to the #REGhl register pair.
 @ $1F95 keep
-  $1F9F,c2
+  $1F95 Now make six locations after that last character and enter a 'number marker' into the first of the new locations.
+  $1F9F,7,c2,5 If the present character is a ',' then jump back as there should be a further parameter; otherwise jump out of the loop.
+N $1FA6 Next the definition of the function is considered.
 @ $1FA6 label=DEF_FN_6
-  $1FA6,c2
-  $1FAB,c2
+  $1FA6,4,c2,2 Check that the ')' does exist.
+  $1FAA The next character is fetched.
+  $1FAB,4,c2,2 It must be an '='.
+  $1FAF Fetch the next character.
+  $1FB0 Save the nature - numeric or string - of the variable.
+  $1FB4 Now consider the definition as an expression.
+  $1FB7 Fetch the nature of the variable and check that it is of the same type as found for the definition.
 @ $1FBD label=DEF_FN_7
+  $1FBD Give an error report if it is required.
+  $1FC0 Exit via #R$1BEE (thereby moving on to consider the next statement in the line).
 @ $1FC3 label=UNSTACK_Z
 c $1FC3 THE 'UNSTACK-Z' SUBROUTINE
 @ $1FC9 label=LPRINT
