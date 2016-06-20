@@ -341,25 +341,76 @@ c $031E THE 'K-TEST' SUBROUTINE
 @ $032C label=K_MAIN
 @ $0333 label=K_DECODE
 c $0333 THE 'KEYBOARD DECODING' SUBROUTINE
+D $0333 This subroutine is entered with the 'main code' in the #REGe register, the value of FLAGS in the #REGd register, the value of MODE in the #REGc register and the 'shift byte' in the #REGb register.
+D $0333 By considering these four values and referring, as necessary, to the #R$0205(six key tables) a 'final code' is produced. This is returned in the #REGa register.
+  $0333 Copy the 'main code'.
+  $0334 Jump forward if a digit key is being considered; also SPACE, ENTER and both shifts.
+  $0338 Decrement the MODE value.
+  $0339 Jump forward, as needed, for modes 'K', 'L', 'C' and 'E'.
+N $033E Only 'graphics' mode remains and the 'final code' for letter keys in graphics mode is computed from the 'main code'.
+  $033E Add the offset.
+  $0340 Return with the 'final code'.
+N $0341 Letter keys in extended mode are considered next.
 @ $0341 ssub=LD HL,$022C-$41
 @ $0341 label=K_E_LET
+  $0341 The base address for #R$022C(table 'b').
+  $0344 Jump forward to use this table if neither shift key is being pressed.
+  $0347 Otherwise use the base address for #R$0246(table 'c').
+N $034A Key tables 'b-f' are all served by the following look-up routine. In all cases a 'final code' is found and returned.
 @ $034A label=K_LOOK_UP
+  $034A Clear the #REGd register.
+  $034C Index the required table and fetch the 'final code'.
+  $034E Then return.
+N $034F Letter keys in 'K', 'L' or 'C' modes are now considered. But first the special SYMBOL SHIFT codes have to be dealt with.
 @ $034F ssub=LD HL,$026A-$41
 @ $034F label=K_KLC_LET
+  $034F The base address for #R$026A(table 'e').
+  $0352 Jump back if using the SYMBOL SHIFT key and a letter key.
+  $0356 Jump forward if currently in 'K' mode.
+  $035A If CAPS LOCK is set then return with the 'main code'.
+  $035F Also return in the same manner if CAPS SHIFT is being pressed.
+  $0361 However if lower case codes are required then +20 has to be added to the 'main code' to give the correct 'final code'.
+N $0364 The 'final code' values for tokens are found by adding +A5 to the 'main code'.
+  $0364 Add the required offset and return.
+N $0367 Next the digit keys, SPACE, ENTER and both shifts are considered.
 @ $0367 label=K_DIGIT
-  $0367,c2
+  $0367,3,c2,1 Proceed only with the digit keys, i.e. return with SPACE (+20), ENTER (+0D) and both shifts (+0E).
+  $036A Now separate the digit keys into three groups - according to the mode.
+  $036B Jump with 'K', 'L' and 'C' modes, and also with 'G' mode. Continue with 'E' mode.
 @ $0370 ssub=LD HL,$0284-$30
-  $0377,c2
+  $0370 The base address for #R$0284(table 'f').
+  $0373 Use this table for SYMBOL SHIFT and a digit key in extended mode.
+  $0377,4,c2,2 Jump forward with digit keys '8' and '9'.
+N $037B The digit keys '0' to '7' in extended mode are to give either a 'paper colour code' or an 'ink colour code' depending on the use of CAPS SHIFT.
+  $037B Reduce the range +30 to +37 giving +10 to +17.
+  $037D Return with this 'paper colour code' if CAPS SHIFT is not being used.
+  $037F But if it is then the range is to be +18 to +1F instead - indicating an 'ink colour code'.
+N $0382 The digit keys '8' and '9' are to give 'BRIGHT' and 'FLASH' codes.
 @ $0382 label=K_8_9
+  $0382 +38 and +39 go to +02 and +03.
+  $0384 Return with these codes if CAPS SHIFT is not being used. (These are 'BRIGHT' codes.)
+  $0386 Subtract '2' if CAPS SHIFT is being used; giving +00 and +01 (as 'FLASH' codes).
+N $0389 The digit keys in graphics mode are to give the block graphic characters (+80 to +8F), the GRAPHICS code (+0F) and the DELETE code (+0C).
 @ $0389 ssub=LD HL,$0260-$30
 @ $0389 label=K_GRA_DGT
-  $038C,c2
-  $0390,c2
+  $0389 The base address of #R$0260(table 'd').
+  $038C,8,c2,2,c2,2 Use this table directly for both digit key '9' that is to give GRAPHICS, and digit key '0' that is to give DELETE.
+  $0394 For keys '1' to '8' make the range +80 to +87.
+  $0398 Return with a value from this range if neither shift key is being pressed.
+  $039A But if 'shifted' make the range +88 to +8F.
+N $039D Finally consider the digit keys in 'K', 'L' and 'C' modes.
 @ $039D label=K_KLC_DGT
+  $039D Return directly if neither shift key is being used. (Final codes +30 to +39.)
+  $039F Use #R$0260(table 'd') if the CAPS SHIFT key is also being pressed.
 @ $03A1 ssub=LD HL,$0260-$30
-  $03AF,c2
+N $03A6 The codes for the various digit keys and SYMBOL SHIFT can now be found.
+  $03A6 Reduce the range to give +20 to +29.
+  $03A8 Separate the '@' character from the others.
+  $03AC The '_' character has also to be separated.
+  $03AE Return now with the 'final codes' +21, +23 to +29.
+  $03AF,3,c2,1 Give the '_' character a code of +5F.
 @ $03B2 label=K_AT_CHAR
-  $03B2,c2
+  $03B2,3,c2,1 Give the '@' character a code of +40.
 @ $03B5 label=BEEPER
 c $03B5 THE 'BEEPER' SUBROUTINE
 @ $03C1 nowarn
