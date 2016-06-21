@@ -1397,13 +1397,50 @@ B $0F0B,1
 @ $0F1E label=COPY_L_5
 @ $0F2C label=EDITOR
 c $0F2C THE 'EDITOR' ROUTINES
+D $0F2C The editor is called on two occasions:
+D $0F2C #LIST { From the #R$12A2(main execution routine) so that the user can enter a BASIC line into the system. } { From the #R$2089(INPUT command routine). } LIST#
+D $0F2C First the 'error stack pointer' is saved and an alternative address provided.
+  $0F2C The current value is saved on the machine stack.
 @ $0F30 nowarn
 @ $0F30 label=ED_AGAIN
+  $0F30 This is #R$107F.
+  $0F33 Any event that leads to the error handling routine being used will come back to #R$107F.
+N $0F38 A loop is now entered to handle each keystroke.
 @ $0F38 label=ED_LOOP
+  $0F38 Return once a key has been pressed.
+  $0F3B Save the code temporarily.
+  $0F3C Fetch the duration of the keyboard click.
 @ $0F41 keep
+  $0F41 And the pitch.
+  $0F44 Now make the 'pip'.
+  $0F47 Restore the code.
 @ $0F48 nowarn
+  $0F48 Pre-load the machine stack with the address of #R$0F38.
+N $0F4C Now analyse the code obtained.
+  $0F4C Accept all character codes, graphic codes and tokens.
+  $0F50 Also accept ','.
+  $0F54 Jump forward if the code represents an editing key.
+N $0F58 The control keys - INK to TAB - are now considered.
 @ $0F58 keep
+  $0F58 INK and PAPER will require two locations.
+  $0F5B Copy the code to #REGd.
+  $0F5C Jump forward with INK and PAPER
+N $0F60 AT and TAB would be handled as follows:
+  $0F60 Three locations required.
+  $0F61 Jump forward unless dealing with 'INPUT LINE...'.
+  $0F68 Get the second code and put it in #REGe.
+N $0F6C The other bytes for the control characters are now fetched.
 @ $0F6C label=ED_CONTR
+  $0F6C Get another code.
+  $0F6F Save the previous codes.
+  $0F70 Fetch K-CUR.
+  $0F73 Signal 'K mode'.
+  $0F77 Make two or three spaces.
+  $0F7A Restore the previous codes.
+  $0F7B Point to the first location.
+  $0F7C Enter first code.
+  $0F7D Then enter the second code which will be overwritten if there are only two codes - i.e. with INK and PAPER.
+  $0F7F Jump forward.
 @ $0F81 label=ADD_CHAR
 c $0F81 THE 'ADD-CHAR' SUBROUTINE
 @ $0F8B label=ADD_CH_1
