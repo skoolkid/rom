@@ -1909,15 +1909,41 @@ N $17E1 Now the 'automatic' listing can be made.
 c $17F5 THE 'LLIST' ENTRY POINT
 @ $17F9 label=LIST
 c $17F9 THE 'LIST' ENTRY POINT
+D $17F9 The 'main screen' channel will need to be opened.
+  $17F9 Use stream +02.
 @ $17FB label=LIST_1
-  $180C,c2
-  $1810,c2
+  $17FB Signal 'an ordinary listing in the main part of the screen'.
+  $17FF Open the channel unless checking syntax.
+  $1805 With the present character in the #REGa register see if the stream is to be changed.
+  $1809 Jump forward if unchanged.
+  $180B,3,1,c2 Is the present character a ';'?
+  $180E Jump if it is.
+  $1810,c2 Is it a ','?
+  $1812 Jump if it is not.
 @ $1814 label=LIST_2
+  $1814 A numeric expression must follow, e.g. LIST #5,20.
+  $1818 Jump forward with it.
 @ $181A label=LIST_3
+  $181A Otherwise use zero and also jump forward.
+N $181F Come here if the stream was unaltered.
 @ $181F label=LIST_4
+  $181F Fetch any line or use zero if none supplied.
 @ $1822 label=LIST_5
+  $1822 If checking the syntax of the edit-line move on to the next statement.
+  $1825 Line number to #REGbc.
+  $1828 High byte to #REGa.
+  $1829 Limit the high byte to the correct range and pass the whole line number to #REGhl.
+  $182D Set E-PPC and find the address of the start of this line or the first line after it if the actual line does not exist.
 @ $1833 label=LIST_ALL
+  $1833 Flag 'before the current line'.
+N $1835 Now the controlling loop for printing a series of lines is entered.
 @ $1835 label=LIST_ALL_1
+  $1835 Print the whole of a BASIC line.
+  $1838 This will be a 'carriage return'.
+  $1839 Jump back unless dealing with an automatic listing.
+  $183F Also jump back if there is still part of the main screen that can be used.
+  $1847 A return can be made at this point if the screen is full and the current line has been printed (#REGe=+00).
+  $1849 However if the current line is missing from the listing then S-TOP has to be updated and a further line printed (using scrolling).
 @ $1855 label=OUT_LINE
 c $1855 THE 'PRINT A WHOLE BASIC LINE' SUBROUTINE
 D $1855 The #REGhl register pair points to the start of the line - the location holding the high byte of the line number.
