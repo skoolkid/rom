@@ -1830,11 +1830,40 @@ c $1789 THE 'OPEN-P' SUBROUTINE
 c $1793 THE 'CAT, ERASE, FORMAT & MOVE' COMMAND ROUTINES
 @ $1795 label=AUTO_LIST
 c $1795 THE 'LIST & LLIST' COMMAND ROUTINES
+D $1795 The routines in this part of the 16K program are used to produce listings of the current BASIC program. Each line has to have its line number evaluated, its tokens expanded and the appropriate cursors positioned.
+D $1795 The entry point #R$1795 is used by both #R$12A2 and #R$1059 to produce a single page of the listing.
+  $1795 The stack pointer is saved allowing the machine stack to be reset when the listing is finished (see #R$0C55).
+  $1799 Signal 'automatic listing in the main screen'.
+  $179D Clear this part of the screen.
+  $17A0 Switch to the editing area.
+  $17A4 Now clear the the lower part of the screen as well.
+  $17AA Then switch back.
+  $17AE Signal 'screen is clear'.
+  $17B2 Now fetch the the 'current' line number and the 'automatic' line number.
+  $17B9 If the 'current' number is less than the 'automatic' number then jump forward to update the 'automatic' number.
+N $17BF The 'automatic' number has now to be altered to give a listing with the 'current' line appearing near the bottom of the screen.
+  $17BF Save the 'automatic' number.
+  $17C0 Find the address of the start of the 'current' line and produce an address roughly a 'screen before it' (negated).
 @ $17C3 keep
+  $17C9 Save the 'result' on the machine stack whilst the 'automatic' line address is also found (in #REGhl).
+  $17CD The 'result' goes to the #REGbc register pair.
+N $17CE A loop is now entered.  The 'automatic' line number is increased on each pass until it is likely that the 'current' line will show on a listing.
 @ $17CE label=AUTO_L_1
+  $17CE Save the 'result'.
+  $17CF Find the address of the start of the line after the present 'automatic' line (in #REGde).
+  $17D2 Restore the 'result'.
+  $17D3 Perform the computation and jump forward if finished.
+  $17D6 Move the next line's address to the #REGhl register pair and collect its line number.
+  $17DB Now S-TOP can be updated and the test repeated with the new line.
+N $17E1 Now the 'automatic' listing can be made.
 @ $17E1 label=AUTO_L_2
+  $17E1 When E-PPC is less than S-TOP.
 @ $17E4 label=AUTO_L_3
+  $17E4 Fetch the top line's number and hence its address.
+  $17EA If the line cannot be found use #REGde instead.
 @ $17ED label=AUTO_L_4
+  $17ED The listing is produced.
+  $17F0 The return will be to here unless scrolling was needed to show the current line.
 @ $17F5 label=LLIST
 c $17F5 THE 'LLIST' ENTRY POINT
 @ $17F9 label=LIST
