@@ -1151,11 +1151,52 @@ c $0B24 THE 'PRINT ANY CHARACTER(S)' SUBROUTINE
 @ $0B76 label=PO_CHAR_3
 @ $0B7F label=PR_ALL
 c $0B7F THE 'PRINT ALL CHARACTERS' SUBROUTINE
+D $0B7F This subroutine is used to print all '8*8' bit characters. On entry the #REGde register pair holds the base address of the character form, the #REGhl register the destination address and the #REGbc register pair the current 'line and column' values.
+  $0B7F Fetch the column number.
+  $0B80 Move one column rightwards.
+  $0B81 Jump forward unless a new line is indicated.
+  $0B85 Move down one line.
+  $0B86 Column number is +21.
+  $0B87 Jump forward if handling the screen.
+  $0B8D Save the base address whilst the printer buffer is emptied.
+  $0B92 Copy the new column number.
 @ $0B93 label=PR_ALL_1
+  $0B93 Test whether a new line is being used. If it is see if the display requires to be scrolled.
+N $0B99 Now consider the present state of INVERSE and OVER
+  $0B99 Save the position values and the destination address on the machine stack.
+  $0B9B Fetch P-FLAG and read bit 0.
+  $0B9E Prepare the 'OVER mask' in the #REGb register, i.e. OVER 0=+00 and OVER 1=+FF.
 @ $0BA4 label=PR_ALL_2
+  $0BA4 Read bit 2 of P-FLAG and prepare the 'INVERSE mask' in the #REGc register, i.e. INVERSE 0=+00 and INVERSE 1=+FF.
+  $0BA8 Set the #REGa register to hold the 'pixel-line' counter and clear the carry flag.
+  $0BAB Jump forward if handling the screen.
+  $0BB1 Signal 'printer buffer no longer empty'.
+  $0BB5 Set the carry flag to show that the printer is being used.
 @ $0BB6 label=PR_ALL_3
+  $0BB6 Exchange the destination address with the base address before entering the loop.
+N $0BB7 The character can now be printed. Eight passes of the loop are made - one for each 'pixel-line'.
 @ $0BB7 label=PR_ALL_4
+  $0BB7 The carry flag is set when using the printer. Save this flag in F'.
+  $0BB8 Fetch the existing 'pixel-line'.
+  $0BB9 Use the 'OVER mask' and then XOR the result with the 'pixel-line' of the character form.
+  $0BBB Finally consider the 'INVERSE mask'.
+  $0BBC Enter the result.
+  $0BBD Fetch the printer flag and jump forward if required.
+  $0BC0 Update the destination address.
 @ $0BC1 label=PR_ALL_5
+  $0BC1 Update the 'pixel-line' address of the character form.
+  $0BC2 Decrease the counter and loop back unless it is zero.
+N $0BC5 Once the character has been printed the attribute byte is to be set as required.
+  $0BC5 Make the #REGh register hold a correct high-address for the character area.
+  $0BC7 Set the attribute byte only if handling the screen.
+  $0BCE Restore the original destination address and the position values.
+  $0BD0 Decrease the column number and increase the destination address before returning.
+N $0BD3 When the printer is being used the destination address has to be updated in increments of +20.
+  $0BD3 Save the printer flag again.
+  $0BD4 The required increment value.
+  $0BD6 Add the value and pass the result back to the #REGe register.
+  $0BD8 Fetch the flag.
+  $0BD9 Jump back into the loop.
 @ $0BDB label=PO_ATTR
 c $0BDB THE 'SET ATTRIBUTE BYTE' SUBROUTINE
 @ $0BFA label=PO_ATTR_1
