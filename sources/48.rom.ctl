@@ -1803,9 +1803,39 @@ c $1555 Report G - No room for line
 @ $1557 keep
 @ $155D label=MAIN_ADD
 c $155D THE 'MAIN-ADD' SUBROUTINE
+D $155D This subroutine allows for a new BASIC line to be added to the existing BASIC program in the program area. If a line has both an old and a new version then the old one is 'reclaimed'. A new line that consists of only a line number does not go into the program area.
+  $155D Make the new line number the 'current line'.
+  $1561 Fetch CH-ADD and save the address in #REGde.
 @ $1565 nowarn
+  $1565 Push the address of #R$1555 on to the machine stack. ERR-SP will now point to #R$1555.
+  $1569 Fetch WORKSP.
+  $156C Find the length of the line from after the line number to the 'carriage return' character inclusively.
+  $156F Save the length.
+  $1570 Move the line number to the #REGhl register pair.
+  $1572 Is there an existing line with this number?
+  $1575 Jump if there was not.
+  $1577 Find the length of the 'old' line and reclaim it.
 @ $157D label=MAIN_ADD1
+  $157D Fetch the length of the 'new' line and jump forward if it is only a 'line number and a carriage return'.
+  $1583 Save the length.
+  $1584 Four extra locations will be needed, i.e. two for the number and two for the length.
+  $1588 Make #REGhl point to the location before the 'destination'.
+  $1589 Save the current value of PROG to avoid corruption when adding a first line.
+  $158E Space for the new line is created.
+  $1591 The old value of PROG is fetched and restored.
+  $1595 A copy of the line length (without parameters) is taken.
+  $1597 Make #REGde point to the end location of the new area and #REGhl to the 'carriage return' character of the new line in the editing area.
+  $159D Now copy over the line.
+  $159F Fetch the line's number.
+  $15A2 Destination into #REGhl and number into #REGde.
+  $15A3 Fetch the new line's length.
+  $15A4 The high length byte.
+  $15A6 The low length byte.
+  $15A8 The low line number byte.
+  $15AA The high line number byte.
 @ $15AB label=MAIN_ADD2
+  $15AB Drop the address of #R$1555.
+  $15AC Jump back and this time do produce an automatic listing.
 @ $15AF label=CHANINFO
 b $15AF THE 'INITIAL CHANNEL INFORMATION'
 D $15AF Initially there are four channels - 'K', 'S', 'R', & 'P' - for communicating with the 'keyboard', 'screen', 'work space' and 'printer'.  For each channel the output routine address comes before the input routine address and the channel's code.
