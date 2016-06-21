@@ -3974,15 +3974,70 @@ N $2A4D When finished considering the last subscript a return can be made.
   $2A51 Return with the parameters of the required string forming a 'last value' on the calculator stack.
 @ $2A52 label=SLICING
 c $2A52 THE 'SLICING' SUBROUTINE
-  $2A59,c2
+D $2A52 The present string can be sliced using this subroutine. The subroutine is entered with the parameters of the string being present on the top of the calculator stack and in the registers #REGa, #REGb, #REGc, #REGd and #REGe. Initially the SYNTAX/RUN flag is tested and the parameters of the string are fetched only if a line is being executed.
+  $2A52 Check the flag.
+  $2A55 Take the parameters off the stack in 'run-time'.
+N $2A58 The possibility of the 'slice' being '()' has to be considered.
+  $2A58 Get the next character.
+  $2A59,c2 Is it a ')'?
+  $2A5B Jump forward if it is so.
+N $2A5D Before proceeding the registers are manipulated as follows:
+  $2A5D The 'start' goes on the machine stack.
+  $2A5E The #REGa register is cleared and saved.
+  $2A60 The 'length' is saved briefly.
 @ $2A61 keep
+  $2A61 Presume that the 'slice' is to begin with the first character.
+  $2A64 Get the first character.
+  $2A65 Pass the 'length' to #REGhl.
+N $2A66 The first parameter of the 'slice' is now evaluated.
+  $2A66 Is the present character a 'TO'?
+  $2A68 The first parameter, by default, will be '1' if the jump is taken.
+  $2A6A At this stage #REGa is zero.
+  $2A6B #REGbc is made to hold the first parameter. #REGa will hold +FF if there has been an 'out of range' error.
+  $2A6E Save the value anyway.
+  $2A6F Transfer the first parameter to #REGde.
+  $2A71 Save the 'length' briefly.
+  $2A72 Get the present character.
+  $2A73 Restore the 'length'.
+  $2A74 Is the present character a 'TO'?
+  $2A76,4,2,c2 Jump forward to consider the second parameter if it is so; otherwise show that there is a closing bracket.
 @ $2A7A label=SL_RPT_C
+N $2A7D At this point a 'slice' of a single character has been identified. e.g. A$(4).
+  $2A7D The last character of the 'slice' is also the first character.
+  $2A7F Jump forward.
+N $2A81 The second parameter of a 'slice' is now evaluated.
 @ $2A81 label=SL_SECOND
-  $2A84,c2
-  $2A90,c2
+  $2A81 Save the 'length' briefly.
+  $2A82 Get the next character.
+  $2A83 Restore the 'length'.
+  $2A84,c2 Is the present character a ')'?
+  $2A86 Jump if there is not a second parameter.
+  $2A88 If the first parameter was in range #REGa will hold zero, otherwise +FF.
+  $2A89 Make #REGbc hold the second parameter.
+  $2A8C Save the 'error register'.
+  $2A8D Get the present character.
+  $2A8E Pass the result obtained from #R$2ACD to the #REGhl register pair.
+  $2A90,4,c2,2 Check that there is a closing bracket now.
+N $2A94 The 'new' parameters are now defined.
 @ $2A94 label=SL_DEFINE
+  $2A94 Fetch the 'error register'.
+  $2A95 The second parameter goes on the stack and the 'start' goes to #REGhl.
+  $2A96 The first parameter is added to the 'start'.
+  $2A97 Go back a location to get it correct.
+  $2A98 The 'new start' goes on the stack and the second parameter goes to #REGhl.
+  $2A99 Subtract the first parameters from the second to find the length of the 'slice'.
 @ $2A9C keep
+  $2A9C Initialise the 'new length'.
+  $2A9F A negative 'slice' is a 'null string' rather than an error condition.
+  $2AA1 Allow for the inclusive byte.
+  $2AA2 Only now test the 'error register'.
+  $2AA3 Jump if either parameter was out of range for the string.
+  $2AA6 Transfer the 'new length' to #REGbc.
 @ $2AA8 label=SL_OVER
+  $2AA8 Get the 'new start'.
+  $2AA9 Ensure that a string is still indicated.
+@ $2AAD label=SL_STORE
+  $2AAD Return at this point if checking syntax; otherwise continue into #R$2AB1.
 @ $2AB1 label=STK_ST_0
 c $2AB1 THE 'STK-STORE' SUBROUTINE
 @ $2AB2 label=STK_STO
