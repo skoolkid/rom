@@ -330,10 +330,46 @@ c $028E THE 'KEYBOARD SCANNING' SUBROUTINE
 @ $02AB label=KEY_DONE
 @ $02BF label=KEYBOARD
 c $02BF THE 'KEYBOARD' SUBROUTINE
+D $02BF This subroutine is called on every occasion that a maskable interrupt occurs. In normal operation this will happen once every 20 ms. The purpose of this subroutine is to scan the keyboard and decode the key value. The code produced will, if the 'repeat' status allows it, be passed to the system variable LAST-K. When a code is put into this system variable bit 5 of FLAGS is set to show that a 'new' key has been pressed.
+  $02BF Fetch a key value in the #REGde register pair but return immediately if the zero flag is reset.
+N $02C3 A double system of 'KSTATE system variables' (KSTATE0 - KSTATE 3 and KSTATE4 - KSTATE7) is used from now on.
+N $02C3 The two sets allow for the detection of a new key being pressed (using one set) whilst still within the 'repeat period' of the previous key to have been pressed (details in the other set).
+N $02C3 A set will only become free to handle a new key if the key is held down for about 1/10th. of a second, i.e. five calls to #R$02BF.
+  $02C3 Start with KSTATE0.
 @ $02C6 label=K_ST_LOOP
+  $02C6 Jump forward if a 'set is free', i.e. KSTATE0/4 holds +FF.
+  $02CA However if the set is not free decrease its '5 call counter' and when it reaches zero signal the set as free.
+N $02D1 After considering the first set change the pointer and consider the second set.
 @ $02D1 label=K_CH_SET
+  $02D1 Fetch the low byte of the address and jump back if the second set has still to be considered.
+N $02D8 Return now if the key value indicates 'no-key' or a shift key only.
+  $02D8 Make the necessary tests and return if needed. Also change the key value to a 'main code'.
+N $02DC A key stroke that is being repeated (held down) is now separated from a new key stroke.
+  $02DC Look first at KSTATE0.
+  $02DF Jump forward if the codes match - indicating a repeat.
+  $02E2 Save the address of KSTATE0.
+  $02E3 Now look at KSTATE4.
+  $02E6 Jump forward if the codes match - indicating a repeat.
+N $02E9 But a new key will not be accepted unless one of the sets of KSTATE system variables is 'free'.
+  $02E9 Consider the second set.
+  $02EB Jump forward if 'free'.
+  $02ED Now consider the first set.
+  $02EE Continue if the set is 'free' but exit if not.
+N $02F1 The new key is to be accepted. But before the system variable LAST-K can be filled, the KSTATE system variables, of the set being used, have to be initialised to handle any repeats and the key's code has to be decoded.
 @ $02F1 label=K_NEW
+  $02F1 The code is passed to the #REGe register and to KSTATE0/4.
+  $02F3 The '5 call counter' for this set is reset to '5'.
+  $02F6 The third system variable of the set holds the REPDEL value (normally 0.7 secs.).
+  $02FB Point to KSTATE3/7.
+N $02FC The decoding of a 'main code' depends upon the present state of MODE, bit 3 of FLAGS and the 'shift byte'.
+  $02FC Fetch MODE.
+  $02FF Fetch FLAGS.
+  $0302 Save the pointer whilst the 'main code' is decoded.
+  $0307 The final code value is saved in KSTATE3/7, from where it is collected in case of a repeat.
+N $0308 The next three instructions are common to the handling of both 'new keys' and 'repeat keys'.
 @ $0308 label=K_END
+  $0308 Enter the final code value into LAST-K and signal 'a new key'.
+  $030F Finally return.
 @ $0310 label=K_REPEAT
 c $0310 THE 'REPEATING KEY' SUBROUTINE
 @ $031E label=K_TEST
