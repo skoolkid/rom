@@ -1140,15 +1140,50 @@ c $0B03 THE 'POSITION FETCH' SUBROUTINE
 @ $0B1D label=PO_F_PR
 @ $0B24 label=PO_ANY
 c $0B24 THE 'PRINT ANY CHARACTER(S)' SUBROUTINE
+D $0B24 Ordinary character codes, token codes and user-defined graphic codes, and graphic codes are dealt with separately.
+  $0B24 Jump forward with ordinary character codes.
+  $0B28 Jump forward with token codes and UDG codes.
+  $0B2C Move the graphic code.
+  $0B2D Construct the graphic form.
+  $0B30 #REGhl has been disturbed so 'fetch' again.
+  $0B33 Make #REGde point to the start of the graphic form, i.e. MEMBOT.
+  $0B36 Jump forward to print the graphic character.
+N $0B38 Graphic characters are constructed in an ad hoc manner in the calculator's memory area, i.e. mem-0 and mem-1.
 @ $0B38 label=PO_GR_1
+  $0B38 This is MEMBOT.
+  $0B3B In effect call the following subroutine twice.
 @ $0B3E label=PO_GR_2
+  $0B3E Determine bit 0 (and later bit 2) of the graphic code.
+  $0B41 The #REGa register will hold +00 or +0F depending on the value of the bit in the code.
+  $0B43 Save the result in #REGc.
+  $0B44 Determine bit 1 (and later bit 3) of the graphic code.
+  $0B47 The #REGa register will hold +00 or +F0.
+  $0B49 The two results are combined.
+  $0B4A The #REGa register holds half the character form and has to be used four times. This is done for the upper half of the character form and then the lower.
 @ $0B4C label=PO_GR_3
+N $0B52 Token codes and user-defined graphic codes are now separated.
 @ $0B52 label=PO_T_UDG
+  $0B52 Jump forward with token codes.
+  $0B56 UDG codes are now +00 to +0F.
+  $0B58 Save the current position values on the machine stack.
+  $0B59 Fetch the base address of the UDG area and jump forward.
 @ $0B5F label=PO_T
+  $0B5F Now print the token and return via #R$0B03.
+N $0B65 The required character form is identified.
 @ $0B65 label=PO_CHAR
+  $0B65 The current position is saved.
+  $0B66 The base address of the character area is fetched.
 @ $0B6A label=PO_CHAR_2
-  $0B70,c2
+  $0B6A The print address is saved.
+  $0B6B This is FLAGS.
+  $0B6E Allow for a leading space.
+  $0B70,4,c2,2 Jump forward if the character is not a 'space'.
+  $0B74 But 'suppress' if it is.
 @ $0B76 label=PO_CHAR_3
+  $0B76 Now pass the character code to the #REGhl register pair.
+  $0B79 The character code is in effect multiplied by 8.
+  $0B7C The base address of the character form is found.
+  $0B7D The current position is fetched and the base address passed to the #REGde register pair.
 @ $0B7F label=PR_ALL
 c $0B7F THE 'PRINT ALL CHARACTERS' SUBROUTINE
 D $0B7F This subroutine is used to print all '8*8' bit characters. On entry the #REGde register pair holds the base address of the character form, the #REGhl register the destination address and the #REGbc register pair the current 'line and column' values.
