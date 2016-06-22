@@ -2839,10 +2839,43 @@ c $1FC9 THE 'LPRINT & PRINT' COMMAND ROUTINES
 c $1FF5 THE 'PRINT A CARRIAGE RETURN' SUBROUTINE
 @ $1FFC label=PR_ITEM_1
 c $1FFC THE 'PRINT ITEMS' SUBROUTINE
+D $1FFC This subroutine is called from the #R$1FCD, #R$1FC9 and #R$2089 command routines.
+D $1FFC The various types of print item are identified and printed.
+  $1FFC The first character is fetched.
+  $1FFD Jump forward unless it is an 'AT'.
+N $2001 Now deal with an 'AT'.
+  $2001 The two parameters are transferred to the calculator stack.
+  $2004 Return now if checking syntax.
+  $2007 The parameters are compressed into the #REGbc register pair.
+  $200A The #REGa register is loaded with the AT control character before the jump is taken.
+N $200E Next look for a 'TAB'.
 @ $200E label=PR_ITEM_2
+  $200E Jump forward unless it is a 'TAB'.
+N $2012 Now deal with a 'TAB'.
+  $2012 Get the next character.
+  $2013 Transfer one parameter to the calculator stack.
+  $2016 Return now if checking syntax.
+  $2019 The value is compressed into the #REGbc register pair.
+  $201C The #REGa register is loaded with the TAB control character.
+N $201E The 'AT' and the 'TAB' print items are printed by making three calls to #R$0010.
 @ $201E label=PR_AT_TAB
+  $201E Print the control character.
+  $201F Follow it with the first value.
+  $2021 Finally print the second value, then return.
+N $2024 Next consider embedded colour items.
 @ $2024 label=PR_ITEM_3
+  $2024 Return with carry reset if colour items were found. Continue if none were found.
+  $2028 Next consider if the stream is to be changed.
+  $202B Continue unless it was altered.
+N $202C The print item must now be an expression, either numeric or string.
+  $202C Evaluate the expression but return now if checking syntax.
+  $2032 Test for the nature of the expression.
+  $2036 If it is a string then fetch the necessary parameters; but if it is numeric then exit via #R$2DE3.
+N $203C A loop is now set up to deal with each character in turn of the string.
 @ $203C label=PR_STRING
+  $203C Return now if there are no characters remaining in the string; otherwise decrease the counter.
+  $2040 Fetch the code and increment the pointer.
+  $2042 The code is printed and a jump taken to consider any further characters.
 @ $2045 label=PR_END_Z
 c $2045 THE 'END OF PRINTING' SUBROUTINE
   $2045,c2
