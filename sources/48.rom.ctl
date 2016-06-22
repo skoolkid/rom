@@ -5552,15 +5552,50 @@ E $32D7 Note: The last four subroutines are multi-purpose subroutines and are en
 E $32D7 #LIST { Offset 3E: series-06, series-08 & series-0C; literals 86, 88 & 8C. } { Offset 3F: stk-zero, stk-one, stk-half, stk-pi/2 & stk-ten; literals A0 to A4. } { Offset 40: st-mem-0, st-mem-1, st-mem-2, st-mem-3, st-mem-4 & st-mem-5; literals C0 to C5. } { Offset 41: get-mem-0, get-mem-1, get-mem-2, get-mem-3, get-mem-4 & get-mem-5; literals E0 to E5. } LIST#
 @ $335B label=CALCULATE
 c $335B THE 'CALCULATE' SUBROUTINE
+D $335B This subroutine is used to perform floating-point calculations. These can be considered to be of three types:
+D $335B #LIST { Binary operations, e.g. #R$3014, where two numbers in floating-point form are added together to give one 'last value'. } { Unary operations, e.g. #R$37B5, where the 'last value' is changed to give the appropriate function result as a new 'last value'. } { Manipulatory operations, e.g. #R$342D, where the 'last value' is copied to the first five bytes of the calculator's memory area. } LIST#
+D $335B The operations to be performed are specified as a series of data-bytes, the literals, that follow an RST 28 instruction that calls this subroutine. The last literal in the list is always '38' which leads to an end to the whole operation.
+D $335B In the case of a single operation needing to be performed, the operation offset can be passed to the calculator in the #REGb register, and operation '3B', the #R$33A2(single calculation operation), performed.
+D $335B It is also possible to call this subroutine recursively, i.e. from within itself, and in such a case it is possible to use the system variable BREG as a counter that controls how many operations are performed before returning.
+D $335B The first part of this subroutine is complicated but essentially it performs the two tasks of setting the registers to hold their required values, and to produce an offset, and possibly a parameter, from the literal that is currently being considered.
+D $335B The offset is used to index into the calculator's #R$32D7(table of addresses) to find the required subroutine address.
+D $335B The parameter is used when the multi-purpose subroutines are called.
+D $335B Note: a floating-point number may in reality be a set of string parameters.
+  $335B Presume a unary operation and therefore set #REGhl to point to the start of the 'last value' on the calculator stack and #REGde one past this floating-point number (STKEND).
 @ $335E label=GEN_ENT_1
+  $335E Either transfer a single operation offset to BREG temporarily, or, when using the subroutine recursively, pass the parameter to BREG to be used as a counter.
 @ $3362 label=GEN_ENT_2
+  $3362 The return address of the subroutine is stored in #REGhl'. This saves the pointer to the first literal. Entering the calculator here is done whenever BREG is in use as a counter and is not to be disturbed.
 @ $3365 label=RE_ENTRY
+  $3365 A loop is now entered to handle each literal in the list that follows the calling instruction; so first, always set to STKEND.
+  $3369 Go to the alternate register set and fetch the literal for this loop.
+  $336B Make #REGhl' point to the next literal.
 @ $336C label=SCAN_ENT
+  $336C This pointer is saved briefly on the machine stack. #R$336C is used by #R$33A2 to find the subroutine that is required.
+  $336D Test the #REGa register.
+  $336E Separate the simple literals from the multi-purpose literals. Jump with literals 00 to 3D.
+  $3371 Save the literal in #REGd.
+  $3372 Continue only with bits 5 and 6.
+  $3374 Four right shifts make them now bits 1 and 2.
+  $3378 The offsets required are 3E to 41, and #REGl will now hold double the required offset.
+  $337B Now produce the parameter by taking bits 0, 1, 2, 3 and 4 of the literal; keep the parameter in #REGa.
+  $337E Jump forward to find the address of the required subroutine.
 @ $3380 label=FIRST_3D
+  $3380 Jump forward if performing a unary operation.
+  $3384 All of the subroutines that perform binary operations require that #REGhl points to the first operand and #REGde points to the second operand (the 'last value') as they appear on the calculator stack.
 @ $338C label=DOUBLE_A
+  $338C As each entry in the table of addresses takes up two bytes the offset produced is doubled.
 @ $338E label=ENT_TABLE
+  $338E The base address of the #R$32D7(table).
+  $3391 The address of the required table entry is formed in #REGhl, and the required subroutine address is loaded into the #REGde register pair.
 @ $3397 nowarn
+  $3397 The address of #R$3365 is put on the machine stack underneath the subroutine address.
+  $339C Return to the main set of registers.
+  $339D The current value of BREG is transferred to the #REGb register thereby returning the single operation offset (see #R$353B).
 @ $33A1 label=delete
+  $33A1 An indirect jump to the required subroutine.
+E $335B The #R$33A1 subroutine contains only the single RET instruction above. The literal '02' results in this subroutine being considered as a binary operation that is to be entered with a first number addressed by the #REGhl register pair and a second number addressed by the #REGde register pair, and the result produced again addressed by the #REGhl register pair.
+E $335B The single RET instruction thereby leads to the first number being considered as the resulting 'last value' and the second number considered as being deleted. Of course the number has not been deleted from the memory but remains inactive and will probably soon be overwritten.
 @ $33A2 label=fp_calc_2
 c $33A2 THE 'SINGLE OPERATION' SUBROUTINE
 @ $33A9 label=TEST_5_SP
