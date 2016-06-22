@@ -4175,12 +4175,42 @@ E $28B2 In all cases bits 5 and 6 of the #REGc register indicate the type of var
 E $28B2 In syntax time the return is always made with the carry flag reset. The zero flag is set for arrays and reset for all other variables, except that a simple string name incorrectly followed by a '$' sets the zero flag and, in the case of SAVE "name" DATA a$(), passes syntax as well.
 @ $2951 label=STK_F_ARG
 c $2951 THE 'STACK FUNCTION ARGUMENT' SUBROUTINE
-  $2955,c2
+D $2951 This subroutine is called by #R$28B2 when DEFADD-hi is non-zero, to make a search of the arguments area of a DEF FN statement, before searching in the variables area. If the variable is found in the DEF FN statement, then the parameters of a string variable are stacked and a signal is given that there is no need to call #R$2996. But it is left to #R$24FB to stack the value of a numerical variable at #R$26DA in the usual way.
+  $2951 Point to the first character in the arguments area and put it into #REGa.
+  $2955,c2 Is it a ')'?
+  $2957 Jump to search the variables area.
 @ $295A label=SFA_LOOP
+  $295A Get the next argument in the loop.
+  $295B Set bits 5 and 6, assuming a simple numeric variable; copy it to #REGb.
+  $295E Point to the next code.
+  $295F Put it into the #REGa register.
+  $2960 Is it the 'number marker' code 0E hex?
+  $2962 Jump if so: numeric variable.
+  $2964 Ensure that #REGhl points to the character, not to a space or control code.
+  $2968 #REGhl now points to the 'number marker'.
+  $2969 Reset bit 5 of #REGb: string variable.
 @ $296B label=SFA_CP_VR
-  $2977,c2
+  $296B Get the variable name into #REGa.
+  $296C Is it the one we are looking for?
+  $296D Jump if it matches.
+  $296F Now pass over the 5 bytes of the floating-point number or string parameters to get to the next argument.
+  $2974 Pass on to the next character.
+  $2977,c2 Is it a ')'?
+  $2979 If so, jump to search the variables area.
+  $297C Point to the next argument.
+  $297F Jump back to consider it.
+N $2981 A match has been found. The parameters of a string variable are stacked, avoiding the need to call #R$2996.
 @ $2981 label=SFA_MATCH
+  $2981 Test for a numeric variable.
+  $2983 Jump if the variable is numeric; #R$24FB will stack it.
+  $2985 Point to the first of the 5 bytes to be stacked.
+  $2986 Point #REGde to STKEND.
+  $298A Stack the 5 bytes.
+  $298D Point #REGhl to the new position of STKEND, and reset the system variable.
 @ $2991 label=SFA_END
+  $2991 Discard the #R$28B2 pointers (second and first character pointers).
+  $2993 Return from the search with both the carry and zero flags reset - signalling that a call #R$2996 is not required.
+  $2995 Finished.
 @ $2996 label=STK_VAR
 c $2996 THE 'STK-VAR' SUBROUTINE
 D $2996 This subroutine is used either to find the parameters that define an existing string entry in the variables area, or to return in the #REGhl register pair the base address of a particular element or an array of numbers. When called from #R$2C02 the subroutine only checks the syntax of the BASIC statement.
