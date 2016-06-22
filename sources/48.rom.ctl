@@ -2465,12 +2465,42 @@ W $1B15
 c $1B17 THE 'MAIN PARSER' OF THE BASIC INTERPRETER
 @ $1B28 label=STMT_LOOP
 c $1B28 THE STATEMENT LOOP
+D $1B28 Each statement is considered in turn until the end of the line is reached.
+  $1B28 Advance CH-ADD along the line.
 @ $1B29 label=STMT_L_1
-  $1B39,c2
+  $1B29 The work space is cleared.
+  $1B2C Increase SUBPPC on each passage around the loop.
+  $1B2F But only '127' statements are allowed in a single line.
+  $1B32 Fetch a character.
+  $1B33 Clear the #REGb register for later.
+  $1B35 Is the character a 'carriage return'?
+  $1B37 Jump if it is.
+  $1B39,4,c2,2 Go around the loop again if it is a ':'.
+N $1B3D A statement has been identified so, first, its initial command is considered.
 @ $1B3D nowarn
+  $1B3D Pre-load the machine stack with the return address #R$1B76.
+  $1B41 Save the command temporarily in the #REGc register whilst CH-ADD is advanced again.
+  $1B44 Reduce the command's code by +CE, giving the range +00 to +31 for the fifty commands.
+  $1B46 Give the appropriate error if not a command code.
+  $1B49 Move the command code to the #REGbc register pair (#REGb holds +00).
+  $1B4A The base address of the #R$1A48(syntax offset table).
+  $1B4D The required offset is passed to the #REGc register and used to compute the base address for the command's entries in the #R$1A7A(parameter table).
+  $1B50 Jump forward into the scanning loop with this address.
+N $1B52 Each of the command class routines applicable to the present command is executed in turn. Any required separators are also considered.
 @ $1B52 label=SCAN_LOOP
+  $1B52 The temporary pointer to the entries in the #R$1A7A(parameter table).
 @ $1B55 label=GET_PARAM
+  $1B55 Fetch each entry in turn.
+  $1B56 Update the pointer to the entries for the next pass.
 @ $1B5A nowarn
+  $1B5A Pre-load the machine stack with the return address #R$1B52.
+  $1B5E Copy the entry to the #REGc register for later.
+  $1B5F Jump forward if the entry is a 'separator'.
+  $1B63 The base address of the #R$1C01(command class table).
+  $1B66 Clear the #REGb register and index into the table.
+  $1B69 Fetch the offset and compute the starting address of the required command class routine.
+  $1B6B Push the address on to the machine stack.
+  $1B6C Before making an indirect jump to the command class routine pass the command code to the #REGa register and set the #REGb register to +FF.
 @ $1B6F label=SEPARATOR
 c $1B6F THE 'SEPARATOR' SUBROUTINE
 @ $1B76 label=STMT_RET
