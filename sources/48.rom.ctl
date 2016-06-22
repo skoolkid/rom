@@ -1056,9 +1056,41 @@ N $0923 And here if not. (#REGa holds +80 - variable to be 'added'.)
   $092A Go round the loop to consider the next new variable.
 @ $092C label=ME_ENTER
 c $092C THE 'MERGE A LINE OR A VARIABLE' SUBROUTINE
+D $092C This subroutine is entered with the following parameters:
+D $092C #LIST { Carry flag reset - MERGE a BASIC line. } { Carry flag set - MERGE a variable. } { Zero flag reset - it will be an 'addition'. } { Zero flag set - it is a 'replacement'. } { #REGhl register pair - points to the start of the new entry. } { #REGde register pair - points to where it is to MERGE. } LIST#
+  $092C Jump if handling an 'addition'.
+  $092E Save the flags.
+  $092F Save the 'new' pointer whilst the 'old' line or variable is reclaimed.
+  $093D Restore the flags.
+N $093E The new entry can now be made.
 @ $093E label=ME_ENT_1
+  $093E Save the flags.
+  $093F Make a copy of the 'destination' pointer.
+  $0940 Find the length of the 'new' variable/line.
+  $0943 Save the pointer to the 'new' variable/line.
+  $0946 Fetch PROG - to avoid corruption.
+  $0949 Save PROG on the stack and fetch the 'new' pointer.
+  $094A Save the length.
+  $094B Retrieve the flags.
+  $094C Jump forward if adding a new variable.
+  $094E A new line is added before the 'destination' location.
+  $094F,3 Make the room for the new line.
+  $0953 Jump forward.
 @ $0955 label=ME_ENT_2
+  $0955 Make the room for the new variable.
 @ $0958 label=ME_ENT_3
+  $0958 Point to the first new location.
+  $0959 Retrieve the length.
+  $095A Retrieve PROG and store it in its correct place.
+  $095F Also fetch the 'new' pointer.
+  $0963 Again save the length and the 'new' pointer.
+  $0965 Switch the pointers and copy the 'new' variable/line into the room made for it.
+N $0968 The 'new' variable/line has now to be removed from the work space.
+  $0968 Fetch the 'new' pointer.
+  $0969 Fetch the length.
+  $096A Save the 'old' pointer. (Points to the location after the 'added' variable/line.)
+  $096B Remove the variable/line from the work space.
+  $096E Return with the 'old' pointer in the #REGde register pair.
 @ $0970 label=SA_CONTRL
 c $0970 THE 'SAVE' CONTROL ROUTINE
 @ $0986 keep
