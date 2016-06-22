@@ -2161,13 +2161,43 @@ c $190F THE 'LN-FETCH' SUBROUTINE
 @ $191C label=LN_STORE
 @ $1925 label=OUT_SP_2
 c $1925 THE 'PRINTING CHARACTERS IN A BASIC LINE' SUBROUTINE
+D $1925 All of the character/token codes in a BASIC line are printed by repeatedly calling this subroutine.
+D $1925 The entry point #R$192A is used when printing line numbers which may require leading spaces.
+  $1925 The #REGa register will hold +20 for a space or +FF for no-space.
+  $1926 Test the value and return if there is not to be a space.
+  $1928 Jump forward to print a space.
 @ $192A label=OUT_SP_NO
+  $192A Clear the #REGa register.
+N $192B The #REGhl register pair holds the line number and the #REGbc register the value for 'repeated subtraction' (-1000, -100 or -10).
 @ $192B label=OUT_SP_1
+  $192B The 'trial subtraction'.
+  $192C Count each 'trial'.
+  $192D Jump back until exhausted.
+  $192F Restore last 'subtraction' and discount it.
+  $1932 If no 'subtractions' were possible jump back to see if a space is to be printed.
+  $1934 Otherwise print the digit.
+N $1937 This entry point is used for all characters, tokens and control characters.
 @ $1937 label=OUT_CHAR
-  $1948,c2
-  $195A,c2
+  $1937 Return carry reset if handling a digit code.
+  $193A Jump forward to print the digit.
+  $193C Also print the control characters and 'space'.
+  $1940 Signal 'print in K-mode'.
+  $1944 Jump forward if dealing with the token 'THEN'.
+  $1948,4,c2,2 Jump forward unless dealing with ':'.
+  $194C Jump forward to print the ':' if in 'INPUT mode'.
+  $1952 Jump forward if the ':' is 'not in quotes', i.e. an inter-statement marker.
+  $1958 The ':' is inside quotes and can now be printed.
+@ $195A label=OUT_CH_1
+  $195A,4,c2,2 Accept for printing all characters except '"'.
+  $195E Save the character code whilst changing the 'quote mode'.
+  $195F Fetch FLAGS2 and flip bit 2.
+  $1964 Enter the amended value and restore the character code.
 @ $1968 label=OUT_CH_2
+  $1968 Signal 'the next character is to be printed in L-mode'.
 @ $196C label=OUT_CH_3
+  $196C The present character is printed before returning.
+E $1925 Note: it is the consequence of the tests on the present character that determines whether the next character is to be printed in 'K' or 'L' mode.
+E $1925 Also note how the program does not cater for ':' in REM statements.
 @ $196E label=LINE_ADDR
 c $196E THE 'LINE-ADDR' SUBROUTINE
 @ $1974 label=LINE_AD_1
