@@ -1398,10 +1398,45 @@ c $0DD9 THE 'CL-SET' SUBROUTINE
 @ $0DF4 label=CL_SET_2
 @ $0DFE label=CL_SC_ALL
 c $0DFE THE 'SCROLLING' SUBROUTINE
+D $0DFE The number of lines of the display that are to be scrolled has to be held on entry to the main subroutine in the #REGb register.
+  $0DFE The entry point after 'scroll?'
+N $0E00 The main entry point - from above and when scrolling for INPUT...AT.
 @ $0E00 label=CL_SCROLL
+  $0E00 Find the starting address of the line.
+  $0E03 There are eight pixel lines to a complete line.
+N $0E05 Now enter the main scrolling loop. The #REGb register holds the number of the top line to be scrolled, the #REGhl register pair the starting address in the display area of this line and the #REGc register the pixel line counter.
 @ $0E05 label=CL_SCR_1
+  $0E05 Save both counters.
+  $0E06 Save the starting address.
+  $0E07 Jump forward unless dealing at the present moment with a 'third' of the display.
+N $0E0D The pixel lines of the top lines of the 'thirds' of the display have to be moved across the 2K boundaries. (Each 'third' is 2K.)
+  $0E0D The result of this manipulation is to leave #REGhl unchanged and #REGde pointing to the required destination.
 @ $0E13 keep
+  $0E13 There are +20 characters.
+  $0E16 Decrease the counter as one line is being dealt with.
+  $0E17 Now move the thirty two bytes.
+N $0E19 The pixel lines within the 'thirds' can now be scrolled. The #REGa register holds, on the first pass, +01 to +07, +09 to +0F, or +11 to +17.
 @ $0E19 label=CL_SCR_3
+  $0E19 Again #REGde is made to point to the required destination, this time only thirty two locations away.
+  $0E1F Save the line number in #REGb.
+  $0E20 Now find how many characters there are remaining in the 'third'.
+  $0E25 Pass the 'character total' to the #REGc register.
+  $0E26 Fetch the line number.
+  $0E27 #REGbc holds the 'character total' and a pixel line from each of the characters is 'scrolled'.
+  $0E2B Now prepare to increment the address to jump across a 'third' boundary.
+  $0E2D Increase #REGhl by +0700.
+  $0E2E Jump back if there are any 'thirds' left to consider.
+N $0E32 Now find if the loop has been used eight times - once for each pixel line.
+  $0E32 Fetch the original address.
+  $0E33 Address the next pixel line.
+  $0E34 Fetch the counters.
+  $0E35 Decrease the pixel line counter and jump back unless eight lines have been moved.
+N $0E38 Next the attribute bytes are scrolled. Note that the #REGb register still holds the number of lines to be scrolled and the #REGc register holds zero.
+  $0E38 The required address in the attribute area and the number of characters in '#REGb' lines are found.
+  $0E3B The displacement for all the attribute bytes is thirty two locations away.
+  $0E40 The attribute bytes are 'scrolled'.
+N $0E42 It remains now to clear the bottom line of the display.
+  $0E42 The #REGb register is loaded with +01 and #R$0E44 is entered.
 @ $0E44 label=CL_LINE
 c $0E44 THE 'CLEAR LINES' SUBROUTINE
 @ $0E4A label=CL_LINE_1
