@@ -1494,7 +1494,26 @@ b $0FA0 THE 'EDITING KEYS' TABLE
   $0FA8 GRAPHICS
 @ $0FA9 label=ED_EDIT
 c $0FA9 THE 'EDIT KEY' SUBROUTINE
+D $0FA9 When in 'editing mode' pressing the EDIT key will bring down the 'current BASIC line'. However in 'INPUT mode' the action of the EDIT key is to clear the current reply and allow a fresh one.
+  $0FA9 Fetch the current line number.
+  $0FAC But jump forward if in 'INPUT mode'.
+  $0FB3 Find the address of the start of the current line and hence its number.
+  $0FB9 If the line number returned is zero then simply clear the editing area.
+  $0FBE Save the address of the line.
+  $0FBF Move on to collect the length of the line.
 @ $0FC3 keep
+  $0FC3 Add +0A to the length and test that there is sufficient room for a copy of the line.
+  $0FCC Now clear the editing area.
+  $0FCF Fetch the current channel address and exchange it for the address of the line.
+  $0FD3 Save it temporarily.
+  $0FD4 Open channel 'R' so that the line will be copied to the editing area.
+  $0FD9 Fetch the address of the line.
+  $0FDA Go to before the line.
+  $0FDB Decrement the current line number so as to avoid printing the cursor.
+  $0FDE Print the BASIC line.
+  $0FE1 Increment the current line number. Note: the decrementing of the line number does not always stop the cursor from being printed.
+  $0FE4 Fetch the start of the line in the editing area and step past the line number and the length to find the address for K-CUR.
+  $0FEE Fetch the former channel address and set the appropriate flags before returning to #R$0F38.
 @ $0FF3 label=ED_DOWN
 c $0FF3 THE 'CURSOR DOWN EDITING' SUBROUTINE
 @ $1001 label=ED_STOP
