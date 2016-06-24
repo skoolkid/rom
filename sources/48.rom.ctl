@@ -2941,12 +2941,36 @@ c $1EA1 THE 'RUN' COMMAND ROUTINE
 @ $1EA4 keep
 @ $1EAC label=CLEAR
 c $1EAC THE 'CLEAR' COMMAND ROUTINE
+D $1EAC This routine allows for the variables area to be cleared, the display area cleared and RAMTOP moved. In consequence of the last operation the machine stack is rebuilt thereby having the effect of also clearing the GO SUB stack.
+  $1EAC Fetch the operand - using zero by default.
 @ $1EAF label=CLEAR_RUN
+  $1EAF Jump forward if the operand is other than zero. When called from #R$1EA1 there is no jump.
+  $1EB3 If zero use the existing value in RAMTOP.
 @ $1EB7 label=CLEAR_1
+  $1EB7 Save the value.
+  $1EB8 Next reclaim all the bytes of the present variables area.
+  $1EC3 Clear the display area.
+N $1EC6 The value in the #REGbc register pair which will be used as RAMTOP is tested to ensure it is neither too low nor too high.
+  $1EC6 The current value of STKEND is increased by 50 before being tested. This forms the lower limit.
 @ $1EC9 keep
+  $1ED0 RAMTOP will be too low.
+  $1ED2 For the upper test the value for RAMTOP is tested against P-RAMT.
+  $1ED8 Jump forward if acceptable.
+N $1EDA Report M - RAMTOP no good.
 @ $1EDA label=REPORT_M
+M $1EDA,2 Call the error handling routine.
 B $1EDB,1
+N $1EDC Continue with the CLEAR operation.
 @ $1EDC label=CLEAR_2
+  $1EDC Now the value can actually be passed to RAMTOP.
+  $1EE0 Fetch the address of #R$1B76.
+  $1EE1 Fetch the 'error address'.
+  $1EE2 Enter a GO SUB stack end marker.
+  $1EE4 Leave one location.
+  $1EE5 Make the stack pointer point to an empty GO SUB stack.
+  $1EE6 Next pass the 'error address' to the stack and save its address in ERR-SP.
+  $1EEB An indirect return is now made to #R$1B76.
+E $1EAC Note: when the routine is called from #R$1EA1 the values of NEWPPC and NSPPC will have been affected and no statements coming after RUN can ever be found before the jump is taken.
 @ $1EED label=GO_SUB
 c $1EED THE 'GO SUB' COMMAND ROUTINE
 @ $1F02 keep
