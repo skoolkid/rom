@@ -1409,16 +1409,39 @@ c $0D4D THE 'TEMPORARY COLOUR ITEMS' SUBROUTINE
 @ $0D5B label=TEMPS_1
 @ $0D65 label=TEMPS_2
 @ $0D6B label=CLS
-c $0D6B THE 'CLS COMMAND' ROUTINE
+c $0D6B THE 'CLS' COMMAND ROUTINE
+D $0D6B In the first instance the whole of the display is 'cleared' - the 'pixels' are all reset and the attribute bytes are set to equal the value in ATTR-P - then the lower part of the display is reformed.
+  $0D6B The whole of the display is 'cleared'.
 @ $0D6E label=CLS_LOWER
+  $0D6E This is TV-FLAG.
+  $0D71 Signal 'do not clear the lower screen after keystroke'.
+  $0D73 Signal 'lower part'.
+  $0D75 Use the permanent values, i.e. ATTR-T is copied from BORDCR.
+  $0D78 The lower part of the screen is now 'cleared' with these values.
+N $0D7E With the exception of the attribute bytes for lines 22 and 23 the attribute bytes for the lines in the lower part of the display will need to be made equal to ATTR-P.
+  $0D7E Attribute byte at start of line 22.
+  $0D81 Fetch ATTR-P.
+  $0D84 The line counter.
+  $0D85 Jump forward into the loop.
 @ $0D87 label=CLS_1
+  $0D87 +20 characters per line.
 @ $0D89 label=CLS_2
+  $0D89 Go back along the line setting the attribute bytes.
 @ $0D8E label=CLS_3
+  $0D8E Loop back until finished.
+N $0D90 The size of the lower part of the display can now be fixed.
+  $0D90 It will be two lines in size.
+N $0D94 It now remains for the following 'house keeping' tasks to be performed.
 @ $0D94 label=CL_CHAN
+  $0D94 Open channel 'K'.
+  $0D99 Fetch the address of the current channel and make the output address #R$09F4 and the input address #R$10A8.
 @ $0D9C nowarn
 @ $0DA0 label=CL_CHAN_A
 @ $0DA4 nowarn
+  $0DA7 First the output address then the input address.
 @ $0DAA keep
+  $0DAA As the lower part of the display is being handled the 'lower print line' will be line 23.
+  $0DAD Return via #R$0DD9.
 @ $0DAF label=CL_ALL
 c $0DAF THE 'CLEARING THE WHOLE DISPLAY AREA' SUBROUTINE
 @ $0DAF keep
