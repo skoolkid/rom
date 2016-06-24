@@ -2752,11 +2752,34 @@ c $1C16 THE 'JUMP-C-R' ROUTINE
 c $1C1F THE 'COMMAND CLASSES - 01, 02 & 04'
 @ $1C22 label=VAR_A_1
 c $1C22 THE 'VARIABLE IN ASSIGNMENT' SUBROUTINE
+D $1C22 This subroutine develops the appropriate values for the system variables DEST and STRLEN.
+  $1C22 Initialise FLAGX to +00.
+  $1C26 Jump forward if the variable has been used before.
+  $1C28 Signal 'a new variable'.
+  $1C2C Give an error if trying to use an 'undimensioned array'.
+N $1C2E Report 2 - Variable not found.
 @ $1C2E label=REPORT_2_2
+M $1C2E,2 Call the error handling routine.
 B $1C2F,1
+N $1C30 Continue with the handling of existing variables.
 @ $1C30 label=VAR_A_2
+  $1C30 The parameters of simple string variables and all array variables are passed to the calculator stack. (#R$2996 will 'slice' a string if required.)
+  $1C33 Jump forward if handling a numeric variable.
+  $1C39 Clear the #REGa register.
+  $1C3A The parameters of the string of string array variable are fetched unless syntax is being checked.
+  $1C40 This is FLAGX.
+  $1C43 Bit 0 is set only when handling complete 'simple strings' thereby signalling 'old copy to be deleted'.
+  $1C45 #REGhl now points to the string or the element of the array.
+N $1C46 The pathways now come together to set STRLEN and DEST as required. For all numeric variables and 'new' string and string array variables STRLEN-lo holds the 'letter' of the variable's name. But for 'old' string and string array variables whether 'sliced' or complete it holds the 'length' in 'assignment'.
 @ $1C46 label=VAR_A_3
+  $1C46 Set STRLEN as required.
+N $1C4A DEST holds the address for the 'destination' of an 'old' variable but in effect the 'source' for a 'new' variable.
+  $1C4A Set DEST as required and return.
+N $1C4E Command class 02 is concerned with the actual calculation of the value to be assigned in a LET statement.
 @ $1C4E label=CLASS_02
+  $1C4E The address #R$1B52 is dropped.
+  $1C4F The assignment is made.
+  $1C52 Move on to the next statement either via #R$1BEE if checking syntax, or #R$1B76 if in 'run-time'.
 @ $1C56 label=VAL_FET_1
 c $1C56 THE 'FETCH A VALUE' SUBROUTINE
 @ $1C59 label=VAL_FET_2
