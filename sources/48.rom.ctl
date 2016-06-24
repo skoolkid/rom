@@ -3589,14 +3589,62 @@ B $24B4,1 #R$369B
   $24B6 Finished.
 @ $24B7 label=DRAW_LINE
 c $24B7 THE LINE-DRAWING SUBROUTINE
+D $24B7 This subroutine is called by #R$2382 to draw an approximation to a straight line from the point X0, Y0 held in COORDS to the point X0+X, Y0+Y, where the increments X and Y are on the top of the calculator stack. The subroutine was originally intended for the ZX80 and ZX81 8K ROM, and it is described in a BASIC program on page 121 of the ZX81 manual.
+D $24B7 The method is to intersperse as many horizontal or vertical steps as are needed among a basic set of diagonal steps, using an algorithm that spaces the horizontal or vertical steps as evenly as possible.
+  $24B7 ABS Y to #REGb; ABS X to #REGc; SGN Y to #REGd; SGN X to #REGe.
+  $24BA Jump if ABS X is greater than or equal to ABS Y, so that the smaller goes to #REGl, and the larger (later) goes to #REGh.
+  $24BF Save diagonal step (+/-1, +/-1) in #REGde.
+  $24C0 Insert a vertical step (+/-1, 0) into #REGde (#REGd holds SGN Y).
+  $24C2 Now jump to set #REGh.
 @ $24C4 label=DL_X_GE_Y
+  $24C4 Return if ABS X and ABS Y are both zero.
+  $24C6 The smaller (ABS Y here) goes to #REGl.
+  $24C7 ABS X to #REGb here, for #REGh.
+  $24C8 Save the diagonal step here too.
+  $24C9 Horizontal step (0, +/-1) to #REGde here.
 @ $24CB label=DL_LARGER
+  $24CB Larger of ABS X, ABS Y to #REGh now.
+N $24CC The algorithm starts here. The larger of ABS X and ABS Y, say #REGh, is put into #REGa and reduced to INT (#REGh/2). The #REGh-#REGl horizontal or vertical steps and #REGl diagonal steps are taken (where #REGl is the smaller of ABS X and ABS Y) in this way: #REGl is added to #REGa; if #REGa now equals or exceeds #REGh, it is reduced by #REGh and a diagonal step is taken; otherwise a horizontal or vertical step is taken. This is repeated #REGh times (#REGb also holds #REGh). Note that meanwhile the exchange registers #REGh' and #REGl' are used to hold COORDS.
+  $24CC #REGb to #REGa as well as to #REGh.
+  $24CD #REGa starts at INT (#REGh/2).
 @ $24CE label=D_L_LOOP
+  $24CE #REGl is added to #REGa.
+  $24CF If 256 or more, jump - diagonal step.
+  $24D1 If #REGa is less than #REGh, jump for horizontal or vertical step.
 @ $24D4 label=D_L_DIAG
+  $24D4 Reduce #REGa by #REGh.
+  $24D5 Restore it to #REGc.
+  $24D6 Now use the exchange resisters.
+  $24D7 Diagonal step to #REGbc'.
+  $24D8 Save it too.
+  $24D9 Jump to take the step.
 @ $24DB label=D_L_HR_VT
+  $24DB Save #REGa (unreduced) in #REGc.
+  $24DC Step to stack briefly.
+  $24DD Get exchange registers.
+  $24DE Step to #REGbc' now.
 @ $24DF label=D_L_STEP
+  $24DF Now take the step: first, COORDS to #REGhl' as the start point.
+  $24E2 Y-step from #REGb' to #REGa.
+  $24E3 Add in #REGh'.
+  $24E4 Result to #REGb'    .
+  $24E5 Now the X-step; it will be tested for range (Y will be tested in #R$22DC).
+  $24E7 Add #REGl' to #REGc' in #REGa, jump on carry for further test.
+  $24EA Zero after no carry denotes X-position -1, out of range.
 @ $24EC label=D_L_PLOT
+  $24EC Restore true value to #REGa.
+  $24ED Value to #REGc' for plotting.
+  $24EE Plot the step.
+  $24F1 Restore main registers.
+  $24F2 #REGc back to #REGa to continue algorithm.
+  $24F3 Loop back for #REGb steps (i.e. #REGh steps).
+  $24F5 Clear machine stack.
+  $24F6 Finished.
+@ $24F7 label=D_L_RANGE
+  $24F7 Zero after carry denotes X-position 255, in range.
+N $24F9 Report B - Integer out of range.
 @ $24F9 label=REPORT_B_3
+M $24F9,2 Call the error handling routine.
 B $24FA,1
 @ $24FB label=SCANNING
 c $24FB THE 'SCANNING' SUBROUTINE
