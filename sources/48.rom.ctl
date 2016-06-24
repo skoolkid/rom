@@ -3765,14 +3765,44 @@ M $24F9,2 Call the error handling routine.
 B $24FA,1
 @ $24FB label=SCANNING
 c $24FB THE 'SCANNING' SUBROUTINE
+D $24FB This subroutine is used to produce an evaluation result of the 'next expression'.
+D $24FB The result is returned as the 'last value' on the calculator stack. For a numerical result, the last value will be the actual floating point number. However, for a string result the last value will consist of a set of parameters. The first of the five bytes is unspecified, the second and third bytes hold the address of the start of the string and the fourth and fifth bytes hold the length of the string.
+D $24FB Bit 6 of FLAGS is set for a numeric result and reset for a string result.
+D $24FB When a next expression consists of only a single operand (e.g. 'A', 'RND', 'A$(4,3 TO 7)'), then the last value is simply the value that is obtained from evaluating the operand.
+D $24FB However when the next expression contains a function and an operand (e.g. 'CHR$ A', 'NOT A', 'SIN 1'), the operation code of the function is stored on the machine stack until the last value of the operand has been calculated. This last value is then subjected to the appropriate operation to give a new last value.
+D $24FB In the case of there being an arithmetic or logical operation to be performed (e.g. 'A+B', 'A*B', 'A=B'), then both the last value of the first argument and the operation code have to be kept until the last value of the second argument has been found. Indeed the calculation of the last value of the second argument may also involve the storing of last values and operation codes whilst the calculation is being performed.
+D $24FB It can therefore be shown that as a complex expression is evaluated (e.g. 'CHR$ (T+A-26*INT ((T+A)/26)+65)'), a hierarchy of operations yet to be performed is built up until the point is reached from which it must be dismantled to produce the final last value.
+D $24FB Each operation code has associated with it an appropriate priority code and operations of higher priority are always performed before those of lower priority.
+D $24FB The subroutine begins with the #REGa register being set to hold the first character of the expression and a starting priority marker - zero - being put on the machine stack.
+  $24FB The first character is fetched.
+  $24FC The starting priority marker.
+  $24FE It is stacked.
 @ $24FF label=S_LOOP_1
+  $24FF The main re-entry point.
+  $2500 Index into the #R$2596(scanning function table) with the code in #REGc.
+  $2506 Restore the code to #REGa.
+  $2507 Jump if code not found in table.
+  $250A Use the entry found in the table to build up the required address in #REGhl, and jump to it.
+N $250F Four subroutines follow; they are called by routines from the scanning function table.  The first one, the 'scanning quotes subroutine', is used by #R$25B3 to check that every string quote is matched by another one.
 @ $250F label=S_QUOTE_S
-  $2518,c2
-  $251F,c2
+  $250F Point to the next character.
+  $2512 Increase the length count by one.
+  $2513 Is it a carriage return?
+  $2515 Report the error if so.
+  $2518,c2 Is it another '"'?
+  $251A Loop back if it is not.
+  $251C,5,3,c2 Point to next character; set zero flag if it is another '"'.
+  $2521 Finished.
+N $2522 The next subroutine, the 'scanning two co-ordinates' subroutine, is called by #R$2668, #R$2672 and #R$267B to make sure the required two co-ordinates are given in their proper form.
 @ $2522 label=S_2_COORD
-  $2523,c2
-  $252B,c2
+  $2522 Fetch the next character.
+  $2523,c2 Is it a '('?
+  $2525 Report the error if it is not.
+  $2527 Co-ordinates to calculator stack.
+  $252A Fetch the current character.
+  $252B,c2 Is it a ')'?
 @ $252D label=S_RPORT_C
+  $252D Report the error if it is not.
 @ $2530 label=SYNTAX_Z
 c $2530 THE 'SYNTAX-Z' SUBROUTINE
 @ $2535 label=S_SCRN_S
