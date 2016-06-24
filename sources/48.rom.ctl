@@ -2897,13 +2897,30 @@ B $1DE9,1 #R$369B: -
   $1DEA Set the carry flag and return.
 @ $1DEC label=READ_3
 c $1DEC THE 'READ' COMMAND ROUTINE
+D $1DEC The READ command allows for the reading of a DATA list and has an effect similar to a series of LET statements.
+D $1DEC Each assignment within a single READ statement is dealt with in turn. The system variable X-PTR is used as a storage location for the pointer to the READ statement whilst CH-ADD is used to step along the DATA list.
+  $1DEC Come here on each pass, after the first, to move along the READ statement.
 @ $1DED label=READ
-  $1DFD,c2
+  $1DED Consider whether the variable has been used before; find the existing entry if it has.
+  $1DF0 Jump forward if checking syntax.
+  $1DF5 Save the current pointer CH-ADD in X-PTR.
+  $1DF9,8,4,c2,2 Fetch the current DATA list pointer and jump forward unless a new DATA statement has to be found.
+  $1E01 The search is for 'DATA'.
+  $1E03 Jump forward if the search is successful.
+N $1E08 Report E - Out of DATA.
 @ $1E08 label=REPORT_E
+M $1E08,2 Call the error handling routine.
 B $1E09,1
+N $1E0A Continue - picking up a value from the DATA list.
 @ $1E0A label=READ_1
+  $1E0A Advance the pointer along the DATA list and set CH-ADD.
+  $1E0D Fetch the value and assign it to the variable.
+  $1E10 Fetch the current value of CH-ADD and store it in DATADD.
+  $1E14 Fetch the pointer to the READ statement and clear X-PTR.
+  $1E1B Make CH-ADD once again point to the READ statement.
 @ $1E1E label=READ_2
-  $1E1F,c2
+  $1E1E,3,1,c2 Get the present character and see if it is a ','.
+  $1E21 If it is then jump back as there are further items; otherwise return via either #R$1BEE (if checking syntax) or the RET instruction (to #R$1B76).
 @ $1E27 label=DATA
 c $1E27 THE 'DATA' COMMAND ROUTINE
 @ $1E2C label=DATA_1
