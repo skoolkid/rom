@@ -1583,12 +1583,37 @@ c $0EDF THE 'CLEAR PRINTER BUFFER' SUBROUTINE
 @ $0EE7 label=PRB_BYTES
 @ $0EF4 label=COPY_LINE
 c $0EF4 THE 'COPY-LINE' SUBROUTINE
+D $0EF4 The subroutine is entered with the #REGhl register pair holding the base address of the thirty two bytes that form the pixel-line and the #REGb register holding the pixel-line number.
+  $0EF4 Copy the pixel-line number.
+  $0EF5 The #REGa register will hold +00 until the last two lines are being handled.
+  $0EFA Slow the motor for the last two pixel lines only.
+  $0EFC The #REGd register will hold either +00 or +02.
+N $0EFD There are three tests to be made before doing any 'printing'.
 @ $0EFD label=COPY_L_1
+  $0EFD Jump forward unless the BREAK key is being pressed.
+M $0F02,10 But if it is then stop the motor, enable the maskable interrupt, clear the printer buffer and exit via the error handling routine - 'BREAK-CONT repeats'.
+  $0F02
 B $0F0B,1
 @ $0F0C label=COPY_L_2
+  $0F0C Fetch the status of the printer.
+  $0F0F Make an immediate return if the printer is not present.
+  $0F10 Wait for the stylus.
+  $0F12 There are thirty two bytes.
+N $0F14 Now enter a loop to handle these bytes.
 @ $0F14 label=COPY_L_3
+  $0F14 Fetch a byte.
+  $0F15 Update the pointer.
+  $0F16 Eight bits per byte.
 @ $0F18 label=COPY_L_4
+  $0F18 Move #REGd left.
+  $0F1A Move each bit into the carry.
+  $0F1C Move #REGd back again, picking up the carry from #REGe.
 @ $0F1E label=COPY_L_5
+  $0F1E Again fetch the status of the printer and wait for the signal from the encoder.
+  $0F23 Now go ahead and pass the 'bit' to the printer. Note: bit 2 low starts the motor, bit 1 high slows the motor, and bit 7 is high for the actual 'printing'.
+  $0F26 'Print' each bit.
+  $0F28 Decrease the byte counter.
+  $0F29 Jump back whilst there are still bytes; otherwise return.
 @ $0F2C label=EDITOR
 c $0F2C THE 'EDITOR' ROUTINES
 D $0F2C The editor is called on two occasions:
