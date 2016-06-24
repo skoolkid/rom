@@ -324,10 +324,36 @@ N $0284 (f) Extended mode. Digit keys and symbol shift.
   $028D CAT
 @ $028E label=KEY_SCAN
 c $028E THE 'KEYBOARD SCANNING' SUBROUTINE
+D $028E This very important subroutine is called by both the #R$02BF(main keyboard subroutine) and the #R$2634(INKEY$ routine) (in #R$24FB).
+D $028E In all instances the #REGe register is returned with a value in the range of +00 to +27, the value being different for each of the forty keys of the keyboard, or the value +FF, for no-key.
+D $028E The #REGd register is returned with a value that indicates which single shift key is being pressed. If both shift keys are being pressed then the #REGd and #REGe registers are returned with the values for the CAPS SHIFT and SYMBOL SHIFT keys respectively.
+D $028E If no key is being pressed then the #REGde register pair is returned holding +FFFF.
+D $028E The zero flag is returned reset if more than two keys are being pressed, or neither key of a pair of keys is a shift key.
+  $028E The initial key value for each line will be +2F, +2E,..., +28. (Eight lines.)
+  $0290 Initialise #REGde to 'no-key'.
+  $0293 #REGc=port address, #REGb=counter.
+N $0296 Now enter a loop. Eight passes are made with each pass having a different initial key value and scanning a different line of five keys. (The first line is CAPS SHIFT, Z, X, C, V.)
 @ $0296 label=KEY_LINE
+  $0296 Read from the port specified.
+  $0298 A pressed key in the line will set its respective bit, from bit 0 (outer key) to bit 4 (inner key).
+  $029B Jump forward if none of the five keys in the line are being pressed.
+  $029D The key-bits go to the #REGh register whilst the initial key value is fetched.
 @ $029F label=KEY_3KEYS
+  $029F If three keys are being pressed on the keyboard then the #REGd register will no longer hold +FF - so return if this happens.
 @ $02A1 label=KEY_BITS
+  $02A1 Repeatedly subtract 8 from the present key value until a key-bit is found.
+  $02A7 Copy any earlier key value to the #REGd register.
+  $02A8 Pass the new key value to the #REGe register.
+  $02A9 If there is a second, or possibly a third, pressed key in this line then jump back.
 @ $02AB label=KEY_DONE
+  $02AB The line has been scanned so the initial key value is reduced for the next pass.
+  $02AC The counter is shifted and the jump taken if there are still lines to be scanned.
+N $02B0 Four tests are now made.
+  $02B0 Accept any key value which still has the #REGd register holding +FF, i.e. a single key pressed or 'no-key'.
+  $02B3 Accept the key value for a pair of keys if the '#REGd' key is CAPS SHIFT.
+  $02B6 Accept the key value for a pair of keys if the '#REGd' key is SYMBOL SHIFT.
+  $02B9 It is however possible for the '#REGe' key of a pair to be SYMBOL SHIFT - so this has to be considered.
+  $02BE Return with the zero flag set if it was SYMBOL SHIFT and 'another key'; otherwise reset.
 @ $02BF label=KEYBOARD
 c $02BF THE 'KEYBOARD' SUBROUTINE
 D $02BF This subroutine is called on every occasion that a maskable interrupt occurs. In normal operation this will happen once every 20 ms. The purpose of this subroutine is to scan the keyboard and decode the key value. The code produced will, if the 'repeat' status allows it, be passed to the system variable LAST-K. When a code is put into this system variable bit 5 of FLAGS is set to show that a 'new' key has been pressed.
