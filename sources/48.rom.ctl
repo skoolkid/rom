@@ -449,14 +449,49 @@ N $03A6 The codes for the various digit keys and SYMBOL SHIFT can now be found.
   $03B2,3,c2,1 Give the '@' character a code of +40.
 @ $03B5 label=BEEPER
 c $03B5 THE 'BEEPER' SUBROUTINE
+D $03B5 The loudspeaker is activated by having D4 low during an OUT instruction that is using port '254'. When D4 is high in a similar situation the loudspeaker is deactivated. A 'beep' can therefore be produced by regularly changing the level of D4.
+D $03B5 Consider now the note 'middle C' which has the frequency 261.63 Hz. In order to get this note the loudspeaker will have to be alternately activated and deactivated every 1/523.26th of a second. In the Spectrum the system clock is set to run at 3.5 MHz. and the note of 'middle C' will require that the requisite OUT instruction be executed as close as possible to every 6689 T states. This last value, when reduced slightly for unavoidable overheads, represents the 'length of the timing loop' in this subroutine.
+D $03B5 This subroutine is entered with the #REGde register pair holding the value 'f*t', where a note of given frequency 'f' is to have a duration of 't' seconds, and the #REGhl register pair holding a value equal to the number of T states in the 'timing loop' divided by 4, i.e. for the note 'middle C' to be produced for one second #REGde holds +0105 (INT(261.3*1)) and #REGhl holds +066A (derived from 6689/4-30.125).
+  $03B5 Disable the interrupt for the duration of a 'beep'.
+  $03B6 Save #REGl temporarily.
+  $03B7 Each '1' in the #REGl register is to count 4 T states, but take INT (#REGl/4) and count 16 T states instead.
+  $03BB Go back to the original value in #REGl and find how many were lost by taking 3-(#REGa mod 4).
 @ $03C1 nowarn
+  $03C1 The base address of the timing loop.
+  $03C5 Alter the length of the timing loop. Use an earlier starting point for each '1' lost by taking INT (#REGl/4).
+  $03C7 Fetch the present border colour and move it to bits 2, 1 and 0 of the #REGa register.
+  $03CF Ensure the MIC output is 'off'.
+N $03D1 Now enter the sound generation loop. '#REGde' complete passes are made, i.e. a pass for each cycle of the note.
 @ $03D1 label=BE_IX_3
+N $03D1 The #REGhl register holds the 'length of the timing loop' with 16 T states being used for each '1' in the #REGl register and 1024 T states for each '1' in the #REGh register.
+  $03D1 Add 4 T states for each earlier entry port that is used.
 @ $03D2 label=BE_IX_2
 @ $03D3 label=BE_IX_1
 @ $03D4 label=BE_IX_0
+  $03D4 The values in the #REGb and #REGc registers will come from the #REGh and #REGl registers - see below.
 @ $03D6 label=BE_H_L_LP
+  $03D6 The 'timing loop', i.e. #REGbc*4 T states. (But note that at the half-cycle point, #REGc will be equal to #REGl+1.)
+N $03DF The loudspeaker is now alternately activated and deactivated.
+  $03DF Flip bit 4.
+  $03E1 Perform the OUT operation, leaving the border unchanged.
+  $03E3 Reset the #REGb register.
+  $03E4 Save the #REGa register.
+  $03E5 Jump if at the half-cycle point.
+N $03E9 After a full cycle the #REGde register pair is tested.
+  $03E9 Jump forward if the last complete pass has been made already.
+  $03ED Fetch the saved value.
+  $03EE Reset the #REGc register.
+  $03EF Decrease the pass counter.
+  $03F0 Jump back to the required starting location of the loop.
+N $03F2 The parameters for the second half-cycle are set up.
 @ $03F2 label=BE_AGAIN
+  $03F2 Reset the #REGc register.
+  $03F3 Add 16 T states as this path is shorter.
+  $03F4 Jump back.
+N $03F6 Upon completion of the 'beep' the maskable interrupt has to be enabled.
 @ $03F6 label=BE_END
+  $03F6 Enable interrupt.
+  $03F7 Finally return.
 @ $03F8 label=BEEP
 c $03F8 THE 'BEEP' COMMAND ROUTINE
 D $03F8 The subroutine is entered with two numbers on the calculator stack. The topmost number (P) represents the 'pitch' of the note and the number underneath it (t) represents the 'duration'.
