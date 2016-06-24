@@ -1170,8 +1170,26 @@ N $0968 The 'new' variable/line has now to be removed from the work space.
   $096E Return with the 'old' pointer in the #REGde register pair.
 @ $0970 label=SA_CONTRL
 c $0970 THE 'SAVE' CONTROL ROUTINE
+D $0970 The operation of saving a program or a block of data is very straightforward.
+  $0970 Save the 'pointer'.
+  $0971 Ensure that channel 'K' is open.
+  $0976 Signal 'first message'.
+  $0977 Print the message 'Start tape, then press any key.' (see #R$09A1).
+  $097D Signal 'screen will require to be cleared'.
+  $0981 Wait for a key to be pressed.
+N $0984 Upon receipt of a keystroke the 'header' is saved.
+  $0984 Save the base address of the 'header' on the machine stack.
 @ $0986 keep
+  $0986 Seventeen bytes are to be saved.
+  $0989 Signal 'it is a header'.
+  $098A Send the 'header', with a leading 'type' byte and a trailing 'parity' byte.
+N $098D There follows a short delay before the program/data block is saved.
+  $098D Retrieve the pointer to the 'header'.
+  $098F The delay is for fifty interrupts, i.e. one second.
 @ $0991 label=SA_1_SEC
+  $0994 Fetch the length of the data block that is to be saved.
+  $099A Signal 'data block'.
+  $099C Fetch the 'start of block pointer' and save the block.
 @ $09A1 label=CASSETTE
 t $09A1 THE CASSETTE MESSAGES
 D $09A1 Each message is given with the last character inverted (+80 hex.).
