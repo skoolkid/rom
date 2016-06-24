@@ -6020,7 +6020,31 @@ c $35C9 THE 'CHR$' FUNCTION
 B $35DD,1
 @ $35DE label=val
 c $35DE THE 'VAL' AND 'VAL$' FUNCTION
+D $35DE This subroutine handles the functions VAL X$ and VAL$ X$. When handling VAL X$, it returns a 'last value' that is the result of evaluating the string (without its bounding quotes) as a numerical expression. when handling VAL$ X$, it evaluates X$ (without its bounding quotes) as a string expression, and returns the parameters of that string expression as a 'last value' on the calculator stack.
+  $35DE The current value of CH-ADD is preserved on the machine stack.
+  $35E2 The 'offset' for 'val' or 'val$' must be in the #REGb register; it is now copied to #REGa.
+  $35E3 Produce +00 and carry set for 'val', +FB and carry reset for 'val$'.
+  $35E5 Produce +FF (bit 6 therefore set) for 'val', but +00 (bit 6 reset) for 'val$'.
+  $35E6 Save this 'flag' on the machine stack.
+  $35E7 The parameters of the string are fetched; the starting address is saved; one byte is added to the length and room made available for the string (+1) in the work space.
+  $35ED The starting address of the string goes to #REGhl as a source address.
+  $35EE The pointer to the first new space goes to CH-ADD and to the machine stack.
+  $35F3 The string is copied to the work space, together with an extra byte.
+  $35F5 Switch the pointers.
+  $35F6 The extra byte is replaced by a 'carriage return' character.
+  $35F9 The syntax flag is reset and the string is scanned for correct syntax.
+  $3600 The character after the string is fetched.
+  $3601 A check is made that the end of the expression has been reached.
+  $3603 If not, the error is reported.
+  $3605 The starting address of the string is fetched.
+  $3606 The 'flag' for 'val/val$' is fetched and bit 6 is compared with bit 6 of the result of the syntax scan.
 @ $360C label=V_RPORT_C
+  $360C Report the error if they do not match.
+  $360F Start address to CH-ADD again.
+  $3612 The flag is set for line execution.
+  $3616 The string is treated as a 'next expression' and a 'last value' produced.
+  $3619 The original value of CH-ADD is restored.
+  $361D The subroutine exits via #R$35BF which resets the pointers.
 @ $361F keep
 @ $361F label=str
 c $361F THE 'STR$' FUNCTION
