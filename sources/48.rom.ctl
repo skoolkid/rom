@@ -1494,10 +1494,43 @@ N $0E42 It remains now to clear the bottom line of the display.
   $0E42 The #REGb register is loaded with +01 and #R$0E44 is entered.
 @ $0E44 label=CL_LINE
 c $0E44 THE 'CLEAR LINES' SUBROUTINE
+D $0E44 This subroutine will clear the bottom '#REGb' lines of the display.
+  $0E44 The line number is saved for the duration of the subroutine.
+  $0E45 The starting address for the line is formed in #REGhl.
+  $0E48 Again there are eight pixel lines to be considered.
+N $0E4A Now enter a loop to clear all the pixel lines.
 @ $0E4A label=CL_LINE_1
+  $0E4A Save the line number and the pixel line counter.
+  $0E4B Save the address.
+  $0E4C Save the line number in #REGa.
 @ $0E4D label=CL_LINE_2
+  $0E4D Find how many characters are involved in '#REGb mod 8' lines. Pass the result to the #REGc register. (#REGc will hold +00 i.e. 256 dec. for a 'third'.)
+  $0E53 Fetch the line number.
+  $0E54 Make the #REGbc register pair hold one less than the number of characters.
+  $0E57 Make #REGde point to the first character.
+  $0E59 Clear the pixel-byte of the first character.
+  $0E5B Make #REGde point to the second character and then clear the pixel-bytes of all the other characters.
 @ $0E5E keep
+  $0E5E For each 'third' of the display #REGhl has to be increased by +0701.
+  $0E62 Now decrease the line number.
+  $0E63 Discard any extra lines and pass the 'third' count to #REGb.
+  $0E66 Jump back if there are still 'thirds' to be dealt with.
+N $0E68 Now find if the loop has been used eight times.
+  $0E68 Update the address for each pixel line.
+  $0E6A Fetch the counters.
+  $0E6B Decrease the pixel line counter and jump back unless finished.
+N $0E6E Next the attribute bytes are set as required. The value in ATTR-P will be used when handling the main part of the display and the value in BORDCR when handling the lower part.
+  $0E6E The address of the first attribute byte and the number of bytes are found.
+  $0E71 #REGhl will point to the first attribute byte and #REGde the second.
+  $0E74 Fetch the value in ATTR-P.
+  $0E77 Jump forward if handling the main part of the screen.
+  $0E7D Otherwise use BORDCR instead.
 @ $0E80 label=CL_LINE_3
+  $0E80 Set the attribute byte.
+  $0E81 One byte has been done.
+  $0E82 Now copy the value to all the attribute bytes.
+  $0E84 Restore the line number.
+  $0E85 Set the column number to the lefthand column and return.
 @ $0E88 label=CL_ATTR
 c $0E88 THE 'CL-ATTR' SUBROUTINE
 @ $0E9B label=CL_ADDR
