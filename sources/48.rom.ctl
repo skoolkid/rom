@@ -949,9 +949,25 @@ N $07B7 The correct header has been found and the time has come to consider the 
   $07C6 Jump forward if using a MERGE command; continue into #R$07CB with a VERIFY command.
 @ $07CB label=VR_CONTRL
 c $07CB THE 'VERIFY' CONTROL ROUTINE
+D $07CB The verification process involves the loading of a block of data, a byte at a time, but the bytes are not stored - only checked. This routine is also used to load blocks of data that have been described with 'SCREEN$' or 'CODE'.
+  $07CB Save the 'pointer'.
+  $07CC Fetch the 'number of bytes' as described in the 'old' header.
+  $07D2 Fetch also the number from the 'new' header.
+  $07D8 Jump forward if the 'length' is unspecified, e.g. 'LOAD name CODE' only.
+  $07DC Give report R if attempting to load a larger block than has been requested.
+  $07E0 Accept equal 'lengths'.
+  $07E2 Also give report R if trying to verify blocks that are of unequal size. ('Old length' greater than 'new length'.)
+N $07E9 The routine continues by considering the 'destination pointer'.
 @ $07E9 label=VR_CONT_1
+  $07E9 Fetch the 'pointer', i.e. the 'start'.
+  $07EA This 'pointer' will be used unless it is zero, in which case the 'start' found in the 'new' header will be used instead.
+N $07F4 The verify/load flag is now considered and the actual load made.
 @ $07F4 label=VR_CONT_2
+  $07F4 Move the 'pointer' to the #REGix register pair.
+  $07F7 Jump forward unless using the VERIFY command, with the carry flag signalling 'LOAD'.
+  $07FF Signal 'VERIFY'.
 @ $0800 label=VR_CONT_3
+  $0800 Signal 'accept data block only' before loading the block.
 @ $0802 label=LD_BLOCK
 c $0802 THE 'LOAD A DATA BLOCK' SUBROUTINE
 @ $0806 label=REPORT_R
