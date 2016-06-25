@@ -2469,15 +2469,33 @@ c $196E THE 'LINE-ADDR' SUBROUTINE
 c $1980 THE 'COMPARE LINE NUMBERS' SUBROUTINE
 @ $1988 label=FIND_EACH
 c $1988 THE 'FIND EACH STATEMENT' SUBROUTINE
+D $1988 This subroutine has two distinct functions.
+D $1988 #LIST { It can be used to find the #REGdth statement in a BASIC line - returning with the #REGhl register pair addressing the location before the start of the statement and the zero flag set. } { Also the subroutine can be used to find a statement, if any, that starts with a given token code (in the #REGe register). } LIST#
+  $1988 Not used.
 @ $198B label=EACH_STMT
+  $198B Set CH-ADD to the current byte.
+  $198E Set a 'quotes off' flag.
+N $1990 Enter a loop to handle each statement in the BASIC line.
 @ $1990 label=EACH_S_1
+  $1990 Decrease #REGd and return if the required statement has been found.
+  $1992 Fetch the next character code and jump if it does not match the given token code.
+  $1996 But should it match then return with the carry and the zero flags both reset.
+N $1998 Now enter another loop to consider the individual characters in the line to find where the statement ends.
 @ $1998 label=EACH_S_2
+  $1998 Update the pointer and fetch the new code.
 @ $199A label=EACH_S_3
-  $19A0,c2
+  $199A Step over any number.
+  $199D Update CH-ADD.
+  $19A0,4,c2,2 Jump forward if the character is not a '"'.
+  $19A4 Otherwise set the 'quotes flag'.
 @ $19A5 label=EACH_S_4
-  $19A5,c2
+  $19A5,4,c2,2 Jump forward if the character is a ':'.
+  $19A9 Jump forward unless the code is the token 'THEN'.
 @ $19AD label=EACH_S_5
+  $19AD Read the 'quotes flag' and jump back at the end of each statement (including after 'THEN').
 @ $19B1 label=EACH_S_6
+  $19B1 Jump back unless at the end of a BASIC line.
+  $19B5 Decrease the statement counter and set the carry flag before returning.
 @ $19B8 label=NEXT_ONE
 c $19B8 THE 'NEXT-ONE' SUBROUTINE
 @ $19C7 keep
