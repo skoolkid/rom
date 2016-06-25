@@ -1401,12 +1401,33 @@ c $0BDB THE 'SET ATTRIBUTE BYTE' SUBROUTINE
 @ $0C08 label=PO_ATTR_2
 @ $0C0A label=PO_MSG
 c $0C0A THE 'MESSAGE PRINTING' SUBROUTINE
+D $0C0A This subroutine is used to print messages and tokens. The #REGa register holds the 'entry number' of the message or token in a table. The #REGde register pair holds the base address of the table.
+  $0C0A The high byte of the last entry on the machine stack is made zero so as to suppress trailing spaces (see below).
+  $0C0E Jump forward.
+N $0C10 Enter here when expanding token codes.
 @ $0C10 label=PO_TOKENS
+  $0C10 The base address of the #R$0095(token table).
+  $0C13 Save the code on the stack. (Range +00 to +5A, RND to COPY).
+N $0C14 The table is searched and the correct entry printed.
 @ $0C14 label=PO_TABLE
-  $0C19,c2
+  $0C14 Locate the required entry.
+  $0C17 Print the message/token.
+  $0C19,9,c2,7 A 'space' will be printed before the message/token if required.
+N $0C22 The characters of the message/token are printed in turn.
 @ $0C22 label=PO_EACH
+  $0C22 Collect a code.
+  $0C23 Cancel any 'inverted bit'.
+  $0C25 Print the character.
+  $0C28 Collect the code again.
+  $0C29 Advance the pointer.
+  $0C2A The 'inverted bit' goes to the carry flag and signals the end of the message/token; otherwise jump back.
+N $0C2D Now consider whether a 'trailing space' is required.
+  $0C2D For messages, #REGd holds +00; for tokens, #REGd holds +00 to +5A.
+  $0C2E Jump forward if the last character was a '$'.
+  $0C32 Return if the last character was any other before 'A'.
 @ $0C35 label=PO_TR_SP
-  $0C39,c2
+  $0C35 Examine the value in #REGd and return if it indicates a message, RND, INKEY$ or PI.
+  $0C39,c2 All other cases will require a 'trailing space'.
 @ $0C3B label=PO_SAVE
 c $0C3B THE 'PO-SAVE' SUBROUTINE
 @ $0C41 label=PO_SEARCH
