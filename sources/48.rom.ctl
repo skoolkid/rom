@@ -6239,9 +6239,33 @@ c $34B3 THE 'USR' FUNCTION
 @ $34B6 nowarn
 @ $34BC label=usr
 c $34BC THE 'USR STRING' FUNCTION
+D $34BC This subroutine handles the function USR X$, where X$ is a string. The subroutine returns in #REGbc the address of the bit pattern for the user-defined graphic corresponding to X$. It reports error A if X$ is not a single letter between 'a' and 'u' or a user-defined graphic.
+  $34BC Fetch the parameters of the string X$.
+  $34BF Decrease the length by 1 to test it.
+  $34C0 If the length was not 1, then jump to give error report A.
+  $34C4 Fetch the single code of the string.
+  $34C5 Does it denote a letter?
+  $34C8 If so, jump to gets its address.
+  $34CA Reduce range for actual user-defined graphics to 0-20 decimal.
+  $34CC Give report A if out of range.
+  $34CE Test the range again.
+  $34D0 Give report A if out of range.
+  $34D2 Make range of user-defined graphics 1 to 21 decimal, as for 'a' to 'u'.
 @ $34D3 label=USR_RANGE
+  $34D3 Now make the range 0 to 20 decimal in each case.
+  $34D4 Multiply by 8 to get an offset for the address.
+  $34D7 Test the range of the offset.
+  $34D9 Give report A if out of range.
+  $34DB Fetch the address of the first user-defined graphic in #REGbc.
+  $34DF Add #REGc to the offset.
+  $34E0 Store the result back in #REGc.
+  $34E1 Jump if there is no carry.
+  $34E3 Increment #REGb to complete the address.
 @ $34E4 label=USR_STACK
+  $34E4 Jump to stack the address.
+N $34E7 Report A - Invalid argument.
 @ $34E7 label=REPORT_A
+M $34E7,2 Call the error handling routine.
 B $34E8,1
 @ $34E9 label=TEST_ZERO
 c $34E9 THE 'TEST-ZERO' SUBROUTINE
