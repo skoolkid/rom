@@ -2429,10 +2429,25 @@ c $18B6 THE 'NUMBER' SUBROUTINE
 c $18C1 THE 'PRINT A FLASHING CHARACTER' SUBROUTINE
 @ $18E1 label=OUT_CURS
 c $18E1 THE 'PRINT THE CURSOR' SUBROUTINE
+D $18E1 A return is made if it is not the correct place to print the cursor but if it is then 'C', 'E', 'G', 'K' or 'L' will be printed.
+  $18E1 Fetch the address of the cursor but return if the correct place is not being considered.
+  $18E8 The current value of MODE is fetched and doubled.
+  $18ED Jump forward unless dealing with Extended mode or Graphics.
+  $18EF Add the appropriate offset to give 'E' or 'G'.
+  $18F1 Jump forward to print it.
 @ $18F3 label=OUT_C_1
-  $18F8,c2
-  $1907,c2
+  $18F3 This is FLAGS.
+  $18F6 Signal 'K-mode'.
+  $18F8,c2 The character 'K'.
+  $18FA Jump forward to print 'K' if 'the printing is to be in K-mode'.
+  $18FE The 'printing is to be in L-mode' so signal 'L-MODE'.
+  $1900 Form the character 'L'.
+  $1901 Jump forward if not in 'C-mode'.
+  $1907,c2 The character 'C'.
 @ $1909 label=OUT_C_2
+  $1909 Save the #REGde register pair whilst the cursor is printed - FLASHing.
+  $190E Return once it has been done.
+E $18E1 Note: it is the action of considering which cursor-letter is to be printed that determines the mode - 'K', 'L' or 'C'.
 @ $190F label=LN_FETCH
 c $190F THE 'LN-FETCH' SUBROUTINE
 @ $191C label=LN_STORE
