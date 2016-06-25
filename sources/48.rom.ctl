@@ -5946,9 +5946,42 @@ c $3293 THE 'RE-STACK TWO' SUBROUTINE
 @ $3296 label=RESTK_SUB
 @ $3297 label=RE_STACK
 c $3297 THE 'RE-STACK' SUBROUTINE
+D $3297 This subroutine is called to re-stack one number (which could be a 'small integer') in full five byte floating-point form. It is used for a single number by #R$37E2 and also, through the calculator offset, by #R$36C4, #R$3713 and #R$3783.
+  $3297 If the first byte is not zero, return - the number cannot be a 'small integer'.
+  $329A Save the 'other' pointer in #REGde.
+  $329B Fetch the sign in #REGc and the number in #REGde.
+  $329E Clear the #REGa register.
+  $329F Point to the fifth location.
+  $32A0 Set the fifth byte to zero.
+  $32A1 Point to the fourth location.
+  $32A2 Set the fourth byte to zero; bytes 2 and 3 will hold the mantissa.
+  $32A3 Set #REGb to 145 dec for the exponent, i.e. for up to 16 bits in the integer.
+  $32A5 Test whether #REGd is zero so that at most 8 bits would be needed.
+  $32A7 Jump if more than 8 bits needed.
+  $32A9 Now test #REGe too.
+  $32AA Save the zero in #REGb (it will give zero exponent if #REGe too is zero).
+  $32AB Jump if #REGe is indeed zero.
+  $32AD Move #REGe to #REGd (#REGd was zero, #REGe not).
+  $32AE Set #REGe to zero now.
+  $32AF Set #REGb to 137 dec for the exponent - no more than 8 bits now.
 @ $32B1 label=RS_NRMLSE
+  $32B1 Pointer to #REGde, number to #REGhl.
 @ $32B2 label=RSTK_LOOP
+  $32B2 Decrement the exponent on each shift.
+  $32B3 Shift the number right one position.
+  $32B4 Until the carry is set.
+  $32B6 Sign bit to carry flag now.
+  $32B8 Insert it in place as the number is shifted back one place normal now.
+  $32BC Pointer to byte 4 back to #REGhl.
 @ $32BD label=RS_STORE
+  $32BD Point to the third location.
+  $32BE Store the third byte.
+  $32BF Point to the second location.
+  $32C0 Store the second byte.
+  $32C1 Point to the first location.
+  $32C2 Store the exponent byte.
+  $32C3 Restore the 'other' pointer to #REGde.
+  $32C4 Finished.
 @ $32C5 label=CONSTANTS
 b $32C5 THE TABLE OF CONSTANTS
 D $32C5 This table holds five useful and frequently needed numbers: zero, one, a half, a half of pi, and ten. The numbers are held in a condensed form which is expanded by the routine at #R$33C6 to give the required floating-point form.
