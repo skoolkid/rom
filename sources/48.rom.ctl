@@ -6043,8 +6043,24 @@ c $33B4 THE 'STACK NUMBER' SUBROUTINE
 c $33C0 THE 'MOVE A FLOATING-POINT NUMBER' SUBROUTINE
 @ $33C6 label=STK_DATA
 c $33C6 THE 'STACK LITERALS' SUBROUTINE
+D $33C6 This subroutine places on the calculator stack, as a 'last value', the floating-point number supplied to it as 2, 3, 4 or 5 literals.
+D $33C6 When called by using offset '34' the literals follow the '34' in the list of literals; when called by the #R$3449(series generator), the literals are supplied by the subroutine that called for a series to be generated; and when called by #R$33F7 and #R$341B the literals are obtained from the calculator's #R$32C5(table of constants).
+D $33C6 In each case, the first literal supplied is divided by +40, and the integer quotient plus 1 determines whether 1, 2, 3 or 4 further literals will be taken from the source to form the mantissa of the number. Any unfilled bytes of the five bytes that go to form a 5-byte floating-point number are set to zero. The first literal is also used to determine the exponent, after reducing mod +40, unless the remainder is zero, in which case the second literal is used, as it stands, without reducing mod +40. In either case, +50 is added to the literal, giving the augmented exponent byte, e (the true exponent e' plus +80). The rest of the 5 bytes are stacked, including any zeros needed, and the subroutine returns.
+  $33C6 This subroutine performs the manipulatory operation of adding a 'last value' to the calculator stack; hence #REGhl is set to point one past the present 'last value' and hence point to the result.
 @ $33C8 label=STK_CONST
+  $33C8 Now test that there is indeed room.
+  $33CB Go to the alternate register set and stack the pointer to the next literal.
+  $33CE Switch over the result pointer and the next literal pointer.
+  $33CF Save #REGbc briefly.
+  $33D0 The first literal is put into #REGa and divided by +40 to give the integer values 0, 1, 2 or 3.
+  $33D5 The integer value is transferred to #REGc and incremented, thereby giving the range 1, 2, 3 or 4 for the number of literals that will be needed.
+  $33D7 The literal is fetched anew, reduced mod +40 and discarded as inappropriate if the remainder if zero; in which case the next literal is fetched and used unreduced.
 @ $33DE label=FORM_EXP
+  $33DE The exponent, e, is formed by the addition of +50 and passed to the calculator stack as the first of the five bytes of the result.
+  $33E1 The number of literals specified in #REGc are taken from the source and entered into the bytes of the result.
+  $33EA Restore #REGbc.
+  $33EB Return the result pointer to #REGhl and the next literal pointer to its usual position in #REGhl'.
+  $33EF The number of zero bytes required at this stage is given by 5-#REGc-1, and this number of zeros is added to the result to make up the required five bytes.
 @ $33F1 label=STK_ZEROS
 @ $33F7 label=SKIP_CONS
 c $33F7 THE 'SKIP CONSTANTS' SUBROUTINE
