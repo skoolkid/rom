@@ -1399,6 +1399,19 @@ N $0BD3 When the printer is being used the destination address has to be updated
 c $0BDB THE 'SET ATTRIBUTE BYTE' SUBROUTINE
 @ $0BFA label=PO_ATTR_1
 @ $0C08 label=PO_ATTR_2
+D $0BDB The appropriate attribute byte is identified and fetched. The new value is formed by manipulating the old value, ATTR-T, MASK-T and P-FLAG. Finally this new value is copied to the attribute area.
+  $0BDB The high byte of the destination address is divided by eight and ANDed with +03 to determine which third of the screen is being addressed, i.e. 00, 01 or 02.
+  $0BE1 The high byte for the attribute area is then formed.
+  $0BE4 #REGd holds ATTR-T, and #REGe holds MASK-T.
+  $0BE8 The old attribute value.
+  $0BE9 The values of MASK-T and ATTR-R are taken into account.
+  $0BEC Jump forward unless dealing with PAPER 9.
+  $0BF2 The old paper colour is ignored and depending on whether the ink colour is light or dark the new paper colour will be black (000) or white (111).
+@ $0BFA label=PO_ATTR_1
+  $0BFA Jump forward unless dealing with INK 9.
+  $0C00 The old ink colour is ignored and depending on whether the paper colour is light or dark the new ink colour will be black (000) or white (111).
+@ $0C08 label=PO_ATTR_2
+  $0C08 Enter the new attribute value and return.
 @ $0C0A label=PO_MSG
 c $0C0A THE 'MESSAGE PRINTING' SUBROUTINE
 D $0C0A This subroutine is used to print messages and tokens. The #REGa register holds the 'entry number' of the message or token in a table. The #REGde register pair holds the base address of the table.
