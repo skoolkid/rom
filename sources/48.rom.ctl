@@ -2542,9 +2542,30 @@ c $19FB THE 'E-LINE-NO' SUBROUTINE
 @ $1A15 label=E_L_1
 @ $1A1B label=OUT_NUM_1
 c $1A1B THE 'REPORT AND LINE NUMBER PRINTING' SUBROUTINE
+D $1A1B The entry point #R$1A1B will lead to the number in the #REGbc register pair being printed. Any value over 9999 will not however be printed correctly.
+D $1A1B The entry point #R$1A28 will lead to the number indirectly addressed by the #REGhl register pair being printed. This time any necessary leading spaces will appear. Again the limit of correctly printed numbers is 9999.
+  $1A1B Save the other registers throughout the subroutine.
+  $1A1D Clear the #REGa register.
+  $1A1E Jump forward to print a zero rather than '-2' when reporting on the edit-line.
+  $1A22 Move the number to the #REGhl register pair.
+  $1A24 Flag 'no leading spaces'.
+  $1A26 Jump forward to print the number.
 @ $1A28 label=OUT_NUM_2
+  $1A28 Save the #REGde register pair.
+  $1A29 Fetch the number into the #REGde register pair and save the pointer (updated).
+  $1A2D Move the number to the #REGhl register pair and flag 'leading spaces are to be printed'.
+N $1A30 Now the integer form of the number in the #REGhl register pair is printed.
 @ $1A30 label=OUT_NUM_3
+  $1A30 This is '-1,000'.
+  $1A33 Print a first digit.
+  $1A36 This is '-100'.
+  $1A39 Print the second digit.
+  $1A3C This is '-10'.
+  $1A3E Print the third digit.
+  $1A41 Move any remaining part of the number to the #REGa register.
 @ $1A42 label=OUT_NUM_4
+  $1A42 Print the digit.
+  $1A45 Restore the registers before returning.
 @ $1A48 label=SYNTAX
 b $1A48 THE SYNTAX TABLES
 D $1A48 i. The offset table
