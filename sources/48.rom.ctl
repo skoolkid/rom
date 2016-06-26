@@ -3254,12 +3254,27 @@ N $1FA6 Next the definition of the function is considered.
 c $1FC3 THE 'UNSTACK-Z' SUBROUTINE
 @ $1FC9 label=LPRINT
 c $1FC9 THE 'LPRINT & PRINT' COMMAND ROUTINES
+D $1FC9 The appropriate channel is opened as necessary and the items to be printed are considered in turn.
+  $1FC9 Prepare to open channel 'P'.
+  $1FCB Jump forward.
 @ $1FCD label=PRINT
+  $1FCD Prepare to open channel 'S'.
 @ $1FCF label=PRINT_1
+  $1FCF Unless syntax is being checked open a channel.
+  $1FD5 Set the temporary colour system variables.
+  $1FD8 Call the print controlling subroutine.
+  $1FDB Move on to consider the next statement (via #R$1BEE if checking syntax).
+N $1FDF The print controlling subroutine is called by the #R$1FCD, #R$1FC9 and #R$2089 command routines.
 @ $1FDF label=PRINT_2
+  $1FDF Get the first character.
+  $1FE0 Jump forward if already at the end of the item list.
+N $1FE5 Now enter a loop to deal with the 'position controllers' and the print items.
 @ $1FE5 label=PRINT_3
+  $1FE5 Deal with any consecutive position controllers.
+  $1FEA Deal with a single print item.
+  $1FED Check for further position controllers and print items until there are none left.
 @ $1FF2 label=PRINT_4
-  $1FF2,c2
+  $1FF2,3,c2,1 Return now if the present character is a ')'; otherwise consider performing a 'carriage return'.
 @ $1FF5 label=PRINT_CR
 c $1FF5 THE 'PRINT A CARRIAGE RETURN' SUBROUTINE
 @ $1FFC label=PR_ITEM_1
