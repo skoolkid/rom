@@ -3582,8 +3582,28 @@ N $2263 Next P-FLAG is considered.
   $2268 The bits of P-FLAG are set only when using PAPER/INK '9'. Continue into #R$226C to manipulate P-FLAG.
 @ $226C label=CO_CHANGE
 c $226C THE 'CO-CHANGE' SUBROUTINE
+D $226C This subroutine is used to 'impress' upon a system variable the 'nature' of the bits in the #REGa register. The #REGb register holds a mask that shows which bits are to be 'copied over' from #REGa to (#REGhl).
+  $226C The bits, specified by the mask in the #REGb register, are changed in the value and the result goes to form the system variable.
+  $2270 Move on to address the next system variable.
+  $2271 Return with the mask in the #REGa register.
+N $2273 FLASH and BRIGHT are handled by the following routine.
+  $2273 The zero flag will be set for BRIGHT.
+  $2274 The parameter is fetched and rotated.
+  $2276 Prepare the mask for FLASH.
+  $2278 Jump forward with FLASH.
+  $227A Rotate an extra time and prepare the mask for BRIGHT.
 @ $227D label=CO_TEMP_D
+  $227D Save the value in the #REGc register.
+  $227E Fetch the parameter and test its range; only '0', '1' and '8' are allowable.
+N $2287 The system variable ATTR-T can now be altered.
 @ $2287 label=CO_TEMP_E
+  $2287 Fetch the value.
+  $2288 This is ATTR-T.
+  $228B Now change the system variable.
+N $228E The value in MASK-T is now considered.
+  $228E The value is fetched anew.
+  $228F The set bit of FLASH/BRIGHT '8' (bit 3) is moved to bit 7 (for FLASH) or bit 6 (for BRIGHT).
+  $2292 Exit via #R$226C.
 @ $2294 label=BORDER
 c $2294 THE 'BORDER' COMMAND ROUTINE
 @ $22A6 label=BORDER_1
