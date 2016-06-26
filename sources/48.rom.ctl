@@ -5784,6 +5784,47 @@ c $2F9B THE 'PREPARE TO ADD' SUBROUTINE
 @ $2FAF label=NEG_BYTE
 @ $2FBA label=FETCH_TWO
 c $2FBA THE 'FETCH TWO NUMBERS' SUBROUTINE
+D $2FBA This subroutine is called by #R$3014, #R$30CA and #R$31AF to get two numbers from the calculator stack and put them into the registers, including the exchange registers.
+D $2FBA On entry to the subroutine the #REGhl register pair points to the first byte of the first number and the #REGde register pair points to the first byte of the second number.
+D $2FBA When the subroutine is called from #R$30CA or #R$31AF the sign of the result is saved in the second byte of the first number.
+  $2FBA #REGhl is preserved.
+  $2FBB #REGaf is preserved.
+N $2FBC Call the five bytes of the first number M1, M2, M3, M4 and M5, and the five bytes of the second number N1, N2, N3, N4 and N5.
+  $2FBC M1 to #REGc.
+  $2FBD Next.
+  $2FBE M2 to #REGb.
+  $2FBF Copy the sign of the result to (#REGhl).
+  $2FC0 Next.
+  $2FC1 M1 to #REGa.
+  $2FC2 M3 to #REGc.
+  $2FC3 Save M2 and M3 on the machine stack.
+  $2FC4 Next.
+  $2FC5 M4 to #REGc.
+  $2FC6 Next.
+  $2FC7 M5 to #REGb.
+  $2FC8 #REGhl now points to N1.
+  $2FC9 M1 to #REGd.
+  $2FCA N1 to #REGe.
+  $2FCB Save M1 and N1 on the machine stack.
+  $2FCC Next.
+  $2FCD N2 to #REGd.
+  $2FCE Next.
+  $2FCF N3 to #REGe.
+  $2FD0 Save N2 and N3 on the machine stack.
+  $2FD1 Get the exchange registers.
+  $2FD2 N2 to #REGd' and N3 to #REGe'.
+  $2FD3 M1 to #REGh' and N1 to #REGl'.
+  $2FD4 M2 to #REGb' and M3 to #REGc'.
+  $2FD5 Get the original set of registers.
+  $2FD6 Next.
+  $2FD7 N4 to #REGd.
+  $2FD8 Next.
+  $2FD9 N5 to #REGe.
+  $2FDA Restore the original #REGaf.
+  $2FDB Restore the original #REGhl.
+  $2FDC Finished.
+E $2FBA Summary:
+E $2FBA #LIST { M1 - M5 are in #REGh', #REGb', #REGc', #REGc, #REGb. } { N1 - N5 are in #REGl', #REGd', #REGe', #REGd, #REGe. } { #REGhl points to the first byte of the first number. } LIST#
 @ $2FDD label=SHIFT_FP
 c $2FDD THE 'SHIFT ADDEND' SUBROUTINE
 D $2FDD This subroutine shifts a floating-point number up to 32 places right to line it up properly for addition. The number with the smaller exponent has been put in the addend position before this subroutine is called. Any overflow to the right, into the carry, is added back into the number. If the exponent difference is greater than 32 decimal, or the carry ripples right back to the beginning of the number then the number is set to zero so that the addition will not alter the other number (the augend).
