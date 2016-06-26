@@ -6611,7 +6611,17 @@ B $358B,1 #R$369B
   $359B Finished.
 @ $359C label=strs_add
 c $359C THE 'STRING CONCATENATION' OPERATION
+D $359C This subroutine performs the binary operation 'A$+B$'. The parameters for these strings are fetched and the total length found. Sufficient room to hold both the strings is made available in the work space and the strings are copied over. The result of this subroutine is therefore to produce a temporary variable A$+B$ that resides in the work space.
+  $359C The parameters of the second string are fetched and saved.
+  $35A1 The parameters of the first string are fetched.
+  $35A4 The lengths are now in #REGhl and #REGbc.
+  $35A6 The parameters of the first string are saved.
+  $35A8 The total length of the two strings is calculated and passed to #REGbc.
+  $35AB Sufficient room is made available.
+  $35AC The parameters of the new string are passed to the calculator stack.
+  $35AF The parameters of the first string are retrieved and the string copied to the work space as long as it is not a null string.
 @ $35B7 label=OTHER_STR
+  $35B7 Exactly the same procedure is followed for the second string thereby giving 'A$+B$'.
 @ $35BF label=STK_PNTRS
 c $35BF THE 'STK-PNTRS' SUBROUTINE
 @ $35C9 label=chrs
