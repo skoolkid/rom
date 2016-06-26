@@ -5708,10 +5708,26 @@ c $2F9B THE 'PREPARE TO ADD' SUBROUTINE
 c $2FBA THE 'FETCH TWO NUMBERS' SUBROUTINE
 @ $2FDD label=SHIFT_FP
 c $2FDD THE 'SHIFT ADDEND' SUBROUTINE
+D $2FDD This subroutine shifts a floating-point number up to 32 places right to line it up properly for addition. The number with the smaller exponent has been put in the addend position before this subroutine is called. Any overflow to the right, into the carry, is added back into the number. If the exponent difference is greater than 32 decimal, or the carry ripples right back to the beginning of the number then the number is set to zero so that the addition will not alter the other number (the augend).
+  $2FDD If the exponent difference is zero, the subroutine returns at once.
+  $2FDF If the difference is greater than +20, jump forward.
+  $2FE3 Save #REGbc briefly.
+  $2FE4 Transfer the exponent difference to #REGb to count the shifts right.
 @ $2FE5 label=ONE_SHIFT
+  $2FE5 Arithmetic shift right for #REGl', preserving the sign marker bits.
+  $2FE8 Rotate right with carry #REGd', #REGe', #REGd and #REGe, thereby shifting the whole five bytes of the number to the right as many times as #REGb counts.
+  $2FF1 Loop back until #REGb reaches zero.
+  $2FF3 Restore the original #REGbc.
+  $2FF4 Done if no carry to retrieve.
+  $2FF5 Retrieve carry.
+  $2FF8 Return unless the carry rippled right back. (In this case there is nothing to add.)
 @ $2FF9 label=ADDEND_0
+  $2FF9 Fetch #REGl', #REGd' and #REGe'.
+  $2FFA Clear the #REGa register.
 @ $2FFB label=ZEROS_4_5
+  $2FFB Set the addend to zero in #REGd', #REGe', #REGd and #REGe, together with its marker byte (sign indicator) #REGl', which was +00 for a positive number and +FF for a negative number. This produces only 4 zero bytes when called for near underflow by #R$30CA.
 @ $3000 keep
+  $3003 Finished.
 @ $3004 label=ADD_BACK
 c $3004 THE 'ADD-BACK' SUBROUTINE
 @ $300D label=ALL_ADDED
