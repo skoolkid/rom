@@ -1573,9 +1573,19 @@ N $0D94 It now remains for the following 'house keeping' tasks to be performed.
   $0DAD Return via #R$0DD9.
 @ $0DAF label=CL_ALL
 c $0DAF THE 'CLEARING THE WHOLE DISPLAY AREA' SUBROUTINE
+D $0DAF This subroutine is called from #R$0D6B, #R$12A2, and #R$1795.
 @ $0DAF keep
+  $0DAF The system variable COORDS is reset to zero.
+  $0DB5 Signal 'the screen is clear'.
+  $0DB9 Perform the 'house keeping' tasks.
+  $0DBC Open channel 'S'.
+  $0DC1 Use the 'permanent' values.
+  $0DC4 Now 'clear' the 24 lines of the display.
+  $0DC9 Ensure that the current output address is #R$09F4.
 @ $0DCC nowarn
+  $0DD2 Reset the scroll counter.
 @ $0DD6 keep
+  $0DD6 As the upper part of the display is being handled the 'upper print line' will be line 0. Continue into #R$0DD9.
 @ $0DD9 label=CL_SET
 c $0DD9 THE 'CL-SET' SUBROUTINE
 @ $0DEE label=CL_SET_1
