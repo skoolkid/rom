@@ -1819,8 +1819,28 @@ c $1024 THE 'ENTER EDITING' SUBROUTINE
 @ $1026 label=ED_END
 @ $1031 label=ED_EDGE
 c $1031 THE 'ED-EDGE' SUBROUTINE
+D $1031 The address of the cursor is in the #REGhl register pair and will be decremented unless the cursor is already at the start of the line. Care is taken not to put the cursor between control characters and their parameters.
+  $1031 #REGde will hold either E-LINE (for editing) or WORKSP (for INPUTing).
+  $1035 The carry flag will become set if the cursor is already to be at the start of the line.
+  $1038 Correct for the subtraction.
+  $1039 Drop the return address.
+  $103A Return via #R$0F38 if the carry flag is set.
+  $103B Restore the return address.
+  $103C Move the current address of the cursor to #REGbc.
+N $103E Now enter a loop to check that control characters are not split from their parameters.
 @ $103E label=ED_EDGE_1
+  $103E #REGhl will point to the character in the line after that addressed by #REGde.
+  $1041 Fetch a character code.
+  $1042 Jump forward if the code does not represent INK to TAB.
+  $1048 Allow for one parameter.
+  $1049 Fetch the code anew.
+  $104A Carry is reset for TAB.
+  $104C Note: this splits off AT and TAB but AT and TAB in this form are not implemented anyway so it makes no difference.
+  $104E Jump forward unless dealing with AT and TAB which would have two parameters, if used.
 @ $1051 label=ED_EDGE_2
+  $1051 Prepare for true subtraction.
+  $1052 The carry flag will be reset when the 'updated pointer' reaches K-CUR.
+  $1055 For the next loop use the 'updated pointer', but if exiting use the 'present pointer' for K-CUR. Note: it is the control character that is deleted when using DELETE.
 @ $1059 label=ED_UP
 c $1059 THE 'CURSOR UP EDITING' SUBROUTINE
 @ $106E label=ED_LIST
