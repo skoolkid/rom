@@ -5178,6 +5178,27 @@ c $2BAF THE LET SUBROUTINE CONTINUES HERE
 @ $2BC0 label=L_NEW
 @ $2BC6 label=L_STRING
 c $2BC6 THE 'L-STRING' SUBROUTINE
+D $2BC6 The parameters of the 'new' string are fetched, sufficient room is made available for it and the string is then transferred.
+  $2BC6 Save the variable's letter.
+  $2BC7 Fetch the 'start' and the 'length' of the 'new' string.
+  $2BCA Move the 'start' to #REGhl.
+  $2BCB Make #REGhl point one past the string.
+  $2BCC Save the 'length'.
+  $2BCD Make #REGhl point to the end of the string.
+  $2BCE Save the pointer briefly.
+  $2BD1 Allow one byte for the letter and two bytes for the length.
+  $2BD4 Make #REGhl point to the '80-byte' at the end of the variables area.
+  $2BD8 Now open up the variables area. Note: in effect #REGbc spaces are made before the displaced '80-byte'.
+  $2BDB Restore the pointer to the end of the 'new' string.
+  $2BDE Make a copy of the length of the 'new' string.
+  $2BE0 Add one to the length in case the 'new' string is a 'null' string.
+  $2BE1 Now copy the 'new' string + one byte.
+  $2BE3 Make #REGhl point to the byte that is to hold the high-length.
+  $2BE5 Fetch the 'length'.
+  $2BE6 Enter the high-length.
+  $2BE7 Back one.
+  $2BE8 Enter the low-length.
+  $2BE9 Fetch the variable's letter.
 @ $2BEA label=L_FIRST
 c $2BEA THE 'L-FIRST' SUBROUTINE
 @ $2BF1 label=STK_FETCH
