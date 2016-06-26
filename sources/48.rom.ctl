@@ -6507,6 +6507,20 @@ D $35DE This subroutine handles the functions VAL X$ and VAL$ X$. When handling 
 @ $361F keep
 @ $361F label=str
 c $361F THE 'STR$' FUNCTION
+D $361F This subroutine handles the function STR$ X and returns a 'last value' which is a set of parameters that define a string containing what would appear on the screen if X were displayed by a PRINT command.
+  $361F One space is made in the work space and its address is copied to K-CUR, the address of the cursor.
+  $3626 This address is saved on the stack too.
+  $3627 The current channel address is saved on the machine stack.
+  $362B Channel 'R' is opened, allowing the string to be 'printed' out into the work space.
+  $3630 The 'last value', X, is now printed out in the work space and the work space is expanded with each character.
+  $3633 Restore CURCHL to #REGhl and restore the flags that are appropriate to it.
+  $3637 Restore the start address of the string.
+  $3638 Now the cursor address is one past the end of the string and hence the difference is the length.
+  $363E Transfer the length to #REGbc.
+  $3640 Pass the parameters of the new string to the calculator stack.
+  $3643 Reset the pointers.
+  $3644 Finished.
+E $361F Note: see #R$2DE3 for an explanation of the 'PRINT "A"+STR$ 0.1' error.
 @ $3645 label=read_in
 c $3645 THE 'READ-IN' SUBROUTINE
 @ $3657 keep
