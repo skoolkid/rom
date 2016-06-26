@@ -3143,9 +3143,20 @@ M $1D84,2 Call the error handling routine.
 B $1D85,1
 @ $1D86 label=LOOK_PROG
 c $1D86 THE 'LOOK-PROG' SUBROUTINE
-  $1D87,c2
+D $1D86 This subroutine is used to find occurrences of either DATA, DEF FN or NEXT. On entry the appropriate token code is in the #REGe register and the #REGhl register pair points to the start of the search area.
+  $1D86 Fetch the present character.
+  $1D87,4,c2,2 Jump forward if it is a ':', which will indicate there are more statements in the present line.
+N $1D8B Now a loop is entered to examine each further line in the program.
 @ $1D8B label=LOOK_P_1
+  $1D8B Fetch the high byte of the line number and return with carry set if there are no further lines in the program.
+  $1D91 The line number is fetched and passed to NEWPPC.
+  $1D98 Then the length is collected.
+  $1D9C The pointer is saved whilst the address of the end of the line is formed in the #REGbc register pair.
+  $1DA0 The pointer is restored.
+  $1DA1 Set the statement counter to zero.
 @ $1DA3 label=LOOK_P_2
+  $1DA3 The end-of-line pointer is saved whilst the statements of the line are examined.
+  $1DA8 Make a return if there was an 'occurrence'; otherwise consider the next line.
 @ $1DAB label=NEXT
 c $1DAB THE 'NEXT' COMMAND ROUTINE
 D $1DAB The 'variable in assignment' has already been determined (see #R$1C6C), and it remains to change the VALUE as required.
