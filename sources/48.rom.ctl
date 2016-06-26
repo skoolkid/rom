@@ -6445,8 +6445,31 @@ B $3468,1 #R$369B
 c $346A THE 'ABSOLUTE MAGNITUDE' FUNCTION
 @ $346E label=NEGATE
 c $346E THE 'UNARY MINUS' OPERATION
+D $346E This subroutine performs its unary operation by changing the sign of the 'last value' on the calculator stack.
+D $346E Zero is simply returned unchanged. Full five byte floating-point numbers have their sign bit manipulated so that it ends up reset (for 'abs') or changed (for 'negate'). 'Small integers' have their sign byte set to zero (for 'abs') or changed (for 'negate').
+  $346E If the number is zero, the subroutine returns leaving 00 00 00 00 00 unchanged.
+  $3472 #REGb is set to +00 hex for 'negate'.
 @ $3474 label=NEG_TEST
+  $3474 If the first byte is zero, the jump is made to deal with a 'small integer'.
+  $3478 Point to the second byte.
+  $3479 Get +FF for 'abs', +00 for 'negate'.
+  $347A Now +80 for 'abs', +00 for 'negate'.
+  $347C This sets bit 7 for 'abs', but changes nothing for 'negate'.
+  $347D Now bit 7 is changed, leading to bit 7 of byte 2 reset for 'abs', and simply changed for 'negate'.
+  $3480 The new second byte is stored.
+  $3481 #REGhl points to the first byte again.
+  $3482 Finished.
+N $3483 The 'integer case' does a similar operation with the sign byte.
 @ $3483 label=INT_CASE
+  $3483 Save STKEND in #REGde.
+  $3484 Save pointer to the number in #REGhl.
+  $3485 Fetch the sign in #REGc, the number in #REGde.
+  $3488 Restore the pointer to the number in #REGhl.
+  $3489 Get +FF for 'abs', +00 for 'negate'.
+  $348A Now +FF for 'abs', no change for 'negate'.
+  $348B Now +00 for 'abs', and a changed byte for 'negate'; store it in #REGc.
+  $348D Store result on the stack.
+  $3490,1 Return STKEND to #REGde.
 @ $3492 label=sgn
 c $3492 THE 'SIGNUM' FUNCTION
 @ $3497 keep
