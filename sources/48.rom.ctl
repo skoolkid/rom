@@ -781,9 +781,31 @@ N $05DB Passes round the loop are made until the 'counter' reaches zero. At that
   $05E0 Return with the carry flag set if the value is zero. (Carry flag reset if in error.)
 @ $05E3 label=LD_EDGE_2
 c $05E3 THE 'LD-EDGE-2' AND 'LD-EDGE-1' SUBROUTINES
+D $05E3 These two subroutines form the most important part of the LOAD/VERIFY operation.
+D $05E3 The subroutines are entered with a timing constant in the #REGb register, and the previous border colour and 'edge-type' in the #REGc register.
+D $05E3 The subroutines return with the carry flag set if the required number of 'edges' have been found in the time allowed, and the change to the value in the #REGb register shows just how long it took to find the 'edge(s)'.
+D $05E3 The carry flag will be reset if there is an error. The zero flag then signals 'BREAK pressed' by being reset, or 'time-up' by being set.
+D $05E3 The entry point #R$05E3 is used when the length of a complete pulse is required and #R$05E7 is used to find the time before the next 'edge'.
+  $05E3 In effect call #R$05E7 twice, returning in between if there is an error.
 @ $05E7 label=LD_EDGE_1
+  $05E7 Wait 358 T states before entering the sampling loop.
 @ $05E9 label=LD_DELAY
+N $05ED The sampling loop is now entered. The value in the #REGb register is incremented for each pass; 'time-up' is given when #REGb reaches zero.
 @ $05ED label=LD_SAMPLE
+  $05ED Count each pass.
+  $05EE Return carry reset and zero set if 'time-up'.
+  $05EF Read from port +7FFE, i.e. BREAK and EAR.
+  $05F3 Shift the byte.
+  $05F4 Return carry reset and zero reset if BREAK was pressed.
+  $05F5 Now test the byte against the 'last edge-type'; jump back unless it has changed.
+N $05FA A new 'edge' has been found within the time period allowed for the search. So change the border colour and set the carry flag.
+  $05FA Change the 'last edge-type' and border colour.
+  $05FD Keep only the border colour.
+  $05FF Signal 'MIC off'.
+  $0601 Change the border colour (red/cyan or blue/yellow).
+  $0603 Signal the successful search before returning.
+E $05E3 Note: the #R$05E7 subroutine takes 465 T states, plus an additional 58 T states for each unsuccessful pass around the sampling loop.
+E $05E3 For example, therefore, when awaiting the sync pulse (see #R$058F) allowance is made for ten additional passes through the sampling loop. The search is thereby for the next edge to be found within, roughly, 1100 T states (465+10*58+overhead). This will prove successful for the sync 'off' pulse that comes after the long 'leader pulses'.
 @ $0605 label=SAVE_ETC
 c $0605 THE 'SAVE, LOAD, VERIFY & MERGE' COMMAND ROUTINES
 D $0605 This entry point is used for all four commands. The value held in T-ADDR, however, distinguishes between the four commands. The first part of the following routine is concerned with the construction of the 'header information' in the work space.
