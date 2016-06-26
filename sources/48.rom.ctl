@@ -1597,8 +1597,20 @@ D $0DAF This subroutine is called from #R$0D6B, #R$12A2, and #R$1795.
   $0DD6 As the upper part of the display is being handled the 'upper print line' will be line 0. Continue into #R$0DD9.
 @ $0DD9 label=CL_SET
 c $0DD9 THE 'CL-SET' SUBROUTINE
+D $0DD9 This subroutine is entered with the #REGbc register pair holding the line and column numbers of a character area, or the #REGc register holding the column number within the printer buffer. The appropriate address of the first character bit is then found. The subroutine returns via #R$0ADC so as to store all the values in the required system variables.
+  $0DD9 The start of the printer buffer.
+  $0DDC Jump forward if handling the printer buffer.
+  $0DE2 Transfer the line number.
+  $0DE3 Jump forward if handling the main part of the display.
+  $0DE9 The top line of the lower part of the display is called 'line +18' and this has to be converted.
 @ $0DEE label=CL_SET_1
+  $0DEE The line and column numbers are saved.
+  $0DEF The line number is moved.
+  $0DF0 The address for the start of the line is formed in #REGhl.
+  $0DF3 The line and column numbers are fetched back.
 @ $0DF4 label=CL_SET_2
+  $0DF4 The column number is now reversed and transferred to the #REGde register pair.
+  $0DFA The required address is now formed, and the address and the line and column numbers are stored by jumping to #R$0ADC.
 @ $0DFE label=CL_SC_ALL
 c $0DFE THE 'SCROLLING' SUBROUTINE
 D $0DFE The number of lines of the display that are to be scrolled has to be held on entry to the main subroutine in the #REGb register.
