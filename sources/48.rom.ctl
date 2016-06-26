@@ -2978,6 +2978,19 @@ B $1C8B,1
 @ $1C8C label=EXPT_EXP
 @ $1C96 label=PERMS
 c $1C96 THE 'SET PERMANENT COLOURS' SUBROUTINE (EQU. CLASS-07)
+D $1C96 This subroutine allows for the current temporary colours to be made permanent. As command class 07 it is in effect the command routine for the six colour item commands.
+  $1C96 The syntax/run flag is read.  Signal 'main screen'.
+  $1C9E Only during a 'run' call #R$0D4D to ensure the temporary colours are the main screen colours.
+  $1CA1 Drop the return address #R$1B52.
+  $1CA2 Fetch the low byte of T-ADDR and subtract +13 to give the range +D9 to +DE which are the token codes for INK to OVER.
+  $1CA7 Change the temporary colours as directed by the BASIC statement.
+  $1CAA Move on to the next statement if checking syntax.
+  $1CAD Now the temporary colour values are made permanent (both ATTR-P and MASK-P).
+  $1CB3 This is P-FLAG, and that too has to be considered.
+N $1CB7 The following instructions cleverly copy the even bits of the supplied byte to the odd bits, in effect making the permanent bits the same as the temporary ones.
+  $1CB7 Move the mask leftwards.
+  $1CB8 Impress onto the mask only the even bits of the other byte.
+  $1CBC,1 Restore the result.
 @ $1CBE label=CLASS_09
 c $1CBE THE 'COMMAND CLASS 09' ROUTINE
 @ $1CD6 label=CL_09_1
