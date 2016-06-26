@@ -1296,8 +1296,17 @@ N $0AC2 And the TAB control character.
 c $0AD9 PRINTABLE CHARACTER CODES
 @ $0ADC label=PO_STORE
 c $0ADC THE 'POSITION STORE' SUBROUTINE
+D $0ADC The new position's 'line and column' values and the 'pixel' address are stored in the appropriate system variables.
+  $0ADC Jump forward if handling the printer.
+  $0AE2 Jump forward if handling the lower part of the screen.
+  $0AE8 Save the values that relate to the main part of the screen.
+  $0AEF Then return.
 @ $0AF0 label=PO_ST_E
+  $0AF0 Save the values that relate to the lower part of the screen.
+  $0AFB Then return.
 @ $0AFC label=PO_ST_PR
+  $0AFC Save the values that relate to the printer buffer.
+  $0B02 Then return.
 @ $0B03 label=PO_FETCH
 c $0B03 THE 'POSITION FETCH' SUBROUTINE
 @ $0B1D label=PO_F_PR
