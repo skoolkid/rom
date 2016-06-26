@@ -2310,8 +2310,23 @@ B $168F,2
 c $169E THE 'RESERVE' SUBROUTINE
 @ $16B0 label=SET_MIN
 c $16B0 THE 'SET-MIN' SUBROUTINE
+D $16B0 This subroutine resets the editing area and the areas after it to their minimum sizes. In effect it 'clears' the areas.
+  $16B0 Fetch E-LINE.
+  $16B3 Make the editing area hold only the 'carriage return' character and the end marker.
+  $16BB Move on to clear the work space.
+N $16BF Entering here will 'clear' the work space and the calculator stack.
 @ $16BF label=SET_WORK
+  $16BF Fetch the WORKSP.
+  $16C2 This clears the work space.
+N $16C5 Entering here will 'clear' only the calculator stack.
 @ $16C5 label=SET_STK
+  $16C5 Fetch STKBOT.
+  $16C8 This clears the stack.
+N $16CB In all cases make MEM address the calculator's memory area.
+  $16CB Save STKEND.
+  $16CC The base of the memory area.
+  $16CF Set MEM to this address.
+  $16D2 Restore STKEND to the #REGhl register pair before returning.
 @ $16D4 label=REC_EDIT
 c $16D4 THE 'RECLAIM THE EDIT-LINE' SUBROUTINE
 @ $16DB label=INDEXER_1
