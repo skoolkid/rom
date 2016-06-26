@@ -3551,10 +3551,29 @@ c $22CB THE 'POINT' SUBROUTINE
 @ $22D4 label=POINT_LP
 @ $22DC label=PLOT
 c $22DC THE 'PLOT' COMMAND ROUTINE
+D $22DC This routine consists of a main subroutine plus one line to call it and one line to exit from it. The main routine is used twice by #R$2320 and the subroutine is called by #R$24B7. The routine is entered with the coordinates of a pixel on the calculator stack. It finds the address of that pixel and plots it, taking account of the status of INVERSE and OVER held in the P-FLAG.
+  $22DC y-coordinate to #REGb, x to #REGc.
+  $22DF The subroutine is called.
+  $22E2 Exit, setting temporary colours.
 @ $22E5 label=PLOT_SUB
+  $22E5 The system variable is set.
+  $22E9 Pixel address to #REGhl.
+  $22EC #REGb will count #REGa+1 loops to get a zero to the correct place in #REGa.
+  $22EE The zero is entered.
 @ $22F0 label=PLOT_LOOP
+  $22F0 Then lined up with the pixel bit position in the byte.
+  $22F3 Then copied to #REGb.
+  $22F4 The pixel-byte is obtained in #REGa.
+  $22F5 P-FLAG is obtained and first tested for OVER.
+  $22FA Jump if OVER 1.
+  $22FC OVER 0 first makes the pixel zero.
 @ $22FD label=PL_TST_IN
+  $22FD Test for INVERSE.
+  $22FF INVERSE 1 just leaves the pixel as it was (OVER 1) or zero (OVER 0).
+  $2301 INVERSE 0 leaves the pixel complemented (OVER 1) or 1 (OVER 0).
 @ $2303 label=PLOT_END
+  $2303 The byte is entered. Its other bits are unchanged in every case.
+  $2304 Exit, setting attribute byte.
 @ $2307 label=STK_TO_BC
 c $2307 THE 'STK-TO-BC' SUBROUTINE
 @ $2314 label=STK_TO_A
