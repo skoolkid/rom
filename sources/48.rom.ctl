@@ -2598,12 +2598,31 @@ N $1998 Now enter another loop to consider the individual characters in the line
   $19B5 Decrease the statement counter and set the carry flag before returning.
 @ $19B8 label=NEXT_ONE
 c $19B8 THE 'NEXT-ONE' SUBROUTINE
+D $19B8 This subroutine can be used to find the 'next line' in the program area or the 'next variable' in the variables area. The subroutine caters for the six different types of variable that are used in the Spectrum system.
+  $19B8 Save the address of the current line or variable.
+  $19B9 Fetch the first byte.
+  $19BA Jump forward if searching for a 'next line'.
+  $19BE Jump forward if searching for the next string or array variable.
+  $19C2 Jump forward with simple numeric and FOR-NEXT variables.
+  $19C6 Long name numeric variables only.
 @ $19C7 keep
 @ $19C7 label=NEXT_O_1
+  $19C7 A numeric variable will occupy five locations but a FOR-NEXT control variable will need eighteen locations.
 @ $19CE label=NEXT_O_2
+  $19CE The carry flag becomes reset for long named variables only, until the final character of the long name is reached.
+  $19CF Increment the pointer and fetch the new code.
+  $19D1 Jump back unless the previous code was the last code of the variable's name.
+  $19D3 Now jump forward (#REGbc=+0005 or +0012).
 @ $19D5 label=NEXT_O_3
+  $19D5 Step past the low byte of the line number.
 @ $19D6 label=NEXT_O_4
+  $19D6 Now point to the low byte of the length.
+  $19D7 Fetch the length into the #REGbc register pair.
+  $19DA Allow for the inclusive byte.
+N $19DB In all cases the address of the 'next' line or variable is found.
 @ $19DB label=NEXT_O_5
+  $19DB Point to the first byte of the 'next' line or variable.
+  $19DC Fetch the address of the previous one and continue into the 'difference' subroutine.
 @ $19DD label=DIFFER
 c $19DD THE 'DIFFERENCE' SUBROUTINE
 @ $19E5 label=RECLAIM_1
