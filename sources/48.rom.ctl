@@ -6624,8 +6624,23 @@ D $361F This subroutine handles the function STR$ X and returns a 'last value' w
 E $361F Note: see #R$2DE3 for an explanation of the 'PRINT "A"+STR$ 0.1' error.
 @ $3645 label=read_in
 c $3645 THE 'READ-IN' SUBROUTINE
+D $3645 This subroutine is called via the calculator offset (+5A) through the first line of #R$2634. It appears to provide for the reading in of data through different streams from those available on the standard Spectrum. Like #R$2634 the subroutine returns a string.
+  $3645 The numerical parameter is compressed into the #REGa register.
+  $3648 Is it smaller than 16 decimal?
+  $364A If not, report the error.
+  $364D The current channel address is saved on the machine stack.
+  $3651 The channel specified by the parameter is opened.
+  $3654 The signal is now accepted, like a 'key-value'.
 @ $3657 keep
+  $3657 The default length of the resulting string is zero.
+  $365A Jump if there was no signal.
+  $365C Set the length to 1 now.
+  $365D Make a space in the work space.
+  $365E Put the string into it.
 @ $365F label=R_I_STORE
+  $365F Pass the parameters of the string to the calculator stack.
+  $3662 Restore CURCHL and the appropriate flags.
+  $3666 Exit, setting the pointers.
 @ $3669 label=code
 c $3669 THE 'CODE' FUNCTION
 @ $3671 label=STK_CODE
