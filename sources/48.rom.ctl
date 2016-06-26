@@ -2226,8 +2226,29 @@ c $1652 THE 'MAKE-ROOM' SUBROUTINE
 @ $1655 label=MAKE_ROOM
 @ $1664 label=POINTERS
 c $1664 THE 'POINTERS' SUBROUTINE
+D $1664 Whenever an area has to be 'made' or 'reclaimed' the system variables that address locations beyond the 'position' of the change have to be amended as required. On entry the #REGbc register pair holds the number of bytes involved and the #REGhl register pair addresses the location before the 'position'.
+  $1664 These registers are saved.
+  $1665 Copy the address of the 'position'.
+  $1666 This is VARS, the first of the fourteen system pointers.
+N $166B A loop is now entered to consider each pointer in turn. Only those pointers that point beyond the 'position' are changed.
 @ $166B label=PTR_NEXT
+  $166B Fetch the two bytes of the current pointer.
+  $166E Exchange the system variable with the address of the 'position'.
+  $166F The carry flag will become set if the system variable's address is to be updated.
+  $1673 Restore the 'position'.
+  $1674 Jump forward if the pointer is to be left; otherwise change it.
+  $1676 Save the old value.
+  $1677 Now add the value in #REGbc to the old value.
+  $167A Enter the new value into the system variable - high byte before low byte.
+  $167D Point again to the high byte.
+  $167E Fetch the old value.
 @ $167F label=PTR_DONE
+  $167F Point to the next system variable and jump back until all fourteen have been considered.
+N $1683 Now find the size of the block to be moved.
+  $1683 Put the old value of STKEND in #REGhl and restore the other registers.
+  $1686 Now find the difference between the old value of STKEND and the 'position'.
+  $1689 Transfer the result to #REGbc and add 1 for the inclusive byte.
+  $168C Reform the old value of STKEND and pass it to #REGde before returning.
 @ $168F label=LINE_ZERO
 c $168F THE 'COLLECT A LINE NUMBER' SUBROUTINE
 B $168F,2
