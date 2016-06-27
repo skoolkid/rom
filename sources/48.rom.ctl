@@ -1331,7 +1331,12 @@ D $0ADC The new position's 'line and column' values and the 'pixel' address are 
   $0B02 Then return.
 @ $0B03 label=PO_FETCH
 c $0B03 THE 'POSITION FETCH' SUBROUTINE
+D $0B03 The current position's parameters are fetched from the appropriate system variables.
+  $0B03 Jump forward if handling the printer.
+  $0B09 Fetch the values relating to the main part of the screen and return if this was the intention.
+  $0B15,7 Otherwise fetch the values relating to the lower part of the screen.
 @ $0B1D label=PO_F_PR
+  $0B1D,6 Fetch the values relating to the printer buffer.
 @ $0B24 label=PO_ANY
 c $0B24 THE 'PRINT ANY CHARACTER(S)' SUBROUTINE
 D $0B24 Ordinary character codes, token codes and user-defined graphic codes, and graphic codes are dealt with separately.
