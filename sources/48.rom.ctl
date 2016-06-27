@@ -3475,12 +3475,21 @@ c $2045 THE 'END OF PRINTING' SUBROUTINE
   $204B,c2
 @ $204E label=PR_POSN_1
 c $204E THE 'PRINT POSITION' SUBROUTINE
-  $204F,c2
-  $2053,c2
+D $204E The various position controlling characters are considered by this subroutine.
+  $204E Get the present character.
+  $204F,4,c2,2 Jump forward if it is a ';'.
+  $2053,9,c2,7 Also jump forward with a character other than a ',', but do not actually print the character if checking syntax.
+  $205C Load the #REGa register with the 'comma' control code and print it, then jump forward.
 @ $2061 label=PR_POSN_2
-  $2061,c2
+  $2061,c2 Is it a '''?
+  $2063 Return now (with the zero flag reset) if not any of the position controllers.
+  $2064 Print 'carriage return' unless checking syntax.
 @ $2067 label=PR_POSN_3
+  $2067 Fetch the next character.
+  $2068 If not at the end of a print statement then jump forward.
+  $206D Otherwise drop the return address from the stack.
 @ $206E label=PR_POSN_4
+  $206E Set the zero flag and return.
 @ $2070 label=STR_ALTER
 c $2070 THE 'ALTER STREAM' SUBROUTINE
   $2070,c2
