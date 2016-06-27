@@ -5079,9 +5079,29 @@ c $2AB1 THE 'STK-STORE' SUBROUTINE
 @ $2AB6 label=STK_STORE
 @ $2ACC label=INT_EXP1
 c $2ACC THE 'INT-EXP' SUBROUTINE
+D $2ACC This subroutine returns the result of evaluating the 'next expression' as an integer value held in the #REGbc register pair. The subroutine also tests this result against a limit-value supplied in the #REGhl register pair. The carry flag becomes set if there is an 'out of range' error.
+D $2ACC The #REGa register is used as an 'error register' and holds +00 if there is no 'previous error' and +FF if there has been one.
+  $2ACC Clear the 'error register'.
 @ $2ACD label=INT_EXP2
+  $2ACD Save both the #REGde and #REGhl register pairs throughout.
+  $2ACF Save the 'error register' briefly.
+  $2AD0 The 'next expression' is evaluated to give a 'last value' on the calculator stack.
+  $2AD3 Restore the 'error register'.
+  $2AD4 Jump forward if checking syntax.
+  $2AD9 Save the error register again.
+  $2ADA The 'last value' is compressed Into #REGbc.
+  $2ADD Error register to #REGd.
+  $2ADE A 'next expression' that gives zero is always in error so jump forward if it is so.
+  $2AE3 Take a copy of the limit-value. This will be a 'dimension-size', a 'DIM-limit' or a 'string length'.
+  $2AE5 Now compare the result of evaluating the expression against the limit.
+N $2AE8 The state of the carry flag and the value held in the #REGd register are now manipulated so as to give the appropriate value for the 'error register'.
 @ $2AE8 label=I_CARRY
+  $2AE8 Fetch the 'old error value'.
+  $2AE9 Form the 'new error value': +00 if no error at any time, +FF or less if an 'out of range' error on this pass or on previous ones.
+N $2AEB Restore the registers before returning.
 @ $2AEB label=I_RESTORE
+  $2AEB Restore #REGhl and #REGde.
+  $2AED Return; 'error register' is the #REGa register.
 @ $2AEE label=DE_DE_1
 c $2AEE THE 'DE,(DE+1)' SUBROUTINE
 @ $2AF4 label=GET_HLxDE
