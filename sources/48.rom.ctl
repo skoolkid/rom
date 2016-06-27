@@ -1724,8 +1724,27 @@ c $0E88 THE 'CL-ATTR' SUBROUTINE
 c $0E9B THE 'CL-ADDR' SUBROUTINE
 @ $0EAC label=COPY
 c $0EAC THE 'COPY' COMMAND ROUTINE
+D $0EAC The one hundred and seventy six pixel lines of the display are dealt with one by one.
+  $0EAC The maskable interrupt is disabled during COPY.
+  $0EAD The 176 lines.
+  $0EAF The base address of the display.
+N $0EB2 The following loop is now entered.
 @ $0EB2 label=COPY_1
+  $0EB2 Save the base address and the number of the line.
+  $0EB4 It is called 176 times.
+  $0EB7 Fetch the line number and the base address.
+  $0EB9 The base address is updated by 256 locations for each line of pixels.
+  $0EBA Jump forward and hence round the loop again directly for the eight pixel lines of a character line.
+N $0EBF For each new line of characters the base address has to be updated.
+  $0EBF Fetch the low byte.
+  $0EC0 Update it by +20 bytes.
+  $0EC2 The carry flag will be reset when 'within thirds' of the display.
+  $0EC3 Change the carry flag.
+  $0EC4 The #REGa register will hold +F8 when within a 'third' but +00 when a new 'third' is reached.
+  $0EC7 The high byte of the address is now updated.
 @ $0EC9 label=COPY_2
+  $0EC9 Jump back until 176 lines have been printed.
+  $0ECB Jump forward to the end routine.
 @ $0ECD label=COPY_BUFF
 c $0ECD THE 'COPY-BUFF' SUBROUTINE
 @ $0ED3 label=COPY_3
