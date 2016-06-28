@@ -1943,7 +1943,14 @@ N $103E Now enter a loop to check that control characters are not split from the
   $1055 For the next loop use the 'updated pointer', but if exiting use the 'present pointer' for K-CUR. Note: it is the control character that is deleted when using DELETE.
 @ $1059 label=ED_UP
 c $1059 THE 'CURSOR UP EDITING' SUBROUTINE
+  $1059 Return if in 'INPUT mode'.
+  $105E Fetch the current line number and its start address.
+  $1064 #REGhl now points to the previous line.
+  $1065 This line's number is fetched.
+  $1068 This is E-PPC-hi.
+  $106B The line number is stored.
 @ $106E label=ED_LIST
+  $106E A new automatic listing is now produced and channel 'K' re-opened before returning to #R$0F38.
 @ $1076 label=ED_SYMBOL
 c $1076 THE 'ED-SYMBOL' SUBROUTINE
 @ $107C label=ED_GRAPH
