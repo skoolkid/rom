@@ -1224,8 +1224,18 @@ D $09A1 Each message is given with the last character inverted (+80 hex.).
   $09EC,8,B1:6:B1
 @ $09F4 label=PRINT_OUT
 c $09F4 THE 'PRINT-OUT' ROUTINES
-  $09F7,c2
-@ $0A04 nowarn
+D $09F4 All of the printing to the main part of the screen, the lower part of the screen and the printer is handled by this set of routines.
+D $09F4 This routine is entered with the #REGa register holding the code for a control character, a printable character or a token.
+  $09F4 The current print position.
+  $09F7,5,c2,3 If the code represents a printable character then jump.
+  $09FC Print a question mark for codes in the range +00 to +05.
+  $0A00 And also for codes +18 to +1F.
+@ $0A04 ssub=LD HL,$0A11-6
+  $0A04 Base of the #R$0A11(control character table).
+  $0A07 Move the code to the #REGde register pair.
+  $0A0A Index into the table and fetch the offset.
+  $0A0C Add the offset and make an indirect jump to the appropriate subroutine.
+@ $0A11 label=CTRL_CHARS
 b $0A11 THE 'CONTROL CHARACTER' TABLE
   $0A11 PRINT comma
   $0A12 EDIT
