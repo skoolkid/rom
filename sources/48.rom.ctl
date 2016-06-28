@@ -3730,6 +3730,19 @@ c $2294 THE 'BORDER' COMMAND ROUTINE
 @ $22A6 label=BORDER_1
 @ $22AA label=PIXEL_ADD
 c $22AA THE 'PIXEL ADDRESS' SUBROUTINE
+D $22AA This subroutine is called by #R$22CB and by #R$22DC. Is is entered with the co-ordinates of a pixel in the #REGbc register pair and returns with #REGhl holding the address of the display file byte which contains that pixel and #REGa pointing to the position of the pixel within the byte.
+  $22AA Test that the y co-ordinate (in #REGb) is not greater than 175.
+  $22B0 #REGb now contains 175 minus y.
+  $22B1 #REGa holds b7b6b5b4b3b2b1b0, the bits of #REGb.
+  $22B2 And now 0b7b6b5b4b3b2b1.
+  $22B3 Now 10b7b6b5b4b3b2.
+  $22B5 Now 010b7b6b5b4b3.
+  $22B7,5,1,b2,2 Finally 010b7b6b2b1b0, so that #REGh becomes 64+8*INT(#REGb/64)+(#REGb mod 8), the high byte of the pixel address.
+  $22BC #REGc contains x.
+  $22BD #REGa starts as c7c6c5c4c3c2c1c0 and becomes c4c3c2c1c0c7c6c5.
+  $22C0,4,1,b2,1 Now c4c3b5b4b3c7c6c5.
+  $22C4 Finally b5b4b3c7c6c5c4c3, so that #REGl becomes 32*INT((#REGb mod 64)/8)+INT(x/8), the low byte.
+  $22C7,3 #REGa holds x mod 8, so the pixel is bit (#REGa-7) within the byte.
 @ $22CB label=POINT_SUB
 c $22CB THE 'POINT' SUBROUTINE
 @ $22D4 label=POINT_LP
