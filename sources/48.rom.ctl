@@ -1833,9 +1833,21 @@ N $0F6C The other bytes for the control characters are now fetched.
   $0F7F Jump forward.
 @ $0F81 label=ADD_CHAR
 c $0F81 THE 'ADD-CHAR' SUBROUTINE
+D $0F81 This subroutine actually adds a code to the current EDIT or INPUT line.
+  $0F81 Signal 'K mode'.
+  $0F85 Fetch the cursor position.
+  $0F88 Make a single space.
 @ $0F8B label=ADD_CH_1
+  $0F8B Enter the code into the space and signal that the cursor is to occur at the location after. Then return indirectly to #R$0F38.
+N $0F92 The editing keys are dealt with as follows:
 @ $0F92 label=ED_KEYS
-@ $0F95 nowarn
+  $0F92 The code is transferred to the #REGde register pair.
+@ $0F95 ssub=LD HL,$0FA0-1
+  $0F95 The base address of the #R$0FA0(editing keys table).
+  $0F98 The entry is addressed and then fetched into #REGe.
+  $0F9A The address of the handling routine is saved on the machine stack.
+  $0F9C The #REGhl register pair is set and an indirect jump made to the required routine.
+@ $0FA0 label=EDITKEYS
 b $0FA0 THE 'EDITING KEYS' TABLE
   $0FA0 EDIT
   $0FA1 Cursor left
