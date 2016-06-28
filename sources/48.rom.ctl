@@ -5903,8 +5903,33 @@ N $2F4A The next entry point is also used to print the digits needed for E-forma
 c $2F8B THE 'CA=10*A+C' SUBROUTINE
 @ $2F9B label=PREP_ADD
 c $2F9B THE 'PREPARE TO ADD' SUBROUTINE
+D $2F9B This subroutine is the first of four subroutines that are used by the main arithmetic operation routines - #R$300F, #R$3014, #R$30CA and #R$31AF.
+D $2F9B This particular subroutine prepares a floating-point number for addition, mainly by replacing the sign bit with a true numerical bit 1, and negating the number (two's complement) if it is negative. The exponent is returned in the #REGa register and the first byte is set to +00 for a positive number and +FF for a negative number.
+  $2F9B Transfer the exponent to #REGa.
+  $2F9C Presume a positive number.
+  $2F9E If the number is zero then the preparation is already finished.
+  $2FA0 Now point to the sign byte.
+  $2FA1 Set the zero flag for positive number.
+  $2FA3 Restore the true numeric bit.
+  $2FA5 Point to the first byte again.
+  $2FA6 Positive numbers have been prepared, but negative numbers need to be two's complemented.
+  $2FA7 Save any earlier exponent.
 @ $2FA8 keep
+  $2FA8 There are 5 bytes to be handled.
+  $2FAB Point one past the last byte.
+  $2FAC Transfer the 5 to #REGb.
+  $2FAD Save the exponent in #REGc.
+  $2FAE Set carry flag for negation.
 @ $2FAF label=NEG_BYTE
+  $2FAF Point to each byte in turn.
+  $2FB0 Get each byte.
+  $2FB1 One's complement the byte.
+  $2FB2 Add in carry for negation.
+  $2FB4 Restore the byte.
+  $2FB5 Loop 5 times.
+  $2FB7 Restore the exponent to #REGa.
+  $2FB8 Restore any earlier exponent.
+  $2FB9 Finished.
 @ $2FBA label=FETCH_TWO
 c $2FBA THE 'FETCH TWO NUMBERS' SUBROUTINE
 D $2FBA This subroutine is called by #R$3014, #R$30CA and #R$31AF to get two numbers from the calculator stack and put them into the registers, including the exchange registers.
