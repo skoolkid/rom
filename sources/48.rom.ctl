@@ -1571,8 +1571,19 @@ N $0D1C The lower part of the screen is now scrolled '#REGa' number of times.
   $0D47 Reset the flag to indicate that the lower screen is being handled, fetch the line and column numbers, and then return.
 @ $0D4D label=TEMPS
 c $0D4D THE 'TEMPORARY COLOUR ITEMS' SUBROUTINE
+D $0D4D This is a most important subroutine. It is used whenever the 'permanent' details are required to be copied to the 'temporary' system variables. First ATTR-T and MASK-T are considered
+  $0D4D #REGa is set to hold +00.
+  $0D4E The current values of ATTR-P and MASK-P are fetched.
+  $0D51 Jump forward if handing the main part of the screen.
+  $0D57 Otherwise use +00 and the value in BORDCR instead.
 @ $0D5B label=TEMPS_1
+  $0D5B Now set ATTR-T and MASK-T.
+N $0D5E Next P-FLAG is considered.
+  $0D5E This is P-FLAG.
+  $0D61 Jump forward if dealing with the lower part of the screen (#REGa=+00).
+  $0D63 Otherwise fetch the value of P-FLAG and move the odd bits to the even bits.
 @ $0D65 label=TEMPS_2
+  $0D65,5,1,b2,2 Proceed to copy the even bits of #REGa to P-FLAG.
 @ $0D6B label=CLS
 c $0D6B THE 'CLS' COMMAND ROUTINE
 D $0D6B In the first instance the whole of the display is 'cleared' - the 'pixels' are all reset and the attribute bytes are set to equal the value in ATTR-P - then the lower part of the display is reformed.
