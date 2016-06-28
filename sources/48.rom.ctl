@@ -2458,9 +2458,26 @@ B $1738,1 #R$369B
   $175C Finally return.
 @ $175D label=OPEN_2
 c $175D THE 'OPEN-2' SUBROUTINE
+D $175D The appropriate stream data bytes for the channel that is associated with the stream being opened are found.
+  $175D Save #REGhl.
+  $175E Fetch the parameters of the channel code.
+  $1761 Give an error if the expression supplied is a null expression, e.g. OPEN #5,"".
+N $1765 Report F - Invalid file name.
 @ $1765 label=REPORT_F_2
+M $1765,2 Call the error handling routine.
 B $1766,1
+N $1767 Continue if no error occurred.
 @ $1767 label=OPEN_3
+  $1767 The length of the expression is saved.
+  $1768 Fetch the first character.
+  $1769 Convert lower case codes to upper case ones.
+  $176B Move code to the #REGc register.
+  $176C The base address of the #R$177A(OPEN stream look-up table).
+  $176F Index into this table and locate the required offset.
+  $1772 Jump back if not found.
+  $1774 Pass the offset to the #REGbc register pair.
+  $1777 Make #REGhl point to the start of the appropriate subroutine.
+  $1778 Fetch the length of the expression before jumping to the subroutine.
 @ $177A label=OPENSTRM
 b $177A THE 'OPEN STREAM LOOK-UP' TABLE
   $177A,2,T1:1 Channel 'K', offset +06 (#R$1781)
