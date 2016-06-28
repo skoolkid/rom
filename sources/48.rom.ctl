@@ -2560,6 +2560,17 @@ N $18B4 The line has now been printed.
 c $18B6 THE 'NUMBER' SUBROUTINE
 @ $18C1 label=OUT_FLASH
 c $18C1 THE 'PRINT A FLASHING CHARACTER' SUBROUTINE
+D $18C1 The 'error cursor' and the 'mode cursors' are printed using this subroutine.
+  $18C1 Switch to the alternate registers.
+  $18C2 Save the values of ATTR-T and MASK-T on the machine stack.
+  $18C6 Ensure that FLASH is active.
+  $18CA Use these modified values for ATTR-T and MASK-T.
+  $18CD This is P-FLAG.
+  $18D0 Save P-FLAG also on the machine stack.
+  $18D2 Ensure INVERSE 0, OVER 0, and not PAPER 9 nor INK 9.
+  $18D4 The character is printed.
+  $18D7 The former value of P-FLAG is restored.
+  $18DB The former values of ATTR-T and MASK-T are also restored before returning.
 @ $18E1 label=OUT_CURS
 c $18E1 THE 'PRINT THE CURSOR' SUBROUTINE
 D $18E1 A return is made if it is not the correct place to print the cursor but if it is then 'C', 'E', 'G', 'K' or 'L' will be printed.
