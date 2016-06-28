@@ -2702,7 +2702,19 @@ c $19E5 THE 'RECLAIMING' SUBROUTINE
 @ $19E8 label=RECLAIM_2
 @ $19FB label=E_LINE_NO
 c $19FB THE 'E-LINE-NO' SUBROUTINE
+D $19FB This subroutine is used to read the line number of the line in the editing area.  If there is no line number, i.e. a direct BASIC line, then the line number is considered to be zero.
+D $19FB In all cases the line number is returned in the #REGbc register pair.
+  $19FB Pick up the pointer to the edit-line.
+  $19FE Set CH-ADD to point to the location before any number.
+  $1A02 Pass the first code to the #REGa register.
+  $1A03 However before considering the code make the calculator's memory area a temporary calculator stack area.
+  $1A09 Now read the digits of the line number. Return zero if no number exists.
+  $1A0C Compress the line number into the #REGbc register pair.
+  $1A0F Jump forward if the number exceeds 65,536.
+  $1A11 Otherwise test it against 10,000.
 @ $1A15 label=E_L_1
+  $1A15 Give report C if over 9,999.
+  $1A18 Return via #R$16C5 that restores the calculator stack to its rightful place.
 @ $1A1B label=OUT_NUM_1
 c $1A1B THE 'REPORT AND LINE NUMBER PRINTING' SUBROUTINE
 D $1A1B The entry point #R$1A1B will lead to the number in the #REGbc register pair being printed. Any value over 9999 will not however be printed correctly.
