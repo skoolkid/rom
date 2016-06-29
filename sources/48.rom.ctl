@@ -1257,8 +1257,19 @@ b $0A11 THE 'CONTROL CHARACTER' TABLE
   $0A22 TAB control
 @ $0A23 label=PO_BACK_1
 c $0A23 THE 'CURSOR LEFT' SUBROUTINE
+D $0A23 The subroutine is entered with the #REGb register holding the current line number and the #REGc register with the current column number.
+  $0A23 Move leftwards by one column.
+  $0A24 Accept the change unless up against the lefthand side.
+  $0A29 If dealing with the printer jump forward.
+  $0A2F Go up one line.
+  $0A30 Set column value.
+  $0A32 Test against top line. Note: this ought to be +19.
+  $0A35 Accept the change unless at the top of the screen.
+  $0A37 Unacceptable so down a line.
 @ $0A38 label=PO_BACK_2
+  $0A38 Set to lefthand column.
 @ $0A3A label=PO_BACK_3
+  $0A3A Make an indirect return via #R$0DD9 and #R$0ADC.
 @ $0A3D label=PO_RIGHT
 c $0A3D THE 'CURSOR RIGHT' SUBROUTINE
   $0A45,c2
