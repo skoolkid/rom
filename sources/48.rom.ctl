@@ -2420,10 +2420,19 @@ c $16DB THE 'INDEXER' SUBROUTINE
 @ $16DC label=INDEXER
 @ $16E5 label=CLOSE
 c $16E5 THE 'CLOSE #' COMMAND ROUTINE
+D $16E5 This command allows the user to close streams. However for streams +00 to +03 the 'initial' stream data is restored and these streams cannot therefore be closed.
+  $16E5 The existing data for the stream is fetched.
+  $16E8 Check the code in that stream's channel.
 @ $16EB keep
+  $16EB Prepare to make the stream's data zero.
+  $16EE Prepare to identify the use of streams +00 to +03.
+  $16F2 The carry flag will be set with streams +04 to +0F.
+  $16F3 Jump forward with these streams; otherwise find the correct entry in the #R$15C6(initial stream data table).
 @ $16F5 keep
 @ $16F5 ssub=LD BC,$15C6+$0E
+  $16F9 Fetch the initial data for streams +00 to +03.
 @ $16FC label=CLOSE_1
+  $16FC,4 Now enter the data: either zero and zero, or the initial values.
 @ $1701 label=CLOSE_2
 c $1701 THE 'CLOSE-2' SUBROUTINE
 @ $1716 label=CLOSESTRM
