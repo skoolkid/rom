@@ -3666,7 +3666,16 @@ D $204E The various position controlling characters are considered by this subro
   $206E Set the zero flag and return.
 @ $2070 label=STR_ALTER
 c $2070 THE 'ALTER STREAM' SUBROUTINE
-  $2070,c2
+D $2070 This subroutine is called whenever there is the need to consider whether the user wishes to use a different stream.
+  $2070,4,c2,2 Unless the present character is a '#' return with the carry flag set.
+  $2074 Advance CH-ADD.
+  $2075 Pass the parameter to the calculator stack.
+  $2078 Clear the carry flag.
+  $2079 Return now if checking syntax.
+  $207C The value is passed to the #REGa register.
+  $207F Give report O if the value is over +0F.
+  $2084 Use the channel for the stream in question.
+  $2087 Clear the carry flag and return.
 @ $2089 label=INPUT
 c $2089 THE 'INPUT' COMMAND ROUTINE
 D $2089 This routine allows for values entered from the keyboard to be assigned to variables. It is also possible to have print items embedded in the INPUT statement and these items are printed in the lower part of the display.
