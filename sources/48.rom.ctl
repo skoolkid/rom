@@ -5251,8 +5251,24 @@ N $2A94 The 'new' parameters are now defined.
   $2AAD Return at this point if checking syntax; otherwise continue into #R$2AB1.
 @ $2AB1 label=STK_ST_0
 c $2AB1 THE 'STK-STORE' SUBROUTINE
+D $2AB1 This subroutine passes the values held in the #REGa, #REGb, #REGc, #REGd and #REGe registers to the calculator stack. The stack thereby grows in size by 5 bytes with every call to this subroutine.
+D $2AB1 The subroutine is normally used to transfer the parameters of strings but it is also used by #R$2D2B and #R$2DC1 to transfer 'small integers' to the stack.
+D $2AB1 Note that when storing the parameters of a string the first value stored (coming from the #REGa register) will be a zero if the string comes from an array of strings or is a 'slice' of a string. The value will be '1' for a complete simple string. This 'flag' is used in the #R$2AFF command routine when the '1' signals that the old copy of the string is to be 'reclaimed'.
+  $2AB1 Signal - a string from an array of strings or a 'sliced' string.
 @ $2AB2 label=STK_STO
+  $2AB2 Ensure the flag indicates a string result.
 @ $2AB6 label=STK_STORE
+  $2AB6 Save #REGb and #REGc briefly.
+  $2AB7 Is there room for 5 bytes? Do not return here unless there is room available.
+  $2ABA Restore #REGb and #REGc.
+  $2ABB Fetch the address of the first location above the present stack.
+  $2ABE Transfer the first byte.
+  $2ABF Step on.
+  $2AC0 Transfer the second and third bytes; for a string these will be the 'start'.
+  $2AC3 Step on.
+  $2AC4 Transfer the fourth and fifth bytes; for a string these will be the 'length'.
+  $2AC7 Step on so as to point to the location above the stack.
+  $2AC8 Save this address in STKEND and return.
 @ $2ACC label=INT_EXP1
 c $2ACC THE 'INT-EXP' SUBROUTINE
 D $2ACC This subroutine returns the result of evaluating the 'next expression' as an integer value held in the #REGbc register pair. The subroutine also tests this result against a limit-value supplied in the #REGhl register pair. The carry flag becomes set if there is an 'out of range' error.
