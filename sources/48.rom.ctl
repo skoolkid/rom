@@ -3515,7 +3515,20 @@ B $1F39,1
 c $1F3A THE 'PAUSE' COMMAND ROUTINE
 @ $1F3D label=PAUSE_1
 @ $1F49 label=PAUSE_2
+D $1F3A The period of the pause is determined by counting the number of maskable interrupts as they occur every 1/50th of a second.
+D $1F3A A pause is finished either after the appropriate number of interrupts or by the system variable FLAGS indicating that a key has been pressed.
+  $1F3A Fetch the operand.
+@ $1F3D label=PAUSE_1
+  $1F3D Wait for a maskable interrupt.
+  $1F3E Decrease the counter.
+  $1F3F If the counter is thereby reduced to zero the pause has come to an end.
+  $1F43 If the operand was zero #REGbc will now hold +FFFF and this value will be returned to zero. Jump with all other operand values.
+@ $1F49 label=PAUSE_2
+  $1F49 Jump back unless a key has been pressed.
+N $1F4F The period of the pause has now finished.
 @ $1F4F label=PAUSE_END
+  $1F4F Signal 'no key pressed'.
+  $1F53 Now return - to #R$1B76.
 @ $1F54 label=BREAK_KEY
 c $1F54 THE 'BREAK-KEY' SUBROUTINE
 @ $1F60 label=DEF_FN
