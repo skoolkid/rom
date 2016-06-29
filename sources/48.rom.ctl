@@ -3085,7 +3085,19 @@ c $1BB3 THE 'LINE-END' ROUTINE
 c $1BBF THE 'LINE-USE' ROUTINE
 @ $1BD1 label=NEXT_LINE
 c $1BD1 THE 'NEXT-LINE' ROUTINE
+D $1BD1 On entry the #REGhl register pair points to the location after the end of the 'next' line to be handled and the #REGde register pair to the location before the first character of the line. This applies to lines in the program area and also to a line in the editing area - where the next line will be the same line again whilst there are still statements to be interpreted.
+  $1BD1 Set NXTLIN for use once the current line has been completed.
+  $1BD4 As usual CH-ADD points to the location before the first character to be considered.
+  $1BD8 The statement number is fetched.
+  $1BD9 The #REGe register is cleared in case #R$198B is used.
+  $1BDB Signal 'no jump'.
+  $1BDF The statement number minus one goes into SUBPPC.
+  $1BE3 A first statement can now be considered.
+  $1BE6 However for later statements the 'starting address' has to be found.
+  $1BEA Jump forward unless the statement does not exist.
+N $1BEC Report N - Statement lost.
 @ $1BEC label=REPORT_N
+M $1BEC,2 Call the error handling routine.
 B $1BED,1
 @ $1BEE label=CHECK_END
 c $1BEE THE 'CHECK-END' SUBROUTINE
