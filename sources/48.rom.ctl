@@ -3736,10 +3736,23 @@ N $21AF Further items in the INPUT statement are considered.
   $21B5 Go around the loop again if there are further items; otherwise return.
 @ $21B9 label=IN_ASSIGN
 c $21B9 THE 'IN-ASSIGN' SUBROUTINE
+D $21B9 This subroutine is called twice for each INPUT value: once with the syntax/run flag reset (syntax) and once with it set (run).
+  $21B9 Set CH-ADD to point to the first location of the work space and fetch the character.
+  $21C0 Is it a 'STOP'?
+  $21C2 Jump if it is.
+  $21C4 Otherwise make the assignment of the 'value' to the variable.
+  $21CA Get the present character and check it is a 'carriage return'.
+  $21CD Return if it is.
+N $21CE Report C - Nonsense in BASIC.
 @ $21CE label=REPORT_C_2
+M $21CE,2 Call the error handling routine.
 B $21CF,1
+N $21D0 Come here if the INPUT line starts with 'STOP'.
 @ $21D0 label=IN_STOP
+  $21D0 But do not give the error report on the syntax-pass.
+N $21D4 Report H - STOP in INPUT.
 @ $21D4 label=REPORT_H
+M $21D4,2 Call the error handling routine.
 B $21D5,1
 @ $21D6 label=IN_CHAN_K
 c $21D6 THE 'IN-CHAN-K' SUBROUTINE
