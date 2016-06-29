@@ -3200,7 +3200,18 @@ N $1CB7 The following instructions cleverly copy the even bits of the supplied b
   $1CBC,1 Restore the result.
 @ $1CBE label=CLASS_09
 c $1CBE THE 'COMMAND CLASS 09' ROUTINE
+D $1CBE This routine is used by PLOT, DRAW and CIRCLE statements in order to specify the default conditions of 'FLASH 8; BRIGHT 8; PAPER 8;' that are set up before any embedded colour items are considered.
+  $1CBE Jump forward if checking syntax.
+  $1CC3 Signal 'main screen'.
+  $1CC7 Set the temporary colours for the main screen.
+  $1CCA This is MASK-T.
+  $1CCD Fetch its present value but keep only its INK part 'unmasked'.
+  $1CD0 Restore the value which now indicates 'FLASH 8; BRIGHT 8; PAPER 8;'.
+  $1CD1 Also ensure NOT 'PAPER 9'.
+  $1CD5 Fetch the present character before continuing to deal with embedded colour items.
 @ $1CD6 label=CL_09_1
+  $1CD6 Deal with the locally dominant colour items.
+  $1CD9 Now get the first two operands for PLOT, DRAW or CIRCLE.
 @ $1CDB label=CLASS_0B
 c $1CDB THE 'COMMAND CLASS 0B' ROUTINE
 @ $1CDE label=FETCH_NUM
