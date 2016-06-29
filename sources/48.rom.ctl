@@ -3163,12 +3163,26 @@ c $1C56 THE 'FETCH A VALUE' SUBROUTINE
 c $1C6C THE 'COMMAND CLASS 04' ROUTINE
 @ $1C79 label=NEXT_2NUM
 c $1C79 THE 'EXPECT NUMERIC/STRING EXPRESSIONS' SUBROUTINE
+D $1C79 There is a series of short subroutines that are used to fetch the result of evaluating the next expression. The result from a single expression is returned as a 'last value' on the calculator stack.
+N $1C79 This entry point is used when CH-ADD needs updating to point to the start of the first expression.
+  $1C79 Advance CH-ADD.
+N $1C7A This entry point (CLASS-08) allows for two numeric expressions, separated by a comma, to be evaluated.
 @ $1C7A label=EXPT_2NUM
-  $1C7D,c2
+  $1C7A Evaluate each expression in turn - so evaluate the first.
+  $1C7D,4,c2,2 Give an error report if the separator is not a comma.
+  $1C81 Advance CH-ADD.
+N $1C82 This entry point (CLASS-06) allows for a single numeric expression to be evaluated.
 @ $1C82 label=EXPT_1NUM
+  $1C82 Evaluate the next expression.
+  $1C85 Return as long as the result was numeric; otherwise it is an error.
+N $1C8A Report C - Nonsense in BASIC.
 @ $1C8A label=REPORT_C
+M $1C8A,2 Call the error handling routine.
 B $1C8B,1
+N $1C8C This entry point (CLASS-0A) allows for a single string expression to be evaluated.
 @ $1C8C label=EXPT_EXP
+  $1C8C Evaluate the next expression.
+  $1C8F This time return if the result indicates a string; otherwise give an error report.
 @ $1C96 label=PERMS
 c $1C96 THE 'SET PERMANENT COLOURS' SUBROUTINE (EQU. CLASS-07)
 D $1C96 This subroutine allows for the current temporary colours to be made permanent. As command class 07 it is in effect the command routine for the six colour item commands.
