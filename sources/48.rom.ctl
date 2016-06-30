@@ -409,7 +409,18 @@ N $0308 The next three instructions are common to the handling of both 'new keys
 c $0310 THE 'REPEATING KEY' SUBROUTINE
 @ $031E label=K_TEST
 c $031E THE 'K-TEST' SUBROUTINE
+D $031E The key value is tested and a return made if 'no-key' or 'shift-only'; otherwise the 'main code' for that key is found.
+  $031E Copy the shift byte.
+  $031F Clear the #REGd register for later.
+  $0321 Move the key number.
+  $0322 Return now if the key was 'CAPS SHIFT' only or 'no-key'.
+  $0325 Jump forward unless the #REGe key was SYMBOL SHIFT.
+  $0329 However accept SYMBOL SHIFT and another key; return with SYMBOL SHIFT only.
+N $032C The 'main code' is found by indexing into the main key table.
 @ $032C label=K_MAIN
+  $032C The base address of the #R$0205(main key table).
+  $032F Index into the table and fetch the 'main code'.
+  $0331 Signal 'valid keystroke' before returning.
 @ $0333 label=K_DECODE
 c $0333 THE 'KEYBOARD DECODING' SUBROUTINE
 D $0333 This subroutine is entered with the 'main code' in the #REGe register, the value of FLAGS in the #REGd register, the value of MODE in the #REGc register and the 'shift byte' in the #REGb register.
@@ -1807,7 +1818,15 @@ c $0ECD THE 'COPY-BUFF' SUBROUTINE
 @ $0EDA label=COPY_END
 @ $0EDF label=CLEAR_PRB
 c $0EDF THE 'CLEAR PRINTER BUFFER' SUBROUTINE
+D $0EDF The printer buffer is cleared by calling this subroutine.
+  $0EDF The base address of the printer buffer.
+  $0EE2 Reset the printer 'column'.
+  $0EE5 Clear the #REGa register.
+  $0EE6 Also clear the #REGb register (in effect #REGb holds 256).
 @ $0EE7 label=PRB_BYTES
+  $0EE7 The 256 bytes of the printer buffer are all cleared in turn.
+  $0EEB Signal 'the buffer is empty'.
+  $0EEF Set the printer position and return via #R$0DD9 and #R$0ADC.
 @ $0EF4 label=COPY_LINE
 c $0EF4 THE 'COPY-LINE' SUBROUTINE
 D $0EF4 The subroutine is entered with the #REGhl register pair holding the base address of the thirty two bytes that form the pixel-line and the #REGb register holding the pixel-line number.
@@ -2490,6 +2509,15 @@ D $16E5 This command allows the user to close streams. However for streams +00 t
   $16FC,4 Now enter the data: either zero and zero, or the initial values.
 @ $1701 label=CLOSE_2
 c $1701 THE 'CLOSE-2' SUBROUTINE
+D $1701 The code of the channel associated with the stream being closed has to be 'K', 'S', or 'P'.
+  $1701 Save the address of the stream's data.
+  $1702 Fetch the base address of the channel information area and find the channel data for the stream being closed.
+  $1706 Step past the subroutine addresses and pick up the code for that channel.
+  $170A Save the pointer.
+  $170B The base address of the #R$1716(CLOSE stream look-up table).
+  $170E Index into this table and locate the required offset.
+  $1711 Pass the offset to the #REGbc register pair.
+  $1714 Jump to the appropriate routine.
 @ $1716 label=CLOSESTRM
 b $1716 THE 'CLOSE STREAM LOOK-UP' TABLE
   $1716,2,T1:1 Channel 'K', offset +05 (#R$171C)
@@ -3596,8 +3624,16 @@ D $1EED The present value of PPC and the incremented value of SUBPPC are stored 
   $1F02 But before making the jump make a test for room.
 @ $1F05 label=TEST_ROOM
 c $1F05 THE 'TEST-ROOM' SUBROUTINE
+D $1F05 A series of tests is performed to ensure that there is sufficient free memory available for the task being undertaken.
+  $1F05 Increase the value taken from STKEND by the value carried into the routine by the #REGbc register pair.
+  $1F09 Jump forward if the result is over +FFFF.
+  $1F0B Try it again allowing for a further eighty bytes.
 @ $1F0C keep
+  $1F12 Finally test the value against the address of the machine stack.
+  $1F14 Return if satisfactory.
+N $1F15 Report 4 - Out of memory.
 @ $1F15 label=REPORT_4
+  $1F15 This is a 'run-time' error and the error marker is not to be used.
 @ $1F1A label=FREE_MEM
 c $1F1A THE 'FREE MEMORY' SUBROUTINE
 @ $1F1A keep
@@ -7102,8 +7138,20 @@ D $359C This subroutine performs the binary operation 'A$+B$'. The parameters fo
 c $35BF THE 'STK-PNTRS' SUBROUTINE
 @ $35C9 label=chrs
 c $35C9 THE 'CHR$' FUNCTION
+D $35C9 This subroutine handles the function CHR$ X and creates a single character string in the work space.
+  $35C9 The 'last value' is compressed into the #REGa register.
+  $35CC Give the error report if X is greater than 255 decimal, or X is a negative number.
+  $35D0 Save the compressed value of X.
 @ $35D1 keep
+  $35D1 Make one space available in the work space.
+  $35D5 Fetch the value.
+  $35D6 Copy the value to the work space.
+  $35D7 Pass the parameters of the new string to the calculator stack.
+  $35DA Reset the pointers.
+  $35DB Finished.
+N $35DC Report B - Integer out of range.
 @ $35DC label=REPORT_B_4
+M $35DC,2 Call the error handling routine.
 B $35DD,1
 @ $35DE label=val
 c $35DE THE 'VAL' AND 'VAL$' FUNCTION
