@@ -2727,7 +2727,18 @@ D $18E1 A return is made if it is not the correct place to print the cursor but 
 E $18E1 Note: it is the action of considering which cursor-letter is to be printed that determines the mode - 'K', 'L' or 'C'.
 @ $190F label=LN_FETCH
 c $190F THE 'LN-FETCH' SUBROUTINE
+D $190F This subroutine is entered with the #REGhl register pair addressing a system variable - S-TOP or E-PPC.
+D $190F The subroutine returns with the system variable holding the line number of the following line.
+  $190F The line number held by the system variable is collected.
+  $1912 The pointer is saved.
+  $1913 The line number is moved to the #REGhl register pair and incremented.
+  $1915 The address of the start of this line is found, or the next line if the actual line number is not being used.
+  $1918 The number of that line is fetched.
+  $191B The pointer to the system variable is restored.
 @ $191C label=LN_STORE
+  $191C Return if in 'INPUT mode'.
+  $1921 Otherwise proceed to enter the line number into the two locations of the system variable.
+  $1924 Return when it has been done.
 @ $1925 label=OUT_SP_2
 c $1925 THE 'PRINTING CHARACTERS IN A BASIC LINE' SUBROUTINE
 D $1925 All of the character/token codes in a BASIC line are printed by repeatedly calling this subroutine.
@@ -2832,7 +2843,14 @@ N $19DB In all cases the address of the 'next' line or variable is found.
 c $19DD THE 'DIFFERENCE' SUBROUTINE
 @ $19E5 label=RECLAIM_1
 c $19E5 THE 'RECLAIMING' SUBROUTINE
+D $19E5 The main entry point is used when the address of the first location to be reclaimed is in the #REGde register pair and the address of the first location to be left alone is in the #REGhl register pair. The entry point #R$19E8 is used when the #REGhl register pair points to the first location to be reclaimed and the #REGbc register pair holds the number of bytes that are to be reclaimed.
+  $19E5 Use the 'difference' subroutine to develop the appropriate values.
 @ $19E8 label=RECLAIM_2
+  $19E8 Save the number of bytes to be reclaimed.
+  $19E9 All the system variable pointers above the area have to be reduced by #REGbc, so this number is 2's complemented before the pointers are altered.
+  $19F3 Return the 'first location' address to the #REGde register pair and form the address of the first location to the left.
+  $19F6 Save the 'first location' whilst the actual reclamation occurs.
+  $19FA Now return.
 @ $19FB label=E_LINE_NO
 c $19FB THE 'E-LINE-NO' SUBROUTINE
 D $19FB This subroutine is used to read the line number of the line in the editing area.  If there is no line number, i.e. a direct BASIC line, then the line number is considered to be zero.
@@ -3234,7 +3252,17 @@ N $1C4E Command class 02 is concerned with the actual calculation of the value t
   $1C52 Move on to the next statement either via #R$1BEE if checking syntax, or #R$1B76 if in 'run-time'.
 @ $1C56 label=VAL_FET_1
 c $1C56 THE 'FETCH A VALUE' SUBROUTINE
+D $1C56 This subroutine is used by LET, READ and INPUT statements to first evaluate and then assign values to the previously designated variable.
+D $1C56 The main entry point is used by LET and READ and considers FLAGS, whereas the entry point #R$1C59 is used by INPUT and considers FLAGX.
+  $1C56 Use FLAGS.
 @ $1C59 label=VAL_FET_2
+  $1C59 Save FLAGS or FLAGX.
+  $1C5A Evaluate the next expression.
+  $1C5D Fetch the old FLAGS or FLAGX.
+  $1C5E Fetch the new FLAGS.
+  $1C61 The nature - numeric or string - of the variable and the expression must match.
+  $1C64 Give report C if they do not.
+  $1C66 Jump forward to make the actual assignment unless checking syntax (in which case simply return).
 @ $1C6C label=CLASS_04
 c $1C6C THE 'COMMAND CLASS 04' ROUTINE
 @ $1C79 label=NEXT_2NUM
@@ -3980,7 +4008,15 @@ N $228E The value in MASK-T is now considered.
   $2292 Exit via #R$226C.
 @ $2294 label=BORDER
 c $2294 THE 'BORDER' COMMAND ROUTINE
+D $2294 The parameter of the BORDER command is used with an OUT command to actually alter the colour of the border. The parameter is then saved in the system variable BORDCR.
+  $2294 The parameter is fetched and its range is tested.
+  $229B The OUT instruction is then used to set the border colour.
+  $229D The parameter is then multiplied by eight.
+  $22A0 Is the border colour a 'light' colour?
+  $22A2 Jump if so (the INK colour will be black).
+  $22A4 Change the INK colour to white.
 @ $22A6 label=BORDER_1
+  $22A6 Set the system variable as required and return.
 @ $22AA label=PIXEL_ADD
 c $22AA THE 'PIXEL ADDRESS' SUBROUTINE
 D $22AA This subroutine is called by #R$22CB and by #R$22DC. Is is entered with the co-ordinates of a pixel in the #REGbc register pair and returns with #REGhl holding the address of the display file byte which contains that pixel and #REGa pointing to the position of the pixel within the byte.
@@ -4522,6 +4558,15 @@ D $2535 Note: this is normally the characters +20 (space) to +7F (#CHR(169)) alt
 E $2535 Note: this exit, via #R$2AB2, is a mistake as it leads to 'double storing' of the string result (see #R$25DB). The instruction line should be 'RET'.
 @ $2580 label=S_ATTR_S
 c $2580 THE 'SCANNING ATTRIBUTES' SUBROUTINE
+  $2580 The last of these four subroutines is the 'scanning attributes subroutine'. It is called by S-ATTR to return the value of ATTR (x,y) which codes the attributes of line x, column y on the television screen.
+  $2580 x to #REGc, y to #REGb. Again, 0<=x<=23 decimal; 0<=y<=31 decimal.
+  $2583 x is copied to #REGa and the number 32*(x mod 8)+y is formed in #REGa. 32*(x mod 8)+INT (x/8) is also copied to #REGc.
+  $258B #REGl holds low byte of attribute address.
+  $258C 32*(x mod 8)+INT (x/8) is copied to #REGa.
+  $258D 88+INT (x/8) is formed in #REGa.
+  $2591 #REGh holds high byte of attribute address.
+  $2592 The attribute byte is copied to #REGa.
+  $2593 Exit, stacking the required byte.
 @ $2596 label=SCANFUNC
 b $2596 THE SCANNING FUNCTION TABLE
 D $2596 This table contains 8 functions and 4 operators. It thus incorporates 5 new Spectrum functions and provides a neat way of accessing some functions and operators which already existed on the ZX81.
@@ -5849,7 +5894,25 @@ B $2D7D,1 #R$369B
 c $2D7F THE 'INT-FETCH' SUBROUTINE
 @ $2D8C label=P_INT_STO
 c $2D8C THE 'INT-STORE' SUBROUTINE
+D $2D8C This subroutine stores a small integer n (-65535<=n<=65535) in the location addressed by #REGhl and the four following locations, i.e. n replaces the first (or second) number at the top of the calculator stack. The subroutine returns #REGhl pointing to the first byte of n on the stack.
+  $2D8C This entry point would store a number known to be positive.
 @ $2D8E label=INT_STORE
+  $2D8E The pointer to the first location is saved.
+  $2D8F The first byte is set to zero.
+  $2D91 Point to the second location.
+  $2D92 Enter the second byte.
+N $2D93 The same mechanism is now used as in #R$2D7F to twos complement negative numbers. This is needed e.g. before and after the multiplication of small integers. Addition is however performed without any further twos complementing before or afterwards.
+  $2D93 Point to the third location.
+  $2D94 Collect the less significant byte.
+  $2D95 Twos complement it if the number is negative.
+  $2D97 Store the byte.
+  $2D98 Point to the fourth location.
+  $2D99 Collect the more significant byte.
+  $2D9A Twos complement it if the number is negative.
+  $2D9C Store the byte.
+  $2D9D Point to the fifth location.
+  $2D9E The fifth byte is set to zero.
+  $2DA0 Return with #REGhl pointing to the first byte of n on the stack
 @ $2DA2 label=FP_TO_BC
 c $2DA2 THE 'FLOATING-POINT TO BC' SUBROUTINE
 D $2DA2 This subroutine is used to compress the floating-point 'last value' on the calculator stack into the #REGbc register pair. If the result is too large, i.e. greater than 65536 decimal, then the subroutine returns with the carry flag set. If the 'last value' is negative then the zero flag is reset. The low byte of the result is also copied to the #REGa register.
