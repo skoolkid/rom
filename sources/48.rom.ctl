@@ -704,9 +704,23 @@ N $0525 The '8 bit loop' is entered initially with the whole byte in the #REGl r
 E $04C2 Note: a reset bit will give a 'MIC off' pulse of 855 T states followed by a 'MIC on' pulse of 855 T states, whereas a set bit will give pulses of exactly twice as long. Note also that there are no gaps either between the sync pulse and the first bit of the flag, or between bytes.
 @ $053F label=SA_LD_RET
 c $053F THE 'SA/LD-RET' SUBROUTINE
+D $053F This subroutine is common to both saving and loading.
+D $053F The border is set to its original colour and the BREAK key tested for a last time.
+  $053F Save the carry flag. (It is reset after a loading error.)
+  $0540 Fetch the original border colour from its system variable.
+  $0545 Move the border colour to bits 2, 1 and 0.
+  $0548 Set the border to its original colour.
+  $054A Read the BREAK key for a last time.
+  $054F Enable the maskable interrupt.
+  $0550 Jump unless a break is to be made.
+N $0552 Report D - BREAK-CONT repeats.
 @ $0552 label=REPORT_D
+M $0552,2 Call the error handling routine.
 B $0553,1
+N $0554 Continue here.
 @ $0554 label=SA_LD_END
+  $0554 Retrieve the carry flag.
+  $0555 Return to the calling routine.
 @ $0556 label=LD_BYTES
 c $0556 THE 'LD-BYTES' SUBROUTINE
 D $0556 This subroutine is called to load the header information and later load or verify an actual block of data from a tape.
@@ -2090,7 +2104,14 @@ N $117E But come here after an error.
   $118B X-PTR is cleared in a suitable manner and the return made.
 @ $1190 label=SET_HL
 c $1190 THE 'SET-HL' AND 'SET-DE' SUBROUTINES
+D $1190 These subroutines return with #REGhl pointing to the first location and #REGde the 'last' location of either the editing area or the work space.
+  $1190 Point to the last location of the editing area.
+  $1194 Clear the carry flag.
 @ $1195 label=SET_DE
+  $1195 Point to the start of the editing area and return if in 'editing mode'.
+  $119E Otherwise change #REGde.
+  $11A2 Return if now intended.
+  $11A3 Fetch STKBOT and then return.
 @ $11A7 label=REMOVE_FP
 c $11A7 THE 'REMOVE-FP' SUBROUTINE
 @ $11AA keep
@@ -3554,7 +3575,22 @@ c $1F1A THE 'FREE MEMORY' SUBROUTINE
 @ $1F1A keep
 @ $1F23 label=RETURN
 c $1F23 THE 'RETURN' COMMAND ROUTINE
+D $1F23 The line number and the statement number that are to be made the object of a 'return' are fetched from the GO SUB stack.
+  $1F23 Fetch the address - #R$1B76.
+  $1F24 Fetch the 'error address'.
+  $1F25 Fetch the last entry on the GO SUB stack.
+  $1F26 The entry is tested to see if it is the GO SUB stack end marker.
+  $1F29 Jump if it is.
+  $1F2B The full entry uses three locations only.
+  $1F2C Exchange the statement number with the 'error address'.
+  $1F2D Move the statement number.
+  $1F2E Reset the error pointer.
+  $1F32 Replace the address #R$1B76.
+  $1F33 Jump back to change NEWPPC and NSPPC.
+N $1F36 Report 7 - RETURN without GOSUB.
 @ $1F36 label=REPORT_7
+  $1F36,2 Replace the end marker and the 'error address'.
+M $1F38,2 Call the error handling routine.
 B $1F39,1
 @ $1F3A label=PAUSE
 c $1F3A THE 'PAUSE' COMMAND ROUTINE
@@ -5496,7 +5532,21 @@ N $2BA3 The values that have been saved on the machine stack are restored.
 c $2BA6 THE 'L-ENTER' SUBROUTINE
 @ $2BAF label=L_ADD
 c $2BAF THE LET SUBROUTINE CONTINUES HERE
+D $2BAF When handling a 'complete and existing' simple string the new string is entered as if it were a 'newly declared' simple string before the existing version is 'reclaimed'.
+  $2BAF Make #REGhl point to the letter of the variable's name, i.e. DEST-3.
+  $2BB2 Pick up the letter.
+  $2BB3 Save the pointer to the 'existing version'.
+  $2BB4 Save the 'length' of the 'existing string'.
+  $2BB5 Use #R$2BC6 to add the new string to the variables area.
+  $2BB8 Restore the 'length'.
+  $2BB9 Restore the pointer.
+  $2BBA Allow one byte for the letter and two bytes for the length.
+  $2BBD Exit by jumping to #R$19E8 which will reclaim the whole of the existing version.
+N $2BC0 'Newly declared' simple strings are handled as follows:
 @ $2BC0 label=L_NEW
+  $2BC0 Prepare for the marking of the variable's letter.
+  $2BC2 Fetch the pointer to the letter.
+  $2BC5 Mark the letter as required. #R$2BC6 is now used to add the new string to the variables area.
 @ $2BC6 label=L_STRING
 c $2BC6 THE 'L-STRING' SUBROUTINE
 D $2BC6 The parameters of the 'new' string are fetched, sufficient room is made available for it and the string is then transferred.
@@ -6302,10 +6352,27 @@ N $3041 The full addition subroutine first calls #R$2F9B for each number, then g
   $30A6 Exit via #R$3155.
 @ $30A9 label=HL_HLxDE
 c $30A9 THE 'HL=HL*DE' SUBROUTINE
+D $30A9 This subroutine is called by #R$2AF4 and by #R$30CA to perform the 16-bit multiplication as stated.
+D $30A9 Any overflow of the 16 bits available is dealt with on return from the subroutine.
+  $30A9 #REGbc is saved.
+  $30AA It is to be a 16-bit multiplication.
+  $30AC #REGa holds the high byte.
+  $30AD #REGc holds the low byte.
 @ $30AE keep
+  $30AE Initialise the result to zero.
 @ $30B1 label=HL_LOOP
+  $30B1 Double the result.
+  $30B2 Jump if overflow.
+  $30B4 Rotate bit 7 of #REGc into the carry.
+  $30B6 Rotate the carry bit into bit 0 and bit 7 into the carry flag.
+  $30B7 Jump if the carry flag is reset.
+  $30B9 Otherwise add #REGde in once.
+  $30BA Jump if overflow.
 @ $30BC label=HL_AGAIN
+  $30BC Repeat until 16 passes have been made.
 @ $30BE label=HL_END
+  $30BE Restore #REGbc.
+  $30BF Finished.
 @ $30C0 label=PREP_M_D
 c $30C0 THE 'PREPARE TO MULTIPLY OR DIVIDE' SUBROUTINE
 @ $30CA label=multiply
