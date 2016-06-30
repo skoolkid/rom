@@ -76,7 +76,16 @@ c $0074 THE 'CH-ADD+1' SUBROUTINE
 @ $0078 label=TEMP_PTR2
 @ $007D label=SKIP_OVER
 c $007D THE 'SKIP-OVER' SUBROUTINE
+D $007D The value brought to the subroutine in the #REGa register is tested to see if it is printable. Various special codes lead to #REGhl being incremented once or twice, and CH-ADD amended accordingly.
+  $007D Return with the carry flag reset if ordinary character code.
+  $0080 Return if the end of the line has been reached.
+  $0083 Return with codes +00 to +0F but with carry set.
+  $0086 Return with codes +18 to +20 again with carry set.
+  $008A Skip over once.
+  $008B Jump forward with codes +10 to +15 (INK to OVER).
+  $008F Skip over once more (AT and TAB).
 @ $0090 label=SKIPS
+  $0090 Return with the carry flag set and CH-ADD holding the appropriate address.
 @ $0095 label=TOKENS
 t $0095 THE TOKEN TABLE
 D $0095 All the tokens used by the Spectrum are expanded by reference to this table. The last code of each token is 'inverted' by having its bit 7 set.
@@ -610,6 +619,7 @@ D $046E This table holds the frequencies of the twelve semi-tones in an octave.
   $04A5 493.88 Hz - B
 @ $04AA label=PROGNAME
 c $04AA THE 'PROGRAM NAME' SUBROUTINE (ZX81)
+D $04AA The following subroutine applies to the ZX81 and was not removed when the program was rewritten for the Spectrum.
 @ $04C2 nowarn
 @ $04C2 label=SA_BYTES
 c $04C2 THE 'SA-BYTES' SUBROUTINE
@@ -1967,6 +1977,9 @@ c $1076 THE 'ED-SYMBOL' SUBROUTINE
 @ $107C label=ED_GRAPH
 @ $107F label=ED_ERROR
 c $107F THE 'ED-ERROR' SUBROUTINE
+D $107F Come here when there has been some kind of error.
+  $107F Jump back if using other than channel 'K'.
+  $1085 Cancel the error number and give a 'rasp' before going around the editor again.
 @ $1097 label=CLEAR_SP
 c $1097 THE 'CLEAR-SP' SUBROUTINE
 @ $10A8 label=KEY_INPUT
@@ -2354,7 +2367,17 @@ B $160F,1
 @ $1610 label=CHAN_OP_1
 @ $1615 label=CHAN_FLAG
 c $1615 THE 'CHAN-FLAG' SUBROUTINE
+D $1615 The appropriate flags for the different channels are set by this subroutine.
+  $1615 The #REGhl register pair holds the base address for a particular channel.
+  $1618 Signal 'using other than channel 'K''.
+  $161C Step past the output and the input addresses and make #REGhl point to the channel code.
+  $1620 Fetch the code.
+  $1621 The base address of the #R$162D(channel code look-up table).
+  $1624 Index into this table and locate the required offset, but return if there is not a matching channel code.
+  $1628 Pass the offset to the #REGde register pair.
+  $162B,1 Point #REGhl at the appropriate flag setting routine.
 @ $162C label=CALL_JUMP
+  $162C Jump to the routine.
 @ $162D label=CHANCODE
 b $162D THE 'CHANNEL CODE LOOK-UP' TABLE
   $162D,2,T1:1 Channel 'K', offset +06 (#R$1634).
@@ -2456,9 +2479,21 @@ E $1716 Note: There is no end marker at the end of this table.
 c $171C THE 'CLOSE STREAM' SUBROUTINE
 @ $171E label=STR_DATA
 c $171E THE 'STREAM DATA' SUBROUTINE
+D $171E This subroutine returns in the #REGbc register pair the stream data for a given stream.
+  $171E The given stream number is taken off the calculator stack.
+  $1721 Give an error if the stream number is greater than +0F.
+N $1725 Report O - Invalid stream.
 @ $1725 label=REPORT_O_2
+M $1725,2 Call the error handling routine.
 B $1726,1
+N $1727 Continue with valid stream numbers.
 @ $1727 label=STR_DATA1
+  $1727 Range now +03 to +12.
+  $1729 And now +06 to +24.
+  $172A The base address of the stream data area.
+  $172D Move the stream code to the #REGbc register pair.
+  $1730 Index into the data area and fetch the the two data bytes into the #REGbc register pair.
+  $1734 Make the pointer address the first of the data bytes before returning.
 @ $1736 label=OPEN
 c $1736 THE 'OPEN#' COMMAND ROUTINE
 D $1736 This command allows the user to OPEN streams. A channel code must be supplied and it must be 'K', 'k', 'S', 's', 'P', or 'p'.
@@ -3499,7 +3534,17 @@ N $1EDC Continue with the CLEAR operation.
 E $1EAC Note: when the routine is called from #R$1EA1 the values of NEWPPC and NSPPC will have been affected and no statements coming after RUN can ever be found before the jump is taken.
 @ $1EED label=GO_SUB
 c $1EED THE 'GO SUB' COMMAND ROUTINE
+D $1EED The present value of PPC and the incremented value of SUBPPC are stored on the GO SUB stack.
+  $1EED Save the address - #R$1B76.
+  $1EEE Fetch the statement number and increment it.
+  $1EF2 Exchange the 'error address' with the statement number.
+  $1EF3 Reclaim the use of a location.
+  $1EF4 Next save the present line number.
+  $1EF9 Return the 'error address' to the machine stack and reset ERR-SP to point to it.
+  $1EFE Return the address #R$1B76.
+  $1EFF Now set NEWPPC and NSPPC to the required values.
 @ $1F02 keep
+  $1F02 But before making the jump make a test for room.
 @ $1F05 label=TEST_ROOM
 c $1F05 THE 'TEST-ROOM' SUBROUTINE
 @ $1F0C keep
