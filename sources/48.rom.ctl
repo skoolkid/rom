@@ -1815,6 +1815,15 @@ D $0E88 #LIST { For a given display area address the appropriate attribute addre
   $0E98 Move the result to the #REGbc register pair before returning.
 @ $0E9B label=CL_ADDR
 c $0E9B THE 'CL-ADDR' SUBROUTINE
+D $0E9B For a given line number, in the #REGb register, the appropriate display file address is formed in the #REGhl register pair.
+  $0E9B The line number has to be reversed.
+  $0E9E The result is saved in #REGd.
+  $0E9F In effect '(#REGa mod 8)*32'. In a 'third' of the display the low byte for the first line is +00, for the second line +20, etc.
+  $0EA4 The low byte goes into #REGl.
+  $0EA5 The true line number is fetched.
+  $0EA6 In effect '64+8*INT (#REGa/8)'. For the upper 'third' of the display the high byte is +40, for the middle 'third' +48, and for the lower 'third' +50.
+  $0EAA The high byte goes to #REGh.
+  $0EAB Finished.
 @ $0EAC label=COPY
 c $0EAC THE 'COPY' COMMAND ROUTINE
 D $0EAC The one hundred and seventy six pixel lines of the display are dealt with one by one.
@@ -2057,6 +2066,11 @@ D $107F Come here when there has been some kind of error.
   $1085 Cancel the error number and give a 'rasp' before going around the editor again.
 @ $1097 label=CLEAR_SP
 c $1097 THE 'CLEAR-SP' SUBROUTINE
+D $1097 The editing area or the work space is cleared as directed.
+  $1097 Save the pointer to the space.
+  $1098 #REGde will point to the first character and #REGhl the last.
+  $109C The correct amount is now reclaimed.
+  $109F The system variables K-CUR and MODE ('K mode') are initialised before fetching the pointer and returning.
 @ $10A8 label=KEY_INPUT
 c $10A8 THE 'KEYBOARD INPUT' SUBROUTINE
 D $10A8 This important subroutine returns the code of the last key to have been pressed, but note that CAPS LOCK, the changing of the mode and the colour control parameters are handled within the subroutine.
@@ -3253,6 +3267,12 @@ E $1A48 #LIST { #R$1C10 - No further operands. } { #R$1C1F - Used in LET. A vari
 W $1B15
 @ $1B17 label=LINE_SCAN
 c $1B17 THE 'MAIN PARSER' OF THE BASIC INTERPRETER
+D $1B17 The parsing routine of the BASIC interpreter is entered here when syntax is being checked, and at #R$1B8A when a BASIC program of one or more statements is to be executed.
+D $1B17 Each statement is considered in turn and the system variable CH-ADD is used to point to each code of the statement as it occurs in the program area or the editing area.
+  $1B17 Signal 'syntax checking'.
+  $1B1B CH-ADD is made to point to the first code after any line number.
+  $1B1E The system variable SUBPPC is initialised to +00 and ERR-NR to +FF.
+  $1B26 Jump forward to consider the first statement of the line.
 @ $1B28 label=STMT_LOOP
 c $1B28 THE STATEMENT LOOP
 D $1B28 Each statement is considered in turn until the end of the line is reached.
@@ -4219,7 +4239,14 @@ D $22AA This subroutine is called by #R$22CB and by #R$22DC. Is is entered with 
   $22C7,3 #REGa holds x mod 8, so the pixel is bit (#REGa-7) within the byte.
 @ $22CB label=POINT_SUB
 c $22CB THE 'POINT' SUBROUTINE
+D $22CB This subroutine is called from #R$267B. It is entered with the coordinates of a pixel on the calculator stack, and returns a last value of 1 if that pixel is ink colour, and 0 if it is paper colour.
+  $22CB y-coordinate to #REGb, x to #REGc.
+  $22CE Pixel address to #REGhl.
+  $22D1 #REGb will count #REGa+1 loops to get the wanted bit of (#REGhl) to location 0.
 @ $22D4 label=POINT_LP
+  $22D4 The shifts.
+  $22D7 The bit is 1 for ink, 0 for paper.
+  $22D9 It is put on the calculator stack.
 @ $22DC label=PLOT
 c $22DC THE 'PLOT' COMMAND ROUTINE
 D $22DC This routine consists of a main subroutine plus one line to call it and one line to exit from it. The main routine is used twice by #R$2320 and the subroutine is called by #R$24B7. The routine is entered with the coordinates of a pixel on the calculator stack. It finds the address of that pixel and plots it, taking account of the status of INVERSE and OVER held in the P-FLAG.
@@ -5804,6 +5831,20 @@ D $2BC6 The parameters of the 'new' string are fetched, sufficient room is made 
 c $2BEA THE 'L-FIRST' SUBROUTINE
 @ $2BF1 label=STK_FETCH
 c $2BF1 THE 'STK-FETCH' SUBROUTINE
+D $2BF1 This important subroutine collects the 'last value' from the calculator stack. The five bytes can be either a floating-point number, in 'short' or 'long' form, or set of parameters that define a string.
+  $2BF1 Get STKEND.
+  $2BF4 Back one.
+  $2BF5 The fifth value.
+  $2BF6 Back one.
+  $2BF7 The fourth value.
+  $2BF8 Back one.
+  $2BF9 The third value.
+  $2BFA Back one.
+  $2BFB The second value.
+  $2BFC Back one.
+  $2BFD The first value.
+  $2BFE Reset STKEND to its new position.
+  $2C01 Finished.
 @ $2C02 label=DIM
 c $2C02 THE 'DIM' COMMAND ROUTINE
 D $2C02 This routine establishes new arrays in the variables area. The routine starts by searching the existing variables area to determine whether there is an existing array with the same name. If such an array is found then it is 'reclaimed' before the new array is established.
