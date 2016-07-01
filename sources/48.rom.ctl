@@ -1537,7 +1537,16 @@ N $0C2D Now consider whether a 'trailing space' is required.
 c $0C3B THE 'PO-SAVE' SUBROUTINE
 @ $0C41 label=PO_SEARCH
 c $0C41 THE 'TABLE SEARCH' SUBROUTINE
+D $0C41 The subroutine returns with the #REGde register pair pointing to the initial character of the required entry and the carry flag reset if a 'leading space' is to be considered.
+  $0C41 Save the 'entry number'.
+  $0C42 #REGhl now holds the base address.
+  $0C43 Compensate for the 'DEC A' below.
 @ $0C44 label=PO_STEP
+  $0C44 Wait for an 'inverted character'.
+  $0C49 Count through the entries until the correct one is found.
+  $0C4C #REGde points to the initial character.
+  $0C4D Fetch the 'entry number' and return with carry set for the first thirty two entries.
+  $0C51,4,1,c2,1 However if the intial character is a letter then a leading space may be needed.
 @ $0C55 label=PO_SCR
 c $0C55 THE 'TEST FOR SCROLL' SUBROUTINE
 D $0C55 This subroutine is called whenever there might be the need to scroll the display. This occurs on three occasions:
@@ -1957,7 +1966,12 @@ D $0FA9 When in 'editing mode' pressing the EDIT key will bring down the 'curren
   $0FEE Fetch the former channel address and set the appropriate flags before returning to #R$0F38.
 @ $0FF3 label=ED_DOWN
 c $0FF3 THE 'CURSOR DOWN EDITING' SUBROUTINE
+  $0FF3 Jump forward if in 'INPUT mode'.
+  $0FF9 This is E-PPC.
+  $0FFC The next line number is found and a new automatic listing produced.
 @ $1001 label=ED_STOP
+  $1001 'STOP in INPUT' report.
+  $1005 Jump forward.
 @ $1007 label=ED_LEFT
 c $1007 THE 'CURSOR LEFT EDITING' SUBROUTINE
 @ $100C label=ED_RIGHT
@@ -2402,9 +2416,20 @@ c $15EF THE 'MAIN PRINTING' SUBROUTINE
 @ $15F7 label=CALL_SUB
 @ $1601 label=CHAN_OPEN
 c $1601 THE 'CHAN-OPEN' SUBROUTINE
+D $1601 This subroutine is called with the #REGa register holding a valid stream number - normally +FD to +03.  Then depending on the stream data a particular channel will be made the current channel.
+  $1601 The value in the #REGa register is doubled and then increased by +16.  The result is moved to #REGl.
+  $1605 The address 5C16 is the base address for stream +00.
+  $1607 Fetch the first two bytes of the required stream's data.
+  $160A Give an error if both bytes are zero; otherwise jump forward.
+N $160E Report O - Invalid stream.
 @ $160E label=REPORT_O
+M $160E,2 Call the error handling routine.
 B $160F,1
+N $1610 Using the stream data now find the base address of the channel information associated with that stream.
 @ $1610 label=CHAN_OP_1
+  $1610 Reduce the stream data.
+  $1611 The base address of the whole channel information area.
+  $1614 Form the required address in this area.
 @ $1615 label=CHAN_FLAG
 c $1615 THE 'CHAN-FLAG' SUBROUTINE
 D $1615 The appropriate flags for the different channels are set by this subroutine.
@@ -3190,15 +3215,37 @@ N $1B52 Each of the command class routines applicable to the present command is 
 c $1B6F THE 'SEPARATOR' SUBROUTINE
 @ $1B76 label=STMT_RET
 c $1B76 THE 'STMT-RET' SUBROUTINE
+D $1B76 After the correct interpretation of a statement a return is made to this entry point.
+  $1B76 The BREAK key is tested after every statement.
+  $1B79 Jump forward unless it has been pressed.
+N $1B7B Report L - BREAK into program.
 @ $1B7B label=REPORT_L
+M $1B7B,2 Call the error handling routine.
 B $1B7C,1
+N $1B7D Continue here as the BREAK key was not pressed.
 @ $1B7D label=STMT_R_1
+  $1B7D Jump forward if there is not a 'jump' to be made.
+  $1B83 Fetch the 'new line' number and jump forward unless dealing with a further statement in the editing area.
 @ $1B8A label=LINE_RUN
 c $1B8A THE 'LINE-RUN' ENTRY POINT
+D $1B8A This entry point is used wherever a line in the editing area is to be 'run'. In such a case the syntax/run flag (bit 7 of FLAGS) will be set.
+D $1B8A The entry point is also used in the syntax checking of a line in the editing area that has more than one statement (bit 7 of FLAGS will be reset).
+  $1B8A A line in the editing area is considered as line '-2'.
+  $1B90 Make #REGhl point to the end marker of the editing area and #REGde to the location before the start of that area.
+  $1B99 Fetch the number of the next statement to be handled before jumping forward.
 @ $1B9E label=LINE_NEW
 c $1B9E THE 'LINE-NEW' SUBROUTINE
+D $1B9E There has been a jump in the program and the starting address of the new line has to be found.
+  $1B9E The starting address of the line, or the 'first line after' is found.
+  $1BA1 Collect the statement number.
+  $1BA4 Jump forward if the required line was found; otherwise check the validity of the statement number - must be zero.
+  $1BA9 Also check that the 'first line after' is not after the actual 'end of program'.
+  $1BAE Jump forward with valid addresses; otherwise signal the error 'OK'.
+N $1BB0 Report 0 - OK.
 @ $1BB0 label=REPORT_0
+M $1BB0,2 Use the error handling routine.
 B $1BB1,1
+E $1B9E Note: obviously not an error in the normal sense - but rather a jump past the program.
 @ $1BB2 label=REM
 c $1BB2 THE 'REM' COMMAND ROUTINE
 @ $1BB3 label=LINE_END
