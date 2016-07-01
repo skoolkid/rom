@@ -2039,7 +2039,11 @@ c $1015 THE 'DELETE EDITING' SUBROUTINE
 c $101E THE 'ED-IGNORE' SUBROUTINE
 @ $1024 label=ED_ENTER
 c $1024 THE 'ENTER EDITING' SUBROUTINE
+  $1024 The addresses of #R$0F38 and #R$107F are discarded.
 @ $1026 label=ED_END
+  $1026 The old value of ERR-SP is restored.
+  $102A Now return if there were no errors.
+  $102F Otherwise make an indirect jump to the error routine.
 @ $1031 label=ED_EDGE
 c $1031 THE 'ED-EDGE' SUBROUTINE
 D $1031 The address of the cursor is in the #REGhl register pair and will be decremented unless the cursor is already at the start of the line. Care is taken not to put the cursor between control characters and their parameters.
@@ -3417,7 +3421,11 @@ B $1BED,1
 c $1BEE THE 'CHECK-END' SUBROUTINE
 @ $1BF4 label=STMT_NEXT
 c $1BF4 THE 'STMT-NEXT' ROUTINE
-  $1BF9,c2
+D $1BF4 If the present character is a 'carriage return' then the 'next statement' is on the 'next line'; if ':' it is on the same line; but if any other character is found then there is an error in syntax.
+  $1BF4 Fetch the present character.
+  $1BF5 Consider the 'next line' if it is a 'carriage return'.
+  $1BF9,5,c2,3 Consider the 'next statement' if it is a ':'.
+  $1BFE Otherwise there has been a syntax error.
 @ $1C01 label=CMDCLASS
 b $1C01 THE 'COMMAND CLASS' TABLE
   $1C01 #R$1C10
@@ -3485,6 +3493,10 @@ D $1C56 The main entry point is used by LET and READ and considers FLAGS, wherea
   $1C66 Jump forward to make the actual assignment unless checking syntax (in which case simply return).
 @ $1C6C label=CLASS_04
 c $1C6C THE 'COMMAND CLASS 04' ROUTINE
+D $1C6C The command class 04 entry point is used by FOR and NEXT statements.
+  $1C6C Look in the variables area for the variable being used.
+  $1C6F Save the #REGaf register pair whilst the discriminator byte is tested to ensure that the variable is a FOR-NEXT control variable.
+  $1C76 Restore the flags register and jump to make the variable that has been found the 'variable in assignment'.
 @ $1C79 label=NEXT_2NUM
 c $1C79 THE 'EXPECT NUMERIC/STRING EXPRESSIONS' SUBROUTINE
 D $1C79 There is a series of short subroutines that are used to fetch the result of evaluating the next expression. The result from a single expression is returned as a 'last value' on the calculator stack.
@@ -3752,7 +3764,13 @@ c $1E39 THE 'PASS-BY' SUBROUTINE
 @ $1E3C keep
 @ $1E42 label=RESTORE
 c $1E42 THE 'RESTORE' COMMAND ROUTINE
+D $1E42 The operand for a RESTORE command is taken as a line number, zero being used if no operand is given.
+  $1E42 Compress the operand into the #REGbc register pair.
 @ $1E45 label=REST_RUN
+  $1E45 Transfer the result to the #REGhl register pair.
+  $1E47 Now find the address of that line or the 'first line after'.
+  $1E4A Make DATADD point to the location before.
+  $1E4E Return once it is done.
 @ $1E4F label=RANDOMIZE
 c $1E4F THE 'RANDOMIZE' COMMAND ROUTINE
 D $1E4F The operand is compressed into the #REGbc register pair and transferred to the required system variable. However if the operand is zero the value in FRAMES1 and FRAMES2 is used instead.
@@ -3788,9 +3806,17 @@ D $1E85 The topmost parameter on the calculator stack must be compressible into 
   $1E92 The first parameter is restored before returning.
 @ $1E94 label=FIND_INT1
 c $1E94 THE 'FIND INTEGERS' SUBROUTINE
+D $1E94 The 'last value' on the calculator stack is fetched and compressed into a single register or a register pair by entering at #R$1E94 and #R$1E99 respectively.
+  $1E94 Fetch the 'last value'.
+  $1E97 Jump forward.
 @ $1E99 label=FIND_INT2
+  $1E99 Fetch the 'last value'.
 @ $1E9C label=FIND_I_1
+  $1E9C In both cases overflow is indicated by a set carry flag.
+  $1E9E Return with all positive numbers that are in range.
+N $1E9F Report B - Integer out of range.
 @ $1E9F label=REPORT_B_2
+M $1E9F,2 Call the error handling routine.
 B $1EA0,1
 @ $1EA1 label=RUN
 c $1EA1 THE 'RUN' COMMAND ROUTINE
@@ -4323,6 +4349,16 @@ D $22DC This routine consists of a main subroutine plus one line to call it and 
   $2304 Exit, setting attribute byte.
 @ $2307 label=STK_TO_BC
 c $2307 THE 'STK-TO-BC' SUBROUTINE
+D $2307 This subroutine loads two floating point numbers into the #REGbc register pair. It is thus used to pick up parameters in the range +00 to +FF. It also obtains in #REGde the 'diagonal move' values (+/-1,+/-1) which are used in #R$24B7.
+  $2307 First number to #REGa.
+  $230A Hence to #REGb.
+  $230B Save it briefly.
+  $230C Second number to #REGa.
+  $230F Its sign indicator to #REGe.
+  $2310 Restore first number.
+  $2311 Its signs indicator to #REGd.
+  $2312 Second number to #REGc.
+  $2313 #REGbc, #REGde are now as required.
 @ $2314 label=STK_TO_A
 c $2314 THE 'STK-TO-A' SUBROUTINE
 @ $2320 label=CIRCLE
@@ -6174,6 +6210,21 @@ B $2D7D,1 #R$369B
   $2D7E
 @ $2D7F label=INT_FETCH
 c $2D7F THE 'INT-FETCH' SUBROUTINE
+D $2D7F This subroutine collects in #REGde a small integer n (-65535<=n<=65535) from the location addressed by #REGhl, i.e. n is normally the first (or second) number at the top of the calculator stack; but #REGhl can also access (by exchange with #REGde) a number which has been deleted from the stack.
+D $2D7F The subroutine does not itself delete the number from the stack or from memory; it returns #REGhl pointing to the fourth byte of the number in its original position.
+  $2D7F Point to the sign byte of the number.
+  $2D80 Copy the sign byte to #REGc.
+N $2D81 The following mechanism will two's complement the number if it is negative (#REGc is FF) but leave it unaltered if it is positive (#REGc is 00).
+  $2D81 Point to the less significant byte.
+  $2D82 Collect the byte in #REGa.
+  $2D83 One's complement it if negative.
+  $2D84 This adds 1 for negative numbers; it sets the carry unless the byte was 0.
+  $2D85 Less significant byte to #REGe now.
+  $2D86 Point to the more significant byte.
+  $2D87 Collect it in #REGa.
+  $2D88 Finish two's complementing in the case of a negative number; note that the carry is always left reset.
+  $2D8A More significant byte to #REGd now.
+  $2D8B Finished.
 @ $2D8C label=P_INT_STO
 c $2D8C THE 'INT-STORE' SUBROUTINE
 D $2D8C This subroutine stores a small integer n (-65535<=n<=65535) in the location addressed by #REGhl and the four following locations, i.e. n replaces the first (or second) number at the top of the calculator stack. The subroutine returns #REGhl pointing to the first byte of n on the stack.
@@ -7253,7 +7304,18 @@ D $342D This subroutine is called using the literals C0 to C5 and the parameter 
 E $342D Note that the pointers #REGhl and #REGde remain as they were, pointing to STKEND-5 and STKEND respectively, so that the 'last value' remains on the calculator stack. If required it can be removed by using #R$33A1.
 @ $343C label=EXCHANGE
 c $343C THE 'EXCHANGE' SUBROUTINE
+D $343C This binary operation 'exchanges' the first number with the second number, i.e. the topmost two numbers on the calculator stack are exchanged.
+  $343C There are five bytes involved.
 @ $343E label=SWAP_BYTE
+  $343E Each byte of the second number.
+  $343F Each byte of the first number.
+  $3440 Switch source and destination.
+  $3441 Now to the first number.
+  $3442 Now to the second number.
+  $3443 Move to consider the next pair of bytes.
+  $3445 Exchange the five bytes.
+  $3447 Get the pointers correct as 5 is an odd number.
+  $3448 Finished.
 @ $3449 label=series_06
 c $3449 THE 'SERIES GENERATOR' SUBROUTINE
 D $3449 This important subroutine generates the series of Chebyshev polynomials which are used to approximate to SIN, ATN, LN and EXP and hence to derive the other arithmetic functions which depend on these (COS, TAN, ASN, ACS, ** and SQR).
