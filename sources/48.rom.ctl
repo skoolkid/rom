@@ -1307,7 +1307,13 @@ D $0A23 The subroutine is entered with the #REGb register holding the current li
   $0A3A Make an indirect return via #R$0DD9 and #R$0ADC.
 @ $0A3D label=PO_RIGHT
 c $0A3D THE 'CURSOR RIGHT' SUBROUTINE
-  $0A45,c2
+D $0A3D This subroutine performs an operation identical to the BASIC statement 'PRINT OVER 1;CHR$ 32;'.
+  $0A3D Fetch P-FLAG and save it on the machine stack.
+  $0A41 Set P-FLAG to OVER 1.
+  $0A45,c2 A 'space'.
+  $0A47 Print the character.
+  $0A4A Fetch the old value of P-FLAG.
+  $0A4E Finished. Note: the programmer has forgotten to exit via #R$0ADC.
 @ $0A4F label=PO_ENTER
 c $0A4F THE 'CARRIAGE RETURN' SUBROUTINE
 @ $0A5F label=PO_COMMA
@@ -1834,8 +1840,19 @@ N $0EBF For each new line of characters the base address has to be updated.
   $0ECB Jump forward to the end routine.
 @ $0ECD label=COPY_BUFF
 c $0ECD THE 'COPY-BUFF' SUBROUTINE
+D $0ECD This subroutine is called whenever the printer buffer is to have its contents passed to the printer.
+  $0ECD Disable the maskable interrupt.
+  $0ECE The base address of the printer buffer.
+  $0ED1 There are eight pixel lines.
 @ $0ED3 label=COPY_3
+  $0ED3 Save the line number.
+  $0ED4 Print the line.
+  $0ED7 Fetch the line number.
+  $0ED8 Jump back until 8 lines have been printed.
+N $0EDA Continue into the #R$0EDA routine.
 @ $0EDA label=COPY_END
+  $0EDA Stop the printer motor.
+  $0EDE Enable the maskable interrupt and continue into #R$0EDF.
 @ $0EDF label=CLEAR_PRB
 c $0EDF THE 'CLEAR PRINTER BUFFER' SUBROUTINE
 D $0EDF The printer buffer is cleared by calling this subroutine.
@@ -2416,15 +2433,35 @@ D $15C6 Initially there are seven streams - +FD to +03.
   $15D2,2 Leads to channel 'P' (printer)
 @ $15D4 label=WAIT_KEY
 c $15D4 THE 'WAIT-KEY' SUBROUTINE
+B $15E5,1
+D $15D4 This subroutine is the controlling subroutine for calling the current input subroutine.
+  $15D4 Jump forward if the flag indicates the lower screen does not require clearing.
+  $15DA Otherwise signal 'consider the mode as having changed'.
 @ $15DE label=WAIT_KEY1
+  $15DE Call the input subroutine indirectly via #R$15E6.
+  $15E1 Return with acceptable codes.
+  $15E2 Both the carry flag and the zero flag are reset if 'no key is being pressed'; otherwise signal an error.
+N $15E4 Report 8 - End of file.
 @ $15E4 label=REPORT_8
+M $15E4,2 Call the error handling routine.
 B $15E5,1
 @ $15E6 label=INPUT_AD
 c $15E6 THE 'INPUT-AD' SUBROUTINE
 @ $15EF label=OUT_CODE
 c $15EF THE 'MAIN PRINTING' SUBROUTINE
+D $15EF The subroutine is called with either an absolute value or a proper character code in the #REGa register.
+  $15EF Increase the value in the #REGa register by +30.
 @ $15F2 label=PRINT_A_2
+  $15F2 Save the registers.
+  $15F4 Fetch the base address for the current channel. This will point to an output address.
+N $15F7 Now call the actual subroutine. #REGhl points to the output or the input address as directed.
 @ $15F7 label=CALL_SUB
+  $15F7 Fetch the low byte.
+  $15F8 Fetch the high byte.
+  $15FA Move the address to the #REGhl register pair.
+  $15FB Call the actual subroutine.
+  $15FE Restore the registers.
+  $1600 Return will be from here unless an error occurred.
 @ $1601 label=CHAN_OPEN
 c $1601 THE 'CHAN-OPEN' SUBROUTINE
 D $1601 This subroutine is called with the #REGa register holding a valid stream number - normally +FD to +03.  Then depending on the stream data a particular channel will be made the current channel.
@@ -2470,7 +2507,19 @@ c $164D THE 'CHANNEL 'P' FLAG' SUBROUTINE
 @ $1652 keep
 @ $1652 label=ONE_SPACE
 c $1652 THE 'MAKE-ROOM' SUBROUTINE
+D $1652 This is a very important subroutine.  It is called on many occasions to 'open up' an area.  In all cases the #REGhl register pair points to the location after the place where 'room' is required and the #REGbc register pair holds the length of the 'room' needed.  When a single space only is required then the subroutine is entered at #R$1652.
+  $1652 Just the single extra location is required.
 @ $1655 label=MAKE_ROOM
+  $1655 Save the pointer.
+  $1656 Make sure that there is sufficient memory available for the task being undertaken.
+  $1659 Restore the pointer.
+  $165A Alter all the pointers before making the 'room'.
+  $165D Make #REGhl hold the new STKEND.
+  $1660 Switch 'old' and 'new'.
+  $1661 Now make the 'room' and return.
+E $1652 Note: this subroutine returns with the #REGhl register pair pointing to the location before the new 'room' and the #REGde register pair pointing to the last of the new locations. The new 'room' therefore has the description '(#REGhl)+1' to '(#REGde)' inclusive.
+E $1652 However as the 'new locations' still retain their 'old values' it is also possible to consider the new 'room' as having been made after the original location '(#REGhl)' and it thereby has the description '(#REGhl)+2' to '(#REGde)+1'.
+E $1652 In fact the programmer appears to have a preference for the 'second description' and this can be confusing.
 @ $1664 label=POINTERS
 c $1664 THE 'POINTERS' SUBROUTINE
 D $1664 Whenever an area has to be 'made' or 'reclaimed' the system variables that address locations beyond the 'position' of the change have to be amended as required. On entry the #REGbc register pair holds the number of bytes involved and the #REGhl register pair addresses the location before the 'position'.
@@ -2504,6 +2553,18 @@ B $168F,2
 @ $1695 label=LINE_NO
 @ $169E label=RESERVE
 c $169E THE 'RESERVE' SUBROUTINE
+D $169E This subroutine is normally called by using #R$0030.
+D $169E On entry here the last value on the machine stack is WORKSP and the value above it is the number of spaces that are to be 'reserved'.
+D $169E This subroutine always makes 'room' between the existing work space and the calculator stack.
+  $169E Fetch the current value of STKBOT and decrement it to get the last location of the work space.
+  $16A2 Now make '#REGbc spaces'.
+  $16A5 Point to the first new space and then the second.
+  $16A7 Fetch the old value of WORKSP and restore it.
+  $16AC Restore #REGbc - number of spaces.
+  $16AD Switch the pointers.
+  $16AE Make #REGhl point to the first of the displaced bytes.
+  $16AF Now return.
+E $169E Note: it can also be considered that the subroutine returns with the #REGde register pair pointing to a 'first extra byte' and the #REGhl register pair pointing to a 'last extra byte', these extra bytes having been added after the original '(#REGhl)+1' location.
 @ $16B0 label=SET_MIN
 c $16B0 THE 'SET-MIN' SUBROUTINE
 D $16B0 This subroutine resets the editing area and the areas after it to their minimum sizes. In effect it 'clears' the areas.
@@ -2844,7 +2905,15 @@ E $1925 Note: it is the consequence of the tests on the present character that d
 E $1925 Also note how the program does not cater for ':' in REM statements.
 @ $196E label=LINE_ADDR
 c $196E THE 'LINE-ADDR' SUBROUTINE
+D $196E For a given line number, in the #REGhl register pair, this subroutine returns the starting address of that line or the 'first line after', in the #REGhl register pair, and the start of the previous line in the #REGde register pair.
+D $196E If the line number is being used the zero flag will be set.  However if the 'first line after' is substituted then the zero flag is returned reset.
+  $196E Save the given line number.
+  $196F Fetch the system variable PROG and transfer the address to the #REGde register pair.
+N $1974 Now enter a loop to test the line number of each line of the program against the given line number until the line number is matched or exceeded.
 @ $1974 label=LINE_AD_1
+  $1974 The given line number.
+  $1975 Compare the given line number against the addressed line number.  Return if carry reset; otherwise address the next line's number.
+  $197D Switch the pointers and jump back to consider the next line of the program.
 @ $1980 label=CP_LINES
 c $1980 THE 'COMPARE LINE NUMBERS' SUBROUTINE
 @ $1988 label=FIND_EACH
@@ -3263,6 +3332,13 @@ c $1BB2 THE 'REM' COMMAND ROUTINE
 c $1BB3 THE 'LINE-END' ROUTINE
 @ $1BBF label=LINE_USE
 c $1BBF THE 'LINE-USE' ROUTINE
+D $1BBF This short routine has three functions:
+D $1BBF #LIST { Change statement zero to statement '1'. } { Find the number of the new line and enter it into PPC. } { Form the address of the start of the line after. } LIST#
+  $1BBF Statement zero becomes statement '1'.
+  $1BC3 The line number of the line to be used is collected and passed to PPC.
+  $1BCA Now find the 'length' of the line.
+  $1BCE Switch over the values.
+  $1BCF Form the address of the start of the line after in #REGhl and the location before the 'next' line's first character in #REGde.
 @ $1BD1 label=NEXT_LINE
 c $1BD1 THE 'NEXT-LINE' ROUTINE
 D $1BD1 On entry the #REGhl register pair points to the location after the end of the 'next' line to be handled and the #REGde register pair to the location before the first character of the line. This applies to lines in the program area and also to a line in the editing area - where the next line will be the same line again whilst there are still statements to be interpreted.
@@ -3602,9 +3678,17 @@ N $1E0A Continue - picking up a value from the DATA list.
   $1E21 If it is then jump back as there are further items; otherwise return via either #R$1BEE (if checking syntax) or the RET instruction (to #R$1B76).
 @ $1E27 label=DATA
 c $1E27 THE 'DATA' COMMAND ROUTINE
+D $1E27 During syntax checking a DATA statement is checked to ensure that it contains a series of valid expressions, separated by commas. But in 'run-time' the statement is passed by.
+  $1E27 Jump forward unless checking syntax.
+N $1E2C A loop is now entered to deal with each expression in the DATA statement.
 @ $1E2C label=DATA_1
-  $1E2F,c2
+  $1E2C Scan the next expression.
+  $1E2F,c2 Check for a comma separator.
+  $1E31 Move on to the next statement if not matched.
+  $1E34 Whilst there are still expressions to be checked go around the loop.
+N $1E37 The DATA statement has to be passed by in 'run-time'.
 @ $1E37 label=DATA_2
+  $1E37 It is a 'DATA' statement that is to be passed by.
 @ $1E39 label=PASS_BY
 c $1E39 THE 'PASS-BY' SUBROUTINE
 @ $1E3C keep
@@ -7011,6 +7095,15 @@ c $3406 THE 'MEMORY LOCATION' SUBROUTINE
 c $340F THE 'GET FROM MEMORY AREA' SUBROUTINE
 @ $341B label=stk_zero_2
 c $341B THE 'STACK A CONSTANT' SUBROUTINE
+D $341B This subroutine uses #R$33F7 to find the base address of the requested constants from the calculator's table of constants and then calls #R$33C8 to make the expanded form of the constant the 'last value' on the calculator stack.
+  $341B Set #REGhl to hold the result pointer.
+  $341D Go to the alternate register set and save the next literal pointer.
+  $341F The base address of the calculator's table of constants.
+  $3422 Back to the main set of registers.
+  $3423 Find the requested base address.
+  $3426 Expand the constant.
+  $3429 Restore the next literal pointer.
+  $342C Finished.
 @ $342D label=st_mem_0
 c $342D THE 'STORE IN MEMORY AREA' SUBROUTINE
 @ $343C label=EXCHANGE
