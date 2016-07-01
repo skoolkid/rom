@@ -2555,7 +2555,10 @@ c $1634 THE 'CHANNEL 'K' FLAG' SUBROUTINE
   $1640 Jump forward.
 @ $1642 label=CHAN_S
 c $1642 THE 'CHANNEL 'S' FLAG' SUBROUTINE
+  $1642 Signal 'using main screen'.
 @ $1646 label=CHAN_S_1
+  $1646 Signal 'printer not being used'.
+  $164A Exit via #R$0D4D so as to set the colour system variables.
 @ $164D label=CHAN_P
 c $164D THE 'CHANNEL 'P' FLAG' SUBROUTINE
 @ $1652 keep
@@ -2877,6 +2880,11 @@ N $18B4 The line has now been printed.
   $18B4 Restore the #REGde register pair and return.
 @ $18B6 label=NUMBER
 c $18B6 THE 'NUMBER' SUBROUTINE
+D $18B6 If the #REGa register holds the 'number marker' then the #REGhl register pair is advanced past the floating-point form.
+  $18B6 Is the character a 'number marker'?
+  $18B8 Return if not.
+  $18B9 Advance the pointer six times so as to step past the 'number marker' and the five locations holding the floating-point form.
+  $18BF Fetch the current code before returning.
 @ $18C1 label=OUT_FLASH
 c $18C1 THE 'PRINT A FLASHING CHARACTER' SUBROUTINE
 D $18C1 The 'error cursor' and the 'mode cursors' are printed using this subroutine.
@@ -3829,7 +3837,11 @@ M $1E9F,2 Call the error handling routine.
 B $1EA0,1
 @ $1EA1 label=RUN
 c $1EA1 THE 'RUN' COMMAND ROUTINE
+D $1EA1 The parameter of the RUN command is passed to NEWPPC by calling #R$1E67. The operations of 'RESTORE 0' and 'CLEAR 0' are then performed before a return is made.
+  $1EA1 Set NEWPPC as required.
 @ $1EA4 keep
+  $1EA4 Now perform a 'RESTORE 0'.
+  $1EAA Exit via the #R$1EAC command routine.
 @ $1EAC label=CLEAR
 c $1EAC THE 'CLEAR' COMMAND ROUTINE
 D $1EAC This routine allows for the variables area to be cleared, the display area cleared and RAMTOP moved. In consequence of the last operation the machine stack is rebuilt thereby having the effect of also clearing the GO SUB stack.
@@ -4203,7 +4215,9 @@ M $21D4,2 Call the error handling routine.
 B $21D5,1
 @ $21D6 label=IN_CHAN_K
 c $21D6 THE 'IN-CHAN-K' SUBROUTINE
-  $21DE,c2
+D $21D6 This subroutine returns with the zero flag reset only if channel 'K' is being used.
+  $21D6,10,8,c2 The base address of the channel information for the current channel is fetched and the channel code compared to the character 'K'.
+  $21E0 Return afterwards.
 @ $21E1 label=CO_TEMP_1
 c $21E1 THE 'COLOUR ITEM' ROUTINES
 D $21E1 This set of routines can be readily divided into two parts:
@@ -5776,6 +5790,12 @@ N $2AEB Restore the registers before returning.
 c $2AEE THE 'DE,(DE+1)' SUBROUTINE
 @ $2AF4 label=GET_HLxDE
 c $2AF4 THE 'GET-HL*DE' SUBROUTINE
+D $2AF4 Unless syntax is being checked this subroutine calls #R$30A9 which performs the implied construction.
+D $2AF4 Overflow of the 16 bits available in the #REGhl register pair gives the report 'out of memory'. This is not exactly the true situation but it implies that the memory is not large enough for the task envisaged by the programmer.
+  $2AF4 Return directly if syntax is being checked.
+  $2AF8 Perform the multiplication.
+  $2AFB Report 'Out of memory'.
+  $2AFE Finished.
 @ $2AFF label=LET
 c $2AFF THE 'LET' COMMAND ROUTINE
 D $2AFF This is the actual assignment routine for the LET, READ and INPUT commands.
@@ -6688,7 +6708,19 @@ D $2FDD This subroutine shifts a floating-point number up to 32 places right to 
   $3003 Finished.
 @ $3004 label=ADD_BACK
 c $3004 THE 'ADD-BACK' SUBROUTINE
+D $3004 This subroutine adds back into the number any carry which has overflowed to the right. In the extreme case, the carry ripples right back to the left of the number.
+D $3004 When this subroutine is called during addition, this ripple means that a mantissa of 0.5 was shifted a full 32 places right, and the addend will now be set to zero; when called from #R$30CA, it means that the exponent must be incremented, and this may result in overflow.
+  $3004 Add carry to rightmost byte.
+  $3005 Return if no overflow to left.
+  $3006 Continue to the next byte.
+  $3007 Return if no overflow to left.
+  $3008 Get the next byte.
+  $3009 Increment it too.
+  $300A Jump if no overflow.
+  $300C Increment the last byte.
 @ $300D label=ALL_ADDED
+  $300D Restore the original registers.
+  $300E Finished.
 @ $300F label=SUBTRACT
 c $300F THE 'SUBTRACTION' OPERATION
 @ $3014 label=addition
@@ -7254,7 +7286,15 @@ E $335B The single RET instruction thereby leads to the first number being consi
 c $33A2 THE 'SINGLE OPERATION' SUBROUTINE
 @ $33A9 label=TEST_5_SP
 c $33A9 THE 'TEST 5-SPACES' SUBROUTINE
+D $33A9 This subroutine tests whether there is sufficient room in memory for another 5-byte floating-point number to be added to the calculator stack.
+  $33A9 Save #REGde briefly.
+  $33AA Save #REGhl briefly.
 @ $33AB keep
+  $33AB Specify the test is for 5 bytes.
+  $33AE Make the test.
+  $33B1 Restore #REGhl.
+  $33B2 Restore #REGde.
+  $33B3 Finished.
 @ $33B4 label=STACK_NUM
 c $33B4 THE 'STACK NUMBER' SUBROUTINE
 D $33B4 This subroutine is called by #R$03F8, #R$25AF and #R$26C9 to copy STKEND to #REGde, move a floating-point number to the calculator stack, and reset STKEND from #REGde. It calls #R$33C0 to do the actual move.
@@ -7672,7 +7712,12 @@ D $3645 This subroutine is called via the calculator offset (+5A) through the fi
   $3666 Exit, setting the pointers.
 @ $3669 label=code
 c $3669 THE 'CODE' FUNCTION
+D $3669 This subroutine handles the function CODE A$ and returns the Spectrum code of the first character in A$, or zero if A$ is null.
+  $3669 The parameters of the string are fetched.
+  $366C The length is tested and the #REGa register holding zero is carried forward if A$ is a null string.
+  $3670 The code of the first character is put into #REGa otherwise.
 @ $3671 label=STK_CODE
+  $3671 The subroutine exits via #R$2D28 which gives the correct 'last value'.
 @ $3674 label=len
 c $3674 THE 'LEN' FUNCTION
 @ $367A label=dec_jr_nz
