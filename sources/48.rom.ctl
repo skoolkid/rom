@@ -1796,6 +1796,17 @@ N $0E6E Next the attribute bytes are set as required. The value in ATTR-P will b
   $0E85 Set the column number to the lefthand column and return.
 @ $0E88 label=CL_ATTR
 c $0E88 THE 'CL-ATTR' SUBROUTINE
+D $0E88 This subroutine has two separate functions.
+D $0E88 #LIST { For a given display area address the appropriate attribute address is returned in the #REGde register pair. Note that the value on entry points to the 'ninth' line of a character. } { For a given line number, in the #REGb register, the number of character areas in the display from the start of that line onwards is returned in the #REGbc register pair. } LIST#
+  $0E88 Fetch the high byte.
+  $0E89 Multiply this value by thirty two.
+  $0E8C Go back to the 'eight' line.
+  $0E8D Address the attribute area.
+  $0E8F Restore to the high byte and transfer the address to #REGde.
+  $0E91 This is always zero.
+  $0E92 The line number.
+  $0E93 Multiply by thirty two.
+  $0E98 Move the result to the #REGbc register pair before returning.
 @ $0E9B label=CL_ADDR
 c $0E9B THE 'CL-ADDR' SUBROUTINE
 @ $0EAC label=COPY
@@ -3607,7 +3618,14 @@ c $1E4F THE 'RANDOMIZE' COMMAND ROUTINE
 c $1E5F THE 'CONTINUE' COMMAND ROUTINE
 @ $1E67 label=GO_TO
 c $1E67 THE 'GO TO' COMMAND ROUTINE
+D $1E67 The operand of a GO TO ought to be a line number in the range 1-9999 but the actual test is against an upper value of 61439.
+  $1E67 Fetch the operand and transfer it to the #REGhl register pair.
+  $1E6C Set the statement number to zero.
+  $1E6E Give the error message 'Integer out of range' with line numbers over 61439.
+N $1E73 This entry point  is used to determine the line number of the next line to be handled in several instances.
 @ $1E73 label=GO_TO_2
+  $1E73 Enter the line number and then the statement number.
+  $1E79 Return - to #R$1B76.
 @ $1E7A label=OUT_CMD
 c $1E7A THE 'OUT' COMMAND ROUTINE
 @ $1E80 label=POKE
@@ -7072,7 +7090,18 @@ N $3483 The 'integer case' does a similar operation with the sign byte.
   $3490,1 Return STKEND to #REGde.
 @ $3492 label=sgn
 c $3492 THE 'SIGNUM' FUNCTION
+D $3492 This subroutine handles the function SGN X and therefore returns a 'last value' of 1 if X is positive, zero if X is zero and -1 if X is negative.
+  $3492 If X is zero, just return with zero as the 'last value'.
+  $3496 Save the pointer to STKEND.
 @ $3497 keep
+  $3497 Store 1 in #REGde.
+  $349A Point to the second byte of X.
+  $349B Rotate bit 7 into the carry flag.
+  $349D Point to the destination again.
+  $349E Set #REGc to zero for positive X and to +FF for negative X.
+  $34A0 Stack 1 or -1 as required.
+  $34A3 Restore the pointer to STKEND.
+  $34A4 Finished.
 @ $34A5 label=f_in
 c $34A5 THE 'IN' FUNCTION
 @ $34AC label=peek
