@@ -64,7 +64,12 @@ D $0038 The real time clock is incremented and the keyboard scanned whenever a m
   $0051 The maskable interrupt is enabled before returning.
 @ $0053 label=ERROR_2
 c $0053 THE 'ERROR-2' ROUTINE
+D $0053 The return address to the interpreter points to the 'DEFB' that signifies which error has occurred. This 'DEFB' is fetched and transferred to ERR-NR.
+D $0053 The machine stack is cleared before jumping forward to clear the calculator stack.
+  $0053 The address on the stack points to the error code.
 @ $0055 label=ERROR_3
+  $0055 It is transferred to ERR-NR.
+  $0058 The machine stack is cleared before exiting via #R$16C5.
 s $005F
   $005F,7,7:$FF Unused locations.
 @ $0066 label=RESET
@@ -3392,6 +3397,10 @@ E $1B9E Note: obviously not an error in the normal sense - but rather a jump pas
 c $1BB2 THE 'REM' COMMAND ROUTINE
 @ $1BB3 label=LINE_END
 c $1BB3 THE 'LINE-END' ROUTINE
+D $1BB3 If checking syntax a simple return is made but when 'running' the address held by NXTLIN has to be checked before it can be used.
+  $1BB3 Return if syntax is being checked; otherwise fetch the address in NXTLIN.
+  $1BBA Return also if the address is after the end of the program - the 'run' is finished.
+  $1BBE Signal 'statement zero' before proceeding.
 @ $1BBF label=LINE_USE
 c $1BBF THE 'LINE-USE' ROUTINE
 D $1BBF This short routine has three functions:
@@ -3920,6 +3929,13 @@ N $1F4F The period of the pause has now finished.
   $1F53 Now return - to #R$1B76.
 @ $1F54 label=BREAK_KEY
 c $1F54 THE 'BREAK-KEY' SUBROUTINE
+D $1F54 This subroutine is called in several instances to read the BREAK key. The carry flag is returned reset only if the SHIFT and the BREAK keys are both being pressed.
+  $1F54 Form the port address +7FFE and read in a byte.
+  $1F58 Examine only bit 0 by shifting it into the carry position.
+  $1F59 Return if the BREAK key is not being pressed.
+  $1F5A Form the port address +FEFE and read in a byte.
+  $1F5E Again examine bit 0.
+  $1F5F Return with carry reset if both keys are being pressed.
 @ $1F60 label=DEF_FN
 c $1F60 THE 'DEF FN' COMMAND ROUTINE
 D $1F60 During syntax checking a DEF FN statement is checked to ensure that it has the correct form. Space is also made available for the result of evaluating the function.
@@ -4361,6 +4377,12 @@ D $2307 This subroutine loads two floating point numbers into the #REGbc registe
   $2313 #REGbc, #REGde are now as required.
 @ $2314 label=STK_TO_A
 c $2314 THE 'STK-TO-A' SUBROUTINE
+D $2314 This subroutine loads the #REGa register with the floating point number held at the top of the calculator stack. The number must be in the range 00-FF.
+  $2314 Modulus of rounded last value to #REGa if possible; else, report error.
+  $231A One to #REGc for positive last value.
+  $231C Return if value was positive.
+  $231D Else change #REGc to +FF (i.e. minus one).
+  $231F Finished.
 @ $2320 label=CIRCLE
 c $2320 THE 'CIRCLE' COMMAND ROUTINE
 D $2320 This routine draws an approximation to the circle with centre co-ordinates X and Y and radius Z. These numbers are rounded to the nearest integer before use. Thus Z must be less than 87.5, even when (X,Y) is in the centre of the screen. The method used is to draw a series of arcs approximated by straight lines.
@@ -7235,6 +7257,11 @@ c $33A9 THE 'TEST 5-SPACES' SUBROUTINE
 @ $33AB keep
 @ $33B4 label=STACK_NUM
 c $33B4 THE 'STACK NUMBER' SUBROUTINE
+D $33B4 This subroutine is called by #R$03F8, #R$25AF and #R$26C9 to copy STKEND to #REGde, move a floating-point number to the calculator stack, and reset STKEND from #REGde. It calls #R$33C0 to do the actual move.
+  $33B4 Copy STKEND to #REGde as destination address.
+  $33B8 Move the number.
+  $33BB Reset STKEND from #REGde.
+  $33BF Finished.
 @ $33C0 label=MOVE_FP
 c $33C0 THE 'MOVE A FLOATING-POINT NUMBER' SUBROUTINE
 @ $33C6 label=STK_DATA
@@ -7278,6 +7305,13 @@ D $33F7 The subroutine returns with the #REGhl register pair holding the base ad
 c $3406 THE 'MEMORY LOCATION' SUBROUTINE
 @ $340F label=get_mem_0
 c $340F THE 'GET FROM MEMORY AREA' SUBROUTINE
+D $340F This subroutine is called using the literals E0 to E5 and the parameter derived from these literals is held in the #REGa register. The subroutine calls #R$3406 to put the required source address into the #REGhl register pair and #R$33C0 to copy the five bytes involved from the calculator's memory area to the top of the calculator stack to form a new 'last value'.
+  $340F Save the result pointer.
+  $3410 Fetch the pointer to the current memory area.
+  $3413 The base address is found.
+  $3416 The five bytes are moved.
+  $3419 Set the result pointer.
+  $341A Finished.
 @ $341B label=stk_zero_2
 c $341B THE 'STACK A CONSTANT' SUBROUTINE
 D $341B This subroutine uses #R$33F7 to find the base address of the requested constants from the calculator's table of constants and then calls #R$33C8 to make the expanded form of the constant the 'last value' on the calculator stack.
@@ -7643,11 +7677,30 @@ c $3669 THE 'CODE' FUNCTION
 c $3674 THE 'LEN' FUNCTION
 @ $367A label=dec_jr_nz
 c $367A THE 'DECREASE THE COUNTER' SUBROUTINE
+D $367A This subroutine is only called by the #R$3449(series generator) and in effect is a 'DJNZ' operation but the counter is the system variable, BREG, rather than the #REGb register.
+  $367A Go to the alternative register set and save the next literal pointer on the machine stack.
+  $367C Make #REGhl point to BREG.
+  $367F Decrease BREG.
+  $3680 Restore the next literal pointer.
+  $3681 The jump is made on non-zero.
+  $3683 The next literal is passed over.
+  $3684 Return to the main register set.
+  $3685 Finished.
 @ $3686 label=JUMP
 c $3686 THE 'JUMP' SUBROUTINE
 @ $3687 label=JUMP_2
 @ $368F label=jump_true
 c $368F THE 'JUMP ON TRUE' SUBROUTINE
+D $368F This subroutine executes a conditional jump if the 'last value' on the calculator stack, or more precisely the number addressed currently by the #REGde register pair, is true.
+  $368F Point to the third byte, which is zero or one.
+  $3691 Collect this byte in the #REGa register.
+  $3692 Point to the first byte once again.
+  $3694 Test the third byte: is it zero?
+  $3695 Make the jump if the byte is non-zero, i.e. if the number is not-false.
+  $3697 Go to the alternate register set.
+  $3698 Pass over the jump length.
+  $3699 Back to the main set of registers.
+  $369A Finished.
 @ $369B label=end_calc
 c $369B THE 'END-CALC' SUBROUTINE
 @ $36A0 label=n_mod_m
