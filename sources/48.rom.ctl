@@ -69,7 +69,13 @@ s $005F
   $005F,7,7:$FF Unused locations.
 @ $0066 label=RESET
 c $0066 THE 'NON-MASKABLE INTERRUPT' ROUTINE
+D $0066 This routine is not used in the standard Spectrum but the code allows for a system reset to occur following activation of the NMI line. The system variable at 5CB0, named here NMIADD, has to have the value zero for the reset to occur.
+  $0066 Save the current values held in these registers.
+  $0068 The two bytes of NMIADD must both be zero for the reset to occur.
+  $006D Note: this should have been 'JR Z'!
+  $006F Jump to #R$0000.
 @ $0070 label=NO_RESET
+  $0070 Restore the current values to these registers and return.
 @ $0074 label=CH_ADD_1
 c $0074 THE 'CH-ADD+1' SUBROUTINE
 @ $0077 label=TEMP_PTR1
@@ -407,6 +413,12 @@ N $0308 The next three instructions are common to the handling of both 'new keys
   $030F Finally return.
 @ $0310 label=K_REPEAT
 c $0310 THE 'REPEATING KEY' SUBROUTINE
+D $0310 A key will 'repeat' on the first occasion after the delay period (REPDEL - normally 0.7s) and on subsequent occasions after the delay period (REPPER - normally 0.1s).
+  $0310 Point to the '5 call counter' of the set being used and reset it to 5.
+  $0313 Point to the third system variable - the REPDEL/REPPER value - and decrement it.
+  $0315 Exit from the #R$02BF subroutine if the delay period has not passed.
+  $0316 However once it has passed the delay period for the next repeat is to be REPPER.
+  $031A The repeat has been accepted so the final code value is fetched from KSTATE3/7 and passed to #R$0308.
 @ $031E label=K_TEST
 c $031E THE 'K-TEST' SUBROUTINE
 D $031E The key value is tested and a return made if 'no-key' or 'shift-only'; otherwise the 'main code' for that key is found.
@@ -2528,6 +2540,10 @@ b $162D THE 'CHANNEL CODE LOOK-UP' TABLE
   $1633,1 End marker.
 @ $1634 label=CHAN_K
 c $1634 THE 'CHANNEL 'K' FLAG' SUBROUTINE
+  $1634 Signal 'using lower screen'.
+  $1638 Signal 'ready for a key'.
+  $163C Signal 'using channel 'K''.
+  $1640 Jump forward.
 @ $1642 label=CHAN_S
 c $1642 THE 'CHANNEL 'S' FLAG' SUBROUTINE
 @ $1646 label=CHAN_S_1
@@ -5968,10 +5984,17 @@ N $2C7F The 'dimension sizes' are now entered.
 c $2C88 THE 'ALPHANUM' SUBROUTINE
 @ $2C8D label=ALPHA
 c $2C8D THE 'ALPHA' SUBROUTINE
-  $2C8D,c2
-  $2C91,c2
-  $2C94,c2
-  $2C98,c2
+D $2C8D This subroutine returns with the carry flag set if the present value of the #REGa register denotes a valid letter of the alphabet.
+  $2C8D,c2 Test against 41 hex, the code for 'A'.
+  $2C8F Complement the carry flag.
+  $2C90 Return if not a valid character code.
+  $2C91 Test against 5B hex, 1 more than the code for 'Z'.
+  $2C93 Return if an upper case letter.
+  $2C94,c2 Test against 61 hex, the code for 'a'.
+  $2C96 Complement the carry flag.
+  $2C97 Return if not a valid character code.
+  $2C98 Test against 7B hex, 1 more than the code for 'z'.
+  $2C9A Finished.
 @ $2C9B label=DEC_TO_FP
 c $2C9B THE 'DECIMAL TO FLOATING POINT' SUBROUTINE
 D $2C9B As part of syntax checking decimal numbers that occur in a BASIC line are converted to their floating-point forms. This subroutine reads the decimal number digit by digit and gives its result as a 'last value' on the calculator stack. But first it deals with the alternative notation BIN, which introduces a sequence of 0's and 1's giving the binary representation of the required number.
@@ -6212,7 +6235,18 @@ B $2DD4,1 #R$369B
 E $2DC1 The subroutine continues into #R$2DD5 to complete the calculation.
 @ $2DD5 label=FP_TO_A
 c $2DD5 THE 'FLOATING-POINT TO A' SUBROUTINE
+D $2DD5 This short but vital subroutine is called at least 8 times for various purposes. It uses #R$2DA2 to get the 'last value' into the #REGa register where this is possible. It therefore tests whether the modulus of the number rounds to more than 255 and if it does the subroutine returns with the carry flag set. Otherwise it returns with the modulus of the number, rounded to the nearest integer, in the #REGa register, and the zero flag set to imply that the number was positive, or reset to imply that it was negative.
+  $2DD5 Compress the 'last value' into #REGbc.
+  $2DD8 Return if out of range already.
+  $2DD9 Save the result and the flags.
+  $2DDA Again it will be out of range if the #REGb register does not hold zero.
+  $2DDC Jump if in range.
+  $2DDE Fetch the result and the flags.
+  $2DDF Signal the result is out of range.
+  $2DE0 Finished - unsuccessful.
 @ $2DE1 label=FP_A_END
+  $2DE1 Fetch the result and the flags.
+  $2DE2 Finished - successful.
 @ $2DE3 label=PRINT_FP
 c $2DE3 THE 'PRINT A FLOATING-POINT NUMBER' SUBROUTINE
 D $2DE3 This subroutine prints x, the 'last value' on the calculator stack. The print format never occupies more than 14 spaces.
@@ -7392,6 +7426,19 @@ c $351B THE 'OR' OPERATION
 c $3524 THE 'NUMBER AND NUMBER' OPERATION
 @ $352D label=str_no
 c $352D THE 'STRING AND NUMBER' OPERATION
+D $352D This subroutine performs the binary operation 'X$ AND Y' and returns X$ if Y is non-zero and a null string otherwise.
+  $352D Point #REGhl at Y, #REGde at X$.
+  $352E Test whether Y is zero.
+  $3531 Swap the pointers back.
+  $3532 Return with X$ as the 'last value' if Y was non-zero.
+  $3533 Save the pointer to the number.
+  $3534 Point to the fifth byte of the string parameters, i.e. length-high.
+  $3535 Clear the #REGa register.
+  $3536 Length-high is now set to zero.
+  $3537 Point to length-low.
+  $3538 Length-low is now set to zero.
+  $3539 Restore the pointer.
+  $353A Return with the string parameters being the 'last value'.
 @ $353B label=no_l_eql
 c $353B THE 'COMPARISON' OPERATIONS
 D $353B This subroutine is used to perform the twelve possible comparison operations (offsets 09 to 0E and 11 to 16: 'no-l-eql', 'no-gr-eq', 'nos-neql', 'no-grtr', 'no-less', 'nos-eql', 'str-l-eql', 'str-gr-eq', 'strs-neql', 'str-grtr', 'str-less' and 'strs-eql'). The single operation offset is present in the #REGb register at the start of the subroutine.
