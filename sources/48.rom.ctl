@@ -1316,6 +1316,12 @@ D $0A3D This subroutine performs an operation identical to the BASIC statement '
   $0A4E Finished. Note: the programmer has forgotten to exit via #R$0ADC.
 @ $0A4F label=PO_ENTER
 c $0A4F THE 'CARRIAGE RETURN' SUBROUTINE
+D $0A4F If the printing being handled is going to the printer then a carriage return character leads to the printer buffer being emptied. If the printing is to the screen then a test for 'scroll?' is made before decreasing the line number.
+  $0A4F Jump if handling the printer.
+  $0A56 Set to lefthand column.
+  $0A58 Scroll if necessary.
+  $0A5B Now down a line.
+  $0A5C Make an indirect return via #R$0DD9 and #R$0ADC.
 @ $0A5F label=PO_COMMA
 c $0A5F THE 'PRINT COMMA' SUBROUTINE
 @ $0A69 label=PO_QUEST
@@ -2189,7 +2195,16 @@ D $1190 These subroutines return with #REGhl pointing to the first location and 
   $11A3 Fetch STKBOT and then return.
 @ $11A7 label=REMOVE_FP
 c $11A7 THE 'REMOVE-FP' SUBROUTINE
+D $11A7 This subroutine removes the hidden floating-point forms in a BASIC line.
+  $11A7 Each character in turn is examined.
+  $11A8 Is it a number marker?
 @ $11AA keep
+  $11AA It will occupy six locations.
+  $11AD Reclaim the floating point number.
+  $11B0 Fetch the code again.
+  $11B1 Update the pointer.
+  $11B2 Is it a carriage return?
+  $11B4 Back if not. But make a simple return if it is.
 @ $11B7 label=NEW
 c $11B7 THE 'NEW' COMMAND ROUTINE
   $11B7 Disable the maskable interrupt.
@@ -3717,7 +3732,12 @@ c $1E42 THE 'RESTORE' COMMAND ROUTINE
 @ $1E45 label=REST_RUN
 @ $1E4F label=RANDOMIZE
 c $1E4F THE 'RANDOMIZE' COMMAND ROUTINE
+D $1E4F The operand is compressed into the #REGbc register pair and transferred to the required system variable. However if the operand is zero the value in FRAMES1 and FRAMES2 is used instead.
+  $1E4F Fetch the operand.
+  $1E52 Jump forward unless the value of the operand is zero.
+  $1E56 Fetch the two low order bytes of FRAMES instead.
 @ $1E5A label=RAND_1
+  $1E5A Now enter the result into the system variable SEED before returning.
 @ $1E5F label=CONTINUE
 c $1E5F THE 'CONTINUE' COMMAND ROUTINE
 @ $1E67 label=GO_TO
@@ -6438,6 +6458,20 @@ N $2F4A The next entry point is also used to print the digits needed for E-forma
   $2F88 Jump back to print it and finish.
 @ $2F8B label=CA_10A_C
 c $2F8B THE 'CA=10*A+C' SUBROUTINE
+D $2F8B This subroutine is called by #R$2DE3 to multiply each byte of #REGd'#REGe'#REGde by 10 and return the integer part of the result in the #REGc register. On entry, the #REGa register contains the byte to be multiplied by 10 and the #REGc register contains the carry over from the previous byte. On return, the #REGa register contains the resulting byte and the #REGc register the carry forward to the next byte.
+  $2F8B Save whichever #REGde pair is in use.
+  $2F8C Copy the multiplicand from #REGa to #REGhl.
+  $2F8F Copy it to #REGde too.
+  $2F91 Double #REGhl.
+  $2F92 Double it again.
+  $2F93 Add in #REGde to give #REGhl=5*#REGa.
+  $2F94 Double again: now #REGhl=10*#REGa.
+  $2F95 Copy #REGc to #REGde (#REGd is zero) for addition.
+  $2F96 Now #REGhl=10*#REGa+#REGc.
+  $2F97 #REGh is copied to #REGc.
+  $2F98 #REGl is copied to #REGa, completing the task.
+  $2F99 The #REGde register pair is restored.
+  $2F9A Finished.
 @ $2F9B label=PREP_ADD
 c $2F9B THE 'PREPARE TO ADD' SUBROUTINE
 D $2F9B This subroutine is the first of four subroutines that are used by the main arithmetic operation routines - #R$300F, #R$3014, #R$30CA and #R$31AF.
@@ -7276,6 +7310,22 @@ M $34E7,2 Call the error handling routine.
 B $34E8,1
 @ $34E9 label=TEST_ZERO
 c $34E9 THE 'TEST-ZERO' SUBROUTINE
+D $34E9 This subroutine is called at least nine times to test whether a floating-point number is zero. This test requires that the first four bytes of the number should each be zero. The subroutine returns with the carry flag set if the number was in fact zero.
+  $34E9 Save #REGhl on the stack.
+  $34EA Save #REGbc on the stack.
+  $34EB Save the value of #REGa in #REGb.
+  $34EC Get the first byte.
+  $34ED Point to the second byte.
+  $34EE OR the first byte with the second.
+  $34EF Point to the third byte.
+  $34F0 OR the result with the third byte.
+  $34F1 Point to the fourth byte.
+  $34F2 OR the result with the fourth byte.
+  $34F3 Restore the original value of #REGa.
+  $34F4 And of #REGbc.
+  $34F5 Restore the pointer to the number to #REGhl.
+  $34F6 Return with carry reset if any of the four bytes was non-zero.
+  $34F7 Set the carry flag to indicate that the number was zero, and return.
 @ $34F9 label=GREATER_0
 c $34F9 THE 'GREATER THAN ZERO' OPERATION
 @ $3501 label=f_not
@@ -7285,6 +7335,21 @@ c $3506 THE 'LESS THAN ZERO' OPERATION
 @ $3507 label=SIGN_TO_C
 @ $350B label=FP_0_1
 c $350B THE 'ZERO OR ONE' SUBROUTINE
+D $350B This subroutine sets the 'last value' to zero if the carry flag is reset and to one if it is set. When called from #R$2D4F however it creates the zero or one not on the stack but in mem-0.
+  $350B Save the result pointer.
+  $350C Clear #REGa without disturbing the carry.
+  $350E Set the first byte to zero.
+  $350F Point to the second byte.
+  $3510 Set the second byte to zero.
+  $3511 Point to the third byte.
+  $3512 Rotate the carry into #REGa, making #REGa one if the carry was set, but zero if the carry was reset.
+  $3513 Set the third byte to one or zero.
+  $3514 Ensure that #REGa is zero again.
+  $3515 Point to the fourth byte.
+  $3516 Set the fourth byte to zero.
+  $3517 Point to the fifth byte.
+  $3518 Set the fifth byte to zero.
+  $3519,1 Restore the result pointer.
 @ $351B label=OR_CMD
 c $351B THE 'OR' OPERATION
 @ $3524 label=no_no
