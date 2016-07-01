@@ -2576,10 +2576,17 @@ N $1683 Now find the size of the block to be moved.
   $168C Reform the old value of STKEND and pass it to #REGde before returning.
 @ $168F label=LINE_ZERO
 c $168F THE 'COLLECT A LINE NUMBER' SUBROUTINE
-B $168F,2
+D $168F On entry the #REGhl register pair points to the location under consideration.  If the location holds a value that constitutes a suitable high byte for a line number then the line number is returned in #REGde.  However if this is not so then the location addressed by #REGde is tried instead; and should this also be unsuccessful line number zero is returned.
+B $168F,2 Line number zero.
 @ $1691 label=LINE_NO_A
+  $1691 Consider the other pointer.
 @ $1692 nowarn
+  $1692 Use line number zero.
+N $1695 The usual entry point is here.
 @ $1695 label=LINE_NO
+  $1695 Fetch the high byte and test it.
+  $1698 Jump if not suitable.
+  $169A Fetch the high byte and low byte and return.
 @ $169E label=RESERVE
 c $169E THE 'RESERVE' SUBROUTINE
 D $169E This subroutine is normally called by using #R$0030.
@@ -3756,7 +3763,13 @@ c $1E7A THE 'OUT' COMMAND ROUTINE
 c $1E80 THE 'POKE' COMMAND ROUTINE
 @ $1E85 label=TWO_PARAM
 c $1E85 THE 'TWO-PARAM' SUBROUTINE
+D $1E85 The topmost parameter on the calculator stack must be compressible into a single register. It is two's complemented if it is negative. The second parameter must be compressible into a register pair.
+  $1E85 The parameter is fetched.
+  $1E88 Give an error if it is too high a number.
+  $1E8A Jump forward with positive numbers but two's complement negative numbers.
 @ $1E8E label=TWO_P_1
+  $1E8E Save the first parameter whilst the second is fetched.
+  $1E92 The first parameter is restored before returning.
 @ $1E94 label=FIND_INT1
 c $1E94 THE 'FIND INTEGERS' SUBROUTINE
 @ $1E99 label=FIND_INT2
@@ -7162,8 +7175,20 @@ D $33C6 In each case, the first literal supplied is divided by +40, and the inte
 @ $33F1 label=STK_ZEROS
 @ $33F7 label=SKIP_CONS
 c $33F7 THE 'SKIP CONSTANTS' SUBROUTINE
+D $33F7 This subroutine is entered with the #REGhl register pair holding the base address of the calculator's #R$32C5(table of constants) and the #REGa register holding a parameter that shows which of the five constants is being requested.
+D $33F7 The subroutine performs the null operations of loading the five bytes of each unwanted constant into the locations 0000, 0001, 0002, 0003 and 0004 at the beginning of the ROM until the requested constant is reached.
+D $33F7 The subroutine returns with the #REGhl register pair holding the base address of the requested constant within the table of constants.
+  $33F7 The subroutine returns if the parameter is zero, or when the requested constant has been reached.
 @ $33F8 label=SKIP_NEXT
+  $33F9 Save the parameter.
+  $33FA Save the result pointer.
 @ $33FB keep
+  $33FB The dummy address.
+  $33FE Perform imaginary stacking of an expanded constant.
+  $3401 Restore the result pointer.
+  $3402 Restore the parameter.
+  $3403 Count the loops.
+  $3404 Jump back to consider the value of the counter.
 @ $3406 label=LOC_MEM
 c $3406 THE 'MEMORY LOCATION' SUBROUTINE
 @ $340F label=get_mem_0
@@ -7181,6 +7206,17 @@ D $341B This subroutine uses #R$33F7 to find the base address of the requested c
   $342C Finished.
 @ $342D label=st_mem_0
 c $342D THE 'STORE IN MEMORY AREA' SUBROUTINE
+D $342D This subroutine is called using the literals C0 to C5 and the parameter derived from these literals is held in the #REGa register. This subroutine is very similar to #R$340F but the source and destination pointers are exchanged.
+  $342D Save the result pointer.
+  $342E Source to #REGde briefly.
+  $342F Fetch the pointer to the current memory area.
+  $3432 The base address is found.
+  $3435 Exchange source and destination pointers.
+  $3436 The five bytes are moved.
+  $3439 'Last value'+5, i.e. STKEND, to #REGde.
+  $343A Result pointer to #REGhl.
+  $343B Finished.
+E $342D Note that the pointers #REGhl and #REGde remain as they were, pointing to STKEND-5 and STKEND respectively, so that the 'last value' remains on the calculator stack. If required it can be removed by using #R$33A1.
 @ $343C label=EXCHANGE
 c $343C THE 'EXCHANGE' SUBROUTINE
 @ $343E label=SWAP_BYTE
