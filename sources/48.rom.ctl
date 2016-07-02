@@ -2444,7 +2444,10 @@ N $1537 There are also the following two messages.
   $1539,28,B1:26:B1
 @ $1555 label=REPORT_G
 c $1555 Report G - No room for line
+  $1555 'G' has the code '10+07+30'.
 @ $1557 keep
+  $1557 Clear #REGbc.
+  $155A Jump back to give the report.
 @ $155D label=MAIN_ADD
 c $155D THE 'MAIN-ADD' SUBROUTINE
 D $155D This subroutine allows for a new BASIC line to be added to the existing BASIC program in the program area. If a line has both an old and a new version then the old one is 'reclaimed'. A new line that consists of only a line number does not go into the program area.
@@ -3019,6 +3022,11 @@ N $1974 Now enter a loop to test the line number of each line of the program aga
   $197D Switch the pointers and jump back to consider the next line of the program.
 @ $1980 label=CP_LINES
 c $1980 THE 'COMPARE LINE NUMBERS' SUBROUTINE
+D $1980 The given line number in the #REGbc register pair is matched against the addressed line number.
+  $1980 Fetch the high byte of the addressed line number and compare it.
+  $1982 Return if they do not match.
+  $1983 Next compare the low bytes.
+  $1987 Return with the carry flag set if the addressed line number has yet to reach the given line number.
 @ $1988 label=FIND_EACH
 c $1988 THE 'FIND EACH STATEMENT' SUBROUTINE
 D $1988 This subroutine has two distinct functions.
@@ -3077,6 +3085,10 @@ N $19DB In all cases the address of the 'next' line or variable is found.
   $19DC Fetch the address of the previous one and continue into the 'difference' subroutine.
 @ $19DD label=DIFFER
 c $19DD THE 'DIFFERENCE' SUBROUTINE
+D $19DD The 'length' between two 'starts' is formed in the #REGbc register pair. The pointers are reformed but returned exchanged.
+  $19DD Prepare for a true subtraction.
+  $19DE Find the length from one 'start' to the next and pass it to the #REGbc register pair.
+  $19E2 Reform the address and exchange them before returning.
 @ $19E5 label=RECLAIM_1
 c $19E5 THE 'RECLAIMING' SUBROUTINE
 D $19E5 The main entry point is used when the address of the first location to be reclaimed is in the #REGde register pair and the address of the first location to be left alone is in the #REGhl register pair. The entry point #R$19E8 is used when the #REGhl register pair points to the first location to be reclaimed and the #REGbc register pair holds the number of bytes that are to be reclaimed.
@@ -3847,6 +3859,10 @@ D $1E4F The operand is compressed into the #REGbc register pair and transferred 
   $1E5A Now enter the result into the system variable SEED before returning.
 @ $1E5F label=CONTINUE
 c $1E5F THE 'CONTINUE' COMMAND ROUTINE
+D $1E5F The required line number and statement number within that line are made the object of a jump.
+  $1E5F The line number.
+  $1E62 The statement number.
+  $1E65 Jump forward.
 @ $1E67 label=GO_TO
 c $1E67 THE 'GO TO' COMMAND ROUTINE
 D $1E67 The operand of a GO TO ought to be a line number in the range 1-9999 but the actual test is against an upper value of 61439.
@@ -7617,6 +7633,10 @@ D $34E9 This subroutine is called at least nine times to test whether a floating
   $34F7 Set the carry flag to indicate that the number was zero, and return.
 @ $34F9 label=GREATER_0
 c $34F9 THE 'GREATER THAN ZERO' OPERATION
+D $34F9 This subroutine returns a 'last value' of one if the present 'last value' is greater than zero and zero otherwise. It is also used by other subroutines to 'jump on plus'.
+  $34F9 Is the 'last-value' zero?
+  $34FC If so, return.
+  $34FD Jump forward to #R$3506 but signal the opposite action is needed.
 @ $3501 label=f_not
 c $3501 THE 'NOT' FUNCTION
 @ $3506 label=less_0
