@@ -1076,6 +1076,12 @@ N $07F4 The verify/load flag is now considered and the actual load made.
 @ $0802 label=LD_BLOCK
 c $0802 THE 'LOAD A DATA BLOCK' SUBROUTINE
 @ $0806 label=REPORT_R
+D $0802 This subroutine is common to all the tape loading routines. In the case of LOAD and VERIFY it acts as a full return from the cassette handling routines but in the case of MERGE the data block has yet to be merged.
+  $0802 Load/verify a data block.
+  $0805 Return unless an error.
+N $0806 Report R - Tape loading error.
+@ $0806 label=REPORT_R
+M $0806,2 Call the error handling routine.
 B $0807,1
 @ $0808 label=LD_CONTRL
 c $0808 THE 'LOAD' CONTROL ROUTINE
@@ -1575,6 +1581,13 @@ N $0C2D Now consider whether a 'trailing space' is required.
   $0C39,c2 All other cases will require a 'trailing space'.
 @ $0C3B label=PO_SAVE
 c $0C3B THE 'PO-SAVE' SUBROUTINE
+D $0C3B This subroutine allows for characters to be printed 'recursively'. The appropriate registers are saved whilst #R$0010 is called.
+  $0C3B Save the #REGde register pair.
+  $0C3C Save #REGhl and #REGbc.
+  $0C3D Print the single character.
+  $0C3E Restore #REGhl and #REGbc.
+  $0C3F Restore #REGde.
+  $0C40 Finished.
 @ $0C41 label=PO_SEARCH
 c $0C41 THE 'TABLE SEARCH' SUBROUTINE
 D $0C41 The subroutine returns with the #REGde register pair pointing to the initial character of the required entry and the carry flag reset if a 'leading space' is to be considered.
@@ -2058,6 +2071,7 @@ c $1015 THE 'DELETE EDITING' SUBROUTINE
   $1018 Reclaim the current character.
 @ $101E label=ED_IGNORE
 c $101E THE 'ED-IGNORE' SUBROUTINE
+  $101E The next two codes from the key-input routine are ignored.
 @ $1024 label=ED_ENTER
 c $1024 THE 'ENTER EDITING' SUBROUTINE
   $1024 The addresses of #R$0F38 and #R$107F are discarded.
@@ -3488,6 +3502,9 @@ M $1BEC,2 Call the error handling routine.
 B $1BED,1
 @ $1BEE label=CHECK_END
 c $1BEE THE 'CHECK-END' SUBROUTINE
+D $1BEE This is an important routine and is called from many places in the monitor program when the syntax of the edit-line is being checked. The purpose of the routine is to give an error report if the end of a statement has not been reached and to move on to the next statement if the syntax is correct.
+  $1BEE Do not proceed unless checking syntax.
+  $1BF2 Drop the addresses of #R$1B52 and #R$1B76 before continuing into #R$1BF4.
 @ $1BF4 label=STMT_NEXT
 c $1BF4 THE 'STMT-NEXT' ROUTINE
 D $1BF4 If the present character is a 'carriage return' then the 'next statement' is on the 'next line'; if ':' it is on the same line; but if any other character is found then there is an error in syntax.
@@ -3881,6 +3898,10 @@ N $1E73 This entry point  is used to determine the line number of the next line 
   $1E79 Return - to #R$1B76.
 @ $1E7A label=OUT_CMD
 c $1E7A THE 'OUT' COMMAND ROUTINE
+D $1E7A The two parameters for the OUT instruction are fetched from the calculator stack and used as directed.
+  $1E7A The operands are fetched.
+  $1E7D The actual OUT instruction.
+  $1E7F Return - to #R$1B76.
 @ $1E80 label=POKE
 c $1E80 THE 'POKE' COMMAND ROUTINE
 @ $1E85 label=TWO_PARAM
@@ -4070,6 +4091,10 @@ N $1FA6 Next the definition of the function is considered.
   $1FC0 Exit via #R$1BEE (thereby moving on to consider the next statement in the line).
 @ $1FC3 label=UNSTACK_Z
 c $1FC3 THE 'UNSTACK-Z' SUBROUTINE
+D $1FC3 This subroutine is called in several instances in order to 'return early' from a subroutine when checking syntax. The reason for this is to avoid actually printing characters or passing values to/from the calculator stack.
+  $1FC3 Is syntax being checked?
+  $1FC6 Fetch the return address but ignore it in 'syntax-time'.
+  $1FC8 In 'run-time' make a simple return to the calling routine.
 @ $1FC9 label=LPRINT
 c $1FC9 THE 'LPRINT & PRINT' COMMAND ROUTINES
 D $1FC9 The appropriate channel is opened as necessary and the items to be printed are considered in turn.
@@ -5872,6 +5897,13 @@ N $2AEB Restore the registers before returning.
   $2AED Return; 'error register' is the #REGa register.
 @ $2AEE label=DE_DE_1
 c $2AEE THE 'DE,(DE+1)' SUBROUTINE
+D $2AEE This subroutine performs the construction 'LD DE,(DE+1)' and returns #REGhl pointing to '#REGde+2'.
+  $2AEE Use #REGhl for the construction.
+  $2AEF Point to '#REGde+1'.
+  $2AF0 In effect - LD E,(DE+1).
+  $2AF1 Point to '#REGde+2'.
+  $2AF2 In effect - LD D,(DE+2).
+  $2AF3 Finished.
 @ $2AF4 label=GET_HLxDE
 c $2AF4 THE 'GET-HL*DE' SUBROUTINE
 D $2AF4 Unless syntax is being checked this subroutine calls #R$30A9 which performs the implied construction.
@@ -6268,7 +6300,10 @@ D $2D1B This subroutine returns with the carry flag reset if the present value o
   $2D21 Finished.
 @ $2D22 label=STK_DIGIT
 c $2D22 THE 'STK-DIGIT' SUBROUTINE
-  $2D26,c2
+D $2D22 This subroutine simply returns if the current value held in the #REGa register does not represent a digit but if it does then the floating-point form for the digit becomes the 'last value' on the calculator stack.
+  $2D22 Is the character a digit?
+  $2D25 Return if not.
+  $2D26,c2 Replace the code by the actual digit.
 @ $2D28 label=STACK_A
 c $2D28 THE 'STACK-A' SUBROUTINE
 @ $2D2B label=STACK_BC
@@ -7417,6 +7452,10 @@ D $33B4 This subroutine is called by #R$03F8, #R$25AF and #R$26C9 to copy STKEND
   $33BF Finished.
 @ $33C0 label=MOVE_FP
 c $33C0 THE 'MOVE A FLOATING-POINT NUMBER' SUBROUTINE
+D $33C0 This subroutine moves a floating-point number to the top of the calculator stack (3 cases) or from the top of the stack to the calculator's memory area (1 case). It is also called through the calculator when it simply duplicates the number at the top of the calculator stack, the 'last value', thereby extending the stack by five bytes.
+  $33C0 A test is made for room.
+  $33C3 Move the five bytes involved.
+  $33C5 Finished.
 @ $33C6 label=STK_DATA
 c $33C6 THE 'STACK LITERALS' SUBROUTINE
 D $33C6 This subroutine places on the calculator stack, as a 'last value', the floating-point number supplied to it as 2, 3, 4 or 5 literals.
@@ -7877,6 +7916,9 @@ D $3669 This subroutine handles the function CODE A$ and returns the Spectrum co
   $3671 The subroutine exits via #R$2D28 which gives the correct 'last value'.
 @ $3674 label=len
 c $3674 THE 'LEN' FUNCTION
+D $3674 This subroutine handles the function LEN A$ and returns a 'last value' that is equal to the length of the string.
+  $3674 The parameters of the string are fetched.
+  $3677 The subroutine exits via #R$2D2B which gives the correct 'last value'.
 @ $367A label=dec_jr_nz
 c $367A THE 'DECREASE THE COUNTER' SUBROUTINE
 D $367A This subroutine is only called by the #R$3449(series generator) and in effect is a 'DJNZ' operation but the counter is the system variable, BREG, rather than the #REGb register.
