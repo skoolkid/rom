@@ -2677,6 +2677,8 @@ N $16CB In all cases make MEM address the calculator's memory area.
   $16D2 Restore STKEND to the #REGhl register pair before returning.
 @ $16D4 label=REC_EDIT
 c $16D4 THE 'RECLAIM THE EDIT-LINE' SUBROUTINE
+  $16D4 Fetch E-LINE.
+  $16D8 Reclaim the memory.
 @ $16DB label=INDEXER_1
 c $16DB THE 'INDEXER' SUBROUTINE
 D $16DB This subroutine is used on several occasions to look through tables. The entry point is at #R$16DC.
@@ -3414,6 +3416,10 @@ N $1B52 Each of the command class routines applicable to the present command is 
   $1B6C Before making an indirect jump to the command class routine pass the command code to the #REGa register and set the #REGb register to +FF.
 @ $1B6F label=SEPARATOR
 c $1B6F THE 'SEPARATOR' SUBROUTINE
+D $1B6F The report 'Nonsense in BASIC' is given if the required separator is not present. But note that when syntax is being checked the actual report does not appear on the screen - only the 'error marker'.
+  $1B6F The current character is fetched and compared to the entry in the parameter table.
+  $1B71 Give the error report if there is not a match.
+  $1B74 Step past a correct character and return.
 @ $1B76 label=STMT_RET
 c $1B76 THE 'STMT-RET' SUBROUTINE
 D $1B76 After the correct interpretation of a statement a return is made to this entry point.
@@ -4089,6 +4095,8 @@ N $1FE5 Now enter a loop to deal with the 'position controllers' and the print i
   $1FF2,3,c2,1 Return now if the present character is a ')'; otherwise consider performing a 'carriage return'.
 @ $1FF5 label=PRINT_CR
 c $1FF5 THE 'PRINT A CARRIAGE RETURN' SUBROUTINE
+  $1FF5 Return if checking syntax.
+  $1FF8 Print a carriage return character and then return.
 @ $1FFC label=PR_ITEM_1
 c $1FFC THE 'PRINT ITEMS' SUBROUTINE
 D $1FFC This subroutine is called from the #R$1FCD, #R$1FC9 and #R$2089 command routines.
@@ -5442,6 +5450,11 @@ N $288D iv. Finally, the function itself is evaluated by calling #R$24FB, after 
   $28A8 Jump back to continue scanning.
 @ $28AB label=FN_SKPOVR
 c $28AB THE 'FUNCTION SKIPOVER' SUBROUTINE
+D $28AB This subroutine is used by #R$27BD and by #R$2951 to move #REGhl along the DEF FN statement while leaving CH-ADD undisturbed, as it points along the FN statement.
+  $28AB Point to the next code in the statement.
+  $28AC Copy the code to #REGa.
+  $28AD Jump back to skip over it if it is a control code or a space.
+  $28B1 Finished.
 @ $28B2 label=LOOK_VARS
 c $28B2 THE 'LOOK-VARS' SUBROUTINE
 D $28B2 This subroutine is called whenever a search of the variables area or of the arguments of a DEF FN statement is required. The subroutine is entered with the system variable CH-ADD pointing to the first letter of the name of the variable whose location is being sought. The name will be in the program area or the work space. The subroutine initially builds up a discriminator byte, in the #REGc register, that is based on the first letter of the variable's name. Bits 5 and 6 of this byte indicate the type of the variable that is being handled.
@@ -6034,6 +6047,11 @@ D $2BC6 The parameters of the 'new' string are fetched, sufficient room is made 
   $2BE9 Fetch the variable's letter.
 @ $2BEA label=L_FIRST
 c $2BEA THE 'L-FIRST' SUBROUTINE
+D $2BEA This subroutine is entered with the letter of the variable, suitably marked, in the #REGa register. The letter overwrites the 'old 80-byte' in the variables area. The subroutine returns with the #REGhl register pair pointing to the 'new 80-byte'.
+  $2BEA Make #REGhl point to the 'old 80-byte'.
+  $2BEB It is overwritten with the letter of the variable.
+  $2BEC Make #REGhl point to the 'new 80-byte'.
+  $2BF0 Finished with all the 'newly declared variables'.
 @ $2BF1 label=STK_FETCH
 c $2BF1 THE 'STK-FETCH' SUBROUTINE
 D $2BF1 This important subroutine collects the 'last value' from the calculator stack. The five bytes can be either a floating-point number, in 'short' or 'long' form, or set of parameters that define a string.
@@ -6242,8 +6260,12 @@ N $2CEB Next consider any 'E notation', i.e. the form xEm or xem where m is a po
   $2D18 Jump to assign to the 'last value' the result of x*10#powerm.
 @ $2D1B label=NUMERIC
 c $2D1B THE 'NUMERIC' SUBROUTINE
-  $2D1B,c2
-  $2D1E,c2
+D $2D1B This subroutine returns with the carry flag reset if the present value of the #REGa register denotes a valid digit.
+  $2D1B,c2 Test against 30 hex, the code for '0'.
+  $2D1D Return if not a valid character code.
+  $2D1E Test against the upper limit.
+  $2D20 Complement the carry flag.
+  $2D21 Finished.
 @ $2D22 label=STK_DIGIT
 c $2D22 THE 'STK-DIGIT' SUBROUTINE
   $2D26,c2
@@ -7369,6 +7391,12 @@ E $335B The #R$33A1 subroutine contains only the single RET instruction above. T
 E $335B The single RET instruction thereby leads to the first number being considered as the resulting 'last value' and the second number considered as being deleted. Of course the number has not been deleted from the memory but remains inactive and will probably soon be overwritten.
 @ $33A2 label=fp_calc_2
 c $33A2 THE 'SINGLE OPERATION' SUBROUTINE
+D $33A2 This subroutine is only called from #R$2757 and is used to perform a single arithmetic operation. The offset that specifies which operation is to be performed is supplied to the calculator in the #REGb register and subsequently transferred to the system variable BREG.
+D $33A2 The effect of calling this subroutine is essentially to make a jump to the appropriate subroutine for the single operation.
+  $33A2 Discard the #R$3365 address.
+  $33A3 Transfer the offset to #REGa.
+  $33A6 Enter the alternate register set.
+  $33A7 Jump back to find the required address; stack the #R$3365 address and jump to the subroutine for the operation.
 @ $33A9 label=TEST_5_SP
 c $33A9 THE 'TEST 5-SPACES' SUBROUTINE
 D $33A9 This subroutine tests whether there is sufficient room in memory for another 5-byte floating-point number to be added to the calculator stack.
@@ -7572,9 +7600,17 @@ D $3492 This subroutine handles the function SGN X and therefore returns a 'last
   $34A4 Finished.
 @ $34A5 label=f_in
 c $34A5 THE 'IN' FUNCTION
+D $34A5 This subroutine handles the function IN X. It inputs at processor level from port X, loading #REGbc with X and performing the instruction IN A,(C).
+  $34A5 The 'last value', X, is compressed into #REGbc.
+  $34A8 The signal is received.
+  $34AA Jump to stack the result.
 @ $34AC label=peek
 c $34AC THE 'PEEK' FUNCTION
+D $34AC This subroutine handles the function PEEK X. The 'last value' is unstacked by calling #R$1E99 and replaced by the value of the contents of the required location.
+  $34AC Evaluate the 'last value', rounded to the nearest integer; test that it is in range and return it in #REGbc.
+  $34AF Fetch the required byte.
 @ $34B0 label=IN_PK_STK
+  $34B0 Exit by jumping to #R$2D28.
 @ $34B3 label=usr_no
 c $34B3 THE 'USR' FUNCTION
 D $34B3 This subroutine ('USR number' as distinct from 'USR string') handles the function USR X, where X is a number. The value of X is obtained in #REGbc, a return address is stacked and the machine code is executed from location X.
