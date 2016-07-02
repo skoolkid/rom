@@ -83,8 +83,13 @@ D $0066 This routine is not used in the standard Spectrum but the code allows fo
   $0070 Restore the current values to these registers and return.
 @ $0074 label=CH_ADD_1
 c $0074 THE 'CH-ADD+1' SUBROUTINE
+D $0074 The address held in CH-ADD is fetched, incremented and restored. The contents of the location now addressed by CH-ADD are fetched. The entry points of #R$0077 and #R$0078 are used to set CH-ADD for a temporary period.
+  $0074 Fetch the address.
 @ $0077 label=TEMP_PTR1
+  $0077 Increment the pointer.
 @ $0078 label=TEMP_PTR2
+  $0078 Set CH-ADD.
+  $007B Fetch the addressed value and then return.
 @ $007D label=SKIP_OVER
 c $007D THE 'SKIP-OVER' SUBROUTINE
 D $007D The value brought to the subroutine in the #REGa register is tested to see if it is printable. Various special codes lead to #REGhl being incremented once or twice, and CH-ADD amended accordingly.
@@ -2042,10 +2047,15 @@ c $0FF3 THE 'CURSOR DOWN EDITING' SUBROUTINE
 c $1007 THE 'CURSOR LEFT EDITING' SUBROUTINE
 @ $100C label=ED_RIGHT
 c $100C THE 'CURSOR RIGHT EDITING' SUBROUTINE
+  $100C The current character is tested and if it is 'carriage return' then return.
+  $1010 Otherwise make the cursor come after the character.
 @ $1011 label=ED_CUR
+  $1011,3 Set the system variable K-CUR.
 @ $1015 label=ED_DELETE
 c $1015 THE 'DELETE EDITING' SUBROUTINE
+  $1015 Move the cursor leftwards.
 @ $1018 keep
+  $1018 Reclaim the current character.
 @ $101E label=ED_IGNORE
 c $101E THE 'ED-IGNORE' SUBROUTINE
 @ $1024 label=ED_ENTER
@@ -2091,7 +2101,10 @@ c $1059 THE 'CURSOR UP EDITING' SUBROUTINE
   $106E A new automatic listing is now produced and channel 'K' re-opened before returning to #R$0F38.
 @ $1076 label=ED_SYMBOL
 c $1076 THE 'ED-SYMBOL' SUBROUTINE
+D $1076 If SYMBOL and GRAPHICS codes were used they would be handled as follows:
+  $1076 Jump back unless dealing with INPUT LINE.
 @ $107C label=ED_GRAPH
+  $107C Jump back.
 @ $107F label=ED_ERROR
 c $107F THE 'ED-ERROR' SUBROUTINE
 D $107F Come here when there has been some kind of error.
@@ -2503,6 +2516,11 @@ M $15E4,2 Call the error handling routine.
 B $15E5,1
 @ $15E6 label=INPUT_AD
 c $15E6 THE 'INPUT-AD' SUBROUTINE
+D $15E6 The registers are saved and #REGhl made to point to the input address.
+  $15E6 Save the registers.
+  $15E8 Fetch the base address for the current channel information.
+  $15EB Step past the output address.
+  $15ED Jump forward.
 @ $15EF label=OUT_CODE
 c $15EF THE 'MAIN PRINTING' SUBROUTINE
 D $15EF The subroutine is called with either an absolute value or a proper character code in the #REGa register.
@@ -3474,11 +3492,22 @@ b $1C01 THE 'COMMAND CLASS' TABLE
   $1C0B #R$1C8C(CLASS_0A)
   $1C0C #R$1CDB
 @ $1C0D label=CLASS_03
-c $1C0D THE 'COMMAND CLASSES - 00, 03 & 05'
+c $1C0D THE 'COMMAND CLASSES - 00, 03 and 05'
+D $1C0D The commands of class-03 may, or may not, be followed by a number. e.g. RUN and RUN 200.
+  $1C0D A number is fetched but zero is used in cases of default.
+N $1C10 The commands of class-00 must not have any operands, e.g. COPY and CONTINUE.
 @ $1C10 label=CLASS_00
+  $1C10 Set the zero flag for later.
+N $1C11 The commands of class-05 may be followed by a set of items, e.g. PRINT and PRINT "222".
 @ $1C11 label=CLASS_05
+  $1C11 In all cases drop the address - #R$1B52.
+  $1C12 If handling commands of classes 00 and 03 and syntax is being checked move on now to consider the next statement.
+  $1C15 Save the line pointer in the #REGde register pair.
 @ $1C16 label=JUMP_C_R
 c $1C16 THE 'JUMP-C-R' ROUTINE
+D $1C16 After the command class entries and the separator entries in the parameter table have been considered the jump to the appropriate command routine is made.
+  $1C16 Fetch the pointer to the entries in the parameter table and fetch the address of the required command routine.
+  $1C1C Exchange the pointers back and make an indirect jump to the command routine.
 @ $1C1F label=CLASS_01
 c $1C1F THE 'COMMAND CLASSES - 01, 02 & 04'
 @ $1C22 label=VAR_A_1
@@ -3794,7 +3823,11 @@ N $1E37 The DATA statement has to be passed by in 'run-time'.
   $1E37 It is a 'DATA' statement that is to be passed by.
 @ $1E39 label=PASS_BY
 c $1E39 THE 'PASS-BY' SUBROUTINE
+D $1E39 On entry the #REGa register will hold either the token 'DATA' or the token 'DEF FN' depending on the type of statement that is being passed by.
+  $1E39 Make the #REGbc register pair hold a very high number.
+  $1E3A Look back along the statement for the token.
 @ $1E3C keep
+  $1E3C Now look along the line for the statement after (the '#REGd-1'th statement from the current position).
 @ $1E42 label=RESTORE
 c $1E42 THE 'RESTORE' COMMAND ROUTINE
 D $1E42 The operand for a RESTORE command is taken as a line number, zero being used if no operand is given.
@@ -3917,7 +3950,11 @@ N $1F15 Report 4 - Out of memory.
   $1F15 This is a 'run-time' error and the error marker is not to be used.
 @ $1F1A label=FREE_MEM
 c $1F1A THE 'FREE MEMORY' SUBROUTINE
+D $1F1A There is no BASIC command 'FRE' in the Spectrum but there is a subroutine for performing such a task.
+D $1F1A An estimate of the amount of free space can be found at any time by using 'PRINT 65536-USR 7962'
 @ $1F1A keep
+  $1F1A Do not allow any overhead.
+  $1F1D Make the test and pass the result to the #REGbc register before returning.
 @ $1F23 label=RETURN
 c $1F23 THE 'RETURN' COMMAND ROUTINE
 D $1F23 The line number and the statement number that are to be made the object of a 'return' are fetched from the GO SUB stack.
@@ -4077,9 +4114,11 @@ N $203C A loop is now set up to deal with each character in turn of the string.
   $2042 The code is printed and a jump taken to consider any further characters.
 @ $2045 label=PR_END_Z
 c $2045 THE 'END OF PRINTING' SUBROUTINE
-  $2045,c2
+D $2045 The zero flag will be set if no further printing is to be done.
+  $2045,3,c2,1 Return now if the character is a ')'.
 @ $2048 label=PR_ST_END
-  $204B,c2
+  $2048 Return now if the character is a 'carriage return'.
+  $204B,3,c2,1 Make a final test against ':' before returning.
 @ $204E label=PR_POSN_1
 c $204E THE 'PRINT POSITION' SUBROUTINE
 D $204E The various position controlling characters are considered by this subroutine.
@@ -5930,6 +5969,13 @@ N $2BA3 The values that have been saved on the machine stack are restored.
   $2BA5 The start - the pointer to the 'variable in assignment' which was originally in DEST. #R$2BA6 is now used to pass the 'new' string to the variables area.
 @ $2BA6 label=L_ENTER
 c $2BA6 THE 'L-ENTER' SUBROUTINE
+D $2BA6 This short subroutine is used to pass either a numeric value from the calculator stack, or a string from the work space, to its appropriate position in the variables area.
+D $2BA6 The subroutine is therefore used for all except 'newly declared' simple strings and 'complete and existing' simple strings.
+  $2BA6 Change the pointers over.
+  $2BA7 Check once again that the length is not zero.
+  $2BAA Save the destination pointer.
+  $2BAB Move the numeric value or the string.
+  $2BAD Return with the #REGhl register pair pointing to the first byte of the numeric value or the string.
 @ $2BAF label=L_ADD
 c $2BAF THE LET SUBROUTINE CONTINUES HERE
 D $2BAF When handling a 'complete and existing' simple string the new string is entered as if it were a 'newly declared' simple string before the existing version is 'reclaimed'.
@@ -7366,6 +7412,15 @@ D $33F7 The subroutine returns with the #REGhl register pair holding the base ad
   $3404 Jump back to consider the value of the counter.
 @ $3406 label=LOC_MEM
 c $3406 THE 'MEMORY LOCATION' SUBROUTINE
+D $3406 This subroutine finds the base address for each five-byte portion of the calculator's memory area to or from which a floating-point number is to be moved from or to the calculator stack. It does this operation by adding five times the parameter supplied to the base address for the area which is held in the #REGhl register pair.
+D $3406 Note that when a FOR-NEXT variable is being handled then the pointers are changed so that the variable is treated as if it were the calculator's memory area.
+  $3406 Copy the parameter to #REGc.
+  $3407 Double the parameter.
+  $3408 Double the result.
+  $3409 Add the value of the parameter to give five times the original value.
+  $340A This result is wanted in the #REGbc register pair.
+  $340D Produce the new base address.
+  $340E Finished.
 @ $340F label=get_mem_0
 c $340F THE 'GET FROM MEMORY AREA' SUBROUTINE
 D $340F This subroutine is called using the literals E0 to E5 and the parameter derived from these literals is held in the #REGa register. The subroutine calls #R$3406 to put the required source address into the #REGhl register pair and #R$33C0 to copy the five bytes involved from the calculator's memory area to the top of the calculator stack to form a new 'last value'.
@@ -7506,7 +7561,12 @@ c $34AC THE 'PEEK' FUNCTION
 @ $34B0 label=IN_PK_STK
 @ $34B3 label=usr_no
 c $34B3 THE 'USR' FUNCTION
+D $34B3 This subroutine ('USR number' as distinct from 'USR string') handles the function USR X, where X is a number. The value of X is obtained in #REGbc, a return address is stacked and the machine code is executed from location X.
+  $34B3 Evaluate the 'last value', rounded to the nearest integer; test that it is in range and return it in #REGbc.
 @ $34B6 nowarn
+  $34B6 Make the return address be that of the subroutine #R$2D2B.
+  $34BA Make an indirect jump to the required location.
+E $34B3 Note: it is interesting that the #REGiy register pair is re-initialised when the return to #R$2D2B has been made, but the important #REGhl' that holds the next literal pointer is not restored should it have been disturbed. For a successful return to BASIC, #REGhl' must on exit from the machine code contain the address of the 'end-calc' instruction at #R$2758(2758) hex (10072 decimal).
 @ $34BC label=usr
 c $34BC THE 'USR STRING' FUNCTION
 D $34BC This subroutine handles the function USR X$, where X$ is a string. The subroutine returns in #REGbc the address of the bit pattern for the user-defined graphic corresponding to X$. It reports error A if X$ is not a single letter between 'a' and 'u' or a user-defined graphic.
@@ -7581,8 +7641,20 @@ D $350B This subroutine sets the 'last value' to zero if the carry flag is reset
   $3519,1 Restore the result pointer.
 @ $351B label=OR_CMD
 c $351B THE 'OR' OPERATION
-@ $3524 label=no_no
+D $351B This subroutine performs the binary operation 'X OR Y' and returns X if Y is zero and the value 1 otherwise.
+  $351B Point #REGhl at Y, the second number.
+  $351C Test whether Y is zero.
+  $351F Restore the pointers.
+  $3520 Return if Y was zero; X is now the 'last value'.
+  $3521 Set the carry flag and jump back to set the 'last value' to 1.
+@ $3524 label=no_and_no
 c $3524 THE 'NUMBER AND NUMBER' OPERATION
+D $3524 This subroutine performs the binary operation 'X AND Y' and returns X if Y is non-zero and the value zero otherwise.
+  $3524 Point #REGhl at Y, #REGde at X.
+  $3525 Test whether Y is zero.
+  $3528 Swap the pointers back.
+  $3529 Return with X as the 'last value' if Y was non-zero.
+  $352A Reset the carry flag and jump back to set the 'last value' to zero.
 @ $352D label=str_no
 c $352D THE 'STRING AND NUMBER' OPERATION
 D $352D This subroutine performs the binary operation 'X$ AND Y' and returns X$ if Y is non-zero and a null string otherwise.
@@ -7762,7 +7834,13 @@ D $367A This subroutine is only called by the #R$3449(series generator) and in e
   $3685 Finished.
 @ $3686 label=JUMP
 c $3686 THE 'JUMP' SUBROUTINE
+D $3686 This subroutine executes an unconditional jump when called by the literal '33'.
+  $3686 Go to the next alternate register set.
 @ $3687 label=JUMP_2
+  $3687 The next literal (jump length) is put in the #REGe' register.
+  $3688 The number +00 or +FF is formed in #REGa according as #REGe' is positive or negative, and is then copied to #REGd'.
+  $368C #REGhl' now holds the next literal pointer.
+  $368E Finished.
 @ $368F label=jump_true
 c $368F THE 'JUMP ON TRUE' SUBROUTINE
 D $368F This subroutine executes a conditional jump if the 'last value' on the calculator stack, or more precisely the number addressed currently by the #REGde register pair, is true.
