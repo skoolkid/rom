@@ -1341,6 +1341,12 @@ D $0A4F If the printing being handled is going to the printer then a carriage re
   $0A5C Make an indirect return via #R$0DD9 and #R$0ADC.
 @ $0A5F label=PO_COMMA
 c $0A5F THE 'PRINT COMMA' SUBROUTINE
+D $0A5F The current column value is manipulated and the #REGa register set to hold +00 (for TAB 0) or +10 (for TAB 16).
+  $0A5F Why again?
+  $0A62 Current column number.
+  $0A63 Move rightwards by two columns and then test.
+  $0A65 The #REGa register will be +00 or +10.
+  $0A67 Exit via #R$0AC3.
 @ $0A69 label=PO_QUEST
 c $0A69 THE 'PRINT A QUESTION MARK' SUBROUTINE
   $0A69,c2
@@ -2652,7 +2658,14 @@ N $16CB In all cases make MEM address the calculator's memory area.
 c $16D4 THE 'RECLAIM THE EDIT-LINE' SUBROUTINE
 @ $16DB label=INDEXER_1
 c $16DB THE 'INDEXER' SUBROUTINE
+D $16DB This subroutine is used on several occasions to look through tables. The entry point is at #R$16DC.
+  $16DB Move on to consider the next pair of entries.
 @ $16DC label=INDEXER
+  $16DC Fetch the first of a pair of entries but return if it is zero - the end marker.
+  $16DF Compare it to the supplied code.
+  $16E0 Point to the second entry.
+  $16E1 Jump back if the correct entry has not been found.
+  $16E3,1 The carry flag is set upon a successful search.
 @ $16E5 label=CLOSE
 c $16E5 THE 'CLOSE #' COMMAND ROUTINE
 D $16E5 This command allows the user to close streams. However for streams +00 to +03 the 'initial' stream data is restored and these streams cannot therefore be closed.
@@ -2755,7 +2768,10 @@ c $1781 THE 'OPEN-K' SUBROUTINE
 c $1785 THE 'OPEN-S' SUBROUTINE
 @ $1789 label=OPEN_P
 c $1789 THE 'OPEN-P' SUBROUTINE
+  $1789 The data bytes will be +10 and +00.
 @ $178B label=OPEN_END
+  $178B Decrease the length of the expression and give an error if it was not a single character.
+  $1790 Otherwise clear the #REGd register, fetch #REGhl and return.
 @ $1793 label=CAT_ETC
 c $1793 THE 'CAT, ERASE, FORMAT & MOVE' COMMAND ROUTINES
 @ $1795 label=AUTO_LIST
@@ -6850,6 +6866,13 @@ D $30A9 Any overflow of the 16 bits available is dealt with on return from the s
   $30BF Finished.
 @ $30C0 label=PREP_M_D
 c $30C0 THE 'PREPARE TO MULTIPLY OR DIVIDE' SUBROUTINE
+D $30C0 This subroutine prepares a floating-point number for multiplication or division, returning with carry set if the number is zero, getting the sign of the result into the #REGa register, and replacing the sign bit in the number by the true numeric bit, 1.
+  $30C0 If the number is zero, return with the carry flag set.
+  $30C4 Point to the sign byte.
+  $30C5 Get sign for result into #REGa (like signs give plus, unlike give minus); also reset the carry flag.
+  $30C6 Set the true numeric bit.
+  $30C8 Point to the exponent again.
+  $30C9 Return with carry flag reset.
 @ $30CA label=multiply
 c $30CA THE 'MULTIPLICATION' OPERATION
 D $30CA This subroutine first tests whether the two numbers to be multiplied are 'small integers'. If they are, it uses #R$2D7F to get them from the stack, #R$30A9 to multiply them and #R$2D8E to return the result to the stack. Any overflow of this 'short multiplication' (i.e. if the result is not itself a 'small integer') causes a jump to multiplication in full five byte floating-point form (see below).
@@ -7630,6 +7653,12 @@ D $359C This subroutine performs the binary operation 'A$+B$'. The parameters fo
   $35B7 Exactly the same procedure is followed for the second string thereby giving 'A$+B$'.
 @ $35BF label=STK_PNTRS
 c $35BF THE 'STK-PNTRS' SUBROUTINE
+D $35BF This subroutine resets the #REGhl register pair to point to the first byte of the 'last value', i.e. STKEND-5, and the #REGde register pair to point one past the 'last value', i.e. STKEND.
+  $35BF Fetch the current value of STKEND.
+  $35C2 Set #REGde to -5, two's complement.
+  $35C5 Stack the value for STKEND.
+  $35C6 Calculate STKEND-5.
+  $35C7,1 #REGde now holds STKEND and #REGhl holds STKEND-5.
 @ $35C9 label=chrs
 c $35C9 THE 'CHR$' FUNCTION
 D $35C9 This subroutine handles the function CHR$ X and creates a single character string in the work space.
