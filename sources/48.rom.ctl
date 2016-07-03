@@ -1420,6 +1420,8 @@ N $0AC2 And the TAB control character.
   $0AD8 Now finished.
 @ $0AD9 label=PO_ABLE
 c $0AD9 PRINTABLE CHARACTER CODES
+D $0AD9 The required character (or characters) is printed by calling #R$0B24 followed by #R$0ADC.
+  $0AD9 Print the character(s) and continue into #R$0ADC.
 @ $0ADC label=PO_STORE
 c $0ADC THE 'POSITION STORE' SUBROUTINE
 D $0ADC The new position's 'line and column' values and the 'pixel' address are stored in the appropriate system variables.
@@ -3554,7 +3556,10 @@ D $1C16 After the command class entries and the separator entries in the paramet
   $1C16 Fetch the pointer to the entries in the parameter table and fetch the address of the required command routine.
   $1C1C Exchange the pointers back and make an indirect jump to the command routine.
 @ $1C1F label=CLASS_01
-c $1C1F THE 'COMMAND CLASSES - 01, 02 & 04'
+c $1C1F THE 'COMMAND CLASSES - 01, 02 and 04'
+D $1C1F These three command classes are used by the variable handling commands - LET, FOR and NEXT - and indirectly by READ and INPUT.
+D $1C1F Command class 01 is concerned with the identification of the variable in a LET, READ or INPUT statement.
+  $1C1F Look in the variables area to determine whether or not the variable has been used already.
 @ $1C22 label=VAR_A_1
 c $1C22 THE 'VARIABLE IN ASSIGNMENT' SUBROUTINE
 D $1C22 This subroutine develops the appropriate values for the system variables DEST and STRLEN.
@@ -3657,6 +3662,8 @@ D $1CBE This routine is used by PLOT, DRAW and CIRCLE statements in order to spe
   $1CD9 Now get the first two operands for PLOT, DRAW or CIRCLE.
 @ $1CDB label=CLASS_0B
 c $1CDB THE 'COMMAND CLASS 0B' ROUTINE
+D $1CDB This routine is used by SAVE, LOAD, VERIFY and MERGE statements.
+  $1CDB Jump to the cassette handling routine.
 @ $1CDE label=FETCH_NUM
 c $1CDE THE 'FETCH A NUMBER' SUBROUTINE
 D $1CDE This subroutine leads to a following numeric expression being evaluated but zero being used instead if there is no expression.
@@ -6327,6 +6334,9 @@ D $2D22 This subroutine simply returns if the current value held in the #REGa re
   $2D26,c2 Replace the code by the actual digit.
 @ $2D28 label=STACK_A
 c $2D28 THE 'STACK-A' SUBROUTINE
+D $2D28 This subroutine gives the floating-point form for the absolute binary value currently held in the #REGa register.
+  $2D28 Transfer the value to the #REGc register.
+  $2D29 Clear the #REGb register.
 @ $2D2B label=STACK_BC
 c $2D2B THE 'STACK-BC' SUBROUTINE
 D $2D2B This subroutine gives the floating-point form for the absolute binary value currently held in the #REGbc register pair.
