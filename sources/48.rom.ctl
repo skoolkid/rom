@@ -864,7 +864,7 @@ N $05FA A new 'edge' has been found within the time period allowed for the searc
 E $05E3 Note: the #R$05E7 subroutine takes 465 T states, plus an additional 58 T states for each unsuccessful pass around the sampling loop.
 E $05E3 For example, therefore, when awaiting the sync pulse (see #R$058F) allowance is made for ten additional passes through the sampling loop. The search is thereby for the next edge to be found within, roughly, 1100 T states (465+10*58+overhead). This will prove successful for the sync 'off' pulse that comes after the long 'leader pulses'.
 @ $0605 label=SAVE_ETC
-c $0605 THE 'SAVE, LOAD, VERIFY & MERGE' COMMAND ROUTINES
+c $0605 THE 'SAVE, LOAD, VERIFY and MERGE' COMMAND ROUTINES
 D $0605 This entry point is used for all four commands. The value held in T-ADDR, however, distinguishes between the four commands. The first part of the following routine is concerned with the construction of the 'header information' in the work space.
   $0605 Drop the address - #R$1B52.
   $0606 Reduce T-ADDR-lo by +E0, giving +00 for SAVE, +01 for LOAD, +02 for VERIFY and +03 for MERGE.
@@ -1002,7 +1002,7 @@ N $073E The parameters that describe the program, and its variables, are found a
   $0759 Transfer the 'pointer' to the #REGhl register pair as usual.
 @ $075A label=SA_ALL
 N $075A In all cases the header information has now been prepared.
-N $075A #LIST { The location 'IX+00' holds the type number. } { Locations 'IX+01 to IX+0A' hold the name (+FF in 'IX+01' if null). } { Locations 'IX+0B & IX+0C' hold the number of bytes that are to be found in the 'data block'. } { Locations 'IX+0D to IX+10' hold a variety of parameters whose exact interpretation depends on the 'type'. } LIST#
+N $075A #LIST { The location 'IX+00' holds the type number. } { Locations 'IX+01 to IX+0A' hold the name (+FF in 'IX+01' if null). } { Locations 'IX+0B and IX+0C' hold the number of bytes that are to be found in the 'data block'. } { Locations 'IX+0D to IX+10' hold a variety of parameters whose exact interpretation depends on the 'type'. } LIST#
 N $075A The routine continues with the first task being to separate SAVE from LOAD, VERIFY and MERGE.
   $075A Jump forward when handling a SAVE command.
 N $0761 In the case of a LOAD, VERIFY or MERGE command the first seventeen bytes of the 'header area' in the work space hold the prepared information, as detailed above; and it is now time to fetch a 'header' from the tape.
@@ -1047,7 +1047,7 @@ N $07A6 A loop is entered to print the characters of the 'new name'. The name wi
   $07AE Loop for ten characters.
   $07B0 Accept the name only if the counter has reached zero.
   $07B4 Follow the 'new name' with a 'carriage return'.
-N $07B7 The correct header has been found and the time has come to consider the three commands LOAD, VERIFY, & MERGE separately.
+N $07B7 The correct header has been found and the time has come to consider the three commands LOAD, VERIFY, and MERGE separately.
   $07B7 Fetch the pointer.
   $07B8 'SCREEN$' and 'CODE' are handled with VERIFY.
   $07BF Jump forward if using a LOAD command.
@@ -1672,7 +1672,7 @@ N $0D02 The lower part of the display is handled as follows:
   $0D02 The 'out of screen' error is given if the lower part is going to be 'too large' and a return made if scrolling is unnecessary.
   $0D0C The #REGa register will now hold 'the number of scrolls to be made'.
   $0D0E The line and column numbers are now saved.
-  $0D0F The 'scroll number', ATTR-T, MASK-T & P-FLAG are all saved.
+  $0D0F The 'scroll number', ATTR-T, MASK-T and P-FLAG are all saved.
   $0D18 The 'permanent' colour items are to be used.
   $0D1B The 'scroll number' is fetched.
 N $0D1C The lower part of the screen is now scrolled '#REGa' number of times.
@@ -2390,7 +2390,7 @@ N $1303 After the line has been interpreted and all the actions consequential to
 @ $1313 label=MAIN_G
   $1313 Save the new value.
 @ $1314 keep
-  $1314 The system variables FLAGX, X-PTR-hi & DEFADD are all set to zero.
+  $1314 The system variables FLAGX, X-PTR-hi and DEFADD are all set to zero.
 @ $1320 keep
   $1320 Ensure that stream +00 points to channel 'K'.
   $1326 Clear all the work areas and the calculator stack.
@@ -2418,8 +2418,8 @@ N $1303 After the line has been interpreted and all the actions consequential to
 @ $1373 label=MAIN_6
 @ $1376 keep
 @ $1376 label=MAIN_7
-  $1376 The system variables OLDPPC & OSPCC have now to be made to hold the CONTinuing line and statement numbers.
-  $137C The values used will be those in PPC & SUBPPC unless NSPPC indicates that the 'break' occurred before a 'jump' (i.e. after a GO TO statement etc.).
+  $1376 The system variables OLDPPC and OSPCC have now to be made to hold the CONTinuing line and statement numbers.
+  $137C The values used will be those in PPC and SUBPPC unless NSPPC indicates that the 'break' occurred before a 'jump' (i.e. after a GO TO statement etc.).
 @ $1384 label=MAIN_8
 @ $1386 label=MAIN_9
   $1386 NSPPC is reset to indicate 'no jump'.
@@ -2505,7 +2505,7 @@ D $155D This subroutine allows for a new BASIC line to be added to the existing 
   $15AC Jump back and this time do produce an automatic listing.
 @ $15AF label=CHANINFO
 b $15AF THE 'INITIAL CHANNEL INFORMATION'
-D $15AF Initially there are four channels - 'K', 'S', 'R', & 'P' - for communicating with the 'keyboard', 'screen', 'work space' and 'printer'.  For each channel the output routine address comes before the input routine address and the channel's code.
+D $15AF Initially there are four channels - 'K', 'S', 'R', and 'P' - for communicating with the 'keyboard', 'screen', 'work space' and 'printer'.  For each channel the output routine address comes before the input routine address and the channel's code.
 W $15AF,4,2
   $15B3,1,T1
 L $15AF,5,4
@@ -2825,7 +2825,7 @@ c $1793 THE 'CAT, ERASE, FORMAT and MOVE' COMMAND ROUTINES
 D $1793 In the standard Spectrum system the use of these commands leads to the production of report O - Invalid stream.
   $1793 Give this report.
 @ $1795 label=AUTO_LIST
-c $1795 THE 'LIST & LLIST' COMMAND ROUTINES
+c $1795 THE 'LIST and LLIST' COMMAND ROUTINES
 D $1795 The routines in this part of the 16K program are used to produce listings of the current BASIC program. Each line has to have its line number evaluated, its tokens expanded and the appropriate cursors positioned.
 D $1795 The entry point #R$1795 is used by both #R$12A2 and #R$1059 to produce a single page of the listing.
   $1795 The stack pointer is saved allowing the machine stack to be reset when the listing is finished (see #R$0C55).
@@ -4125,7 +4125,7 @@ D $1FC3 This subroutine is called in several instances in order to 'return early
   $1FC6 Fetch the return address but ignore it in 'syntax-time'.
   $1FC8 In 'run-time' make a simple return to the calling routine.
 @ $1FC9 label=LPRINT
-c $1FC9 THE 'LPRINT & PRINT' COMMAND ROUTINES
+c $1FC9 THE 'LPRINT and PRINT' COMMAND ROUTINES
 D $1FC9 The appropriate channel is opened as necessary and the items to be printed are considered in turn.
   $1FC9 Prepare to open channel 'P'.
   $1FCB Jump forward.
@@ -7424,7 +7424,7 @@ D $32D7 This table is a look-up table of the addresses of the sixty-six operatio
   $3357 40
   $3359 41
 E $32D7 Note: The last four subroutines are multi-purpose subroutines and are entered with a parameter that is a copy of the right hand five bits of the original literal. The full set follows:
-E $32D7 #LIST { Offset 3E: series-06, series-08 & series-0C; literals 86, 88 & 8C. } { Offset 3F: stk-zero, stk-one, stk-half, stk-pi/2 & stk-ten; literals A0 to A4. } { Offset 40: st-mem-0, st-mem-1, st-mem-2, st-mem-3, st-mem-4 & st-mem-5; literals C0 to C5. } { Offset 41: get-mem-0, get-mem-1, get-mem-2, get-mem-3, get-mem-4 & get-mem-5; literals E0 to E5. } LIST#
+E $32D7 #LIST { Offset 3E: series-06, series-08 and series-0C; literals 86, 88 and 8C. } { Offset 3F: stk-zero, stk-one, stk-half, stk-pi/2 and stk-ten; literals A0 to A4. } { Offset 40: st-mem-0, st-mem-1, st-mem-2, st-mem-3, st-mem-4 and st-mem-5; literals C0 to C5. } { Offset 41: get-mem-0, get-mem-1, get-mem-2, get-mem-3, get-mem-4 and get-mem-5; literals E0 to E5. } LIST#
 @ $335B label=CALCULATE
 c $335B THE 'CALCULATE' SUBROUTINE
 D $335B This subroutine is used to perform floating-point calculations. These can be considered to be of three types:
