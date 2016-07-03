@@ -1360,7 +1360,9 @@ D $0A5F The current column value is manipulated and the #REGa register set to ho
   $0A67 Exit via #R$0AC3.
 @ $0A69 label=PO_QUEST
 c $0A69 THE 'PRINT A QUESTION MARK' SUBROUTINE
-  $0A69,c2
+D $0A69 A question mark is printed whenever an attempt is made to print an unprintable code.
+  $0A69,c2 The character '?'.
+  $0A6B Now print this character instead.
 @ $0A6D nowarn
 @ $0A6D label=PO_TV_2
 c $0A6D THE 'CONTROL CHARACTERS WITH OPERANDS' ROUTINE
@@ -2804,8 +2806,10 @@ b $177A THE 'OPEN STREAM LOOK-UP' TABLE
   $1780 End marker.
 @ $1781 label=OPEN_K
 c $1781 THE 'OPEN-K' SUBROUTINE
+  $1781,2 The data bytes will be +01 and +00.
 @ $1785 label=OPEN_S
 c $1785 THE 'OPEN-S' SUBROUTINE
+  $1785,2 The data bytes will be +06 and +00.
 @ $1789 label=OPEN_P
 c $1789 THE 'OPEN-P' SUBROUTINE
   $1789 The data bytes will be +10 and +00.
@@ -2852,6 +2856,9 @@ N $17E1 Now the 'automatic' listing can be made.
   $17F0 The return will be to here unless scrolling was needed to show the current line.
 @ $17F5 label=LLIST
 c $17F5 THE 'LLIST' ENTRY POINT
+D $17F5 The printer channel will need to be opened.
+  $17F5 Use stream +03.
+  $17F7 Jump forward.
 @ $17F9 label=LIST
 c $17F9 THE 'LIST' ENTRY POINT
 D $17F9 The 'main screen' channel will need to be opened.
@@ -7275,7 +7282,10 @@ N $3272 Now the bits of the mantissa can be cleared.
   $3292 Finished.
 @ $3293 label=RE_ST_TWO
 c $3293 THE 'RE-STACK TWO' SUBROUTINE
+D $3293 This subroutine is called to re-stack two 'small integers' in full five-byte floating-point form for the binary operations of addition, multiplication and division. It does so by calling the following subroutine twice.
+  $3293 Call the subroutine and then continue into it for the second call.
 @ $3296 label=RESTK_SUB
+  $3296 Exchange the pointers at each call.
 @ $3297 label=RE_STACK
 c $3297 THE 'RE-STACK' SUBROUTINE
 D $3297 This subroutine is called to re-stack one number (which could be a 'small integer') in full five byte floating-point form. It is used for a single number by #R$37E2 and also, through the calculator offset, by #R$36C4, #R$3713 and #R$3783.
@@ -7615,6 +7625,10 @@ B $3468,1 #R$369B
   $3469 Finished.
 @ $346A label=abs
 c $346A THE 'ABSOLUTE MAGNITUDE' FUNCTION
+D $346A This subroutine performs its unary operation by ensuring that the sign bit of a floating-point number is reset.
+D $346A 'Small integers' have to be treated separately. Most of the work is shared with the 'unary minus' operation.
+  $346A #REGb is set to FF hex.
+  $346C The jump is made into 'unary minus'.
 @ $346E label=NEGATE
 c $346E THE 'UNARY MINUS' OPERATION
 D $346E This subroutine performs its unary operation by changing the sign of the 'last value' on the calculator stack.
