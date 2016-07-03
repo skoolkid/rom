@@ -2512,6 +2512,7 @@ L $15AF,5,4
   $15C3,1 End marker
 @ $15C4 label=REPORT_J
 c $15C4 Report J - Invalid I/O device
+M $15C4,2 Call the error handling routine.
 B $15C5,1
 @ $15C6 label=STRMDATA
 b $15C6 THE 'INITIAL STREAM DATA'
@@ -2744,6 +2745,7 @@ b $1716 THE 'CLOSE STREAM LOOK-UP' TABLE
 E $1716 Note: There is no end marker at the end of this table.
 @ $171C label=CLOSE_STR
 c $171C THE 'CLOSE STREAM' SUBROUTINE
+  $171C Fetch the channel information pointer and return.
 @ $171E label=STR_DATA
 c $171E THE 'STREAM DATA' SUBROUTINE
 D $171E This subroutine returns in the #REGbc register pair the stream data for a given stream.
@@ -2819,7 +2821,9 @@ c $1789 THE 'OPEN-P' SUBROUTINE
   $178B Decrease the length of the expression and give an error if it was not a single character.
   $1790 Otherwise clear the #REGd register, fetch #REGhl and return.
 @ $1793 label=CAT_ETC
-c $1793 THE 'CAT, ERASE, FORMAT & MOVE' COMMAND ROUTINES
+c $1793 THE 'CAT, ERASE, FORMAT and MOVE' COMMAND ROUTINES
+D $1793 In the standard Spectrum system the use of these commands leads to the production of report O - Invalid stream.
+  $1793 Give this report.
 @ $1795 label=AUTO_LIST
 c $1795 THE 'LIST & LLIST' COMMAND ROUTINES
 D $1795 The routines in this part of the 16K program are used to produce listings of the current BASIC program. Each line has to have its line number evaluated, its tokens expanded and the appropriate cursors positioned.
@@ -3678,6 +3682,8 @@ B $1CEC,1 #R$369B
   $1CED Return with zero added to the stack.
 @ $1CEE label=STOP
 c $1CEE THE 'STOP' COMMAND ROUTINE
+D $1CEE The command routine for STOP contains only a call to the error handling routine.
+M $1CEE,2 Call the error handling routine.
 B $1CEF,1
 @ $1CF0 label=IF_CMD
 c $1CF0 THE 'IF' COMMAND ROUTINE
