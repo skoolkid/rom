@@ -2058,6 +2058,8 @@ c $0FF3 THE 'CURSOR DOWN EDITING' SUBROUTINE
   $1005 Jump forward.
 @ $1007 label=ED_LEFT
 c $1007 THE 'CURSOR LEFT EDITING' SUBROUTINE
+  $1007 The cursor is moved.
+  $100A Jump forward.
 @ $100C label=ED_RIGHT
 c $100C THE 'CURSOR RIGHT EDITING' SUBROUTINE
   $100C The current character is tested and if it is 'carriage return' then return.
@@ -2602,6 +2604,7 @@ c $1642 THE 'CHANNEL 'S' FLAG' SUBROUTINE
   $164A Exit via #R$0D4D so as to set the colour system variables.
 @ $164D label=CHAN_P
 c $164D THE 'CHANNEL 'P' FLAG' SUBROUTINE
+  $164D,4 Signal 'printer in use'.
 @ $1652 keep
 @ $1652 label=ONE_SPACE
 c $1652 THE 'MAKE-ROOM' SUBROUTINE
@@ -3904,6 +3907,10 @@ D $1E7A The two parameters for the OUT instruction are fetched from the calculat
   $1E7F Return - to #R$1B76.
 @ $1E80 label=POKE
 c $1E80 THE 'POKE' COMMAND ROUTINE
+D $1E80 In a similar manner to #R$1E7A(OUT), the POKE operation is performed.
+  $1E80 The operands are fetched.
+  $1E83 The actual POKE operation.
+  $1E84 Return - to #R$1B76.
 @ $1E85 label=TWO_PARAM
 c $1E85 THE 'TWO-PARAM' SUBROUTINE
 D $1E85 The topmost parameter on the calculator stack must be compressible into a single register. It is two's complemented if it is negative. The second parameter must be compressible into a register pair.
@@ -4938,6 +4945,9 @@ N $2522 The next subroutine, the 'scanning two co-ordinates' subroutine, is call
   $252D Report the error if it is not.
 @ $2530 label=SYNTAX_Z
 c $2530 THE 'SYNTAX-Z' SUBROUTINE
+D $2530 This subroutine is called 32 times, with a saving of just one byte each call. A simple test of bit 7 of FLAGS will give the zero flag reset during execution and set during syntax checking.
+  $2530 Test bit 7 of FLAGS.
+  $2534 Finished.
 @ $2535 label=S_SCRN_S
 c $2535 THE 'SCANNING SCREEN$' SUBROUTINE
 D $2535 This subroutine is used to find the character that appears at line x, column y of the screen. It only searches the character set 'pointed to' by CHARS.
@@ -6188,6 +6198,10 @@ N $2C7F The 'dimension sizes' are now entered.
   $2C85 Repeat the operation until all the dimensions have been considered; then return.
 @ $2C88 label=ALPHANUM
 c $2C88 THE 'ALPHANUM' SUBROUTINE
+D $2C88 This subroutine returns with the carry flag set if the present value of the #REGa register denotes a valid digit or letter.
+  $2C88 Test for a digit; carry will be reset for a digit.
+  $2C8B Complement the carry flag.
+  $2C8C Return if a digit; otherwise continue on into #R$2C8D.
 @ $2C8D label=ALPHA
 c $2C8D THE 'ALPHA' SUBROUTINE
 D $2C8D This subroutine returns with the carry flag set if the present value of the #REGa register denotes a valid letter of the alphabet.
@@ -6858,6 +6872,11 @@ D $3004 When this subroutine is called during addition, this ripple means that a
   $300E Finished.
 @ $300F label=SUBTRACT
 c $300F THE 'SUBTRACTION' OPERATION
+D $300F This subroutine simply changes the sign of the subtrahend and carries on into #R$3014.
+D $300F Note that #REGhl points to the minuend and #REGde points to the subtrahend. (See #R$3014 for more details.)
+  $300F Exchange the pointers.
+  $3010 Change the sign of the subtrahend.
+  $3013 Exchange the pointers back and continue into #R$3014.
 @ $3014 label=addition
 c $3014 THE 'ADDITION' OPERATION
 D $3014 The first of three major arithmetical subroutines, this subroutine carries out the floating-point addition of two numbers, each with a 4-byte mantissa and a 1-byte exponent. In these three subroutines, the two numbers at the top of the calculator stack are added/multiplied/divided to give one number at the top of the calculator stack, a 'last value'.
@@ -7714,9 +7733,16 @@ D $34F9 This subroutine returns a 'last value' of one if the present 'last value
   $34FD Jump forward to #R$3506 but signal the opposite action is needed.
 @ $3501 label=f_not
 c $3501 THE 'NOT' FUNCTION
+D $3501 This subroutine returns a 'last value' of one if the present 'last value' is zero and zero otherwise. It is also used by other subroutines to 'jump on zero'.
+  $3501 The carry flag will be set only if the 'last value' is zero; this gives the correct result.
+  $3504 Jump forward.
 @ $3506 label=less_0
 c $3506 THE 'LESS THAN ZERO' OPERATION
+D $3506 This subroutine returns a 'last value' of one if the present 'last value' is less than zero and zero otherwise. It is also used by other subroutines to 'jump on minus'.
+  $3506 Clear the #REGa register.
 @ $3507 label=SIGN_TO_C
+  $3507 Point to the sign byte.
+  $3508 The carry is reset for a positive number and set for a negative number; when entered from #R$34F9 the opposite sign goes to the carry.
 @ $350B label=FP_0_1
 c $350B THE 'ZERO OR ONE' SUBROUTINE
 D $350B This subroutine sets the 'last value' to zero if the carry flag is reset and to one if it is set. When called from #R$2D4F however it creates the zero or one not on the stack but in mem-0.
@@ -7953,6 +7979,10 @@ D $368F This subroutine executes a conditional jump if the 'last value' on the c
   $369A Finished.
 @ $369B label=end_calc
 c $369B THE 'END-CALC' SUBROUTINE
+D $369B This subroutine ends a RST 28 operation.
+  $369B The return address to the calculator (#R$3365) is discarded.
+  $369C Instead, the address in #REGhl' is put on the machine stack and an indirect jump is made to it. #REGhl' will now hold any earlier address in the calculator chain of addresses.
+  $369F Finished.
 @ $36A0 label=n_mod_m
 c $36A0 THE 'MODULUS' SUBROUTINE
 D $36A0 This subroutine calculates N (mod M), where M is a positive integer held at the top of the calculator stack (the 'last value'), and N is the integer held on the stack beneath M.
