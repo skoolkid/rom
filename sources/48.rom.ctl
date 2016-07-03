@@ -3485,6 +3485,8 @@ B $1BB1,1
 E $1B9E Note: obviously not an error in the normal sense - but rather a jump past the program.
 @ $1BB2 label=REM
 c $1BB2 THE 'REM' COMMAND ROUTINE
+D $1BB2 The return address to #R$1B76 is dropped which has the effect of forcing the rest of the line to be ignored.
+  $1BB2 Drop the address - #R$1B76.
 @ $1BB3 label=LINE_END
 c $1BB3 THE 'LINE-END' ROUTINE
 D $1BB3 If checking syntax a simple return is made but when 'running' the address held by NXTLIN has to be checked before it can be used.
