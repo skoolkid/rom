@@ -375,9 +375,9 @@ N $0296 Now enter a loop. Eight passes are made with each pass having a differen
   $02AC The counter is shifted and the jump taken if there are still lines to be scanned.
 N $02B0 Four tests are now made.
   $02B0 Accept any key value which still has the #REGd register holding +FF, i.e. a single key pressed or 'no-key'.
-  $02B3 Accept the key value for a pair of keys if the '#REGd' key is CAPS SHIFT.
-  $02B6 Accept the key value for a pair of keys if the '#REGd' key is SYMBOL SHIFT.
-  $02B9 It is however possible for the '#REGe' key of a pair to be SYMBOL SHIFT - so this has to be considered.
+  $02B3 Accept the key value for a pair of keys if the #REGd key is CAPS SHIFT.
+  $02B6 Accept the key value for a pair of keys if the #REGd key is SYMBOL SHIFT.
+  $02B9 It is however possible for the #REGe key of a pair to be SYMBOL SHIFT - so this has to be considered.
   $02BE Return with the zero flag set if it was SYMBOL SHIFT and 'another key'; otherwise reset.
 @ $02BF label=KEYBOARD
 c $02BF THE 'KEYBOARD' SUBROUTINE
@@ -529,7 +529,7 @@ D $03B5 This subroutine is entered with the #REGde register pair holding the val
   $03C5 Alter the length of the timing loop. Use an earlier starting point for each '1' lost by taking INT (#REGl/4).
   $03C7 Fetch the present border colour and move it to bits 2, 1 and 0 of the #REGa register.
   $03CF Ensure the MIC output is 'off'.
-N $03D1 Now enter the sound generation loop. '#REGde' complete passes are made, i.e. a pass for each cycle of the note.
+N $03D1 Now enter the sound generation loop. #REGde complete passes are made, i.e. a pass for each cycle of the note.
 @ $03D1 label=BE_IX_3
 N $03D1 The #REGhl register holds the 'length of the timing loop' with 16 T states being used for each '1' in the #REGl register and 1024 T states for each '1' in the #REGh register.
   $03D1 Add 4 T states for each earlier entry port that is used.
@@ -1116,7 +1116,7 @@ N $084C Space is now made available for the new array - at the end of the presen
   $0856 Save this 'length'.
   $0857 Add three bytes - one for the name and two for the 'length'.
   $085A '#REGix+0E' of the old header gives the name of the array.
-  $085D The name is saved whilst the appropriate amount of room is made available. In effect '#REGbc' spaces before the 'new 80-byte'.
+  $085D The name is saved whilst the appropriate amount of room is made available. In effect #REGbc spaces before the 'new 80-byte'.
   $0863 The name is entered.
   $0864 The 'length' is fetched and its two bytes are also entered.
   $0869 #REGhl now points to the first location that is to be filled with data from the tape.
@@ -1416,7 +1416,7 @@ N $0AC2 And the TAB control character.
   $0ACB Use #REGd as the counter.
   $0ACC Suppress 'leading space'.
 @ $0AD0 label=PO_SPACE
-  $0AD0,8,c2,6 Print '#REGd' number of spaces.
+  $0AD0,8,c2,6 Print #REGd number of spaces.
   $0AD8 Now finished.
 @ $0AD9 label=PO_ABLE
 c $0AD9 PRINTABLE CHARACTER CODES
@@ -1675,7 +1675,7 @@ N $0D02 The lower part of the display is handled as follows:
   $0D0F The 'scroll number', ATTR-T, MASK-T and P-FLAG are all saved.
   $0D18 The 'permanent' colour items are to be used.
   $0D1B The 'scroll number' is fetched.
-N $0D1C The lower part of the screen is now scrolled '#REGa' number of times.
+N $0D1C The lower part of the screen is now scrolled #REGa number of times.
 @ $0D1C label=PO_SCR_4A
   $0D1C Save the 'number'.
   $0D1D This is DF-SZ.
@@ -1684,7 +1684,7 @@ N $0D1C The lower part of the screen is now scrolled '#REGa' number of times.
   $0D27 The jump is taken if only the lower part of the display is to be scrolled (#REGb=old DF-SZ).
   $0D2A Otherwise S-POSN-hi is incremented and the whole display scrolled (#REGb=+18).
 @ $0D2D label=PO_SCR_4B
-  $0D2D Scroll '#REGb' lines.
+  $0D2D Scroll #REGb lines.
   $0D30 Fetch and decrement the 'scroll number'.
   $0D32 Jump back until finished.
   $0D34 Restore the value of P-FLAG.
@@ -1807,14 +1807,14 @@ N $0E32 Now find if the loop has been used eight times - once for each pixel lin
   $0E34 Fetch the counters.
   $0E35 Decrease the pixel line counter and jump back unless eight lines have been moved.
 N $0E38 Next the attribute bytes are scrolled. Note that the #REGb register still holds the number of lines to be scrolled and the #REGc register holds zero.
-  $0E38 The required address in the attribute area and the number of characters in '#REGb' lines are found.
+  $0E38 The required address in the attribute area and the number of characters in #REGb lines are found.
   $0E3B The displacement for all the attribute bytes is thirty two locations away.
   $0E40 The attribute bytes are 'scrolled'.
 N $0E42 It remains now to clear the bottom line of the display.
   $0E42 The #REGb register is loaded with +01 and #R$0E44 is entered.
 @ $0E44 label=CL_LINE
 c $0E44 THE 'CLEAR LINES' SUBROUTINE
-D $0E44 This subroutine will clear the bottom '#REGb' lines of the display.
+D $0E44 This subroutine will clear the bottom #REGb lines of the display.
   $0E44 The line number is saved for the duration of the subroutine.
   $0E45 The starting address for the line is formed in #REGhl.
   $0E48 Again there are eight pixel lines to be considered.
@@ -4393,7 +4393,7 @@ N $221D The colour control code will now be +01 for INVERSE and +02 for OVER and
   $2229 The correct range for INVERSE and OVER is only '0-1'.
   $222E Restore the #REGa register.
   $222F It is P-FLAG that is to be changed.
-  $2232 Exit via #R$226C and alter P-FLAG using '#REGb' as a mask, i.e. bit 0 for OVER and bit 2 for INVERSE.
+  $2232 Exit via #R$226C and alter P-FLAG using #REGb as a mask, i.e. bit 0 for OVER and bit 2 for INVERSE.
 N $2234 PAPER and INK are dealt with by the following routine. On entry the carry flag is set for INK.
 @ $2234 label=CO_TEMP_7
   $2234 Fetch the parameter.
@@ -5715,7 +5715,7 @@ N $29C0 For both numeric arrays and arrays of strings the variable pointer is tr
   $29C0 Pass the pointer to #REGde.
   $29C1 Jump forward.
 N $29C3 The following loop is used to find the parameters of a specified element within an array. The loop is entered at the mid-point - #R$29E7 - where the element count is set to zero.
-N $29C3 The loop is accessed '#REGb' times, this being, for a numeric array, equal to the number of dimensions that are being used, but for an array of strings '#REGb' is one less than the number of dimensions in use as the last subscript is used to specify a 'slice' of the string.
+N $29C3 The loop is accessed #REGb times, this being, for a numeric array, equal to the number of dimensions that are being used, but for an array of strings #REGb is one less than the number of dimensions in use as the last subscript is used to specify a 'slice' of the string.
 @ $29C3 label=SV_COMMA
   $29C3 Save the counter.
   $29C4 Get the present character.
@@ -5766,7 +5766,7 @@ N $29E7 Enter the loop here.
   $2A0B Add the result of #R$2ACC to the present counter.
   $2A0C Fetch the variable pointer.
   $2A0D Fetch the dimension-number and the discriminator byte.
-  $2A0E Keep going round the loop until '#REGb' equals zero.
+  $2A0E Keep going round the loop until #REGb equals zero.
 N $2A10 The SYNTAX/RUN flag is checked before arrays of strings are separated from arrays of numbers.
   $2A10 Report an error if checking syntax at this point.
 @ $2A12 label=SV_RPT_C
@@ -5975,11 +5975,11 @@ N $2B1F Separate 'numeric' and 'string' names.
   $2B22 If It is so then accept it as a character of a 'long' name.
   $2B24,c2 Is the present code a '$'?
   $2B26 Jump forward as handling a 'newly declared' simple string.
-N $2B29 The 'newly declared numeric variable' presently being handled will require '#REGbc' spaces in the variables area for its name and its value. The room is made available and the name of the variable is copied over with the characters being 'marked' as required.
+N $2B29 The 'newly declared numeric variable' presently being handled will require #REGbc spaces in the variables area for its name and its value. The room is made available and the name of the variable is copied over with the characters being 'marked' as required.
 @ $2B29 label=L_SPACES
   $2B29 Copy the 'length' to #REGa.
   $2B2A Make #REGhl point to the '80-byte' at the end of the variables area.
-  $2B2E Now open up the variables area. Note: In effect '#REGbc' spaces are made before the displaced '80-byte'.
+  $2B2E Now open up the variables area. Note: in effect #REGbc spaces are made before the displaced '80-byte'.
   $2B31 Point to the first 'new' byte.
   $2B32 Make #REGde point to the second 'new' byte.
   $2B34 Save this pointer.
