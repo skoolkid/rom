@@ -631,7 +631,7 @@ N $045F Note: If the timing loop value is too large then an error will occur (re
 N $0465 However before making the 'beep' test the value f*t.
   $0465 Return if f*t has given the result of 'no cycles' required.
   $0468 Decrease the cycle number and jump to #R$03B5 (making at least one pass).
-N $046C Report B - integer out of range
+N $046C Report B - integer out of range.
 @ $046C label=REPORT_B
 M $046C,2 Call the error handling routine.
 B $046D,1
@@ -883,7 +883,7 @@ D $0605 This entry point is used for all four commands. The value held in T-ADDR
   $0637 In effect jump forward if the length of the name is not too long (i.e. no more than ten characters).
   $063C But allow for the LOADing, VERIFYing and MERGEing of programs with 'null' names or extra long names.
 @ $0642 label=REPORT_F
-N $0642 Report F - Invalid file name
+N $0642 Report F - Invalid file name.
 M $0642,2 Call the error handling routine.
 B $0643,1
 @ $0644 label=SA_NULL
@@ -909,7 +909,7 @@ N $0652 The many different parameters, if any, that follow the command are now c
   $0667 Signal 'using a new array'.
   $066A Consider the value in T-ADDR and give an error if trying to SAVE or VERIFY a new array.
 @ $0670 label=REPORT_2
-N $0670 Report 2 - Variable not found
+N $0670 Report 2 - Variable not found.
 M $0670,2 Call the error handling routine.
 B $0671,1
 @ $0672 label=SA_V_OLD
@@ -1620,7 +1620,7 @@ D $0C55 On entry the #REGb register holds the line number under test.
   $0C75 Decrease this counter.
   $0C76 Jump forward if the listing is to be scrolled.
   $0C78 Otherwise open channel 'K', restore the stack pointer, flag that the automatic listing has finished and return via #R$0DD9.
-N $0C86 Report 5 - Out of screen
+N $0C86 Report 5 - Out of screen.
 @ $0C86 label=REPORT_5
 M $0C86,2 Call the error handling routine.
 B $0C87,1
@@ -1663,7 +1663,7 @@ N $0CF8 The 'scroll?' message.
 @ $0CF8 label=SCROLL
 B $0CF8,1 Initial marker - stepped over.
 T $0CF9,7,6:B1 The '?' is inverted.
-N $0D00 Report D - BREAK - CONT repeats
+N $0D00 Report D - BREAK - CONT repeats.
 @ $0D00 label=REPORT_D_2
 M $0D00,2 Call the error handling routine.
 B $0D01,1
@@ -3776,7 +3776,7 @@ N $1D7C NEWPPC holds the line number of the line in which the correct NEXT was f
   $1D7D The statement counter in the #REGd register counted statements back from zero so it has to be subtracted from '1'.
   $1D80 The result is stored.
   $1D83 Now return - to #R$1B76.
-N $1D84 REPORT I - FOR without NEXT
+N $1D84 Report I - FOR without NEXT.
 @ $1D84 label=REPORT_I
 M $1D84,2 Call the error handling routine.
 B $1D85,1
@@ -3820,7 +3820,7 @@ N $1DC8 Otherwise collect the 'looping' line number and statement.
   $1DCF Now fetch this line number.
   $1DD3 Followed by the statement number.
   $1DD4 Exchange the numbers before jumping forward to treat them as the destination line of a GO TO command.
-N $1DD8 Report 1 - NEXT without FOR
+N $1DD8 Report 1 - NEXT without FOR.
 @ $1DD8 label=REPORT_1
 M $1DD8,2 Call the error handling routine.
 B $1DD9,1 #R$368F
@@ -5419,7 +5419,7 @@ N $27F7 ii. During line execution, a search must first be made for a DEF FN stat
   $280C Search the program now.
   $280F Restore the name and status.
   $2810 Jump if a DEF FN statement found.
-N $2812 REPORT P - FN without DEF.
+N $2812 Report P - FN without DEF.
 @ $2812 label=REPORT_P
 M $2812,2 Call the error handling routine.
 B $2813,1
@@ -5488,7 +5488,7 @@ N $2831 iii. The correct DEF FN statement has now been found. The arguments of t
   $2886 Get the character after the last argument in FN.
   $2887,c2 Is it a ')'?
   $2889 If so, jump to evaluate the function; but if not, give report Q.
-N $288B REPORT Q - Parameter error.
+N $288B Report Q - Parameter error.
 @ $288B label=REPORT_Q
 M $288B,2 Call the error handling routine.
 B $288C,1
@@ -8102,7 +8102,7 @@ B $36F8,1 #R$369B
   $36FE Error if ABS N>255 dec.
   $3700 Now add ABS N to the exponent.
   $3701 Jump unless e>255 dec.
-N $3703 Report 6 - Number too big
+N $3703 Report 6 - Number too big.
 @ $3703 label=REPORT_6_2
 M $3703,2 Call the error handling routine.
 B $3704,1
@@ -8134,7 +8134,7 @@ B $3717,1 #R$368F to #R$371C: X
 B $3718,1 #R$30CA: X
 B $3719,1 #R$369B: X
 @ $371A label=REPORT_A_2
-N $371A Report A - Invalid argument
+N $371A Report A - Invalid argument.
 M $371A,2 Call the error handling routine.
 B $371B,1
 N $371C Perform step ii.
