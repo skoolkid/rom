@@ -6453,14 +6453,14 @@ D $2D8C This subroutine stores a small integer n (-65535<=n<=65535) in the locat
   $2D8F The first byte is set to zero.
   $2D91 Point to the second location.
   $2D92 Enter the second byte.
-N $2D93 The same mechanism is now used as in #R$2D7F to twos complement negative numbers. This is needed e.g. before and after the multiplication of small integers. Addition is however performed without any further twos complementing before or afterwards.
+N $2D93 The same mechanism is now used as in #R$2D7F to two's complement negative numbers. This is needed e.g. before and after the multiplication of small integers. Addition is however performed without any further two's complementing before or afterwards.
   $2D93 Point to the third location.
   $2D94 Collect the less significant byte.
-  $2D95 Twos complement it if the number is negative.
+  $2D95 Two's complement it if the number is negative.
   $2D97 Store the byte.
   $2D98 Point to the fourth location.
   $2D99 Collect the more significant byte.
-  $2D9A Twos complement it if the number is negative.
+  $2D9A Two's complement it if the number is negative.
   $2D9C Store the byte.
   $2D9D Point to the fifth location.
   $2D9E The fifth byte is set to zero.
@@ -6909,7 +6909,7 @@ D $300F Note that #REGhl points to the minuend and #REGde points to the subtrahe
 c $3014 THE 'ADDITION' OPERATION
 D $3014 The first of three major arithmetical subroutines, this subroutine carries out the floating-point addition of two numbers, each with a 4-byte mantissa and a 1-byte exponent. In these three subroutines, the two numbers at the top of the calculator stack are added/multiplied/divided to give one number at the top of the calculator stack, a 'last value'.
 D $3014 #REGhl points to the second number from the top, the augend/multiplier/dividend. #REGde points to the number at the top of the calculator stack, the addend/multiplicand/divisor. Afterwards #REGhl points to the resultant 'last value' whose address can also be considered to be STKEND-5.
-D $3014 But the addition subroutine first tests whether the 2 numbers to be added are 'small integers'. If they are, it adds them quite simply in #REGhl and #REGbc, and puts the result directly on the stack. No twos complementing is needed before or after the addition, since such numbers are held on the stack in twos complement form, ready for addition.
+D $3014 But the addition subroutine first tests whether the 2 numbers to be added are 'small integers'. If they are, it adds them quite simply in #REGhl and #REGbc, and puts the result directly on the stack. No two's complementing is needed before or after the addition, since such numbers are held on the stack in two's complement form, ready for addition.
   $3014 Test whether the first bytes of both numbers are zero.
   $3016 If not, jump for full addition.
   $3018 Save the pointer to the second number.
@@ -6947,7 +6947,7 @@ N $303C One possible remedy would be to test for this number at about byte #R$30
   $303D Restore the pointer to the second number.
 @ $303E label=FULL_ADDN
   $303E Re-stack both numbers in full five-byte floating-point form.
-N $3041 The full addition subroutine first calls #R$2F9B for each number, then gets the two numbers from the calculator stack and puts the one with the smaller exponent into the addend position. It then calls #R$2FDD to shift the addend up to 32 decimal places right to line it up for addition. The actual addition is done in a few bytes, a single shift is made for carry (overflow to the left) if needed, the result is twos complemented if negative, and any arithmetic overflow is reported; otherwise the subroutine jumps to #R$3155 to normalise the result and return it to the stack with the correct sign bit inserted into the second byte.
+N $3041 The full addition subroutine first calls #R$2F9B for each number, then gets the two numbers from the calculator stack and puts the one with the smaller exponent into the addend position. It then calls #R$2FDD to shift the addend up to 32 decimal places right to line it up for addition. The actual addition is done in a few bytes, a single shift is made for carry (overflow to the left) if needed, the result is two's complemented if negative, and any arithmetic overflow is reported; otherwise the subroutine jumps to #R$3155 to normalise the result and return it to the stack with the correct sign bit inserted into the second byte.
   $3041 Exchange the registers.
   $3042 Save the next literal address.
   $3043 Exchange the registers.
@@ -6983,20 +6983,20 @@ N $3041 The full addition subroutine first calls #R$2F9B for each number, then g
 @ $307C label=TEST_NEG
   $307C Test for negative result: get sign bit of #REGl' into #REGa (this now correctly indicates the sign of the result).
   $3081 Store it in the second byte position of the result on the calculator stack.
-  $3084 If it is zero, then do not twos complement the result.
+  $3084 If it is zero, then do not two's complement the result.
   $3086 Get the first byte.
   $3087 Negate it.
   $3089 Complement the carry for continued negation, and store byte.
   $308B Get the next byte.
-  $308C Ones complement it.
+  $308C One's complement it.
   $308D Add in the carry for negation.
   $308F Store the byte.
   $3090 Proceed to get next byte into the #REGa register.
-  $3092 Ones complement it.
+  $3092 One's complement it.
   $3093 Add in the carry for negation.
   $3095 Store the byte.
   $3096 Get the last byte.
-  $3097 Ones complement it.
+  $3097 One's complement it.
   $3098 Add in the carry for negation.
   $309A Done if no carry.
   $309C Else, get .5 into mantissa and add 1 to the exponent; this will be needed when two negative numbers add to give an exact power of 2, and it may lead to arithmetic overflow.
