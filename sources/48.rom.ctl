@@ -383,7 +383,7 @@ N $02B0 Four tests are now made.
 c $02BF THE 'KEYBOARD' SUBROUTINE
 D $02BF This subroutine is called on every occasion that a maskable interrupt occurs. In normal operation this will happen once every 20 ms. The purpose of this subroutine is to scan the keyboard and decode the key value. The code produced will, if the 'repeat' status allows it, be passed to the system variable LAST-K. When a code is put into this system variable bit 5 of FLAGS is set to show that a 'new' key has been pressed.
   $02BF Fetch a key value in the #REGde register pair but return immediately if the zero flag is reset.
-N $02C3 A double system of 'KSTATE system variables' (KSTATE0 - KSTATE 3 and KSTATE4 - KSTATE7) is used from now on.
+N $02C3 A double system of 'KSTATE system variables' (KSTATE0-KSTATE3 and KSTATE4-KSTATE7) is used from now on.
 N $02C3 The two sets allow for the detection of a new key being pressed (using one set) whilst still within the 'repeat period' of the previous key to have been pressed (details in the other set).
 N $02C3 A set will only become free to handle a new key if the key is held down for about 1/10th. of a second, i.e. five calls to #R$02BF.
   $02C3 Start with KSTATE0.
@@ -671,7 +671,7 @@ D $04C2 This subroutine is called to save the header information and later the a
   $04D7 Give a value to #REGb.
 N $04D8 A loop is now entered to create the pulses of the leader. Both the 'MIC on' and the 'MIC off' pulses are 2,168 T states in length. The colour of the border changes from red to cyan with each 'edge'.
 @ $04D8 label=SA_LEADER
-N $04D8 Note:             An 'edge' will be a transition either from 'on' to 'off', or from 'off' to 'on'.
+N $04D8 Note: an 'edge' will be a transition either from 'on' to 'off', or from 'off' to 'on'.
   $04D8 The main timing period.
   $04DA MIC on/off, border red/cyan, on each pass.
   $04DE The main timing constant.
@@ -2324,7 +2324,7 @@ N $1222 Next the machine stack is set up.
 N $122E The initialisation routine continues with:
   $122E Interrupt mode 1 is used.
   $1230 #REGiy holds +ERR-NR always.
-  $1234 The maskable interrupt can now be enabled.  The real-time clock will be updated and the keyboard scanned every 1/50th of a second.
+  $1234 The maskable interrupt can now be enabled. The real-time clock will be updated and the keyboard scanned every 1/50th of a second.
   $1235 The base address of the channel information area.
   $123B The initial channel data is moved from the table (#R$15AF) to the channel information area.
 @ $123E keep
@@ -2505,7 +2505,7 @@ D $155D This subroutine allows for a new BASIC line to be added to the existing 
   $15AC Jump back and this time do produce an automatic listing.
 @ $15AF label=CHANINFO
 b $15AF THE 'INITIAL CHANNEL INFORMATION'
-D $15AF Initially there are four channels - 'K', 'S', 'R', and 'P' - for communicating with the 'keyboard', 'screen', 'work space' and 'printer'.  For each channel the output routine address comes before the input routine address and the channel's code.
+D $15AF Initially there are four channels - 'K', 'S', 'R', and 'P' - for communicating with the 'keyboard', 'screen', 'work space' and 'printer'. For each channel the output routine address comes before the input routine address and the channel's code.
 W $15AF,4,2
   $15B3,1,T1
 L $15AF,5,4
@@ -2562,8 +2562,9 @@ N $15F7 Now call the actual subroutine. #REGhl points to the output or the input
   $1600 Return will be from here unless an error occurred.
 @ $1601 label=CHAN_OPEN
 c $1601 THE 'CHAN-OPEN' SUBROUTINE
-D $1601 This subroutine is called with the #REGa register holding a valid stream number - normally +FD to +03.  Then depending on the stream data a particular channel will be made the current channel.
-  $1601 The value in the #REGa register is doubled and then increased by +16.  The result is moved to #REGl.
+D $1601 This subroutine is called with the #REGa register holding a valid stream number - normally +FD to +03. Then depending on the stream data a particular channel will be made the current channel.
+  $1601 The value in the #REGa register is doubled and then increased by +16.
+  $1604 The result is moved to #REGl.
   $1605 The address 5C16 is the base address for stream +00.
   $1607 Fetch the first two bytes of the required stream's data.
   $160A Give an error if both bytes are zero; otherwise jump forward.
@@ -2613,7 +2614,7 @@ c $164D THE 'CHANNEL 'P' FLAG' SUBROUTINE
 @ $1652 keep
 @ $1652 label=ONE_SPACE
 c $1652 THE 'MAKE-ROOM' SUBROUTINE
-D $1652 This is a very important subroutine.  It is called on many occasions to 'open up' an area.  In all cases the #REGhl register pair points to the location after the place where 'room' is required and the #REGbc register pair holds the length of the 'room' needed.  When a single space only is required then the subroutine is entered at #R$1652.
+D $1652 This is a very important subroutine. It is called on many occasions to 'open up' an area. In all cases the #REGhl register pair points to the location after the place where 'room' is required and the #REGbc register pair holds the length of the 'room' needed. When a single space only is required then the subroutine is entered at #R$1652.
   $1652 Just the single extra location is required.
 @ $1655 label=MAKE_ROOM
   $1655 Save the pointer.
@@ -2653,7 +2654,7 @@ N $1683 Now find the size of the block to be moved.
   $168C Reform the old value of STKEND and pass it to #REGde before returning.
 @ $168F label=LINE_ZERO
 c $168F THE 'COLLECT A LINE NUMBER' SUBROUTINE
-D $168F On entry the #REGhl register pair points to the location under consideration.  If the location holds a value that constitutes a suitable high byte for a line number then the line number is returned in #REGde.  However if this is not so then the location addressed by #REGde is tried instead; and should this also be unsuccessful line number zero is returned.
+D $168F On entry the #REGhl register pair points to the location under consideration. If the location holds a value that constitutes a suitable high byte for a line number then the line number is returned in #REGde. However if this is not so then the location addressed by #REGde is tried instead; and should this also be unsuccessful line number zero is returned.
 B $168F,2 Line number zero.
 @ $1691 label=LINE_NO_A
   $1691 Consider the other pointer.
@@ -2843,7 +2844,7 @@ N $17BF The 'automatic' number has now to be altered to give a listing with the 
 @ $17C3 keep
   $17C9 Save the 'result' on the machine stack whilst the 'automatic' line address is also found (in #REGhl).
   $17CD The 'result' goes to the #REGbc register pair.
-N $17CE A loop is now entered.  The 'automatic' line number is increased on each pass until it is likely that the 'current' line will show on a listing.
+N $17CE A loop is now entered. The 'automatic' line number is increased on each pass until it is likely that the 'current' line will show on a listing.
 @ $17CE label=AUTO_L_1
   $17CE Save the 'result'.
   $17CF Find the address of the start of the line after the present 'automatic' line (in #REGde).
@@ -3044,13 +3045,14 @@ E $1925 Also note how the program does not cater for ':' in REM statements.
 @ $196E label=LINE_ADDR
 c $196E THE 'LINE-ADDR' SUBROUTINE
 D $196E For a given line number, in the #REGhl register pair, this subroutine returns the starting address of that line or the 'first line after', in the #REGhl register pair, and the start of the previous line in the #REGde register pair.
-D $196E If the line number is being used the zero flag will be set.  However if the 'first line after' is substituted then the zero flag is returned reset.
+D $196E If the line number is being used the zero flag will be set. However if the 'first line after' is substituted then the zero flag is returned reset.
   $196E Save the given line number.
   $196F Fetch the system variable PROG and transfer the address to the #REGde register pair.
 N $1974 Now enter a loop to test the line number of each line of the program against the given line number until the line number is matched or exceeded.
 @ $1974 label=LINE_AD_1
   $1974 The given line number.
-  $1975 Compare the given line number against the addressed line number.  Return if carry reset; otherwise address the next line's number.
+  $1975 Compare the given line number against the addressed line number
+  $1978 Return if carry reset; otherwise address the next line's number.
   $197D Switch the pointers and jump back to consider the next line of the program.
 @ $1980 label=CP_LINES
 c $1980 THE 'COMPARE LINE NUMBERS' SUBROUTINE
@@ -3133,7 +3135,7 @@ D $19E5 The main entry point is used when the address of the first location to b
   $19FA Now return.
 @ $19FB label=E_LINE_NO
 c $19FB THE 'E-LINE-NO' SUBROUTINE
-D $19FB This subroutine is used to read the line number of the line in the editing area.  If there is no line number, i.e. a direct BASIC line, then the line number is considered to be zero.
+D $19FB This subroutine is used to read the line number of the line in the editing area. If there is no line number, i.e. a direct BASIC line, then the line number is considered to be zero.
 D $19FB In all cases the line number is returned in the #REGbc register pair.
   $19FB Pick up the pointer to the edit-line.
   $19FE Set CH-ADD to point to the location before any number.
@@ -3640,7 +3642,8 @@ N $1C8C This entry point (CLASS-0A) allows for a single string expression to be 
 @ $1C96 label=PERMS
 c $1C96 THE 'SET PERMANENT COLOURS' SUBROUTINE (EQU. CLASS-07)
 D $1C96 This subroutine allows for the current temporary colours to be made permanent. As command class 07 it is in effect the command routine for the six colour item commands.
-  $1C96 The syntax/run flag is read.  Signal 'main screen'.
+  $1C96 The syntax/run flag is read.
+  $1C9A Signal 'main screen'.
   $1C9E Only during a 'run' call #R$0D4D to ensure the temporary colours are the main screen colours.
   $1CA1 Drop the return address #R$1B52.
   $1CA2 Fetch the low byte of T-ADDR and subtract +13 to give the range +D9 to +DE which are the token codes for INK to OVER.
@@ -3917,7 +3920,7 @@ D $1E67 The operand of a GO TO ought to be a line number in the range 1-9999 but
   $1E67 Fetch the operand and transfer it to the #REGhl register pair.
   $1E6C Set the statement number to zero.
   $1E6E Give the error message 'Integer out of range' with line numbers over 61439.
-N $1E73 This entry point  is used to determine the line number of the next line to be handled in several instances.
+N $1E73 This entry point is used to determine the line number of the next line to be handled in several instances.
 @ $1E73 label=GO_TO_2
   $1E73 Enter the line number and then the statement number.
   $1E79 Return - to #R$1B76.
@@ -4615,7 +4618,7 @@ D $2382 This routine is entered with the co-ordinates of a point X0, Y0, say, in
 D $2382 The routine has four parts:
 D $2382 #LIST { i. Just draws a line if only 2 parameters are given or if the diameter of the implied circle is less than 1. } { ii. Calls #R$247D to set the first parameters. } { iii. Sets up the remaining parameters, including the initial displacements for the first arc. } { iv. Enters the arc-drawing loop and draws the arc as a series of smaller arcs approximated by straight lines, calling the line-drawing subroutine at #R$24B7 as necessary. } LIST#
 D $2382 Two subroutines, #R$247D and #R$24B7, follow the main routine. The above 4 parts of the main routine will now be treated in turn.
-D $2382 i. If there are only 2 parameters, a jump is made to #R$2477. A line is also drawn if the quantity Z=(ABS X + ABS Y)/ABS SIN(G/2) is less than 1. Z lies between 1 and 1.5 times the diameter of the implied circle. In this section mem-0 is set to SIN (G/2), mem-1 to Y, and mem-5 to G.
+D $2382 i. If there are only 2 parameters, a jump is made to #R$2477. A line is also drawn if the quantity Z=(ABS X+ABS Y)/ABS SIN(G/2) is less than 1. Z lies between 1 and 1.5 times the diameter of the implied circle. In this section mem-0 is set to SIN (G/2), mem-1 to Y, and mem-5 to G.
   $2382 Get the current character.
   $2383,4,c2,2 If it is a comma, then jump.
   $2387 Move on to next statement if checking syntax.
@@ -4663,13 +4666,13 @@ B $23BB,1 #R$33A1: X, Y, SIN (G/2)
 B $23BC,1 #R$33A1: X, Y
 B $23BD,1 #R$369B
   $23BE Just draw the line from X0, Y0 to X0+X, Y0+Y.
-N $23C1 ii. Just calls #R$247D. This subroutine saves in the #REGb register the number of shorter arcs required for the complete arc, viz. A=4*INT (G'*SQR Z/8)+4, where G' = mod G, or 252 if this expression exceeds 252 (as can happen with a large chord and a small angle). So A is 4, 8, 12, ... , up to 252. The subroutine also stores in mem-0 to mem-4 the quantities G/A, SIN (G/2*A), 0, COS (G/A), SIN (G/A).
+N $23C1 ii. Just calls #R$247D. This subroutine saves in the #REGb register the number of shorter arcs required for the complete arc, viz. A=4*INT (G'*SQR Z/8)+4, where G'=mod G, or 252 if this expression exceeds 252 (as can happen with a large chord and a small angle). So A is 4, 8, 12, ... , up to 252. The subroutine also stores in mem-0 to mem-4 the quantities G/A, SIN (G/2*A), 0, COS (G/A), SIN (G/A).
 @ $23C1 label=DR_PRMS
   $23C1 The subroutine is called.
 N $23C4 iii. Sets up the rest of the parameters as follow. The stack will hold these 4 items, reading up to the top: X0+X and Y0+Y as end of last arc; then X0 and Y0 as beginning of first arc. Mem-0 will hold X0 and mem-5 Y0. Mem-1 and mem-2 will hold the initial displacements for the first arc, U and V; and mem-3 and mem-4 will hold COS (G/A) and SIN (G/A) for use in the arc-drawing loop.
-N $23C4 The formulae for U and V can be explained as follows. Instead of stepping along the final chord, of length L, say, with displacements X and Y, we want to step along an initial chord (which may be longer) of length L*W, where W=SIN (G/2*A)/SIN (G/2), with displacements X*W and Y*W, but turned through an angle - (G/2 - G/2*A), hence with true displacements:
-N $23C4 #LIST { U = Y*W*SIN (G/2 - G/2*A) + X*W*COS (G/2 - G/2*A) } { Y = Y*W*COS (G/2 - G/2*A) - X*W*SIN (G/2 - G/2*A) } LIST#
-N $23C4 These formulae can be checked from a diagram, using the normal expansion of COS (P - Q) and SIN (P - Q), where Q = G/2 - G/2*A.
+N $23C4 The formulae for U and V can be explained as follows. Instead of stepping along the final chord, of length L, say, with displacements X and Y, we want to step along an initial chord (which may be longer) of length L*W, where W=SIN (G/2*A)/SIN (G/2), with displacements X*W and Y*W, but turned through an angle (G/2-G/2*A), hence with true displacements:
+N $23C4 #LIST { U=Y*W*SIN (G/2-G/2*A)+X*W*COS (G/2-G/2*A) } { Y=Y*W*COS (G/2-G/2*A)-X*W*SIN (G/2-G/2*A) } LIST#
+N $23C4 These formulae can be checked from a diagram, using the normal expansion of COS (P-Q) and SIN (P-Q), where Q=G/2-G/2*A.
   $23C4 Save the arc-counter in #REGb.
   $23C5 X, Y, SIN(G/2), Z
 B $23C6,1 #R$33A1: X, Y, SIN(G/2)
@@ -4719,7 +4722,7 @@ B $23F1,1 #R$30CA: X, Y, Y*W*COS F
 B $23F2,1 #R$340F(get_mem_2): X, Y, Y*W*COS F, X*W
 B $23F3,1 #R$340F(get_mem_5): X, Y, Y*W*COS F, X*W, SIN F
 B $23F4,1 #R$30CA: X, Y, Y*W*COS F, X*W*SIN F
-B $23F5,1 #R$300F: X, Y, Y*W*COS F - X*W*SIN F=V
+B $23F5,1 #R$300F: X, Y, Y*W*COS F-X*W*SIN F=V
 B $23F6,1 #R$342D(st_mem_2): (V is copied to mem-2).
 B $23F7,1 #R$346A: X, Y, V' (V'=ABS V)
 B $23F8,1 #R$340F(get_mem_1): X, Y, V', U
@@ -4746,7 +4749,7 @@ B $241C,1 #R$340F(get_mem_0): X0+X, Y0+Y, X0
 B $241D,1 #R$340F(get_mem_5): X0+X, Y0+Y, X0, Y0
 B $241E,1 #R$369B
   $241F Restore the arc-counter in #REGb.
-N $2420 iv. The arc-drawing loop. This is entered at #R$2439 with the co-ordinates of the starting point on top of the stack, and the initial displacements for the first arc in mem-1 and mem-2. It uses simple trigonometry to ensure that all subsequent arcs will be drawn to points that lie on the same circle as the first two, subtending the same angle at the centre. It can be shown that if 2 points X1, Y1 and X2, Y2 lie on a circle and subtend an angle N at the centre, which is also the origin of co-ordinates, then X2 = X1*COS N - Y1*SIN N, and Y2 = X1*SIN N + Y1*COS N. But because the origin is here at the increments, say Un = Xn+1 - Xn and Vn = Yn+1 - Yn, thus achieving the desired result. The stack is shown below on the (n+1)th pass through the loop, as Xn and Yn are incremented by Un and Vn, after these are obtained from Un-1 and Vn-1. The 4 values on the top of the stack at #R$2425 are, in DRAW, reading upwards, X0+X, Y0+Y, Xn and Yn but to save space these are not shown until #R$2439. For the initial values in CIRCLE, see the end of CIRCLE, above. In CIRCLE too, the angle G must be taken to be 2#pi.
+N $2420 iv. The arc-drawing loop. This is entered at #R$2439 with the co-ordinates of the starting point on top of the stack, and the initial displacements for the first arc in mem-1 and mem-2. It uses simple trigonometry to ensure that all subsequent arcs will be drawn to points that lie on the same circle as the first two, subtending the same angle at the centre. It can be shown that if 2 points X1, Y1 and X2, Y2 lie on a circle and subtend an angle N at the centre, which is also the origin of co-ordinates, then X2=X1*COS N-Y1*SIN N, and Y2=X1*SIN N+Y1*COS N. But because the origin is here at the increments, say Un=Xn+1-Xn and Vn=Yn+1-Yn, thus achieving the desired result. The stack is shown below on the (n+1)th pass through the loop, as Xn and Yn are incremented by Un and Vn, after these are obtained from Un-1 and Vn-1. The 4 values on the top of the stack at #R$2425 are, in DRAW, reading upwards, X0+X, Y0+Y, Xn and Yn but to save space these are not shown until #R$2439. For the initial values in CIRCLE, see the end of CIRCLE, above. In CIRCLE too, the angle G must be taken to be 2#pi.
 @ $2420 label=DRW_STEPS
   $2420 #REGb counts the passes through the loop.
   $2421 Jump when #REGb has reached zero.
@@ -4826,8 +4829,8 @@ B $2484,1 #R$31AF: Z, 2/SQR Z
 B $2485,1 #R$340F(get_mem_5): Z, 2/SQR Z, G
 B $2486,1 #R$343C: Z, G, 2/SQR Z
 B $2487,1 #R$31AF: Z, G*SQR Z/2
-B $2488,1 #R$346A: Z, G'*SQR Z/2 (G' = mod G)
-B $2489,1 #R$369B: Z, G'*SQR Z/2 = A1, say
+B $2488,1 #R$346A: Z, G'*SQR Z/2 (G'=mod G)
+B $2489,1 #R$369B: Z, G'*SQR Z/2=A1, say
   $248A A1 to #REGa from the stack, if possible.
   $248D If A1 rounds to 256 or more, use 252.
   $248F 4*INT (A1/4) to #REGa.
@@ -4872,15 +4875,15 @@ D $24B7 This subroutine is called by #R$2382 to draw an approximation to a strai
 D $24B7 The method is to intersperse as many horizontal or vertical steps as are needed among a basic set of diagonal steps, using an algorithm that spaces the horizontal or vertical steps as evenly as possible.
   $24B7 ABS Y to #REGb; ABS X to #REGc; SGN Y to #REGd; SGN X to #REGe.
   $24BA Jump if ABS X is greater than or equal to ABS Y, so that the smaller goes to #REGl, and the larger (later) goes to #REGh.
-  $24BF Save diagonal step (+/-1, +/-1) in #REGde.
-  $24C0 Insert a vertical step (+/-1, 0) into #REGde (#REGd holds SGN Y).
+  $24BF Save diagonal step (+/-1,+/-1) in #REGde.
+  $24C0 Insert a vertical step (+/-1,0) into #REGde (#REGd holds SGN Y).
   $24C2 Now jump to set #REGh.
 @ $24C4 label=DL_X_GE_Y
   $24C4 Return if ABS X and ABS Y are both zero.
   $24C6 The smaller (ABS Y here) goes to #REGl.
   $24C7 ABS X to #REGb here, for #REGh.
   $24C8 Save the diagonal step here too.
-  $24C9 Horizontal step (0, +/-1) to #REGde here.
+  $24C9 Horizontal step (0,+/-1) to #REGde here.
 @ $24CB label=DL_LARGER
   $24CB Larger of ABS X, ABS Y to #REGh now.
 N $24CC The algorithm starts here. The larger of ABS X and ABS Y, say #REGh, is put into #REGa and reduced to INT (#REGh/2). The #REGh-#REGl horizontal or vertical steps and #REGl diagonal steps are taken (where #REGl is the smaller of ABS X and ABS Y) in this way: #REGl is added to #REGa; if #REGa now equals or exceeds #REGh, it is reduced by #REGh and a diagonal step is taken; otherwise a horizontal or vertical step is taken. This is repeated #REGh times (#REGb also holds #REGh). Note that meanwhile the exchange registers #REGh' and #REGl' are used to hold COORDS.
@@ -4906,7 +4909,7 @@ N $24CC The algorithm starts here. The larger of ABS X and ABS Y, say #REGh, is 
   $24DF Now take the step: first, COORDS to #REGhl' as the start point.
   $24E2 Y-step from #REGb' to #REGa.
   $24E3 Add in #REGh'.
-  $24E4 Result to #REGb'    .
+  $24E4 Result to #REGb'.
   $24E5 Now the X-step; it will be tested for range (Y will be tested in #R$22DC).
   $24E7 Add #REGl' to #REGc' in #REGa, jump on carry for further test.
   $24EA Zero after no carry denotes X-position -1, out of range.
@@ -4945,7 +4948,7 @@ D $24FB The subroutine begins with the #REGa register being set to hold the firs
   $2506 Restore the code to #REGa.
   $2507 Jump if code not found in table.
   $250A Use the entry found in the table to build up the required address in #REGhl, and jump to it.
-N $250F Four subroutines follow; they are called by routines from the scanning function table.  The first one, the 'scanning quotes subroutine', is used by #R$25B3 to check that every string quote is matched by another one.
+N $250F Four subroutines follow; they are called by routines from the scanning function table. The first one, the 'scanning quotes subroutine', is used by #R$25B3 to check that every string quote is matched by another one.
 @ $250F label=S_QUOTE_S
   $250F Point to the next character.
   $2512 Increase the length count by one.
@@ -5183,7 +5186,7 @@ N $2692 During syntax checking:
   $26A1 Fetch the 'old' STKEND.
   $26A4 There are 5 bytes to move.
   $26A6 Clear the carry flag.
-  $26A7 The 'new' STKEND = 'old' STKEND - 5.
+  $26A7 The 'new' STKEND='old' STKEND minus 5.
   $26A9 Move the floating-point number from the calculator stack to the line.
   $26AE Put the line pointer in #REGhl.
   $26AF Point to the last byte added.
@@ -5489,7 +5492,7 @@ N $288B REPORT Q - Parameter error.
 @ $288B label=REPORT_Q
 M $288B,2 Call the error handling routine.
 B $288C,1
-N $288D iv. Finally, the function itself is evaluated by calling #R$24FB, after first setting DEFADD to hold the address of the arguments as they occur in the DEF FN statement.  This ensures that #R$28B2, when called by #R$24FB, will first search these arguments for the required values, before making a search of the variables area.
+N $288D iv. Finally, the function itself is evaluated by calling #R$24FB, after first setting DEFADD to hold the address of the arguments as they occur in the DEF FN statement. This ensures that #R$28B2, when called by #R$24FB, will first search these arguments for the required values, before making a search of the variables area.
 @ $288D label=SF_VALUE
   $288D Restore pointer to ')' in DEF FN.
   $288E Get this pointer into #REGhl.
@@ -6402,7 +6405,7 @@ B $2D5E,1 #R$369B: x, 10
 B $2D66,1 #R$342D(st_mem_1): (10#power(2#powern) is copied to mem-1)
 B $2D67,1 #R$340F(get_mem_0): x', 10#power(2#powern), (1/0)
 B $2D68,2,1 #R$368F to #R$2D6D: x', 10#power(2#powern)
-B $2D6A,1 #R$30CA: x'*10#power(2#powern)= x"
+B $2D6A,1 #R$30CA: x'*10#power(2#powern)=x"
 B $2D6B,2,1 #R$3686 to #R$2D6E: x''
 @ $2D6D label=E_DIVSN
 B $2D6D,1 #R$31AF: x/10#power(2#powern)=x'' (x'' is x'*10#power(2#powern) or x'/10#power(2#powern) according as m is '+' or '-')
@@ -6545,7 +6548,7 @@ B $2DF8,4,1,3 #R$341B(stk_zero): The 15 bytes of mem-3, mem-4 and mem-5 are now 
 B $2DFC,1 #R$33A1: The stack is cleared, except for x'.
 B $2DFD,1 #R$369B: x'
   $2DFE #REGhl', which is used to hold calculator offsets (e.g. for 'STR$'), is saved on the machine stack.
-N $2E01 ii. This is the start of a loop which deals with large numbers. Every number x is first split into its integer part i and the fractional part f. If i is a small integer, i.e. if -65535 <= i <= 65535, it is stored in #REGde' for insertion into the print buffer.
+N $2E01 ii. This is the start of a loop which deals with large numbers. Every number x is first split into its integer part i and the fractional part f. If i is a small integer, i.e. if -65535<=i<=65535, it is stored in #REGde' for insertion into the print buffer.
 @ $2E01 label=PF_LOOP
   $2E01 Use the calculator again.
 B $2E02,1 #R$33C0: x', x'
@@ -6557,7 +6560,7 @@ B $2E07,1 #R$343C: i, f
 B $2E08,1 #R$342D(st_mem_2): (f is stored in mem-2).
 B $2E09,1 #R$33A1: i
 B $2E0A,1 #R$369B: i
-  $2E0B Is i a small integer (first byte zero) i.e. is ABS i <= 65535?
+  $2E0B Is i a small integer (first byte zero) i.e. is ABS i<=65535?
   $2E0D Jump if it is not.
   $2E0F i is copied to #REGde (i, like x', >=0).
   $2E12 #REGb is set to count 16 bits.
@@ -6574,7 +6577,7 @@ N $2E24 iii. Pure fractions are multiplied by 10#powern, where n is the approxim
   $2E24 i (i=zero here)
 B $2E25,1 #R$340F(get_mem_2): i, f
 B $2E26,1 #R$369B: i, f
-N $2E27 Note that the stack is now unbalanced. An extra byte 'DEFB +02, delete' is needed immediately after the RST 28. Now an expression like "2" +STR$ 0.5 is evaluated incorrectly as 0.5; the zero left on the stack displaces the "2" and is treated as a null string. Similarly all the string comparisons can yield incorrect values if the second string takes the form STR$ x where x is numerically less than 1; e.g. the expression "50"<STR$ 0.1 yields the logical value "true"; once again "" is used instead of "50".
+N $2E27 Note that the stack is now unbalanced. An extra byte 'DEFB +02, delete' is needed immediately after the RST 28. Now an expression like "2"+STR$ 0.5 is evaluated incorrectly as 0.5; the zero left on the stack displaces the "2" and is treated as a null string. Similarly all the string comparisons can yield incorrect values if the second string takes the form STR$ x where x is numerically less than 1; e.g. the expression "50"<STR$ 0.1 yields the logical value "true"; once again "" is used instead of "50".
   $2E27 The exponent byte e of f is copied to #REGa.
   $2E28 #REGa becomes e-126 dec i.e. e'+2, where e' is the true exponent of f.
   $2E2A The construction #REGa=ABS INT (LOG (2#power#REGa)) is performed (LOG is to base 10); i.e. #REGa=n, say: n is copied from #REGa to #REGd.
@@ -6583,11 +6586,11 @@ N $2E27 Note that the stack is now unbalanced. An extra byte 'DEFB +02, delete' 
   $2E36 y=f*10#powern is formed and stacked.
   $2E39 i, y
 B $2E3A,1 #R$33C0: i, y, y
-B $2E3B,1 #R$36AF: i, y, INT (y) = i2
+B $2E3B,1 #R$36AF: i, y, INT (y)=i2
 B $2E3C,1 #R$342D(st_mem_1): (i2 is copied to mem-1).
-B $2E3D,1 #R$300F: i, y - i2
-B $2E3E,1 #R$340F(get_mem_1): i, y - i2, i2
-B $2E3F,1 #R$369B: i, f2, i2 (f2 = y - i2)
+B $2E3D,1 #R$300F: i, y-i2
+B $2E3E,1 #R$340F(get_mem_1): i, y-i2, i2
+B $2E3F,1 #R$369B: i, f2, i2 (f2=y-i2)
   $2E40 i2 is transferred from the stack to #REGa.
   $2E43 The pointer to f2 is saved.
   $2E44 i2 is stored in the first byte of mem-3: a digit for printing.
@@ -6597,7 +6600,7 @@ B $2E3F,1 #R$369B: i, f2, i2 (f2 = y - i2)
   $2E53 Jump to store f2 in buffer (#REGhl now points to f2, #REGde to i2).
 N $2E56 iv. Numbers greater than 2#power27 are similarly multiplied by 2#power(-n+7), reducing the number of digits before the decimal to 8, and the loop is re-entered at #R$2E01.
 @ $2E56 label=PF_LARGE
-  $2E56 e-80 hex = e', the true exponent of i.
+  $2E56 e-80 hex is e', the true exponent of i.
   $2E58 Is e' less than 28 decimal?
   $2E5A Jump if it is less.
   $2E5C n is formed in #REGa.
@@ -6669,7 +6672,7 @@ N $2ECF vi. The fractional part of x is now stored in the print buffer.
   $2ECF #REGde now points to f.
   $2ED0 The mantissa of f is now in #REGd', #REGe', #REGd, #REGe.
   $2ED3 Get the exchange registers.
-  $2ED4 The exponent of f is reduced to zero, by shifting the bits of f 80 hex - e places right, where #REGl' contained e.
+  $2ED4 The exponent of f is reduced to zero, by shifting the bits of f 80 hex minus e places right, where #REGl' contained e.
   $2ED9 True numerical bit to bit 7 of #REGd'.
   $2EDB Restore the main registers.
   $2EDC Now make the shift.
@@ -8165,13 +8168,13 @@ B $373E,6,1,5 #R$33C6: X', e', LN 2 or 2*X', e'-1, LN 2
 B $3744,1 #R$30CA: X', e'*LN 2=Y1 or 2*X', (e'-1)*LN 2=Y2
 N $3745 Perform step iv.
 B $3745,1 #R$343C: Y1, X' (X'>0.8) or Y2, 2*X' (X'<=0.8)
-B $3746,1 #R$341B(stk_half):  Y1, X', .5 or Y2, 2*X', .5
+B $3746,1 #R$341B(stk_half): Y1, X', .5 or Y2, 2*X', .5
 B $3747,1 #R$300F: Y1, X'-.5 or Y2, 2*X'-.5
 B $3748,1 #R$341B(stk_half): Y1, X'-.5, .5 or Y2, 2*X'-.5, .5
 B $3749,1 #R$300F: Y1, X'-1 or Y2, 2*X'-1
 N $374A Perform step v.
 B $374A,1 #R$33C0: Y, X'-1, X'-1 or Y2, 2*X'-1, 2*X'-1
-B $374B,3,1,2 #R$33C6:  Y1, X'-1, X'-1, 2.5 (decimal) or Y2, 2*X'-1, 2*X'-1, 2.5
+B $374B,3,1,2 #R$33C6: Y1, X'-1, X'-1, 2.5 (decimal) or Y2, 2*X'-1, 2*X'-1, 2.5
 B $374E,1 #R$30CA: Y1, X'-1, 2.5*X'-2.5 or Y2, 2*X'-1, 5*X'-2.5
 B $374F,1 #R$341B(stk_half): Y1, X'-1, 2.5*X'-2.5, .5 or Y2, 2*X'-1, 5*X'-2.5, .5
 B $3750,1 #R$300F: Y1, X'-1, 2.5*X'-3=Z or Y2, 2*X'-1, 5*X'-3=Z
