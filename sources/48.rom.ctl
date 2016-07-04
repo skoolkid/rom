@@ -1613,7 +1613,7 @@ D $0C55 On entry the #REGb register holds the line number under test.
 @ $0C5A nowarn
   $0C5A Pre-load the machine stack with the address of #R$0DD9.
   $0C5E Transfer the line number.
-  $0C5F Jump forward if considering 'INPUT ... AT ..'.
+  $0C5F Jump forward if considering 'INPUT ... AT ...'.
   $0C66 Return, via #R$0DD9, if the line number is greater than the value of DF-SZ; give report 5 if it is less; otherwise continue.
   $0C6C Jump forward unless dealing with an 'automatic listing'.
   $0C72 Fetch the line counter.
@@ -6164,7 +6164,7 @@ N $2C1F The initial parameters of the new array are found.
   $2C2D Element size to #REGde.
 N $2C2E The following loop is accessed for each dimension that is specified in the parenthesised expression of the DIM statement. The total number of bytes required for the elements of the array is built up in the #REGde register pair.
 @ $2C2E label=D_NO_LOOP
-  $2C2E Advance CH-ADD on each pass..
+  $2C2E Advance CH-ADD on each pass.
   $2C2F Set a 'limit value'.
   $2C31 Evaluate a parameter.
   $2C34 Give an error if 'out of range'.
