@@ -2765,7 +2765,7 @@ N $1727 Continue with valid stream numbers.
   $1730 Index into the data area and fetch the the two data bytes into the #REGbc register pair.
   $1734 Make the pointer address the first of the data bytes before returning.
 @ $1736 label=OPEN
-c $1736 THE 'OPEN#' COMMAND ROUTINE
+c $1736 THE 'OPEN #' COMMAND ROUTINE
 D $1736 This command allows the user to OPEN streams. A channel code must be supplied and it must be 'K', 'k', 'S', 's', 'P', or 'p'.
 D $1736 Note that no attempt is made to give streams +00 to +03 their initial data.
   $1736 Use the calculator to exchange the stream number and the channel code.
