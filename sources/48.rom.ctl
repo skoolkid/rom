@@ -3721,7 +3721,7 @@ B $1D19,1 #R$343C: l, v
 B $1D1A,1 #R$340F(get_mem_0): l, v, s
 B $1D1B,1 #R$343C: l, s, v
 B $1D1C,1 #R$369B
-N $1D1D #REGa FOR control variable is now established and treated as a temporary calculator memory area.
+N $1D1D A FOR control variable is now established and treated as a temporary calculator memory area.
   $1D1D The variable is found, or created if needed (v is used).
   $1D20 Make it a 'memory area'.
 N $1D23 The variable that has been found may be a simple numeric variable using only six locations in which case it will need extending.
@@ -5952,7 +5952,7 @@ D $2AFF However if the destination variable 'exists already' then bit 1 of FLAGX
 D $2AFF Bit 0 of FLAGX is set if the destination variable is a 'complete' simple string variable. (Signalling - delete the old copy.) Initially the current value of DEST is collected and bit 1 of FLAGS tested.
   $2AFF Fetch the present address in DEST.
   $2B02 Jump if handling a variable that 'exists already'.
-N $2B08 #REGa 'newly declared variable' is being used. So first the length of its name is found.
+N $2B08 A 'newly declared variable' is being used. So first the length of its name is found.
 @ $2B08 keep
   $2B08 Presume dealing with a numeric variable - 5 bytes.
 N $2B0B Enter a loop to deal with the characters of a long name. Any spaces or colour codes in the name are ignored.
