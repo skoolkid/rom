@@ -583,7 +583,7 @@ N $0407 Now perform several tests on i, the integer part of the 'pitch'.
   $041C Fetch the low-byte and test it further.
   $041F Accept -60<=i<=67.
   $0422 Reject -128 to -61.
-N $0425 Note: The range +70 to +127 will be rejected later on.
+N $0425 Note: the range +70 to +127 will be rejected later on.
 N $0425 The correct frequency for the 'pitch' i can now be found.
 @ $0425 label=BE_i_OK
   $0425 Start '6' octaves below middle C.
@@ -621,10 +621,10 @@ B $0455,1 #R$31AF: f*t, 437500/f
 B $0456,3,1,2 #R$33C6: f*t, 437500/f, 30.125 (dec.)
 B $0459,1 #R$300F: f*t, 437500/f-30.125
 B $045A,1 #R$369B
-N $045B Note: The value 437500/f gives the 'half-cycle' length of the note and reducing it by 30.125 allows for 120.5 T states in which to actually produce the note and adjust the counters etc.
+N $045B Note: the value 437500/f gives the 'half-cycle' length of the note and reducing it by 30.125 allows for 120.5 T states in which to actually produce the note and adjust the counters etc.
 N $045B The values can now be transferred to the required registers.
   $045B The 'timing loop' value is compressed into the #REGbc register pair and saved.
-N $045F Note: If the timing loop value is too large then an error will occur (returning via #R$0008), thereby excluding 'pitch' values of +70 to +127.
+N $045F Note: if the timing loop value is too large then an error will occur (returning via #R$0008), thereby excluding 'pitch' values of +70 to +127.
   $045F The f*t value is compressed into the #REGbc register pair.
   $0462 Move the 'timing loop' value to the #REGhl register pair.
   $0463 Move the f*t value to the #REGde register pair.
@@ -914,13 +914,13 @@ M $0670,2 Call the error handling routine.
 B $0671,1
 @ $0672 label=SA_V_OLD
 N $0672 Continue with the handling of an existing array.
-  $0672 Note: This fails to exclude simple strings.
+  $0672 Note: this fails to exclude simple strings.
   $0675 Jump forward if checking syntax.
   $067A Point to the 'low length' of the variable.
   $067B The low length byte goes into the work space, followed by the high length byte.
   $0684 Step past the length bytes.
 @ $0685 label=SA_V_NEW
-N $0685 The next part is common to both 'old' and 'new' arrays. Note: Syntax path error.
+N $0685 The next part is common to both 'old' and 'new' arrays. Note: syntax path error.
   $0685 Copy the array's name.
   $0688 Assume an array of numbers.
   $068A Jump if it is so.
@@ -2380,7 +2380,7 @@ N $12E2 The 'edit-line' must start with a direct BASIC command so this line beco
   $12F4 Signal 'line execution'.
   $12F8 Ensure ERR-NR is correct.
   $12FC Deal with the first statement in the line.
-  $1300 Now the line is interpreted. Note: The address #R$1303 goes on to the machine stack and is addressed by ERR-SP.
+  $1300 Now the line is interpreted. Note: the address #R$1303 goes on to the machine stack and is addressed by ERR-SP.
 N $1303 After the line has been interpreted and all the actions consequential to it have been completed a return is made to #R$1303, so that a report can be made.
 @ $1303 label=MAIN_4
   $1303 The maskable interrupt must be enabled.
@@ -2743,7 +2743,7 @@ b $1716 THE 'CLOSE STREAM LOOK-UP' TABLE
   $1716,2,T1:1 Channel 'K', offset +05 (#R$171C)
   $1718,2,T1:1 Channel 'S', offset +03 (#R$171C)
   $171A,2,T1:1 Channel 'P', offset +01 (#R$171C)
-E $1716 Note: There is no end marker at the end of this table.
+E $1716 Note: there is no end marker at the end of this table.
 @ $171C label=CLOSE_STR
 c $171C THE 'CLOSE STREAM' SUBROUTINE
   $171C Fetch the channel information pointer and return.
@@ -3397,7 +3397,7 @@ W $1B0E
 W $1B12
 @ $1B14 label=P_CAT
   $1B14 #R$1C10
-E $1A48 Note: The requirements for the different command classes are as follows:
+E $1A48 Note: the requirements for the different command classes are as follows:
 E $1A48 #LIST { #R$1C10 - No further operands. } { #R$1C1F - Used in LET. A variable is required. } { #R$1C4E - Used in LET. An expression, numeric or string, must follow. } { #R$1C0D - A numeric expression may follow. Zero to be used in case of default. } { #R$1C6C - A single character variable must follow. } { #R$1C11 - A set of items may be given. } { #R$1C82(CLASS_06) - A numeric expression must follow. } { #R$1C96(CLASS_07) - Handles colour items. } { #R$1C7A(CLASS_08) - Two numeric expressions, separated by a comma, must follow. } { #R$1CBE - As for CLASS_08 but colour items may precede the expressions. } { #R$1C8C(CLASS_0A) - A string expression must follow. } { #R$1CDB - Handles cassette routines. } LIST#
 W $1B15
 @ $1B17 label=LINE_SCAN
@@ -5618,7 +5618,7 @@ N $293E Come here when an entry with the correct name was found.
   $2941 Save the 'last' letter pointer.
   $2942 Fetch the current character.
 N $2943 If the matching variable name has more than a single letter then the other characters must be passed over.
-N $2943 Note: This appears to have been done already at #R$28D4.
+N $2943 Note: this appears to have been done already at #R$28D4.
 @ $2943 label=V_PASS
   $2943 Is it alphanumeric?
   $2946 Jump when the end of the name has been found.
@@ -5800,7 +5800,7 @@ N $2A2C When dealing with an array of strings the length of an element is given 
   $2A35 So point to the actual 'start'.
   $2A36 Transfer the last dimension-size to #REGbc to form the 'length'.
   $2A38 Move the 'start' to #REGde.
-  $2A39 Pass these parameters to the calculator stack. Note: The first parameter is zero indicating a string from an 'array of strings' and hence the existing entry is not to be reclaimed.
+  $2A39 Pass these parameters to the calculator stack. Note: the first parameter is zero indicating a string from an 'array of strings' and hence the existing entry is not to be reclaimed.
 N $2A3C There are three possible forms of the last subscript:
 N $2A3C #LIST { A$(2,4 TO 8) } { A$(2)(4 TO 8) } { A$(2) } LIST#
 N $2A3C The last of these is the default form and indicates that the whole string is required.
@@ -6027,7 +6027,7 @@ N $2B6C For numeric variables the 'new' number overwrites the 'old' number. So f
   $2B70 Jump back to make the actual transfer.
 N $2B72 The parameters of the string variable are fetched and complete simple strings separated from 'sliced' strings and array strings.
 @ $2B72 label=L_DELETE
-  $2B72 Fetch the 'start'. Note: This line is redundant.
+  $2B72 Fetch the 'start'. Note: this line is redundant.
   $2B75 Fetch the 'length'.
   $2B79 Jump if dealing with a complete simple string; the old string will need to be 'deleted' in this case only.
 N $2B7F When dealing with a 'slice' of an existing simple string, a 'slice' of a string from an array of strings or a complete string from an array of strings there are two distinct stages involved. The first is to build up the 'new' string in the work space, lengthening or shortening it as required. The second stage is then to copy the 'new' string to its allotted room in the variables area.
@@ -6046,7 +6046,7 @@ N $2B8D The parameters of the string being handled are now fetched from the calc
   $2B8D Save the pointer briefly.
   $2B8E Fetch the 'new' parameters.
   $2B91 Restore the pointer.
-N $2B92 Note: At this point the required amount of room has been made available in the work space for the 'variable in assignment'. e.g. For statement - LET A$(4 to 8)="abcdefg" - five locations have been made.
+N $2B92 Note: at this point the required amount of room has been made available in the work space for the 'variable in assignment'; e.g. for the statement 'LET A$(4 TO 8)="abcdefg"' five locations have been made.
 N $2B92 The parameters fetched above as a 'last value' represent the string that is to be copied into the new locations with Procrustean lengthening or shortening as required.
 N $2B92 The length of the 'new' string is compared to the length of the room made available for it.
   $2B92 'Length' of new area to #REGhl. 'Pointer' to new area to stack.
@@ -7426,7 +7426,7 @@ D $32D7 This table is a look-up table of the addresses of the sixty-six operatio
   $3355 3F
   $3357 40
   $3359 41
-E $32D7 Note: The last four subroutines are multi-purpose subroutines and are entered with a parameter that is a copy of the right hand five bits of the original literal. The full set follows:
+E $32D7 Note: the last four subroutines are multi-purpose subroutines and are entered with a parameter that is a copy of the right hand five bits of the original literal. The full set follows:
 E $32D7 #LIST { Offset 3E: series-06, series-08 and series-0C; literals 86, 88 and 8C. } { Offset 3F: stk-zero, stk-one, stk-half, stk-pi/2 and stk-ten; literals A0 to A4. } { Offset 40: st-mem-0, st-mem-1, st-mem-2, st-mem-3, st-mem-4 and st-mem-5; literals C0 to C5. } { Offset 41: get-mem-0, get-mem-1, get-mem-2, get-mem-3, get-mem-4 and get-mem-5; literals E0 to E5. } LIST#
 @ $335B label=CALCULATE
 c $335B THE 'CALCULATE' SUBROUTINE
@@ -8204,7 +8204,7 @@ B $378D,1 #R$341B(stk_half): X/2#pi, X/2#pi, 0.5
 B $378E,1 #R$3014: X/2#pi, X/2#pi+0.5
 B $378F,1 #R$36AF: X/2#pi, INT (X/2#pi+0.5)
 B $3790,1 #R$300F: X/2#pi-INT (X/2#pi+0.5)=Y
-N $3791 Note: Adding 0.5 and taking INT rounds the result to the nearest integer.
+N $3791 Note: adding 0.5 and taking INT rounds the result to the nearest integer.
 B $3791,1 #R$33C0: Y, Y
 B $3792,1 #R$3014: 2*Y
 B $3793,1 #R$33C0: 2*Y, 2*Y
