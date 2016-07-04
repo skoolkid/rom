@@ -612,7 +612,7 @@ N $044A The number of complete cycles in the 'beep' is given by f*t so this valu
   $044A t
 B $044B,1 #R$340F(get_mem_0): t, f
 B $044C,1 #R$30CA: f*t
-N $044D The result is left on the calculator stack whilst the length of the 'timing loop' required for the 'beep' is computed;
+N $044D The result is left on the calculator stack whilst the length of the 'timing loop' required for the 'beep' is computed.
 B $044D,1 #R$340F(get_mem_0)
 B $044D,1 #R$340F(get_mem_0): f*t, f
 B $044E,6,1,5 #R$33C6: Stack the value (3.5*10#power6)/8=437500
@@ -1121,7 +1121,7 @@ N $084C Space is now made available for the new array - at the end of the presen
   $0864 The 'length' is fetched and its two bytes are also entered.
   $0869 #REGhl now points to the first location that is to be filled with data from the tape.
   $086A This address is moved to the #REGix register pair; the carry flag set; 'data block' is signalled; and the block LOADed.
-N $0873 Now deal with the LOADing of a BASIC program and its variables
+N $0873 Now deal with the LOADing of a BASIC program and its variables.
 @ $0873 label=LD_PROG
   $0873 Save the 'destination pointer'.
   $0874 Find the address of the end marker of the current variables area - the '80-byte'.
@@ -1502,7 +1502,7 @@ D $0B7F This subroutine is used to print all '8*8' bit characters. On entry the 
   $0B92 Copy the new column number.
 @ $0B93 label=PR_ALL_1
   $0B93 Test whether a new line is being used. If it is see if the display requires to be scrolled.
-N $0B99 Now consider the present state of INVERSE and OVER
+N $0B99 Now consider the present state of INVERSE and OVER.
   $0B99 Save the position values and the destination address on the machine stack.
   $0B9B Fetch P-FLAG and read bit 0.
   $0B9E Prepare the 'OVER mask' in the #REGb register, i.e. OVER 0=+00 and OVER 1=+FF.
@@ -1693,7 +1693,7 @@ N $0D1C The lower part of the screen is now scrolled '#REGa' number of times.
   $0D47 Reset the flag to indicate that the lower screen is being handled, fetch the line and column numbers, and then return.
 @ $0D4D label=TEMPS
 c $0D4D THE 'TEMPORARY COLOUR ITEMS' SUBROUTINE
-D $0D4D This is a most important subroutine. It is used whenever the 'permanent' details are required to be copied to the 'temporary' system variables. First ATTR-T and MASK-T are considered
+D $0D4D This is a most important subroutine. It is used whenever the 'permanent' details are required to be copied to the 'temporary' system variables. First ATTR-T and MASK-T are considered.
   $0D4D #REGa is set to hold +00.
   $0D4E The current values of ATTR-P and MASK-P are fetched.
   $0D51 Jump forward if handing the main part of the screen.
@@ -1986,7 +1986,7 @@ N $0F58 The control keys - INK to TAB - are now considered.
 @ $0F58 keep
   $0F58 INK and PAPER will require two locations.
   $0F5B Copy the code to #REGd.
-  $0F5C Jump forward with INK and PAPER
+  $0F5C Jump forward with INK and PAPER.
 N $0F60 AT and TAB would be handled as follows:
   $0F60 Three locations required.
   $0F61 Jump forward unless dealing with 'INPUT LINE...'.
@@ -2509,7 +2509,7 @@ D $15AF Initially there are four channels - 'K', 'S', 'R', and 'P' - for communi
 W $15AF,4,2
   $15B3,1,T1
 L $15AF,5,4
-  $15C3,1 End marker
+  $15C3,1 End marker.
 @ $15C4 label=REPORT_J
 c $15C4 Report J - Invalid I/O device
 M $15C4,2 Call the error handling routine.
@@ -3174,7 +3174,7 @@ N $1A30 Now the integer form of the number in the #REGhl register pair is printe
   $1A45 Restore the registers before returning.
 @ $1A48 label=SYNTAX
 b $1A48 THE SYNTAX TABLES
-D $1A48 i. The offset table
+D $1A48 i. The offset table.
 D $1A48 There is an offset value for each of the fifty BASIC commands.
   $1A48 #R$1AF9
   $1A49 #R$1B14
@@ -3226,7 +3226,7 @@ D $1A48 There is an offset value for each of the fifty BASIC commands.
   $1A77 #R$1ABB
   $1A78 #R$1A8D
   $1A79 #R$1AD6
-N $1A7A ii. The parameter table
+N $1A7A ii. The parameter table.
 N $1A7A For each of the fifty BASIC commands there are up to eight entries in the parameter table. These entries comprise command class details, required separators and, where appropriate, command routine addresses.
 @ $1A7A label=P_LET
   $1A7A #R$1C1F
@@ -3708,7 +3708,7 @@ D $1D03 This command routine is entered with the VALUE and the LIMIT of the FOR 
   $1D0B Move on to the next statement if checking syntax; otherwise jump forward.
 N $1D10 There has not been a STEP supplied so the value '1' is to be used.
 @ $1D10 label=F_USE_1
-  $1D10 Move on to the next statement if checking syntax
+  $1D10 Move on to the next statement if checking syntax.
   $1D13 Otherwise use the calculator to place a '1' on the calculator stack.
 B $1D14,1 #R$341B(stk_one)
 B $1D15,1 #R$369B
@@ -4023,7 +4023,7 @@ N $1F15 Report 4 - Out of memory.
 @ $1F1A label=FREE_MEM
 c $1F1A THE 'FREE MEMORY' SUBROUTINE
 D $1F1A There is no BASIC command 'FRE' in the Spectrum but there is a subroutine for performing such a task.
-D $1F1A An estimate of the amount of free space can be found at any time by using 'PRINT 65536-USR 7962'
+D $1F1A An estimate of the amount of free space can be found at any time by using 'PRINT 65536-USR 7962'.
 @ $1F1A keep
   $1F1A Do not allow any overhead.
   $1F1D Make the test and pass the result to the #REGbc register before returning.
@@ -5098,7 +5098,7 @@ N $25F8 This routine, for user-defined functions, just jumps to the 'scanning FN
   $25F8 Unless syntax is being checked, jump to calculate a random number.
   $25FD Fetch the current value of SEED.
   $2601 Put it on the calculator stack.
-  $2604 Now use the calculator,
+  $2604 Now use the calculator.
 B $2605,1 #R$341B(stk_one)
 B $2606,1 #R$3014: The 'last value' is now SEED+1.
 B $2607,3,1,2 #R$33C6: Put the decimal number 75 on the calculator stack.
@@ -6461,7 +6461,7 @@ N $2D93 The same mechanism is now used as in #R$2D7F to twos complement negative
   $2D9C Store the byte.
   $2D9D Point to the fifth location.
   $2D9E The fifth byte is set to zero.
-  $2DA0 Return with #REGhl pointing to the first byte of n on the stack
+  $2DA0 Return with #REGhl pointing to the first byte of n on the stack.
 @ $2DA2 label=FP_TO_BC
 c $2DA2 THE 'FLOATING-POINT TO BC' SUBROUTINE
 D $2DA2 This subroutine is used to compress the floating-point 'last value' on the calculator stack into the #REGbc register pair. If the result is too large, i.e. greater than 65536 decimal, then the subroutine returns with the carry flag set. If the 'last value' is negative then the zero flag is reset. The low byte of the result is also copied to the #REGa register.
@@ -6494,7 +6494,7 @@ c $2DC1 THE 'LOG(2#powerA)' SUBROUTINE
 D $2DC1 This subroutine calculates the approximate number of digits before the decimal in x, the number to be printed, or, if there are no digits before the decimal, then the approximate number of leading zeros after the decimal. It is entered with the #REGa register containing e', the true exponent of x, or e'-2, and calculates z=log to the base 10 of (2#power#REGa). It then sets #REGa equal to ABS INT (z+0.5), as required, using #R$2DD5 for this purpose.
   $2DC1 The integer #REGa is stacked, either as 00 00 #REGa 00 00 (for positive #REGa) or as 00 FF #REGa FF 00 (for negative #REGa).
   $2DC4 These bytes are first loaded into #REGa, #REGe, #REGd, #REGc, #REGb and then #R$2AB6 is called to put the number on the calculator stack.
-  $2DCB The calculator is used
+  $2DCB The calculator is used.
 B $2DCC,6,1,5 #R$33C6: log 2 to the base 10 is now stacked
 B $2DD2,1 #R$30CA: #REGa*log 2 i.e. log (2#power#REGa)
 B $2DD3,1 #R$36AF: INT log (2#power#REGa)
@@ -6569,7 +6569,7 @@ B $2E0A,1 #R$369B: i
 @ $2E1E label=PF_SAVE
   $2E1E Transfer #REGde to #REGde', via the machine stack, to be moved into the print buffer at #R$2E7B.
   $2E22 Jump forward.
-N $2E24 iii. Pure fractions are multiplied by 10#powern, where n is the approximate number of leading zeros after the decimal; and -n is added to the second byte of mem-5, which holds the number of digits needed before the decimal; a negative number here indicates leading zeros after the decimal;
+N $2E24 iii. Pure fractions are multiplied by 10#powern, where n is the approximate number of leading zeros after the decimal; and -n is added to the second byte of mem-5, which holds the number of digits needed before the decimal; a negative number here indicates leading zeros after the decimal.
 @ $2E24 label=PF_SMALL
   $2E24 i (i=zero here)
 B $2E25,1 #R$340F(get_mem_2): i, f
@@ -8060,7 +8060,7 @@ B $36BE,2,1 #R$368F to #R$36C2: I(X)
 N $36C0 The jump is made for values of X that are negative integers, otherwise there is no jump and I(X)-1 is calculated.
 B $36C0,1 #R$341B(stk_one): I(X), 1
 B $36C1,1 #R$300F: I(X)-1
-N $36C2 In either case the subroutine finishes with;
+N $36C2 In either case the subroutine finishes with:
 @ $36C2 label=EXIT
 B $36C2,1 #R$369B: I(X) or I(X)-1
 @ $36C4 label=EXP
