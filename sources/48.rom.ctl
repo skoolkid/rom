@@ -1289,6 +1289,7 @@ D $09A1 Each message is given with the last character inverted (+80 hex.).
   $09EC,8,B1:6:B1
 @ $09F4 label=PRINT_OUT
 c $09F4 THE 'PRINT-OUT' ROUTINES
+D $09F4 The address of this routine is found in the #R$15AF(initial channel information table).
 D $09F4 All of the printing to the main part of the screen, the lower part of the screen and the printer is handled by this set of routines.
 D $09F4 This routine is entered with the #REGa register holding the code for a control character, a printable character or a token.
   $09F4 The current print position.
@@ -2009,6 +2010,7 @@ N $0F6C The other bytes for the control characters are now fetched.
   $0F7D Then enter the second code which will be overwritten if there are only two codes - i.e. with INK and PAPER.
   $0F7F Jump forward.
 @ $0F81 label=ADD_CHAR
+N $0F81 The address of this entry point is found in the #R$15AF(initial channel information table).
 N $0F81 The following subroutine actually adds a code to the current EDIT or INPUT line.
   $0F81 Signal 'K mode'.
   $0F85 Fetch the cursor position.
@@ -2144,6 +2146,7 @@ D $1097 The editing area or the work space is cleared as directed.
   $109F The system variables K-CUR and MODE ('K mode') are initialised before fetching the pointer and returning.
 @ $10A8 label=KEY_INPUT
 c $10A8 THE 'KEYBOARD INPUT' SUBROUTINE
+D $10A8 The address of this routine is found in the #R$15AF(initial channel information table).
 D $10A8 This important subroutine returns the code of the last key to have been pressed, but note that CAPS LOCK, the changing of the mode and the colour control parameters are handled within the subroutine.
   $10A8 Copy the edit-line or the INPUT-line to the screen if the mode has changed.
   $10AF Return with both carry and zero flags reset if no new key has been pressed.
@@ -2519,6 +2522,7 @@ L $15AF,5,4
   $15C3,1 End marker.
 @ $15C4 label=REPORT_J
 c $15C4 Report J - Invalid I/O device
+D $15C4 The address of this routine is found in the #R$15AF(initial channel information table).
 M $15C4,2 Call the error handling routine.
 B $15C5,1
 @ $15C6 label=STRMDATA
@@ -2607,18 +2611,21 @@ D $162D Used by the routine at #R$1615.
   $1633,1 End marker.
 @ $1634 label=CHAN_K
 c $1634 THE 'CHANNEL 'K' FLAG' SUBROUTINE
+D $1634 The address of this routine is derived from an offset found in the #R$162D(channel code lookup table).
   $1634 Signal 'using lower screen'.
   $1638 Signal 'ready for a key'.
   $163C Signal 'using channel 'K''.
   $1640 Jump forward.
 @ $1642 label=CHAN_S
 c $1642 THE 'CHANNEL 'S' FLAG' SUBROUTINE
+D $1642 The address of this routine is derived from an offset found in the #R$162D(channel code lookup table).
   $1642 Signal 'using main screen'.
 @ $1646 label=CHAN_S_1
   $1646 Signal 'printer not being used'.
   $164A Exit via #R$0D4D so as to set the colour system variables.
 @ $164D label=CHAN_P
 c $164D THE 'CHANNEL 'P' FLAG' SUBROUTINE
+D $164D The address of this routine is derived from an offset found in the #R$162D(channel code lookup table).
   $164D,4 Signal 'printer in use'.
 @ $1652 keep
 @ $1652 label=ONE_SPACE
@@ -2757,6 +2764,7 @@ D $1716 Used by the routine at #R$1701.
 E $1716 Note: there is no end marker at the end of this table.
 @ $171C label=CLOSE_STR
 c $171C THE 'CLOSE STREAM' SUBROUTINE
+D $171C The address of this routine is derived from an offset found in the #R$1716(close stream lookup table).
   $171C Fetch the channel information pointer and return.
 @ $171E label=STR_DATA
 c $171E THE 'STREAM DATA' SUBROUTINE
@@ -2824,12 +2832,15 @@ D $177A Used by the routine at #R$175D.
   $1780 End marker.
 @ $1781 label=OPEN_K
 c $1781 THE 'OPEN-K' SUBROUTINE
+D $1781 The address of this routine is derived from an offset found in the #R$177A(open stream lookup table).
   $1781,2 The data bytes will be +01 and +00.
 @ $1785 label=OPEN_S
 c $1785 THE 'OPEN-S' SUBROUTINE
+D $1785 The address of this routine is derived from an offset found in the #R$177A(open stream lookup table).
   $1785,2 The data bytes will be +06 and +00.
 @ $1789 label=OPEN_P
 c $1789 THE 'OPEN-P' SUBROUTINE
+D $1789 The address of this routine is derived from an offset found in the #R$177A(open stream lookup table).
   $1789 The data bytes will be +10 and +00.
 @ $178B label=OPEN_END
   $178B Decrease the length of the expression and give an error if it was not a single character.
