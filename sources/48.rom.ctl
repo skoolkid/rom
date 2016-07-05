@@ -561,6 +561,7 @@ N $03F6 Upon completion of the 'beep' the maskable interrupt has to be enabled.
   $03F7 Finally return.
 @ $03F8 label=BEEP
 c $03F8 THE 'BEEP' COMMAND ROUTINE
+D $03F8 The address of this routine is found in the #R$1AE3(parameter table).
 D $03F8 The subroutine is entered with two numbers on the calculator stack. The topmost number (P) represents the 'pitch' of the note and the number underneath it (t) represents the 'duration'.
   $03F8 The floating-point calculator is used to manipulate the two values: t, P.
 B $03F9,1 #R$33C0: t, P, P
@@ -1707,6 +1708,7 @@ N $0D5E Next P-FLAG is considered.
   $0D65,5,1,b2,2 Proceed to copy the even bits of #REGa to P-FLAG.
 @ $0D6B label=CLS
 c $0D6B THE 'CLS' COMMAND ROUTINE
+D $0D6B The address of this routine is found in the #R$1ABE(parameter table).
 D $0D6B In the first instance the whole of the display is 'cleared' - the 'pixels' are all reset and the attribute bytes are set to equal the value in ATTR-P - then the lower part of the display is reformed.
   $0D6B The whole of the display is 'cleared'.
 @ $0D6E label=CLS_LOWER
@@ -1876,6 +1878,7 @@ D $0E9B For a given line number, in the #REGb register, the appropriate display 
   $0EAB Finished.
 @ $0EAC label=COPY
 c $0EAC THE 'COPY' COMMAND ROUTINE
+D $0EAC The address of this routine is found in the #R$1AD6(parameter table).
 D $0EAC The one hundred and seventy six pixel lines of the display are dealt with one by one.
   $0EAC The maskable interrupt is disabled during COPY.
   $0EAD The 176 lines.
@@ -2265,6 +2268,7 @@ D $11A7 This subroutine removes the hidden floating-point forms in a BASIC line.
   $11B4 Back if not. But make a simple return if it is.
 @ $11B7 label=NEW
 c $11B7 THE 'NEW' COMMAND ROUTINE
+D $11B7 The address of this routine is found in the #R$1AA8(parameter table).
   $11B7 Disable the maskable interrupt.
   $11B8 The NEW flag.
   $11BA The existing value of RAMTOP is preserved.
@@ -2712,6 +2716,7 @@ D $16DB This subroutine is used on several occasions to look through tables. The
   $16E3,1 The carry flag is set upon a successful search.
 @ $16E5 label=CLOSE
 c $16E5 THE 'CLOSE #' COMMAND ROUTINE
+D $16E5 The address of this routine is found in the #R$1B02(parameter table).
 D $16E5 This command allows the user to close streams. However for streams +00 to +03 the 'initial' stream data is restored and these streams cannot therefore be closed.
   $16E5 The existing data for the stream is fetched.
   $16E8 Check the code in that stream's channel.
@@ -2764,6 +2769,7 @@ N $1727 Continue with valid stream numbers.
   $1734 Make the pointer address the first of the data bytes before returning.
 @ $1736 label=OPEN
 c $1736 THE 'OPEN #' COMMAND ROUTINE
+D $1736 The address of this routine is found in the #R$1AFC(parameter table).
 D $1736 This command allows the user to OPEN streams. A channel code must be supplied and it must be 'K', 'k', 'S', 's', 'P', or 'p'.
 D $1736 Note that no attempt is made to give streams +00 to +03 their initial data.
   $1736 Use the calculator to exchange the stream number and the channel code.
@@ -2821,6 +2827,7 @@ c $1789 THE 'OPEN-P' SUBROUTINE
   $1790 Otherwise clear the #REGd register, fetch #REGhl and return.
 @ $1793 label=CAT_ETC
 c $1793 THE 'CAT, ERASE, FORMAT and MOVE' COMMAND ROUTINES
+D $1793 The address of this routine is found in the #R$1B06(parameter table).
 D $1793 In the standard Spectrum system the use of these commands leads to the production of report O - Invalid stream.
   $1793 Give this report.
 @ $1795 label=AUTO_LIST
@@ -2861,11 +2868,13 @@ N $17E1 Now the 'automatic' listing can be made.
   $17F0 The return will be to here unless scrolling was needed to show the current line.
 @ $17F5 label=LLIST
 c $17F5 THE 'LLIST' ENTRY POINT
+D $17F5 The address of this routine is found in the #R$1ADC(parameter table).
 D $17F5 The printer channel will need to be opened.
   $17F5 Use stream +03.
   $17F7 Jump forward.
 @ $17F9 label=LIST
 c $17F9 THE 'LIST' ENTRY POINT
+D $17F9 The address of this routine is found in the #R$1AAE(parameter table).
 D $17F9 The 'main screen' channel will need to be opened.
   $17F9 Use stream +02.
 @ $17FB label=LIST_1
@@ -3485,6 +3494,7 @@ B $1BB1,1
 E $1B9E Note: obviously not an error in the normal sense - but rather a jump past the program.
 @ $1BB2 label=REM
 c $1BB2 THE 'REM' COMMAND ROUTINE
+D $1BB2 The address of this routine is found in the #R$1AA5(parameter table).
 D $1BB2 The return address to #R$1B76 is dropped which has the effect of forcing the rest of the line to be ignored.
   $1BB2 Drop the address - #R$1B76.
 @ $1BB3 label=LINE_END
@@ -3685,11 +3695,13 @@ B $1CEC,1 #R$369B
   $1CED Return with zero added to the stack.
 @ $1CEE label=STOP
 c $1CEE THE 'STOP' COMMAND ROUTINE
+D $1CEE The address of this routine is found in the #R$1A8A(parameter table).
 D $1CEE The command routine for STOP contains only a call to the error handling routine.
 M $1CEE,2 Call the error handling routine.
 B $1CEF,1
 @ $1CF0 label=IF_CMD
 c $1CF0 THE 'IF' COMMAND ROUTINE
+D $1CF0 The address of this routine is found in the #R$1A81(parameter table).
 D $1CF0 On entry the value of the expression between the IF and the THEN is the 'last value' on the calculator stack. If this is logically true then the next statement is considered; otherwise the line is considered to have been finished.
   $1CF0 Drop the return address - #R$1B76.
   $1CF1 Jump forward if checking syntax.
@@ -3703,6 +3715,7 @@ B $1CF8,1 #R$369B
   $1D00 But if 'TRUE' jump to the next statement (after the THEN).
 @ $1D03 label=FOR
 c $1D03 THE 'FOR' COMMAND ROUTINE
+D $1D03 The address of this routine is found in the #R$1A90(parameter table).
 D $1D03 This command routine is entered with the VALUE and the LIMIT of the FOR statement already on the top of the calculator stack.
   $1D03 Jump forward unless a 'STEP' is given.
   $1D07 Advance CH-ADD and fetch the value of the STEP.
@@ -3796,6 +3809,7 @@ N $1D8B Now a loop is entered to examine each further line in the program.
   $1DA8 Make a return if there was an 'occurrence'; otherwise consider the next line.
 @ $1DAB label=NEXT
 c $1DAB THE 'NEXT' COMMAND ROUTINE
+D $1DAB The address of this routine is found in the #R$1A98(parameter table).
 D $1DAB The 'variable in assignment' has already been determined (see #R$1C6C), and it remains to change the VALUE as required.
   $1DAB Jump to give the error report if the variable was not found.
   $1DB2 The address of the variable is fetched and the name tested further.
@@ -3849,6 +3863,7 @@ D $1DEC The READ command allows for the reading of a DATA list and has an effect
 D $1DEC Each assignment within a single READ statement is dealt with in turn. The system variable X-PTR is used as a storage location for the pointer to the READ statement whilst CH-ADD is used to step along the DATA list.
   $1DEC Come here on each pass, after the first, to move along the READ statement.
 @ $1DED label=READ
+N $1DED The address of this entry point is found in the #R$1AC9(parameter table).
   $1DED Consider whether the variable has been used before; find the existing entry if it has.
   $1DF0 Jump forward if checking syntax.
   $1DF5 Save the current pointer CH-ADD in X-PTR.
@@ -3871,6 +3886,7 @@ N $1E0A Continue - picking up a value from the DATA list.
   $1E21 If it is then jump back as there are further items; otherwise return via either #R$1BEE (if checking syntax) or the RET instruction (to #R$1B76).
 @ $1E27 label=DATA
 c $1E27 THE 'DATA' COMMAND ROUTINE
+D $1E27 The address of this routine is found in the #R$1ACC(parameter table).
 D $1E27 During syntax checking a DATA statement is checked to ensure that it contains a series of valid expressions, separated by commas. But in 'run-time' the statement is passed by.
   $1E27 Jump forward unless checking syntax.
 N $1E2C A loop is now entered to deal with each expression in the DATA statement.
@@ -3891,6 +3907,7 @@ D $1E39 On entry the #REGa register will hold either the token 'DATA' or the tok
   $1E3C Now look along the line for the statement after (the '#REGd-1'th statement from the current position).
 @ $1E42 label=RESTORE
 c $1E42 THE 'RESTORE' COMMAND ROUTINE
+D $1E42 The address of this routine is found in the #R$1ACF(parameter table).
 D $1E42 The operand for a RESTORE command is taken as a line number, zero being used if no operand is given.
   $1E42 Compress the operand into the #REGbc register pair.
 @ $1E45 label=REST_RUN
@@ -3900,6 +3917,7 @@ D $1E42 The operand for a RESTORE command is taken as a line number, zero being 
   $1E4E Return once it is done.
 @ $1E4F label=RANDOMIZE
 c $1E4F THE 'RANDOMIZE' COMMAND ROUTINE
+D $1E4F The address of this routine is found in the #R$1AB5(parameter table).
 D $1E4F The operand is compressed into the #REGbc register pair and transferred to the required system variable. However if the operand is zero the value in FRAMES1 and FRAMES2 is used instead.
   $1E4F Fetch the operand.
   $1E52 Jump forward unless the value of the operand is zero.
@@ -3908,12 +3926,14 @@ D $1E4F The operand is compressed into the #REGbc register pair and transferred 
   $1E5A Now enter the result into the system variable SEED before returning.
 @ $1E5F label=CONTINUE
 c $1E5F THE 'CONTINUE' COMMAND ROUTINE
+D $1E5F The address of this routine is found in the #R$1AB8(parameter table).
 D $1E5F The required line number and statement number within that line are made the object of a jump.
   $1E5F The line number.
   $1E62 The statement number.
   $1E65 Jump forward.
 @ $1E67 label=GO_TO
 c $1E67 THE 'GO TO' COMMAND ROUTINE
+D $1E67 The address of this routine is found in the #R$1A7D(parameter table).
 D $1E67 The operand of a GO TO ought to be a line number in the range 1-9999 but the actual test is against an upper value of 61439.
   $1E67 Fetch the operand and transfer it to the #REGhl register pair.
   $1E6C Set the statement number to zero.
@@ -3924,12 +3944,14 @@ N $1E73 This entry point is used to determine the line number of the next line t
   $1E79 Return - to #R$1B76.
 @ $1E7A label=OUT_CMD
 c $1E7A THE 'OUT' COMMAND ROUTINE
+D $1E7A The address of this routine is found in the #R$1AF1(parameter table).
 D $1E7A The two parameters for the OUT instruction are fetched from the calculator stack and used as directed.
   $1E7A The operands are fetched.
   $1E7D The actual OUT instruction.
   $1E7F Return - to #R$1B76.
 @ $1E80 label=POKE
 c $1E80 THE 'POKE' COMMAND ROUTINE
+D $1E80 The address of this routine is found in the #R$1AB1(parameter table).
 D $1E80 In a similar manner to #R$1E7A(OUT), the POKE operation is performed.
   $1E80 The operands are fetched.
   $1E83 The actual POKE operation.
@@ -3959,6 +3981,7 @@ M $1E9F,2 Call the error handling routine.
 B $1EA0,1
 @ $1EA1 label=RUN
 c $1EA1 THE 'RUN' COMMAND ROUTINE
+D $1EA1 The address of this routine is found in the #R$1AAB(parameter table).
 D $1EA1 The parameter of the RUN command is passed to NEWPPC by calling #R$1E67. The operations of 'RESTORE 0' and 'CLEAR 0' are then performed before a return is made.
   $1EA1 Set NEWPPC as required.
 @ $1EA4 keep
@@ -3966,6 +3989,7 @@ D $1EA1 The parameter of the RUN command is passed to NEWPPC by calling #R$1E67.
   $1EAA Exit via the #R$1EAC command routine.
 @ $1EAC label=CLEAR
 c $1EAC THE 'CLEAR' COMMAND ROUTINE
+D $1EAC The address of this routine is found in the #R$1ABB(parameter table).
 D $1EAC This routine allows for the variables area to be cleared, the display area cleared and RAMTOP moved. In consequence of the last operation the machine stack is rebuilt thereby having the effect of also clearing the GO SUB stack.
   $1EAC Fetch the operand - using zero by default.
 @ $1EAF label=CLEAR_RUN
@@ -3998,6 +4022,7 @@ N $1EDC Continue with the CLEAR operation.
 E $1EAC Note: when the routine is called from #R$1EA1 the values of NEWPPC and NSPPC will have been affected and no statements coming after RUN can ever be found before the jump is taken.
 @ $1EED label=GO_SUB
 c $1EED THE 'GO SUB' COMMAND ROUTINE
+D $1EED The address of this routine is found in the #R$1A86(parameter table).
 D $1EED The present value of PPC and the incremented value of SUBPPC are stored on the GO SUB stack.
   $1EED Save the address - #R$1B76.
   $1EEE Fetch the statement number and increment it.
@@ -4030,6 +4055,7 @@ D $1F1A An estimate of the amount of free space can be found at any time by usin
   $1F1D Make the test and pass the result to the #REGbc register before returning.
 @ $1F23 label=RETURN
 c $1F23 THE 'RETURN' COMMAND ROUTINE
+D $1F23 The address of this routine is found in the #R$1A8D(parameter table).
 D $1F23 The line number and the statement number that are to be made the object of a 'return' are fetched from the GO SUB stack.
   $1F23 Fetch the address - #R$1B76.
   $1F24 Fetch the 'error address'.
@@ -4049,8 +4075,7 @@ M $1F38,2 Call the error handling routine.
 B $1F39,1
 @ $1F3A label=PAUSE
 c $1F3A THE 'PAUSE' COMMAND ROUTINE
-@ $1F3D label=PAUSE_1
-@ $1F49 label=PAUSE_2
+D $1F3A The address of this routine is found in the #R$1AC5(parameter table).
 D $1F3A The period of the pause is determined by counting the number of maskable interrupts as they occur every 1/50th of a second.
 D $1F3A A pause is finished either after the appropriate number of interrupts or by the system variable FLAGS indicating that a key has been pressed.
   $1F3A Fetch the operand.
@@ -4076,6 +4101,7 @@ D $1F54 This subroutine is called in several instances to read the BREAK key. Th
   $1F5F Return with carry reset if both keys are being pressed.
 @ $1F60 label=DEF_FN
 c $1F60 THE 'DEF FN' COMMAND ROUTINE
+D $1F60 The address of this routine is found in the #R$1AF9(parameter table).
 D $1F60 During syntax checking a DEF FN statement is checked to ensure that it has the correct form. Space is also made available for the result of evaluating the function.
 D $1F60 But in 'run-time' a DEF FN statement is passed by.
   $1F60 Jump forward if checking syntax.
@@ -4127,10 +4153,12 @@ D $1FC3 This subroutine is called in several instances in order to 'return early
   $1FC8 In 'run-time' make a simple return to the calling routine.
 @ $1FC9 label=LPRINT
 c $1FC9 THE 'LPRINT and PRINT' COMMAND ROUTINES
+D $1FC9 The address of this routine is found in the #R$1AD9(parameter table).
 D $1FC9 The appropriate channel is opened as necessary and the items to be printed are considered in turn.
   $1FC9 Prepare to open channel 'P'.
   $1FCB Jump forward.
 @ $1FCD label=PRINT
+N $1FCD The address of this entry point is found in the #R$1A9C(parameter table).
   $1FCD Prepare to open channel 'S'.
 @ $1FCF label=PRINT_1
   $1FCF Unless syntax is being checked open a channel.
@@ -4230,6 +4258,7 @@ D $2070 This subroutine is called whenever there is the need to consider whether
   $2087 Clear the carry flag and return.
 @ $2089 label=INPUT
 c $2089 THE 'INPUT' COMMAND ROUTINE
+D $2089 The address of this routine is found in the #R$1A9F(parameter table).
 D $2089 This routine allows for values entered from the keyboard to be assigned to variables. It is also possible to have print items embedded in the INPUT statement and these items are printed in the lower part of the display.
   $2089 Jump forward if syntax is being checked.
   $208E Open channel 'K'.
@@ -4452,6 +4481,7 @@ N $228E The value in MASK-T is now considered.
   $2292 Exit via #R$226C.
 @ $2294 label=BORDER
 c $2294 THE 'BORDER' COMMAND ROUTINE
+D $2294 The address of this routine is found in the #R$1AF5(parameter table).
 D $2294 The parameter of the BORDER command is used with an OUT command to actually alter the colour of the border. The parameter is then saved in the system variable BORDCR.
   $2294 The parameter is fetched and its range is tested.
   $229B The OUT instruction is then used to set the border colour.
@@ -4488,6 +4518,7 @@ D $22CB This subroutine is called from #R$267B. It is entered with the coordinat
   $22D9 It is put on the calculator stack.
 @ $22DC label=PLOT
 c $22DC THE 'PLOT' COMMAND ROUTINE
+D $22DC The address of this routine is found in the #R$1AC1(parameter table).
 D $22DC This routine consists of a main subroutine plus one line to call it and one line to exit from it. The main routine is used twice by #R$2320 and the subroutine is called by #R$24B7. The routine is entered with the coordinates of a pixel on the calculator stack. It finds the address of that pixel and plots it, taking account of the status of INVERSE and OVER held in the P-FLAG.
   $22DC y-coordinate to #REGb, x to #REGc.
   $22DF The subroutine is called.
@@ -4533,6 +4564,7 @@ D $2314 This subroutine loads the #REGa register with the floating point number 
   $231F Finished.
 @ $2320 label=CIRCLE
 c $2320 THE 'CIRCLE' COMMAND ROUTINE
+D $2320 The address of this routine is found in the #R$1AE7(parameter table).
 D $2320 This routine draws an approximation to the circle with centre co-ordinates X and Y and radius Z. These numbers are rounded to the nearest integer before use. Thus Z must be less than 87.5, even when (X,Y) is in the centre of the screen. The method used is to draw a series of arcs approximated by straight lines.
 D $2320 CIRCLE has four parts:
 D $2320 #LIST { i. Tests the radius. If its modulus is less than 1, just plot X,Y. } { ii. Calls #R$247D, which is used to set the initial parameters for both CIRCLE and DRAW. } { iii. Sets up the remaining parameters for CIRCLE, including the initial displacement for the first 'arc' (a straight line in fact). } { iv. Jumps to #R$2420 to use the arc-drawing loop. } LIST#
@@ -4612,6 +4644,7 @@ N $236E (Here sa denotes X+Z and sb denotes Y-Z*SIN (#pi/A).)
 E $2320 (The stack now holds X+Z, Y-Z*SIN (#pi/A), Y-Z*SIN (#pi/A), X+Z.)
 @ $2382 label=DRAW
 c $2382 THE 'DRAW' COMMAND ROUTINE
+D $2382 The address of this routine is found in the #R$1AD2(parameter table).
 D $2382 This routine is entered with the co-ordinates of a point X0, Y0, say, in COORDS. If only two parameters X, Y are given with the DRAW command, it draws an approximation to a straight line from the point X0, Y0 to X0+X, Y0+Y. If a third parameter G is given, it draws an approximation to a circular arc from X0, Y0 to X0+X, Y0+Y turning anti-clockwise through an angle G radians.
 D $2382 The routine has four parts:
 D $2382 #LIST { i. Just draws a line if only 2 parameters are given or if the diameter of the implied circle is less than 1. } { ii. Calls #R$247D to set the first parameters. } { iii. Sets up the remaining parameters, including the initial displacements for the first arc. } { iv. Enters the arc-drawing loop and draws the arc as a series of smaller arcs approximated by straight lines, calling the line-drawing subroutine at #R$24B7 as necessary. } LIST#
@@ -6147,6 +6180,7 @@ D $2BF1 This important subroutine collects the 'last value' from the calculator 
   $2C01 Finished.
 @ $2C02 label=DIM
 c $2C02 THE 'DIM' COMMAND ROUTINE
+D $2C02 The address of this routine is found in the #R$1AA2(parameter table).
 D $2C02 This routine establishes new arrays in the variables area. The routine starts by searching the existing variables area to determine whether there is an existing array with the same name. If such an array is found then it is 'reclaimed' before the new array is established.
 D $2C02 A new array will have all its elements set to zero if it is a numeric array, or to 'spaces' if it is an array of strings.
   $2C02 Search the variables area.
