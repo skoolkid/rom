@@ -422,8 +422,7 @@ N $0308 The next three instructions are common to the handling of both 'new keys
   $0308 Enter the final code value into LAST-K and signal 'a new key'.
   $030F Finally return.
 @ $0310 label=K_REPEAT
-c $0310 THE 'REPEATING KEY' SUBROUTINE
-D $0310 A key will 'repeat' on the first occasion after the delay period (REPDEL - normally 0.7s) and on subsequent occasions after the delay period (REPPER - normally 0.1s).
+N $0310 A key will 'repeat' on the first occasion after the delay period (REPDEL - normally 0.7s) and on subsequent occasions after the delay period (REPPER - normally 0.1s).
   $0310 Point to the '5 call counter' of the set being used and reset it to 5.
   $0313 Point to the third system variable - the REPDEL/REPPER value - and decrement it.
   $0315 Exit from the #R$02BF subroutine if the delay period has not passed.
@@ -2004,8 +2003,7 @@ N $0F6C The other bytes for the control characters are now fetched.
   $0F7D Then enter the second code which will be overwritten if there are only two codes - i.e. with INK and PAPER.
   $0F7F Jump forward.
 @ $0F81 label=ADD_CHAR
-c $0F81 THE 'ADD-CHAR' SUBROUTINE
-D $0F81 This subroutine actually adds a code to the current EDIT or INPUT line.
+N $0F81 The following subroutine actually adds a code to the current EDIT or INPUT line.
   $0F81 Signal 'K mode'.
   $0F85 Fetch the cursor position.
   $0F88 Make a single space.
@@ -3061,12 +3059,12 @@ D $1980 The given line number in the #REGbc register pair is matched against the
   $1982 Return if they do not match.
   $1983 Next compare the low bytes.
   $1987 Return with the carry flag set if the addressed line number has yet to reach the given line number.
-@ $1988 label=FIND_EACH
-c $1988 THE 'FIND EACH STATEMENT' SUBROUTINE
-D $1988 This subroutine has two distinct functions.
-D $1988 #LIST { It can be used to find the #REGdth statement in a BASIC line - returning with the #REGhl register pair addressing the location before the start of the statement and the zero flag set. } { Also the subroutine can be used to find a statement, if any, that starts with a given token code (in the #REGe register). } LIST#
-  $1988 Not used.
+u $1988
+C $1988
 @ $198B label=EACH_STMT
+c $198B THE 'FIND EACH STATEMENT' SUBROUTINE
+D $198B This subroutine has two distinct functions.
+D $198B #LIST { It can be used to find the #REGdth statement in a BASIC line - returning with the #REGhl register pair addressing the location before the start of the statement and the zero flag set. } { Also the subroutine can be used to find a statement, if any, that starts with a given token code (in the #REGe register). } LIST#
   $198B Set CH-ADD to the current byte.
   $198E Set a 'quotes off' flag.
 N $1990 Enter a loop to handle each statement in the BASIC line.
@@ -3564,8 +3562,7 @@ D $1C16 After the command class entries and the separator entries in the paramet
   $1C16 Fetch the pointer to the entries in the parameter table and fetch the address of the required command routine.
   $1C1C Exchange the pointers back and make an indirect jump to the command routine.
 @ $1C1F label=CLASS_01
-c $1C1F THE 'COMMAND CLASSES - 01, 02 and 04'
-D $1C1F These three command classes are used by the variable handling commands - LET, FOR and NEXT - and indirectly by READ and INPUT.
+c $1C1F THE 'COMMAND CLASS 01' ROUTINE
 D $1C1F Command class 01 is concerned with the identification of the variable in a LET, READ or INPUT statement.
   $1C1F Look in the variables area to determine whether or not the variable has been used already.
 @ $1C22 label=VAR_A_1
@@ -3593,8 +3590,9 @@ N $1C46 The pathways now come together to set STRLEN and DEST as required. For a
   $1C46 Set STRLEN as required.
 N $1C4A DEST holds the address for the 'destination' of an 'old' variable but in effect the 'source' for a 'new' variable.
   $1C4A Set DEST as required and return.
-N $1C4E Command class 02 is concerned with the actual calculation of the value to be assigned in a LET statement.
 @ $1C4E label=CLASS_02
+c $1C4E THE 'COMMAND CLASS 02' ROUTINE
+D $1C4E Command class 02 is concerned with the actual calculation of the value to be assigned in a LET statement.
   $1C4E The address #R$1B52 is dropped.
   $1C4F The assignment is made.
   $1C52 Move on to the next statement either via #R$1BEE if checking syntax, or #R$1B76 if in 'run-time'.
@@ -4139,8 +4137,9 @@ D $1FC9 The appropriate channel is opened as necessary and the items to be print
   $1FD5 Set the temporary colour system variables.
   $1FD8 Call the print controlling subroutine.
   $1FDB Move on to consider the next statement (via #R$1BEE if checking syntax).
-N $1FDF The print controlling subroutine is called by the #R$1FCD, #R$1FC9 and #R$2089 command routines.
 @ $1FDF label=PRINT_2
+c $1FDF THE 'PRINT CONTROLLING' SUBROUTINE
+D $1FDF This subroutine is called by the #R$1FCD, #R$1FC9 and #R$2089 command routines.
   $1FDF Get the first character.
   $1FE0 Jump forward if already at the end of the item list.
 N $1FE5 Now enter a loop to deal with the 'position controllers' and the print items.
@@ -4429,8 +4428,7 @@ N $2263 Next P-FLAG is considered.
   $2263 The appropriate mask is built up in the #REGb register in order to change bits 4 and 6 as necessary.
   $2268 The bits of P-FLAG are set only when using PAPER/INK '9'. Continue into #R$226C to manipulate P-FLAG.
 @ $226C label=CO_CHANGE
-c $226C THE 'CO-CHANGE' SUBROUTINE
-D $226C This subroutine is used to 'impress' upon a system variable the 'nature' of the bits in the #REGa register. The #REGb register holds a mask that shows which bits are to be 'copied over' from #REGa to (#REGhl).
+N $226C The following subroutine is used to 'impress' upon a system variable the 'nature' of the bits in the #REGa register. The #REGb register holds a mask that shows which bits are to be 'copied over' from #REGa to (#REGhl).
   $226C The bits, specified by the mask in the #REGb register, are changed in the value and the result goes to form the system variable.
   $2270 Move on to address the next system variable.
   $2271 Return with the mask in the #REGa register.
@@ -4870,7 +4868,7 @@ B $24B4,1 #R$369B
   $24B5 Restore the arc-count to #REGb.
   $24B6 Finished.
 @ $24B7 label=DRAW_LINE
-c $24B7 THE LINE-DRAWING SUBROUTINE
+c $24B7 THE 'LINE-DRAWING' SUBROUTINE
 D $24B7 This subroutine is called by #R$2382 to draw an approximation to a straight line from the point X0, Y0 held in COORDS to the point X0+X, Y0+Y, where the increments X and Y are on the top of the calculator stack. The subroutine was originally intended for the ZX80 and ZX81 8K ROM, and it is described in a BASIC program on page 121 of the ZX81 manual.
 D $24B7 The method is to intersperse as many horizontal or vertical steps as are needed among a basic set of diagonal steps, using an algorithm that spaces the horizontal or vertical steps as evenly as possible.
   $24B7 ABS Y to #REGb; ABS X to #REGc; SGN Y to #REGd; SGN X to #REGe.
@@ -4948,18 +4946,21 @@ D $24FB The subroutine begins with the #REGa register being set to hold the firs
   $2506 Restore the code to #REGa.
   $2507 Jump if code not found in table.
   $250A Use the entry found in the table to build up the required address in #REGhl, and jump to it.
-N $250F Four subroutines follow; they are called by routines from the scanning function table. The first one, the 'scanning quotes subroutine', is used by #R$25B3 to check that every string quote is matched by another one.
 @ $250F label=S_QUOTE_S
+c $250F THE 'SCANNING QUOTES' SUBROUTINE
+D $250F This subroutine is used by #R$25B3 to check that every string quote is matched by another one.
   $250F Point to the next character.
   $2512 Increase the length count by one.
   $2513 Is it a carriage return?
   $2515 Report the error if so.
   $2518,c2 Is it another '"'?
   $251A Loop back if it is not.
-  $251C,5,3,c2 Point to next character; set zero flag if it is another '"'.
+  $251C Point to next character.
+  $251F,c2 Set zero flag if it is another '"'.
   $2521 Finished.
-N $2522 The next subroutine, the 'scanning two co-ordinates' subroutine, is called by #R$2668, #R$2672 and #R$267B to make sure the required two co-ordinates are given in their proper form.
 @ $2522 label=S_2_COORD
+c $2522 THE 'SCANNING TWO CO-ORDINATES' SUBROUTINE
+D $2522 This subroutine is called by #R$2668, #R$2672 and #R$267B to make sure the required two co-ordinates are given in their proper form.
   $2522 Fetch the next character.
   $2523,c2 Is it a '('?
   $2525 Report the error if it is not.
@@ -5056,10 +5057,11 @@ D $2596 This table contains 8 functions and 4 operators. It thus incorporates 5 
   $25AC #R$267B
   $25AE End marker.
 @ $25AF label=S_U_PLUS
-c $25AF THE SCANNING FUNCTION ROUTINES
+c $25AF THE 'SCANNING UNARY PLUS' ROUTINE
   $25AF For unary plus, simply move on to the next character and jump back to the main re-entry of #R$24FB.
-N $25B3 The 'scanning QUOTE' routine. This routine deals with string quotes, whether simple like "name" or more complex like "a ""white"" lie" or the seemingly redundant VAL$ """a""".
 @ $25B3 label=S_QUOTE
+c $25B3 THE 'SCANNING QUOTE' ROUTINE
+D $25B3 This routine deals with string quotes, whether simple like "name" or more complex like "a ""white"" lie" or the seemingly redundant VAL$ """a""".
   $25B3 Fetch the current character.
   $25B4 Point to the start of the string.
   $25B5 Save the start address.
@@ -5089,15 +5091,17 @@ N $25DA Note that the first quote was not counted into the length; the final quo
 @ $25DB label=S_STRING
   $25DB This is FLAGS; this entry point is used whenever bit 6 is to be reset and a string stacked if executing a line. This is done now.
   $25E5 Jump to continue scanning the line.
-N $25E8 Note that in copying the string to the work space, every two pairs of string quotes inside the string ("") have been reduced to one pair of string quotes(").
+E $25B3 Note that in copying the string to the work space, every two pairs of string quotes inside the string ("") have been reduced to one pair of string quotes(").
 @ $25E8 label=S_BRACKET
-  $25E8 The 'scanning BRACKET routine' simply gets the character and calls #R$24FB recursively.
+c $25E8 THE 'SCANNING BRACKET' ROUTINE
+  $25E8 This routine simply gets the character and calls #R$24FB recursively.
   $25EC,5,c2,3 Report the error if no matching bracket.
   $25F1 Continue scanning.
 @ $25F5 label=S_FN
-  $25F5 The 'scanning FN' routine.
-N $25F8 This routine, for user-defined functions, just jumps to the 'scanning FN' subroutine.
+c $25F5 THE 'SCANNING FN' ROUTINE
+D $25F5 This routine, for user-defined functions, just jumps to the #R$27BD('scanning FN' subroutine)
 @ $25F8 label=S_RND
+c $25F8 THE 'SCANNING RND' ROUTINE
   $25F8 Unless syntax is being checked, jump to calculate a random number.
   $25FD Fetch the current value of SEED.
   $2601 Put it on the calculator stack.
@@ -5119,8 +5123,9 @@ B $2616,1 #R$369B: The calculation is finished.
   $2622 Reduce the exponent, i.e. divide 'last value' by 65536 to give the required 'last value'.
 @ $2625 label=S_RND_END
   $2625 Jump past the #R$2627 routine.
-N $2627 The 'scanning-PI' routine. Unless syntax is being checked the value of 'PI' is calculated and forms the 'last value' on the calculator stack.
 @ $2627 label=S_PI
+c $2627 THE 'SCANNING PI' ROUTINE
+D $2627 Unless syntax is being checked the value of 'PI' is calculated and forms the 'last value' on the calculator stack.
   $2627 Test for syntax checking.
   $262A Jump if required.
   $262C Now use the calculator.
@@ -5132,6 +5137,7 @@ B $262E,1 #R$369B
   $2631 Jump forward.
 @ $2634 keep
 @ $2634 label=S_INKEY
+c $2634 THE' SCANNING INKEY$' ROUTINE
   $2634 Priority +10 hex, operation code +5A for the 'read-in' subroutine.
   $2638,5,c2,3 If next char. is '#', jump. There will be a numerical argument.
   $263D This is FLAGS.
@@ -5157,20 +5163,28 @@ B $262E,1 #R$369B
 @ $2665 label=S_INK_EN
   $2665 Jump forward.
 @ $2668 label=S_SCREEN
+c $2668 THE 'SCANNING SCREEN$' ROUTINE
   $2668 Check that 2 co-ordinates are given.
-  $266B Call the subroutine unless checking syntax; then get the next character and jump back.
+  $266B Call the subroutine unless checking syntax.
+  $266E Then get the next character and jump back.
 @ $2672 label=S_ATTR
+c $2672 THE 'SCANNING ATTR' ROUTINE
   $2672 Check that 2 co-ordinates are given.
-  $2675 Call the subroutine unless checking syntax; then get the next character and jump forward.
+  $2675 Call the subroutine unless checking syntax.
+  $2678 Then get the next character and jump forward.
 @ $267B label=S_POINT
+c $267B THE 'SCANNING POINT' ROUTINE
   $267B Check that 2 co-ordinates are given.
-  $267E Call the subroutine unless checking syntax; then get the next character and jump forward.
+  $267E Call the subroutine unless checking syntax.
+  $2681 Then get the next character and jump forward.
 @ $2684 label=S_ALPHNUM
+c $2684 THE 'SCANNING ALPHANUMERIC' ROUTINE
   $2684 Is the character alphanumeric?
   $2687 Jump if not a letter or a digit.
   $2689,4,c2,2 Now jump if it is a letter; otherwise continue on into #R$268D.
-N $268D The 'scanning DECIMAL' routine which follows deals with a decimal point or a number that starts with a digit. It also takes care of the expression 'BIN', which is dealt with in the 'decimal to floating-point' subroutine.
 @ $268D label=S_DECIMAL
+c $268D THE 'SCANNING DECIMAL' ROUTINE
+D $268D This routine deals with a decimal point or a number that starts with a digit. It also takes care of the expression 'BIN', which is dealt with in the 'decimal to floating-point' subroutine.
   $268D Jump forward if a line is being executed.
 N $2692 The action taken is now very different for syntax checking and line execution. If syntax is being checked then the floating-point form has to be calculated and copied into the actual BASIC line. However when a line is being executed the floating-point form will always be available so it is copied to the calculator stack to form a 'last value'.
 N $2692 During syntax checking:
@@ -5205,7 +5219,7 @@ N $26C3 A numeric result has now been identified, coming from RND, PI, ATTR, POI
   $26C3 Set the numeric marker flag.
   $26C7 Jump forward.
 @ $26C9 label=S_LETTER
-c $26C9 THE SCANNING VARIABLE ROUTINE
+c $26C9 THE 'SCANNING VARIABLE' ROUTINE
 D $26C9 When a variable name has been identified a call is made to #R$28B2 which looks through those variables that already exist in the variables area (or in the program area at DEF FN statements for a user-defined function FN). If an appropriate numeric value is found then it is copied to the calculator stack using #R$33B4. However a string or string array entry has to have the appropriate parameters passed to the calculator stack by #R$2996 (or in the case of a user-defined function, by #R$2951 as called from #R$28B2).
   $26C9 Look in the existing variables for the matching entry.
   $26CC An error is reported if there is no existing entry.
@@ -6064,17 +6078,15 @@ N $2BA3 The values that have been saved on the machine stack are restored.
   $2BA4 'Pointer' to new area.
   $2BA5 The start - the pointer to the 'variable in assignment' which was originally in DEST. #R$2BA6 is now used to pass the 'new' string to the variables area.
 @ $2BA6 label=L_ENTER
-c $2BA6 THE 'L-ENTER' SUBROUTINE
-D $2BA6 This short subroutine is used to pass either a numeric value from the calculator stack, or a string from the work space, to its appropriate position in the variables area.
-D $2BA6 The subroutine is therefore used for all except 'newly declared' simple strings and 'complete and existing' simple strings.
+N $2BA6 The following short subroutine is used to pass either a numeric value from the calculator stack, or a string from the work space, to its appropriate position in the variables area.
+N $2BA6 The subroutine is therefore used for all except 'newly declared' simple strings and 'complete and existing' simple strings.
   $2BA6 Change the pointers over.
   $2BA7 Check once again that the length is not zero.
   $2BAA Save the destination pointer.
   $2BAB Move the numeric value or the string.
   $2BAD Return with the #REGhl register pair pointing to the first byte of the numeric value or the string.
 @ $2BAF label=L_ADD
-c $2BAF THE LET SUBROUTINE CONTINUES HERE
-D $2BAF When handling a 'complete and existing' simple string the new string is entered as if it were a 'newly declared' simple string before the existing version is 'reclaimed'.
+N $2BAF When handling a 'complete and existing' simple string the new string is entered as if it were a 'newly declared' simple string before the existing version is 'reclaimed'.
   $2BAF Make #REGhl point to the letter of the variable's name, i.e. DEST-3.
   $2BB2 Pick up the letter.
   $2BB3 Save the pointer to the 'existing version'.
@@ -6090,8 +6102,7 @@ N $2BC0 'Newly declared' simple strings are handled as follows:
   $2BC2 Fetch the pointer to the letter.
   $2BC5 Mark the letter as required. #R$2BC6 is now used to add the new string to the variables area.
 @ $2BC6 label=L_STRING
-c $2BC6 THE 'L-STRING' SUBROUTINE
-D $2BC6 The parameters of the 'new' string are fetched, sufficient room is made available for it and the string is then transferred.
+N $2BC6 The parameters of the 'new' string are fetched, sufficient room is made available for it and the string is then transferred.
   $2BC6 Save the variable's letter.
   $2BC7 Fetch the 'start' and the 'length' of the 'new' string.
   $2BCA Move the 'start' to #REGhl.
@@ -6113,8 +6124,7 @@ D $2BC6 The parameters of the 'new' string are fetched, sufficient room is made 
   $2BE8 Enter the low-length.
   $2BE9 Fetch the variable's letter.
 @ $2BEA label=L_FIRST
-c $2BEA THE 'L-FIRST' SUBROUTINE
-D $2BEA This subroutine is entered with the letter of the variable, suitably marked, in the #REGa register. The letter overwrites the 'old 80-byte' in the variables area. The subroutine returns with the #REGhl register pair pointing to the 'new 80-byte'.
+N $2BEA The following subroutine is entered with the letter of the variable, suitably marked, in the #REGa register. The letter overwrites the 'old 80-byte' in the variables area. The subroutine returns with the #REGhl register pair pointing to the 'new 80-byte'.
   $2BEA Make #REGhl point to the 'old 80-byte'.
   $2BEB It is overwritten with the letter of the variable.
   $2BEC Make #REGhl point to the 'new 80-byte'.
