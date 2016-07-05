@@ -3263,16 +3263,16 @@ N $1A7A For each of the fifty BASIC commands there are up to eight entries in th
   $1A7B,1,T1
   $1A7C #R$1C4E
 @ $1A7D label=P_GO_TO
-  $1A7D #R$1C82(CLASS_06)
+  $1A7D #R$1C82
   $1A7E #R$1C10
 W $1A7F
 @ $1A81 label=P_IF
-  $1A81 #R$1C82(CLASS_06)
+  $1A81 #R$1C82
   $1A82 THEN
   $1A83 #R$1C11
 W $1A84
 @ $1A86 label=P_GO_SUB
-  $1A86 #R$1C82(CLASS_06)
+  $1A86 #R$1C82
   $1A87 #R$1C10
 W $1A88
 @ $1A8A label=P_STOP
@@ -3284,9 +3284,9 @@ W $1A8E
 @ $1A90 label=P_FOR
   $1A90 #R$1C6C
   $1A91,1,T1
-  $1A92 #R$1C82(CLASS_06)
+  $1A92 #R$1C82
   $1A93 TO
-  $1A94 #R$1C82(CLASS_06)
+  $1A94 #R$1C82
   $1A95 #R$1C11
 W $1A96
 @ $1A98 label=P_NEXT
@@ -3315,7 +3315,7 @@ W $1AAC
   $1AAE #R$1C11
 W $1AAF
 @ $1AB1 label=P_POKE
-  $1AB1 #R$1C7A(CLASS_08)
+  $1AB1 #R$1C7A
   $1AB2 #R$1C10
 W $1AB3
 @ $1AB5 label=P_RANDOM
@@ -3335,7 +3335,7 @@ W $1ABF
   $1AC2 #R$1C10
 W $1AC3
 @ $1AC5 label=P_PAUSE
-  $1AC5 #R$1C82(CLASS_06)
+  $1AC5 #R$1C82
   $1AC6 #R$1C10
 W $1AC7
 @ $1AC9 label=P_READ
@@ -3369,7 +3369,7 @@ W $1ADD
 @ $1AE2 label=P_MERGE
   $1AE2 #R$1CDB
 @ $1AE3 label=P_BEEP
-  $1AE3 #R$1C7A(CLASS_08)
+  $1AE3 #R$1C7A
   $1AE4 #R$1C10
 W $1AE5
 @ $1AE7 label=P_CIRCLE
@@ -3377,56 +3377,56 @@ W $1AE5
   $1AE8 #R$1C11
 W $1AE9
 @ $1AEB label=P_INK
-  $1AEB #R$1C96(CLASS_07)
+  $1AEB #R$1C96
 @ $1AEC label=P_PAPER
-  $1AEC #R$1C96(CLASS_07)
+  $1AEC #R$1C96
 @ $1AED label=P_FLASH
-  $1AED #R$1C96(CLASS_07)
+  $1AED #R$1C96
 @ $1AEE label=P_BRIGHT
-  $1AEE #R$1C96(CLASS_07)
+  $1AEE #R$1C96
 @ $1AEF label=P_INVERSE
-  $1AEF #R$1C96(CLASS_07)
+  $1AEF #R$1C96
 @ $1AF0 label=P_OVER
-  $1AF0 #R$1C96(CLASS_07)
+  $1AF0 #R$1C96
 @ $1AF1 label=P_OUT
-  $1AF1 #R$1C7A(CLASS_08)
+  $1AF1 #R$1C7A
   $1AF2 #R$1C10
 W $1AF3
 @ $1AF5 label=P_BORDER
-  $1AF5 #R$1C82(CLASS_06)
+  $1AF5 #R$1C82
   $1AF6 #R$1C10
 W $1AF7
 @ $1AF9 label=P_DEF_FN
   $1AF9 #R$1C11
 W $1AFA
 @ $1AFC label=P_OPEN
-  $1AFC #R$1C82(CLASS_06)
+  $1AFC #R$1C82
   $1AFD,1,T1
-  $1AFE #R$1C8C(CLASS_0A)
+  $1AFE #R$1C8C
   $1AFF #R$1C10
 W $1B00
 @ $1B02 label=P_CLOSE
-  $1B02 #R$1C82(CLASS_06)
+  $1B02 #R$1C82
   $1B03 #R$1C10
 W $1B04
 @ $1B06 label=P_FORMAT
-  $1B06 #R$1C8C(CLASS_0A)
+  $1B06 #R$1C8C
   $1B07 #R$1C10
 W $1B08
 @ $1B0A label=P_MOVE
-  $1B0A #R$1C8C(CLASS_0A)
+  $1B0A #R$1C8C
   $1B0B,1,T1
-  $1B0C #R$1C8C(CLASS_0A)
+  $1B0C #R$1C8C
   $1B0D #R$1C10
 W $1B0E
 @ $1B10 label=P_ERASE
-  $1B10 #R$1C8C(CLASS_0A)
+  $1B10 #R$1C8C
   $1B11 #R$1C10
 W $1B12
 @ $1B14 label=P_CAT
   $1B14 #R$1C10
 E $1A48 Note: the requirements for the different command classes are as follows:
-E $1A48 #LIST { #R$1C10 - No further operands. } { #R$1C1F - Used in LET. A variable is required. } { #R$1C4E - Used in LET. An expression, numeric or string, must follow. } { #R$1C0D - A numeric expression may follow. Zero to be used in case of default. } { #R$1C6C - A single character variable must follow. } { #R$1C11 - A set of items may be given. } { #R$1C82(CLASS_06) - A numeric expression must follow. } { #R$1C96(CLASS_07) - Handles colour items. } { #R$1C7A(CLASS_08) - Two numeric expressions, separated by a comma, must follow. } { #R$1CBE - As for CLASS_08 but colour items may precede the expressions. } { #R$1C8C(CLASS_0A) - A string expression must follow. } { #R$1CDB - Handles cassette routines. } LIST#
+E $1A48 #LIST { #R$1C10 - No further operands. } { #R$1C1F - Used in LET. A variable is required. } { #R$1C4E - Used in LET. An expression, numeric or string, must follow. } { #R$1C0D - A numeric expression may follow. Zero to be used in case of default. } { #R$1C6C - A single character variable must follow. } { #R$1C11 - A set of items may be given. } { #R$1C82 - A numeric expression must follow. } { #R$1C96 - Handles colour items. } { #R$1C7A - Two numeric expressions, separated by a comma, must follow. } { #R$1CBE - As for CLASS_08 but colour items may precede the expressions. } { #R$1C8C - A string expression must follow. } { #R$1CDB - Handles cassette routines. } LIST#
 W $1B15
 @ $1B17 label=LINE_SCAN
 c $1B17 THE 'MAIN PARSER' OF THE BASIC INTERPRETER
@@ -3570,11 +3570,11 @@ D $1C01 Used by the routine at #R$1B28.
   $1C04 #R$1C0D
   $1C05 #R$1C6C
   $1C06 #R$1C11
-  $1C07 #R$1C82(CLASS_06)
-  $1C08 #R$1C96(CLASS_07)
-  $1C09 #R$1C7A(CLASS_08)
+  $1C07 #R$1C82
+  $1C08 #R$1C96
+  $1C09 #R$1C7A
   $1C0A #R$1CBE
-  $1C0B #R$1C8C(CLASS_0A)
+  $1C0B #R$1C8C
   $1C0C #R$1CDB
 @ $1C0D label=CLASS_03
 c $1C0D THE 'COMMAND CLASSES - 00, 03 and 05'
@@ -3659,14 +3659,14 @@ D $1C79 There is a series of short subroutines that are used to fetch the result
 N $1C79 This entry point is used when CH-ADD needs updating to point to the start of the first expression.
   $1C79 Advance CH-ADD.
 N $1C7A The address of this entry point is derived from an offset found in the #R$1C01(command class table).
-N $1C7A This entry point (CLASS-08) allows for two numeric expressions, separated by a comma, to be evaluated.
-@ $1C7A label=EXPT_2NUM
+N $1C7A This entry point allows for two numeric expressions, separated by a comma, to be evaluated.
+@ $1C7A label=CLASS_08
   $1C7A Evaluate each expression in turn - so evaluate the first.
   $1C7D,4,c2,2 Give an error report if the separator is not a comma.
   $1C81 Advance CH-ADD.
 N $1C82 The address of this entry point is derived from an offset found in the #R$1C01(command class table).
-N $1C82 This entry point (CLASS-06) allows for a single numeric expression to be evaluated.
-@ $1C82 label=EXPT_1NUM
+N $1C82 This entry point allows for a single numeric expression to be evaluated.
+@ $1C82 label=CLASS_06
   $1C82 Evaluate the next expression.
   $1C85 Return as long as the result was numeric; otherwise it is an error.
 N $1C8A Report C - Nonsense in BASIC.
@@ -3674,12 +3674,12 @@ N $1C8A Report C - Nonsense in BASIC.
 M $1C8A,2 Call the error handling routine.
 B $1C8B,1
 N $1C8C The address of this entry point is derived from an offset found in the #R$1C01(command class table).
-N $1C8C This entry point (CLASS-0A) allows for a single string expression to be evaluated.
-@ $1C8C label=EXPT_EXP
+N $1C8C This entry point allows for a single string expression to be evaluated.
+@ $1C8C label=CLASS_0A
   $1C8C Evaluate the next expression.
   $1C8F This time return if the result indicates a string; otherwise give an error report.
-@ $1C96 label=PERMS
-c $1C96 THE 'SET PERMANENT COLOURS' SUBROUTINE (EQU. CLASS-07)
+@ $1C96 label=CLASS_07
+c $1C96 THE 'SET PERMANENT COLOURS' SUBROUTINE
 D $1C96 The address of this routine is derived from an offset found in the #R$1C01(command class table).
 D $1C96 This subroutine allows for the current temporary colours to be made permanent. As command class 07 it is in effect the command routine for the six colour item commands.
   $1C96 The syntax/run flag is read.
