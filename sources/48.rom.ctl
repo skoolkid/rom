@@ -198,6 +198,7 @@ D $0095 All the tokens used by the Spectrum are expanded by reference to this ta
   $0201,4,3:B1
 @ $0205 label=KEYTABLE_A
 b $0205 THE KEY TABLES
+D $0205 Used by the routines at #R$031E and #R$0333.
 D $0205 There are six separate key tables. The final character code obtained depends on the particular key pressed and the 'mode' being used.
 N $0205 (a) The main key table - L mode and CAPS SHIFT.
   $0205 B
@@ -637,6 +638,7 @@ M $046C,2 Call the error handling routine.
 B $046D,1
 @ $046E label=SEMITONES
 b $046E THE 'SEMI-TONE' TABLE
+D $046E Used by the routine at #R$03F8.
 D $046E This table holds the frequencies of the twelve semi-tones in an octave.
   $046E 261.63 Hz - C
   $0473 277.18 Hz - C#
@@ -1300,6 +1302,7 @@ D $09F4 This routine is entered with the #REGa register holding the code for a c
   $0A0C Add the offset and make an indirect jump to the appropriate subroutine.
 @ $0A11 label=CTRL_CHARS
 b $0A11 THE 'CONTROL CHARACTER' TABLE
+D $0A11 Used by the routine at #R$09F4.
   $0A11 PRINT comma
   $0A12 EDIT
   $0A13 Cursor left
@@ -2015,13 +2018,14 @@ N $0F81 The following subroutine actually adds a code to the current EDIT or INP
 N $0F92 The editing keys are dealt with as follows:
 @ $0F92 label=ED_KEYS
   $0F92 The code is transferred to the #REGde register pair.
-@ $0F95 ssub=LD HL,$0FA0-1
+@ $0F95 ssub=LD HL,$0FA0-7
   $0F95 The base address of the #R$0FA0(editing keys table).
   $0F98 The entry is addressed and then fetched into #REGe.
   $0F9A The address of the handling routine is saved on the machine stack.
   $0F9C The #REGhl register pair is set and an indirect jump made to the required routine.
 @ $0FA0 label=EDITKEYS
 b $0FA0 THE 'EDITING KEYS' TABLE
+D $0FA0 Used by the routine at #R$0F2C.
   $0FA0 EDIT
   $0FA1 Cursor left
   $0FA2 Cursor right
@@ -2507,6 +2511,7 @@ D $155D This subroutine allows for a new BASIC line to be added to the existing 
   $15AC Jump back and this time do produce an automatic listing.
 @ $15AF label=CHANINFO
 b $15AF THE 'INITIAL CHANNEL INFORMATION'
+D $15AF Used by the routine at #R$11B7.
 D $15AF Initially there are four channels - 'K', 'S', 'R', and 'P' - for communicating with the 'keyboard', 'screen', 'work space' and 'printer'. For each channel the output routine address comes before the input routine address and the channel's code.
 W $15AF,4,2
   $15B3,1,T1
@@ -2518,6 +2523,7 @@ M $15C4,2 Call the error handling routine.
 B $15C5,1
 @ $15C6 label=STRMDATA
 b $15C6 THE 'INITIAL STREAM DATA'
+D $15C6 Used by the routines at #R$11B7 and #R$16E5.
 D $15C6 Initially there are seven streams - +FD to +03.
   $15C6,2 Leads to channel 'K' (keyboard)
   $15C8,2 Leads to channel 'S' (screen)
@@ -2594,6 +2600,7 @@ D $1615 The appropriate flags for the different channels are set by this subrout
   $162C Jump to the routine.
 @ $162D label=CHANCODE
 b $162D THE 'CHANNEL CODE LOOK-UP' TABLE
+D $162D Used by the routine at #R$1615.
   $162D,2,T1:1 Channel 'K', offset +06 (#R$1634).
   $162F,2,T1:1 Channel 'S', offset +12 (#R$1642).
   $1631,2,T1:1 Channel 'P', offset +1B (#R$164D).
@@ -2743,6 +2750,7 @@ D $1701 The code of the channel associated with the stream being closed has to b
   $1714 Jump to the appropriate routine.
 @ $1716 label=CLOSESTRM
 b $1716 THE 'CLOSE STREAM LOOK-UP' TABLE
+D $1716 Used by the routine at #R$1701.
   $1716,2,T1:1 Channel 'K', offset +05 (#R$171C)
   $1718,2,T1:1 Channel 'S', offset +03 (#R$171C)
   $171A,2,T1:1 Channel 'P', offset +01 (#R$171C)
@@ -2809,6 +2817,7 @@ N $1767 Continue if no error occurred.
   $1778 Fetch the length of the expression before jumping to the subroutine.
 @ $177A label=OPENSTRM
 b $177A THE 'OPEN STREAM LOOK-UP' TABLE
+D $177A Used by the routine at #R$175D.
   $177A,2,T1:1 Channel 'K', offset +06 (#R$1781)
   $177C,2,T1:1 Channel 'S', offset +08 (#R$1785)
   $177E,2,T1:1 Channel 'P', offset +0A (#R$1789)
@@ -3183,6 +3192,7 @@ N $1A30 Now the integer form of the number in the #REGhl register pair is printe
   $1A45 Restore the registers before returning.
 @ $1A48 label=SYNTAX
 b $1A48 THE SYNTAX TABLES
+D $1A48 Used by the routine at #R$1B28.
 D $1A48 i. The offset table.
 D $1A48 There is an offset value for each of the fifty BASIC commands.
   $1A48 #R$1AF9
@@ -3542,6 +3552,7 @@ D $1BF4 If the present character is a 'carriage return' then the 'next statement
   $1BFE Otherwise there has been a syntax error.
 @ $1C01 label=CMDCLASS
 b $1C01 THE 'COMMAND CLASS' TABLE
+D $1C01 Used by the routine at #R$1B28.
   $1C01 #R$1C10
   $1C02 #R$1C1F
   $1C03 #R$1C4E
@@ -5087,6 +5098,7 @@ c $2580 THE 'SCANNING ATTRIBUTES' SUBROUTINE
   $2593 Exit, stacking the required byte.
 @ $2596 label=SCANFUNC
 b $2596 THE SCANNING FUNCTION TABLE
+D $2596 Used by the routine at #R$24FB.
 D $2596 This table contains 8 functions and 4 operators. It thus incorporates 5 new Spectrum functions and provides a neat way of accessing some functions and operators which already existed on the ZX81.
   $2596,2,T1:1 #R$25B3
   $2598,2,T1:1 #R$25E8
@@ -5406,6 +5418,7 @@ N $2773 Whenever the 'present' operation binds tighter, the 'last' and the 'pres
   $2792 Go around the loop again.
 @ $2795 label=OPERATORS
 b $2795 THE TABLE OF OPERATORS
+D $2795 Used by the routine at #R$26C9.
   $2795,2,T1:1 +
   $2797,2,T1:1 -
   $2799,2,T1:1 *
@@ -5421,6 +5434,7 @@ b $2795 THE TABLE OF OPERATORS
   $27AD,2 AND
   $27AF,1 End marker.
 b $27B0 THE TABLE OF PRIORITIES
+D $27B0 Used by the routine at #R$26C9.
   $27B0 -
   $27B1 *
   $27B2 /
@@ -7414,6 +7428,7 @@ D $3297 This subroutine is called to re-stack one number (which could be a 'smal
   $32C4 Finished.
 @ $32C5 label=CONSTANTS
 b $32C5 THE TABLE OF CONSTANTS
+D $32C5 Used by the routine at #R$341B.
 D $32C5 This table holds five useful and frequently needed numbers: zero, one, a half, a half of pi, and ten. The numbers are held in a condensed form which is expanded by the routine at #R$33C6 to give the required floating-point form.
   $32C5,3 zero (00 00 00 00 00)
 @ $32C8 label=stk_one
@@ -7426,6 +7441,7 @@ D $32C5 This table holds five useful and frequently needed numbers: zero, one, a
   $32D3,4 ten (00 00 0A 00 00)
 @ $32D7 label=CALCADDR
 w $32D7 THE TABLE OF ADDRESSES
+D $32D7 Used by the routine at #R$335B.
 D $32D7 This table is a look-up table of the addresses of the sixty-six operational subroutines of the calculator. The offsets used to index into the table are derived either from the operation codes used in the routine at #R$24FB (see #R$2734, etc.) or from the literals that follow a 'RST 28' instruction.
   $32D7 00
   $32D9 01
@@ -8483,6 +8499,7 @@ s $386E
   $386E,1170,1170:$FF These locations are 'spare'. They all hold +FF.
 @ $3D00 label=CHARSET
 b $3D00 Character set
+D $3D00 Used by the routines at #R$0B24 and #R$11B7.
 D $3D00 These locations hold the 'character set'. There are 8-byte representations for all the characters with codes +20 (space) to +7F (#CHR169).
   $3D00,8,b1 #UDG$3D00
   $3D08,8,b1 #UDG$3D08
