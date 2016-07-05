@@ -6475,7 +6475,7 @@ B $2D48,1 #R$3014: D+10*V
 B $2D49,1 #R$369B: D+10*V (this is 'V' for the next pass through the loop)
   $2D4A The next code goes into #REGa.
   $2D4D Loop back with this code.
-@ $2D4F label=E_TO_FP
+@ $2D4F label=e_to_fp
 c $2D4F THE 'E-FORMAT TO FLOATING-POINT' SUBROUTINE
 D $2D4F This subroutine gives a 'last value' on the top of the calculator stack that is the result of converting a number given in the form xEm, where m is a positive or negative integer. The subroutine is entered with x at the top of the calculator stack and m in the #REGa register.
 D $2D4F The method used is to find the absolute value of m, say p, and to multiply or divide x by 10#powerp according to whether m is positive or negative.
@@ -6990,7 +6990,7 @@ D $3004 When this subroutine is called during addition, this ripple means that a
 @ $300D label=ALL_ADDED
   $300D Restore the original registers.
   $300E Finished.
-@ $300F label=SUBTRACT
+@ $300F label=subtract
 c $300F THE 'SUBTRACTION' OPERATION
 D $300F This subroutine simply changes the sign of the subtrahend and carries on into #R$3014.
 D $300F Note that #REGhl points to the minuend and #REGde points to the subtrahend. (See #R$3014 for more details.)
@@ -7399,7 +7399,7 @@ D $3293 This subroutine is called to re-stack two 'small integers' in full five-
   $3293 Call the subroutine and then continue into it for the second call.
 @ $3296 label=RESTK_SUB
   $3296 Exchange the pointers at each call.
-@ $3297 label=RE_STACK
+@ $3297 label=re_stack
 c $3297 THE 'RE-STACK' SUBROUTINE
 D $3297 This subroutine is called to re-stack one number (which could be a 'small integer') in full five byte floating-point form. It is used for a single number by #R$37E2 and also, through the calculator offset, by #R$36C4, #R$3713 and #R$3783.
   $3297 If the first byte is not zero, return - the number cannot be a 'small integer'.
@@ -7594,13 +7594,13 @@ D $33B4 This subroutine is called by #R$03F8, #R$25AF and #R$26C9 to copy STKEND
   $33B8 Move the number.
   $33BB Reset STKEND from #REGde.
   $33BF Finished.
-@ $33C0 label=MOVE_FP
+@ $33C0 label=duplicate
 c $33C0 THE 'MOVE A FLOATING-POINT NUMBER' SUBROUTINE
 D $33C0 This subroutine moves a floating-point number to the top of the calculator stack (3 cases) or from the top of the stack to the calculator's memory area (1 case). It is also called through the calculator when it simply duplicates the number at the top of the calculator stack, the 'last value', thereby extending the stack by five bytes.
   $33C0 A test is made for room.
   $33C3 Move the five bytes involved.
   $33C5 Finished.
-@ $33C6 label=STK_DATA
+@ $33C6 label=stk_data
 c $33C6 THE 'STACK LITERALS' SUBROUTINE
 D $33C6 This subroutine places on the calculator stack, as a 'last value', the floating-point number supplied to it as 2, 3, 4 or 5 literals.
 D $33C6 When called by using offset '34' the literals follow the '34' in the list of literals; when called by the #R$3449(series generator), the literals are supplied by the subroutine that called for a series to be generated; and when called by #R$33F7 and #R$341B the literals are obtained from the calculator's #R$32C5(table of constants).
@@ -7681,7 +7681,7 @@ D $342D This subroutine is called using the literals C0 to C5 and the parameter 
   $343A Result pointer to #REGhl.
   $343B Finished.
 E $342D Note that the pointers #REGhl and #REGde remain as they were, pointing to STKEND-5 and STKEND respectively, so that the 'last value' remains on the calculator stack. If required it can be removed by using #R$33A1.
-@ $343C label=EXCHANGE
+@ $343C label=exchange
 c $343C THE 'EXCHANGE' SUBROUTINE
 D $343C This binary operation 'exchanges' the first number with the second number, i.e. the topmost two numbers on the calculator stack are exchanged.
   $343C There are five bytes involved.
@@ -7744,7 +7744,7 @@ D $346A This subroutine performs its unary operation by ensuring that the sign b
 D $346A 'Small integers' have to be treated separately. Most of the work is shared with the 'unary minus' operation.
   $346A #REGb is set to FF hex.
   $346C The jump is made into 'unary minus'.
-@ $346E label=NEGATE
+@ $346E label=negate
 c $346E THE 'UNARY MINUS' OPERATION
 D $346E This subroutine performs its unary operation by changing the sign of the 'last value' on the calculator stack.
 D $346E Zero is simply returned unchanged. Full five byte floating-point numbers have their sign bit manipulated so that it ends up reset (for 'abs') or changed (for 'negate'). 'Small integers' have their sign byte set to zero (for 'abs') or changed (for 'negate').
@@ -7854,7 +7854,7 @@ D $34E9 This subroutine is called at least nine times to test whether a floating
   $34F5 Restore the pointer to the number to #REGhl.
   $34F6 Return with carry reset if any of the four bytes was non-zero.
   $34F7 Set the carry flag to indicate that the number was zero, and return.
-@ $34F9 label=GREATER_0
+@ $34F9 label=greater_0
 c $34F9 THE 'GREATER THAN ZERO' OPERATION
 D $34F9 This subroutine returns a 'last value' of one if the present 'last value' is greater than zero and zero otherwise. It is also used by other subroutines to 'jump on plus'.
   $34F9 Is the 'last-value' zero?
@@ -7889,7 +7889,7 @@ D $350B This subroutine sets the 'last value' to zero if the carry flag is reset
   $3517 Point to the fifth byte.
   $3518 Set the fifth byte to zero.
   $3519,1 Restore the result pointer.
-@ $351B label=OR_CMD
+@ $351B label=no_or_no
 c $351B THE 'OR' OPERATION
 D $351B This subroutine performs the binary operation 'X OR Y' and returns X if Y is zero and the value 1 otherwise.
   $351B Point #REGhl at Y, the second number.
@@ -8085,7 +8085,7 @@ D $367A This subroutine is only called by the #R$3449(series generator) and in e
   $3683 The next literal is passed over.
   $3684 Return to the main register set.
   $3685 Finished.
-@ $3686 label=JUMP
+@ $3686 label=jump
 c $3686 THE 'JUMP' SUBROUTINE
 D $3686 This subroutine executes an unconditional jump when called by the literal '33'.
   $3686 Go to the next alternate register set.
