@@ -5091,9 +5091,11 @@ D $2596 This table contains 8 functions and 4 operators. It thus incorporates 5 
   $25AE End marker.
 @ $25AF label=S_U_PLUS
 c $25AF THE 'SCANNING UNARY PLUS' ROUTINE
+D $25AF The address of this routine is derived from an offset found in the #R$2596(scanning function table).
   $25AF For unary plus, simply move on to the next character and jump back to the main re-entry of #R$24FB.
 @ $25B3 label=S_QUOTE
 c $25B3 THE 'SCANNING QUOTE' ROUTINE
+D $25B3 The address of this routine is derived from an offset found in the #R$2596(scanning function table).
 D $25B3 This routine deals with string quotes, whether simple like "name" or more complex like "a ""white"" lie" or the seemingly redundant VAL$ """a""".
   $25B3 Fetch the current character.
   $25B4 Point to the start of the string.
@@ -5127,14 +5129,17 @@ N $25DA Note that the first quote was not counted into the length; the final quo
 E $25B3 Note that in copying the string to the work space, every two pairs of string quotes inside the string ("") have been reduced to one pair of string quotes(").
 @ $25E8 label=S_BRACKET
 c $25E8 THE 'SCANNING BRACKET' ROUTINE
+D $25E8 The address of this routine is derived from an offset found in the #R$2596(scanning function table).
   $25E8 This routine simply gets the character and calls #R$24FB recursively.
   $25EC,5,c2,3 Report the error if no matching bracket.
   $25F1 Continue scanning.
 @ $25F5 label=S_FN
 c $25F5 THE 'SCANNING FN' ROUTINE
-D $25F5 This routine, for user-defined functions, just jumps to the #R$27BD('scanning FN' subroutine)
+D $25F5 The address of this routine is derived from an offset found in the #R$2596(scanning function table).
+D $25F5 This routine, for user-defined functions, just jumps to the #R$27BD('scanning FN' subroutine).
 @ $25F8 label=S_RND
 c $25F8 THE 'SCANNING RND' ROUTINE
+D $25F8 The address of this routine is derived from an offset found in the #R$2596(scanning function table).
   $25F8 Unless syntax is being checked, jump to calculate a random number.
   $25FD Fetch the current value of SEED.
   $2601 Put it on the calculator stack.
@@ -5158,6 +5163,7 @@ B $2616,1 #R$369B: The calculation is finished.
   $2625 Jump past the #R$2627 routine.
 @ $2627 label=S_PI
 c $2627 THE 'SCANNING PI' ROUTINE
+D $2627 The address of this routine is derived from an offset found in the #R$2596(scanning function table).
 D $2627 Unless syntax is being checked the value of 'PI' is calculated and forms the 'last value' on the calculator stack.
   $2627 Test for syntax checking.
   $262A Jump if required.
@@ -5171,6 +5177,7 @@ B $262E,1 #R$369B
 @ $2634 keep
 @ $2634 label=S_INKEY
 c $2634 THE' SCANNING INKEY$' ROUTINE
+D $2634 The address of this routine is derived from an offset found in the #R$2596(scanning function table).
   $2634 Priority +10 hex, operation code +5A for the 'read-in' subroutine.
   $2638,5,c2,3 If next char. is '#', jump. There will be a numerical argument.
   $263D This is FLAGS.
@@ -5197,16 +5204,19 @@ c $2634 THE' SCANNING INKEY$' ROUTINE
   $2665 Jump forward.
 @ $2668 label=S_SCREEN
 c $2668 THE 'SCANNING SCREEN$' ROUTINE
+D $2668 The address of this routine is derived from an offset found in the #R$2596(scanning function table).
   $2668 Check that 2 co-ordinates are given.
   $266B Call the subroutine unless checking syntax.
   $266E Then get the next character and jump back.
 @ $2672 label=S_ATTR
 c $2672 THE 'SCANNING ATTR' ROUTINE
+D $2672 The address of this routine is derived from an offset found in the #R$2596(scanning function table).
   $2672 Check that 2 co-ordinates are given.
   $2675 Call the subroutine unless checking syntax.
   $2678 Then get the next character and jump forward.
 @ $267B label=S_POINT
 c $267B THE 'SCANNING POINT' ROUTINE
+D $267B The address of this routine is derived from an offset found in the #R$2596(scanning function table).
   $267B Check that 2 co-ordinates are given.
   $267E Call the subroutine unless checking syntax.
   $2681 Then get the next character and jump forward.
@@ -5217,6 +5227,7 @@ c $2684 THE 'SCANNING ALPHANUMERIC' ROUTINE
   $2689,4,c2,2 Now jump if it is a letter; otherwise continue on into #R$268D.
 @ $268D label=S_DECIMAL
 c $268D THE 'SCANNING DECIMAL' ROUTINE
+D $268D The address of this routine is derived from an offset found in the #R$2596(scanning function table).
 D $268D This routine deals with a decimal point or a number that starts with a digit. It also takes care of the expression 'BIN', which is dealt with in the 'decimal to floating-point' subroutine.
   $268D Jump forward if a line is being executed.
 N $2692 The action taken is now very different for syntax checking and line execution. If syntax is being checked then the floating-point form has to be calculated and copied into the actual BASIC line. However when a line is being executed the floating-point form will always be available so it is copied to the calculator stack to form a 'last value'.
