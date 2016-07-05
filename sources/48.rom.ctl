@@ -3556,11 +3556,14 @@ b $1C01 THE 'COMMAND CLASS' TABLE
   $1C0C #R$1CDB
 @ $1C0D label=CLASS_03
 c $1C0D THE 'COMMAND CLASSES - 00, 03 and 05'
+D $1C0D The address of this routine is derived from an offset found in the #R$1C01(command class table).
 D $1C0D The commands of class-03 may, or may not, be followed by a number. e.g. RUN and RUN 200.
   $1C0D A number is fetched but zero is used in cases of default.
+N $1C10 The address of this entry point is derived from an offset found in the #R$1C01(command class table).
 N $1C10 The commands of class-00 must not have any operands, e.g. COPY and CONTINUE.
 @ $1C10 label=CLASS_00
   $1C10 Set the zero flag for later.
+N $1C11 The address of this entry point is derived from an offset found in the #R$1C01(command class table).
 N $1C11 The commands of class-05 may be followed by a set of items, e.g. PRINT and PRINT "222".
 @ $1C11 label=CLASS_05
   $1C11 In all cases drop the address - #R$1B52.
@@ -3573,6 +3576,7 @@ D $1C16 After the command class entries and the separator entries in the paramet
   $1C1C Exchange the pointers back and make an indirect jump to the command routine.
 @ $1C1F label=CLASS_01
 c $1C1F THE 'COMMAND CLASS 01' ROUTINE
+D $1C1F The address of this routine is derived from an offset found in the #R$1C01(command class table).
 D $1C1F Command class 01 is concerned with the identification of the variable in a LET, READ or INPUT statement.
   $1C1F Look in the variables area to determine whether or not the variable has been used already.
 @ $1C22 label=VAR_A_1
@@ -3602,6 +3606,7 @@ N $1C4A DEST holds the address for the 'destination' of an 'old' variable but in
   $1C4A Set DEST as required and return.
 @ $1C4E label=CLASS_02
 c $1C4E THE 'COMMAND CLASS 02' ROUTINE
+D $1C4E The address of this routine is derived from an offset found in the #R$1C01(command class table).
 D $1C4E Command class 02 is concerned with the actual calculation of the value to be assigned in a LET statement.
   $1C4E The address #R$1B52 is dropped.
   $1C4F The assignment is made.
@@ -3621,6 +3626,7 @@ D $1C56 The main entry point is used by LET and READ and considers FLAGS, wherea
   $1C66 Jump forward to make the actual assignment unless checking syntax (in which case simply return).
 @ $1C6C label=CLASS_04
 c $1C6C THE 'COMMAND CLASS 04' ROUTINE
+D $1C6C The address of this routine is derived from an offset found in the #R$1C01(command class table).
 D $1C6C The command class 04 entry point is used by FOR and NEXT statements.
   $1C6C Look in the variables area for the variable being used.
   $1C6F Save the #REGaf register pair whilst the discriminator byte is tested to ensure that the variable is a FOR-NEXT control variable.
@@ -3630,11 +3636,13 @@ c $1C79 THE 'EXPECT NUMERIC/STRING EXPRESSIONS' SUBROUTINE
 D $1C79 There is a series of short subroutines that are used to fetch the result of evaluating the next expression. The result from a single expression is returned as a 'last value' on the calculator stack.
 N $1C79 This entry point is used when CH-ADD needs updating to point to the start of the first expression.
   $1C79 Advance CH-ADD.
+N $1C7A The address of this entry point is derived from an offset found in the #R$1C01(command class table).
 N $1C7A This entry point (CLASS-08) allows for two numeric expressions, separated by a comma, to be evaluated.
 @ $1C7A label=EXPT_2NUM
   $1C7A Evaluate each expression in turn - so evaluate the first.
   $1C7D,4,c2,2 Give an error report if the separator is not a comma.
   $1C81 Advance CH-ADD.
+N $1C82 The address of this entry point is derived from an offset found in the #R$1C01(command class table).
 N $1C82 This entry point (CLASS-06) allows for a single numeric expression to be evaluated.
 @ $1C82 label=EXPT_1NUM
   $1C82 Evaluate the next expression.
@@ -3643,12 +3651,14 @@ N $1C8A Report C - Nonsense in BASIC.
 @ $1C8A label=REPORT_C
 M $1C8A,2 Call the error handling routine.
 B $1C8B,1
+N $1C8C The address of this entry point is derived from an offset found in the #R$1C01(command class table).
 N $1C8C This entry point (CLASS-0A) allows for a single string expression to be evaluated.
 @ $1C8C label=EXPT_EXP
   $1C8C Evaluate the next expression.
   $1C8F This time return if the result indicates a string; otherwise give an error report.
 @ $1C96 label=PERMS
 c $1C96 THE 'SET PERMANENT COLOURS' SUBROUTINE (EQU. CLASS-07)
+D $1C96 The address of this routine is derived from an offset found in the #R$1C01(command class table).
 D $1C96 This subroutine allows for the current temporary colours to be made permanent. As command class 07 it is in effect the command routine for the six colour item commands.
   $1C96 The syntax/run flag is read.
   $1C9A Signal 'main screen'.
@@ -3665,6 +3675,7 @@ N $1CB7 The following instructions cleverly copy the even bits of the supplied b
   $1CBC,1 Restore the result.
 @ $1CBE label=CLASS_09
 c $1CBE THE 'COMMAND CLASS 09' ROUTINE
+D $1CBE The address of this routine is derived from an offset found in the #R$1C01(command class table).
 D $1CBE This routine is used by PLOT, DRAW and CIRCLE statements in order to specify the default conditions of 'FLASH 8; BRIGHT 8; PAPER 8;' that are set up before any embedded colour items are considered.
   $1CBE Jump forward if checking syntax.
   $1CC3 Signal 'main screen'.
@@ -3679,6 +3690,7 @@ D $1CBE This routine is used by PLOT, DRAW and CIRCLE statements in order to spe
   $1CD9 Now get the first two operands for PLOT, DRAW or CIRCLE.
 @ $1CDB label=CLASS_0B
 c $1CDB THE 'COMMAND CLASS 0B' ROUTINE
+D $1CDB The address of this routine is derived from an offset found in the #R$1C01(command class table).
 D $1CDB This routine is used by SAVE, LOAD, VERIFY and MERGE statements.
   $1CDB Jump to the cassette handling routine.
 @ $1CDE label=FETCH_NUM
