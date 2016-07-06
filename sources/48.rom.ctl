@@ -2035,17 +2035,18 @@ N $0F92 The editing keys are dealt with as follows:
 @ $0FA0 label=EDITKEYS
 b $0FA0 THE 'EDITING KEYS' TABLE
 D $0FA0 Used by the routine at #R$0F2C.
-  $0FA0 EDIT
-  $0FA1 Cursor left
-  $0FA2 Cursor right
-  $0FA3 Cursor down
-  $0FA4 Cursor up
-  $0FA5 DELETE
-  $0FA6 ENTER
-  $0FA7 SYMBOL SHIFT
-  $0FA8 GRAPHICS
+  $0FA0 EDIT (#R$0FA9)
+  $0FA1 Cursor left (#R$1007)
+  $0FA2 Cursor right (#R$100C)
+  $0FA3 Cursor down (#R$0FF3)
+  $0FA4 Cursor up (#R$1059)
+  $0FA5 DELETE (#R$1015)
+  $0FA6 ENTER (#R$1024)
+  $0FA7 SYMBOL SHIFT (#R$1076)
+  $0FA8 GRAPHICS (#R$107C)
 @ $0FA9 label=ED_EDIT
 c $0FA9 THE 'EDIT KEY' SUBROUTINE
+D $0FA9 The address of this routine is derived from an offset found in the #R$0FA0(editing keys table).
 D $0FA9 When in 'editing mode' pressing the EDIT key will bring down the 'current BASIC line'. However in 'INPUT mode' the action of the EDIT key is to clear the current reply and allow a fresh one.
   $0FA9 Fetch the current line number.
   $0FAC But jump forward if in 'INPUT mode'.
@@ -2068,6 +2069,7 @@ D $0FA9 When in 'editing mode' pressing the EDIT key will bring down the 'curren
   $0FEE Fetch the former channel address and set the appropriate flags before returning to #R$0F38.
 @ $0FF3 label=ED_DOWN
 c $0FF3 THE 'CURSOR DOWN EDITING' SUBROUTINE
+D $0FF3 The address of this routine is derived from an offset found in the #R$0FA0(editing keys table).
   $0FF3 Jump forward if in 'INPUT mode'.
   $0FF9 This is E-PPC.
   $0FFC The next line number is found and a new automatic listing produced.
@@ -2076,16 +2078,19 @@ c $0FF3 THE 'CURSOR DOWN EDITING' SUBROUTINE
   $1005 Jump forward.
 @ $1007 label=ED_LEFT
 c $1007 THE 'CURSOR LEFT EDITING' SUBROUTINE
+D $1007 The address of this routine is derived from an offset found in the #R$0FA0(editing keys table).
   $1007 The cursor is moved.
   $100A Jump forward.
 @ $100C label=ED_RIGHT
 c $100C THE 'CURSOR RIGHT EDITING' SUBROUTINE
+D $100C The address of this routine is derived from an offset found in the #R$0FA0(editing keys table).
   $100C The current character is tested and if it is 'carriage return' then return.
   $1010 Otherwise make the cursor come after the character.
 @ $1011 label=ED_CUR
   $1011,3 Set the system variable K-CUR.
 @ $1015 label=ED_DELETE
 c $1015 THE 'DELETE EDITING' SUBROUTINE
+D $1015 The address of this routine is derived from an offset found in the #R$0FA0(editing keys table).
   $1015 Move the cursor leftwards.
 @ $1018 keep
   $1018 Reclaim the current character.
@@ -2094,6 +2099,7 @@ c $101E THE 'ED-IGNORE' SUBROUTINE
   $101E The next two codes from the key-input routine are ignored.
 @ $1024 label=ED_ENTER
 c $1024 THE 'ENTER EDITING' SUBROUTINE
+D $1024 The address of this routine is derived from an offset found in the #R$0FA0(editing keys table).
   $1024 The addresses of #R$0F38 and #R$107F are discarded.
 @ $1026 label=ED_END
   $1026 The old value of ERR-SP is restored.
@@ -2125,6 +2131,7 @@ N $103E Now enter a loop to check that control characters are not split from the
   $1055 For the next loop use the 'updated pointer', but if exiting use the 'present pointer' for K-CUR. Note: it is the control character that is deleted when using DELETE.
 @ $1059 label=ED_UP
 c $1059 THE 'CURSOR UP EDITING' SUBROUTINE
+D $1059 The address of this routine is derived from an offset found in the #R$0FA0(editing keys table).
   $1059 Return if in 'INPUT mode'.
   $105E Fetch the current line number and its start address.
   $1064 #REGhl now points to the previous line.
@@ -2135,8 +2142,10 @@ c $1059 THE 'CURSOR UP EDITING' SUBROUTINE
   $106E A new automatic listing is now produced and channel 'K' re-opened before returning to #R$0F38.
 @ $1076 label=ED_SYMBOL
 c $1076 THE 'ED-SYMBOL' SUBROUTINE
+D $1076 The address of this routine is derived from an offset found in the #R$0FA0(editing keys table).
 D $1076 If SYMBOL and GRAPHICS codes were used they would be handled as follows:
   $1076 Jump back unless dealing with INPUT LINE.
+N $107C The address of this entry point is derived from an offset found in the #R$0FA0(editing keys table).
 @ $107C label=ED_GRAPH
   $107C Jump back.
 @ $107F label=ED_ERROR
