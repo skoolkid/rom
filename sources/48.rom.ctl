@@ -6476,7 +6476,8 @@ B $2D49,1 #R$369B: D+10*V (this is 'V' for the next pass through the loop)
   $2D4A The next code goes into #REGa.
   $2D4D Loop back with this code.
 @ $2D4F label=e_to_fp
-c $2D4F THE 'E-FORMAT TO FLOATING-POINT' SUBROUTINE
+c $2D4F THE 'E-FORMAT TO FLOATING-POINT' SUBROUTINE (offset 3C)
+D $2D4F The address of this routine is found in the #R$32D7(table of addresses).
 D $2D4F This subroutine gives a 'last value' on the top of the calculator stack that is the result of converting a number given in the form xEm, where m is a positive or negative integer. The subroutine is entered with x at the top of the calculator stack and m in the #REGa register.
 D $2D4F The method used is to find the absolute value of m, say p, and to multiply or divide x by 10#powerp according to whether m is positive or negative.
 D $2D4F To achieve this, p is shifted right until it is zero, and x is multiplied or divided by 10#power(2#powern) for each set bit b(n) of p. Since p is never much more than decimal 39, bits 6 and 7 of p will not normally be set.
@@ -6991,14 +6992,16 @@ D $3004 When this subroutine is called during addition, this ripple means that a
   $300D Restore the original registers.
   $300E Finished.
 @ $300F label=subtract
-c $300F THE 'SUBTRACTION' OPERATION
+c $300F THE 'SUBTRACTION' OPERATION (offset 03)
+D $300F The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 03 by the routines at #R$03F8, #R$1DDA, #R$2320, #R$2382, #R$247D, #R$25F8, #R$2DE3, #R$3449, #R$36A0, #R$36AF, #R$36C4, #R$3713, #R$3783, #R$37AA, #R$37B5, #R$37E2, #R$3833 and #R$3843. It is also called indirectly via #R$33A2.
 D $300F This subroutine simply changes the sign of the subtrahend and carries on into #R$3014.
 D $300F Note that #REGhl points to the minuend and #REGde points to the subtrahend. (See #R$3014 for more details.)
   $300F Exchange the pointers.
   $3010 Change the sign of the subtrahend.
   $3013 Exchange the pointers back and continue into #R$3014.
 @ $3014 label=addition
-c $3014 THE 'ADDITION' OPERATION
+c $3014 THE 'ADDITION' OPERATION (offset 0F)
+D $3014 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 0F by the routines at #R$03F8, #R$1DAB, #R$2320, #R$2382, #R$247D, #R$25F8, #R$2C9B, #R$2D3B, #R$2DA2, #R$3449, #R$36C4, #R$3713, #R$3783, #R$37B5, #R$37E2 and #R$3833. It is also called indirectly via #R$33A2.
 D $3014 The first of three major arithmetical subroutines, this subroutine carries out the floating-point addition of two numbers, each with a 4-byte mantissa and a 1-byte exponent. In these three subroutines, the two numbers at the top of the calculator stack are added/multiplied/divided to give one number at the top of the calculator stack, a 'last value'.
 D $3014 #REGhl points to the second number from the top, the augend/multiplier/dividend. #REGde points to the number at the top of the calculator stack, the addend/multiplicand/divisor. Afterwards #REGhl points to the resultant 'last value' whose address can also be considered to be STKEND-5.
 D $3014 But the addition subroutine first tests whether the 2 numbers to be added are 'small integers'. If they are, it adds them quite simply in #REGhl and #REGbc, and puts the result directly on the stack. No two's complementing is needed before or after the addition, since such numbers are held on the stack in two's complement form, ready for addition.
@@ -7132,7 +7135,8 @@ D $30C0 This subroutine prepares a floating-point number for multiplication or d
   $30C8 Point to the exponent again.
   $30C9 Return with carry flag reset.
 @ $30CA label=multiply
-c $30CA THE 'MULTIPLICATION' OPERATION
+c $30CA THE 'MULTIPLICATION' OPERATION (offset 04)
+D $30CA The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 04 by the routines at #R$03F8, #R$2320, #R$2382, #R$247D, #R$25F8, #R$2C9B, #R$2D3B, #R$2D4F, #R$2DC1, #R$3449, #R$36A0, #R$36C4, #R$3713, #R$3783, #R$37B5, #R$37E2, #R$3833 and #R$3851. It is also called indirectly via #R$33A2.
 D $30CA This subroutine first tests whether the two numbers to be multiplied are 'small integers'. If they are, it uses #R$2D7F to get them from the stack, #R$30A9 to multiply them and #R$2D8E to return the result to the stack. Any overflow of this 'short multiplication' (i.e. if the result is not itself a 'small integer') causes a jump to multiplication in full five byte floating-point form (see below).
   $30CA Test whether the first bytes of both numbers are zero.
   $30CC If not, jump for 'long' multiplication.
@@ -7259,7 +7263,8 @@ N $31AD Report 6 - Arithmetic overflow.
 M $31AD,2 Call the error handling routine.
 B $31AE,1
 @ $31AF label=division
-c $31AF THE 'DIVISION' OPERATION
+c $31AF THE 'DIVISION' OPERATION (offset 05)
+D $31AF The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 05 by the routines at #R$03F8, #R$2382, #R$247D, #R$2C9B, #R$2D4F, #R$36A0, #R$37DA, #R$37E2, #R$3833 and #R$3851. It is also called indirectly via #R$33A2.
 D $31AF This subroutine first prepares the divisor by calling #R$30C0, reporting arithmetic overflow if it is zero; then it prepares the dividend again calling #R$30C0, returning if it is zero. Next it fetches the two numbers from the calculator stack and divides their mantissa by means of the usual restoring division, trial subtracting the divisor from the dividend and restoring if there is carry, otherwise adding 1 to the quotient. The maximum precision is obtained for a 4-byte division, and after subtracting the exponents the subroutine exits by joining the later part of #R$30CA.
   $31AF Use full floating-point forms.
   $31B2 Exchange the pointers.
@@ -7306,7 +7311,8 @@ N $3201 Note: this jump is made to the wrong place. No 34th bit will ever be obt
   $320F Get the difference between the two exponent bytes into #REGa and set the carry flag if required.
   $3211 Exit via #R$313D.
 @ $3214 label=truncate
-c $3214 THE 'INTEGER TRUNCATION TOWARDS ZERO' SUBROUTINE
+c $3214 THE 'INTEGER TRUNCATION TOWARDS ZERO' SUBROUTINE (offset 3A)
+D $3214 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 3A by the routine at #R$36AF.
 D $3214 This subroutine (say I(x)) returns the result of integer truncation of x, the 'last value', towards zero. Thus I(2.4) is 2 and I(-2.4) is -2. The subroutine returns at once if x is in the form of a 'short integer'. It returns zero if the exponent byte of x is less than 81 hex (ABS x is less than 1). If I(x) is a 'short integer' the subroutine returns it in that form. It returns x if the exponent byte is A0 hex or greater (x has no significant non-integral part). Otherwise the correct number of bytes of x are set to zero and, if needed, one more byte is split with a mask.
   $3214 Get the exponent byte of x into #REGa.
   $3215 If #REGa is zero, return since x is already a small integer.
@@ -7400,7 +7406,8 @@ D $3293 This subroutine is called to re-stack two 'small integers' in full five-
 @ $3296 label=RESTK_SUB
   $3296 Exchange the pointers at each call.
 @ $3297 label=re_stack
-c $3297 THE 'RE-STACK' SUBROUTINE
+c $3297 THE 'RE-STACK' SUBROUTINE (offset 3D)
+D $3297 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 3D by the routines at #R$2320, #R$2382, #R$36C4, #R$3713 and #R$3783.
 D $3297 This subroutine is called to re-stack one number (which could be a 'small integer') in full five byte floating-point form. It is used for a single number by #R$37E2 and also, through the calculator offset, by #R$36C4, #R$3713 and #R$3783.
   $3297 If the first byte is not zero, return - the number cannot be a 'small integer'.
   $329A Save the 'other' pointer in #REGde.
@@ -7463,27 +7470,27 @@ D $32D7 This table is a look-up table of the addresses of the sixty-six operatio
   $32E3 06
   $32E5 07
   $32E7 08
-  $32E9 09
-  $32EB 0A
-  $32ED 0B
-  $32EF 0C
-  $32F1 0D
-  $32F3 0E
+  $32E9 09: <= (numbers)
+  $32EB 0A: >= (numbers)
+  $32ED 0B: <> (numbers)
+  $32EF 0C: > (numbers)
+  $32F1 0D: < (numbers)
+  $32F3 0E: = (numbers)
   $32F5 0F
   $32F7 10
-  $32F9 11
-  $32FB 12
-  $32FD 13
-  $32FF 14
-  $3301 15
-  $3303 16
+  $32F9 11: <= (strings)
+  $32FB 12: >= (strings)
+  $32FD 13: <> (strings)
+  $32FF 14: > (strings)
+  $3301 15: < (strings)
+  $3303 16: = (strings)
   $3305 17
-  $3307 18
+  $3307 18 (VAL$)
   $3309 19
   $330B 1A
   $330D 1B
   $330F 1C
-  $3311 1D
+  $3311 1D (VAL)
   $3313 1E
   $3315 1F
   $3317 20
@@ -7564,12 +7571,14 @@ D $335B Note: a floating-point number may in reality be a set of string paramete
   $3397 The address of #R$3365 is put on the machine stack underneath the subroutine address.
   $339C Return to the main set of registers.
   $339D The current value of BREG is transferred to the #REGb register thereby returning the single operation offset (see #R$353B).
+N $33A1 The address of this entry point is found in the #R$32D7(table of addresses). It is called via the calculator literal 02 by the routines at #R$03F8, #R$1CF0, #R$1D03, #R$1DAB, #R$2320, #R$2382, #R$247D, #R$25F8, #R$2AFF, #R$2C9B, #R$2D4F, #R$2DA2, #R$2DE3, #R$3449, #R$36A0, #R$36C4, #R$3713, #R$3783 and #R$3851.
 @ $33A1 label=delete
   $33A1 An indirect jump to the required subroutine.
 E $335B The #R$33A1 subroutine contains only the single RET instruction above. The literal '02' results in this subroutine being considered as a binary operation that is to be entered with a first number addressed by the #REGhl register pair and a second number addressed by the #REGde register pair, and the result produced again addressed by the #REGhl register pair.
 E $335B The single RET instruction thereby leads to the first number being considered as the resulting 'last value' and the second number considered as being deleted. Of course the number has not been deleted from the memory but remains inactive and will probably soon be overwritten.
 @ $33A2 label=fp_calc_2
-c $33A2 THE 'SINGLE OPERATION' SUBROUTINE
+c $33A2 THE 'SINGLE OPERATION' SUBROUTINE (offset 3B)
+D $33A2 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 3B by the routine at #R$26C9.
 D $33A2 This subroutine is only called from #R$2757 and is used to perform a single arithmetic operation. The offset that specifies which operation is to be performed is supplied to the calculator in the #REGb register and subsequently transferred to the system variable BREG.
 D $33A2 The effect of calling this subroutine is essentially to make a jump to the appropriate subroutine for the single operation.
   $33A2 Discard the #R$3365 address.
@@ -7595,13 +7604,15 @@ D $33B4 This subroutine is called by #R$03F8, #R$25AF and #R$26C9 to copy STKEND
   $33BB Reset STKEND from #REGde.
   $33BF Finished.
 @ $33C0 label=duplicate
-c $33C0 THE 'MOVE A FLOATING-POINT NUMBER' SUBROUTINE
+c $33C0 THE 'MOVE A FLOATING-POINT NUMBER' SUBROUTINE (offset 31)
+D $33C0 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 31 by the routines at #R$03F8, #R$2320, #R$2382, #R$247D, #R$25F8, #R$2D4F, #R$2DE3, #R$3449, #R$36A0, #R$36AF, #R$36C4, #R$3713, #R$3783, #R$37B5, #R$37DA, #R$37E2, #R$3833, #R$384A and #R$3851.
 D $33C0 This subroutine moves a floating-point number to the top of the calculator stack (3 cases) or from the top of the stack to the calculator's memory area (1 case). It is also called through the calculator when it simply duplicates the number at the top of the calculator stack, the 'last value', thereby extending the stack by five bytes.
   $33C0 A test is made for room.
   $33C3 Move the five bytes involved.
   $33C5 Finished.
 @ $33C6 label=stk_data
-c $33C6 THE 'STACK LITERALS' SUBROUTINE
+c $33C6 THE 'STACK LITERALS' SUBROUTINE (offset 34)
+D $33C6 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 34 by the routines at #R$03F8, #R$247D, #R$25F8, #R$2DC1, #R$36C4, #R$3713 and #R$3783.
 D $33C6 This subroutine places on the calculator stack, as a 'last value', the floating-point number supplied to it as 2, 3, 4 or 5 literals.
 D $33C6 When called by using offset '34' the literals follow the '34' in the list of literals; when called by the #R$3449(series generator), the literals are supplied by the subroutine that called for a series to be generated; and when called by #R$33F7 and #R$341B the literals are obtained from the calculator's #R$32C5(table of constants).
 D $33C6 In each case, the first literal supplied is divided by +40, and the integer quotient plus 1 determines whether 1, 2, 3 or 4 further literals will be taken from the source to form the mantissa of the number. Any unfilled bytes of the five bytes that go to form a 5-byte floating-point number are set to zero. The first literal is also used to determine the exponent, after reducing mod +40, unless the remainder is zero, in which case the second literal is used, as it stands, without reducing mod +40. In either case, +50 is added to the literal, giving the augmented exponent byte, e (the true exponent e' plus +80). The rest of the 5 bytes are stacked, including any zeros needed, and the subroutine returns.
@@ -7648,8 +7659,9 @@ D $3406 Note that when a FOR-NEXT variable is being handled then the pointers ar
   $340A This result is wanted in the #REGbc register pair.
   $340D Produce the new base address.
   $340E Finished.
-@ $340F label=get_mem_0
-c $340F THE 'GET FROM MEMORY AREA' SUBROUTINE
+@ $340F label=get_mem
+c $340F THE 'GET FROM MEMORY AREA' SUBROUTINE (offset 41)
+D $340F The address of this routine is found in the #R$32D7(table of addresses). It is called via a calculator literal (E0-E5) by the routines at #R$03F8, #R$1D03, #R$1DAB, #R$1DDA, #R$2320, #R$2382, #R$247D, #R$2C9B, #R$2D4F, #R$2DE3, #R$3449, #R$36A0, #R$36AF, #R$36C4 and #R$37AA.
 D $340F This subroutine is called using the literals E0 to E5 and the parameter derived from these literals is held in the #REGa register. The subroutine calls #R$3406 to put the required source address into the #REGhl register pair and #R$33C0 to copy the five bytes involved from the calculator's memory area to the top of the calculator stack to form a new 'last value'.
   $340F Save the result pointer.
   $3410 Fetch the pointer to the current memory area.
@@ -7657,8 +7669,9 @@ D $340F This subroutine is called using the literals E0 to E5 and the parameter 
   $3416 The five bytes are moved.
   $3419 Set the result pointer.
   $341A Finished.
-@ $341B label=stk_zero_2
-c $341B THE 'STACK A CONSTANT' SUBROUTINE
+@ $341B label=stk_con
+c $341B THE 'STACK A CONSTANT' SUBROUTINE (offset 3F)
+D $341B The address of this routine is found in the #R$32D7(table of addresses). It is called via a calculator literal (A0-A4) by the routines at #R$03F8, #R$1CDE, #R$1D03, #R$2320, #R$2382, #R$247D, #R$25F8, #R$2627, #R$2C9B, #R$2D3B, #R$2D4F, #R$2DA2, #R$2DE3, #R$3449, #R$353B, #R$36AF, #R$36C4, #R$3713, #R$3783, #R$37AA, #R$37B5, #R$37E2, #R$3833, #R$3843, #R$384A and #R$3851.
 D $341B This subroutine uses #R$33F7 to find the base address of the requested constants from the calculator's table of constants and then calls #R$33C8 to make the expanded form of the constant the 'last value' on the calculator stack.
   $341B Set #REGhl to hold the result pointer.
   $341D Go to the alternate register set and save the next literal pointer.
@@ -7668,8 +7681,9 @@ D $341B This subroutine uses #R$33F7 to find the base address of the requested c
   $3426 Expand the constant.
   $3429 Restore the next literal pointer.
   $342C Finished.
-@ $342D label=st_mem_0
-c $342D THE 'STORE IN MEMORY AREA' SUBROUTINE
+@ $342D label=st_mem
+c $342D THE 'STORE IN MEMORY AREA' SUBROUTINE (offset 40)
+D $342D The address of this routine is found in the #R$32D7(table of addresses). It is called via a calculator literal (C0-C5) by the routines at #R$03F8, #R$1D03, #R$1DAB, #R$2320, #R$2382, #R$247D, #R$2C9B, #R$2D4F, #R$2DE3, #R$3449, #R$36A0, #R$36AF, #R$36C4 and #R$3783.
 D $342D This subroutine is called using the literals C0 to C5 and the parameter derived from these literals is held in the #REGa register. This subroutine is very similar to #R$340F but the source and destination pointers are exchanged.
   $342D Save the result pointer.
   $342E Source to #REGde briefly.
@@ -7682,7 +7696,8 @@ D $342D This subroutine is called using the literals C0 to C5 and the parameter 
   $343B Finished.
 E $342D Note that the pointers #REGhl and #REGde remain as they were, pointing to STKEND-5 and STKEND respectively, so that the 'last value' remains on the calculator stack. If required it can be removed by using #R$33A1.
 @ $343C label=exchange
-c $343C THE 'EXCHANGE' SUBROUTINE
+c $343C THE 'EXCHANGE' SUBROUTINE (offset 01)
+D $343C The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 01 by the routines at #R$03F8, #R$1736, #R$1D03, #R$1DDA, #R$2320, #R$2382, #R$247D, #R$2D3B, #R$2DE3, #R$3449, #R$36A0, #R$36AF, #R$3713, #R$3783, #R$37DA, #R$37E2 and #R$3851.
 D $343C This binary operation 'exchanges' the first number with the second number, i.e. the topmost two numbers on the calculator stack are exchanged.
   $343C There are five bytes involved.
 @ $343E label=SWAP_BYTE
@@ -7695,13 +7710,14 @@ D $343C This binary operation 'exchanges' the first number with the second numbe
   $3445 Exchange the five bytes.
   $3447 Get the pointers correct as 5 is an odd number.
   $3448 Finished.
-@ $3449 label=series_06
-c $3449 THE 'SERIES GENERATOR' SUBROUTINE
+@ $3449 label=series
+c $3449 THE 'SERIES GENERATOR' SUBROUTINE (offset 3E)
+D $3449 The address of this routine is found in the #R$32D7(table of addresses). It is called via a calculator literal (86, 88 or 8C) by the routines at #R$36C4, #R$3713, #R$37B5 and #R$37E2.
 D $3449 This important subroutine generates the series of Chebyshev polynomials which are used to approximate to SIN, ATN, LN and EXP and hence to derive the other arithmetic functions which depend on these (COS, TAN, ASN, ACS, ** and SQR).
 D $3449 #HTML[The polynomials are generated, for n=1, 2, etc. by the recurrence relation T<sub>n+1</sub>(z)=2zT<sub>n</sub>(z)-T<sub>n-1</sub>(z), where T<sub>n</sub>(z) is the nth Chebyshev polynomial in z.]
 D $3449 #HTML[The series in fact generates T<sub>0</sub>, 2T<sub>1</sub>, 2T<sub>2</sub>, ..., 2T<sub>n-1</sub>, where n is 6 for SIN, 8 for EXP, and 12 decimal for LN and ATN.]
 D $3449 #HTML[The coefficients of the powers of z in these polynomials may be found in the Handbook of Mathematical Functions by M. Abramowitz and I. A. Stegun (Dover 1965), page 795.]
-D $3449 In simple terms this subroutine is called with the 'last value' on the calculator stack, say Z, being a number that bears a simple relationship to the argument, say X, when the task is to evaluate, for instance, SIN X. The calling subroutine also supplies the list of constants that are to be required (six constants for SIN). The #R$3449(series generator) then manipulates its data and returns to the calling routine a 'last value' that bears a simple relationship to the requested function, for instance, SIN X.
+D $3449 In simple terms this subroutine is called with the 'last value' on the calculator stack, say Z, being a number that bears a simple relationship to the argument, say X, when the task is to evaluate, for instance, SIN X. The calling subroutine also supplies the list of constants that are to be required (six constants for SIN). The series generator then manipulates its data and returns to the calling routine a 'last value' that bears a simple relationship to the requested function, for instance, SIN X.
 D $3449 This subroutine can be considered to have four major parts.
 D $3449 i. The setting of the loop counter. The calling subroutine passes its parameters in the #REGa register for use as a counter. The calculator is entered at #R$335E so that the counter can be set.
   $3449 Move the parameter to #REGb.
@@ -7709,7 +7725,7 @@ D $3449 i. The setting of the loop counter. The calling subroutine passes its pa
 N $344D ii. The handling of the 'last value', Z. The loop of the generator requires 2*Z to be placed in mem-0, zero to be placed in mem-2 and the 'last value' to be zero.
 B $344D,1 #R$33C0: Z, Z
 B $344E,1 #R$3014: 2*Z
-B $344F,1 #R$342D: 2*Z (mem-0 holds 2*Z)
+B $344F,1 #R$342D(st_mem_0): 2*Z (mem-0 holds 2*Z)
 B $3450,1 #R$33A1: -
 B $3451,1 #R$341B(stk_zero): 0
 B $3452,1 #R$342D(st_mem_2): 0 (mem-2 holds 0)
@@ -7739,13 +7755,15 @@ B $3467,1 #R$300F: B(N)-B(N-2)
 B $3468,1 #R$369B
   $3469 Finished.
 @ $346A label=abs
-c $346A THE 'ABSOLUTE MAGNITUDE' FUNCTION
+c $346A THE 'ABSOLUTE MAGNITUDE' FUNCTION (offset 2A)
+D $346A The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 2A by the routines at #R$2320, #R$2382, #R$247D, #R$2DE3, #R$3783 and #R$37AA. It is also called indirectly via #R$33A2.
 D $346A This subroutine performs its unary operation by ensuring that the sign bit of a floating-point number is reset.
 D $346A 'Small integers' have to be treated separately. Most of the work is shared with the 'unary minus' operation.
   $346A #REGb is set to FF hex.
   $346C The jump is made into 'unary minus'.
 @ $346E label=negate
-c $346E THE 'UNARY MINUS' OPERATION
+c $346E THE 'UNARY MINUS' OPERATION (offset 1B)
+D $346E The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 1B by the routines at #R$247D, #R$3783, #R$37AA, #R$37E2, #R$3833 and #R$3843. It is also called indirectly via #R$33A2.
 D $346E This subroutine performs its unary operation by changing the sign of the 'last value' on the calculator stack.
 D $346E Zero is simply returned unchanged. Full five byte floating-point numbers have their sign bit manipulated so that it ends up reset (for 'abs') or changed (for 'negate'). 'Small integers' have their sign byte set to zero (for 'abs') or changed (for 'negate').
   $346E If the number is zero, the subroutine returns leaving 00 00 00 00 00 unchanged.
@@ -7772,7 +7790,8 @@ N $3483 The 'integer case' does a similar operation with the sign byte.
   $348D Store result on the stack.
   $3490,1 Return STKEND to #REGde.
 @ $3492 label=sgn
-c $3492 THE 'SIGNUM' FUNCTION
+c $3492 THE 'SIGNUM' FUNCTION (offset 29)
+D $3492 The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $3492 This subroutine handles the function SGN X and therefore returns a 'last value' of 1 if X is positive, zero if X is zero and -1 if X is negative.
   $3492 If X is zero, just return with zero as the 'last value'.
   $3496 Save the pointer to STKEND.
@@ -7786,20 +7805,23 @@ D $3492 This subroutine handles the function SGN X and therefore returns a 'last
   $34A3 Restore the pointer to STKEND.
   $34A4 Finished.
 @ $34A5 label=f_in
-c $34A5 THE 'IN' FUNCTION
+c $34A5 THE 'IN' FUNCTION (offset 2C)
+D $34A5 The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $34A5 This subroutine handles the function IN X. It inputs at processor level from port X, loading #REGbc with X and performing the instruction IN A,(C).
   $34A5 The 'last value', X, is compressed into #REGbc.
   $34A8 The signal is received.
   $34AA Jump to stack the result.
 @ $34AC label=peek
-c $34AC THE 'PEEK' FUNCTION
+c $34AC THE 'PEEK' FUNCTION (offset 2B)
+D $34AC The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $34AC This subroutine handles the function PEEK X. The 'last value' is unstacked by calling #R$1E99 and replaced by the value of the contents of the required location.
   $34AC Evaluate the 'last value', rounded to the nearest integer; test that it is in range and return it in #REGbc.
   $34AF Fetch the required byte.
 @ $34B0 label=IN_PK_STK
   $34B0 Exit by jumping to #R$2D28.
 @ $34B3 label=usr_no
-c $34B3 THE 'USR' FUNCTION
+c $34B3 THE 'USR' FUNCTION (offset 2D)
+D $34B3 The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $34B3 This subroutine ('USR number' as distinct from 'USR string') handles the function USR X, where X is a number. The value of X is obtained in #REGbc, a return address is stacked and the machine code is executed from location X.
   $34B3 Evaluate the 'last value', rounded to the nearest integer; test that it is in range and return it in #REGbc.
 @ $34B6 nowarn
@@ -7807,7 +7829,8 @@ D $34B3 This subroutine ('USR number' as distinct from 'USR string') handles the
   $34BA Make an indirect jump to the required location.
 E $34B3 Note: it is interesting that the #REGiy register pair is re-initialised when the return to #R$2D2B has been made, but the important #REGhl' that holds the next literal pointer is not restored should it have been disturbed. For a successful return to BASIC, #REGhl' must on exit from the machine code contain the address of the 'end-calc' instruction at #R$2758(2758) hex (10072 decimal).
 @ $34BC label=usr
-c $34BC THE 'USR STRING' FUNCTION
+c $34BC THE 'USR STRING' FUNCTION (offset 19)
+D $34BC The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $34BC This subroutine handles the function USR X$, where X$ is a string. The subroutine returns in #REGbc the address of the bit pattern for the user-defined graphic corresponding to X$. It reports error A if X$ is not a single letter between 'a' and 'u' or a user-defined graphic.
   $34BC Fetch the parameters of the string X$.
   $34BF Decrease the length by 1 to test it.
@@ -7855,18 +7878,21 @@ D $34E9 This subroutine is called at least nine times to test whether a floating
   $34F6 Return with carry reset if any of the four bytes was non-zero.
   $34F7 Set the carry flag to indicate that the number was zero, and return.
 @ $34F9 label=greater_0
-c $34F9 THE 'GREATER THAN ZERO' OPERATION
+c $34F9 THE 'GREATER THAN ZERO' OPERATION (offset 37)
+D $34F9 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 37 by the routines at #R$1DDA, #R$2DE3, #R$3713, #R$3783 and #R$3851.
 D $34F9 This subroutine returns a 'last value' of one if the present 'last value' is greater than zero and zero otherwise. It is also used by other subroutines to 'jump on plus'.
   $34F9 Is the 'last-value' zero?
   $34FC If so, return.
   $34FD Jump forward to #R$3506 but signal the opposite action is needed.
 @ $3501 label=f_not
-c $3501 THE 'NOT' FUNCTION
+c $3501 THE 'NOT' FUNCTION (offset 30)
+D $3501 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 30 by the routines at #R$2382, #R$36AF, #R$384A and #R$3851. It is also called indirectly via #R$33A2.
 D $3501 This subroutine returns a 'last value' of one if the present 'last value' is zero and zero otherwise. It is also used by other subroutines to 'jump on zero'.
   $3501 The carry flag will be set only if the 'last value' is zero; this gives the correct result.
   $3504 Jump forward.
 @ $3506 label=less_0
-c $3506 THE 'LESS THAN ZERO' OPERATION
+c $3506 THE 'LESS THAN ZERO' OPERATION (offset 36)
+D $3506 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 36 by the routines at #R$1DDA, #R$2DE3, #R$36AF, #R$3783 and #R$37E2.
 D $3506 This subroutine returns a 'last value' of one if the present 'last value' is less than zero and zero otherwise. It is also used by other subroutines to 'jump on minus'.
   $3506 Clear the #REGa register.
 @ $3507 label=SIGN_TO_C
@@ -7890,7 +7916,8 @@ D $350B This subroutine sets the 'last value' to zero if the carry flag is reset
   $3518 Set the fifth byte to zero.
   $3519,1 Restore the result pointer.
 @ $351B label=no_or_no
-c $351B THE 'OR' OPERATION
+c $351B THE 'OR' OPERATION (offset 07)
+D $351B The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $351B This subroutine performs the binary operation 'X OR Y' and returns X if Y is zero and the value 1 otherwise.
   $351B Point #REGhl at Y, the second number.
   $351C Test whether Y is zero.
@@ -7898,7 +7925,8 @@ D $351B This subroutine performs the binary operation 'X OR Y' and returns X if 
   $3520 Return if Y was zero; X is now the 'last value'.
   $3521 Set the carry flag and jump back to set the 'last value' to 1.
 @ $3524 label=no_and_no
-c $3524 THE 'NUMBER AND NUMBER' OPERATION
+c $3524 THE 'NUMBER AND NUMBER' OPERATION (offset 08)
+D $3524 The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $3524 This subroutine performs the binary operation 'X AND Y' and returns X if Y is non-zero and the value zero otherwise.
   $3524 Point #REGhl at Y, #REGde at X.
   $3525 Test whether Y is zero.
@@ -7906,7 +7934,8 @@ D $3524 This subroutine performs the binary operation 'X AND Y' and returns X if
   $3529 Return with X as the 'last value' if Y was non-zero.
   $352A Reset the carry flag and jump back to set the 'last value' to zero.
 @ $352D label=str_no
-c $352D THE 'STRING AND NUMBER' OPERATION
+c $352D THE 'STRING AND NUMBER' OPERATION (offset 10)
+D $352D The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $352D This subroutine performs the binary operation 'X$ AND Y' and returns X$ if Y is non-zero and a null string otherwise.
   $352D Point #REGhl at Y, #REGde at X$.
   $352E Test whether Y is zero.
@@ -7920,9 +7949,10 @@ D $352D This subroutine performs the binary operation 'X$ AND Y' and returns X$ 
   $3538 Length-low is now set to zero.
   $3539 Restore the pointer.
   $353A Return with the string parameters being the 'last value'.
-@ $353B label=no_l_eql
-c $353B THE 'COMPARISON' OPERATIONS
-D $353B This subroutine is used to perform the twelve possible comparison operations (offsets 09 to 0E and 11 to 16: 'no-l-eql', 'no-gr-eq', 'nos-neql', 'no-grtr', 'no-less', 'nos-eql', 'str-l-eql', 'str-gr-eq', 'strs-neql', 'str-grtr', 'str-less' and 'strs-eql'). The single operation offset is present in the #REGb register at the start of the subroutine.
+@ $353B label=compare
+c $353B THE 'COMPARISON' OPERATIONS (offsets 09-0E, 11-16)
+D $353B The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
+D $353B This subroutine is used to perform the twelve possible comparison operations (offsets 09 to 0E and 11 to 16: '<=', '>=', '<>', '>', '<' and '=' for numbers and strings respectively). The single operation offset is present in the #REGb register at the start of the subroutine.
   $353B The single offset goes to the #REGa register.
   $353C The range is now 01-06 and 09-0E.
   $353E This range is changed to 00-02, 04-06, 08-0A and 0C-0E.
@@ -7961,7 +7991,8 @@ B $358B,1 #R$369B
   $358C These three tests, called as needed, give the correct results for all twelve comparisons. The initial carry is set for 'not equal' and 'equal', and the final carry is set for 'greater than', 'less than' and 'equal'.
   $359B Finished.
 @ $359C label=strs_add
-c $359C THE 'STRING CONCATENATION' OPERATION
+c $359C THE 'STRING CONCATENATION' OPERATION (offset 17)
+D $359C The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $359C This subroutine performs the binary operation 'A$+B$'. The parameters for these strings are fetched and the total length found. Sufficient room to hold both the strings is made available in the work space and the strings are copied over. The result of this subroutine is therefore to produce a temporary variable A$+B$ that resides in the work space.
   $359C The parameters of the second string are fetched and saved.
   $35A1 The parameters of the first string are fetched.
@@ -7982,7 +8013,8 @@ D $35BF This subroutine resets the #REGhl register pair to point to the first by
   $35C6 Calculate STKEND-5.
   $35C7,1 #REGde now holds STKEND and #REGhl holds STKEND-5.
 @ $35C9 label=chrs
-c $35C9 THE 'CHR$' FUNCTION
+c $35C9 THE 'CHR$' FUNCTION (offset 2F)
+D $35C9 The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $35C9 This subroutine handles the function CHR$ X and creates a single character string in the work space.
   $35C9 The 'last value' is compressed into the #REGa register.
   $35CC Give the error report if X is greater than 255 decimal, or X is a negative number.
@@ -7999,7 +8031,8 @@ N $35DC Report B - Integer out of range.
 M $35DC,2 Call the error handling routine.
 B $35DD,1
 @ $35DE label=val
-c $35DE THE 'VAL' AND 'VAL$' FUNCTION
+c $35DE THE 'VAL' AND 'VAL$' FUNCTION (offsets 18, 1D)
+D $35DE The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $35DE This subroutine handles the functions VAL X$ and VAL$ X$. When handling VAL X$, it returns a 'last value' that is the result of evaluating the string (without its bounding quotes) as a numerical expression. when handling VAL$ X$, it evaluates X$ (without its bounding quotes) as a string expression, and returns the parameters of that string expression as a 'last value' on the calculator stack.
   $35DE The current value of CH-ADD is preserved on the machine stack.
   $35E2 The 'offset' for 'val' or 'val$' must be in the #REGb register; it is now copied to #REGa.
@@ -8027,7 +8060,8 @@ D $35DE This subroutine handles the functions VAL X$ and VAL$ X$. When handling 
   $361D The subroutine exits via #R$35BF which resets the pointers.
 @ $361F keep
 @ $361F label=str
-c $361F THE 'STR$' FUNCTION
+c $361F THE 'STR$' FUNCTION (offset 2E)
+D $361F The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $361F This subroutine handles the function STR$ X and returns a 'last value' which is a set of parameters that define a string containing what would appear on the screen if X were displayed by a PRINT command.
   $361F One space is made in the work space and its address is copied to K-CUR, the address of the cursor.
   $3626 This address is saved on the stack too.
@@ -8043,7 +8077,8 @@ D $361F This subroutine handles the function STR$ X and returns a 'last value' w
   $3644 Finished.
 E $361F Note: see #R$2DE3 for an explanation of the 'PRINT "A"+STR$ 0.1' error.
 @ $3645 label=read_in
-c $3645 THE 'READ-IN' SUBROUTINE
+c $3645 THE 'READ-IN' SUBROUTINE (offset 1A)
+D $3645 The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $3645 This subroutine is called via the calculator offset (+5A) through the first line of #R$2634. It appears to provide for the reading in of data through different streams from those available on the standard Spectrum. Like #R$2634 the subroutine returns a string.
   $3645 The numerical parameter is compressed into the #REGa register.
   $3648 Is it smaller than 16 decimal?
@@ -8062,7 +8097,8 @@ D $3645 This subroutine is called via the calculator offset (+5A) through the fi
   $3662 Restore CURCHL and the appropriate flags.
   $3666 Exit, setting the pointers.
 @ $3669 label=code
-c $3669 THE 'CODE' FUNCTION
+c $3669 THE 'CODE' FUNCTION (offset 1C)
+D $3669 The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $3669 This subroutine handles the function CODE A$ and returns the Spectrum code of the first character in A$, or zero if A$ is null.
   $3669 The parameters of the string are fetched.
   $366C The length is tested and the #REGa register holding zero is carried forward if A$ is a null string.
@@ -8070,12 +8106,14 @@ D $3669 This subroutine handles the function CODE A$ and returns the Spectrum co
 @ $3671 label=STK_CODE
   $3671 The subroutine exits via #R$2D28 which gives the correct 'last value'.
 @ $3674 label=len
-c $3674 THE 'LEN' FUNCTION
+c $3674 THE 'LEN' FUNCTION (offset 1E)
+D $3674 The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $3674 This subroutine handles the function LEN A$ and returns a 'last value' that is equal to the length of the string.
   $3674 The parameters of the string are fetched.
   $3677 The subroutine exits via #R$2D2B which gives the correct 'last value'.
 @ $367A label=dec_jr_nz
-c $367A THE 'DECREASE THE COUNTER' SUBROUTINE
+c $367A THE 'DECREASE THE COUNTER' SUBROUTINE (offset 35)
+D $367A The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 35 by the routine at #R$3449.
 D $367A This subroutine is only called by the #R$3449(series generator) and in effect is a 'DJNZ' operation but the counter is the system variable, BREG, rather than the #REGb register.
   $367A Go to the alternative register set and save the next literal pointer on the machine stack.
   $367C Make #REGhl point to BREG.
@@ -8086,7 +8124,8 @@ D $367A This subroutine is only called by the #R$3449(series generator) and in e
   $3684 Return to the main register set.
   $3685 Finished.
 @ $3686 label=jump
-c $3686 THE 'JUMP' SUBROUTINE
+c $3686 THE 'JUMP' SUBROUTINE (offset 33)
+D $3686 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 33 by the routines at #R$2D4F, #R$37AA and #R$37E2.
 D $3686 This subroutine executes an unconditional jump when called by the literal '33'.
   $3686 Go to the next alternate register set.
 @ $3687 label=JUMP_2
@@ -8095,7 +8134,8 @@ D $3686 This subroutine executes an unconditional jump when called by the litera
   $368C #REGhl' now holds the next literal pointer.
   $368E Finished.
 @ $368F label=jump_true
-c $368F THE 'JUMP ON TRUE' SUBROUTINE
+c $368F THE 'JUMP ON TRUE' SUBROUTINE (offset 00)
+D $368F The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 00 by the routines at #R$1DDA, #R$2382, #R$2D4F, #R$2DE3, #R$36AF, #R$3713, #R$3783, #R$37AA, #R$37E2, #R$384A and #R$3851.
 D $368F This subroutine executes a conditional jump if the 'last value' on the calculator stack, or more precisely the number addressed currently by the #REGde register pair, is true.
   $368F Point to the third byte, which is zero or one.
   $3691 Collect this byte in the #REGa register.
@@ -8107,13 +8147,15 @@ D $368F This subroutine executes a conditional jump if the 'last value' on the c
   $3699 Back to the main set of registers.
   $369A Finished.
 @ $369B label=end_calc
-c $369B THE 'END-CALC' SUBROUTINE
+c $369B THE 'END-CALC' SUBROUTINE (offset 38)
+D $369B The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 38 by the routines at #R$03F8, #R$1736, #R$1CDE, #R$1CF0, #R$1D03, #R$1DAB, #R$1DDA, #R$2320, #R$2382, #R$247D, #R$25F8, #R$2627, #R$26C9, #R$2AFF, #R$2C9B, #R$2D2B, #R$2D3B, #R$2D4F, #R$2DA2, #R$2DC1, #R$2DE3, #R$3449, #R$353B, #R$36A0, #R$36AF, #R$36C4, #R$3713, #R$3783, #R$37B5, #R$37DA, #R$37E2, #R$3833, #R$3843, #R$384A and #R$3851.
 D $369B This subroutine ends a RST 28 operation.
   $369B The return address to the calculator (#R$3365) is discarded.
   $369C Instead, the address in #REGhl' is put on the machine stack and an indirect jump is made to it. #REGhl' will now hold any earlier address in the calculator chain of addresses.
   $369F Finished.
 @ $36A0 label=n_mod_m
-c $36A0 THE 'MODULUS' SUBROUTINE
+c $36A0 THE 'MODULUS' SUBROUTINE (offset 32)
+D $36A0 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 32 by the routine at #R$25F8.
 D $36A0 This subroutine calculates N (mod M), where M is a positive integer held at the top of the calculator stack (the 'last value'), and N is the integer held on the stack beneath M.
 D $36A0 The subroutine returns the integer quotient INT (N/M) at the top of the calculator stack (the 'last value'), and the remainder N-INT (N/M) in the second place on the stack.
 D $36A0 This subroutine is called during the calculation of a random number to reduce N mod 65537 decimal.
@@ -8133,7 +8175,8 @@ B $36AC,1 #R$340F(get_mem_0): N-M*INT (N/M), INT (N/M)
 B $36AD,1 #R$369B
   $36AE Finished.
 @ $36AF label=int
-c $36AF THE 'INT' FUNCTION
+c $36AF THE 'INT' FUNCTION (offset 27)
+D $36AF The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 27 by the routines at #R$03F8, #R$2DA2, #R$2DC1, #R$2DE3, #R$36A0, #R$36C4 and #R$3783. It is also called indirectly via #R$33A2.
 D $36AF This subroutine handles the function INT X and returns a 'last value' that is the 'integer part' of the value supplied. Thus INT 2.4 gives 2 but as the subroutine always rounds the result down INT -2.4 gives -3.
 D $36AF The subroutine uses #R$3214 to produce I(X) such that I(2.4)=2 and I(-2.4)=-2. Thus, INT X is given by I(X) when X>=0, and by I(X)-1 for negative values of X that are not already integers, when the result is, of course, I(X).
   $36AF X
@@ -8160,8 +8203,9 @@ B $36C1,1 #R$300F: I(X)-1
 N $36C2 In either case the subroutine finishes with:
 @ $36C2 label=EXIT
 B $36C2,1 #R$369B: I(X) or I(X)-1
-@ $36C4 label=EXP
-c $36C4 THE 'EXPONENTIAL' FUNCTION
+@ $36C4 label=exp
+c $36C4 THE 'EXPONENTIAL' FUNCTION (offset 26)
+D $36C4 The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $36C4 This subroutine handles the function EXP X and is the first of four routines that use the #R$3449(series generator) to produce Chebyshev polynomials.
 D $36C4 The approximation to EXP X is found as follows:
 D $36C4 #LIST { i. X is divided by LN 2 to give Y, so that 2**Y is now the required result. } { ii. The value N is found, such that N=INT Y. } { iii. The value W=Y-N is found; 0<=W<=1, as required for the series to converge. } { iv. The argument Z=2*W-1 is formed. } { v. The #R$3449(series generator) is used to return 2**W. } { vi. Finally N is added to the exponent, giving 2**(N+W), which is 2**Y and therefore the required answer. } LIST#
@@ -8215,7 +8259,8 @@ B $3710,1 #R$341B(stk_zero): 0
 B $3711,1 #R$369B
   $3712 Finished, with EXP X=0.
 @ $3713 label=ln
-c $3713 THE 'NATURAL LOGARITHM' FUNCTION
+c $3713 THE 'NATURAL LOGARITHM' FUNCTION (offset 25)
+D $3713 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 25 by the routine at #R$3851. It is also called indirectly via #R$33A2.
 D $3713 This subroutine handles the function LN X and is the second of the four routines that use the #R$3449(series generator) to produce Chebyshev polynomials.
 D $3713 The approximation to LN X is found as follows:
 D $3713 #LIST { i. X is tested and report A is given if X is not positive. } { ii. X is then split into its true exponent, e', and its mantissa X'=X/(2**e'), where 0.5<=X'<1. } { iii. The required value Y1 or Y2 is formed: if X'>0.8 then Y1=e'*LN 2, otherwise Y2=(e'-1)*LN 2. } { iv. If X'>0.8 then the quantity X'-1 is stacked; otherwise 2*X'-1 is stacked. } { v. Now the argument Z is formed, being 2.5*X'-3 if X'>0.8, otherwise 5*X'-3. In each case, -1<=Z<=1, as required for the series to converge. } { vi. The #R$3449(series generator) is used to produce the required function. } { vii. Finally a simple multiplication and addition leads to LN X being returned as the 'last value'. } LIST#
@@ -8283,7 +8328,8 @@ B $3780,1 #R$3014: LN (2**e')*X')=LN X or LN (2**(e'-1)*2*X')=LN X
 B $3781,1 #R$369B: LN X
   $3782 Finished: 'last value' is LN X.
 @ $3783 label=get_argt
-c $3783 THE 'REDUCE ARGUMENT' SUBROUTINE
+c $3783 THE 'REDUCE ARGUMENT' SUBROUTINE (offset 39)
+D $3783 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 39 by the routines at #R$37AA and #R$37B5.
 D $3783 This subroutine transforms the argument X of SIN X or COS X into a value V.
 D $3783 The subroutine first finds the value Y=X/2#pi-INT(X/2#pi+0.5), where 0.5<=Y<0.5.
 D $3783 The subroutine returns with:
@@ -8326,7 +8372,8 @@ B $37A8,1 #R$369B: 1-Z=V (case ii) or Z-1=V (case iii)
 @ $37A8 label=YNEG
   $37A9 Finished.
 @ $37AA label=cos
-c $37AA THE 'COSINE' FUNCTION
+c $37AA THE 'COSINE' FUNCTION (offset 20)
+D $37AA The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 20 by the routines at #R$2382 and #R$37DA. It is also called indirectly via #R$33A2.
 D $37AA This subroutine handles the function COS X and returns a 'last value' 'that is an approximation to COS X.
 D $37AA The subroutine uses the expression COS X=SIN (#piW/2), where -1<=W<=1.
 D $37AA In deriving W for X the subroutine uses the test result obtained in the previous subroutine and stored for this purpose in mem-0. It then jumps to the #R$37B5 subroutine, entering at #R$37B7, to produce a 'last value' of COS X.
@@ -8341,7 +8388,8 @@ N $37B2 If the jump was not made then continue.
 B $37B2,1 #R$346E: 1-ABS V
 B $37B3,2,1 #R$3686 to #R$37B7: 1-ABS V=W
 @ $37B5 label=sin
-c $37B5 THE 'SINE' FUNCTION
+c $37B5 THE 'SINE' FUNCTION (offset 1F)
+D $37B5 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 1F by the routines at #R$2382, #R$247D and #R$37DA. It is also called indirectly via #R$33A2.
 D $37B5 This subroutine handles the function SIN X and is the third of the four routines that use the #R$3449(series generator) to produce Chebyshev polynomials.
 D $37B5 The approximation to SIN X is found as follows:
 D $37B5 #LIST { i. The argument X is reduced to W, such that SIN (#pi*W/2)=SIN X. Note that -1<=W<=1, as required for the series to converge. } { ii. The argument Z=2*W*W-1 is formed. } { iii. The #R$3449(series generator) is used to return (SIN (#pi*W/2))/W. } { iv. Finally a simple multiplication by W gives SIN X. } LIST#
@@ -8366,7 +8414,8 @@ B $37D7,1 #R$30CA: SIN (#pi*W/2)=SIN X (or COS X)
 B $37D8,1 #R$369B
   $37D9 Finished: 'last value'=SIN X (or COS X).
 @ $37DA label=tan
-c $37DA THE 'TAN' FUNCTION
+c $37DA THE 'TAN' FUNCTION (offset 21)
+D $37DA The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $37DA This subroutine handles the function TAN X. It simply returns SIN X/COS X, with arithmetic overflow if COS X=0.
   $37DA X
 B $37DB,1 #R$33C0: X, X
@@ -8377,7 +8426,8 @@ B $37DF,1 #R$31AF: SIN X/COS X=TAN X (report arithmetic overflow if needed)
 B $37E0,1 #R$369B: TAN X
   $37E1 Finished: 'last value'=TAN X.
 @ $37E2 label=atn
-c $37E2 THE 'ARCTAN' FUNCTION
+c $37E2 THE 'ARCTAN' FUNCTION (offset 24)
+D $37E2 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 24 by the routine at #R$3833. It is also called indirectly via #R$33A2.
 D $37E2 This subroutine handles the function ATN X and is the last of the four routines that use the #R$3449(series generator) to produce Chebyshev polynomials. It returns a real number between -#pi/2 and #pi/2, which is equal to the value in radians of the angle whose tan is X.
 D $37E2 The approximation to ATN X is found as follows:
 D $37E2 i. The values W and Y are found for three cases of X, such that:
@@ -8426,7 +8476,8 @@ B $3830,1 #R$3014: ATN X (all cases now)
 B $3831,1 #R$369B
   $3832 Finished: 'last value'=ATN X.
 @ $3833 label=asn
-c $3833 THE 'ARCSIN' FUNCTION
+c $3833 THE 'ARCSIN' FUNCTION (offset 22)
+D $3833 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 22 by the routine at #R$3843. It is also called indirectly via #R$33A2.
 D $3833 This subroutine handles the function ASN X and returns a real real number from -#pi/2 to #pi/2 inclusive which is equal to the value in radians of the angle whose sine is X. Thereby if Y=ASN X then X=SIN Y.
 D $3833 This subroutine uses the trigonometric identity TAN (Y/2)=SIN Y/1(1+COS Y) to obtain TAN (Y/2) and hence (using ATN) Y/2 and finally Y.
   $3833 X
@@ -8446,7 +8497,8 @@ B $3840,1 #R$3014: Y=ASN X
 B $3841,1 #R$369B
   $3842 Finished: 'last value'=ASN X.
 @ $3843 label=acs
-c $3843 THE 'ARCCOS' FUNCTION
+c $3843 THE 'ARCCOS' FUNCTION (offset 23)
+D $3843 The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $3843 This subroutine handles the function ACS X and returns a real number from 0 to #pi inclusive which is equal to the value in radians of the angle whose cosine is X.
 D $3843 This subroutine uses the relation ACS X=#pi/2-ASN X.
   $3843 X
@@ -8457,7 +8509,8 @@ B $3847,1 #R$346E: #pi/2-ASN X=ACS X
 B $3848,1 #R$369B
   $3849 Finished: 'last value'=ACS X.
 @ $384A label=sqr
-c $384A THE 'SQUARE ROOT' FUNCTION
+c $384A THE 'SQUARE ROOT' FUNCTION (offset 28)
+D $384A The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 28 by the routines at #R$247D and #R$3833. It is also called indirectly via #R$33A2.
 D $384A  This subroutine handles the function SQR X and returns the positive square root of the real number X if X is positive, and zero if X is zero. A negative value of X gives rise to report A - invalid argument (via #R$3851).
 D $384A This subroutine treats the square root operation as being X**0.5 and therefore stacks the value 0.5 and proceeds directly into #R$3851.
   $384A X
@@ -8469,7 +8522,8 @@ B $384F,1 #R$341B(stk_half): X, 0.5
 B $3850,1 #R$369B
 E $384A Continue into #R$3851 to find the result of X**0.5.
 @ $3851 label=to_power
-c $3851 THE 'EXPONENTIATION' OPERATION
+c $3851 THE 'EXPONENTIATION' OPERATION (offset 06)
+D $3851 The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $3851 This subroutine performs the binary operation of raising the first number, X, to the power of the second number, Y.
 D $3851 The subroutine treats the result X**Y as being equivalent to EXP (Y*LN X). It returns this value unless X is zero, in which case it returns 1 if Y is also zero (0**0=1), returns zero if Y is positive, and reports arithmetic overflow if Y is negative.
   $3851 X, Y
