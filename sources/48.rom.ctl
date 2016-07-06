@@ -1304,26 +1304,27 @@ D $09F4 This routine is entered with the #REGa register holding the code for a c
 @ $0A11 label=CTRL_CHARS
 b $0A11 THE 'CONTROL CHARACTER' TABLE
 D $0A11 Used by the routine at #R$09F4.
-  $0A11 PRINT comma
-  $0A12 EDIT
-  $0A13 Cursor left
-  $0A14 Cursor right
-  $0A15 Cursor down
-  $0A16 Cursor up
-  $0A17 DELETE
-  $0A18 ENTER
-  $0A19 Not used
-  $0A1A Not used
-  $0A1B INK control
-  $0A1C PAPER control
-  $0A1D FLASH control
-  $0A1E BRIGHT control
-  $0A1F INVERSE control
-  $0A20 OVER control
-  $0A21 AT control
-  $0A22 TAB control
+  $0A11 PRINT comma (#R$0A5F)
+  $0A12 EDIT (#R$0A69)
+  $0A13 Cursor left (#R$0A23)
+  $0A14 Cursor right (#R$0A3D)
+  $0A15 Cursor down (#R$0A69)
+  $0A16 Cursor up (#R$0A69)
+  $0A17 DELETE (#R$0A69)
+  $0A18 ENTER (#R$0A4F)
+  $0A19 Not used (#R$0A69)
+  $0A1A Not used (#R$0A69)
+  $0A1B INK control (#R$0A7A)
+  $0A1C PAPER control (#R$0A7A)
+  $0A1D FLASH control (#R$0A7A)
+  $0A1E BRIGHT control (#R$0A7A)
+  $0A1F INVERSE control (#R$0A7A)
+  $0A20 OVER control (#R$0A7A)
+  $0A21 AT control (#R$0A75)
+  $0A22 TAB control (#R$0A75)
 @ $0A23 label=PO_BACK_1
 c $0A23 THE 'CURSOR LEFT' SUBROUTINE
+D $0A23 The address of this routine is derived from an offset found in the #R$0A11(control character table).
 D $0A23 The subroutine is entered with the #REGb register holding the current line number and the #REGc register with the current column number.
   $0A23 Move leftwards by one column.
   $0A24 Accept the change unless up against the lefthand side.
@@ -1338,6 +1339,7 @@ D $0A23 The subroutine is entered with the #REGb register holding the current li
 @ $0A3A label=PO_BACK_3
   $0A3A Make an indirect return via #R$0DD9 and #R$0ADC.
 @ $0A3D label=PO_RIGHT
+D $0A3D The address of this routine is derived from an offset found in the #R$0A11(control character table).
 c $0A3D THE 'CURSOR RIGHT' SUBROUTINE
 D $0A3D This subroutine performs an operation identical to the BASIC statement 'PRINT OVER 1;CHR$ 32;'.
   $0A3D Fetch P-FLAG and save it on the machine stack.
@@ -1348,6 +1350,7 @@ D $0A3D This subroutine performs an operation identical to the BASIC statement '
   $0A4E Finished. Note: the programmer has forgotten to exit via #R$0ADC.
 @ $0A4F label=PO_ENTER
 c $0A4F THE 'CARRIAGE RETURN' SUBROUTINE
+D $0A4F The address of this routine is derived from an offset found in the #R$0A11(control character table).
 D $0A4F If the printing being handled is going to the printer then a carriage return character leads to the printer buffer being emptied. If the printing is to the screen then a test for 'scroll?' is made before decreasing the line number.
   $0A4F Jump if handling the printer.
   $0A56 Set to lefthand column.
@@ -1356,6 +1359,7 @@ D $0A4F If the printing being handled is going to the printer then a carriage re
   $0A5C Make an indirect return via #R$0DD9 and #R$0ADC.
 @ $0A5F label=PO_COMMA
 c $0A5F THE 'PRINT COMMA' SUBROUTINE
+D $0A5F The address of this routine is derived from an offset found in the #R$0A11(control character table).
 D $0A5F The current column value is manipulated and the #REGa register set to hold +00 (for TAB 0) or +10 (for TAB 16).
   $0A5F Why again?
   $0A62 Current column number.
@@ -1364,6 +1368,7 @@ D $0A5F The current column value is manipulated and the #REGa register set to ho
   $0A67 Exit via #R$0AC3.
 @ $0A69 label=PO_QUEST
 c $0A69 THE 'PRINT A QUESTION MARK' SUBROUTINE
+D $0A69 The address of this routine is derived from an offset found in the #R$0A11(control character table).
 D $0A69 A question mark is printed whenever an attempt is made to print an unprintable code.
   $0A69,c2 The character '?'.
   $0A6B Now print this character instead.
@@ -1373,10 +1378,12 @@ c $0A6D THE 'CONTROL CHARACTERS WITH OPERANDS' ROUTINE
 D $0A6D The control characters from INK to OVER require a single operand whereas the control characters AT and TAB are required to be followed by two operands.
 D $0A6D The present routine leads to the control character code being saved in TVDATA-lo, the first operand in TVDATA-hi or the #REGa register if there is only a single operand required, and the second operand in the #REGa register.
   $0A6D Save the first operand in TVDATA-hi and change the address of the 'output' routine to #R$0A87.
+N $0A75 The address of this entry point is derived from an offset found in the #R$0A11(control character table).
 N $0A75 Enter here when handling the characters AT and TAB.
 @ $0A75 nowarn
 @ $0A75 label=PO_2_OPER
   $0A75 The character code will be saved in TVDATA-lo and the address of the 'output' routine changed to #R$0A6D.
+N $0A7A The address of this entry point is derived from an offset found in the #R$0A11(control character table).
 N $0A7A Enter here when handling the colour items - INK to OVER.
 @ $0A7A nowarn
 @ $0A7A label=PO_1_OPER
