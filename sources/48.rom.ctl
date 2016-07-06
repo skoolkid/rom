@@ -104,6 +104,7 @@ D $007D The value brought to the subroutine in the #REGa register is tested to s
   $0090 Return with the carry flag set and CH-ADD holding the appropriate address.
 @ $0095 label=TOKENS
 t $0095 THE TOKEN TABLE
+D $0095 Used by the routine at #R$0C0A.
 D $0095 All the tokens used by the Spectrum are expanded by reference to this table. The last code of each token is 'inverted' by having its bit 7 set.
   $0096,3,2:B1
   $0099,6,5:B1
@@ -1031,8 +1032,8 @@ N $0775 The new 'header' is now displayed on the screen but the routine will onl
 @ $078A label=LD_TYPE
   $078A Clearly the 'header' is nonsense if 'type 4 or more'.
 @ $078E ssub=LD DE,$09C1-1
-N $078E The appropriate message - 'Program:', 'Number array:', 'Character array:' or 'Bytes:' is printed.
-  $078E The base address of the message block.
+N $078E The appropriate message - 'Program: ', 'Number array: ', 'Character array: ' or 'Bytes: ' is printed.
+  $078E The base address of the #R$09C1(message block).
   $0791 Save the #REGc register whilst the appropriate message is printed.
 N $0796 The 'new name' is printed and as this is done the 'old' and the 'new' names are compared.
   $0796 Make the #REGde register pair point to the 'new name' and the #REGhl register pair to the 'old name'.
@@ -1279,6 +1280,7 @@ N $098D There follows a short delay before the program/data block is saved.
   $099C Fetch the 'start of block pointer' and save the block.
 @ $09A1 label=CASSETTE
 t $09A1 THE CASSETTE MESSAGES
+D $09A1 Used by the routines at #R$0605 and #R$0970.
 D $09A1 Each message is given with the last character inverted (+80 hex.).
   $09A1 Initial byte is stepped over.
   $09A2,31,30:B1
@@ -2452,6 +2454,7 @@ N $1303 After the line has been interpreted and all the actions consequential to
   $138E And finally the jump back is made but no program listing will appear until requested.
 @ $1391 label=REPORTS
 t $1391 THE REPORT MESSAGES
+D $1391 Used by the routine at #R$12A2.
 D $1391 Each message is given with the last character inverted (+80 hex.).
   $1391 Initial byte is stepped over.
   $1392,2,1:B1
@@ -2483,10 +2486,11 @@ D $1391 Each message is given with the last character inverted (+80 hex.).
   $1516,15,14:B1
   $1525,18,17:B1
 @ $1537 label=COMMA_SPC
-N $1537 There are also the following two messages.
   $1537,2,1:B1
 @ $1539 label=COPYRIGHT
-  $1539,28,B1:26:B1
+t $1539 THE COPYRIGHT MESSAGE
+D $1539 Used by the routine at #R$11B7.
+  $1539,28,B1:26:B1 #CHR169 1982 Sinclair Research Ltd
 @ $1555 label=REPORT_G
 c $1555 Report G - No room for line
   $1555 'G' has the code '10+07+30'.
