@@ -2474,36 +2474,36 @@ t $1391 THE REPORT MESSAGES
 D $1391 Used by the routine at #R$12A2.
 D $1391 Each message is given with the last character inverted (+80 hex.).
   $1391 Initial byte is stepped over.
-  $1392,2,1:B1
-  $1394,16,15:B1
-  $13A4,18,17:B1
-  $13B6,15,14:B1
-  $13C5,13,12:B1
-  $13D2,13,12:B1
-  $13DF,14,13:B1
-  $13ED,20,19:B1
-  $1401,11,10:B1
-  $140C,14,13:B1
-  $141A,16,15:B1
-  $142A,20,19:B1
-  $143E,17,16:B1
-  $144F,20,19:B1
-  $1463,11,10:B1
-  $146E,17,16:B1
-  $147F,16,15:B1
-  $148F,13,12:B1
-  $149C,16,15:B1
-  $14AC,18,17:B1
-  $14BE,14,13:B1
-  $14CC,18,17:B1
-  $14DE,14,13:B1
-  $14EC,14,13:B1
-  $14FA,14,13:B1
-  $1508,14,13:B1
-  $1516,15,14:B1
-  $1525,18,17:B1
+  $1392,2,1:B1 0 OK
+  $1394,16,15:B1 1 NEXT without FOR
+  $13A4,18,17:B1 2 Variable not found
+  $13B6,15,14:B1 3 Subscript wrong
+  $13C5,13,12:B1 4 Out of memory
+  $13D2,13,12:B1 5 Out of screen
+  $13DF,14,13:B1 6 Number too big
+  $13ED,20,19:B1 7 RETURN without GOSUB
+  $1401,11,10:B1 8 End of file
+  $140C,14,13:B1 9 STOP statement
+  $141A,16,15:B1 A Invalid argument
+  $142A,20,19:B1 B Integer out of range
+  $143E,17,16:B1 C Nonsense in BASIC
+  $144F,20,19:B1 D BREAK - CONT repeats
+  $1463,11,10:B1 E Out of DATA
+  $146E,17,16:B1 F Invalid file name
+  $147F,16,15:B1 G No room for line
+  $148F,13,12:B1 H STOP in INPUT
+  $149C,16,15:B1 I FOR without NEXT
+  $14AC,18,17:B1 J Invalid I/O device
+  $14BE,14,13:B1 K Invalid colour
+  $14CC,18,17:B1 L BREAK into program
+  $14DE,14,13:B1 M RAMTOP no good
+  $14EC,14,13:B1 N Statement lost
+  $14FA,14,13:B1 O Invalid stream
+  $1508,14,13:B1 P FN without DEF
+  $1516,15,14:B1 Q Parameter error
+  $1525,18,17:B1 R Tape loading error
 @ $1537 label=COMMA_SPC
-  $1537,2,1:B1
+  $1537,2,1:B1 ', '
 @ $1539 label=COPYRIGHT
 t $1539 THE COPYRIGHT MESSAGE
 D $1539 Used by the routine at #R$11B7.
