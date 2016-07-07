@@ -1289,12 +1289,12 @@ t $09A1 THE CASSETTE MESSAGES
 D $09A1 Used by the routines at #R$0605 and #R$0970.
 D $09A1 Each message is given with the last character inverted (+80 hex.).
   $09A1 Initial byte is stepped over.
-  $09A2,31,30:B1
+  $09A2,31,30:B1 'Start tape, then press any key.'
 @ $09C1 label=BLOCK_HDR
-  $09C1,10,B1:8:B1
-  $09CB,15,B1:13:B1
-  $09DA,18,B1:16:B1
-  $09EC,8,B1:6:B1
+  $09C1,10,B1:8:B1 Carriage return + 'Program: '
+  $09CB,15,B1:13:B1 Carriage return + 'Number array: '
+  $09DA,18,B1:16:B1 Carriage return + 'Character array: '
+  $09EC,8,B1:6:B1 Carriage return + 'Bytes: '
 @ $09F4 label=PRINT_OUT
 c $09F4 THE 'PRINT-OUT' ROUTINES
 D $09F4 The address of this routine is found in the #R$15AF(initial channel information table).
