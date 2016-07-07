@@ -477,6 +477,7 @@ N $034F Letter keys in 'K', 'L' or 'C' modes are now considered. But first the s
   $035F Also return in the same manner if CAPS SHIFT is being pressed.
   $0361 However if lower case codes are required then +20 has to be added to the 'main code' to give the correct 'final code'.
 N $0364 The 'final code' values for tokens are found by adding +A5 to the 'main code'.
+@ $0364 label=K_TOKENS
   $0364 Add the required offset and return.
 N $0367 Next the digit keys, SPACE, ENTER and both shifts are considered.
 @ $0367 label=K_DIGIT
@@ -1398,6 +1399,7 @@ N $0A7A Enter here when handling the colour items - INK to OVER.
 @ $0A7D label=PO_TV_1
   $0A7D Save the control character code.
 N $0A80 The current 'output' routine address is changed temporarily.
+@ $0A80 label=PO_CHANGE
   $0A80 #REGhl will point to the 'output' routine address.
   $0A83 Enter the new 'output' routine address and thereby force the next character code to be considered as an operand.
 N $0A87 Once the operands have been collected the routine continues.
@@ -1550,6 +1552,7 @@ N $0BC5 Once the character has been printed the attribute byte is to be set as r
   $0BCE Restore the original destination address and the position values.
   $0BD0 Decrease the column number and increase the destination address before returning.
 N $0BD3 When the printer is being used the destination address has to be updated in increments of +20.
+@ $0BD3 label=PR_ALL_6
   $0BD3 Save the printer flag again.
   $0BD4 The required increment value.
   $0BD6 Add the value and pass the result back to the #REGe register.
@@ -1808,6 +1811,7 @@ N $0E05 Now enter the main scrolling loop. The #REGb register holds the number o
   $0E06 Save the starting address.
   $0E07 Jump forward unless dealing at the present moment with a 'third' of the display.
 N $0E0D The pixel lines of the top lines of the 'thirds' of the display have to be moved across the 2K boundaries. (Each 'third' is 2K.)
+@ $0E0D label=CL_SCR_2
   $0E0D The result of this manipulation is to leave #REGhl unchanged and #REGde pointing to the required destination.
 @ $0E13 keep
   $0E13 There are +20 characters.
@@ -4552,6 +4556,7 @@ N $226C The following subroutine is used to 'impress' upon a system variable the
   $2270 Move on to address the next system variable.
   $2271 Return with the mask in the #REGa register.
 N $2273 FLASH and BRIGHT are handled by the following routine.
+@ $2273 label=CO_TEMP_C
   $2273 The zero flag will be set for BRIGHT.
   $2274 The parameter is fetched and rotated.
   $2276 Prepare the mask for FLASH.
@@ -4688,7 +4693,6 @@ B $2342,1 #R$33A1: X, Y, Z
 B $2343,1 #R$369B
   $2344 Set the initial parameters.
 N $2347 iii. A test is made to see whether the initial 'arc' length is less than 1. If it is, a jump is made simply to plot X, Y. Otherwise, the parameters are set: X+Z and X-Z*SIN (#pi/A) are stacked twice as start and end point, and copied to COORDS as well; zero and 2*Z*SIN (#pi/A) are stored in mem-1 and mem-2 as initial increments, giving as first 'arc' the vertical straight line joining X+Z, y-Z*SIN (#pi/A) and X+Z, Y+Z*SIN (#pi/A). The arc-drawing loop at #R$2420 will ensure that all subsequent points remain on the same circle as these two points, with incremental angle 2#pi/A. But it is clear that these 2 points in fact subtend this angle at the point X+Z*(1-COS (#pi/A)), Y not at X, Y. Hence the end points of each arc of the circle are displaced right by an amount 2*(1-COS (#pi/A)), which is less than half a pixel, and rounds to one pixel at most.
-@ $2347 label=C_ARC_GE1
   $2347 Save the arc-count in #REGb.
   $2348 X, Y, Z
 B $2349,1 #R$33C0: X, Y, Z, Z
@@ -4703,6 +4707,7 @@ B $2354,1 #R$33A1: X, Y
 B $2355,1 #R$369B
   $2356 Clear the machine stack.
   $2357 Jump to plot X, Y.
+@ $235A label=C_ARC_GE1
   $235A X, Y, Z, Z*SIN (#pi/A)
 B $235B,1 #R$342D(st_mem_2): (Z*SIN (#pi/A) to mem-2 for now)
 B $235C,1 #R$343C: X, Y, Z*SIN (#pi/A), Z
@@ -6126,6 +6131,7 @@ N $2B0B Enter a loop to deal with the characters of a long name. Any spaces or c
   $2B1C Step past the control code after any of INK to OVER.
   $2B1D Jump back as these control codes are treated as spaces.
 N $2B1F Separate 'numeric' and 'string' names.
+@ $2B1F label=L_TEST_CH
   $2B1F Is the code alphanumeric?
   $2B22 If It is so then accept it as a character of a 'long' name.
   $2B24,c2 Is the present code a '$'?
@@ -6836,6 +6842,7 @@ N $2ECF vi. The fractional part of x is now stored in the print buffer.
   $2ED9 True numerical bit to bit 7 of #REGd'.
   $2EDB Restore the main registers.
   $2EDC Now make the shift.
+@ $2EDF label=PF_FRN_LP
   $2EDF Get the digit count.
   $2EE2 Are there already 8 digits?
   $2EE4 If not, jump forward.
