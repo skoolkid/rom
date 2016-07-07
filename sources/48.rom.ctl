@@ -1076,9 +1076,11 @@ N $07F4 The verify/load flag is now considered and the actual load made.
   $07FF Signal 'VERIFY'.
 @ $0800 label=VR_CONT_3
   $0800 Signal 'accept data block only' before loading the block.
+E $07CB This routine continues into #R$0802.
 @ $0802 label=LD_BLOCK
 c $0802 THE 'LOAD A DATA BLOCK' SUBROUTINE
 @ $0806 label=REPORT_R
+D $0802 The routine at #R$07CB continues here.
 D $0802 This subroutine is common to all the tape loading routines. In the case of LOAD and VERIFY it acts as a full return from the cassette handling routines but in the case of MERGE the data block has yet to be merged.
   $0802 Load/verify a data block.
   $0805 Return unless an error.
@@ -1437,6 +1439,7 @@ D $0AD9 The required character (or characters) is printed by calling #R$0B24 fol
   $0AD9 Print the character(s) and continue into #R$0ADC.
 @ $0ADC label=PO_STORE
 c $0ADC THE 'POSITION STORE' SUBROUTINE
+D $0ADC The routine at #R$0AD9 continues here.
 D $0ADC The new position's 'line and column' values and the 'pixel' address are stored in the appropriate system variables.
   $0ADC Jump forward if handling the printer.
   $0AE2 Jump forward if handling the lower part of the screen.
@@ -1503,8 +1506,7 @@ N $0B65 The required character form is identified.
   $0B7C The base address of the character form is found.
   $0B7D The current position is fetched and the base address passed to the #REGde register pair.
 @ $0B7F label=PR_ALL
-c $0B7F THE 'PRINT ALL CHARACTERS' SUBROUTINE
-D $0B7F This subroutine is used to print all '8*8' bit characters. On entry the #REGde register pair holds the base address of the character form, the #REGhl register the destination address and the #REGbc register pair the current 'line and column' values.
+N $0B7F The following subroutine is used to print all '8*8' bit characters. On entry the #REGde register pair holds the base address of the character form, the #REGhl register the destination address and the #REGbc register pair the current 'line and column' values.
   $0B7F Fetch the column number.
   $0B80 Move one column rightwards.
   $0B81 Jump forward unless a new line is indicated.
@@ -1596,8 +1598,10 @@ N $0C2D Now consider whether a 'trailing space' is required.
 @ $0C35 label=PO_TR_SP
   $0C35 Examine the value in #REGd and return if it indicates a message, RND, INKEY$ or PI.
   $0C39,c2 All other cases will require a 'trailing space'.
+E $0C0A This routine continues into #R$0C3B.
 @ $0C3B label=PO_SAVE
 c $0C3B THE 'PO-SAVE' SUBROUTINE
+D $0C3B The routine at #R$0C0A continues here.
 D $0C3B This subroutine allows for characters to be printed 'recursively'. The appropriate registers are saved whilst #R$0010 is called.
   $0C3B Save the #REGde register pair.
   $0C3C Save #REGhl and #REGbc.
@@ -1768,9 +1772,11 @@ D $0DAF This subroutine is called from #R$0D6B, #R$12A2, and #R$1795.
 @ $0DCC nowarn
   $0DD2 Reset the scroll counter.
 @ $0DD6 keep
-  $0DD6 As the upper part of the display is being handled the 'upper print line' will be line 0. Continue into #R$0DD9.
+  $0DD6 As the upper part of the display is being handled the 'upper print line' will be line 0.
+E $0DAF This routine continues into #R$0DD9.
 @ $0DD9 label=CL_SET
 c $0DD9 THE 'CL-SET' SUBROUTINE
+D $0DD9 The routine at #R$0DAF continues here.
 D $0DD9 This subroutine is entered with the #REGbc register pair holding the line and column numbers of a character area, or the #REGc register holding the column number within the printer buffer. The appropriate address of the first character bit is then found. The subroutine returns via #R$0ADC so as to store all the values in the required system variables.
   $0DD9 The start of the printer buffer.
   $0DDC Jump forward if handling the printer buffer.
@@ -1828,6 +1834,7 @@ N $0E42 It remains now to clear the bottom line of the display.
   $0E42 The #REGb register is loaded with +01 and #R$0E44 is entered.
 @ $0E44 label=CL_LINE
 c $0E44 THE 'CLEAR LINES' SUBROUTINE
+D $0E44 The routine at #R$0DFE continues here.
 D $0E44 This subroutine will clear the bottom #REGb lines of the display.
   $0E44 The line number is saved for the duration of the subroutine.
   $0E45 The starting address for the line is formed in #REGhl.
@@ -2099,8 +2106,10 @@ D $1015 The address of this routine is derived from an offset found in the #R$0F
 @ $101E label=ED_IGNORE
 c $101E THE 'ED-IGNORE' SUBROUTINE
   $101E The next two codes from the key-input routine are ignored.
+E $101E This routine continues into #R$1024.
 @ $1024 label=ED_ENTER
 c $1024 THE 'ENTER EDITING' SUBROUTINE
+D $1024 The routine at #R$101E continues here.
 D $1024 The address of this routine is derived from an offset found in the #R$0FA0(editing keys table).
   $1024 The addresses of #R$0F38 and #R$107F are discarded.
 @ $1026 label=ED_END
@@ -2609,8 +2618,10 @@ N $1610 Using the stream data now find the base address of the channel informati
   $1610 Reduce the stream data.
   $1611 The base address of the whole channel information area.
   $1614 Form the required address in this area.
+E $1601 This routine continues into #R$1615.
 @ $1615 label=CHAN_FLAG
 c $1615 THE 'CHAN-FLAG' SUBROUTINE
+D $1615 The routine at #R$1601 continues here.
 D $1615 The appropriate flags for the different channels are set by this subroutine.
   $1615 The #REGhl register pair holds the base address for a particular channel.
   $1618 Signal 'using other than channel 'K''.
@@ -3163,9 +3174,10 @@ D $19B8 This subroutine can be used to find the 'next line' in the program area 
 N $19DB In all cases the address of the 'next' line or variable is found.
 @ $19DB label=NEXT_O_5
   $19DB Point to the first byte of the 'next' line or variable.
-  $19DC Fetch the address of the previous one and continue into the 'difference' subroutine.
+  $19DC Fetch the address of the previous one and continue into #R$19DD.
 @ $19DD label=DIFFER
 c $19DD THE 'DIFFERENCE' SUBROUTINE
+D $19DD The routine at #R$19B8 continues here.
 D $19DD The 'length' between two 'starts' is formed in the #REGbc register pair. The pointers are reformed but returned exchanged.
   $19DD Prepare for a true subtraction.
   $19DE Find the length from one 'start' to the next and pass it to the #REGbc register pair.
@@ -3513,8 +3525,10 @@ N $1B7D Continue here as the BREAK key was not pressed.
 @ $1B7D label=STMT_R_1
   $1B7D Jump forward if there is not a 'jump' to be made.
   $1B83 Fetch the 'new line' number and jump forward unless dealing with a further statement in the editing area.
+E $1B76 This routine continues into #R$1B8A.
 @ $1B8A label=LINE_RUN
 c $1B8A THE 'LINE-RUN' ENTRY POINT
+D $1B8A The routine at #R$1B76 continues here.
 D $1B8A This entry point is used wherever a line in the editing area is to be 'run'. In such a case the syntax/run flag (bit 7 of FLAGS) will be set.
 D $1B8A The entry point is also used in the syntax checking of a line in the editing area that has more than one statement (bit 7 of FLAGS will be reset).
   $1B8A A line in the editing area is considered as line '-2'.
@@ -3538,14 +3552,18 @@ c $1BB2 THE 'REM' COMMAND ROUTINE
 D $1BB2 The address of this routine is found in the #R$1AA5(parameter table).
 D $1BB2 The return address to #R$1B76 is dropped which has the effect of forcing the rest of the line to be ignored.
   $1BB2 Drop the address - #R$1B76.
+E $1BB2 This routine continues into #R$1BB3.
 @ $1BB3 label=LINE_END
 c $1BB3 THE 'LINE-END' ROUTINE
+D $1BB3 The routine at #R$1BB2 continues here.
 D $1BB3 If checking syntax a simple return is made but when 'running' the address held by NXTLIN has to be checked before it can be used.
   $1BB3 Return if syntax is being checked; otherwise fetch the address in NXTLIN.
   $1BBA Return also if the address is after the end of the program - the 'run' is finished.
   $1BBE Signal 'statement zero' before proceeding.
+E $1BB3 This routine continues into #R$1BBF.
 @ $1BBF label=LINE_USE
 c $1BBF THE 'LINE-USE' ROUTINE
+D $1BBF The routine at #R$1BB3 continues here.
 D $1BBF This short routine has three functions:
 D $1BBF #LIST { Change statement zero to statement '1'. } { Find the number of the new line and enter it into PPC. } { Form the address of the start of the line after. } LIST#
   $1BBF Statement zero becomes statement '1'.
@@ -3553,8 +3571,10 @@ D $1BBF #LIST { Change statement zero to statement '1'. } { Find the number of t
   $1BCA Now find the 'length' of the line.
   $1BCE Switch over the values.
   $1BCF Form the address of the start of the line after in #REGhl and the location before the 'next' line's first character in #REGde.
+E $1BBF This routine continues into #R$1BD1.
 @ $1BD1 label=NEXT_LINE
 c $1BD1 THE 'NEXT-LINE' ROUTINE
+D $1BD1 The routine at #R$1BBF continues here.
 D $1BD1 On entry the #REGhl register pair points to the location after the end of the 'next' line to be handled and the #REGde register pair to the location before the first character of the line. This applies to lines in the program area and also to a line in the editing area - where the next line will be the same line again whilst there are still statements to be interpreted.
   $1BD1 Set NXTLIN for use once the current line has been completed.
   $1BD4 As usual CH-ADD points to the location before the first character to be considered.
@@ -3576,6 +3596,7 @@ D $1BEE This is an important routine and is called from many places in the monit
   $1BF2 Drop the addresses of #R$1B52 and #R$1B76 before continuing into #R$1BF4.
 @ $1BF4 label=STMT_NEXT
 c $1BF4 THE 'STMT-NEXT' ROUTINE
+D $1BF4 The routine at #R$1BEE continues here.
 D $1BF4 If the present character is a 'carriage return' then the 'next statement' is on the 'next line'; if ':' it is on the same line; but if any other character is found then there is an error in syntax.
   $1BF4 Fetch the present character.
   $1BF5 Consider the 'next line' if it is a 'carriage return'.
@@ -3612,17 +3633,18 @@ N $1C11 The commands of class-05 may be followed by a set of items, e.g. PRINT a
   $1C12 If handling commands of classes 00 and 03 and syntax is being checked move on now to consider the next statement.
   $1C15 Save the line pointer in the #REGde register pair.
 @ $1C16 label=JUMP_C_R
-c $1C16 THE 'JUMP-C-R' ROUTINE
-D $1C16 After the command class entries and the separator entries in the parameter table have been considered the jump to the appropriate command routine is made.
-  $1C16 Fetch the pointer to the entries in the parameter table and fetch the address of the required command routine.
+N $1C16 After the command class entries and the separator entries in the #R$1A7A(parameter table) have been considered the jump to the appropriate command routine is made.
+  $1C16 Fetch the pointer to the entries in the #R$1A7A(parameter table) and fetch the address of the required command routine.
   $1C1C Exchange the pointers back and make an indirect jump to the command routine.
 @ $1C1F label=CLASS_01
 c $1C1F THE 'COMMAND CLASS 01' ROUTINE
 D $1C1F The address of this routine is derived from an offset found in the #R$1C01(command class table).
 D $1C1F Command class 01 is concerned with the identification of the variable in a LET, READ or INPUT statement.
   $1C1F Look in the variables area to determine whether or not the variable has been used already.
+E $1C1F This routine continues into #R$1C22.
 @ $1C22 label=VAR_A_1
 c $1C22 THE 'VARIABLE IN ASSIGNMENT' SUBROUTINE
+D $1C22 The routine at #R$1C1F continues here.
 D $1C22 This subroutine develops the appropriate values for the system variables DEST and STRLEN.
   $1C22 Initialise FLAGX to +00.
   $1C26 Jump forward if the variable has been used before.
@@ -3952,8 +3974,10 @@ N $1E2C A loop is now entered to deal with each expression in the DATA statement
 N $1E37 The DATA statement has to be passed by in 'run-time'.
 @ $1E37 label=DATA_2
   $1E37 It is a 'DATA' statement that is to be passed by.
+E $1E27 This routine continues into #R$1E39.
 @ $1E39 label=PASS_BY
 c $1E39 THE 'PASS-BY' SUBROUTINE
+D $1E39 The routine at #R$1E27 continues here.
 D $1E39 On entry the #REGa register will hold either the token 'DATA' or the token 'DEF FN' depending on the type of statement that is being passed by.
   $1E39 Make the #REGbc register pair hold a very high number.
   $1E3A Look back along the statement for the token.
@@ -4088,8 +4112,10 @@ D $1EED The present value of PPC and the incremented value of SUBPPC are stored 
   $1EFF Now set NEWPPC and NSPPC to the required values.
 @ $1F02 keep
   $1F02 But before making the jump make a test for room.
+E $1EED This routine continues into #R$1F05.
 @ $1F05 label=TEST_ROOM
 c $1F05 THE 'TEST-ROOM' SUBROUTINE
+D $1F05 The routine at #R$1EED continues here.
 D $1F05 A series of tests is performed to ensure that there is sufficient free memory available for the task being undertaken.
   $1F05 Increase the value taken from STKEND by the value carried into the routine by the #REGbc register pair.
   $1F09 Jump forward if the result is over +FFFF.
@@ -4199,8 +4225,10 @@ N $1FA6 Next the definition of the function is considered.
 @ $1FBD label=DEF_FN_7
   $1FBD Give an error report if it is required.
   $1FC0 Exit via #R$1BEE (thereby moving on to consider the next statement in the line).
+E $1F60 This routine continues into #R$1FC3.
 @ $1FC3 label=UNSTACK_Z
 c $1FC3 THE 'UNSTACK-Z' SUBROUTINE
+D $1FC3 The routine at #R$1F60 continues here.
 D $1FC3 This subroutine is called in several instances in order to 'return early' from a subroutine when checking syntax. The reason for this is to avoid actually printing characters or passing values to/from the calculator stack.
   $1FC3 Is syntax being checked?
   $1FC6 Fetch the return address but ignore it in 'syntax-time'.
@@ -4231,8 +4259,10 @@ N $1FE5 Now enter a loop to deal with the 'position controllers' and the print i
   $1FED Check for further position controllers and print items until there are none left.
 @ $1FF2 label=PRINT_4
   $1FF2,3,c2,1 Return now if the present character is a ')'; otherwise consider performing a 'carriage return'.
+E $1FDF This routine continues into #R$1FF5.
 @ $1FF5 label=PRINT_CR
 c $1FF5 THE 'PRINT A CARRIAGE RETURN' SUBROUTINE
+D $1FF5 The routine at #R$1FDF continues here.
   $1FF5 Return if checking syntax.
   $1FF8 Print a carriage return character and then return.
 @ $1FFC label=PR_ITEM_1
@@ -5056,9 +5086,11 @@ D $2522 This subroutine is called by #R$2668, #R$2672 and #R$267B to make sure t
   $252B,c2 Is it a ')'?
 @ $252D label=S_RPORT_C
   $252D Report the error if it is not.
+E $2522 This routine continues into #R$2530.
 @ $2530 label=SYNTAX_Z
 c $2530 THE 'SYNTAX-Z' SUBROUTINE
-D $2530 This subroutine is called 32 times, with a saving of just one byte each call. A simple test of bit 7 of FLAGS will give the zero flag reset during execution and set during syntax checking.
+D $2530 The routine at #R$2522 continues here.
+D $2530 This subroutine is called 31 times, with a saving of just one byte each call. A simple test of bit 7 of FLAGS will give the zero flag reset during execution and set during syntax checking.
   $2530 Test bit 7 of FLAGS.
   $2534 Finished.
 @ $2535 label=S_SCRN_S
@@ -5283,6 +5315,7 @@ c $2684 THE 'SCANNING ALPHANUMERIC' ROUTINE
 @ $268D label=S_DECIMAL
 c $268D THE 'SCANNING DECIMAL' ROUTINE
 D $268D The address of this routine is derived from an offset found in the #R$2596(scanning function table).
+D $268D The routine at #R$2684 continues here.
 D $268D This routine deals with a decimal point or a number that starts with a digit. It also takes care of the expression 'BIN', which is dealt with in the 'decimal to floating-point' subroutine.
   $268D Jump forward if a line is being executed.
 N $2692 The action taken is now very different for syntax checking and line execution. If syntax is being checked then the floating-point form has to be calculated and copied into the actual BASIC line. However when a line is being executed the floating-point form will always be available so it is copied to the calculator stack to form a 'last value'.
@@ -6002,6 +6035,7 @@ N $2A94 The 'new' parameters are now defined.
   $2AAD Return at this point if checking syntax; otherwise continue into #R$2AB1.
 @ $2AB1 label=STK_ST_0
 c $2AB1 THE 'STK-STORE' SUBROUTINE
+D $2AB1 The routine at #R$2A52 continues here.
 D $2AB1 This subroutine passes the values held in the #REGa, #REGb, #REGc, #REGd and #REGe registers to the calculator stack. The stack thereby grows in size by 5 bytes with every call to this subroutine.
 D $2AB1 The subroutine is normally used to transfer the parameters of strings but it is also used by #R$2D2B and #R$2DC1 to transfer 'small integers' to the stack.
 D $2AB1 Note that when storing the parameters of a string the first value stored (coming from the #REGa register) will be a zero if the string comes from an array of strings or is a 'slice' of a string. The value will be '1' for a complete simple string. This 'flag' is used in the #R$2AFF command routine when the '1' signals that the old copy of the string is to be 'reclaimed'.
@@ -6341,6 +6375,7 @@ D $2C88 This subroutine returns with the carry flag set if the present value of 
   $2C8C Return if a digit; otherwise continue on into #R$2C8D.
 @ $2C8D label=ALPHA
 c $2C8D THE 'ALPHA' SUBROUTINE
+D $2C8D The routine at #R$2C88 continues here.
 D $2C8D This subroutine returns with the carry flag set if the present value of the #REGa register denotes a valid letter of the alphabet.
   $2C8D,c2 Test against 41 hex, the code for 'A'.
   $2C8F Complement the carry flag.
@@ -6455,13 +6490,17 @@ D $2D22 This subroutine simply returns if the current value held in the #REGa re
   $2D22 Is the character a digit?
   $2D25 Return if not.
   $2D26,c2 Replace the code by the actual digit.
+E $2D22 This routine continues into #R$2D28.
 @ $2D28 label=STACK_A
 c $2D28 THE 'STACK-A' SUBROUTINE
+D $2D28 The routine at #R$2D22 continues here.
 D $2D28 This subroutine gives the floating-point form for the absolute binary value currently held in the #REGa register.
   $2D28 Transfer the value to the #REGc register.
   $2D29 Clear the #REGb register.
+E $2D28 This routine continues into #R$2D2B.
 @ $2D2B label=STACK_BC
 c $2D2B THE 'STACK-BC' SUBROUTINE
+D $2D2B The routine at #R$2D28 continues here.
 D $2D2B This subroutine gives the floating-point form for the absolute binary value currently held in the #REGbc register pair.
 D $2D2B The form used in this and hence in the two previous subroutines as well is the one reserved in the Spectrum for small integers n, where -65535<=n<=65535. The first and fifth bytes are zero; the third and fourth bytes are the less significant and more significant bytes of the 16 bit integer n in two's complement form (if n is negative, these two bytes hold 65536+n); and the second byte is a sign byte, 00 for '+' and FF for '-'.
   $2D2B Re-initialise #REGiy to ERR-NR.
@@ -7021,7 +7060,7 @@ D $300F Note that #REGhl points to the minuend and #REGde points to the subtrahe
   $3013 Exchange the pointers back and continue into #R$3014.
 @ $3014 label=addition
 c $3014 THE 'ADDITION' OPERATION (offset 0F)
-D $3014 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 0F by the routines at #R$03F8, #R$1DAB, #R$2320, #R$2382, #R$247D, #R$25F8, #R$2C9B, #R$2D3B, #R$2DA2, #R$3449, #R$36C4, #R$3713, #R$3783, #R$37B5, #R$37E2 and #R$3833. It is also called indirectly via #R$33A2.
+D $3014 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 0F by the routines at #R$03F8, #R$1DAB, #R$2320, #R$2382, #R$247D, #R$25F8, #R$2C9B, #R$2D3B, #R$2DA2, #R$3449, #R$36C4, #R$3713, #R$3783, #R$37B5, #R$37E2 and #R$3833. It is also called indirectly via #R$33A2, and the routine at #R$300F continues here.
 D $3014 The first of three major arithmetical subroutines, this subroutine carries out the floating-point addition of two numbers, each with a 4-byte mantissa and a 1-byte exponent. In these three subroutines, the two numbers at the top of the calculator stack are added/multiplied/divided to give one number at the top of the calculator stack, a 'last value'.
 D $3014 #REGhl points to the second number from the top, the augend/multiplier/dividend. #REGde points to the number at the top of the calculator stack, the addend/multiplicand/divisor. Afterwards #REGhl points to the resultant 'last value' whose address can also be considered to be STKEND-5.
 D $3014 But the addition subroutine first tests whether the 2 numbers to be added are 'small integers'. If they are, it adds them quite simply in #REGhl and #REGbc, and puts the result directly on the stack. No two's complementing is needed before or after the addition, since such numbers are held on the stack in two's complement form, ready for addition.
@@ -7425,10 +7464,11 @@ D $3293 This subroutine is called to re-stack two 'small integers' in full five-
   $3293 Call the subroutine and then continue into it for the second call.
 @ $3296 label=RESTK_SUB
   $3296 Exchange the pointers at each call.
+E $3293 This routine continues into #R$3297.
 @ $3297 label=re_stack
 c $3297 THE 'RE-STACK' SUBROUTINE (offset 3D)
-D $3297 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 3D by the routines at #R$2320, #R$2382, #R$36C4, #R$3713 and #R$3783.
-D $3297 This subroutine is called to re-stack one number (which could be a 'small integer') in full five byte floating-point form. It is used for a single number by #R$37E2 and also, through the calculator offset, by #R$36C4, #R$3713 and #R$3783.
+D $3297 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 3D by the routines at #R$2320, #R$2382, #R$36C4, #R$3713 and #R$3783. The routine at #R$3293 also continues here.
+D $3297 This subroutine is called to re-stack one number (which could be a 'small integer') in full five-byte floating-point form.
   $3297 If the first byte is not zero, return - the number cannot be a 'small integer'.
   $329A Save the 'other' pointer in #REGde.
   $329B Fetch the sign in #REGc and the number in #REGde.
@@ -7918,8 +7958,10 @@ D $3506 This subroutine returns a 'last value' of one if the present 'last value
 @ $3507 label=SIGN_TO_C
   $3507 Point to the sign byte.
   $3508 The carry is reset for a positive number and set for a negative number; when entered from #R$34F9 the opposite sign goes to the carry.
+E $3506 This routine continues into #R$350B.
 @ $350B label=FP_0_1
 c $350B THE 'ZERO OR ONE' SUBROUTINE
+D $350B The routine at #R$3506 continues here.
 D $350B This subroutine sets the 'last value' to zero if the carry flag is reset and to one if it is set. When called from #R$2D4F however it creates the zero or one not on the stack but in mem-0.
   $350B Save the result pointer.
   $350C Clear #REGa without disturbing the carry.
@@ -8024,6 +8066,7 @@ D $359C This subroutine performs the binary operation 'A$+B$'. The parameters fo
   $35AF The parameters of the first string are retrieved and the string copied to the work space as long as it is not a null string.
 @ $35B7 label=OTHER_STR
   $35B7 Exactly the same procedure is followed for the second string thereby giving 'A$+B$'.
+E $359C This routine continues into #R$35BF.
 @ $35BF label=STK_PNTRS
 c $35BF THE 'STK-PNTRS' SUBROUTINE
 D $35BF This subroutine resets the #REGhl register pair to point to the first byte of the 'last value', i.e. STKEND-5, and the #REGde register pair to point one past the 'last value', i.e. STKEND.
