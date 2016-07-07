@@ -12,6 +12,7 @@
 @ $0000 set-handle-unsupported-macros=1
 @ $0000 label=START
 c $0000 THE 'START'
+D $0000 It all starts here when the Spectrum is powered on.
 D $0000 The maskable interrupt is disabled and the #REGde register pair set to hold the 'top of possible RAM'.
   $0000 Disable the 'keyboard interrupt'.
   $0001 +00 for start (but +FF for 'NEW').
@@ -73,14 +74,14 @@ D $0053 The machine stack is cleared before jumping forward to clear the calcula
 s $005F
   $005F,7,7:$FF Unused locations.
 @ $0066 label=RESET
-c $0066 THE 'NON-MASKABLE INTERRUPT' ROUTINE
+u $0066 THE 'NON-MASKABLE INTERRUPT' ROUTINE
 D $0066 This routine is not used in the standard Spectrum but the code allows for a system reset to occur following activation of the NMI line. The system variable at 5CB0, named here NMIADD, has to have the value zero for the reset to occur.
-  $0066 Save the current values held in these registers.
-  $0068 The two bytes of NMIADD must both be zero for the reset to occur.
-  $006D Note: this should have been 'JR Z'!
-  $006F Jump to #R$0000.
+C $0066 Save the current values held in these registers.
+C $0068 The two bytes of NMIADD must both be zero for the reset to occur.
+C $006D Note: this should have been 'JR Z'!
+C $006F Jump to #R$0000.
 @ $0070 label=NO_RESET
-  $0070 Restore the current values to these registers and return.
+C $0070 Restore the current values to these registers and return.
 @ $0074 label=CH_ADD_1
 c $0074 THE 'CH-ADD+1' SUBROUTINE
 D $0074 The address held in CH-ADD is fetched, incremented and restored. The contents of the location now addressed by CH-ADD are fetched. The entry points of #R$0077 and #R$0078 are used to set CH-ADD for a temporary period.
@@ -654,8 +655,9 @@ D $046E This table holds the frequencies of the twelve semi-tones in an octave.
   $04A0 466.16 Hz - A#
   $04A5 493.88 Hz - B
 @ $04AA label=PROGNAME
-c $04AA THE 'PROGRAM NAME' SUBROUTINE (ZX81)
+u $04AA THE 'PROGRAM NAME' SUBROUTINE (ZX81)
 D $04AA The following subroutine applies to the ZX81 and was not removed when the program was rewritten for the Spectrum.
+C $04AA
 @ $04C2 nowarn
 @ $04C2 label=SA_BYTES
 c $04C2 THE 'SA-BYTES' SUBROUTINE
@@ -740,6 +742,7 @@ N $0525 The '8 bit loop' is entered initially with the whole byte in the #REGl r
 E $04C2 Note: a reset bit will give a 'MIC off' pulse of 855 T states followed by a 'MIC on' pulse of 855 T states, whereas a set bit will give pulses of exactly twice as long. Note also that there are no gaps either between the sync pulse and the first bit of the flag, or between bytes.
 @ $053F label=SA_LD_RET
 c $053F THE 'SA/LD-RET' SUBROUTINE
+D $053F Used by the routines at #R$04C2 and #R$0556.
 D $053F This subroutine is common to both saving and loading.
 D $053F The border is set to its original colour and the BREAK key tested for a last time.
   $053F Save the carry flag. (It is reset after a loading error.)
@@ -2161,6 +2164,7 @@ N $107C The address of this entry point is derived from an offset found in the #
   $107C Jump back.
 @ $107F label=ED_ERROR
 c $107F THE 'ED-ERROR' SUBROUTINE
+D $107F Used by the routine at #R$0F2C.
 D $107F Come here when there has been some kind of error.
   $107F Jump back if using other than channel 'K'.
   $1085 Cancel the error number and give a 'rasp' before going around the editor again.
@@ -2502,6 +2506,7 @@ D $1539 Used by the routine at #R$11B7.
   $1539,28,B1:26:B1 #CHR169 1982 Sinclair Research Ltd
 @ $1555 label=REPORT_G
 c $1555 Report G - No room for line
+D $1555 Used by the routine at #R$155D.
   $1555 'G' has the code '10+07+30'.
 @ $1557 keep
   $1557 Clear #REGbc.
@@ -2746,9 +2751,9 @@ N $16CB In all cases make MEM address the calculator's memory area.
   $16CF Set MEM to this address.
   $16D2 Restore STKEND to the #REGhl register pair before returning.
 @ $16D4 label=REC_EDIT
-c $16D4 THE 'RECLAIM THE EDIT-LINE' SUBROUTINE
-  $16D4 Fetch E-LINE.
-  $16D8 Reclaim the memory.
+u $16D4 THE 'RECLAIM THE EDIT-LINE' SUBROUTINE
+C $16D4 Fetch E-LINE.
+C $16D8 Reclaim the memory.
 @ $16DB label=INDEXER_1
 c $16DB THE 'INDEXER' SUBROUTINE
 D $16DB This subroutine is used on several occasions to look through tables. The entry point is at #R$16DC.
@@ -3514,6 +3519,7 @@ D $1B6F The report 'Nonsense in BASIC' is given if the required separator is not
   $1B74 Step past a correct character and return.
 @ $1B76 label=STMT_RET
 c $1B76 THE 'STMT-RET' SUBROUTINE
+D $1B76 Used by the routine at #R$1B28.
 D $1B76 After the correct interpretation of a statement a return is made to this entry point.
   $1B76 The BREAK key is tested after every statement.
   $1B79 Jump forward unless it has been pressed.
@@ -4127,12 +4133,12 @@ N $1F15 Report 4 - Out of memory.
 @ $1F15 label=REPORT_4
   $1F15 This is a 'run-time' error and the error marker is not to be used.
 @ $1F1A label=FREE_MEM
-c $1F1A THE 'FREE MEMORY' SUBROUTINE
+u $1F1A THE 'FREE MEMORY' SUBROUTINE
 D $1F1A There is no BASIC command 'FRE' in the Spectrum but there is a subroutine for performing such a task.
 D $1F1A An estimate of the amount of free space can be found at any time by using 'PRINT 65536-USR 7962'.
 @ $1F1A keep
-  $1F1A Do not allow any overhead.
-  $1F1D Make the test and pass the result to the #REGbc register before returning.
+C $1F1A Do not allow any overhead.
+C $1F1D Make the test and pass the result to the #REGbc register before returning.
 @ $1F23 label=RETURN
 c $1F23 THE 'RETURN' COMMAND ROUTINE
 D $1F23 The address of this routine is found in the #R$1A8D(parameter table).
@@ -6596,10 +6602,12 @@ N $2D81 The following mechanism will two's complement the number if it is negati
   $2D88 Finish two's complementing in the case of a negative number; note that the carry is always left reset.
   $2D8A More significant byte to #REGd now.
   $2D8B Finished.
+u $2D8C THE 'POSITIVE-INT-STORE' SUBROUTINE
 @ $2D8C label=P_INT_STO
-c $2D8C THE 'INT-STORE' SUBROUTINE
-D $2D8C This subroutine stores a small integer n (-65535<=n<=65535) in the location addressed by #REGhl and the four following locations, i.e. n replaces the first (or second) number at the top of the calculator stack. The subroutine returns #REGhl pointing to the first byte of n on the stack.
-  $2D8C This entry point would store a number known to be positive.
+C $2D8C This (unused) entry point would store a number known to be positive.
+E $2D8C This routine continues into #R$2D8E.
+c $2D8E THE 'INT-STORE' SUBROUTINE
+D $2D8E This subroutine stores a small integer n (-65535<=n<=65535) in the location addressed by #REGhl and the four following locations, i.e. n replaces the first (or second) number at the top of the calculator stack. The subroutine returns #REGhl pointing to the first byte of n on the stack.
 @ $2D8E label=INT_STORE
   $2D8E The pointer to the first location is saved.
   $2D8F The first byte is set to zero.
