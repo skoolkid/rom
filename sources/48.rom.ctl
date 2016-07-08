@@ -4799,7 +4799,7 @@ B $23BB,1 #R$33A1: X, Y, SIN (G/2)
 B $23BC,1 #R$33A1: X, Y
 B $23BD,1 #R$369B
   $23BE Just draw the line from X0, Y0 to X0+X, Y0+Y.
-N $23C1 ii. Just calls #R$247D. This subroutine saves in the #REGb register the number of shorter arcs required for the complete arc, viz. A=4*INT (G'*SQR Z/8)+4, where G'=mod G, or 252 if this expression exceeds 252 (as can happen with a large chord and a small angle). So A is 4, 8, 12, ... , up to 252. The subroutine also stores in mem-0 to mem-4 the quantities G/A, SIN (G/2*A), 0, COS (G/A), SIN (G/A).
+N $23C1 ii. Just calls #R$247D. This subroutine saves in the #REGb register the number of shorter arcs required for the complete arc, viz. A=4*INT (G'*SQR Z/8)+4 (where G'=ABS G), or 252 if this expression exceeds 252 (as can happen with a large chord and a small angle). So A is a multiple of 4 from 4 to 252. The subroutine also stores in mem-0 to mem-4 the quantities G/A, SIN (G/2*A), 0, COS (G/A), SIN (G/A).
 @ $23C1 label=DR_PRMS
   $23C1 The subroutine is called.
 N $23C4 iii. Sets up the rest of the parameters as follow. The stack will hold these 4 items, reading up to the top: X0+X and Y0+Y as end of last arc; then X0 and Y0 as beginning of first arc. Mem-0 will hold X0 and mem-5 Y0. Mem-1 and mem-2 will hold the initial displacements for the first arc, U and V; and mem-3 and mem-4 will hold COS (G/A) and SIN (G/A) for use in the arc-drawing loop.
@@ -4962,7 +4962,7 @@ B $2484,1 #R$31AF: Z, 2/SQR Z
 B $2485,1 #R$340F(get_mem_5): Z, 2/SQR Z, G
 B $2486,1 #R$343C: Z, G, 2/SQR Z
 B $2487,1 #R$31AF: Z, G*SQR Z/2
-B $2488,1 #R$346A: Z, G'*SQR Z/2 (G'=mod G)
+B $2488,1 #R$346A: Z, G'*SQR Z/2 (G'=ABS G)
 B $2489,1 #R$369B: Z, G'*SQR Z/2=A1, say
   $248A A1 to #REGa from the stack, if possible.
   $248D If A1 rounds to 256 or more, use 252.
