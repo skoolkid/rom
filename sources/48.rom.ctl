@@ -7761,7 +7761,7 @@ D $341B The address of this routine is found in the #R$32D7(table of addresses).
 D $341B This subroutine uses #R$33F7 to find the base address of the requested constants from the calculator's table of constants and then calls #R$33C8 to make the expanded form of the constant the 'last value' on the calculator stack.
   $341B Set #REGhl to hold the result pointer.
   $341D Go to the alternate register set and save the next literal pointer.
-  $341F The base address of the calculator's table of constants.
+  $341F The base address of the calculator's #R$32C5(table of constants).
   $3422 Back to the main set of registers.
   $3423 Find the requested base address.
   $3426 Expand the constant.
