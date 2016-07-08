@@ -469,6 +469,7 @@ N $034A Key tables 'b-f' are all served by the following look-up routine. In all
   $034C Index the required table and fetch the 'final code'.
   $034E Then return.
 N $034F Letter keys in 'K', 'L' or 'C' modes are now considered. But first the special SYMBOL SHIFT codes have to be dealt with.
+@ $034F nowarn
 @ $034F ssub=LD HL,$026A-$41
 @ $034F label=K_KLC_LET
   $034F The base address for #R$026A(table 'e').
@@ -485,6 +486,7 @@ N $0367 Next the digit keys, SPACE, ENTER and both shifts are considered.
   $0367,3,c2,1 Proceed only with the digit keys, i.e. return with SPACE (+20), ENTER (+0D) and both shifts (+0E).
   $036A Now separate the digit keys into three groups - according to the mode.
   $036B Jump with 'K', 'L' and 'C' modes, and also with 'G' mode. Continue with 'E' mode.
+@ $0370 nowarn
 @ $0370 ssub=LD HL,$0284-$30
   $0370 The base address for #R$0284(table 'f').
   $0373 Use this table for SYMBOL SHIFT and a digit key in extended mode.
@@ -499,6 +501,7 @@ N $0382 The digit keys '8' and '9' are to give 'BRIGHT' and 'FLASH' codes.
   $0384 Return with these codes if CAPS SHIFT is not being used. (These are 'BRIGHT' codes.)
   $0386 Subtract '2' if CAPS SHIFT is being used; giving +00 and +01 (as 'FLASH' codes).
 N $0389 The digit keys in graphics mode are to give the block graphic characters (+80 to +8F), the GRAPHICS code (+0F) and the DELETE code (+0C).
+@ $0389 nowarn
 @ $0389 ssub=LD HL,$0260-$30
 @ $0389 label=K_GRA_DGT
   $0389 The base address of #R$0260(table 'd').
@@ -510,6 +513,7 @@ N $039D Finally consider the digit keys in 'K', 'L' and 'C' modes.
 @ $039D label=K_KLC_DGT
   $039D Return directly if neither shift key is being used. (Final codes +30 to +39.)
   $039F Use #R$0260(table 'd') if the CAPS SHIFT key is also being pressed.
+@ $03A1 nowarn
 @ $03A1 ssub=LD HL,$0260-$30
 N $03A6 The codes for the various digit keys and SYMBOL SHIFT can now be found.
   $03A6 Reduce the range to give +20 to +29.
@@ -1305,6 +1309,7 @@ D $09F4 This routine is entered with the #REGa register holding the code for a c
   $09F7,5,c2,3 If the code represents a printable character then jump.
   $09FC Print a question mark for codes in the range +00 to +05.
   $0A00 And also for codes +18 to +1F.
+@ $0A04 nowarn
 @ $0A04 ssub=LD HL,$0A11-6
   $0A04 Base of the #R$0A11(control character table).
   $0A07 Move the code to the #REGde register pair.
@@ -2044,6 +2049,7 @@ N $0F81 The following subroutine actually adds a code to the current EDIT or INP
 N $0F92 The editing keys are dealt with as follows:
 @ $0F92 label=ED_KEYS
   $0F92 The code is transferred to the #REGde register pair.
+@ $0F95 nowarn
 @ $0F95 ssub=LD HL,$0FA0-7
   $0F95 The base address of the #R$0FA0(editing keys table).
   $0F98 The entry is addressed and then fetched into #REGe.
@@ -5424,6 +5430,7 @@ N $2723 If the present character is indeed a binary operator it will be given an
   $272C Jump forward if no operation found.
   $272E Get required code from the table.
 @ $272F nowarn
+@ $272F ssub=LD HL,$27B0-$C3
   $272F The pointer to the priority table (26ED+C3 gives #R$27B0 as the first address).
   $2732 Index into the table.
   $2733 Fetch the appropriate priority.
@@ -5509,6 +5516,7 @@ D $2795 Used by the routine at #R$26C9.
   $27AB,2 OR
   $27AD,2 AND
   $27AF,1 End marker.
+@ $27B0 label=PRIORITIES
 b $27B0 THE TABLE OF PRIORITIES
 D $27B0 Used by the routine at #R$26C9.
   $27B0 -
@@ -5800,7 +5808,7 @@ E $28B2 In all cases bits 5 and 6 of the #REGc register indicate the type of var
 E $28B2 In syntax time the return is always made with the carry flag reset. The zero flag is set for arrays and reset for all other variables, except that a simple string name incorrectly followed by a '$' sets the zero flag and, in the case of SAVE "name" DATA a$(), passes syntax as well.
 @ $2951 label=STK_F_ARG
 c $2951 THE 'STACK FUNCTION ARGUMENT' SUBROUTINE
-D $2951 This subroutine is called by #R$28B2 when DEFADD-hi is non-zero, to make a search of the arguments area of a DEF FN statement, before searching in the variables area. If the variable is found in the DEF FN statement, then the parameters of a string variable are stacked and a signal is given that there is no need to call #R$2996. But it is left to #R$24FB to stack the value of a numerical variable at #R$26DA in the usual way.
+D $2951 This subroutine is called by #R$28B2 when DEFADD-hi is non-zero, to make a search of the arguments area of a DEF FN statement, before searching in the variables area. If the variable is found in the DEF FN statement, then the parameters of a string variable are stacked and a signal is given that there is no need to call #R$2996. But it is left to #R$26C9 to stack the value of a numerical variable at #R$26DA(#N$26DA) in the usual way.
   $2951 Point to the first character in the arguments area and put it into #REGa.
   $2955,c2 Is it a ')'?
   $2957 Jump to search the variables area.
@@ -7111,8 +7119,9 @@ D $3014 But the addition subroutine first tests whether the 2 numbers to be adde
   $303B Finished.
 N $303C Note that the number -65536 decimal can arise here in the form 00 FF 00 00 00 as the result of the addition of two smaller negative integers, e.g. -65000 and -536. It is simply stacked in this form. This is a mistake. The Spectrum system cannot handle this number.
 @ $303C label=ADDN_OFLW
+@ $303C ignoreua:m
 N $303C Most functions treat it as zero, and it is printed as -1E-38, obtained by treating is as 'minus zero' in an illegitimate format.
-N $303C One possible remedy would be to test for this number at about byte #R$3032 and, if it is present, to make the second byte 80 hex and the first byte 91 hex, so producing the full five-byte floating-point form of the number, i.e. 91 80 00 00 00, which causes no problems. See also the #R$3225(remarks in 'truncate').
+N $303C One possible remedy would be to test for this number at about byte #R$3032(#N$3032) and, if it is present, to make the second byte 80 hex and the first byte 91 hex, so producing the full five-byte floating-point form of the number, i.e. 91 80 00 00 00, which causes no problems. See also the #R$3225(remarks in 'truncate').
   $303C Restore the pointer to the first number.
   $303D Restore the pointer to the second number.
 @ $303E label=FULL_ADDN
@@ -7654,8 +7663,9 @@ E $335B The #R$33A1 subroutine contains only the single RET instruction above. T
 E $335B The single RET instruction thereby leads to the first number being considered as the resulting 'last value' and the second number considered as being deleted. Of course the number has not been deleted from the memory but remains inactive and will probably soon be overwritten.
 @ $33A2 label=fp_calc_2
 c $33A2 THE 'SINGLE OPERATION' SUBROUTINE (offset 3B)
+@ $33A2 ignoreua:d
 D $33A2 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 3B by the routine at #R$26C9.
-D $33A2 This subroutine is only called from #R$2757 and is used to perform a single arithmetic operation. The offset that specifies which operation is to be performed is supplied to the calculator in the #REGb register and subsequently transferred to the system variable BREG.
+D $33A2 This subroutine is only called from #R$2757(#N$2757) and is used to perform a single arithmetic operation. The offset that specifies which operation is to be performed is supplied to the calculator in the #REGb register and subsequently transferred to the system variable BREG.
 D $33A2 The effect of calling this subroutine is essentially to make a jump to the appropriate subroutine for the single operation.
   $33A2 Discard the #R$3365 address.
   $33A3 Transfer the offset to #REGa.
