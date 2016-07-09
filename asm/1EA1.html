@@ -25,7 +25,12 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="1A48.html#1AAB">parameter table</a>.
+</div>
+<div class="paragraph">
+The parameter of the RUN command is passed to NEWPPC by calling <a href="1E67.html">GO_TO</a>. The operations of 'RESTORE 0' and 'CLEAR 0' are then performed before a return is made.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,28 +47,28 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">RUN</td>
 <td class="address-2"><span id="1EA1"></span>1EA1</td>
-<td class="instruction">CALL <a href="1E67.html">$1E67</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1E67.html">GO_TO</a></td>
+<td class="comment-11" rowspan="1">Set NEWPPC as required.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EA4"></span>1EA4</td>
 <td class="instruction">LD BC,$0000</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Now perform a 'RESTORE 0'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EA7"></span>1EA7</td>
-<td class="instruction">CALL <a href="1E42.html#1E45">$1E45</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1E42.html#1E45">REST_RUN</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EAA"></span>1EAA</td>
-<td class="instruction">JR <a href="1EAC.html#1EAF">$1EAF</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="1EAC.html#1EAF">CLEAR_RUN</a></td>
+<td class="comment-11" rowspan="1">Exit via the <a href="1EAC.html">CLEAR</a> command routine.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -74,8 +79,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 250F</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="24FB.html">24FB</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#250F">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="2522.html">2522</a></span></td>
+</tr>
+</table>
+<div class="description">250F: THE 'SCANNING QUOTES' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="4">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="25B3.html">S_QUOTE</a>.
+</div>
+<div class="paragraph">
+This subroutine is used by <a href="25B3.html">S_QUOTE</a> to check that every string quote is matched by another one.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">S_QUOTE_S</td>
+<td class="address-2"><span id="250F"></span>250F</td>
+<td class="instruction">CALL <a href="0074.html">CH_ADD_1</a></td>
+<td class="comment-11" rowspan="1">Point to the next character.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2512"></span>2512</td>
+<td class="instruction">INC BC</td>
+<td class="comment-11" rowspan="1">Increase the length count by one.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2513"></span>2513</td>
+<td class="instruction">CP $0D</td>
+<td class="comment-11" rowspan="1">Is it a carriage return?</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2515"></span>2515</td>
+<td class="instruction">JP Z,<a href="1C79.html#1C8A">REPORT_C</a></td>
+<td class="comment-11" rowspan="1">Report the error if so.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2518"></span>2518</td>
+<td class="instruction">CP "\""</td>
+<td class="comment-11" rowspan="1">Is it another '"'?</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="251A"></span>251A</td>
+<td class="instruction">JR NZ,<a href="250F.html#250F">S_QUOTE_S</a></td>
+<td class="comment-11" rowspan="1">Loop back if it is not.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="251C"></span>251C</td>
+<td class="instruction">CALL <a href="0074.html">CH_ADD_1</a></td>
+<td class="comment-11" rowspan="1">Point to next character.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="251F"></span>251F</td>
+<td class="instruction">CP "\""</td>
+<td class="comment-11" rowspan="1">Set zero flag if it is another '"'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2521"></span>2521</td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="24FB.html">24FB</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#250F">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="2522.html">2522</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+</footer>
+</body>
+</html>

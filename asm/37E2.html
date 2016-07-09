@@ -20,12 +20,51 @@
 <td class="next"><span class="next-1">Next: <a href="3833.html">3833</a></span></td>
 </tr>
 </table>
-<div class="description">37E2: THE 'ARCTAN' FUNCTION</div>
+<div class="description">37E2: THE 'ARCTAN' FUNCTION (offset 24)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 24 by the routine at <a href="3833.html">asn</a>. It is also called indirectly via <a href="33A2.html">fp_calc_2</a>.
+</div>
+<div class="paragraph">
+This subroutine handles the function ATN X and is the last of the four routines that use the <a href="3449.html">series generator</a> to produce Chebyshev polynomials. It returns a real number between -&#960;/2 and &#960;/2, which is equal to the value in radians of the angle whose tan is X.
+</div>
+<div class="paragraph">
+The approximation to ATN X is found as follows:
+</div>
+<div class="paragraph">
+i. The values W and Y are found for three cases of X, such that:
+</div>
+<div class="paragraph">
+<ul class="">
+<li>if -1&lt;X&lt;1 then W=0, Y=X (case i)</li>
+<li>if 1&lt;=X then W=&#960;/2, Y=-1/X (case ii)</li>
+<li>if X&lt;=-1 then W=-&#960;/2, Y=-1/X (case iii)</li>
+</ul>
+</div>
+<div class="paragraph">
+In each case, -1&lt;=Y&lt;=1, as required for the series to converge.
+</div>
+<div class="paragraph">
+ii. The argument Z is formed, such that:
+</div>
+<div class="paragraph">
+<ul class="">
+<li>if -1&lt;X&lt;1 then Z=2*Y*Y-1=2*X*X-1 (case i)</li>
+<li>otherwise Z=2*Y*Y-1=2/(X*X)-1 (cases ii and iii)</li>
+</ul>
+</div>
+<div class="paragraph">
+iii. The <a href="3449.html">series generator</a> is used to produce the required function.
+</div>
+<div class="paragraph">
+iv. Finally a simple multiplication and addition give ATN X.
+</div>
+<div class="paragraph">
+Perform step i.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,346 +81,313 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">atn</td>
 <td class="address-2"><span id="37E2"></span>37E2</td>
-<td class="instruction">CALL <a href="3297.html">$3297</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="3297.html">re_stack</a></td>
+<td class="comment-11" rowspan="1">Use the full floating-point form of X.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37E5"></span>37E5</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the exponent of X.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37E6"></span>37E6</td>
 <td class="instruction">CP $81</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward for case i: Y=X.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37E8"></span>37E8</td>
-<td class="instruction">JR C,$37F8</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="37E2.html#37F8">SMALL</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37EA"></span>37EA</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">X</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37EB"></span>37EB</td>
 <td class="instruction">DEFB $A1</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="341B.html">stk_one</a>: X, 1</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37EC"></span>37EC</td>
 <td class="instruction">DEFB $1B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="346E.html">negate</a>: X, -1</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37ED"></span>37ED</td>
 <td class="instruction">DEFB $01</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="343C.html">exchange</a>: -1, X</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37EE"></span>37EE</td>
 <td class="instruction">DEFB $05</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="31AF.html">division</a>: -1/X</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37EF"></span>37EF</td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: -1/X, -1/X</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37F0"></span>37F0</td>
 <td class="instruction">DEFB $36</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="3506.html">less_0</a>: -1/X, (1/0)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37F1"></span>37F1</td>
 <td class="instruction">DEFB $A3</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="341B.html">stk_pi_2</a>: -1/X, (1/0), &#960;/2</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37F2"></span>37F2</td>
 <td class="instruction">DEFB $01</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="343C.html">exchange</a>: -1/X, &#960;/2, (1/0)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37F3"></span>37F3</td>
 <td class="instruction">DEFB $00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2"><a href="368F.html">jump_true</a> to <a href="37E2.html#37FA">CASES</a> for case ii: -1/X, &#960;/2</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37F4"></span>37F4</td>
 <td class="instruction">DEFB $06</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37F5"></span>37F5</td>
 <td class="instruction">DEFB $1B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="346E.html">negate</a>: -1/X, -&#960;/2</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37F6"></span>37F6</td>
 <td class="instruction">DEFB $33</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2"><a href="3686.html">jump</a> to <a href="37E2.html#37FA">CASES</a> for case iii: -1/X, -&#960;/2</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37F7"></span>37F7</td>
 <td class="instruction">DEFB $03</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">SMALL</td>
 <td class="address-2"><span id="37F8"></span>37F8</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37F9"></span>37F9</td>
 <td class="instruction">DEFB $A0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="341B.html">stk_zero</a>: Y, 0; continue for case i: W=0</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="37FA"></span>
+<div class="comments">
+<div class="paragraph">
+Perform step ii.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CASES</td>
 <td class="address-1"><span id="37FA"></span>37FA</td>
 <td class="instruction">DEFB $01</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="343C.html">exchange</a>: W, Y</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37FB"></span>37FB</td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: W, Y, Y</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37FC"></span>37FC</td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: W, Y, Y, Y</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37FD"></span>37FD</td>
 <td class="instruction">DEFB $04</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="30CA.html">multiply</a>: W, Y, Y*Y</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37FE"></span>37FE</td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: W, Y, Y*Y, Y*Y</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37FF"></span>37FF</td>
 <td class="instruction">DEFB $0F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="3014.html">addition</a>: W, Y, 2*Y*Y</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3800"></span>3800</td>
 <td class="instruction">DEFB $A1</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="341B.html">stk_one</a>: W, Y, 2*Y*Y, 1</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3801"></span>3801</td>
 <td class="instruction">DEFB $03</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="300F.html">subtract</a>: W, Y, 2*Y*Y-1=Z</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="3802"></span>
+<div class="comments">
+<div class="paragraph">
+Perform step iii, passing to the <a href="3449.html">series generator</a> the parameter '12' decimal, and the twelve constants required.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3802"></span>3802</td>
 <td class="instruction">DEFB $8C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="3449.html">series_0C</a>: W, Y, Z</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3803"></span>3803</td>
-<td class="instruction">DEFB $10</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $10,$B2</td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="3804"></span>3804</td>
-<td class="instruction">DEFB $B2</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3805"></span>3805</td>
-<td class="instruction">DEFB $13</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $13,$0E</td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="3806"></span>3806</td>
-<td class="instruction">DEFB $0E</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3807"></span>3807</td>
-<td class="instruction">DEFB $55</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $55,$E4,$8D</td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="3808"></span>3808</td>
-<td class="instruction">DEFB $E4,$8D</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="380A"></span>380A</td>
-<td class="instruction">DEFB $58</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $58,$39,$BC</td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="380B"></span>380B</td>
-<td class="instruction">DEFB $39,$BC</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="380D"></span>380D</td>
-<td class="instruction">DEFB $5B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $5B,$98,$FD</td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="380E"></span>380E</td>
-<td class="instruction">DEFB $98,$FD</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3810"></span>3810</td>
-<td class="instruction">DEFB $9E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $9E,$00,$36,$75</td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="3811"></span>3811</td>
-<td class="instruction">DEFB $00,$36,$75</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3814"></span>3814</td>
-<td class="instruction">DEFB $A0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $A0,$DB,$E8,$B4</td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="3815"></span>3815</td>
-<td class="instruction">DEFB $DB,$E8,$B4</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3818"></span>3818</td>
-<td class="instruction">DEFB $63</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $63,$42,$C4</td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="3819"></span>3819</td>
-<td class="instruction">DEFB $42,$C4</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="381B"></span>381B</td>
-<td class="instruction">DEFB $E6</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $E6,$B5,$09,$36,$BE</td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="381C"></span>381C</td>
-<td class="instruction">DEFB $B5,$09,$36,$BE</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3820"></span>3820</td>
-<td class="instruction">DEFB $E9</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $E9,$36,$73,$1B,$5D</td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="3821"></span>3821</td>
-<td class="instruction">DEFB $36,$73,$1B,$5D</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3825"></span>3825</td>
-<td class="instruction">DEFB $EC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $EC,$D8,$DE,$63,$BE</td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="3826"></span>3826</td>
-<td class="instruction">DEFB $D8,$DE,$63,$BE</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="382A"></span>382A</td>
-<td class="instruction">DEFB $F0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $F0,$61,$A1,$B3,$0C</td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="382B"></span>382B</td>
-<td class="instruction">DEFB $61,$A1,$B3,$0C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="routine-comment" colspan="4">
+<span id="382F"></span>
+<div class="comments">
+<div class="paragraph">
+At the end of the last loop the 'last value' is:
+</div>
+<div class="paragraph">
+<ul class="">
+<li>ATN X/X (case i)</li>
+<li>ATN (-1/X)/(-1/X) (cases ii and iii)</li>
+</ul>
+</div>
+<div class="paragraph">
+Perform step iv.
+</div>
+</div>
+</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="382F"></span>382F</td>
 <td class="instruction">DEFB $04</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="30CA.html">multiply</a>: W, ATN X (case i) or W, ATN (-1/X) (cases ii and iii)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3830"></span>3830</td>
 <td class="instruction">DEFB $0F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="3014.html">addition</a>: ATN X (all cases now)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3831"></span>3831</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3832"></span>3832</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished: 'last value'=ATN X.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -392,8 +398,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

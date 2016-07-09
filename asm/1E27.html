@@ -25,7 +25,12 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="1A48.html#1ACC">parameter table</a>.
+</div>
+<div class="paragraph">
+During syntax checking a DATA statement is checked to ensure that it contains a series of valid expressions, separated by commas. But in 'run-time' the statement is passed by.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,52 +47,82 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">DATA</td>
 <td class="address-2"><span id="1E27"></span>1E27</td>
-<td class="instruction">CALL <a href="2530.html">$2530</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="2">Jump forward unless checking syntax.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E2A"></span>1E2A</td>
-<td class="instruction">JR NZ,$1E37</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="1E27.html#1E37">DATA_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="1E2C"></span>
+<div class="comments">
+<div class="paragraph">
+A loop is now entered to deal with each expression in the DATA statement.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">DATA_1</td>
 <td class="address-2"><span id="1E2C"></span>1E2C</td>
-<td class="instruction">CALL <a href="24FB.html">$24FB</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="24FB.html">SCANNING</a></td>
+<td class="comment-11" rowspan="1">Scan the next expression.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E2F"></span>1E2F</td>
 <td class="instruction">CP ","</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Check for a comma separator.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E31"></span>1E31</td>
-<td class="instruction">CALL NZ,<a href="1BEE.html">$1BEE</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL NZ,<a href="1BEE.html">CHECK_END</a></td>
+<td class="comment-11" rowspan="1">Move on to the next statement if not matched.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E34"></span>1E34</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Whilst there are still expressions to be checked go around the loop.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E35"></span>1E35</td>
-<td class="instruction">JR $1E2C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="1E27.html#1E2C">DATA_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="1E37"></span>
+<div class="comments">
+<div class="paragraph">
+The DATA statement has to be passed by in 'run-time'.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">DATA_2</td>
 <td class="address-2"><span id="1E37"></span>1E37</td>
 <td class="instruction">LD A,$E4</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">It is a 'DATA' statement that is to be passed by.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="4">
+
+<div class="comments">
+<div class="paragraph">
+This routine continues into <a href="1E39.html">PASS_BY</a>.
+</div>
+</div>
+</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -98,8 +133,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

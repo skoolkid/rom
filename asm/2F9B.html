@@ -26,7 +26,13 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="3014.html">3014</a>.
+Used by the routine at <a href="3014.html">addition</a>.
+</div>
+<div class="paragraph">
+This subroutine is the first of four subroutines that are used by the main arithmetic operation routines - <a href="300F.html">subtract</a>, <a href="3014.html">addition</a>, <a href="30CA.html">multiply</a> and <a href="31AF.html">division</a>.
+</div>
+<div class="paragraph">
+This particular subroutine prepares a floating-point number for addition, mainly by replacing the sign bit with a true numerical bit 1, and negating the number (two's complement) if it is negative. The exponent is returned in the <span class="register">A</span> register and the first byte is set to +00 for a positive number and +FF for a negative number.
 </div>
 </div>
 <table class="input-0">
@@ -44,148 +50,148 @@ Used by the routine at <a href="3014.html">3014</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">PREP_ADD</td>
 <td class="address-2"><span id="2F9B"></span>2F9B</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Transfer the exponent to <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F9C"></span>2F9C</td>
 <td class="instruction">LD (HL),$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Presume a positive number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F9E"></span>2F9E</td>
 <td class="instruction">AND A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">If the number is zero then the preparation is already finished.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F9F"></span>2F9F</td>
 <td class="instruction">RET Z</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FA0"></span>2FA0</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Now point to the sign byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FA1"></span>2FA1</td>
 <td class="instruction">BIT 7,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Set the zero flag for positive number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FA3"></span>2FA3</td>
 <td class="instruction">SET 7,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Restore the true numeric bit.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FA5"></span>2FA5</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Point to the first byte again.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FA6"></span>2FA6</td>
 <td class="instruction">RET Z</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Positive numbers have been prepared, but negative numbers need to be two's complemented.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FA7"></span>2FA7</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save any earlier exponent.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FA8"></span>2FA8</td>
 <td class="instruction">LD BC,$0005</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">There are 5 bytes to be handled.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FAB"></span>2FAB</td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Point one past the last byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FAC"></span>2FAC</td>
 <td class="instruction">LD B,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Transfer the 5 to <span class="register">B</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FAD"></span>2FAD</td>
 <td class="instruction">LD C,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the exponent in <span class="register">C</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FAE"></span>2FAE</td>
 <td class="instruction">SCF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Set carry flag for negation.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">NEG_BYTE</td>
 <td class="address-2"><span id="2FAF"></span>2FAF</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Point to each byte in turn.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FB0"></span>2FB0</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get each byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FB1"></span>2FB1</td>
 <td class="instruction">CPL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">One's complement the byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FB2"></span>2FB2</td>
 <td class="instruction">ADC A,$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Add in carry for negation.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FB4"></span>2FB4</td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Restore the byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FB5"></span>2FB5</td>
-<td class="instruction">DJNZ $2FAF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DJNZ <a href="2F9B.html#2FAF">NEG_BYTE</a></td>
+<td class="comment-11" rowspan="1">Loop 5 times.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FB7"></span>2FB7</td>
 <td class="instruction">LD A,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Restore the exponent to <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FB8"></span>2FB8</td>
 <td class="instruction">POP BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Restore any earlier exponent.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2FB9"></span>2FB9</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -196,8 +202,8 @@ Used by the routine at <a href="3014.html">3014</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

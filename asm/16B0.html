@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="12A2.html">12A2</a>.
+Used by the routine at <a href="12A2.html">MAIN_EXEC</a>.
+</div>
+<div class="paragraph">
+This subroutine resets the editing area and the areas after it to their minimum sizes. In effect it 'clears' the areas.
 </div>
 </div>
 <table class="input-0">
@@ -44,120 +47,136 @@ Used by the routine at <a href="12A2.html">12A2</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">SET_MIN</td>
 <td class="address-2"><span id="16B0"></span>16B0</td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch E-LINE.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16B3"></span>16B3</td>
 <td class="instruction">LD (HL),$0D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Make the editing area hold only the 'carriage return' character and the end marker.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16B5"></span>16B5</td>
 <td class="instruction">LD ($5C5B),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16B8"></span>16B8</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16B9"></span>16B9</td>
 <td class="instruction">LD (HL),$80</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16BB"></span>16BB</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Move on to clear the work space.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16BC"></span>16BC</td>
 <td class="instruction">LD ($5C61),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="16BF"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="1B28.html">1B28</a> and <a href="2089.html">2089</a>.
+This entry point is used by the routines at <a href="1B28.html">STMT_LOOP</a> and <a href="2089.html">INPUT</a>.
+</div>
+<div class="paragraph">
+Entering here will 'clear' the work space and the calculator stack.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">SET_WORK</td>
 <td class="address-2"><span id="16BF"></span>16BF</td>
 <td class="instruction">LD HL,($5C61)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the WORKSP.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16C2"></span>16C2</td>
 <td class="instruction">LD ($5C63),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">This clears the work space.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="16C5"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="0053.html">0053</a> and <a href="19FB.html">19FB</a>.
+This entry point is used by the routines at <a href="0053.html">ERROR_2</a> and <a href="19FB.html">E_LINE_NO</a>.
+</div>
+<div class="paragraph">
+Entering here will 'clear' only the calculator stack.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">SET_STK</td>
 <td class="address-2"><span id="16C5"></span>16C5</td>
 <td class="instruction">LD HL,($5C63)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch STKBOT.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16C8"></span>16C8</td>
 <td class="instruction">LD ($5C65),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">This clears the stack.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="16CB"></span>
+<div class="comments">
+<div class="paragraph">
+In all cases make MEM address the calculator's memory area.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16CB"></span>16CB</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save STKEND.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16CC"></span>16CC</td>
 <td class="instruction">LD HL,$5C92</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The base of the memory area.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16CF"></span>16CF</td>
 <td class="instruction">LD ($5C68),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Set MEM to this address.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16D2"></span>16D2</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Restore STKEND to the <span class="register">HL</span> register pair before returning.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16D3"></span>16D3</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -168,8 +187,8 @@ This entry point is used by the routines at <a href="0053.html">0053</a> and <a 
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

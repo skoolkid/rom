@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="2DE3.html">2DE3</a>.
+Used by the routine at <a href="2DE3.html">PRINT_FP</a>.
+</div>
+<div class="paragraph">
+This subroutine is called by <a href="2DE3.html">PRINT_FP</a> to multiply each byte of <span class="register">D'</span><span class="register">E'</span><span class="register">DE</span> by 10 and return the integer part of the result in the <span class="register">C</span> register. On entry, the <span class="register">A</span> register contains the byte to be multiplied by 10 and the <span class="register">C</span> register contains the carry over from the previous byte. On return, the <span class="register">A</span> register contains the resulting byte and the <span class="register">C</span> register the carry forward to the next byte.
 </div>
 </div>
 <table class="input-0">
@@ -44,94 +47,94 @@ Used by the routine at <a href="2DE3.html">2DE3</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CA_10A_C</td>
 <td class="address-2"><span id="2F8B"></span>2F8B</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save whichever <span class="register">DE</span> pair is in use.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F8C"></span>2F8C</td>
 <td class="instruction">LD L,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Copy the multiplicand from <span class="register">A</span> to <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F8D"></span>2F8D</td>
 <td class="instruction">LD H,$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F8F"></span>2F8F</td>
 <td class="instruction">LD E,L</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Copy it to <span class="register">DE</span> too.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F90"></span>2F90</td>
 <td class="instruction">LD D,H</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F91"></span>2F91</td>
 <td class="instruction">ADD HL,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Double <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F92"></span>2F92</td>
 <td class="instruction">ADD HL,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Double it again.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F93"></span>2F93</td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Add in <span class="register">DE</span> to give <span class="register">HL</span>=5*<span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F94"></span>2F94</td>
 <td class="instruction">ADD HL,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Double again: now <span class="register">HL</span>=10*<span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F95"></span>2F95</td>
 <td class="instruction">LD E,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Copy <span class="register">C</span> to <span class="register">DE</span> (<span class="register">D</span> is zero) for addition.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F96"></span>2F96</td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Now <span class="register">HL</span>=10*<span class="register">A</span>+<span class="register">C</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F97"></span>2F97</td>
 <td class="instruction">LD C,H</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">H</span> is copied to <span class="register">C</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F98"></span>2F98</td>
 <td class="instruction">LD A,L</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">L</span> is copied to <span class="register">A</span>, completing the task.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F99"></span>2F99</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The <span class="register">DE</span> register pair is restored.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2F9A"></span>2F9A</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -142,8 +145,8 @@ Used by the routine at <a href="2DE3.html">2DE3</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

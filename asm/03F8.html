@@ -25,7 +25,12 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="1A48.html#1AE3">parameter table</a>.
+</div>
+<div class="paragraph">
+The subroutine is entered with two numbers on the calculator stack. The topmost number (P) represents the 'pitch' of the note and the number underneath it (t) represents the 'duration'.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,502 +47,594 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">BEEP</td>
 <td class="address-2"><span id="03F8"></span>03F8</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The floating-point calculator is used to manipulate the two values: t, P.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="03F9"></span>03F9</td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: t, P, P</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="03FA"></span>03FA</td>
 <td class="instruction">DEFB $27</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="36AF.html">int</a>: t, P, i (where i=INT P)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="03FB"></span>03FB</td>
 <td class="instruction">DEFB $C0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="342D.html">st_mem_0</a>: t, P, i (mem-0 holds i)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="03FC"></span>03FC</td>
 <td class="instruction">DEFB $03</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="300F.html">subtract</a>: t, p (where p is the fractional part of P)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="03FD"></span>03FD</td>
 <td class="instruction">DEFB $34</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2"><a href="33C6.html">stk_data</a>: Stack the decimal value K=0.0577622606 (which is a little below 12*(2&#8593;0.5)-1)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="03FE"></span>03FE</td>
-<td class="instruction">DEFB $EC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $EC,$6C,$98,$1F,$F5</td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="03FF"></span>03FF</td>
-<td class="instruction">DEFB $6C,$98,$1F,$F5</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0403"></span>0403</td>
 <td class="instruction">DEFB $04</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="30CA.html">multiply</a>: t, pK</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0404"></span>0404</td>
 <td class="instruction">DEFB $A1</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="341B.html">stk_one</a>: t, pK, 1</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0405"></span>0405</td>
 <td class="instruction">DEFB $0F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="3014.html">addition</a>: t, pK+1</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0406"></span>0406</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0407"></span>
+<div class="comments">
+<div class="paragraph">
+Now perform several tests on i, the integer part of the 'pitch'.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0407"></span>0407</td>
 <td class="instruction">LD HL,$5C92</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">This is 'mem-0-1st' (MEMBOT).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="040A"></span>040A</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the exponent of i.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="040B"></span>040B</td>
 <td class="instruction">AND A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Give an error if i is not in the integral (short) form.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="040C"></span>040C</td>
-<td class="instruction">JR NZ,$046C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="03F8.html#046C">REPORT_B</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="040E"></span>040E</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Copy the sign byte to the <span class="register">C</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="040F"></span>040F</td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0410"></span>0410</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Copy the low-byte to the <span class="register">B</span> register, and to the <span class="register">A</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0411"></span>0411</td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0412"></span>0412</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0413"></span>0413</td>
 <td class="instruction">RLA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="7">Again give report B if i does not satisfy the test: -128&lt;=i&lt;=+127.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0414"></span>0414</td>
 <td class="instruction">SBC A,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0415"></span>0415</td>
 <td class="instruction">CP C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0416"></span>0416</td>
-<td class="instruction">JR NZ,$046C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="03F8.html#046C">REPORT_B</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0418"></span>0418</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0419"></span>0419</td>
 <td class="instruction">CP (HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="041A"></span>041A</td>
-<td class="instruction">JR NZ,$046C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="03F8.html#046C">REPORT_B</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="041C"></span>041C</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Fetch the low-byte and test it further.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="041D"></span>041D</td>
 <td class="instruction">ADD A,$3C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="041F"></span>041F</td>
-<td class="instruction">JP P,$0425</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP P,<a href="03F8.html#0425">BE_i_OK</a></td>
+<td class="comment-11" rowspan="1">Accept -60&lt;=i&lt;=67.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0422"></span>0422</td>
-<td class="instruction">JP PO,$046C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP PO,<a href="03F8.html#046C">REPORT_B</a></td>
+<td class="comment-11" rowspan="1">Reject -128 to -61.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0425"></span>
+<div class="comments">
+<div class="paragraph">
+Note: the range +70 to +127 will be rejected later on.
+</div>
+<div class="paragraph">
+The correct frequency for the 'pitch' i can now be found.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">BE_i_OK</td>
 <td class="address-2"><span id="0425"></span>0425</td>
 <td class="instruction">LD B,$FA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Start '6' octaves below middle C.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">BE_OCTAVE</td>
 <td class="address-2"><span id="0427"></span>0427</td>
 <td class="instruction">INC B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Repeatedly reduce i in order to find the correct octave.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0428"></span>0428</td>
 <td class="instruction">SUB $0C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="042A"></span>042A</td>
-<td class="instruction">JR NC,$0427</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="03F8.html#0427">BE_OCTAVE</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="042C"></span>042C</td>
 <td class="instruction">ADD A,$0C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Add back the last subtraction.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="042E"></span>042E</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the octave number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="042F"></span>042F</td>
 <td class="instruction">LD HL,$046E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The base address of the '<a href="046E.html">semitone table</a>'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0432"></span>0432</td>
-<td class="instruction">CALL <a href="3406.html">$3406</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="3406.html">LOC_MEM</a></td>
+<td class="comment-11" rowspan="2">Consider the table and pass the 'A th.' value to the calculator stack. (Call it C.)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0435"></span>0435</td>
-<td class="instruction">CALL <a href="33B4.html">$33B4</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="33B4.html">STACK_NUM</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0438"></span>
+<div class="comments">
+<div class="paragraph">
+Now the fractional part of the 'pitch' can be taken into consideration.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0438"></span>0438</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">t, pK+1, C</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0439"></span>0439</td>
 <td class="instruction">DEFB $04</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="30CA.html">multiply</a>: t, C(pK+1)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="043A"></span>043A</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="043B"></span>
+<div class="comments">
+<div class="paragraph">
+The final frequency f is found by modifying the 'last value' according to the octave number.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="043B"></span>043B</td>
 <td class="instruction">POP AF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the octave number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="043C"></span>043C</td>
 <td class="instruction">ADD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Multiply the 'last value' by 2 to the power of the octave number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="043D"></span>043D</td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="043E"></span>043E</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">t, f</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="043F"></span>043F</td>
 <td class="instruction">DEFB $C0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="342D.html">st_mem_0</a>: Copy the frequency (f) to mem-0</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0440"></span>0440</td>
 <td class="instruction">DEFB $02</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="335B.html#33A1">delete</a>: t</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0441"></span>
+<div class="comments">
+<div class="paragraph">
+Attention is now turned to the 'duration'.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0441"></span>0441</td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: t, t</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0442"></span>0442</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0443"></span>0443</td>
-<td class="instruction">CALL <a href="1E94.html">$1E94</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1E94.html">FIND_INT1</a></td>
+<td class="comment-11" rowspan="3">The value 'INT t' must be in the range +00 to +0A.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0446"></span>0446</td>
 <td class="instruction">CP $0B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0448"></span>0448</td>
-<td class="instruction">JR NC,$046C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="03F8.html#046C">REPORT_B</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="044A"></span>
+<div class="comments">
+<div class="paragraph">
+The number of complete cycles in the 'beep' is given by f*t so this value is now found.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="044A"></span>044A</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">t</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="044B"></span>044B</td>
 <td class="instruction">DEFB $E0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="340F.html">get_mem_0</a>: t, f</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="044C"></span>044C</td>
 <td class="instruction">DEFB $04</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="30CA.html">multiply</a>: f*t</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="044D"></span>
+<div class="comments">
+<div class="paragraph">
+The result is left on the calculator stack whilst the length of the 'timing loop' required for the 'beep' is computed.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="044D"></span>044D</td>
 <td class="instruction">DEFB $E0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="340F.html">get_mem_0</a>: f*t, f</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="044E"></span>044E</td>
 <td class="instruction">DEFB $34</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2"><a href="33C6.html">stk_data</a>: Stack the value (3.5*10&#8593;6)/8=437500</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="044F"></span>044F</td>
-<td class="instruction">DEFB $80</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $80,$43,$55,$9F,$80</td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="0450"></span>0450</td>
-<td class="instruction">DEFB $43</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="0451"></span>0451</td>
-<td class="instruction">DEFB $55,$9F,$80</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0454"></span>0454</td>
 <td class="instruction">DEFB $01</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="343C.html">exchange</a>: f*t, 437500, f</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0455"></span>0455</td>
 <td class="instruction">DEFB $05</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="31AF.html">division</a>: f*t, 437500/f</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0456"></span>0456</td>
 <td class="instruction">DEFB $34</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2"><a href="33C6.html">stk_data</a>: f*t, 437500/f, 30.125 (dec.)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0457"></span>0457</td>
-<td class="instruction">DEFB $35</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $35,$71</td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="0458"></span>0458</td>
-<td class="instruction">DEFB $71</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0459"></span>0459</td>
 <td class="instruction">DEFB $03</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="300F.html">subtract</a>: f*t, 437500/f-30.125</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="045A"></span>045A</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="045B"></span>
+<div class="comments">
+<div class="paragraph">
+Note: the value 437500/f gives the 'half-cycle' length of the note and reducing it by 30.125 allows for 120.5 T states in which to actually produce the note and adjust the counters etc.
+</div>
+<div class="paragraph">
+The values can now be transferred to the required registers.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="045B"></span>045B</td>
-<td class="instruction">CALL <a href="1E94.html#1E99">$1E99</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1E94.html#1E99">FIND_INT2</a></td>
+<td class="comment-11" rowspan="2">The 'timing loop' value is compressed into the <span class="register">BC</span> register pair and saved.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="045E"></span>045E</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="045F"></span>
+<div class="comments">
+<div class="paragraph">
+Note: if the timing loop value is too large then an error will occur (returning via <a href="0008.html">ERROR_1</a>), thereby excluding 'pitch' values of +70 to +127.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="045F"></span>045F</td>
-<td class="instruction">CALL <a href="1E94.html#1E99">$1E99</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1E94.html#1E99">FIND_INT2</a></td>
+<td class="comment-11" rowspan="1">The f*t value is compressed into the <span class="register">BC</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0462"></span>0462</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Move the 'timing loop' value to the <span class="register">HL</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0463"></span>0463</td>
 <td class="instruction">LD D,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Move the f*t value to the <span class="register">DE</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0464"></span>0464</td>
 <td class="instruction">LD E,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0465"></span>
+<div class="comments">
+<div class="paragraph">
+However before making the 'beep' test the value f*t.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0465"></span>0465</td>
 <td class="instruction">LD A,D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Return if f*t has given the result of 'no cycles' required.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0466"></span>0466</td>
 <td class="instruction">OR E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0467"></span>0467</td>
 <td class="instruction">RET Z</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0468"></span>0468</td>
 <td class="instruction">DEC DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Decrease the cycle number and jump to <a href="03B5.html">BEEPER</a> (making at least one pass).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0469"></span>0469</td>
-<td class="instruction">JP <a href="03B5.html">$03B5</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP <a href="03B5.html">BEEPER</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="046C"></span>
+<div class="comments">
+<div class="paragraph">
+Report B - integer out of range.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">REPORT_B</td>
 <td class="address-2"><span id="046C"></span>046C</td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="046D"></span>046D</td>
 <td class="instruction">DEFB $0A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -548,8 +645,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

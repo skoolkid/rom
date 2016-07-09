@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="1FFC.html">1FFC</a> and <a href="24FB.html">24FB</a>.
+Used by the routines at <a href="1FFC.html">PR_ITEM_1</a> and <a href="2522.html">S_2_COORD</a>.
+</div>
+<div class="paragraph">
+There is a series of short subroutines that are used to fetch the result of evaluating the next expression. The result from a single expression is returned as a 'last value' on the calculator stack.
 </div>
 </div>
 <table class="input-0">
@@ -44,128 +47,159 @@ Used by the routines at <a href="1FFC.html">1FFC</a> and <a href="24FB.html">24F
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="1C79"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used when CH-ADD needs updating to point to the start of the first expression.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">NEXT_2NUM</td>
 <td class="address-2"><span id="1C79"></span>1C79</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Advance CH-ADD.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="1C7A"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="1CBE.html">1CBE</a>.
+This entry point is used by the routine at <a href="1CBE.html">CLASS_09</a>.
+</div>
+<div class="paragraph">
+The address of this entry point is derived from an offset found in the <a href="1C01.html">command class table</a>.
+</div>
+<div class="paragraph">
+This entry point allows for two numeric expressions, separated by a comma, to be evaluated.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLASS_08</td>
 <td class="address-2"><span id="1C7A"></span>1C7A</td>
-<td class="instruction">CALL $1C82</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1C79.html#1C82">CLASS_06</a></td>
+<td class="comment-11" rowspan="1">Evaluate each expression in turn - so evaluate the first.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1C7D"></span>1C7D</td>
 <td class="instruction">CP ","</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Give an error report if the separator is not a comma.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1C7F"></span>1C7F</td>
-<td class="instruction">JR NZ,$1C8A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="1C79.html#1C8A">REPORT_C</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1C81"></span>1C81</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Advance CH-ADD.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="1C82"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="0605.html">0605</a>, <a href="17F9.html">17F9</a>, <a href="1CDE.html">1CDE</a>, <a href="1D03.html">1D03</a>, <a href="1FFC.html">1FFC</a>, <a href="2070.html">2070</a>, <a href="21E1.html">21E1</a>, <a href="2320.html">2320</a>, <a href="2382.html">2382</a> and <a href="2ACC.html">2ACC</a>.
+This entry point is used by the routines at <a href="0605.html">SAVE_ETC</a>, <a href="17F9.html">LIST</a>, <a href="1CDE.html">FETCH_NUM</a>, <a href="1D03.html">FOR</a>, <a href="1FFC.html">PR_ITEM_1</a>, <a href="2070.html">STR_ALTER</a>, <a href="21E1.html">CO_TEMP_1</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a> and <a href="2ACC.html">INT_EXP1</a>.
+</div>
+<div class="paragraph">
+The address of this entry point is derived from an offset found in the <a href="1C01.html">command class table</a>.
+</div>
+<div class="paragraph">
+This entry point allows for a single numeric expression to be evaluated.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLASS_06</td>
 <td class="address-2"><span id="1C82"></span>1C82</td>
-<td class="instruction">CALL <a href="24FB.html">$24FB</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="24FB.html">SCANNING</a></td>
+<td class="comment-11" rowspan="1">Evaluate the next expression.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1C85"></span>1C85</td>
 <td class="instruction">BIT 6,(IY+$01)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Return as long as the result was numeric; otherwise it is an error.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1C89"></span>1C89</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="1C8A"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="04AA.html">04AA</a>, <a href="0605.html">0605</a>, <a href="19FB.html">19FB</a>, <a href="1B28.html">1B28</a>, <a href="1B6F.html">1B6F</a>, <a href="1BF4.html">1BF4</a>, <a href="1C56.html">1C56</a>, <a href="1C6C.html">1C6C</a>, <a href="1F60.html">1F60</a>, <a href="2089.html">2089</a>, <a href="21E1.html">21E1</a>, <a href="2320.html">2320</a>, <a href="24FB.html">24FB</a>, <a href="25AF.html">25AF</a>, <a href="26C9.html">26C9</a>, <a href="27BD.html">27BD</a>, <a href="28B2.html">28B2</a>, <a href="2A52.html">2A52</a>, <a href="2C02.html">2C02</a>, <a href="2C9B.html">2C9B</a> and <a href="35DE.html">35DE</a>.
+This entry point is used by the routines at <a href="0605.html">SAVE_ETC</a>, <a href="19FB.html">E_LINE_NO</a>, <a href="1B28.html">STMT_LOOP</a>, <a href="1B6F.html">SEPARATOR</a>, <a href="1BF4.html">STMT_NEXT</a>, <a href="1C56.html">VAL_FET_1</a>, <a href="1C6C.html">CLASS_04</a>, <a href="1F60.html">DEF_FN</a>, <a href="2089.html">INPUT</a>, <a href="21E1.html">CO_TEMP_1</a>, <a href="2320.html">CIRCLE</a>, <a href="250F.html">S_QUOTE_S</a>, <a href="2522.html">S_2_COORD</a>, <a href="25E8.html">S_BRACKET</a>, <a href="26C9.html">S_LETTER</a>, <a href="27BD.html">S_FN_SBRN</a>, <a href="28B2.html">LOOK_VARS</a>, <a href="2A52.html">SLICING</a>, <a href="2C02.html">DIM</a>, <a href="2C9B.html">DEC_TO_FP</a> and <a href="35DE.html">val</a>.
+</div>
+<div class="paragraph">
+Report C - Nonsense in BASIC.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">REPORT_C</td>
 <td class="address-2"><span id="1C8A"></span>1C8A</td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1C8B"></span>1C8B</td>
 <td class="instruction">DEFB $0B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="1C8C"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="0605.html">0605</a>.
+This entry point is used by the routine at <a href="0605.html">SAVE_ETC</a>.
+</div>
+<div class="paragraph">
+The address of this entry point is derived from an offset found in the <a href="1C01.html">command class table</a>.
+</div>
+<div class="paragraph">
+This entry point allows for a single string expression to be evaluated.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLASS_0A</td>
 <td class="address-2"><span id="1C8C"></span>1C8C</td>
-<td class="instruction">CALL <a href="24FB.html">$24FB</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="24FB.html">SCANNING</a></td>
+<td class="comment-11" rowspan="1">Evaluate the next expression.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1C8F"></span>1C8F</td>
 <td class="instruction">BIT 6,(IY+$01)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">This time return if the result indicates a string; otherwise give an error report.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1C93"></span>1C93</td>
 <td class="instruction">RET Z</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1C94"></span>1C94</td>
-<td class="instruction">JR $1C8A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="1C79.html#1C8A">REPORT_C</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -176,8 +210,8 @@ This entry point is used by the routine at <a href="0605.html">0605</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

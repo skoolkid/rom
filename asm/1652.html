@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="0F81.html">0F81</a>.
+Used by the routine at <a href="0F2C.html">EDITOR</a>.
+</div>
+<div class="paragraph">
+This is a very important subroutine. It is called on many occasions to 'open up' an area. In all cases the <span class="register">HL</span> register pair points to the location after the place where 'room' is required and the <span class="register">BC</span> register pair holds the length of the 'room' needed. When a single space only is required then the subroutine is entered at <a href="1652.html">ONE_SPACE</a>.
 </div>
 </div>
 <table class="input-0">
@@ -44,68 +47,84 @@ Used by the routine at <a href="0F81.html">0F81</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">ONE_SPACE</td>
 <td class="address-2"><span id="1652"></span>1652</td>
 <td class="instruction">LD BC,$0001</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Just the single extra location is required.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="1655"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="0808.html">0808</a>, <a href="092C.html">092C</a>, <a href="0F2C.html">0F2C</a>, <a href="155D.html">155D</a>, <a href="169E.html">169E</a>, <a href="1D03.html">1D03</a>, <a href="1F60.html">1F60</a>, <a href="25AF.html">25AF</a>, <a href="2AFF.html">2AFF</a>, <a href="2BC6.html">2BC6</a> and <a href="2C02.html">2C02</a>.
+This entry point is used by the routines at <a href="0808.html">LD_CONTRL</a>, <a href="092C.html">ME_ENTER</a>, <a href="0F2C.html">EDITOR</a>, <a href="155D.html">MAIN_ADD</a>, <a href="169E.html">RESERVE</a>, <a href="1D03.html">FOR</a>, <a href="1F60.html">DEF_FN</a>, <a href="268D.html">S_DECIMAL</a>, <a href="2AFF.html">LET</a> and <a href="2C02.html">DIM</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">MAKE_ROOM</td>
 <td class="address-2"><span id="1655"></span>1655</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1656"></span>1656</td>
-<td class="instruction">CALL <a href="1F05.html">$1F05</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1F05.html">TEST_ROOM</a></td>
+<td class="comment-11" rowspan="1">Make sure that there is sufficient memory available for the task being undertaken.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1659"></span>1659</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Restore the pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="165A"></span>165A</td>
-<td class="instruction">CALL <a href="1664.html">$1664</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1664.html">POINTERS</a></td>
+<td class="comment-11" rowspan="1">Alter all the pointers before making the 'room'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="165D"></span>165D</td>
 <td class="instruction">LD HL,($5C65)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Make <span class="register">HL</span> hold the new STKEND.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1660"></span>1660</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Switch 'old' and 'new'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1661"></span>1661</td>
 <td class="instruction">LDDR</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Now make the 'room' and return.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1663"></span>1663</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="4">
+
+<div class="comments">
+<div class="paragraph">
+Note: this subroutine returns with the <span class="register">HL</span> register pair pointing to the location before the new 'room' and the <span class="register">DE</span> register pair pointing to the last of the new locations. The new 'room' therefore has the description '(<span class="register">HL</span>)+1' to '(<span class="register">DE</span>)' inclusive.
+</div>
+<div class="paragraph">
+However as the 'new locations' still retain their 'old values' it is also possible to consider the new 'room' as having been made after the original location '(<span class="register">HL</span>)' and it thereby has the description '(<span class="register">HL</span>)+2' to '(<span class="register">DE</span>)+1'.
+</div>
+<div class="paragraph">
+In fact the programmer appears to have a preference for the 'second description' and this can be confusing.
+</div>
+</div>
+</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -116,8 +135,8 @@ This entry point is used by the routines at <a href="0808.html">0808</a>, <a hre
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

@@ -20,13 +20,19 @@
 <td class="next"><span class="next-1">Next: <a href="0DAF.html">0DAF</a></span></td>
 </tr>
 </table>
-<div class="description">0D6B: THE 'CLS COMMAND' ROUTINE</div>
+<div class="description">0D6B: THE 'CLS' COMMAND ROUTINE</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="11B7.html">11B7</a> and <a href="1EAC.html">1EAC</a>.
+Used by the routines at <a href="11B7.html">NEW</a> and <a href="1EAC.html">CLEAR</a>.
+</div>
+<div class="paragraph">
+The address of this routine is found in the <a href="1A48.html#1ABE">parameter table</a>.
+</div>
+<div class="paragraph">
+In the first instance the whole of the display is 'cleared' - the 'pixels' are all reset and the attribute bytes are set to equal the value in ATTR-P - then the lower part of the display is reformed.
 </div>
 </div>
 <table class="input-0">
@@ -44,216 +50,239 @@ Used by the routines at <a href="11B7.html">11B7</a> and <a href="1EAC.html">1EA
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLS</td>
 <td class="address-2"><span id="0D6B"></span>0D6B</td>
-<td class="instruction">CALL <a href="0DAF.html">$0DAF</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="0DAF.html">CL_ALL</a></td>
+<td class="comment-11" rowspan="1">The whole of the display is 'cleared'.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="0D6E"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="10A8.html">10A8</a>, <a href="12A2.html">12A2</a> and <a href="2089.html">2089</a>.
+This entry point is used by the routines at <a href="10A8.html">KEY_INPUT</a>, <a href="12A2.html">MAIN_EXEC</a> and <a href="2089.html">INPUT</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLS_LOWER</td>
 <td class="address-2"><span id="0D6E"></span>0D6E</td>
 <td class="instruction">LD HL,$5C3C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">This is TV-FLAG.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D71"></span>0D71</td>
 <td class="instruction">RES 5,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'do not clear the lower screen after keystroke'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D73"></span>0D73</td>
 <td class="instruction">SET 0,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'lower part'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D75"></span>0D75</td>
-<td class="instruction">CALL <a href="0D4D.html">$0D4D</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="0D4D.html">TEMPS</a></td>
+<td class="comment-11" rowspan="1">Use the permanent values, i.e. ATTR-T is copied from BORDCR.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D78"></span>0D78</td>
 <td class="instruction">LD B,(IY+$31)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">The lower part of the screen is now 'cleared' with these values.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D7B"></span>0D7B</td>
-<td class="instruction">CALL <a href="0E44.html">$0E44</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="0E44.html">CL_LINE</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0D7E"></span>
+<div class="comments">
+<div class="paragraph">
+With the exception of the attribute bytes for lines 22 and 23 the attribute bytes for the lines in the lower part of the display will need to be made equal to ATTR-P.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D7E"></span>0D7E</td>
 <td class="instruction">LD HL,$5AC0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Attribute byte at start of line 22.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D81"></span>0D81</td>
 <td class="instruction">LD A,($5C8D)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch ATTR-P.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D84"></span>0D84</td>
 <td class="instruction">DEC B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The line counter.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D85"></span>0D85</td>
-<td class="instruction">JR $0D8E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="0D6B.html#0D8E">CLS_3</a></td>
+<td class="comment-11" rowspan="1">Jump forward into the loop.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLS_1</td>
 <td class="address-2"><span id="0D87"></span>0D87</td>
 <td class="instruction">LD C,$20</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">+20 characters per line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLS_2</td>
 <td class="address-2"><span id="0D89"></span>0D89</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Go back along the line setting the attribute bytes.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D8A"></span>0D8A</td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D8B"></span>0D8B</td>
 <td class="instruction">DEC C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D8C"></span>0D8C</td>
-<td class="instruction">JR NZ,$0D89</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="0D6B.html#0D89">CLS_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLS_3</td>
 <td class="address-2"><span id="0D8E"></span>0D8E</td>
-<td class="instruction">DJNZ $0D87</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DJNZ <a href="0D6B.html#0D87">CLS_1</a></td>
+<td class="comment-11" rowspan="1">Loop back until finished.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0D90"></span>
+<div class="comments">
+<div class="paragraph">
+The size of the lower part of the display can now be fixed.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D90"></span>0D90</td>
 <td class="instruction">LD (IY+$31),$02</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">It will be two lines in size.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="0D94"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="0DAF.html">0DAF</a>.
+This entry point is used by the routine at <a href="0DAF.html">CL_ALL</a>.
+</div>
+<div class="paragraph">
+It now remains for the following 'house keeping' tasks to be performed.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CL_CHAN</td>
 <td class="address-2"><span id="0D94"></span>0D94</td>
 <td class="instruction">LD A,$FD</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Open channel 'K'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D96"></span>0D96</td>
-<td class="instruction">CALL <a href="1601.html">$1601</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1601.html">CHAN_OPEN</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D99"></span>0D99</td>
 <td class="instruction">LD HL,($5C51)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="8">Fetch the address of the current channel and make the output address <a href="09F4.html">PRINT_OUT</a> and the input address <a href="10A8.html">KEY_INPUT</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D9C"></span>0D9C</td>
 <td class="instruction">LD DE,$09F4</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0D9F"></span>0D9F</td>
 <td class="instruction">AND A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CL_CHAN_A</td>
 <td class="address-2"><span id="0DA0"></span>0DA0</td>
 <td class="instruction">LD (HL),E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0DA1"></span>0DA1</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0DA2"></span>0DA2</td>
 <td class="instruction">LD (HL),D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0DA3"></span>0DA3</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0DA4"></span>0DA4</td>
 <td class="instruction">LD DE,$10A8</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0DA7"></span>0DA7</td>
 <td class="instruction">CCF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">First the output address then the input address.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0DA8"></span>0DA8</td>
-<td class="instruction">JR C,$0DA0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="0D6B.html#0DA0">CL_CHAN_A</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0DAA"></span>0DAA</td>
 <td class="instruction">LD BC,$1721</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">As the lower part of the display is being handled the 'lower print line' will be line 23.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0DAD"></span>0DAD</td>
-<td class="instruction">JR <a href="0DD9.html">$0DD9</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="0DD9.html">CL_SET</a></td>
+<td class="comment-11" rowspan="1">Return via <a href="0DD9.html">CL_SET</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -264,8 +293,8 @@ This entry point is used by the routine at <a href="0DAF.html">0DAF</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

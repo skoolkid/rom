@@ -26,7 +26,38 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="0028.html">0028</a>.
+Used by the routine at <a href="0028.html">FP_CALC</a>.
+</div>
+<div class="paragraph">
+This subroutine is used to perform floating-point calculations. These can be considered to be of three types:
+</div>
+<div class="paragraph">
+<ul class="">
+<li>Binary operations, e.g. <a href="3014.html">addition</a>, where two numbers in floating-point form are added together to give one 'last value'.</li>
+<li>Unary operations, e.g. <a href="37B5.html">sin</a>, where the 'last value' is changed to give the appropriate function result as a new 'last value'.</li>
+<li>Manipulatory operations, e.g. <a href="342D.html">st_mem</a>, where the 'last value' is copied to the first five bytes of the calculator's memory area.</li>
+</ul>
+</div>
+<div class="paragraph">
+The operations to be performed are specified as a series of data-bytes, the literals, that follow an RST 28 instruction that calls this subroutine. The last literal in the list is always '38' which leads to an end to the whole operation.
+</div>
+<div class="paragraph">
+In the case of a single operation needing to be performed, the operation offset can be passed to the calculator in the <span class="register">B</span> register, and operation '3B', the <a href="33A2.html">single calculation operation</a>, performed.
+</div>
+<div class="paragraph">
+It is also possible to call this subroutine recursively, i.e. from within itself, and in such a case it is possible to use the system variable BREG as a counter that controls how many operations are performed before returning.
+</div>
+<div class="paragraph">
+The first part of this subroutine is complicated but essentially it performs the two tasks of setting the registers to hold their required values, and to produce an offset, and possibly a parameter, from the literal that is currently being considered.
+</div>
+<div class="paragraph">
+The offset is used to index into the calculator's <a href="32D7.html">table of addresses</a> to find the required subroutine address.
+</div>
+<div class="paragraph">
+The parameter is used when the multi-purpose subroutines are called.
+</div>
+<div class="paragraph">
+Note: a floating-point number may in reality be a set of string parameters.
 </div>
 </div>
 <table class="input-0">
@@ -44,310 +75,333 @@ Used by the routine at <a href="0028.html">0028</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CALCULATE</td>
 <td class="address-2"><span id="335B"></span>335B</td>
-<td class="instruction">CALL <a href="35BF.html">$35BF</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="35BF.html">STK_PNTRS</a></td>
+<td class="comment-11" rowspan="1">Presume a unary operation and therefore set <span class="register">HL</span> to point to the start of the 'last value' on the calculator stack and <span class="register">DE</span> one past this floating-point number (STKEND).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="335E"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="3449.html">3449</a>.
+This entry point is used by the routine at <a href="3449.html">series</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">GEN_ENT_1</td>
 <td class="address-2"><span id="335E"></span>335E</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Either transfer a single operation offset to BREG temporarily, or, when using the subroutine recursively, pass the parameter to BREG to be used as a counter.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="335F"></span>335F</td>
 <td class="instruction">LD ($5C67),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="3362"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="3449.html">3449</a>.
+This entry point is used by the routine at <a href="3449.html">series</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">GEN_ENT_2</td>
 <td class="address-2"><span id="3362"></span>3362</td>
 <td class="instruction">EXX</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">The return address of the subroutine is stored in <span class="register">HL'</span>. This saves the pointer to the first literal. Entering the calculator here is done whenever BREG is in use as a counter and is not to be disturbed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3363"></span>3363</td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3364"></span>3364</td>
 <td class="instruction">EXX</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">RE_ENTRY</td>
 <td class="address-1"><span id="3365"></span>3365</td>
 <td class="instruction">LD ($5C65),DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">A loop is now entered to handle each literal in the list that follows the calling instruction; so first, always set to STKEND.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3369"></span>3369</td>
 <td class="instruction">EXX</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Go to the alternate register set and fetch the literal for this loop.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="336A"></span>336A</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="336B"></span>336B</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Make <span class="register">HL'</span> point to the next literal.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="336C"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="33A2.html">33A2</a>.
+This entry point is used by the routine at <a href="33A2.html">fp_calc_2</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">SCAN_ENT</td>
 <td class="address-2"><span id="336C"></span>336C</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">This pointer is saved briefly on the machine stack. <a href="335B.html#336C">SCAN_ENT</a> is used by <a href="33A2.html">fp_calc_2</a> to find the subroutine that is required.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="336D"></span>336D</td>
 <td class="instruction">AND A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Test the <span class="register">A</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="336E"></span>336E</td>
-<td class="instruction">JP P,$3380</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP P,<a href="335B.html#3380">FIRST_3D</a></td>
+<td class="comment-11" rowspan="1">Separate the simple literals from the multi-purpose literals. Jump with literals 00 to 3D.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3371"></span>3371</td>
 <td class="instruction">LD D,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the literal in <span class="register">D</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3372"></span>3372</td>
 <td class="instruction">AND $60</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Continue only with bits 5 and 6.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3374"></span>3374</td>
 <td class="instruction">RRCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Four right shifts make them now bits 1 and 2.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3375"></span>3375</td>
 <td class="instruction">RRCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3376"></span>3376</td>
 <td class="instruction">RRCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3377"></span>3377</td>
 <td class="instruction">RRCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3378"></span>3378</td>
 <td class="instruction">ADD A,$7C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">The offsets required are 3E to 41, and <span class="register">L</span> will now hold double the required offset.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="337A"></span>337A</td>
 <td class="instruction">LD L,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="337B"></span>337B</td>
 <td class="instruction">LD A,D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Now produce the parameter by taking bits 0, 1, 2, 3 and 4 of the literal; keep the parameter in <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="337C"></span>337C</td>
 <td class="instruction">AND $1F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="337E"></span>337E</td>
-<td class="instruction">JR $338E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="335B.html#338E">ENT_TABLE</a></td>
+<td class="comment-11" rowspan="1">Jump forward to find the address of the required subroutine.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">FIRST_3D</td>
 <td class="address-2"><span id="3380"></span>3380</td>
 <td class="instruction">CP $18</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if performing a unary operation.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3382"></span>3382</td>
-<td class="instruction">JR NC,$338C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="335B.html#338C">DOUBLE_A</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3384"></span>3384</td>
 <td class="instruction">EXX</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="6">All of the subroutines that perform binary operations require that <span class="register">HL</span> points to the first operand and <span class="register">DE</span> points to the second operand (the 'last value') as they appear on the calculator stack.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3385"></span>3385</td>
 <td class="instruction">LD BC,$FFFB</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3388"></span>3388</td>
 <td class="instruction">LD D,H</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3389"></span>3389</td>
 <td class="instruction">LD E,L</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="338A"></span>338A</td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="338B"></span>338B</td>
 <td class="instruction">EXX</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">DOUBLE_A</td>
 <td class="address-2"><span id="338C"></span>338C</td>
 <td class="instruction">RLCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">As each entry in the table of addresses takes up two bytes the offset produced is doubled.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="338D"></span>338D</td>
 <td class="instruction">LD L,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">ENT_TABLE</td>
 <td class="address-2"><span id="338E"></span>338E</td>
 <td class="instruction">LD DE,$32D7</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The base address of the <a href="32D7.html">table</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3391"></span>3391</td>
 <td class="instruction">LD H,$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="5">The address of the required table entry is formed in <span class="register">HL</span>, and the required subroutine address is loaded into the <span class="register">DE</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3393"></span>3393</td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3394"></span>3394</td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3395"></span>3395</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3396"></span>3396</td>
 <td class="instruction">LD D,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3397"></span>3397</td>
 <td class="instruction">LD HL,$3365</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">The address of <a href="335B.html#3365">RE_ENTRY</a> is put on the machine stack underneath the subroutine address.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="339A"></span>339A</td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="339B"></span>339B</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="339C"></span>339C</td>
 <td class="instruction">EXX</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return to the main set of registers.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="339D"></span>339D</td>
 <td class="instruction">LD BC,($5C66)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The current value of BREG is transferred to the <span class="register">B</span> register thereby returning the single operation offset (see <a href="353B.html">compare</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="33A1"></span>
+<div class="comments">
+<div class="paragraph">
+The address of this entry point is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 02 by the routines at <a href="03F8.html">BEEP</a>, <a href="1CF0.html">IF_CMD</a>, <a href="1D03.html">FOR</a>, <a href="1DAB.html">NEXT</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="25F8.html">S_RND</a>, <a href="2AFF.html">LET</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2D4F.html">e_to_fp</a>, <a href="2DA2.html">FP_TO_BC</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="3449.html">series</a>, <a href="36A0.html">n_mod_m</a>, <a href="36C4.html">exp</a>, <a href="3713.html">ln</a>, <a href="3783.html">get_argt</a> and <a href="3851.html">to_power</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">delete</td>
 <td class="address-1"><span id="33A1"></span>33A1</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">An indirect jump to the required subroutine.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="4">
+
+<div class="comments">
+<div class="paragraph">
+The <a href="335B.html#33A1">delete</a> subroutine contains only the single RET instruction above. The literal '02' results in this subroutine being considered as a binary operation that is to be entered with a first number addressed by the <span class="register">HL</span> register pair and a second number addressed by the <span class="register">DE</span> register pair, and the result produced again addressed by the <span class="register">HL</span> register pair.
+</div>
+<div class="paragraph">
+The single RET instruction thereby leads to the first number being considered as the resulting 'last value' and the second number considered as being deleted. Of course the number has not been deleted from the memory but remains inactive and will probably soon be overwritten.
+</div>
+</div>
+</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -358,8 +412,8 @@ This entry point is used by the routine at <a href="33A2.html">33A2</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

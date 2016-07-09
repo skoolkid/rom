@@ -26,7 +26,20 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="08B6.html">08B6</a>.
+Used by the routine at <a href="08B6.html">ME_CONTRL</a>.
+</div>
+<div class="paragraph">
+This subroutine is entered with the following parameters:
+</div>
+<div class="paragraph">
+<ul class="">
+<li>Carry flag reset - MERGE a BASIC line.</li>
+<li>Carry flag set - MERGE a variable.</li>
+<li>Zero flag reset - it will be an 'addition'.</li>
+<li>Zero flag set - it is a 'replacement'.</li>
+<li><span class="register">HL</span> register pair - points to the start of the new entry.</li>
+<li><span class="register">DE</span> register pair - points to where it is to MERGE.</li>
+</ul>
 </div>
 </div>
 <table class="input-0">
@@ -44,232 +57,252 @@ Used by the routine at <a href="08B6.html">08B6</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">ME_ENTER</td>
 <td class="address-2"><span id="092C"></span>092C</td>
-<td class="instruction">JR NZ,$093E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="092C.html#093E">ME_ENT_1</a></td>
+<td class="comment-11" rowspan="1">Jump if handling an 'addition'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="092E"></span>092E</td>
 <td class="instruction">EX AF,AF'</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the flags.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="092F"></span>092F</td>
 <td class="instruction">LD ($5C5F),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="6">Save the 'new' pointer whilst the 'old' line or variable is reclaimed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0932"></span>0932</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0933"></span>0933</td>
-<td class="instruction">CALL <a href="19B8.html">$19B8</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="19B8.html">NEXT_ONE</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0936"></span>0936</td>
-<td class="instruction">CALL <a href="19E5.html#19E8">$19E8</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="19E5.html#19E8">RECLAIM_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0939"></span>0939</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="093A"></span>093A</td>
 <td class="instruction">LD HL,($5C5F)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="093D"></span>093D</td>
 <td class="instruction">EX AF,AF'</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Restore the flags.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="093E"></span>
+<div class="comments">
+<div class="paragraph">
+The new entry can now be made.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">ME_ENT_1</td>
 <td class="address-2"><span id="093E"></span>093E</td>
 <td class="instruction">EX AF,AF'</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the flags.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="093F"></span>093F</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Make a copy of the 'destination' pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0940"></span>0940</td>
-<td class="instruction">CALL <a href="19B8.html">$19B8</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="19B8.html">NEXT_ONE</a></td>
+<td class="comment-11" rowspan="1">Find the length of the 'new' variable/line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0943"></span>0943</td>
 <td class="instruction">LD ($5C5F),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the pointer to the 'new' variable/line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0946"></span>0946</td>
 <td class="instruction">LD HL,($5C53)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch PROG - to avoid corruption.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0949"></span>0949</td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save PROG on the stack and fetch the 'new' pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="094A"></span>094A</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the length.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="094B"></span>094B</td>
 <td class="instruction">EX AF,AF'</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Retrieve the flags.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="094C"></span>094C</td>
-<td class="instruction">JR C,$0955</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="092C.html#0955">ME_ENT_2</a></td>
+<td class="comment-11" rowspan="1">Jump forward if adding a new variable.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="094E"></span>094E</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">A new line is added before the 'destination' location.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="094F"></span>094F</td>
-<td class="instruction">CALL <a href="1652.html#1655">$1655</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1652.html#1655">MAKE_ROOM</a></td>
+<td class="comment-11" rowspan="1">Make the room for the new line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0952"></span>0952</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0953"></span>0953</td>
-<td class="instruction">JR $0958</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="092C.html#0958">ME_ENT_3</a></td>
+<td class="comment-11" rowspan="1">Jump forward.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">ME_ENT_2</td>
 <td class="address-2"><span id="0955"></span>0955</td>
-<td class="instruction">CALL <a href="1652.html#1655">$1655</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1652.html#1655">MAKE_ROOM</a></td>
+<td class="comment-11" rowspan="1">Make the room for the new variable.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">ME_ENT_3</td>
 <td class="address-2"><span id="0958"></span>0958</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Point to the first new location.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0959"></span>0959</td>
 <td class="instruction">POP BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Retrieve the length.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="095A"></span>095A</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Retrieve PROG and store it in its correct place.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="095B"></span>095B</td>
 <td class="instruction">LD ($5C53),DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="095F"></span>095F</td>
 <td class="instruction">LD DE,($5C5F)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Also fetch the 'new' pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0963"></span>0963</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Again save the length and the 'new' pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0964"></span>0964</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0965"></span>0965</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Switch the pointers and copy the 'new' variable/line into the room made for it.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0966"></span>0966</td>
 <td class="instruction">LDIR</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0968"></span>
+<div class="comments">
+<div class="paragraph">
+The 'new' variable/line has now to be removed from the work space.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0968"></span>0968</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the 'new' pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0969"></span>0969</td>
 <td class="instruction">POP BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the length.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="096A"></span>096A</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the 'old' pointer. (Points to the location after the 'added' variable/line.)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="096B"></span>096B</td>
-<td class="instruction">CALL <a href="19E5.html#19E8">$19E8</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="19E5.html#19E8">RECLAIM_2</a></td>
+<td class="comment-11" rowspan="1">Remove the variable/line from the work space.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="096E"></span>096E</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Return with the 'old' pointer in the <span class="register">DE</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="096F"></span>096F</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -280,8 +313,8 @@ Used by the routine at <a href="08B6.html">08B6</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

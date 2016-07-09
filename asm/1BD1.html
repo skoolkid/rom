@@ -26,7 +26,13 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="1B8A.html">1B8A</a>.
+Used by the routine at <a href="1B8A.html">LINE_RUN</a>.
+</div>
+<div class="paragraph">
+The routine at <a href="1BBF.html">LINE_USE</a> continues here.
+</div>
+<div class="paragraph">
+On entry the <span class="register">HL</span> register pair points to the location after the end of the 'next' line to be handled and the <span class="register">DE</span> register pair to the location before the first character of the line. This applies to lines in the program area and also to a line in the editing area - where the next line will be the same line again whilst there are still statements to be interpreted.
 </div>
 </div>
 <table class="input-0">
@@ -44,98 +50,101 @@ Used by the routine at <a href="1B8A.html">1B8A</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">NEXT_LINE</td>
 <td class="address-2"><span id="1BD1"></span>1BD1</td>
 <td class="instruction">LD ($5C55),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Set NXTLIN for use once the current line has been completed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BD4"></span>1BD4</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">As usual CH-ADD points to the location before the first character to be considered.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BD5"></span>1BD5</td>
 <td class="instruction">LD ($5C5D),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BD8"></span>1BD8</td>
 <td class="instruction">LD D,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The statement number is fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BD9"></span>1BD9</td>
 <td class="instruction">LD E,$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The <span class="register">E</span> register is cleared in case <a href="198B.html">EACH_STMT</a> is used.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BDB"></span>1BDB</td>
 <td class="instruction">LD (IY+$0A),$FF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'no jump'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BDF"></span>1BDF</td>
 <td class="instruction">DEC D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">The statement number minus one goes into SUBPPC.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BE0"></span>1BE0</td>
 <td class="instruction">LD (IY+$0D),D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BE3"></span>1BE3</td>
-<td class="instruction">JP Z,<a href="1B28.html">$1B28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP Z,<a href="1B28.html">STMT_LOOP</a></td>
+<td class="comment-11" rowspan="1">A first statement can now be considered.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BE6"></span>1BE6</td>
 <td class="instruction">INC D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">However for later statements the 'starting address' has to be found.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BE7"></span>1BE7</td>
-<td class="instruction">CALL <a href="1988.html#198B">$198B</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="198B.html">EACH_STMT</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BEA"></span>1BEA</td>
-<td class="instruction">JR Z,<a href="1BF4.html">$1BF4</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="1BF4.html">STMT_NEXT</a></td>
+<td class="comment-11" rowspan="1">Jump forward unless the statement does not exist.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="1BEC"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="1B9E.html">1B9E</a>.
+This entry point is used by the routine at <a href="1B9E.html">LINE_NEW</a>.
+</div>
+<div class="paragraph">
+Report N - Statement lost.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">REPORT_N</td>
 <td class="address-2"><span id="1BEC"></span>1BEC</td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BED"></span>1BED</td>
 <td class="instruction">DEFB $16</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -146,8 +155,8 @@ This entry point is used by the routine at <a href="1B9E.html">1B9E</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

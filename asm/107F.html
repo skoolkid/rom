@@ -25,7 +25,12 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+Used by the routine at <a href="0F2C.html">EDITOR</a>.
+</div>
+<div class="paragraph">
+Come here when there has been some kind of error.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,52 +47,52 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">ED_ERROR</td>
 <td class="address-2"><span id="107F"></span>107F</td>
 <td class="instruction">BIT 4,(IY+$30)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump back if using other than channel 'K'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1083"></span>1083</td>
-<td class="instruction">JR Z,<a href="1024.html#1026">$1026</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="1024.html#1026">ED_END</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1085"></span>1085</td>
 <td class="instruction">LD (IY+$00),$FF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="6">Cancel the error number and give a 'rasp' before going around the editor again.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1089"></span>1089</td>
 <td class="instruction">LD D,$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="108B"></span>108B</td>
 <td class="instruction">LD E,(IY-$02)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="108E"></span>108E</td>
 <td class="instruction">LD HL,$1A90</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1091"></span>1091</td>
-<td class="instruction">CALL <a href="03B5.html">$03B5</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="03B5.html">BEEPER</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1094"></span>1094</td>
-<td class="instruction">JP <a href="0F2C.html#0F30">$0F30</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP <a href="0F2C.html#0F30">ED_AGAIN</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -98,8 +103,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

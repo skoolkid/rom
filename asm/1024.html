@@ -26,7 +26,13 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="0FF3.html">0FF3</a> and <a href="1076.html">1076</a>.
+Used by the routines at <a href="0FF3.html">ED_DOWN</a> and <a href="1076.html">ED_SYMBOL</a>.
+</div>
+<div class="paragraph">
+The routine at <a href="101E.html">ED_IGNORE</a> continues here.
+</div>
+<div class="paragraph">
+The address of this routine is derived from an offset found in the <a href="0FA0.html">editing keys table</a>.
 </div>
 </div>
 <table class="input-0">
@@ -44,62 +50,62 @@ Used by the routines at <a href="0FF3.html">0FF3</a> and <a href="1076.html">107
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">ED_ENTER</td>
 <td class="address-2"><span id="1024"></span>1024</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">The addresses of <a href="0F2C.html#0F38">ED_LOOP</a> and <a href="107F.html">ED_ERROR</a> are discarded.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1025"></span>1025</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="1026"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="107F.html">107F</a>.
+This entry point is used by the routine at <a href="107F.html">ED_ERROR</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">ED_END</td>
 <td class="address-2"><span id="1026"></span>1026</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">The old value of ERR-SP is restored.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1027"></span>1027</td>
 <td class="instruction">LD ($5C3D),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="102A"></span>102A</td>
 <td class="instruction">BIT 7,(IY+$00)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Now return if there were no errors.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="102E"></span>102E</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="102F"></span>102F</td>
 <td class="instruction">LD SP,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Otherwise make an indirect jump to the error routine.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1030"></span>1030</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -110,8 +116,8 @@ This entry point is used by the routine at <a href="107F.html">107F</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

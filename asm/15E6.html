@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="15D4.html">15D4</a> and <a href="3645.html">3645</a>.
+Used by the routines at <a href="15D4.html">WAIT_KEY</a> and <a href="3645.html">read_in</a>.
+</div>
+<div class="paragraph">
+The registers are saved and <span class="register">HL</span> made to point to the input address.
 </div>
 </div>
 <table class="input-0">
@@ -44,40 +47,40 @@ Used by the routines at <a href="15D4.html">15D4</a> and <a href="3645.html">364
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">INPUT_AD</td>
 <td class="address-2"><span id="15E6"></span>15E6</td>
 <td class="instruction">EXX</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Save the registers.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="15E7"></span>15E7</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="15E8"></span>15E8</td>
 <td class="instruction">LD HL,($5C51)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the base address for the current channel information.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="15EB"></span>15EB</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Step past the output address.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="15EC"></span>15EC</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="15ED"></span>15ED</td>
-<td class="instruction">JR <a href="15EF.html#15F7">$15F7</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="15EF.html#15F7">CALL_SUB</a></td>
+<td class="comment-11" rowspan="1">Jump forward.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -88,8 +91,8 @@ Used by the routines at <a href="15D4.html">15D4</a> and <a href="3645.html">364
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

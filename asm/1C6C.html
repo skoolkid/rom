@@ -25,7 +25,12 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is derived from an offset found in the <a href="1C01.html">command class table</a>.
+</div>
+<div class="paragraph">
+The command class 04 entry point is used by FOR and NEXT statements.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,52 +47,52 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLASS_04</td>
 <td class="address-2"><span id="1C6C"></span>1C6C</td>
-<td class="instruction">CALL <a href="28B2.html">$28B2</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="28B2.html">LOOK_VARS</a></td>
+<td class="comment-11" rowspan="1">Look in the variables area for the variable being used.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1C6F"></span>1C6F</td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="5">Save the <span class="register">AF</span> register pair whilst the discriminator byte is tested to ensure that the variable is a FOR-NEXT control variable.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1C70"></span>1C70</td>
 <td class="instruction">LD A,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1C71"></span>1C71</td>
 <td class="instruction">OR $9F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1C73"></span>1C73</td>
 <td class="instruction">INC A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1C74"></span>1C74</td>
-<td class="instruction">JR NZ,<a href="1C79.html#1C8A">$1C8A</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="1C79.html#1C8A">REPORT_C</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1C76"></span>1C76</td>
 <td class="instruction">POP AF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Restore the flags register and jump to make the variable that has been found the 'variable in assignment'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1C77"></span>1C77</td>
-<td class="instruction">JR <a href="1C22.html">$1C22</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="1C22.html">VAR_A_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -98,8 +103,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

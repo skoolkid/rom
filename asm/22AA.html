@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="22CB.html">22CB</a> and <a href="22DC.html">22DC</a>.
+Used by the routines at <a href="22CB.html">POINT_SUB</a> and <a href="22DC.html">PLOT</a>.
+</div>
+<div class="paragraph">
+This subroutine is called by <a href="22CB.html">POINT_SUB</a> and by <a href="22DC.html">PLOT</a>. Is is entered with the co-ordinates of a pixel in the <span class="register">BC</span> register pair and returns with <span class="register">HL</span> holding the address of the display file byte which contains that pixel and <span class="register">A</span> pointing to the position of the pixel within the byte.
 </div>
 </div>
 <table class="input-0">
@@ -44,166 +47,166 @@ Used by the routines at <a href="22CB.html">22CB</a> and <a href="22DC.html">22D
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">PIXEL_ADD</td>
 <td class="address-2"><span id="22AA"></span>22AA</td>
 <td class="instruction">LD A,$AF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Test that the y co-ordinate (in <span class="register">B</span>) is not greater than 175.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22AC"></span>22AC</td>
 <td class="instruction">SUB B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22AD"></span>22AD</td>
-<td class="instruction">JP C,<a href="24B7.html#24F9">$24F9</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP C,<a href="24B7.html#24F9">REPORT_B_3</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22B0"></span>22B0</td>
 <td class="instruction">LD B,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">B</span> now contains 175 minus y.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22B1"></span>22B1</td>
 <td class="instruction">AND A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">A</span> holds b7b6b5b4b3b2b1b0, the bits of <span class="register">B</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22B2"></span>22B2</td>
 <td class="instruction">RRA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">And now 0b7b6b5b4b3b2b1.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22B3"></span>22B3</td>
 <td class="instruction">SCF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Now 10b7b6b5b4b3b2.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22B4"></span>22B4</td>
 <td class="instruction">RRA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22B5"></span>22B5</td>
 <td class="instruction">AND A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Now 010b7b6b5b4b3.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22B6"></span>22B6</td>
 <td class="instruction">RRA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22B7"></span>22B7</td>
 <td class="instruction">XOR B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Finally 010b7b6b2b1b0, so that <span class="register">H</span> becomes 64+8*INT(<span class="register">B</span>/64)+(<span class="register">B</span> mod 8), the high byte of the pixel address.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22B8"></span>22B8</td>
-<td class="instruction">AND $F8</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">AND %11111000</td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22BA"></span>22BA</td>
 <td class="instruction">XOR B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22BB"></span>22BB</td>
 <td class="instruction">LD H,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22BC"></span>22BC</td>
 <td class="instruction">LD A,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">C</span> contains x.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22BD"></span>22BD</td>
 <td class="instruction">RLCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3"><span class="register">A</span> starts as c7c6c5c4c3c2c1c0 and becomes c4c3c2c1c0c7c6c5.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22BE"></span>22BE</td>
 <td class="instruction">RLCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22BF"></span>22BF</td>
 <td class="instruction">RLCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22C0"></span>22C0</td>
 <td class="instruction">XOR B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Now c4c3b5b4b3c7c6c5.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22C1"></span>22C1</td>
-<td class="instruction">AND $C7</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">AND %11000111</td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22C3"></span>22C3</td>
 <td class="instruction">XOR B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22C4"></span>22C4</td>
 <td class="instruction">RLCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Finally b5b4b3c7c6c5c4c3, so that <span class="register">L</span> becomes 32*INT((<span class="register">B</span> mod 64)/8)+INT(x/8), the low byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22C5"></span>22C5</td>
 <td class="instruction">RLCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22C6"></span>22C6</td>
 <td class="instruction">LD L,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22C7"></span>22C7</td>
 <td class="instruction">LD A,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2"><span class="register">A</span> holds x mod 8, so the pixel is bit (<span class="register">A</span>-7) within the byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22C8"></span>22C8</td>
 <td class="instruction">AND $07</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22CA"></span>22CA</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -214,8 +217,8 @@ Used by the routines at <a href="22CB.html">22CB</a> and <a href="22DC.html">22D
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

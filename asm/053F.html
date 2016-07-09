@@ -25,7 +25,15 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+Used by the routines at <a href="04C2.html">SA_BYTES</a> and <a href="0556.html">LD_BYTES</a>.
+</div>
+<div class="paragraph">
+This subroutine is common to both saving and loading.
+</div>
+<div class="paragraph">
+The border is set to its original colour and the BREAK key tested for a last time.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,100 +50,120 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">SA_LD_RET</td>
 <td class="address-2"><span id="053F"></span>053F</td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the carry flag. (It is reset after a loading error.)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0540"></span>0540</td>
 <td class="instruction">LD A,($5C48)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Fetch the original border colour from its system variable.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0543"></span>0543</td>
 <td class="instruction">AND $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0545"></span>0545</td>
 <td class="instruction">RRCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Move the border colour to bits 2, 1 and 0.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0546"></span>0546</td>
 <td class="instruction">RRCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0547"></span>0547</td>
 <td class="instruction">RRCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0548"></span>0548</td>
 <td class="instruction">OUT ($FE),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Set the border to its original colour.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="054A"></span>054A</td>
 <td class="instruction">LD A,$7F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Read the BREAK key for a last time.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="054C"></span>054C</td>
 <td class="instruction">IN A,($FE)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="054E"></span>054E</td>
 <td class="instruction">RRA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="054F"></span>054F</td>
 <td class="instruction">EI</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Enable the maskable interrupt.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0550"></span>0550</td>
-<td class="instruction">JR C,$0554</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="053F.html#0554">SA_LD_END</a></td>
+<td class="comment-11" rowspan="1">Jump unless a break is to be made.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0552"></span>
+<div class="comments">
+<div class="paragraph">
+Report D - BREAK-CONT repeats.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">REPORT_D</td>
 <td class="address-1"><span id="0552"></span>0552</td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0553"></span>0553</td>
 <td class="instruction">DEFB $0C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0554"></span>
+<div class="comments">
+<div class="paragraph">
+Continue here.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_LD_END</td>
 <td class="address-2"><span id="0554"></span>0554</td>
 <td class="instruction">POP AF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Retrieve the carry flag.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0555"></span>0555</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return to the calling routine.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -146,8 +174,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

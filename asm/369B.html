@@ -20,12 +20,17 @@
 <td class="next"><span class="next-1">Next: <a href="36A0.html">36A0</a></span></td>
 </tr>
 </table>
-<div class="description">369B: THE 'END-CALC' SUBROUTINE</div>
+<div class="description">369B: THE 'END-CALC' SUBROUTINE (offset 38)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 38 by the routines at <a href="03F8.html">BEEP</a>, <a href="1736.html">OPEN</a>, <a href="1CDE.html">FETCH_NUM</a>, <a href="1CF0.html">IF_CMD</a>, <a href="1D03.html">FOR</a>, <a href="1DAB.html">NEXT</a>, <a href="1DDA.html">NEXT_LOOP</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="25F8.html">S_RND</a>, <a href="2627.html">S_PI</a>, <a href="26C9.html">S_LETTER</a>, <a href="2AFF.html">LET</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2D2B.html">STACK_BC</a>, <a href="2D3B.html">INT_TO_FP</a>, <a href="2D4F.html">e_to_fp</a>, <a href="2DA2.html">FP_TO_BC</a>, <a href="2DC1.html">LOG_2_A</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="3449.html">series</a>, <a href="353B.html">compare</a>, <a href="36A0.html">n_mod_m</a>, <a href="36AF.html">int</a>, <a href="36C4.html">exp</a>, <a href="3713.html">ln</a>, <a href="3783.html">get_argt</a>, <a href="37B5.html">sin</a>, <a href="37DA.html">tan</a>, <a href="37E2.html">atn</a>, <a href="3833.html">asn</a>, <a href="3843.html">acs</a>, <a href="384A.html">sqr</a> and <a href="3851.html">to_power</a>.
+</div>
+<div class="paragraph">
+This subroutine ends a RST 28 operation.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,34 +47,34 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">end_calc</td>
 <td class="address-2"><span id="369B"></span>369B</td>
 <td class="instruction">POP AF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The return address to the calculator (<a href="335B.html#3365">RE_ENTRY</a>) is discarded.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="369C"></span>369C</td>
 <td class="instruction">EXX</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Instead, the address in <span class="register">HL'</span> is put on the machine stack and an indirect jump is made to it. <span class="register">HL'</span> will now hold any earlier address in the calculator chain of addresses.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="369D"></span>369D</td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="369E"></span>369E</td>
 <td class="instruction">EXX</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="369F"></span>369F</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -80,8 +85,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

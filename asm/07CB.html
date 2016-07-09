@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="0605.html">0605</a>.
+Used by the routine at <a href="0605.html">SAVE_ETC</a>.
+</div>
+<div class="paragraph">
+The verification process involves the loading of a block of data, a byte at a time, but the bytes are not stored - only checked. This routine is also used to load blocks of data that have been described with 'SCREEN$' or 'CODE'.
 </div>
 </div>
 <table class="input-0">
@@ -44,172 +47,202 @@ Used by the routine at <a href="0605.html">0605</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">VR_CONTRL</td>
 <td class="address-2"><span id="07CB"></span>07CB</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the 'pointer'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07CC"></span>07CC</td>
 <td class="instruction">LD L,(IX-$06)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Fetch the 'number of bytes' as described in the 'old' header.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07CF"></span>07CF</td>
 <td class="instruction">LD H,(IX-$05)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07D2"></span>07D2</td>
 <td class="instruction">LD E,(IX+$0B)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Fetch also the number from the 'new' header.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07D5"></span>07D5</td>
 <td class="instruction">LD D,(IX+$0C)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07D8"></span>07D8</td>
 <td class="instruction">LD A,H</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Jump forward if the 'length' is unspecified, e.g. 'LOAD name CODE' only.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07D9"></span>07D9</td>
 <td class="instruction">OR L</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07DA"></span>07DA</td>
-<td class="instruction">JR Z,$07E9</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="07CB.html#07E9">VR_CONT_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07DC"></span>07DC</td>
 <td class="instruction">SBC HL,DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Give report R if attempting to load a larger block than has been requested.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07DE"></span>07DE</td>
-<td class="instruction">JR C,<a href="0802.html#0806">$0806</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="0802.html#0806">REPORT_R</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07E0"></span>07E0</td>
-<td class="instruction">JR Z,$07E9</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="07CB.html#07E9">VR_CONT_1</a></td>
+<td class="comment-11" rowspan="1">Accept equal 'lengths'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07E2"></span>07E2</td>
 <td class="instruction">LD A,(IX+$00)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Also give report R if trying to verify blocks that are of unequal size. ('Old length' greater than 'new length'.)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07E5"></span>07E5</td>
 <td class="instruction">CP $03</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07E7"></span>07E7</td>
-<td class="instruction">JR NZ,<a href="0802.html#0806">$0806</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="0802.html#0806">REPORT_R</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="07E9"></span>
+<div class="comments">
+<div class="paragraph">
+The routine continues by considering the 'destination pointer'.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">VR_CONT_1</td>
 <td class="address-2"><span id="07E9"></span>07E9</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the 'pointer', i.e. the 'start'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07EA"></span>07EA</td>
 <td class="instruction">LD A,H</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="5">This 'pointer' will be used unless it is zero, in which case the 'start' found in the 'new' header will be used instead.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07EB"></span>07EB</td>
 <td class="instruction">OR L</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07EC"></span>07EC</td>
-<td class="instruction">JR NZ,$07F4</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="07CB.html#07F4">VR_CONT_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07EE"></span>07EE</td>
 <td class="instruction">LD L,(IX+$0D)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07F1"></span>07F1</td>
 <td class="instruction">LD H,(IX+$0E)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="07F4"></span>
+<div class="comments">
+<div class="paragraph">
+The verify/load flag is now considered and the actual load made.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">VR_CONT_2</td>
 <td class="address-2"><span id="07F4"></span>07F4</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Move the 'pointer' to the <span class="register">IX</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07F5"></span>07F5</td>
 <td class="instruction">POP IX</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07F7"></span>07F7</td>
 <td class="instruction">LD A,($5C74)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Jump forward unless using the VERIFY command, with the carry flag signalling 'LOAD'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07FA"></span>07FA</td>
 <td class="instruction">CP $02</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07FC"></span>07FC</td>
 <td class="instruction">SCF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07FD"></span>07FD</td>
-<td class="instruction">JR NZ,$0800</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="07CB.html#0800">VR_CONT_3</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="07FF"></span>07FF</td>
 <td class="instruction">AND A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'VERIFY'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">VR_CONT_3</td>
 <td class="address-2"><span id="0800"></span>0800</td>
 <td class="instruction">LD A,$FF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'accept data block only' before loading the block.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="4">
+
+<div class="comments">
+<div class="paragraph">
+This routine continues into <a href="0802.html">LD_BLOCK</a>.
+</div>
+</div>
+</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -220,8 +253,8 @@ Used by the routine at <a href="0605.html">0605</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

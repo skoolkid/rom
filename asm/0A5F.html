@@ -25,7 +25,12 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is derived from an offset found in the <a href="0A11.html">control character table</a>.
+</div>
+<div class="paragraph">
+The current column value is manipulated and the <span class="register">A</span> register set to hold +00 (for TAB 0) or +10 (for TAB 16).
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,40 +47,40 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">PO_COMMA</td>
 <td class="address-2"><span id="0A5F"></span>0A5F</td>
-<td class="instruction">CALL <a href="0B03.html">$0B03</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="0B03.html">PO_FETCH</a></td>
+<td class="comment-11" rowspan="1">Why again?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0A62"></span>0A62</td>
 <td class="instruction">LD A,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Current column number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0A63"></span>0A63</td>
 <td class="instruction">DEC A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Move rightwards by two columns and then test.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0A64"></span>0A64</td>
 <td class="instruction">DEC A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0A65"></span>0A65</td>
 <td class="instruction">AND $10</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The <span class="register">A</span> register will be +00 or +10.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0A67"></span>0A67</td>
-<td class="instruction">JR <a href="0A6D.html#0AC3">$0AC3</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="0A6D.html#0AC3">PO_FILL</a></td>
+<td class="comment-11" rowspan="1">Exit via <a href="0A6D.html#0AC3">PO_FILL</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -86,8 +91,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

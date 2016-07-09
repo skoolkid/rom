@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="1FC9.html">1FC9</a> and <a href="2089.html">2089</a>.
+Used by the routines at <a href="1FDF.html">PRINT_2</a> and <a href="2089.html">INPUT</a>.
+</div>
+<div class="paragraph">
+The various position controlling characters are considered by this subroutine.
 </div>
 </div>
 <table class="input-0">
@@ -44,118 +47,118 @@ Used by the routines at <a href="1FC9.html">1FC9</a> and <a href="2089.html">208
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">PR_POSN_1</td>
 <td class="address-2"><span id="204E"></span>204E</td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get the present character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="204F"></span>204F</td>
 <td class="instruction">CP ";"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if it is a ';'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2051"></span>2051</td>
-<td class="instruction">JR Z,$2067</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="204E.html#2067">PR_POSN_3</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2053"></span>2053</td>
 <td class="instruction">CP ","</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Also jump forward with a character other than a ',', but do not actually print the character if checking syntax.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2055"></span>2055</td>
-<td class="instruction">JR NZ,$2061</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="204E.html#2061">PR_POSN_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2057"></span>2057</td>
-<td class="instruction">CALL <a href="2530.html">$2530</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="205A"></span>205A</td>
-<td class="instruction">JR Z,$2067</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="204E.html#2067">PR_POSN_3</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="205C"></span>205C</td>
 <td class="instruction">LD A,$06</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Load the <span class="register">A</span> register with the 'comma' control code and print it, then jump forward.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="205E"></span>205E</td>
 <td class="instruction">RST <a href="0010.html">$10</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="205F"></span>205F</td>
-<td class="instruction">JR $2067</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="204E.html#2067">PR_POSN_3</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">PR_POSN_2</td>
 <td class="address-2"><span id="2061"></span>2061</td>
 <td class="instruction">CP "'"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Is it a '''?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2063"></span>2063</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return now (with the zero flag reset) if not any of the position controllers.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2064"></span>2064</td>
-<td class="instruction">CALL <a href="1FF5.html">$1FF5</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1FF5.html">PRINT_CR</a></td>
+<td class="comment-11" rowspan="1">Print 'carriage return' unless checking syntax.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">PR_POSN_3</td>
 <td class="address-2"><span id="2067"></span>2067</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2068"></span>2068</td>
-<td class="instruction">CALL <a href="2045.html">$2045</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2045.html">PR_END_Z</a></td>
+<td class="comment-11" rowspan="2">If not at the end of a print statement then jump forward.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="206B"></span>206B</td>
-<td class="instruction">JR NZ,$206E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="204E.html#206E">PR_POSN_4</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="206D"></span>206D</td>
 <td class="instruction">POP BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Otherwise drop the return address from the stack.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">PR_POSN_4</td>
 <td class="address-2"><span id="206E"></span>206E</td>
 <td class="instruction">CP A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Set the zero flag and return.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="206F"></span>206F</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -166,8 +169,8 @@ Used by the routines at <a href="1FC9.html">1FC9</a> and <a href="2089.html">208
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

@@ -20,13 +20,19 @@
 <td class="next"><span class="next-1">Next: <a href="368F.html">368F</a></span></td>
 </tr>
 </table>
-<div class="description">3686: THE 'JUMP' SUBROUTINE</div>
+<div class="description">3686: THE 'JUMP' SUBROUTINE (offset 33)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="368F.html">368F</a>.
+Used by the routine at <a href="368F.html">jump_true</a>.
+</div>
+<div class="paragraph">
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 33 by the routines at <a href="2D4F.html">e_to_fp</a>, <a href="37AA.html">cos</a> and <a href="37E2.html">atn</a>.
+</div>
+<div class="paragraph">
+This subroutine executes an unconditional jump when called by the literal '33'.
 </div>
 </div>
 <table class="input-0">
@@ -44,68 +50,68 @@ Used by the routine at <a href="368F.html">368F</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">jump</td>
 <td class="address-2"><span id="3686"></span>3686</td>
 <td class="instruction">EXX</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Go to the next alternate register set.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="3687"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="367A.html">367A</a>.
+This entry point is used by the routine at <a href="367A.html">dec_jr_nz</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">JUMP_2</td>
 <td class="address-2"><span id="3687"></span>3687</td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The next literal (jump length) is put in the <span class="register">E'</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3688"></span>3688</td>
 <td class="instruction">LD A,E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">The number +00 or +FF is formed in <span class="register">A</span> according as <span class="register">E'</span> is positive or negative, and is then copied to <span class="register">D'</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3689"></span>3689</td>
 <td class="instruction">RLA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="368A"></span>368A</td>
 <td class="instruction">SBC A,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="368B"></span>368B</td>
 <td class="instruction">LD D,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="368C"></span>368C</td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2"><span class="register">HL'</span> now holds the next literal pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="368D"></span>368D</td>
 <td class="instruction">EXX</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="368E"></span>368E</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -116,8 +122,8 @@ This entry point is used by the routine at <a href="367A.html">367A</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

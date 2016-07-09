@@ -25,7 +25,12 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="1A48.html#1ACF">parameter table</a>.
+</div>
+<div class="paragraph">
+The operand for a RESTORE command is taken as a line number, zero being used if no operand is given.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,56 +47,56 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">RESTORE</td>
 <td class="address-2"><span id="1E42"></span>1E42</td>
-<td class="instruction">CALL <a href="1E94.html#1E99">$1E99</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1E94.html#1E99">FIND_INT2</a></td>
+<td class="comment-11" rowspan="1">Compress the operand into the <span class="register">BC</span> register pair.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="1E45"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="1EA1.html">1EA1</a>.
+This entry point is used by the routine at <a href="1EA1.html">RUN</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">REST_RUN</td>
 <td class="address-2"><span id="1E45"></span>1E45</td>
 <td class="instruction">LD H,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Transfer the result to the <span class="register">HL</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E46"></span>1E46</td>
 <td class="instruction">LD L,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E47"></span>1E47</td>
-<td class="instruction">CALL <a href="196E.html">$196E</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="196E.html">LINE_ADDR</a></td>
+<td class="comment-11" rowspan="1">Now find the address of that line or the 'first line after'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E4A"></span>1E4A</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Make DATADD point to the location before.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E4B"></span>1E4B</td>
 <td class="instruction">LD ($5C57),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E4E"></span>1E4E</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return once it is done.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -102,8 +107,8 @@ This entry point is used by the routine at <a href="1EA1.html">1EA1</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

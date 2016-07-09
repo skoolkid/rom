@@ -20,13 +20,19 @@
 <td class="next"><span class="next-1">Next: <a href="3449.html">3449</a></span></td>
 </tr>
 </table>
-<div class="description">343C: THE 'EXCHANGE' SUBROUTINE</div>
+<div class="description">343C: THE 'EXCHANGE' SUBROUTINE (offset 01)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="353B.html">353B</a>.
+Used by the routine at <a href="353B.html">compare</a>.
+</div>
+<div class="paragraph">
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 01 by the routines at <a href="03F8.html">BEEP</a>, <a href="1736.html">OPEN</a>, <a href="1D03.html">FOR</a>, <a href="1DDA.html">NEXT_LOOP</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="2D3B.html">INT_TO_FP</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="3449.html">series</a>, <a href="36A0.html">n_mod_m</a>, <a href="36AF.html">int</a>, <a href="3713.html">ln</a>, <a href="3783.html">get_argt</a>, <a href="37DA.html">tan</a>, <a href="37E2.html">atn</a> and <a href="3851.html">to_power</a>.
+</div>
+<div class="paragraph">
+This binary operation 'exchanges' the first number with the second number, i.e. the topmost two numbers on the calculator stack are exchanged.
 </div>
 </div>
 <table class="input-0">
@@ -44,70 +50,70 @@ Used by the routine at <a href="353B.html">353B</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">exchange</td>
 <td class="address-2"><span id="343C"></span>343C</td>
 <td class="instruction">LD B,$05</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">There are five bytes involved.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">SWAP_BYTE</td>
 <td class="address-2"><span id="343E"></span>343E</td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Each byte of the second number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="343F"></span>343F</td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Each byte of the first number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3440"></span>3440</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Switch source and destination.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3441"></span>3441</td>
 <td class="instruction">LD (DE),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Now to the first number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3442"></span>3442</td>
 <td class="instruction">LD (HL),C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Now to the second number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3443"></span>3443</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Move to consider the next pair of bytes.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3444"></span>3444</td>
 <td class="instruction">INC DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3445"></span>3445</td>
-<td class="instruction">DJNZ $343E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DJNZ <a href="343C.html#343E">SWAP_BYTE</a></td>
+<td class="comment-11" rowspan="1">Exchange the five bytes.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3447"></span>3447</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get the pointers correct as 5 is an odd number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3448"></span>3448</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -118,8 +124,8 @@ Used by the routine at <a href="353B.html">353B</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

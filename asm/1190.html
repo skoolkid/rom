@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="1097.html">1097</a>.
+Used by the routine at <a href="1097.html">CLEAR_SP</a>.
+</div>
+<div class="paragraph">
+These subroutines return with <span class="register">HL</span> pointing to the first location and <span class="register">DE</span> the 'last' location of either the editing area or the work space.
 </div>
 </div>
 <table class="input-0">
@@ -44,74 +47,74 @@ Used by the routine at <a href="1097.html">1097</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">SET_HL</td>
 <td class="address-2"><span id="1190"></span>1190</td>
 <td class="instruction">LD HL,($5C61)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Point to the last location of the editing area.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1193"></span>1193</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1194"></span>1194</td>
 <td class="instruction">AND A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Clear the carry flag.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="1195"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="1031.html">1031</a> and <a href="111D.html">111D</a>.
+This entry point is used by the routines at <a href="1031.html">ED_EDGE</a> and <a href="111D.html">ED_COPY</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">SET_DE</td>
 <td class="address-2"><span id="1195"></span>1195</td>
 <td class="instruction">LD DE,($5C59)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Point to the start of the editing area and return if in 'editing mode'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1199"></span>1199</td>
 <td class="instruction">BIT 5,(IY+$37)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="119D"></span>119D</td>
 <td class="instruction">RET Z</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="119E"></span>119E</td>
 <td class="instruction">LD DE,($5C61)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Otherwise change <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="11A2"></span>11A2</td>
 <td class="instruction">RET C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return if now intended.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="11A3"></span>11A3</td>
 <td class="instruction">LD HL,($5C63)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Fetch STKBOT and then return.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="11A6"></span>11A6</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -122,8 +125,8 @@ This entry point is used by the routines at <a href="1031.html">1031</a> and <a 
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

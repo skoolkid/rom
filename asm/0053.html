@@ -26,7 +26,13 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="0008.html">0008</a>.
+Used by the routine at <a href="0008.html">ERROR_1</a>.
+</div>
+<div class="paragraph">
+The return address to the interpreter points to the 'DEFB' that signifies which error has occurred. This 'DEFB' is fetched and transferred to ERR-NR.
+</div>
+<div class="paragraph">
+The machine stack is cleared before jumping forward to clear the calculator stack.
 </div>
 </div>
 <table class="input-0">
@@ -44,44 +50,44 @@ Used by the routine at <a href="0008.html">0008</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">ERROR_2</td>
 <td class="address-2"><span id="0053"></span>0053</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">The address on the stack points to the error code.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0054"></span>0054</td>
 <td class="instruction">LD L,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="0055"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="1F05.html">1F05</a>.
+This entry point is used by the routine at <a href="1F05.html">TEST_ROOM</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">ERROR_3</td>
 <td class="address-2"><span id="0055"></span>0055</td>
 <td class="instruction">LD (IY+$00),L</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">It is transferred to ERR-NR.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0058"></span>0058</td>
 <td class="instruction">LD SP,($5C3D)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">The machine stack is cleared before exiting via <a href="16B0.html#16C5">SET_STK</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="005C"></span>005C</td>
-<td class="instruction">JP <a href="16B0.html#16C5">$16C5</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP <a href="16B0.html#16C5">SET_STK</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -92,8 +98,8 @@ This entry point is used by the routine at <a href="1F05.html">1F05</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

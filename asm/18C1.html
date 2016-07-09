@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="1855.html">1855</a> and <a href="18E1.html">18E1</a>.
+Used by the routines at <a href="1855.html">OUT_LINE</a> and <a href="18E1.html">OUT_CURS</a>.
+</div>
+<div class="paragraph">
+The 'error cursor' and the 'mode cursors' are printed using this subroutine.
 </div>
 </div>
 <table class="input-0">
@@ -44,106 +47,106 @@ Used by the routines at <a href="1855.html">1855</a> and <a href="18E1.html">18E
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">OUT_FLASH</td>
 <td class="address-2"><span id="18C1"></span>18C1</td>
 <td class="instruction">EXX</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Switch to the alternate registers.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18C2"></span>18C2</td>
 <td class="instruction">LD HL,($5C8F)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Save the values of ATTR-T and MASK-T on the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18C5"></span>18C5</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18C6"></span>18C6</td>
 <td class="instruction">RES 7,H</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Ensure that FLASH is active.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18C8"></span>18C8</td>
 <td class="instruction">SET 7,L</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18CA"></span>18CA</td>
 <td class="instruction">LD ($5C8F),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Use these modified values for ATTR-T and MASK-T.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18CD"></span>18CD</td>
 <td class="instruction">LD HL,$5C91</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">This is P-FLAG.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18D0"></span>18D0</td>
 <td class="instruction">LD D,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Save P-FLAG also on the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18D1"></span>18D1</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18D2"></span>18D2</td>
 <td class="instruction">LD (HL),$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Ensure INVERSE 0, OVER 0, and not PAPER 9 nor INK 9.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18D4"></span>18D4</td>
-<td class="instruction">CALL <a href="09F4.html">$09F4</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="09F4.html">PRINT_OUT</a></td>
+<td class="comment-11" rowspan="1">The character is printed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18D7"></span>18D7</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">The former value of P-FLAG is restored.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18D8"></span>18D8</td>
 <td class="instruction">LD (IY+$57),H</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18DB"></span>18DB</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">The former values of ATTR-T and MASK-T are also restored before returning.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18DC"></span>18DC</td>
 <td class="instruction">LD ($5C8F),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18DF"></span>18DF</td>
 <td class="instruction">EXX</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18E0"></span>18E0</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -154,8 +157,8 @@ Used by the routines at <a href="1855.html">1855</a> and <a href="18E1.html">18E
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

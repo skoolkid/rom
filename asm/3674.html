@@ -20,12 +20,17 @@
 <td class="next"><span class="next-1">Next: <a href="367A.html">367A</a></span></td>
 </tr>
 </table>
-<div class="description">3674: THE 'LEN' FUNCTION</div>
+<div class="description">3674: THE 'LEN' FUNCTION (offset 1E)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called indirectly via <a href="33A2.html">fp_calc_2</a>.
+</div>
+<div class="paragraph">
+This subroutine handles the function LEN A$ and returns a 'last value' that is equal to the length of the string.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,16 +47,16 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">len</td>
 <td class="address-2"><span id="3674"></span>3674</td>
-<td class="instruction">CALL <a href="2BF1.html">$2BF1</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2BF1.html">STK_FETCH</a></td>
+<td class="comment-11" rowspan="1">The parameters of the string are fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3677"></span>3677</td>
-<td class="instruction">JP <a href="2D2B.html">$2D2B</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP <a href="2D2B.html">STACK_BC</a></td>
+<td class="comment-11" rowspan="1">The subroutine exits via <a href="2D2B.html">STACK_BC</a> which gives the correct 'last value'.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -62,8 +67,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

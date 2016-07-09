@@ -26,7 +26,13 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="0808.html">0808</a> and <a href="08B6.html">08B6</a>.
+Used by the routines at <a href="0808.html">LD_CONTRL</a> and <a href="08B6.html">ME_CONTRL</a>.
+</div>
+<div class="paragraph">
+The routine at <a href="07CB.html">VR_CONTRL</a> continues here.
+</div>
+<div class="paragraph">
+This subroutine is common to all the tape loading routines. In the case of LOAD and VERIFY it acts as a full return from the cassette handling routines but in the case of MERGE the data block has yet to be merged.
 </div>
 </div>
 <table class="input-0">
@@ -44,38 +50,41 @@ Used by the routines at <a href="0808.html">0808</a> and <a href="08B6.html">08B
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">LD_BLOCK</td>
 <td class="address-2"><span id="0802"></span>0802</td>
-<td class="instruction">CALL <a href="0556.html">$0556</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="0556.html">LD_BYTES</a></td>
+<td class="comment-11" rowspan="1">Load/verify a data block.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0805"></span>0805</td>
 <td class="instruction">RET C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return unless an error.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="0806"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="07CB.html">07CB</a>.
+This entry point is used by the routine at <a href="07CB.html">VR_CONTRL</a>.
+</div>
+<div class="paragraph">
+Report R - Tape loading error.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">REPORT_R</td>
 <td class="address-2"><span id="0806"></span>0806</td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0807"></span>0807</td>
 <td class="instruction">DEFB $1A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -86,8 +95,8 @@ This entry point is used by the routine at <a href="07CB.html">07CB</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

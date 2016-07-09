@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="1D03.html">1D03</a>, <a href="1DEC.html">1DEC</a> and <a href="27BD.html">27BD</a>.
+Used by the routines at <a href="1D03.html">FOR</a>, <a href="1DEC.html">READ_3</a> and <a href="27BD.html">S_FN_SBRN</a>.
+</div>
+<div class="paragraph">
+This subroutine is used to find occurrences of either DATA, DEF FN or NEXT. On entry the appropriate token code is in the <span class="register">E</span> register and the <span class="register">HL</span> register pair points to the start of the search area.
 </div>
 </div>
 <table class="input-0">
@@ -44,166 +47,176 @@ Used by the routines at <a href="1D03.html">1D03</a>, <a href="1DEC.html">1DEC</
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">LOOK_PROG</td>
 <td class="address-2"><span id="1D86"></span>1D86</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the present character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D87"></span>1D87</td>
 <td class="instruction">CP ":"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if it is a ':', which will indicate there are more statements in the present line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D89"></span>1D89</td>
-<td class="instruction">JR Z,$1DA3</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="1D86.html#1DA3">LOOK_P_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="1D8B"></span>
+<div class="comments">
+<div class="paragraph">
+Now a loop is entered to examine each further line in the program.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LOOK_P_1</td>
 <td class="address-2"><span id="1D8B"></span>1D8B</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="5">Fetch the high byte of the line number and return with carry set if there are no further lines in the program.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D8C"></span>1D8C</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D8D"></span>1D8D</td>
 <td class="instruction">AND $C0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D8F"></span>1D8F</td>
 <td class="instruction">SCF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D90"></span>1D90</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D91"></span>1D91</td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">The line number is fetched and passed to NEWPPC.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D92"></span>1D92</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D93"></span>1D93</td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D94"></span>1D94</td>
 <td class="instruction">LD ($5C42),BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D98"></span>1D98</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Then the length is collected.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D99"></span>1D99</td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D9A"></span>1D9A</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D9B"></span>1D9B</td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D9C"></span>1D9C</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">The pointer is saved whilst the address of the end of the line is formed in the <span class="register">BC</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D9D"></span>1D9D</td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D9E"></span>1D9E</td>
 <td class="instruction">LD B,H</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1D9F"></span>1D9F</td>
 <td class="instruction">LD C,L</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1DA0"></span>1DA0</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The pointer is restored.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1DA1"></span>1DA1</td>
 <td class="instruction">LD D,$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Set the statement counter to zero.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">LOOK_P_2</td>
 <td class="address-2"><span id="1DA3"></span>1DA3</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">The end-of-line pointer is saved whilst the statements of the line are examined.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1DA4"></span>1DA4</td>
-<td class="instruction">CALL <a href="1988.html#198B">$198B</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="198B.html">EACH_STMT</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1DA7"></span>1DA7</td>
 <td class="instruction">POP BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1DA8"></span>1DA8</td>
 <td class="instruction">RET NC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Make a return if there was an 'occurrence'; otherwise consider the next line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1DA9"></span>1DA9</td>
-<td class="instruction">JR $1D8B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="1D86.html#1D8B">LOOK_P_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -214,8 +227,8 @@ Used by the routines at <a href="1D03.html">1D03</a>, <a href="1DEC.html">1DEC</
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

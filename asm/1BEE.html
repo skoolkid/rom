@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="0605.html">0605</a>, <a href="17F9.html">17F9</a>, <a href="1C0D.html">1C0D</a>, <a href="1C22.html">1C22</a>, <a href="1C96.html">1C96</a>, <a href="1D03.html">1D03</a>, <a href="1DEC.html">1DEC</a>, <a href="1E27.html">1E27</a>, <a href="1F60.html">1F60</a>, <a href="1FC9.html">1FC9</a>, <a href="2089.html">2089</a>, <a href="2320.html">2320</a>, <a href="2382.html">2382</a> and <a href="2C02.html">2C02</a>.
+Used by the routines at <a href="0605.html">SAVE_ETC</a>, <a href="17F9.html">LIST</a>, <a href="1C0D.html">CLASS_03</a>, <a href="1C4E.html">CLASS_02</a>, <a href="1C96.html">CLASS_07</a>, <a href="1D03.html">FOR</a>, <a href="1DEC.html">READ_3</a>, <a href="1E27.html">DATA</a>, <a href="1F60.html">DEF_FN</a>, <a href="1FC9.html">LPRINT</a>, <a href="2089.html">INPUT</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a> and <a href="2C02.html">DIM</a>.
+</div>
+<div class="paragraph">
+This is an important routine and is called from many places in the monitor program when the syntax of the edit-line is being checked. The purpose of the routine is to give an error report if the end of a statement has not been reached and to move on to the next statement if the syntax is correct.
 </div>
 </div>
 <table class="input-0">
@@ -44,28 +47,28 @@ Used by the routines at <a href="0605.html">0605</a>, <a href="17F9.html">17F9</
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CHECK_END</td>
 <td class="address-2"><span id="1BEE"></span>1BEE</td>
-<td class="instruction">CALL <a href="2530.html">$2530</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="2">Do not proceed unless checking syntax.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BF1"></span>1BF1</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BF2"></span>1BF2</td>
 <td class="instruction">POP BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Drop the addresses of <a href="1B28.html#1B52">SCAN_LOOP</a> and <a href="1B76.html">STMT_RET</a> before continuing into <a href="1BF4.html">STMT_NEXT</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BF3"></span>1BF3</td>
 <td class="instruction">POP BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -76,8 +79,8 @@ Used by the routines at <a href="0605.html">0605</a>, <a href="17F9.html">17F9</
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

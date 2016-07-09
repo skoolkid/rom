@@ -15,9 +15,9 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="24FB.html">24FB</a></span></td>
+<td class="prev"><span class="prev-1">Prev: <a href="2522.html">2522</a></span></td>
 <td class="up">Up: <a href="../maps/all.html#2530">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2596.html">2596</a></span></td>
+<td class="next"><span class="next-1">Next: <a href="2535.html">2535</a></span></td>
 </tr>
 </table>
 <div class="description">2530: THE 'SYNTAX-Z' SUBROUTINE</div>
@@ -26,7 +26,13 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="0605.html">0605</a>, <a href="17F9.html">17F9</a>, <a href="1BB3.html">1BB3</a>, <a href="1BEE.html">1BEE</a>, <a href="1C22.html">1C22</a>, <a href="1CBE.html">1CBE</a>, <a href="1CDE.html">1CDE</a>, <a href="1CF0.html">1CF0</a>, <a href="1DEC.html">1DEC</a>, <a href="1E27.html">1E27</a>, <a href="1F60.html">1F60</a>, <a href="1FC3.html">1FC3</a>, <a href="1FC9.html">1FC9</a>, <a href="204E.html">204E</a>, <a href="2089.html">2089</a>, <a href="21B9.html">21B9</a>, <a href="25AF.html">25AF</a>, <a href="26C9.html">26C9</a>, <a href="27BD.html">27BD</a>, <a href="28B2.html">28B2</a>, <a href="2A52.html">2A52</a>, <a href="2ACC.html">2ACC</a>, <a href="2AF4.html">2AF4</a> and <a href="2C02.html">2C02</a>.
+Used by the routines at <a href="0605.html">SAVE_ETC</a>, <a href="17F9.html">LIST</a>, <a href="1BB3.html">LINE_END</a>, <a href="1BEE.html">CHECK_END</a>, <a href="1C22.html">VAR_A_1</a>, <a href="1CBE.html">CLASS_09</a>, <a href="1CDE.html">FETCH_NUM</a>, <a href="1CF0.html">IF_CMD</a>, <a href="1DEC.html">READ_3</a>, <a href="1E27.html">DATA</a>, <a href="1F60.html">DEF_FN</a>, <a href="1FC3.html">UNSTACK_Z</a>, <a href="1FC9.html">LPRINT</a>, <a href="204E.html">PR_POSN_1</a>, <a href="2089.html">INPUT</a>, <a href="21B9.html">IN_ASSIGN</a>, <a href="25B3.html">S_QUOTE</a>, <a href="25F8.html">S_RND</a>, <a href="2627.html">S_PI</a>, <a href="268D.html">S_DECIMAL</a>, <a href="26C9.html">S_LETTER</a>, <a href="27BD.html">S_FN_SBRN</a>, <a href="28B2.html">LOOK_VARS</a>, <a href="2A52.html">SLICING</a>, <a href="2ACC.html">INT_EXP1</a>, <a href="2AF4.html">GET_HLxDE</a> and <a href="2C02.html">DIM</a>.
+</div>
+<div class="paragraph">
+The routine at <a href="2522.html">S_2_COORD</a> continues here.
+</div>
+<div class="paragraph">
+This subroutine is called 31 times, with a saving of just one byte each call. A simple test of bit 7 of FLAGS will give the zero flag reset during execution and set during syntax checking.
 </div>
 </div>
 <table class="input-0">
@@ -44,444 +50,28 @@ Used by the routines at <a href="0605.html">0605</a>, <a href="17F9.html">17F9</
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">SYNTAX_Z</td>
 <td class="address-2"><span id="2530"></span>2530</td>
 <td class="instruction">BIT 7,(IY+$01)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Test bit 7 of FLAGS.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2534"></span>2534</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="4">
-<span id="2535"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routine at <a href="25AF.html">25AF</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-2"><span id="2535"></span>2535</td>
-<td class="instruction">CALL <a href="2307.html">$2307</a></td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2538"></span>2538</td>
-<td class="instruction">LD HL,($5C36)</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="253B"></span>253B</td>
-<td class="instruction">LD DE,$0100</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="253E"></span>253E</td>
-<td class="instruction">ADD HL,DE</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="253F"></span>253F</td>
-<td class="instruction">LD A,C</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2540"></span>2540</td>
-<td class="instruction">RRCA</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2541"></span>2541</td>
-<td class="instruction">RRCA</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2542"></span>2542</td>
-<td class="instruction">RRCA</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2543"></span>2543</td>
-<td class="instruction">AND $E0</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2545"></span>2545</td>
-<td class="instruction">XOR B</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2546"></span>2546</td>
-<td class="instruction">LD E,A</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2547"></span>2547</td>
-<td class="instruction">LD A,C</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2548"></span>2548</td>
-<td class="instruction">AND $18</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="254A"></span>254A</td>
-<td class="instruction">XOR $40</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="254C"></span>254C</td>
-<td class="instruction">LD D,A</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="254D"></span>254D</td>
-<td class="instruction">LD B,$60</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-2"><span id="254F"></span>254F</td>
-<td class="instruction">PUSH BC</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2550"></span>2550</td>
-<td class="instruction">PUSH DE</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2551"></span>2551</td>
-<td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2552"></span>2552</td>
-<td class="instruction">LD A,(DE)</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2553"></span>2553</td>
-<td class="instruction">XOR (HL)</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2554"></span>2554</td>
-<td class="instruction">JR Z,$255A</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2556"></span>2556</td>
-<td class="instruction">INC A</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2557"></span>2557</td>
-<td class="instruction">JR NZ,$2573</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2559"></span>2559</td>
-<td class="instruction">DEC A</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-2"><span id="255A"></span>255A</td>
-<td class="instruction">LD C,A</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="255B"></span>255B</td>
-<td class="instruction">LD B,$07</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-2"><span id="255D"></span>255D</td>
-<td class="instruction">INC D</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="255E"></span>255E</td>
-<td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="255F"></span>255F</td>
-<td class="instruction">LD A,(DE)</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2560"></span>2560</td>
-<td class="instruction">XOR (HL)</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2561"></span>2561</td>
-<td class="instruction">XOR C</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2562"></span>2562</td>
-<td class="instruction">JR NZ,$2573</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2564"></span>2564</td>
-<td class="instruction">DJNZ $255D</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2566"></span>2566</td>
-<td class="instruction">POP BC</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2567"></span>2567</td>
-<td class="instruction">POP BC</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2568"></span>2568</td>
-<td class="instruction">POP BC</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2569"></span>2569</td>
-<td class="instruction">LD A,$80</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="256B"></span>256B</td>
-<td class="instruction">SUB B</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="256C"></span>256C</td>
-<td class="instruction">LD BC,$0001</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="256F"></span>256F</td>
-<td class="instruction">RST <a href="0030.html">$30</a></td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2570"></span>2570</td>
-<td class="instruction">LD (DE),A</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2571"></span>2571</td>
-<td class="instruction">JR $257D</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-2"><span id="2573"></span>2573</td>
-<td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2574"></span>2574</td>
-<td class="instruction">LD DE,$0008</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2577"></span>2577</td>
-<td class="instruction">ADD HL,DE</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2578"></span>2578</td>
-<td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2579"></span>2579</td>
-<td class="instruction">POP BC</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="257A"></span>257A</td>
-<td class="instruction">DJNZ $254F</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="257C"></span>257C</td>
-<td class="instruction">LD C,B</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-2"><span id="257D"></span>257D</td>
-<td class="instruction">JP <a href="2AB1.html#2AB2">$2AB2</a></td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="4">
-<span id="2580"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routine at <a href="25AF.html">25AF</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-2"><span id="2580"></span>2580</td>
-<td class="instruction">CALL <a href="2307.html">$2307</a></td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2583"></span>2583</td>
-<td class="instruction">LD A,C</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2584"></span>2584</td>
-<td class="instruction">RRCA</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2585"></span>2585</td>
-<td class="instruction">RRCA</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2586"></span>2586</td>
-<td class="instruction">RRCA</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2587"></span>2587</td>
-<td class="instruction">LD C,A</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2588"></span>2588</td>
-<td class="instruction">AND $E0</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="258A"></span>258A</td>
-<td class="instruction">XOR B</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="258B"></span>258B</td>
-<td class="instruction">LD L,A</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="258C"></span>258C</td>
-<td class="instruction">LD A,C</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="258D"></span>258D</td>
-<td class="instruction">AND $03</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="258F"></span>258F</td>
-<td class="instruction">XOR $58</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2591"></span>2591</td>
-<td class="instruction">LD H,A</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2592"></span>2592</td>
-<td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2593"></span>2593</td>
-<td class="instruction">JP <a href="2D28.html">$2D28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="24FB.html">24FB</a></span></td>
+<td class="prev"><span class="prev-1">Prev: <a href="2522.html">2522</a></span></td>
 <td class="up">Up: <a href="../maps/all.html#2530">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2596.html">2596</a></span></td>
+<td class="next"><span class="next-1">Next: <a href="2535.html">2535</a></span></td>
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

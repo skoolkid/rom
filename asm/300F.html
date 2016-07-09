@@ -20,13 +20,22 @@
 <td class="next"><span class="next-1">Next: <a href="3014.html">3014</a></span></td>
 </tr>
 </table>
-<div class="description">300F: THE 'SUBTRACTION' OPERATION</div>
+<div class="description">300F: THE 'SUBTRACTION' OPERATION (offset 03)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="353B.html">353B</a>.
+Used by the routine at <a href="353B.html">compare</a>.
+</div>
+<div class="paragraph">
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 03 by the routines at <a href="03F8.html">BEEP</a>, <a href="1DDA.html">NEXT_LOOP</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="25F8.html">S_RND</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="3449.html">series</a>, <a href="36A0.html">n_mod_m</a>, <a href="36AF.html">int</a>, <a href="36C4.html">exp</a>, <a href="3713.html">ln</a>, <a href="3783.html">get_argt</a>, <a href="37AA.html">cos</a>, <a href="37B5.html">sin</a>, <a href="37E2.html">atn</a>, <a href="3833.html">asn</a> and <a href="3843.html">acs</a>. It is also called indirectly via <a href="33A2.html">fp_calc_2</a>.
+</div>
+<div class="paragraph">
+This subroutine simply changes the sign of the subtrahend and carries on into <a href="3014.html">addition</a>.
+</div>
+<div class="paragraph">
+Note that <span class="register">HL</span> points to the minuend and <span class="register">DE</span> points to the subtrahend. (See <a href="3014.html">addition</a> for more details.)
 </div>
 </div>
 <table class="input-0">
@@ -44,22 +53,22 @@ Used by the routine at <a href="353B.html">353B</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">subtract</td>
 <td class="address-2"><span id="300F"></span>300F</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Exchange the pointers.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3010"></span>3010</td>
-<td class="instruction">CALL <a href="346E.html">$346E</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="346E.html">negate</a></td>
+<td class="comment-11" rowspan="1">Change the sign of the subtrahend.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3013"></span>3013</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Exchange the pointers back and continue into <a href="3014.html">addition</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -70,8 +79,8 @@ Used by the routine at <a href="353B.html">353B</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

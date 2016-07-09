@@ -26,7 +26,13 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="1B28.html">1B28</a>, <a href="1BF4.html">1BF4</a> and <a href="1CF0.html">1CF0</a>.
+Used by the routines at <a href="1B28.html">STMT_LOOP</a>, <a href="1BF4.html">STMT_NEXT</a> and <a href="1CF0.html">IF_CMD</a>.
+</div>
+<div class="paragraph">
+The routine at <a href="1BB2.html">REM</a> continues here.
+</div>
+<div class="paragraph">
+If checking syntax a simple return is made but when 'running' the address held by NXTLIN has to be checked before it can be used.
 </div>
 </div>
 <table class="input-0">
@@ -44,46 +50,56 @@ Used by the routines at <a href="1B28.html">1B28</a>, <a href="1BF4.html">1BF4</
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">LINE_END</td>
 <td class="address-2"><span id="1BB3"></span>1BB3</td>
-<td class="instruction">CALL <a href="2530.html">$2530</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="3">Return if syntax is being checked; otherwise fetch the address in NXTLIN.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BB6"></span>1BB6</td>
 <td class="instruction">RET Z</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BB7"></span>1BB7</td>
 <td class="instruction">LD HL,($5C55)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BBA"></span>1BBA</td>
 <td class="instruction">LD A,$C0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Return also if the address is after the end of the program - the 'run' is finished.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BBC"></span>1BBC</td>
 <td class="instruction">AND (HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BBD"></span>1BBD</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1BBE"></span>1BBE</td>
 <td class="instruction">XOR A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'statement zero' before proceeding.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="4">
+
+<div class="comments">
+<div class="paragraph">
+This routine continues into <a href="1BBF.html">LINE_USE</a>.
+</div>
+</div>
+</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -94,8 +110,8 @@ Used by the routines at <a href="1B28.html">1B28</a>, <a href="1BF4.html">1BF4</
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

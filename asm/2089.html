@@ -25,7 +25,12 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="1A48.html#1A9F">parameter table</a>.
+</div>
+<div class="paragraph">
+This routine allows for values entered from the keyboard to be assigned to variables. It is also possible to have print items embedded in the INPUT statement and these items are printed in the lower part of the display.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,748 +47,818 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">INPUT</td>
 <td class="address-2"><span id="2089"></span>2089</td>
-<td class="instruction">CALL <a href="2530.html">$2530</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="2">Jump forward if syntax is being checked.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="208C"></span>208C</td>
-<td class="instruction">JR Z,$2096</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="2089.html#2096">INPUT_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="208E"></span>208E</td>
 <td class="instruction">LD A,$01</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Open channel 'K'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2090"></span>2090</td>
-<td class="instruction">CALL <a href="1601.html">$1601</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1601.html">CHAN_OPEN</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2093"></span>2093</td>
-<td class="instruction">CALL <a href="0D6B.html#0D6E">$0D6E</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="0D6B.html#0D6E">CLS_LOWER</a></td>
+<td class="comment-11" rowspan="1">The lower part of the display is cleared.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">INPUT_1</td>
 <td class="address-2"><span id="2096"></span>2096</td>
 <td class="instruction">LD (IY+$02),$01</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal that the lower screen is being handled. Reset all other bits.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="209A"></span>209A</td>
-<td class="instruction">CALL $20C1</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2089.html#20C1">IN_ITEM_1</a></td>
+<td class="comment-11" rowspan="1">Call the subroutine to deal with the INPUT items.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="209D"></span>209D</td>
-<td class="instruction">CALL <a href="1BEE.html">$1BEE</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1BEE.html">CHECK_END</a></td>
+<td class="comment-11" rowspan="1">Move on to the next statement if checking syntax.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20A0"></span>20A0</td>
 <td class="instruction">LD BC,($5C88)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the current print position.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20A4"></span>20A4</td>
 <td class="instruction">LD A,($5C6B)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Jump forward if the current position is above the lower screen.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20A7"></span>20A7</td>
 <td class="instruction">CP B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20A8"></span>20A8</td>
-<td class="instruction">JR C,$20AD</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="2089.html#20AD">INPUT_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20AA"></span>20AA</td>
 <td class="instruction">LD C,$21</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Otherwise set the print position to the top of the lower screen.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20AC"></span>20AC</td>
 <td class="instruction">LD B,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">INPUT_2</td>
 <td class="address-2"><span id="20AD"></span>20AD</td>
 <td class="instruction">LD ($5C88),BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Reset S-POSN.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20B1"></span>20B1</td>
 <td class="instruction">LD A,$19</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Now set the scroll counter.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20B3"></span>20B3</td>
 <td class="instruction">SUB B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20B4"></span>20B4</td>
 <td class="instruction">LD ($5C8C),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20B7"></span>20B7</td>
 <td class="instruction">RES 0,(IY+$02)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'main screen'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20BB"></span>20BB</td>
-<td class="instruction">CALL <a href="0DD9.html">$0DD9</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="0DD9.html">CL_SET</a></td>
+<td class="comment-11" rowspan="2">Set the system variables and exit via <a href="0D6B.html#0D6E">CLS_LOWER</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20BE"></span>20BE</td>
-<td class="instruction">JP <a href="0D6B.html#0D6E">$0D6E</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP <a href="0D6B.html#0D6E">CLS_LOWER</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="20C1"></span>
+<div class="comments">
+<div class="paragraph">
+The INPUT items and embedded PRINT items are dealt with in turn by the following loop.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_ITEM_1</td>
 <td class="address-2"><span id="20C1"></span>20C1</td>
-<td class="instruction">CALL <a href="204E.html">$204E</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="204E.html">PR_POSN_1</a></td>
+<td class="comment-11" rowspan="2">Consider first any position control characters.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20C4"></span>20C4</td>
-<td class="instruction">JR Z,$20C1</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="2089.html#20C1">IN_ITEM_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20C6"></span>20C6</td>
 <td class="instruction">CP "("</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if the present character is not a '('.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20C8"></span>20C8</td>
-<td class="instruction">JR NZ,$20D8</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="2089.html#20D8">IN_ITEM_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20CA"></span>20CA</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20CB"></span>20CB</td>
-<td class="instruction">CALL <a href="1FC9.html#1FDF">$1FDF</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1FDF.html">PRINT_2</a></td>
+<td class="comment-11" rowspan="1">Now call the PRINT command routine to handle the items inside the brackets.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20CE"></span>20CE</td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the present character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20CF"></span>20CF</td>
 <td class="instruction">CP ")"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Give report C unless the character is a ')'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20D1"></span>20D1</td>
-<td class="instruction">JP NZ,<a href="1C79.html#1C8A">$1C8A</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP NZ,<a href="1C79.html#1C8A">REPORT_C</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20D4"></span>20D4</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Fetch the next character and jump forward to see if there are any further INPUT items.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20D5"></span>20D5</td>
-<td class="instruction">JP $21B2</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP <a href="2089.html#21B2">IN_NEXT_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="20D8"></span>
+<div class="comments">
+<div class="paragraph">
+Now consider whether INPUT LINE is being used.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_ITEM_2</td>
 <td class="address-2"><span id="20D8"></span>20D8</td>
 <td class="instruction">CP $CA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if it is not 'LINE'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20DA"></span>20DA</td>
-<td class="instruction">JR NZ,$20ED</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="2089.html#20ED">IN_ITEM_3</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20DC"></span>20DC</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Advance CH-ADD.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20DD"></span>20DD</td>
-<td class="instruction">CALL <a href="1C1F.html">$1C1F</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1C1F.html">CLASS_01</a></td>
+<td class="comment-11" rowspan="1">Determine the destination address for the variable.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20E0"></span>20E0</td>
 <td class="instruction">SET 7,(IY+$37)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'using INPUT LINE'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20E4"></span>20E4</td>
 <td class="instruction">BIT 6,(IY+$01)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Give report C unless using a string variable.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20E8"></span>20E8</td>
-<td class="instruction">JP NZ,<a href="1C79.html#1C8A">$1C8A</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP NZ,<a href="1C79.html#1C8A">REPORT_C</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20EB"></span>20EB</td>
-<td class="instruction">JR $20FA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="2089.html#20FA">IN_PROMPT</a></td>
+<td class="comment-11" rowspan="1">Jump forward to issue the prompt message.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="20ED"></span>
+<div class="comments">
+<div class="paragraph">
+Proceed to handle simple INPUT variables.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_ITEM_3</td>
 <td class="address-2"><span id="20ED"></span>20ED</td>
-<td class="instruction">CALL <a href="2C8D.html">$2C8D</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2C8D.html">ALPHA</a></td>
+<td class="comment-11" rowspan="2">Jump to consider going round the loop again if the present character is not a letter.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20F0"></span>20F0</td>
-<td class="instruction">JP NC,$21AF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP NC,<a href="2089.html#21AF">IN_NEXT_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20F3"></span>20F3</td>
-<td class="instruction">CALL <a href="1C1F.html">$1C1F</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1C1F.html">CLASS_01</a></td>
+<td class="comment-11" rowspan="1">Determine the destination address for the variable.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20F6"></span>20F6</td>
 <td class="instruction">RES 7,(IY+$37)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'not INPUT LINE'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="20FA"></span>
+<div class="comments">
+<div class="paragraph">
+The prompt message is now built up in the work space.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_PROMPT</td>
 <td class="address-2"><span id="20FA"></span>20FA</td>
-<td class="instruction">CALL <a href="2530.html">$2530</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="2">Jump forward if only checking syntax.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="20FD"></span>20FD</td>
-<td class="instruction">JP Z,$21B2</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP Z,<a href="2089.html#21B2">IN_NEXT_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2100"></span>2100</td>
-<td class="instruction">CALL <a href="16B0.html#16BF">$16BF</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="16B0.html#16BF">SET_WORK</a></td>
+<td class="comment-11" rowspan="1">The work space is set to null.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2103"></span>2103</td>
 <td class="instruction">LD HL,$5C71</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">This is FLAGX.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2106"></span>2106</td>
 <td class="instruction">RES 6,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'string result'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2108"></span>2108</td>
 <td class="instruction">SET 5,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'INPUT mode'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="210A"></span>210A</td>
 <td class="instruction">LD BC,$0001</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Allow the prompt message only a single location.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="210D"></span>210D</td>
 <td class="instruction">BIT 7,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if using 'LINE'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="210F"></span>210F</td>
-<td class="instruction">JR NZ,$211C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="2089.html#211C">IN_PR_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2111"></span>2111</td>
 <td class="instruction">LD A,($5C3B)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Jump forward if awaiting a numeric entry.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2114"></span>2114</td>
 <td class="instruction">AND $40</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2116"></span>2116</td>
-<td class="instruction">JR NZ,$211A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="2089.html#211A">IN_PR_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2118"></span>2118</td>
 <td class="instruction">LD C,$03</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">A string entry will need three locations.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">IN_PR_1</td>
 <td class="address-2"><span id="211A"></span>211A</td>
 <td class="instruction">OR (HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Bit 6 of FLAGX will become set for a numeric entry.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="211B"></span>211B</td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">IN_PR_2</td>
 <td class="address-2"><span id="211C"></span>211C</td>
 <td class="instruction">RST <a href="0030.html">$30</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The required number of locations is made available.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="211D"></span>211D</td>
 <td class="instruction">LD (HL),$0D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">A 'carriage return' goes into the last location.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="211F"></span>211F</td>
 <td class="instruction">LD A,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Test bit 6 of the <span class="register">C</span> register and jump forward if only one location was required.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2120"></span>2120</td>
 <td class="instruction">RRCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2121"></span>2121</td>
 <td class="instruction">RRCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2122"></span>2122</td>
-<td class="instruction">JR NC,$2129</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="2089.html#2129">IN_PR_3</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2124"></span>2124</td>
 <td class="instruction">LD A,"\""</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">A 'double quotes' character goes into the first and second locations.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2126"></span>2126</td>
 <td class="instruction">LD (DE),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2127"></span>2127</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2128"></span>2128</td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">IN_PR_3</td>
 <td class="address-2"><span id="2129"></span>2129</td>
 <td class="instruction">LD ($5C5B),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The position of the cursor can now be saved.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="212C"></span>
+<div class="comments">
+<div class="paragraph">
+In the case of INPUT LINE the EDITOR can be called without further preparation but for other types of INPUT the error stack has to be changed so as to trap errors.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="212C"></span>212C</td>
 <td class="instruction">BIT 7,(IY+$37)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward with 'INPUT LINE'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2130"></span>2130</td>
-<td class="instruction">JR NZ,$215E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="2089.html#215E">IN_VAR_3</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2132"></span>2132</td>
 <td class="instruction">LD HL,($5C5D)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Save the current values of CH-ADD and ERR-SP on the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2135"></span>2135</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2136"></span>2136</td>
 <td class="instruction">LD HL,($5C3D)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2139"></span>2139</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">IN_VAR_1</td>
 <td class="address-1"><span id="213A"></span>213A</td>
 <td class="instruction">LD HL,$213A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">This will be the 'return point' in case of errors.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="213D"></span>213D</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="213E"></span>213E</td>
 <td class="instruction">BIT 4,(IY+$30)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Only change the error stack pointer if using channel 'K'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2142"></span>2142</td>
-<td class="instruction">JR Z,$2148</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="2089.html#2148">IN_VAR_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2144"></span>2144</td>
 <td class="instruction">LD ($5C3D),SP</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">IN_VAR_2</td>
 <td class="address-2"><span id="2148"></span>2148</td>
 <td class="instruction">LD HL,($5C61)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Set <span class="register">HL</span> to the start of the INPUT line and remove any floating-point forms. (There will not be any except perhaps after an error.)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="214B"></span>214B</td>
-<td class="instruction">CALL <a href="11A7.html">$11A7</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="11A7.html">REMOVE_FP</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="214E"></span>214E</td>
 <td class="instruction">LD (IY+$00),$FF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'no error yet'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2152"></span>2152</td>
-<td class="instruction">CALL <a href="0F2C.html">$0F2C</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="0F2C.html">EDITOR</a></td>
+<td class="comment-11" rowspan="4">Now get the INPUT and with the syntax/run flag indicating syntax, check the INPUT for errors; jump if in order; return to IN-VAR-1 if not.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2155"></span>2155</td>
 <td class="instruction">RES 7,(IY+$01)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2159"></span>2159</td>
-<td class="instruction">CALL <a href="21B9.html">$21B9</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="21B9.html">IN_ASSIGN</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="215C"></span>215C</td>
-<td class="instruction">JR $2161</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="2089.html#2161">IN_VAR_4</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">IN_VAR_3</td>
 <td class="address-2"><span id="215E"></span>215E</td>
-<td class="instruction">CALL <a href="0F2C.html">$0F2C</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="0F2C.html">EDITOR</a></td>
+<td class="comment-11" rowspan="1">Get a 'LINE'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="2161"></span>
+<div class="comments">
+<div class="paragraph">
+All the system variables have to be reset before the actual assignment of a value can be made.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_VAR_4</td>
 <td class="address-2"><span id="2161"></span>2161</td>
 <td class="instruction">LD (IY+$22),$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The cursor address is reset.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2165"></span>2165</td>
-<td class="instruction">CALL <a href="21D6.html">$21D6</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="21D6.html">IN_CHAN_K</a></td>
+<td class="comment-11" rowspan="2">The jump is taken if using other than channel 'K'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2168"></span>2168</td>
-<td class="instruction">JR NZ,$2174</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="2089.html#2174">IN_VAR_5</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="216A"></span>216A</td>
-<td class="instruction">CALL <a href="111D.html">$111D</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="111D.html">ED_COPY</a></td>
+<td class="comment-11" rowspan="3">The input-line is copied to the display and the position in ECHO-E made the current position in the lower screen.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="216D"></span>216D</td>
 <td class="instruction">LD BC,($5C82)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2171"></span>2171</td>
-<td class="instruction">CALL <a href="0DD9.html">$0DD9</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="0DD9.html">CL_SET</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">IN_VAR_5</td>
 <td class="address-2"><span id="2174"></span>2174</td>
 <td class="instruction">LD HL,$5C71</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">This is FLAGX.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2177"></span>2177</td>
 <td class="instruction">RES 5,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'edit mode'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2179"></span>2179</td>
 <td class="instruction">BIT 7,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Jump forward if handling an INPUT LINE.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="217B"></span>217B</td>
 <td class="instruction">RES 7,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="217D"></span>217D</td>
-<td class="instruction">JR NZ,$219B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="2089.html#219B">IN_VAR_6</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="217F"></span>217F</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Drop the address IN-VAR-1.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2180"></span>2180</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Reset the ERR-SP to its original address.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2181"></span>2181</td>
 <td class="instruction">LD ($5C3D),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2184"></span>2184</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Save the original CH-ADD address in X-PTR.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2185"></span>2185</td>
 <td class="instruction">LD ($5C5F),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2188"></span>2188</td>
 <td class="instruction">SET 7,(IY+$01)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Now with the syntax/run flag indicating 'run' make the assignment.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="218C"></span>218C</td>
-<td class="instruction">CALL <a href="21B9.html">$21B9</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="21B9.html">IN_ASSIGN</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="218F"></span>218F</td>
 <td class="instruction">LD HL,($5C5F)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Restore the original address to CH-ADD and clear X-PTR.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2192"></span>2192</td>
 <td class="instruction">LD (IY+$26),$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2196"></span>2196</td>
 <td class="instruction">LD ($5C5D),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2199"></span>2199</td>
-<td class="instruction">JR $21B2</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="2089.html#21B2">IN_NEXT_2</a></td>
+<td class="comment-11" rowspan="1">Jump forward to see if there are further INPUT items.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">IN_VAR_6</td>
 <td class="address-2"><span id="219B"></span>219B</td>
 <td class="instruction">LD HL,($5C63)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">The length of the 'LINE' in the work space is found.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="219E"></span>219E</td>
 <td class="instruction">LD DE,($5C61)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="21A2"></span>21A2</td>
 <td class="instruction">SCF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="21A3"></span>21A3</td>
 <td class="instruction">SBC HL,DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="21A5"></span>21A5</td>
 <td class="instruction">LD B,H</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2"><span class="register">DE</span> points to the start and <span class="register">BC</span> holds the length.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="21A6"></span>21A6</td>
 <td class="instruction">LD C,L</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="21A7"></span>21A7</td>
-<td class="instruction">CALL <a href="2AB1.html#2AB2">$2AB2</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2AB1.html#2AB2">STK_STO</a></td>
+<td class="comment-11" rowspan="2">These parameters are stacked and the actual assignment made.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="21AA"></span>21AA</td>
-<td class="instruction">CALL <a href="2AFF.html">$2AFF</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2AFF.html">LET</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="21AD"></span>21AD</td>
-<td class="instruction">JR $21B2</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="2089.html#21B2">IN_NEXT_2</a></td>
+<td class="comment-11" rowspan="1">Also jump forward to consider further items.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="21AF"></span>
+<div class="comments">
+<div class="paragraph">
+Further items in the INPUT statement are considered.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_NEXT_1</td>
 <td class="address-2"><span id="21AF"></span>21AF</td>
-<td class="instruction">CALL <a href="1FFC.html">$1FFC</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1FFC.html">PR_ITEM_1</a></td>
+<td class="comment-11" rowspan="1">Handle any print items.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">IN_NEXT_2</td>
 <td class="address-2"><span id="21B2"></span>21B2</td>
-<td class="instruction">CALL <a href="204E.html">$204E</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="204E.html">PR_POSN_1</a></td>
+<td class="comment-11" rowspan="1">Handle any position controllers.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="21B5"></span>21B5</td>
-<td class="instruction">JP Z,$20C1</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP Z,<a href="2089.html#20C1">IN_ITEM_1</a></td>
+<td class="comment-11" rowspan="2">Go around the loop again if there are further items; otherwise return.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="21B8"></span>21B8</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -794,8 +869,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

@@ -25,7 +25,12 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is derived from an offset found in the <a href="0A11.html">control character table</a>.
+</div>
+<div class="paragraph">
+The subroutine is entered with the <span class="register">B</span> register holding the current line number and the <span class="register">C</span> register with the current column number.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,88 +47,88 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">PO_BACK_1</td>
 <td class="address-2"><span id="0A23"></span>0A23</td>
 <td class="instruction">INC C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Move leftwards by one column.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0A24"></span>0A24</td>
 <td class="instruction">LD A,$22</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Accept the change unless up against the lefthand side.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0A26"></span>0A26</td>
 <td class="instruction">CP C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0A27"></span>0A27</td>
-<td class="instruction">JR NZ,$0A3A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="0A23.html#0A3A">PO_BACK_3</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0A29"></span>0A29</td>
 <td class="instruction">BIT 1,(IY+$01)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">If dealing with the printer jump forward.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0A2D"></span>0A2D</td>
-<td class="instruction">JR NZ,$0A38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="0A23.html#0A38">PO_BACK_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0A2F"></span>0A2F</td>
 <td class="instruction">INC B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Go up one line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0A30"></span>0A30</td>
 <td class="instruction">LD C,$02</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Set column value.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0A32"></span>0A32</td>
 <td class="instruction">LD A,$18</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Test against top line. Note: this ought to be +19.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0A34"></span>0A34</td>
 <td class="instruction">CP B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0A35"></span>0A35</td>
-<td class="instruction">JR NZ,$0A3A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="0A23.html#0A3A">PO_BACK_3</a></td>
+<td class="comment-11" rowspan="1">Accept the change unless at the top of the screen.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0A37"></span>0A37</td>
 <td class="instruction">DEC B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Unacceptable so down a line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">PO_BACK_2</td>
 <td class="address-2"><span id="0A38"></span>0A38</td>
 <td class="instruction">LD C,$21</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Set to lefthand column.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">PO_BACK_3</td>
 <td class="address-2"><span id="0A3A"></span>0A3A</td>
-<td class="instruction">JP <a href="0DD9.html">$0DD9</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP <a href="0DD9.html">CL_SET</a></td>
+<td class="comment-11" rowspan="1">Make an indirect return via <a href="0DD9.html">CL_SET</a> and <a href="0ADC.html">PO_STORE</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -134,8 +139,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

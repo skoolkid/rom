@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="03F8.html">03F8</a>, <a href="171E.html">171E</a>, <a href="2070.html">2070</a>, <a href="21E1.html">21E1</a>, <a href="2294.html">2294</a>, <a href="2320.html">2320</a> and <a href="3645.html">3645</a>.
+Used by the routines at <a href="03F8.html">BEEP</a>, <a href="171E.html">STR_DATA</a>, <a href="2070.html">STR_ALTER</a>, <a href="21E1.html">CO_TEMP_1</a>, <a href="2294.html">BORDER</a>, <a href="2320.html">CIRCLE</a> and <a href="3645.html">read_in</a>.
+</div>
+<div class="paragraph">
+The 'last value' on the calculator stack is fetched and compressed into a single register or a register pair by entering at <a href="1E94.html">FIND_INT1</a> and <a href="1E94.html#1E99">FIND_INT2</a> respectively.
 </div>
 </div>
 <table class="input-0">
@@ -44,66 +47,69 @@ Used by the routines at <a href="03F8.html">03F8</a>, <a href="171E.html">171E</
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">FIND_INT1</td>
 <td class="address-2"><span id="1E94"></span>1E94</td>
-<td class="instruction">CALL <a href="2DD5.html">$2DD5</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2DD5.html">FP_TO_A</a></td>
+<td class="comment-11" rowspan="1">Fetch the 'last value'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E97"></span>1E97</td>
-<td class="instruction">JR $1E9C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="1E94.html#1E9C">FIND_I_1</a></td>
+<td class="comment-11" rowspan="1">Jump forward.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="1E99"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="03F8.html">03F8</a>, <a href="0605.html">0605</a>, <a href="17F9.html">17F9</a>, <a href="1E42.html">1E42</a>, <a href="1E4F.html">1E4F</a>, <a href="1E67.html">1E67</a>, <a href="1E85.html">1E85</a>, <a href="1EAC.html">1EAC</a>, <a href="1F3A.html">1F3A</a>, <a href="1FFC.html">1FFC</a>, <a href="2ACC.html">2ACC</a>, <a href="34A5.html">34A5</a>, <a href="34AC.html">34AC</a> and <a href="34B3.html">34B3</a>.
+This entry point is used by the routines at <a href="03F8.html">BEEP</a>, <a href="0605.html">SAVE_ETC</a>, <a href="17F9.html">LIST</a>, <a href="1E42.html">RESTORE</a>, <a href="1E4F.html">RANDOMIZE</a>, <a href="1E67.html">GO_TO</a>, <a href="1E85.html">TWO_PARAM</a>, <a href="1EAC.html">CLEAR</a>, <a href="1F3A.html">PAUSE</a>, <a href="1FFC.html">PR_ITEM_1</a>, <a href="2ACC.html">INT_EXP1</a>, <a href="34A5.html">f_in</a>, <a href="34AC.html">peek</a> and <a href="34B3.html">usr_no</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">FIND_INT2</td>
 <td class="address-2"><span id="1E99"></span>1E99</td>
-<td class="instruction">CALL <a href="2DA2.html">$2DA2</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2DA2.html">FP_TO_BC</a></td>
+<td class="comment-11" rowspan="1">Fetch the 'last value'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">FIND_I_1</td>
 <td class="address-2"><span id="1E9C"></span>1E9C</td>
-<td class="instruction">JR C,$1E9F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="1E94.html#1E9F">REPORT_B_2</a></td>
+<td class="comment-11" rowspan="1">In both cases overflow is indicated by a set carry flag.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E9E"></span>1E9E</td>
 <td class="instruction">RET Z</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return with all positive numbers that are in range.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="1E9F"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="0A6D.html">0A6D</a>, <a href="1E67.html">1E67</a>, <a href="1E85.html">1E85</a> and <a href="3645.html">3645</a>.
+This entry point is used by the routines at <a href="0A6D.html">PO_TV_2</a>, <a href="1E67.html">GO_TO</a>, <a href="1E85.html">TWO_PARAM</a> and <a href="3645.html">read_in</a>.
+</div>
+<div class="paragraph">
+Report B - Integer out of range.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">REPORT_B_2</td>
 <td class="address-2"><span id="1E9F"></span>1E9F</td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EA0"></span>1EA0</td>
 <td class="instruction">DEFB $0A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -114,8 +120,8 @@ This entry point is used by the routines at <a href="0A6D.html">0A6D</a>, <a hre
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

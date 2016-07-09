@@ -20,13 +20,19 @@
 <td class="next"><span class="next-1">Next: <a href="33C6.html">33C6</a></span></td>
 </tr>
 </table>
-<div class="description">33C0: THE 'MOVE A FLOATING-POINT NUMBER' SUBROUTINE</div>
+<div class="description">33C0: THE 'MOVE A FLOATING-POINT NUMBER' SUBROUTINE (offset 31)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="2951.html">2951</a>, <a href="33B4.html">33B4</a>, <a href="340F.html">340F</a> and <a href="342D.html">342D</a>.
+Used by the routines at <a href="2951.html">STK_F_ARG</a>, <a href="33B4.html">STACK_NUM</a>, <a href="340F.html">get_mem</a> and <a href="342D.html">st_mem</a>.
+</div>
+<div class="paragraph">
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 31 by the routines at <a href="03F8.html">BEEP</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="25F8.html">S_RND</a>, <a href="2D4F.html">e_to_fp</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="3449.html">series</a>, <a href="36A0.html">n_mod_m</a>, <a href="36AF.html">int</a>, <a href="36C4.html">exp</a>, <a href="3713.html">ln</a>, <a href="3783.html">get_argt</a>, <a href="37B5.html">sin</a>, <a href="37DA.html">tan</a>, <a href="37E2.html">atn</a>, <a href="3833.html">asn</a>, <a href="384A.html">sqr</a> and <a href="3851.html">to_power</a>.
+</div>
+<div class="paragraph">
+This subroutine moves a floating-point number to the top of the calculator stack (3 cases) or from the top of the stack to the calculator's memory area (1 case). It is also called through the calculator when it simply duplicates the number at the top of the calculator stack, the 'last value', thereby extending the stack by five bytes.
 </div>
 </div>
 <table class="input-0">
@@ -44,22 +50,22 @@ Used by the routines at <a href="2951.html">2951</a>, <a href="33B4.html">33B4</
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">duplicate</td>
 <td class="address-2"><span id="33C0"></span>33C0</td>
-<td class="instruction">CALL <a href="33A9.html">$33A9</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="33A9.html">TEST_5_SP</a></td>
+<td class="comment-11" rowspan="1">A test is made for room.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="33C3"></span>33C3</td>
 <td class="instruction">LDIR</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Move the five bytes involved.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="33C5"></span>33C5</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -70,8 +76,8 @@ Used by the routines at <a href="2951.html">2951</a>, <a href="33B4.html">33B4</
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

@@ -26,7 +26,13 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="12A2.html">12A2</a>.
+Used by the routine at <a href="12A2.html">MAIN_EXEC</a>.
+</div>
+<div class="paragraph">
+The parsing routine of the BASIC interpreter is entered here when syntax is being checked, and at <a href="1B8A.html">LINE_RUN</a> when a BASIC program of one or more statements is to be executed.
+</div>
+<div class="paragraph">
+Each statement is considered in turn and the system variable CH-ADD is used to point to each code of the statement as it occurs in the program area or the editing area.
 </div>
 </div>
 <table class="input-0">
@@ -44,46 +50,46 @@ Used by the routine at <a href="12A2.html">12A2</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">LINE_SCAN</td>
 <td class="address-2"><span id="1B17"></span>1B17</td>
 <td class="instruction">RES 7,(IY+$01)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'syntax checking'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1B1B"></span>1B1B</td>
-<td class="instruction">CALL <a href="19FB.html">$19FB</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="19FB.html">E_LINE_NO</a></td>
+<td class="comment-11" rowspan="1">CH-ADD is made to point to the first code after any line number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1B1E"></span>1B1E</td>
 <td class="instruction">XOR A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">The system variable SUBPPC is initialised to +00 and ERR-NR to +FF.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1B1F"></span>1B1F</td>
 <td class="instruction">LD ($5C47),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1B22"></span>1B22</td>
 <td class="instruction">DEC A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1B23"></span>1B23</td>
 <td class="instruction">LD ($5C3A),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1B26"></span>1B26</td>
-<td class="instruction">JR <a href="1B28.html#1B29">$1B29</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="1B28.html#1B29">STMT_L_1</a></td>
+<td class="comment-11" rowspan="1">Jump forward to consider the first statement of the line.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -94,8 +100,8 @@ Used by the routine at <a href="12A2.html">12A2</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

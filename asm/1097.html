@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="0FA9.html">0FA9</a> and <a href="12A2.html">12A2</a>.
+Used by the routines at <a href="0FA9.html">ED_EDIT</a> and <a href="12A2.html">MAIN_EXEC</a>.
+</div>
+<div class="paragraph">
+The editing area or the work space is cleared as directed.
 </div>
 </div>
 <table class="input-0">
@@ -44,52 +47,52 @@ Used by the routines at <a href="0FA9.html">0FA9</a> and <a href="12A2.html">12A
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLEAR_SP</td>
 <td class="address-2"><span id="1097"></span>1097</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the pointer to the space.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1098"></span>1098</td>
-<td class="instruction">CALL <a href="1190.html">$1190</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1190.html">SET_HL</a></td>
+<td class="comment-11" rowspan="2"><span class="register">DE</span> will point to the first character and <span class="register">HL</span> the last.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="109B"></span>109B</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="109C"></span>109C</td>
-<td class="instruction">CALL <a href="19E5.html">$19E5</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="19E5.html">RECLAIM_1</a></td>
+<td class="comment-11" rowspan="1">The correct amount is now reclaimed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="109F"></span>109F</td>
 <td class="instruction">LD ($5C5B),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">The system variables K-CUR and MODE ('K mode') are initialised before fetching the pointer and returning.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="10A2"></span>10A2</td>
 <td class="instruction">LD (IY+$07),$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="10A6"></span>10A6</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="10A7"></span>10A7</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -100,8 +103,8 @@ Used by the routines at <a href="0FA9.html">0FA9</a> and <a href="12A2.html">12A
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

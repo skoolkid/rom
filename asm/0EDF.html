@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="0EF4.html">0EF4</a> and <a href="11B7.html">11B7</a>.
+Used by the routines at <a href="0EF4.html">COPY_LINE</a> and <a href="11B7.html">NEW</a>.
+</div>
+<div class="paragraph">
+The printer buffer is cleared by calling this subroutine.
 </div>
 </div>
 <table class="input-0">
@@ -44,64 +47,64 @@ Used by the routines at <a href="0EF4.html">0EF4</a> and <a href="11B7.html">11B
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLEAR_PRB</td>
 <td class="address-2"><span id="0EDF"></span>0EDF</td>
 <td class="instruction">LD HL,$5B00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The base address of the printer buffer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0EE2"></span>0EE2</td>
 <td class="instruction">LD (IY+$46),L</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Reset the printer 'column'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0EE5"></span>0EE5</td>
 <td class="instruction">XOR A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Clear the <span class="register">A</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0EE6"></span>0EE6</td>
 <td class="instruction">LD B,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Also clear the <span class="register">B</span> register (in effect <span class="register">B</span> holds 256).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">PRB_BYTES</td>
 <td class="address-2"><span id="0EE7"></span>0EE7</td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">The 256 bytes of the printer buffer are all cleared in turn.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0EE8"></span>0EE8</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0EE9"></span>0EE9</td>
-<td class="instruction">DJNZ $0EE7</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DJNZ <a href="0EDF.html#0EE7">PRB_BYTES</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0EEB"></span>0EEB</td>
 <td class="instruction">RES 1,(IY+$30)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'the buffer is empty'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0EEF"></span>0EEF</td>
 <td class="instruction">LD C,$21</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Set the printer position and return via <a href="0DD9.html">CL_SET</a> and <a href="0ADC.html">PO_STORE</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0EF1"></span>0EF1</td>
-<td class="instruction">JP <a href="0DD9.html">$0DD9</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP <a href="0DD9.html">CL_SET</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -112,8 +115,8 @@ Used by the routines at <a href="0EF4.html">0EF4</a> and <a href="11B7.html">11B
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

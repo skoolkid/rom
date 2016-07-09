@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="1925.html">1925</a>, <a href="2C88.html">2C88</a>, <a href="2C9B.html">2C9B</a> and <a href="2D22.html">2D22</a>.
+Used by the routines at <a href="1925.html">OUT_SP_2</a>, <a href="2C88.html">ALPHANUM</a>, <a href="2C9B.html">DEC_TO_FP</a> and <a href="2D22.html">STK_DIGIT</a>.
+</div>
+<div class="paragraph">
+This subroutine returns with the carry flag reset if the present value of the <span class="register">A</span> register denotes a valid digit.
 </div>
 </div>
 <table class="input-0">
@@ -44,34 +47,34 @@ Used by the routines at <a href="1925.html">1925</a>, <a href="2C88.html">2C88</
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">NUMERIC</td>
 <td class="address-2"><span id="2D1B"></span>2D1B</td>
 <td class="instruction">CP "0"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Test against 30 hex, the code for '0'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2D1D"></span>2D1D</td>
 <td class="instruction">RET C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return if not a valid character code.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2D1E"></span>2D1E</td>
-<td class="instruction">CP ":"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CP $3A</td>
+<td class="comment-11" rowspan="1">Test against the upper limit.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2D20"></span>2D20</td>
 <td class="instruction">CCF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Complement the carry flag.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2D21"></span>2D21</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -82,8 +85,8 @@ Used by the routines at <a href="1925.html">1925</a>, <a href="2C88.html">2C88</
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

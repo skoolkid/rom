@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="1E7A.html">1E7A</a> and <a href="1E80.html">1E80</a>.
+Used by the routines at <a href="1E7A.html">OUT_CMD</a> and <a href="1E80.html">POKE</a>.
+</div>
+<div class="paragraph">
+The topmost parameter on the calculator stack must be compressible into a single register. It is two's complemented if it is negative. The second parameter must be compressible into a register pair.
 </div>
 </div>
 <table class="input-0">
@@ -44,52 +47,52 @@ Used by the routines at <a href="1E7A.html">1E7A</a> and <a href="1E80.html">1E8
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">TWO_PARAM</td>
 <td class="address-2"><span id="1E85"></span>1E85</td>
-<td class="instruction">CALL <a href="2DD5.html">$2DD5</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2DD5.html">FP_TO_A</a></td>
+<td class="comment-11" rowspan="1">The parameter is fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E88"></span>1E88</td>
-<td class="instruction">JR C,<a href="1E94.html#1E9F">$1E9F</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="1E94.html#1E9F">REPORT_B_2</a></td>
+<td class="comment-11" rowspan="1">Give an error if it is too high a number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E8A"></span>1E8A</td>
-<td class="instruction">JR Z,$1E8E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="1E85.html#1E8E">TWO_P_1</a></td>
+<td class="comment-11" rowspan="2">Jump forward with positive numbers but two's complement negative numbers.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E8C"></span>1E8C</td>
 <td class="instruction">NEG</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">TWO_P_1</td>
 <td class="address-2"><span id="1E8E"></span>1E8E</td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Save the first parameter whilst the second is fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E8F"></span>1E8F</td>
-<td class="instruction">CALL <a href="1E94.html#1E99">$1E99</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1E94.html#1E99">FIND_INT2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E92"></span>1E92</td>
 <td class="instruction">POP AF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">The first parameter is restored before returning.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E93"></span>1E93</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -100,8 +103,8 @@ Used by the routines at <a href="1E7A.html">1E7A</a> and <a href="1E80.html">1E8
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

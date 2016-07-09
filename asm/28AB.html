@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="27BD.html">27BD</a> and <a href="2951.html">2951</a>.
+Used by the routines at <a href="27BD.html">S_FN_SBRN</a> and <a href="2951.html">STK_F_ARG</a>.
+</div>
+<div class="paragraph">
+This subroutine is used by <a href="27BD.html">S_FN_SBRN</a> and by <a href="2951.html">STK_F_ARG</a> to move <span class="register">HL</span> along the DEF FN statement while leaving CH-ADD undisturbed, as it points along the FN statement.
 </div>
 </div>
 <table class="input-0">
@@ -44,34 +47,34 @@ Used by the routines at <a href="27BD.html">27BD</a> and <a href="2951.html">295
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">FN_SKPOVR</td>
 <td class="address-2"><span id="28AB"></span>28AB</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Point to the next code in the statement.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28AC"></span>28AC</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Copy the code to <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28AD"></span>28AD</td>
 <td class="instruction">CP $21</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump back to skip over it if it is a control code or a space.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28AF"></span>28AF</td>
-<td class="instruction">JR C,$28AB</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="28AB.html#28AB">FN_SKPOVR</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28B1"></span>28B1</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -82,8 +85,8 @@ Used by the routines at <a href="27BD.html">27BD</a> and <a href="2951.html">295
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="335B.html">335B</a>, <a href="359C.html">359C</a>, <a href="35DE.html">35DE</a> and <a href="3645.html">3645</a>.
+Used by the routines at <a href="335B.html">CALCULATE</a>, <a href="359C.html">strs_add</a>, <a href="35DE.html">val</a> and <a href="3645.html">read_in</a>.
+</div>
+<div class="paragraph">
+This subroutine resets the <span class="register">HL</span> register pair to point to the first byte of the 'last value', i.e. STKEND-5, and the <span class="register">DE</span> register pair to point one past the 'last value', i.e. STKEND.
 </div>
 </div>
 <table class="input-0">
@@ -44,40 +47,40 @@ Used by the routines at <a href="335B.html">335B</a>, <a href="359C.html">359C</
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">STK_PNTRS</td>
 <td class="address-2"><span id="35BF"></span>35BF</td>
 <td class="instruction">LD HL,($5C65)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the current value of STKEND.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="35C2"></span>35C2</td>
 <td class="instruction">LD DE,$FFFB</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Set <span class="register">DE</span> to -5, two's complement.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="35C5"></span>35C5</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Stack the value for STKEND.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="35C6"></span>35C6</td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Calculate STKEND-5.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="35C7"></span>35C7</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">DE</span> now holds STKEND and <span class="register">HL</span> holds STKEND-5.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="35C8"></span>35C8</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -88,8 +91,8 @@ Used by the routines at <a href="335B.html">335B</a>, <a href="359C.html">359C</
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

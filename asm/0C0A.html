@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="0605.html">0605</a>, <a href="0970.html">0970</a>, <a href="0C55.html">0C55</a>, <a href="11B7.html">11B7</a> and <a href="12A2.html">12A2</a>.
+Used by the routines at <a href="0605.html">SAVE_ETC</a>, <a href="0970.html">SA_CONTRL</a>, <a href="0C55.html">PO_SCR</a>, <a href="11B7.html">NEW</a> and <a href="12A2.html">MAIN_EXEC</a>.
+</div>
+<div class="paragraph">
+This subroutine is used to print messages and tokens. The <span class="register">A</span> register holds the 'entry number' of the message or token in a table. The <span class="register">DE</span> register pair holds the base address of the table.
 </div>
 </div>
 <table class="input-0">
@@ -44,176 +47,219 @@ Used by the routines at <a href="0605.html">0605</a>, <a href="0970.html">0970</
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">PO_MSG</td>
 <td class="address-2"><span id="0C0A"></span>0C0A</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">The high byte of the last entry on the machine stack is made zero so as to suppress trailing spaces (see below).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C0B"></span>0C0B</td>
 <td class="instruction">LD H,$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C0D"></span>0C0D</td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C0E"></span>0C0E</td>
-<td class="instruction">JR $0C14</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="0C0A.html#0C14">PO_TABLE</a></td>
+<td class="comment-11" rowspan="1">Jump forward.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="0C10"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="0B24.html">0B24</a>.
+This entry point is used by the routine at <a href="0B24.html">PO_ANY</a>.
+</div>
+<div class="paragraph">
+Enter here when expanding token codes.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">PO_TOKENS</td>
 <td class="address-2"><span id="0C10"></span>0C10</td>
 <td class="instruction">LD DE,$0095</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The base address of the <a href="0095.html">token table</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C13"></span>0C13</td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the code on the stack. (Range +00 to +5A, RND to COPY).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0C14"></span>
+<div class="comments">
+<div class="paragraph">
+The table is searched and the correct entry printed.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">PO_TABLE</td>
 <td class="address-2"><span id="0C14"></span>0C14</td>
-<td class="instruction">CALL <a href="0C41.html">$0C41</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="0C41.html">PO_SEARCH</a></td>
+<td class="comment-11" rowspan="1">Locate the required entry.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C17"></span>0C17</td>
-<td class="instruction">JR C,$0C22</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="0C0A.html#0C22">PO_EACH</a></td>
+<td class="comment-11" rowspan="1">Print the message/token.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C19"></span>0C19</td>
 <td class="instruction">LD A," "</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">A 'space' will be printed before the message/token if required.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C1B"></span>0C1B</td>
 <td class="instruction">BIT 0,(IY+$01)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C1F"></span>0C1F</td>
-<td class="instruction">CALL Z,<a href="0C3B.html">$0C3B</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL Z,<a href="0C3B.html">PO_SAVE</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0C22"></span>
+<div class="comments">
+<div class="paragraph">
+The characters of the message/token are printed in turn.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">PO_EACH</td>
 <td class="address-2"><span id="0C22"></span>0C22</td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Collect a code.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C23"></span>0C23</td>
 <td class="instruction">AND $7F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Cancel any 'inverted bit'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C25"></span>0C25</td>
-<td class="instruction">CALL <a href="0C3B.html">$0C3B</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="0C3B.html">PO_SAVE</a></td>
+<td class="comment-11" rowspan="1">Print the character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C28"></span>0C28</td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Collect the code again.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C29"></span>0C29</td>
 <td class="instruction">INC DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Advance the pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C2A"></span>0C2A</td>
 <td class="instruction">ADD A,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">The 'inverted bit' goes to the carry flag and signals the end of the message/token; otherwise jump back.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C2B"></span>0C2B</td>
-<td class="instruction">JR NC,$0C22</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="0C0A.html#0C22">PO_EACH</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0C2D"></span>
+<div class="comments">
+<div class="paragraph">
+Now consider whether a 'trailing space' is required.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C2D"></span>0C2D</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">For messages, <span class="register">D</span> holds +00; for tokens, <span class="register">D</span> holds +00 to +5A.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C2E"></span>0C2E</td>
 <td class="instruction">CP $48</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if the last character was a '$'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C30"></span>0C30</td>
-<td class="instruction">JR Z,$0C35</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="0C0A.html#0C35">PO_TR_SP</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C32"></span>0C32</td>
 <td class="instruction">CP $82</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Return if the last character was any other before 'A'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C34"></span>0C34</td>
 <td class="instruction">RET C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">PO_TR_SP</td>
 <td class="address-2"><span id="0C35"></span>0C35</td>
 <td class="instruction">LD A,D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Examine the value in <span class="register">D</span> and return if it indicates a message, RND, INKEY$ or PI.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C36"></span>0C36</td>
 <td class="instruction">CP $03</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C38"></span>0C38</td>
 <td class="instruction">RET C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0C39"></span>0C39</td>
 <td class="instruction">LD A," "</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">All other cases will require a 'trailing space'.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="4">
+
+<div class="comments">
+<div class="paragraph">
+This routine continues into <a href="0C3B.html">PO_SAVE</a>.
+</div>
+</div>
+</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -224,8 +270,8 @@ This entry point is used by the routine at <a href="0B24.html">0B24</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

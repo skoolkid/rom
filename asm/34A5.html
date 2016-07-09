@@ -20,12 +20,17 @@
 <td class="next"><span class="next-1">Next: <a href="34AC.html">34AC</a></span></td>
 </tr>
 </table>
-<div class="description">34A5: THE 'IN' FUNCTION</div>
+<div class="description">34A5: THE 'IN' FUNCTION (offset 2C)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called indirectly via <a href="33A2.html">fp_calc_2</a>.
+</div>
+<div class="paragraph">
+This subroutine handles the function IN X. It inputs at processor level from port X, loading <span class="register">BC</span> with X and performing the instruction IN A,(C).
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,22 +47,22 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">f_in</td>
 <td class="address-2"><span id="34A5"></span>34A5</td>
-<td class="instruction">CALL <a href="1E94.html#1E99">$1E99</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1E94.html#1E99">FIND_INT2</a></td>
+<td class="comment-11" rowspan="1">The 'last value', X, is compressed into <span class="register">BC</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="34A8"></span>34A8</td>
 <td class="instruction">IN A,(C)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The signal is received.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="34AA"></span>34AA</td>
-<td class="instruction">JR <a href="34AC.html#34B0">$34B0</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="34AC.html#34B0">IN_PK_STK</a></td>
+<td class="comment-11" rowspan="1">Jump to stack the result.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -68,8 +73,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

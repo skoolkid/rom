@@ -17,7 +17,7 @@
 <tr>
 <td class="prev"><span class="prev-1">Prev: <a href="24B7.html">24B7</a></span></td>
 <td class="up">Up: <a href="../maps/all.html#24FB">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2530.html">2530</a></span></td>
+<td class="next"><span class="next-1">Next: <a href="250F.html">250F</a></span></td>
 </tr>
 </table>
 <div class="description">24FB: THE 'SCANNING' SUBROUTINE</div>
@@ -26,7 +26,34 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="04AA.html">04AA</a>, <a href="1C56.html">1C56</a>, <a href="1C79.html">1C79</a>, <a href="1E27.html">1E27</a>, <a href="1F60.html">1F60</a>, <a href="1FFC.html">1FFC</a>, <a href="25AF.html">25AF</a>, <a href="27BD.html">27BD</a> and <a href="35DE.html">35DE</a>.
+Used by the routines at <a href="1C56.html">VAL_FET_1</a>, <a href="1C79.html">NEXT_2NUM</a>, <a href="1E27.html">DATA</a>, <a href="1F60.html">DEF_FN</a>, <a href="1FFC.html">PR_ITEM_1</a>, <a href="25E8.html">S_BRACKET</a>, <a href="27BD.html">S_FN_SBRN</a> and <a href="35DE.html">val</a>.
+</div>
+<div class="paragraph">
+This subroutine is used to produce an evaluation result of the 'next expression'.
+</div>
+<div class="paragraph">
+The result is returned as the 'last value' on the calculator stack. For a numerical result, the last value will be the actual floating point number. However, for a string result the last value will consist of a set of parameters. The first of the five bytes is unspecified, the second and third bytes hold the address of the start of the string and the fourth and fifth bytes hold the length of the string.
+</div>
+<div class="paragraph">
+Bit 6 of FLAGS is set for a numeric result and reset for a string result.
+</div>
+<div class="paragraph">
+When a next expression consists of only a single operand (e.g. 'A', 'RND', 'A$(4,3 TO 7)'), then the last value is simply the value that is obtained from evaluating the operand.
+</div>
+<div class="paragraph">
+However when the next expression contains a function and an operand (e.g. 'CHR$ A', 'NOT A', 'SIN 1'), the operation code of the function is stored on the machine stack until the last value of the operand has been calculated. This last value is then subjected to the appropriate operation to give a new last value.
+</div>
+<div class="paragraph">
+In the case of there being an arithmetic or logical operation to be performed (e.g. 'A+B', 'A*B', 'A=B'), then both the last value of the first argument and the operation code have to be kept until the last value of the second argument has been found. Indeed the calculation of the last value of the second argument may also involve the storing of last values and operation codes whilst the calculation is being performed.
+</div>
+<div class="paragraph">
+It can therefore be shown that as a complex expression is evaluated (e.g. 'CHR$ (T+A-26*INT ((T+A)/26)+65)'), a hierarchy of operations yet to be performed is built up until the point is reached from which it must be dismantled to produce the final last value.
+</div>
+<div class="paragraph">
+Each operation code has associated with it an appropriate priority code and operations of higher priority are always performed before those of lower priority.
+</div>
+<div class="paragraph">
+The subroutine begins with the <span class="register">A</span> register being set to hold the first character of the expression and a starting priority marker - zero - being put on the machine stack.
 </div>
 </div>
 <table class="input-0">
@@ -44,214 +71,98 @@ Used by the routines at <a href="04AA.html">04AA</a>, <a href="1C56.html">1C56</
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">SCANNING</td>
 <td class="address-2"><span id="24FB"></span>24FB</td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The first character is fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="24FC"></span>24FC</td>
 <td class="instruction">LD B,$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The starting priority marker.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="24FE"></span>24FE</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">It is stacked.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="24FF"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="25AF.html">25AF</a> and <a href="26C9.html">26C9</a>.
+This entry point is used by the routines at <a href="25AF.html">S_U_PLUS</a> and <a href="26C9.html">S_LETTER</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">S_LOOP_1</td>
 <td class="address-2"><span id="24FF"></span>24FF</td>
 <td class="instruction">LD C,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The main re-entry point.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2500"></span>2500</td>
 <td class="instruction">LD HL,$2596</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Index into the <a href="2596.html">scanning function table</a> with the code in <span class="register">C</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2503"></span>2503</td>
-<td class="instruction">CALL <a href="16DB.html#16DC">$16DC</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="16DB.html#16DC">INDEXER</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2506"></span>2506</td>
 <td class="instruction">LD A,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Restore the code to <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2507"></span>2507</td>
-<td class="instruction">JP NC,<a href="25AF.html#2684">$2684</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP NC,<a href="2684.html">S_ALPHNUM</a></td>
+<td class="comment-11" rowspan="1">Jump if code not found in table.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="250A"></span>250A</td>
 <td class="instruction">LD B,$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Use the entry found in the table to build up the required address in <span class="register">HL</span>, and jump to it.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="250C"></span>250C</td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="250D"></span>250D</td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="250E"></span>250E</td>
 <td class="instruction">JP (HL)</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="4">
-<span id="250F"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routine at <a href="25AF.html">25AF</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-2"><span id="250F"></span>250F</td>
-<td class="instruction">CALL <a href="0074.html">$0074</a></td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2512"></span>2512</td>
-<td class="instruction">INC BC</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2513"></span>2513</td>
-<td class="instruction">CP $0D</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2515"></span>2515</td>
-<td class="instruction">JP Z,<a href="1C79.html#1C8A">$1C8A</a></td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2518"></span>2518</td>
-<td class="instruction">CP "\""</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="251A"></span>251A</td>
-<td class="instruction">JR NZ,$250F</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="251C"></span>251C</td>
-<td class="instruction">CALL <a href="0074.html">$0074</a></td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="251F"></span>251F</td>
-<td class="instruction">CP "\""</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2521"></span>2521</td>
-<td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="4">
-<span id="2522"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routine at <a href="25AF.html">25AF</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-2"><span id="2522"></span>2522</td>
-<td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2523"></span>2523</td>
-<td class="instruction">CP "("</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2525"></span>2525</td>
-<td class="instruction">JR NZ,$252D</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2527"></span>2527</td>
-<td class="instruction">CALL <a href="1C79.html">$1C79</a></td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="252A"></span>252A</td>
-<td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="252B"></span>252B</td>
-<td class="instruction">CP ")"</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
-<td class="address-2"><span id="252D"></span>252D</td>
-<td class="instruction">JP NZ,<a href="1C79.html#1C8A">$1C8A</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
 <td class="prev"><span class="prev-1">Prev: <a href="24B7.html">24B7</a></span></td>
 <td class="up">Up: <a href="../maps/all.html#24FB">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2530.html">2530</a></span></td>
+<td class="next"><span class="next-1">Next: <a href="250F.html">250F</a></span></td>
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

@@ -20,12 +20,23 @@
 <td class="next"><span class="next-1">Next: <a href="37B5.html">37B5</a></span></td>
 </tr>
 </table>
-<div class="description">37AA: THE 'COSINE' FUNCTION</div>
+<div class="description">37AA: THE 'COSINE' FUNCTION (offset 20)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 20 by the routines at <a href="2382.html">DRAW</a> and <a href="37DA.html">tan</a>. It is also called indirectly via <a href="33A2.html">fp_calc_2</a>.
+</div>
+<div class="paragraph">
+This subroutine handles the function COS X and returns a 'last value' 'that is an approximation to COS X.
+</div>
+<div class="paragraph">
+The subroutine uses the expression COS X=SIN (&#960;W/2), where -1&lt;=W&lt;=1.
+</div>
+<div class="paragraph">
+In deriving W for X the subroutine uses the test result obtained in the previous subroutine and stored for this purpose in mem-0. It then jumps to the <a href="37B5.html">sin</a> subroutine, entering at <a href="37B5.html#37B7">C_ENT</a>, to produce a 'last value' of COS X.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,70 +53,80 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">cos</td>
 <td class="address-2"><span id="37AA"></span>37AA</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">X</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37AB"></span>37AB</td>
 <td class="instruction">DEFB $39</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="3783.html">get_argt</a>: V</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37AC"></span>37AC</td>
 <td class="instruction">DEFB $2A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="346A.html">abs</a>: ABS V</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37AD"></span>37AD</td>
 <td class="instruction">DEFB $A1</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="341B.html">stk_one</a>: ABS V, 1</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37AE"></span>37AE</td>
 <td class="instruction">DEFB $03</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="300F.html">subtract</a>: ABS V-1</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37AF"></span>37AF</td>
 <td class="instruction">DEFB $E0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="340F.html">get_mem_0</a>: ABS V-1, (1/0)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37B0"></span>37B0</td>
 <td class="instruction">DEFB $00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2"><a href="368F.html">jump_true</a> to <a href="37B5.html#37B7">C_ENT</a>: ABS V-1=W</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37B1"></span>37B1</td>
 <td class="instruction">DEFB $06</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="37B2"></span>
+<div class="comments">
+<div class="paragraph">
+If the jump was not made then continue.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37B2"></span>37B2</td>
 <td class="instruction">DEFB $1B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="346E.html">negate</a>: 1-ABS V</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37B3"></span>37B3</td>
 <td class="instruction">DEFB $33</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2"><a href="3686.html">jump</a> to <a href="37B5.html#37B7">C_ENT</a>: 1-ABS V=W</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37B4"></span>37B4</td>
 <td class="instruction">DEFB $03</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -116,8 +137,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

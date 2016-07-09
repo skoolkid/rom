@@ -15,18 +15,21 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="25AF.html">25AF</a></span></td>
+<td class="prev"><span class="prev-1">Prev: <a href="268D.html">268D</a></span></td>
 <td class="up">Up: <a href="../maps/all.html#26C9">Map</a></td>
 <td class="next"><span class="next-1">Next: <a href="2795.html">2795</a></span></td>
 </tr>
 </table>
-<div class="description">26C9: THE SCANNING VARIABLE ROUTINE</div>
+<div class="description">26C9: THE 'SCANNING VARIABLE' ROUTINE</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="25AF.html">25AF</a>.
+Used by the routine at <a href="2684.html">S_ALPHNUM</a>.
+</div>
+<div class="paragraph">
+When a variable name has been identified a call is made to <a href="28B2.html">LOOK_VARS</a> which looks through those variables that already exist in the variables area (or in the program area at DEF FN statements for a user-defined function FN). If an appropriate numeric value is found then it is copied to the calculator stack using <a href="33B4.html">STACK_NUM</a>. However a string or string array entry has to have the appropriate parameters passed to the calculator stack by <a href="2996.html">STK_VAR</a> (or in the case of a user-defined function, by <a href="2951.html">STK_F_ARG</a> as called from <a href="28B2.html">LOOK_VARS</a>).
 </div>
 </div>
 <table class="input-0">
@@ -44,680 +47,812 @@ Used by the routine at <a href="25AF.html">25AF</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">S_LETTER</td>
 <td class="address-2"><span id="26C9"></span>26C9</td>
-<td class="instruction">CALL <a href="28B2.html">$28B2</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="28B2.html">LOOK_VARS</a></td>
+<td class="comment-11" rowspan="1">Look in the existing variables for the matching entry.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26CC"></span>26CC</td>
-<td class="instruction">JP C,<a href="1C22.html#1C2E">$1C2E</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP C,<a href="1C22.html#1C2E">REPORT_2_2</a></td>
+<td class="comment-11" rowspan="1">An error is reported if there is no existing entry.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26CF"></span>26CF</td>
-<td class="instruction">CALL Z,<a href="2996.html">$2996</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL Z,<a href="2996.html">STK_VAR</a></td>
+<td class="comment-11" rowspan="1">Stack the parameters of the string entry/return numeric element base address.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26D2"></span>26D2</td>
 <td class="instruction">LD A,($5C3B)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch FLAGS.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26D5"></span>26D5</td>
 <td class="instruction">CP $C0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Test bits 6 and 7 together.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26D7"></span>26D7</td>
-<td class="instruction">JR C,$26DD</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="26C9.html#26DD">S_CONT_1</a></td>
+<td class="comment-11" rowspan="1">Jump if one or both bits are reset.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26D9"></span>26D9</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">A numeric value is to be stacked.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26DA"></span>26DA</td>
-<td class="instruction">CALL <a href="33B4.html">$33B4</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="33B4.html">STACK_NUM</a></td>
+<td class="comment-11" rowspan="1">Move the number.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="26DD"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="25AF.html">25AF</a>.
+This entry point is used by the routine at <a href="268D.html">S_DECIMAL</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">S_CONT_1</td>
 <td class="address-2"><span id="26DD"></span>26DD</td>
-<td class="instruction">JR $2712</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="26C9.html#2712">S_CONT_2</a></td>
+<td class="comment-11" rowspan="1">Jump forward.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="26DF"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="25AF.html">25AF</a>.
+This entry point is used by the routine at <a href="2684.html">S_ALPHNUM</a>.
+</div>
+<div class="paragraph">
+The character is tested against the code for '-', thus identifying the 'unary minus' operation.
+</div>
+<div class="paragraph">
+Before the actual test the <span class="register">B</span> register is set to hold the priority +09 and the <span class="register">C</span> register the operation code +DB that are required for this operation.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">S_NEGATE</td>
 <td class="address-2"><span id="26DF"></span>26DF</td>
 <td class="instruction">LD BC,$09DB</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Priority +09, operation code +DB.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26E2"></span>26E2</td>
 <td class="instruction">CP "-"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Is it a '-'?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26E4"></span>26E4</td>
-<td class="instruction">JR Z,$270D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="26C9.html#270D">S_PUSH_PO</a></td>
+<td class="comment-11" rowspan="1">Jump forward if it is 'unary minus'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="26E6"></span>
+<div class="comments">
+<div class="paragraph">
+Next the character is tested against the code for 'VAL$', with priority 16 decimal and operation code 18 hex.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26E6"></span>26E6</td>
 <td class="instruction">LD BC,$1018</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Priority 16 dec, operation code +18 hex.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26E9"></span>26E9</td>
 <td class="instruction">CP $AE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Is it 'VAL$'?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26EB"></span>26EB</td>
-<td class="instruction">JR Z,$270D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="26C9.html#270D">S_PUSH_PO</a></td>
+<td class="comment-11" rowspan="1">Jump forward if it is 'VAL$'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="26ED"></span>
+<div class="comments">
+<div class="paragraph">
+The present character must now represent one of the functions CODE to NOT, with codes +AF to +C3.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26ED"></span>26ED</td>
 <td class="instruction">SUB $AF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The range of the functions is changed from +AF to +C3 to range +00 to +14 hex.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26EF"></span>26EF</td>
-<td class="instruction">JP C,<a href="1C79.html#1C8A">$1C8A</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP C,<a href="1C79.html#1C8A">REPORT_C</a></td>
+<td class="comment-11" rowspan="1">Report an error if out of range.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="26F2"></span>
+<div class="comments">
+<div class="paragraph">
+The function 'NOT' is identified and dealt with separately from the others.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26F2"></span>26F2</td>
 <td class="instruction">LD BC,$04F0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Priority +04, operation code +F0.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26F5"></span>26F5</td>
 <td class="instruction">CP $14</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Is it the function 'NOT'?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26F7"></span>26F7</td>
-<td class="instruction">JR Z,$270D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="26C9.html#270D">S_PUSH_PO</a></td>
+<td class="comment-11" rowspan="1">Jump if it is so.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26F9"></span>26F9</td>
-<td class="instruction">JP NC,<a href="1C79.html#1C8A">$1C8A</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP NC,<a href="1C79.html#1C8A">REPORT_C</a></td>
+<td class="comment-11" rowspan="1">Check the range again.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="26FC"></span>
+<div class="comments">
+<div class="paragraph">
+The remaining functions have priority 16 decimal. The operation codes for these functions are now calculated. Functions that operate on strings need bit 6 reset and functions that give string results need bit 7 reset in their operation codes.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26FC"></span>26FC</td>
 <td class="instruction">LD B,$10</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Priority 16 decimal.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="26FE"></span>26FE</td>
 <td class="instruction">ADD A,$DC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The function range is now +DC to +EF.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2700"></span>2700</td>
 <td class="instruction">LD C,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Transfer the operation code.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2701"></span>2701</td>
 <td class="instruction">CP $DF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Separate CODE, VAL and LEN which operate on strings to give numerical results.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2703"></span>2703</td>
-<td class="instruction">JR NC,$2707</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="26C9.html#2707">S_NO_TO_S</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2705"></span>2705</td>
 <td class="instruction">RES 6,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">S_NO_TO_S</td>
 <td class="address-2"><span id="2707"></span>2707</td>
 <td class="instruction">CP $EE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Separate STR$ and CHR$ which operate on numbers to give string results.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2709"></span>2709</td>
-<td class="instruction">JR C,$270D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="26C9.html#270D">S_PUSH_PO</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="270B"></span>270B</td>
 <td class="instruction">RES 7,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Mark the operation codes. The other operation codes have bits 6 and 7 both set.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="270D"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="25AF.html">25AF</a>.
+This entry point is used by the routine at <a href="2634.html">S_INKEY</a>.
+</div>
+<div class="paragraph">
+The priority code and the operation code for the function being considered are now pushed on to the machine stack. A hierarchy of operations is thereby built up.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">S_PUSH_PO</td>
 <td class="address-2"><span id="270D"></span>270D</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Stack the priority and operation codes before moving on to consider the next part of the expression.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="270E"></span>270E</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="270F"></span>270F</td>
-<td class="instruction">JP <a href="24FB.html#24FF">$24FF</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP <a href="24FB.html#24FF">S_LOOP_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="2712"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="25AF.html">25AF</a> and <a href="27BD.html">27BD</a>.
+This entry point is used by the routines at <a href="25B3.html">S_QUOTE</a>, <a href="25E8.html">S_BRACKET</a>, <a href="2634.html">S_INKEY</a> and <a href="27BD.html">S_FN_SBRN</a>.
+</div>
+<div class="paragraph">
+The scanning of the line now continues. The present argument may be followed by a '(', a binary operator or, if the end of the expression has been reached, then e.g. a carriage return character or a colon, a separator or a 'THEN'.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">S_CONT_2</td>
 <td class="address-2"><span id="2712"></span>2712</td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the present character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">S_CONT_3</td>
 <td class="address-2"><span id="2713"></span>2713</td>
 <td class="instruction">CP "("</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if it is not a '(', which indicates a parenthesised expression.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2715"></span>2715</td>
-<td class="instruction">JR NZ,$2723</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="26C9.html#2723">S_OPERTR</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="2717"></span>
+<div class="comments">
+<div class="paragraph">
+If the 'last value' is numeric then the parenthesised expression is a true sub-expression and must be evaluated by itself. However if the 'last value' is a string then the parenthesised expression represents an element of an array or a slice of a string. A call to <a href="2A52.html">SLICING</a> modifies the parameters of the string as required.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2717"></span>2717</td>
 <td class="instruction">BIT 6,(IY+$01)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if dealing with a numeric parenthesised expression.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="271B"></span>271B</td>
-<td class="instruction">JR NZ,$2734</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="26C9.html#2734">S_LOOP</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="271D"></span>271D</td>
-<td class="instruction">CALL <a href="2A52.html">$2A52</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2A52.html">SLICING</a></td>
+<td class="comment-11" rowspan="1">Modify the parameters of the 'last value'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2720"></span>2720</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Move on to consider the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2721"></span>2721</td>
-<td class="instruction">JR $2713</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="26C9.html#2713">S_CONT_3</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="2723"></span>
+<div class="comments">
+<div class="paragraph">
+If the present character is indeed a binary operator it will be given an operation code in the range +C3 to +CF hex, and the appropriate priority code.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">S_OPERTR</td>
 <td class="address-2"><span id="2723"></span>2723</td>
 <td class="instruction">LD B,$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Original code to <span class="register">BC</span> to index into the <a href="2795.html">table of operators</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2725"></span>2725</td>
 <td class="instruction">LD C,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2726"></span>2726</td>
 <td class="instruction">LD HL,$2795</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The pointer to the table.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2729"></span>2729</td>
-<td class="instruction">CALL <a href="16DB.html#16DC">$16DC</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="16DB.html#16DC">INDEXER</a></td>
+<td class="comment-11" rowspan="1">Index into the table.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="272C"></span>272C</td>
-<td class="instruction">JR NC,$2734</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="26C9.html#2734">S_LOOP</a></td>
+<td class="comment-11" rowspan="1">Jump forward if no operation found.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="272E"></span>272E</td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get required code from the table.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="272F"></span>272F</td>
 <td class="instruction">LD HL,$26ED</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The pointer to the priority table (26ED+C3 gives <a href="27B0.html">PRIORITIES</a> as the first address).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2732"></span>2732</td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Index into the table.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2733"></span>2733</td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the appropriate priority.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="2734"></span>
+<div class="comments">
+<div class="paragraph">
+The main loop of this subroutine is now entered. At this stage there are:
+</div>
+<div class="paragraph">
+<ul class="">
+<li>i. A 'last value' on the calculator stack.</li>
+<li>ii. The starting priority marker on the machine stack below a hierarchy, of unknown size, of function and binary operation codes. This hierarchy may be null.</li>
+<li>iii. The <span class="register">BC</span> register pair holding the 'present' operation and priority, which if the end of an expression has been reached will be priority zero.</li>
+</ul>
+</div>
+<div class="paragraph">
+Initially the 'last' operation and priority are taken off the machine stack and compared against the 'present' operation and priority.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">S_LOOP</td>
 <td class="address-2"><span id="2734"></span>2734</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get the 'last' operation and priority.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2735"></span>2735</td>
 <td class="instruction">LD A,D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The priority goes to the <span class="register">A</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2736"></span>2736</td>
 <td class="instruction">CP B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Compare 'last' against 'present'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2737"></span>2737</td>
-<td class="instruction">JR C,$2773</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="26C9.html#2773">S_TIGHTER</a></td>
+<td class="comment-11" rowspan="1">Exit to wait for the argument.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2739"></span>2739</td>
 <td class="instruction">AND A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Are both priorities zero?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="273A"></span>273A</td>
-<td class="instruction">JP Z,<a href="0018.html">$0018</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP Z,<a href="0018.html">GET_CHAR</a></td>
+<td class="comment-11" rowspan="1">Exit via <a href="0018.html">GET_CHAR</a> thereby making 'last value' the required result.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="273D"></span>
+<div class="comments">
+<div class="paragraph">
+Before the 'last' operation is performed, the 'USR' function is separated into 'USR number' and 'USR string' according as bit 6 of FLAGS was set or reset when the argument of the function was stacked as the 'last value'.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="273D"></span>273D</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Stack the 'present' values.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="273E"></span>273E</td>
 <td class="instruction">LD HL,$5C3B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">This is FLAGS.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2741"></span>2741</td>
 <td class="instruction">LD A,E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">The 'last' operation is compared with the code for USR, which will give 'USR number' unless modified; jump if not 'USR'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2742"></span>2742</td>
 <td class="instruction">CP $ED</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2744"></span>2744</td>
-<td class="instruction">JR NZ,$274C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="26C9.html#274C">S_STK_LST</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2746"></span>2746</td>
 <td class="instruction">BIT 6,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Test bit 6 of FLAGS.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2748"></span>2748</td>
-<td class="instruction">JR NZ,$274C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="26C9.html#274C">S_STK_LST</a></td>
+<td class="comment-11" rowspan="1">Jump if it is set ('USR number').</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="274A"></span>274A</td>
 <td class="instruction">LD E,$99</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Modify the 'last' operation code: 'offset' 19, +80 for string input and numerical result ('USR string').</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">S_STK_LST</td>
 <td class="address-2"><span id="274C"></span>274C</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Stack the 'last' values briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="274D"></span>274D</td>
-<td class="instruction">CALL <a href="2530.html">$2530</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="2">Do not perform the actual operation if syntax is being checked.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2750"></span>2750</td>
-<td class="instruction">JR Z,$275B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="26C9.html#275B">S_SYNTEST</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2752"></span>2752</td>
 <td class="instruction">LD A,E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The 'last' operation code.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2753"></span>2753</td>
 <td class="instruction">AND $3F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Strip off bits 6 and 7 to convert the operation code to a calculator offset.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2755"></span>2755</td>
 <td class="instruction">LD B,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2756"></span>2756</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Now use the calculator.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2757"></span>2757</td>
 <td class="instruction">DEFB $3B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="33A2.html">fp_calc_2</a>: (perform the actual operation)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2758"></span>2758</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2759"></span>2759</td>
-<td class="instruction">JR $2764</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="26C9.html#2764">S_RUNTEST</a></td>
+<td class="comment-11" rowspan="1">Jump forward.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="275B"></span>
+<div class="comments">
+<div class="paragraph">
+An important part of syntax checking involves the testing of the operation to ensure that the nature of the 'last value' is of the correct type for the operation under consideration.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">S_SYNTEST</td>
 <td class="address-2"><span id="275B"></span>275B</td>
 <td class="instruction">LD A,E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get the 'last' operation code.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="275C"></span>275C</td>
 <td class="instruction">XOR (IY+$01)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">This tests the nature of the 'last value' against the requirement of the operation. They are to be the same for correct syntax.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="275F"></span>275F</td>
 <td class="instruction">AND $40</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">S_RPORT_C_2</td>
 <td class="address-2"><span id="2761"></span>2761</td>
-<td class="instruction">JP NZ,<a href="1C79.html#1C8A">$1C8A</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP NZ,<a href="1C79.html#1C8A">REPORT_C</a></td>
+<td class="comment-11" rowspan="1">Jump if syntax fails.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="2764"></span>
+<div class="comments">
+<div class="paragraph">
+Before jumping back to go round the loop again the nature of the 'last value' must be recorded in FLAGS.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">S_RUNTEST</td>
 <td class="address-2"><span id="2764"></span>2764</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get the 'last' operation code.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2765"></span>2765</td>
 <td class="instruction">LD HL,$5C3B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">This is FLAGS.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2768"></span>2768</td>
 <td class="instruction">SET 6,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Assume result to be numeric.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="276A"></span>276A</td>
 <td class="instruction">BIT 7,E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if the nature of 'last value' is numeric.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="276C"></span>276C</td>
-<td class="instruction">JR NZ,$2770</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="26C9.html#2770">S_LOOPEND</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="276E"></span>276E</td>
 <td class="instruction">RES 6,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">It is a string.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">S_LOOPEND</td>
 <td class="address-2"><span id="2770"></span>2770</td>
 <td class="instruction">POP BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get the 'present' values into <span class="register">BC</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2771"></span>2771</td>
-<td class="instruction">JR $2734</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="26C9.html#2734">S_LOOP</a></td>
+<td class="comment-11" rowspan="1">Jump back.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="2773"></span>
+<div class="comments">
+<div class="paragraph">
+Whenever the 'present' operation binds tighter, the 'last' and the 'present' values go back on the machine stack. However if the 'present' operation requires a string as its operand then the operation code is modified to indicate this requirement.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">S_TIGHTER</td>
 <td class="address-2"><span id="2773"></span>2773</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The 'last' values go on the stack.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2774"></span>2774</td>
 <td class="instruction">LD A,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get the 'present' operation code.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2775"></span>2775</td>
 <td class="instruction">BIT 6,(IY+$01)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Do not modify the operation code if dealing with a numeric operand.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2779"></span>2779</td>
-<td class="instruction">JR NZ,$2790</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="26C9.html#2790">S_NEXT</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="277B"></span>277B</td>
 <td class="instruction">AND $3F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Clear bits 6 and 7.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="277D"></span>277D</td>
 <td class="instruction">ADD A,$08</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Increase the code by +08 hex.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="277F"></span>277F</td>
 <td class="instruction">LD C,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return the code to the <span class="register">C</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2780"></span>2780</td>
 <td class="instruction">CP $10</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Is the operation 'AND'?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2782"></span>2782</td>
-<td class="instruction">JR NZ,$2788</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="26C9.html#2788">S_NOT_AND</a></td>
+<td class="comment-11" rowspan="1">Jump if it is not so.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2784"></span>2784</td>
 <td class="instruction">SET 6,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">'AND' requires a numeric operand.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2786"></span>2786</td>
-<td class="instruction">JR $2790</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="26C9.html#2790">S_NEXT</a></td>
+<td class="comment-11" rowspan="1">Jump forward.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">S_NOT_AND</td>
 <td class="address-2"><span id="2788"></span>2788</td>
-<td class="instruction">JR C,$2761</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="26C9.html#2761">S_RPORT_C_2</a></td>
+<td class="comment-11" rowspan="1">The operations -, *, /, &#8593; and OR are not possible between strings.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="278A"></span>278A</td>
 <td class="instruction">CP $17</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Is the operation a '+'?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="278C"></span>278C</td>
-<td class="instruction">JR Z,$2790</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="26C9.html#2790">S_NEXT</a></td>
+<td class="comment-11" rowspan="1">Jump if it is so.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="278E"></span>278E</td>
 <td class="instruction">SET 7,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The other operations yield a numeric result.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">S_NEXT</td>
 <td class="address-2"><span id="2790"></span>2790</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The 'present' values go on the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2791"></span>2791</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Consider the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2792"></span>2792</td>
-<td class="instruction">JP <a href="24FB.html#24FF">$24FF</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP <a href="24FB.html#24FF">S_LOOP_1</a></td>
+<td class="comment-11" rowspan="1">Go around the loop again.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="25AF.html">25AF</a></span></td>
+<td class="prev"><span class="prev-1">Prev: <a href="268D.html">268D</a></span></td>
 <td class="up">Up: <a href="../maps/all.html#26C9">Map</a></td>
 <td class="next"><span class="next-1">Next: <a href="2795.html">2795</a></span></td>
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

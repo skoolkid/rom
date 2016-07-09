@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="17F9.html">17F9</a> and <a href="1C0D.html">1C0D</a>.
+Used by the routines at <a href="17F9.html">LIST</a> and <a href="1C0D.html">CLASS_03</a>.
+</div>
+<div class="paragraph">
+This subroutine leads to a following numeric expression being evaluated but zero being used instead if there is no expression.
 </div>
 </div>
 <table class="input-0">
@@ -44,74 +47,77 @@ Used by the routines at <a href="17F9.html">17F9</a> and <a href="1C0D.html">1C0
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">FETCH_NUM</td>
 <td class="address-2"><span id="1CDE"></span>1CDE</td>
 <td class="instruction">CP $0D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if at the end of a line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CE0"></span>1CE0</td>
-<td class="instruction">JR Z,$1CE6</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="1CDE.html#1CE6">USE_ZERO</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CE2"></span>1CE2</td>
 <td class="instruction">CP ":"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">But jump to <a href="1C79.html#1C82">CLASS_06</a> unless at the end of a statement.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CE4"></span>1CE4</td>
-<td class="instruction">JR NZ,<a href="1C79.html#1C82">$1C82</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="1C79.html#1C82">CLASS_06</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="1CE6"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="0605.html">0605</a> and <a href="17F9.html">17F9</a>.
+This entry point is used by the routines at <a href="0605.html">SAVE_ETC</a> and <a href="17F9.html">LIST</a>.
+</div>
+<div class="paragraph">
+The calculator is now used to add the value zero to the calculator stack.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">USE_ZERO</td>
 <td class="address-2"><span id="1CE6"></span>1CE6</td>
-<td class="instruction">CALL <a href="2530.html">$2530</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="2">Do not perform the operation if syntax is being checked.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CE9"></span>1CE9</td>
 <td class="instruction">RET Z</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CEA"></span>1CEA</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Use the calculator.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CEB"></span>1CEB</td>
 <td class="instruction">DEFB $A0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="341B.html">stk_zero</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CEC"></span>1CEC</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CED"></span>1CED</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return with zero added to the stack.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -122,8 +128,8 @@ This entry point is used by the routines at <a href="0605.html">0605</a> and <a 
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

@@ -25,7 +25,12 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is derived from an offset found in the <a href="0FA0.html">editing keys table</a>.
+</div>
+<div class="paragraph">
+If SYMBOL and GRAPHICS codes were used they would be handled as follows:
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,22 +47,32 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">ED_SYMBOL</td>
 <td class="address-2"><span id="1076"></span>1076</td>
 <td class="instruction">BIT 7,(IY+$37)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump back unless dealing with INPUT LINE.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="107A"></span>107A</td>
-<td class="instruction">JR Z,<a href="1024.html">$1024</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="1024.html">ED_ENTER</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="107C"></span>
+<div class="comments">
+<div class="paragraph">
+The address of this entry point is derived from an offset found in the <a href="0FA0.html">editing keys table</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">ED_GRAPH</td>
 <td class="address-1"><span id="107C"></span>107C</td>
-<td class="instruction">JP <a href="0F81.html">$0F81</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP <a href="0F2C.html#0F81">ADD_CHAR</a></td>
+<td class="comment-11" rowspan="1">Jump back.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -68,8 +83,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

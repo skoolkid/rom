@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="2307.html">2307</a>.
+Used by the routine at <a href="2307.html">STK_TO_BC</a>.
+</div>
+<div class="paragraph">
+This subroutine loads the <span class="register">A</span> register with the floating point number held at the top of the calculator stack. The number must be in the range 00-FF.
 </div>
 </div>
 <table class="input-0">
@@ -44,40 +47,40 @@ Used by the routine at <a href="2307.html">2307</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">STK_TO_A</td>
 <td class="address-2"><span id="2314"></span>2314</td>
-<td class="instruction">CALL <a href="2DD5.html">$2DD5</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2DD5.html">FP_TO_A</a></td>
+<td class="comment-11" rowspan="2">Modulus of rounded last value to <span class="register">A</span> if possible; else, report error.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2317"></span>2317</td>
-<td class="instruction">JP C,<a href="24B7.html#24F9">$24F9</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP C,<a href="24B7.html#24F9">REPORT_B_3</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="231A"></span>231A</td>
 <td class="instruction">LD C,$01</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">One to <span class="register">C</span> for positive last value.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="231C"></span>231C</td>
 <td class="instruction">RET Z</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return if value was positive.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="231D"></span>231D</td>
 <td class="instruction">LD C,$FF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Else change <span class="register">C</span> to +FF (i.e. minus one).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="231F"></span>231F</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -88,8 +91,8 @@ Used by the routine at <a href="2307.html">2307</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

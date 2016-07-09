@@ -20,13 +20,22 @@
 <td class="next"><span class="next-1">Next: <a href="3492.html">3492</a></span></td>
 </tr>
 </table>
-<div class="description">346E: THE 'UNARY MINUS' OPERATION</div>
+<div class="description">346E: THE 'UNARY MINUS' OPERATION (offset 1B)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="300F.html">300F</a>.
+Used by the routine at <a href="300F.html">subtract</a>.
+</div>
+<div class="paragraph">
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 1B by the routines at <a href="247D.html">CD_PRMS1</a>, <a href="3783.html">get_argt</a>, <a href="37AA.html">cos</a>, <a href="37E2.html">atn</a>, <a href="3833.html">asn</a> and <a href="3843.html">acs</a>. It is also called indirectly via <a href="33A2.html">fp_calc_2</a>.
+</div>
+<div class="paragraph">
+This subroutine performs its unary operation by changing the sign of the 'last value' on the calculator stack.
+</div>
+<div class="paragraph">
+Zero is simply returned unchanged. Full five byte floating-point numbers have their sign bit manipulated so that it ends up reset (for 'abs') or changed (for 'negate'). 'Small integers' have their sign byte set to zero (for 'abs') or changed (for 'negate').
 </div>
 </div>
 <table class="input-0">
@@ -44,176 +53,186 @@ Used by the routine at <a href="300F.html">300F</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">negate</td>
 <td class="address-2"><span id="346E"></span>346E</td>
-<td class="instruction">CALL <a href="34E9.html">$34E9</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="34E9.html">TEST_ZERO</a></td>
+<td class="comment-11" rowspan="2">If the number is zero, the subroutine returns leaving 00 00 00 00 00 unchanged.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3471"></span>3471</td>
 <td class="instruction">RET C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3472"></span>3472</td>
 <td class="instruction">LD B,$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">B</span> is set to +00 hex for 'negate'.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="3474"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="346A.html">346A</a>.
+This entry point is used by the routine at <a href="346A.html">abs</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">NEG_TEST</td>
 <td class="address-2"><span id="3474"></span>3474</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">If the first byte is zero, the jump is made to deal with a 'small integer'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3475"></span>3475</td>
 <td class="instruction">AND A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3476"></span>3476</td>
-<td class="instruction">JR Z,$3483</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="346E.html#3483">INT_CASE</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3478"></span>3478</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Point to the second byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3479"></span>3479</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get +FF for 'abs', +00 for 'negate'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="347A"></span>347A</td>
 <td class="instruction">AND $80</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Now +80 for 'abs', +00 for 'negate'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="347C"></span>347C</td>
 <td class="instruction">OR (HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">This sets bit 7 for 'abs', but changes nothing for 'negate'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="347D"></span>347D</td>
 <td class="instruction">RLA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Now bit 7 is changed, leading to bit 7 of byte 2 reset for 'abs', and simply changed for 'negate'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="347E"></span>347E</td>
 <td class="instruction">CCF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="347F"></span>347F</td>
 <td class="instruction">RRA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3480"></span>3480</td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The new second byte is stored.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3481"></span>3481</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">HL</span> points to the first byte again.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3482"></span>3482</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="3483"></span>
+<div class="comments">
+<div class="paragraph">
+The 'integer case' does a similar operation with the sign byte.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">INT_CASE</td>
 <td class="address-2"><span id="3483"></span>3483</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save STKEND in <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3484"></span>3484</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save pointer to the number in <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3485"></span>3485</td>
-<td class="instruction">CALL <a href="2D7F.html">$2D7F</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2D7F.html">INT_FETCH</a></td>
+<td class="comment-11" rowspan="1">Fetch the sign in <span class="register">C</span>, the number in <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3488"></span>3488</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Restore the pointer to the number in <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3489"></span>3489</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get +FF for 'abs', +00 for 'negate'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="348A"></span>348A</td>
 <td class="instruction">OR C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Now +FF for 'abs', no change for 'negate'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="348B"></span>348B</td>
 <td class="instruction">CPL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Now +00 for 'abs', and a changed byte for 'negate'; store it in <span class="register">C</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="348C"></span>348C</td>
 <td class="instruction">LD C,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="348D"></span>348D</td>
-<td class="instruction">CALL <a href="2D8C.html#2D8E">$2D8E</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2D8E.html">INT_STORE</a></td>
+<td class="comment-11" rowspan="1">Store result on the stack.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3490"></span>3490</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return STKEND to <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3491"></span>3491</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -224,8 +243,8 @@ This entry point is used by the routine at <a href="346A.html">346A</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

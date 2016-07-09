@@ -25,7 +25,12 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="1A48.html#1ABB">parameter table</a>.
+</div>
+<div class="paragraph">
+This routine allows for the variables area to be cleared, the display area cleared and RAMTOP moved. In consequence of the last operation the machine stack is rebuilt thereby having the effect of also clearing the GO SUB stack.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,218 +47,258 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLEAR</td>
 <td class="address-2"><span id="1EAC"></span>1EAC</td>
-<td class="instruction">CALL <a href="1E94.html#1E99">$1E99</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1E94.html#1E99">FIND_INT2</a></td>
+<td class="comment-11" rowspan="1">Fetch the operand - using zero by default.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="1EAF"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="1EA1.html">1EA1</a>.
+This entry point is used by the routine at <a href="1EA1.html">RUN</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLEAR_RUN</td>
 <td class="address-2"><span id="1EAF"></span>1EAF</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Jump forward if the operand is other than zero. When called from <a href="1EA1.html">RUN</a> there is no jump.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EB0"></span>1EB0</td>
 <td class="instruction">OR C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EB1"></span>1EB1</td>
-<td class="instruction">JR NZ,$1EB7</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="1EAC.html#1EB7">CLEAR_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EB3"></span>1EB3</td>
 <td class="instruction">LD BC,($5CB2)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">If zero use the existing value in RAMTOP.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLEAR_1</td>
 <td class="address-2"><span id="1EB7"></span>1EB7</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the value.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EB8"></span>1EB8</td>
 <td class="instruction">LD DE,($5C4B)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Next reclaim all the bytes of the present variables area.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EBC"></span>1EBC</td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EBF"></span>1EBF</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EC0"></span>1EC0</td>
-<td class="instruction">CALL <a href="19E5.html">$19E5</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="19E5.html">RECLAIM_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EC3"></span>1EC3</td>
-<td class="instruction">CALL <a href="0D6B.html">$0D6B</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="0D6B.html">CLS</a></td>
+<td class="comment-11" rowspan="1">Clear the display area.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="1EC6"></span>
+<div class="comments">
+<div class="paragraph">
+The value in the <span class="register">BC</span> register pair which will be used as RAMTOP is tested to ensure it is neither too low nor too high.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EC6"></span>1EC6</td>
 <td class="instruction">LD HL,($5C65)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="5">The current value of STKEND is increased by 50 before being tested. This forms the lower limit.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EC9"></span>1EC9</td>
 <td class="instruction">LD DE,$0032</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1ECC"></span>1ECC</td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1ECD"></span>1ECD</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1ECE"></span>1ECE</td>
 <td class="instruction">SBC HL,DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1ED0"></span>1ED0</td>
-<td class="instruction">JR NC,$1EDA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="1EAC.html#1EDA">REPORT_M</a></td>
+<td class="comment-11" rowspan="1">RAMTOP will be too low.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1ED2"></span>1ED2</td>
 <td class="instruction">LD HL,($5CB4)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">For the upper test the value for RAMTOP is tested against P-RAMT.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1ED5"></span>1ED5</td>
 <td class="instruction">AND A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1ED6"></span>1ED6</td>
 <td class="instruction">SBC HL,DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1ED8"></span>1ED8</td>
-<td class="instruction">JR NC,$1EDC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="1EAC.html#1EDC">CLEAR_2</a></td>
+<td class="comment-11" rowspan="1">Jump forward if acceptable.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="1EDA"></span>
+<div class="comments">
+<div class="paragraph">
+Report M - RAMTOP no good.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">REPORT_M</td>
 <td class="address-2"><span id="1EDA"></span>1EDA</td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EDB"></span>1EDB</td>
 <td class="instruction">DEFB $15</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="1EDC"></span>
+<div class="comments">
+<div class="paragraph">
+Continue with the CLEAR operation.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CLEAR_2</td>
 <td class="address-2"><span id="1EDC"></span>1EDC</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Now the value can actually be passed to RAMTOP.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EDD"></span>1EDD</td>
 <td class="instruction">LD ($5CB2),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EE0"></span>1EE0</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the address of <a href="1B76.html">STMT_RET</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EE1"></span>1EE1</td>
 <td class="instruction">POP BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the 'error address'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EE2"></span>1EE2</td>
 <td class="instruction">LD (HL),$3E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Enter a GO SUB stack end marker.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EE4"></span>1EE4</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Leave one location.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EE5"></span>1EE5</td>
 <td class="instruction">LD SP,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Make the stack pointer point to an empty GO SUB stack.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EE6"></span>1EE6</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Next pass the 'error address' to the stack and save its address in ERR-SP.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EE7"></span>1EE7</td>
 <td class="instruction">LD ($5C3D),SP</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EEB"></span>1EEB</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">An indirect return is now made to <a href="1B76.html">STMT_RET</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1EEC"></span>1EEC</td>
 <td class="instruction">JP (HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="4">
+
+<div class="comments">
+<div class="paragraph">
+Note: when the routine is called from <a href="1EA1.html">RUN</a> the values of NEWPPC and NSPPC will have been affected and no statements coming after RUN can ever be found before the jump is taken.
+</div>
+</div>
+</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -264,8 +309,8 @@ This entry point is used by the routine at <a href="1EA1.html">1EA1</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

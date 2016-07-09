@@ -26,7 +26,13 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="2AF4.html">2AF4</a> and <a href="30CA.html">30CA</a>.
+Used by the routines at <a href="2AF4.html">GET_HLxDE</a> and <a href="30CA.html">multiply</a>.
+</div>
+<div class="paragraph">
+This subroutine is called by <a href="2AF4.html">GET_HLxDE</a> and by <a href="30CA.html">multiply</a> to perform the 16-bit multiplication as stated.
+</div>
+<div class="paragraph">
+Any overflow of the 16 bits available is dealt with on return from the subroutine.
 </div>
 </div>
 <table class="input-0">
@@ -44,94 +50,94 @@ Used by the routines at <a href="2AF4.html">2AF4</a> and <a href="30CA.html">30C
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">HL_HLxDE</td>
 <td class="address-2"><span id="30A9"></span>30A9</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">BC</span> is saved.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="30AA"></span>30AA</td>
 <td class="instruction">LD B,$10</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">It is to be a 16-bit multiplication.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="30AC"></span>30AC</td>
 <td class="instruction">LD A,H</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">A</span> holds the high byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="30AD"></span>30AD</td>
 <td class="instruction">LD C,L</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">C</span> holds the low byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="30AE"></span>30AE</td>
 <td class="instruction">LD HL,$0000</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Initialise the result to zero.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">HL_LOOP</td>
 <td class="address-2"><span id="30B1"></span>30B1</td>
 <td class="instruction">ADD HL,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Double the result.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="30B2"></span>30B2</td>
-<td class="instruction">JR C,$30BE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="30A9.html#30BE">HL_END</a></td>
+<td class="comment-11" rowspan="1">Jump if overflow.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="30B4"></span>30B4</td>
 <td class="instruction">RL C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Rotate bit 7 of <span class="register">C</span> into the carry.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="30B6"></span>30B6</td>
 <td class="instruction">RLA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Rotate the carry bit into bit 0 and bit 7 into the carry flag.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="30B7"></span>30B7</td>
-<td class="instruction">JR NC,$30BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="30A9.html#30BC">HL_AGAIN</a></td>
+<td class="comment-11" rowspan="1">Jump if the carry flag is reset.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="30B9"></span>30B9</td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Otherwise add <span class="register">DE</span> in once.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="30BA"></span>30BA</td>
-<td class="instruction">JR C,$30BE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="30A9.html#30BE">HL_END</a></td>
+<td class="comment-11" rowspan="1">Jump if overflow.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">HL_AGAIN</td>
 <td class="address-2"><span id="30BC"></span>30BC</td>
-<td class="instruction">DJNZ $30B1</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DJNZ <a href="30A9.html#30B1">HL_LOOP</a></td>
+<td class="comment-11" rowspan="1">Repeat until 16 passes have been made.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">HL_END</td>
 <td class="address-2"><span id="30BE"></span>30BE</td>
 <td class="instruction">POP BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Restore <span class="register">BC</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="30BF"></span>30BF</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -142,8 +148,8 @@ Used by the routines at <a href="2AF4.html">2AF4</a> and <a href="30CA.html">30C
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

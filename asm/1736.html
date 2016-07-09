@@ -20,12 +20,20 @@
 <td class="next"><span class="next-1">Next: <a href="175D.html">175D</a></span></td>
 </tr>
 </table>
-<div class="description">1736: THE 'OPEN#' COMMAND ROUTINE</div>
+<div class="description">1736: THE 'OPEN #' COMMAND ROUTINE</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="1A48.html#1AFC">parameter table</a>.
+</div>
+<div class="paragraph">
+This command allows the user to OPEN streams. A channel code must be supplied and it must be 'K', 'k', 'S', 's', 'P', or 'p'.
+</div>
+<div class="paragraph">
+Note that no attempt is made to give streams +00 to +03 their initial data.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,160 +50,160 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">OPEN</td>
 <td class="address-2"><span id="1736"></span>1736</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Use the calculator to exchange the stream number and the channel code.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1737"></span>1737</td>
 <td class="instruction">DEFB $01</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="343C.html">exchange</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1738"></span>1738</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1739"></span>1739</td>
-<td class="instruction">CALL <a href="171E.html">$171E</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="171E.html">STR_DATA</a></td>
+<td class="comment-11" rowspan="1">Fetch the data for the stream.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="173C"></span>173C</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Jump forward if both bytes of the data are zero, i.e. the stream was in a closed state.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="173D"></span>173D</td>
 <td class="instruction">OR C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="173E"></span>173E</td>
-<td class="instruction">JR Z,$1756</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="1736.html#1756">OPEN_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1740"></span>1740</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1741"></span>1741</td>
 <td class="instruction">LD HL,($5C4F)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="6">Fetch CHANS - the base address of the channel information and find the code of the channel associated with the stream being OPENed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1744"></span>1744</td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1745"></span>1745</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1746"></span>1746</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1747"></span>1747</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1748"></span>1748</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1749"></span>1749</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="174A"></span>174A</td>
 <td class="instruction">CP "K"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="6">The code fetched from the channel information area must be 'K', 'S' or 'P'; give an error if it is not.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="174C"></span>174C</td>
-<td class="instruction">JR Z,$1756</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="1736.html#1756">OPEN_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="174E"></span>174E</td>
 <td class="instruction">CP "S"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1750"></span>1750</td>
-<td class="instruction">JR Z,$1756</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="1736.html#1756">OPEN_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1752"></span>1752</td>
 <td class="instruction">CP "P"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1754"></span>1754</td>
-<td class="instruction">JR NZ,<a href="171E.html#1725">$1725</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="171E.html#1725">REPORT_O_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">OPEN_1</td>
 <td class="address-2"><span id="1756"></span>1756</td>
-<td class="instruction">CALL <a href="175D.html">$175D</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="175D.html">OPEN_2</a></td>
+<td class="comment-11" rowspan="1">Collect the appropriate data in <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1759"></span>1759</td>
 <td class="instruction">LD (HL),E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Enter the data into the two bytes in the stream information area.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="175A"></span>175A</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="175B"></span>175B</td>
 <td class="instruction">LD (HL),D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="175C"></span>175C</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finally return.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -206,8 +214,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

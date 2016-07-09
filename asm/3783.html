@@ -20,12 +20,33 @@
 <td class="next"><span class="next-1">Next: <a href="37AA.html">37AA</a></span></td>
 </tr>
 </table>
-<div class="description">3783: THE 'REDUCE ARGUMENT' SUBROUTINE</div>
+<div class="description">3783: THE 'REDUCE ARGUMENT' SUBROUTINE (offset 39)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 39 by the routines at <a href="37AA.html">cos</a> and <a href="37B5.html">sin</a>.
+</div>
+<div class="paragraph">
+This subroutine transforms the argument X of SIN X or COS X into a value V.
+</div>
+<div class="paragraph">
+The subroutine first finds the value Y=X/2&#960;-INT(X/2&#960;+0.5), where 0.5&lt;=Y&lt;0.5.
+</div>
+<div class="paragraph">
+The subroutine returns with:
+</div>
+<div class="paragraph">
+<ul class="">
+<li>V=4*Y if -1&lt;=4*Y&lt;=1 (case i)</li>
+<li>or V=2-4*Y if 1&lt;4*Y&lt;2 (case ii)</li>
+<li>or V=-4*Y-2 if -2&lt;=4*Y&lt;-1 (case iii)</li>
+</ul>
+</div>
+<div class="paragraph">
+In each case, -1&lt;=V&lt;=1 and SIN (&#960;V/2)=SIN X.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,220 +63,234 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">get_argt</td>
 <td class="address-2"><span id="3783"></span>3783</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">X</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3784"></span>3784</td>
 <td class="instruction">DEFB $3D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="3297.html">re_stack</a>: X (in full floating-point form)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3785"></span>3785</td>
 <td class="instruction">DEFB $34</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2"><a href="33C6.html">stk_data</a>: X, 1/2&#960;</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3786"></span>3786</td>
-<td class="instruction">DEFB $EE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $EE,$22,$F9,$83,$6E</td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="3787"></span>3787</td>
-<td class="instruction">DEFB $22,$F9,$83,$6E</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="378B"></span>378B</td>
 <td class="instruction">DEFB $04</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="30CA.html">multiply</a>: X/2&#960;</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="378C"></span>378C</td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: X/2&#960;, X/2&#960;</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="378D"></span>378D</td>
 <td class="instruction">DEFB $A2</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="341B.html">stk_half</a>: X/2&#960;, X/2&#960;, 0.5</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="378E"></span>378E</td>
 <td class="instruction">DEFB $0F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="3014.html">addition</a>: X/2&#960;, X/2&#960;+0.5</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="378F"></span>378F</td>
 <td class="instruction">DEFB $27</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="36AF.html">int</a>: X/2&#960;, INT (X/2&#960;+0.5)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3790"></span>3790</td>
 <td class="instruction">DEFB $03</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="300F.html">subtract</a>: X/2&#960;-INT (X/2&#960;+0.5)=Y</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="3791"></span>
+<div class="comments">
+<div class="paragraph">
+Note: adding 0.5 and taking INT rounds the result to the nearest integer.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3791"></span>3791</td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: Y, Y</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3792"></span>3792</td>
 <td class="instruction">DEFB $0F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="3014.html">addition</a>: 2*Y</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3793"></span>3793</td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: 2*Y, 2*Y</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3794"></span>3794</td>
 <td class="instruction">DEFB $0F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="3014.html">addition</a>: 4*Y</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3795"></span>3795</td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: 4*Y, 4*Y</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3796"></span>3796</td>
 <td class="instruction">DEFB $2A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="346A.html">abs</a>: 4*Y, ABS (4*Y)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3797"></span>3797</td>
 <td class="instruction">DEFB $A1</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="341B.html">stk_one</a>: 4*Y, ABS (4*Y), 1</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3798"></span>3798</td>
 <td class="instruction">DEFB $03</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="300F.html">subtract</a>: 4*Y, ABS (4*Y)-1=Z</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3799"></span>3799</td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: 4*Y, Z, Z</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="379A"></span>379A</td>
 <td class="instruction">DEFB $37</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="34F9.html">greater_0</a>: 4*Y, Z, (1/0)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="379B"></span>379B</td>
 <td class="instruction">DEFB $C0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="342D.html">st_mem_0</a>: (mem-0 holds the result of the test)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="379C"></span>379C</td>
 <td class="instruction">DEFB $00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2"><a href="368F.html">jump_true</a> to <a href="3783.html#37A1">ZPLUS</a>: 4*Y, Z</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="379D"></span>379D</td>
 <td class="instruction">DEFB $04</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="379E"></span>379E</td>
 <td class="instruction">DEFB $02</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="335B.html#33A1">delete</a>: 4*Y</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="379F"></span>379F</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a>: 4*Y=V (case i)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37A0"></span>37A0</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="37A1"></span>
+<div class="comments">
+<div class="paragraph">
+If the jump was made then continue.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">ZPLUS</td>
 <td class="address-1"><span id="37A1"></span>37A1</td>
 <td class="instruction">DEFB $A1</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="341B.html">stk_one</a>: 4*Y, Z, 1</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37A2"></span>37A2</td>
 <td class="instruction">DEFB $03</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="300F.html">subtract</a>: 4*Y, Z-1</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37A3"></span>37A3</td>
 <td class="instruction">DEFB $01</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="343C.html">exchange</a>: Z-1, 4*Y</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37A4"></span>37A4</td>
 <td class="instruction">DEFB $36</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="3506.html">less_0</a>: Z-1, (1/0)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37A5"></span>37A5</td>
 <td class="instruction">DEFB $00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2"><a href="368F.html">jump_true</a> to <a href="3783.html#37A8">YNEG</a>: Z-1</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37A6"></span>37A6</td>
 <td class="instruction">DEFB $02</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37A7"></span>37A7</td>
 <td class="instruction">DEFB $1B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="346E.html">negate</a>: 1-Z</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">YNEG</td>
 <td class="address-1"><span id="37A8"></span>37A8</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a>: 1-Z=V (case ii) or Z-1=V (case iii)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="37A9"></span>37A9</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -266,8 +301,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

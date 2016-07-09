@@ -25,7 +25,9 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+This subroutine is used on several occasions to look through tables. The entry point is at <a href="16DB.html#16DC">INDEXER</a>.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,68 +44,68 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">INDEXER_1</td>
 <td class="address-2"><span id="16DB"></span>16DB</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Move on to consider the next pair of entries.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="16DC"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="1615.html">1615</a>, <a href="1701.html">1701</a>, <a href="175D.html">175D</a>, <a href="24FB.html">24FB</a> and <a href="26C9.html">26C9</a>.
+This entry point is used by the routines at <a href="1615.html">CHAN_FLAG</a>, <a href="1701.html">CLOSE_2</a>, <a href="175D.html">OPEN_2</a>, <a href="24FB.html">SCANNING</a> and <a href="26C9.html">S_LETTER</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">INDEXER</td>
 <td class="address-2"><span id="16DC"></span>16DC</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Fetch the first of a pair of entries but return if it is zero - the end marker.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16DD"></span>16DD</td>
 <td class="instruction">AND A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16DE"></span>16DE</td>
 <td class="instruction">RET Z</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16DF"></span>16DF</td>
 <td class="instruction">CP C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Compare it to the supplied code.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16E0"></span>16E0</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Point to the second entry.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16E1"></span>16E1</td>
-<td class="instruction">JR NZ,$16DB</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="16DB.html#16DB">INDEXER_1</a></td>
+<td class="comment-11" rowspan="1">Jump back if the correct entry has not been found.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16E3"></span>16E3</td>
 <td class="instruction">SCF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The carry flag is set upon a successful search.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16E4"></span>16E4</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -114,8 +116,8 @@ This entry point is used by the routines at <a href="1615.html">1615</a>, <a hre
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

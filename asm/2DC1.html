@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="2DE3.html">2DE3</a>.
+Used by the routine at <a href="2DE3.html">PRINT_FP</a>.
+</div>
+<div class="paragraph">
+This subroutine calculates the approximate number of digits before the decimal in x, the number to be printed, or, if there are no digits before the decimal, then the approximate number of leading zeros after the decimal. It is entered with the <span class="register">A</span> register containing e', the true exponent of x, or e'-2, and calculates z=log to the base 10 of (2&#8593;<span class="register">A</span>). It then sets <span class="register">A</span> equal to ABS INT (z+0.5), as required, using <a href="2DD5.html">FP_TO_A</a> for this purpose.
 </div>
 </div>
 <table class="input-0">
@@ -44,94 +47,98 @@ Used by the routine at <a href="2DE3.html">2DE3</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">LOG_2_A</td>
 <td class="address-2"><span id="2DC1"></span>2DC1</td>
 <td class="instruction">LD D,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">The integer <span class="register">A</span> is stacked, either as 00 00 <span class="register">A</span> 00 00 (for positive <span class="register">A</span>) or as 00 FF <span class="register">A</span> FF 00 (for negative <span class="register">A</span>).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DC2"></span>2DC2</td>
 <td class="instruction">RLA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DC3"></span>2DC3</td>
 <td class="instruction">SBC A,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DC4"></span>2DC4</td>
 <td class="instruction">LD E,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="5">These bytes are first loaded into <span class="register">A</span>, <span class="register">E</span>, <span class="register">D</span>, <span class="register">C</span>, <span class="register">B</span> and then <a href="2AB1.html#2AB6">STK_STORE</a> is called to put the number on the calculator stack.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DC5"></span>2DC5</td>
 <td class="instruction">LD C,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DC6"></span>2DC6</td>
 <td class="instruction">XOR A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DC7"></span>2DC7</td>
 <td class="instruction">LD B,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DC8"></span>2DC8</td>
-<td class="instruction">CALL <a href="2AB1.html#2AB6">$2AB6</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2AB1.html#2AB6">STK_STORE</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DCB"></span>2DCB</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The calculator is used.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DCC"></span>2DCC</td>
 <td class="instruction">DEFB $34</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2"><a href="33C6.html">stk_data</a>: log 2 to the base 10 is now stacked</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DCD"></span>2DCD</td>
-<td class="instruction">DEFB $EF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DEFB $EF,$1A,$20,$9A,$85</td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
-<td class="address-1"><span id="2DCE"></span>2DCE</td>
-<td class="instruction">DEFB $1A,$20,$9A,$85</td>
-<td class="comment-10" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DD2"></span>2DD2</td>
 <td class="instruction">DEFB $04</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="30CA.html">multiply</a>: <span class="register">A</span>*log 2 i.e. log (2&#8593;<span class="register">A</span>)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DD3"></span>2DD3</td>
 <td class="instruction">DEFB $27</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="36AF.html">int</a>: INT log (2&#8593;<span class="register">A</span>)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DD4"></span>2DD4</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="4">
+
+<div class="comments">
+<div class="paragraph">
+The subroutine continues into <a href="2DD5.html">FP_TO_A</a> to complete the calculation.
+</div>
+</div>
+</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -142,8 +149,8 @@ Used by the routine at <a href="2DE3.html">2DE3</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

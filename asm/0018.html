@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="0605.html">0605</a>, <a href="12A2.html">12A2</a>, <a href="17F9.html">17F9</a>, <a href="1B28.html">1B28</a>, <a href="1B6F.html">1B6F</a>, <a href="1BF4.html">1BF4</a>, <a href="1CBE.html">1CBE</a>, <a href="1DEC.html">1DEC</a>, <a href="1FC9.html">1FC9</a>, <a href="1FFC.html">1FFC</a>, <a href="204E.html">204E</a>, <a href="2089.html">2089</a>, <a href="21B9.html">21B9</a>, <a href="21E1.html">21E1</a>, <a href="2320.html">2320</a>, <a href="2382.html">2382</a>, <a href="24FB.html">24FB</a>, <a href="25AF.html">25AF</a>, <a href="26C9.html">26C9</a>, <a href="27BD.html">27BD</a>, <a href="28B2.html">28B2</a>, <a href="2996.html">2996</a>, <a href="2A52.html">2A52</a>, <a href="2C02.html">2C02</a>, <a href="2C9B.html">2C9B</a> and <a href="35DE.html">35DE</a>.
+Used by the routines at <a href="0605.html">SAVE_ETC</a>, <a href="12A2.html">MAIN_EXEC</a>, <a href="17F9.html">LIST</a>, <a href="1B28.html">STMT_LOOP</a>, <a href="1B6F.html">SEPARATOR</a>, <a href="1BF4.html">STMT_NEXT</a>, <a href="1CBE.html">CLASS_09</a>, <a href="1DEC.html">READ_3</a>, <a href="1FDF.html">PRINT_2</a>, <a href="1FFC.html">PR_ITEM_1</a>, <a href="204E.html">PR_POSN_1</a>, <a href="2089.html">INPUT</a>, <a href="21B9.html">IN_ASSIGN</a>, <a href="21E1.html">CO_TEMP_1</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="24FB.html">SCANNING</a>, <a href="2522.html">S_2_COORD</a>, <a href="25B3.html">S_QUOTE</a>, <a href="268D.html">S_DECIMAL</a>, <a href="26C9.html">S_LETTER</a>, <a href="27BD.html">S_FN_SBRN</a>, <a href="28B2.html">LOOK_VARS</a>, <a href="2996.html">STK_VAR</a>, <a href="2A52.html">SLICING</a>, <a href="2C02.html">DIM</a>, <a href="2C9B.html">DEC_TO_FP</a> and <a href="35DE.html">val</a>.
+</div>
+<div class="paragraph">
+The contents of the location currently addressed by CH-ADD are fetched. A return is made if the value represents a printable character, otherwise CH-ADD is incremented and the tests repeated.
 </div>
 </div>
 <table class="input-0">
@@ -44,38 +47,38 @@ Used by the routines at <a href="0605.html">0605</a>, <a href="12A2.html">12A2</
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">GET_CHAR</td>
 <td class="address-2"><span id="0018"></span>0018</td>
 <td class="instruction">LD HL,($5C5D)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Fetch the value that is addressed by CH-ADD.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="001B"></span>001B</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="001C"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="0020.html">0020</a>.
+This entry point is used by the routine at <a href="0020.html">NEXT_CHAR</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">TEST_CHAR</td>
 <td class="address-2"><span id="001C"></span>001C</td>
-<td class="instruction">CALL <a href="007D.html">$007D</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="007D.html">SKIP_OVER</a></td>
+<td class="comment-11" rowspan="1">Find out if the character is printable.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="001F"></span>001F</td>
 <td class="instruction">RET NC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return if it is so.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -86,8 +89,8 @@ This entry point is used by the routine at <a href="0020.html">0020</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

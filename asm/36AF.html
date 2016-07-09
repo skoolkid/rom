@@ -20,12 +20,20 @@
 <td class="next"><span class="next-1">Next: <a href="36C4.html">36C4</a></span></td>
 </tr>
 </table>
-<div class="description">36AF: THE 'INT' FUNCTION</div>
+<div class="description">36AF: THE 'INT' FUNCTION (offset 27)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 27 by the routines at <a href="03F8.html">BEEP</a>, <a href="2DA2.html">FP_TO_BC</a>, <a href="2DC1.html">LOG_2_A</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="36A0.html">n_mod_m</a>, <a href="36C4.html">exp</a> and <a href="3783.html">get_argt</a>. It is also called indirectly via <a href="33A2.html">fp_calc_2</a>.
+</div>
+<div class="paragraph">
+This subroutine handles the function INT X and returns a 'last value' that is the 'integer part' of the value supplied. Thus INT 2.4 gives 2 but as the subroutine always rounds the result down INT -2.4 gives -3.
+</div>
+<div class="paragraph">
+The subroutine uses <a href="3214.html">truncate</a> to produce I(X) such that I(2.4)=2 and I(-2.4)=-2. Thus, INT X is given by I(X) when X&gt;=0, and by I(X)-1 for negative values of X that are not already integers, when the result is, of course, I(X).
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,130 +50,170 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">int</td>
 <td class="address-2"><span id="36AF"></span>36AF</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">X</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36B0"></span>36B0</td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: X, X</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36B1"></span>36B1</td>
 <td class="instruction">DEFB $36</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="3506.html">less_0</a>: X, (1/0)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36B2"></span>36B2</td>
 <td class="instruction">DEFB $00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2"><a href="368F.html">jump_true</a> to <a href="36AF.html#36B7">X_NEG</a>: X</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36B3"></span>36B3</td>
 <td class="instruction">DEFB $04</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="36B4"></span>
+<div class="comments">
+<div class="paragraph">
+For values of X that have been shown to be greater than or equal to zero there is no jump and I(X) is readily found.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36B4"></span>36B4</td>
 <td class="instruction">DEFB $3A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="3214.html">truncate</a>: I(X)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36B5"></span>36B5</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36B6"></span>36B6</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="36B7"></span>
+<div class="comments">
+<div class="paragraph">
+When X is a negative integer I(X) is returned, otherwise I(X)-1 is returned.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">X_NEG</td>
 <td class="address-1"><span id="36B7"></span>36B7</td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: X, X</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36B8"></span>36B8</td>
 <td class="instruction">DEFB $3A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="3214.html">truncate</a>: X, I(X)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36B9"></span>36B9</td>
 <td class="instruction">DEFB $C0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="342D.html">st_mem_0</a>: X, I(X) (mem-0 holds I(X))</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36BA"></span>36BA</td>
 <td class="instruction">DEFB $03</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="300F.html">subtract</a>: X-I(X)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36BB"></span>36BB</td>
 <td class="instruction">DEFB $E0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="340F.html">get_mem_0</a>: X-I(X), I(X)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36BC"></span>36BC</td>
 <td class="instruction">DEFB $01</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="343C.html">exchange</a>: I(X), X-I(X)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36BD"></span>36BD</td>
 <td class="instruction">DEFB $30</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="3501.html">f_not</a>: I(X), (1/0)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36BE"></span>36BE</td>
 <td class="instruction">DEFB $00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2"><a href="368F.html">jump_true</a> to <a href="36AF.html#36C2">EXIT</a>: I(X)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36BF"></span>36BF</td>
 <td class="instruction">DEFB $03</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="36C0"></span>
+<div class="comments">
+<div class="paragraph">
+The jump is made for values of X that are negative integers, otherwise there is no jump and I(X)-1 is calculated.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36C0"></span>36C0</td>
 <td class="instruction">DEFB $A1</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="341B.html">stk_one</a>: I(X), 1</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36C1"></span>36C1</td>
 <td class="instruction">DEFB $03</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="300F.html">subtract</a>: I(X)-1</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="36C2"></span>
+<div class="comments">
+<div class="paragraph">
+In either case the subroutine finishes with:
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">EXIT</td>
 <td class="address-1"><span id="36C2"></span>36C2</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a>: I(X) or I(X)-1</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="36C3"></span>36C3</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -176,8 +224,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

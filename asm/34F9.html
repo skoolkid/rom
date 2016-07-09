@@ -20,13 +20,19 @@
 <td class="next"><span class="next-1">Next: <a href="3501.html">3501</a></span></td>
 </tr>
 </table>
-<div class="description">34F9: THE 'GREATER THAN ZERO' OPERATION</div>
+<div class="description">34F9: THE 'GREATER THAN ZERO' OPERATION (offset 37)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="353B.html">353B</a>.
+Used by the routine at <a href="353B.html">compare</a>.
+</div>
+<div class="paragraph">
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 37 by the routines at <a href="1DDA.html">NEXT_LOOP</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="3713.html">ln</a>, <a href="3783.html">get_argt</a> and <a href="3851.html">to_power</a>.
+</div>
+<div class="paragraph">
+This subroutine returns a 'last value' of one if the present 'last value' is greater than zero and zero otherwise. It is also used by other subroutines to 'jump on plus'.
 </div>
 </div>
 <table class="input-0">
@@ -44,28 +50,28 @@ Used by the routine at <a href="353B.html">353B</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">greater_0</td>
 <td class="address-2"><span id="34F9"></span>34F9</td>
-<td class="instruction">CALL <a href="34E9.html">$34E9</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="34E9.html">TEST_ZERO</a></td>
+<td class="comment-11" rowspan="1">Is the 'last-value' zero?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="34FC"></span>34FC</td>
 <td class="instruction">RET C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">If so, return.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="34FD"></span>34FD</td>
 <td class="instruction">LD A,$FF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward to <a href="3506.html">less_0</a> but signal the opposite action is needed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="34FF"></span>34FF</td>
-<td class="instruction">JR <a href="3506.html#3507">$3507</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="3506.html#3507">SIGN_TO_C</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -76,8 +82,8 @@ Used by the routine at <a href="353B.html">353B</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

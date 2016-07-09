@@ -25,7 +25,12 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="1A48.html#1A81">parameter table</a>.
+</div>
+<div class="paragraph">
+On entry the value of the expression between the IF and the THEN is the 'last value' on the calculator stack. If this is logically true then the next statement is considered; otherwise the line is considered to have been finished.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,64 +47,74 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">IF_CMD</td>
 <td class="address-2"><span id="1CF0"></span>1CF0</td>
 <td class="instruction">POP BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Drop the return address - <a href="1B76.html">STMT_RET</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CF1"></span>1CF1</td>
-<td class="instruction">CALL <a href="2530.html">$2530</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="2">Jump forward if checking syntax.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CF4"></span>1CF4</td>
-<td class="instruction">JR Z,$1D00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="1CF0.html#1D00">IF_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="1CF6"></span>
+<div class="comments">
+<div class="paragraph">
+Now use the calculator to 'delete' the last value on the calculator stack but leave the <span class="register">DE</span> register pair addressing the first byte of the value.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CF6"></span>1CF6</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Use the calculator.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CF7"></span>1CF7</td>
 <td class="instruction">DEFB $02</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="335B.html#33A1">delete</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CF8"></span>1CF8</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CF9"></span>1CF9</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Make <span class="register">HL</span> point to the first byte and call <a href="34E9.html">TEST_ZERO</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CFA"></span>1CFA</td>
-<td class="instruction">CALL <a href="34E9.html">$34E9</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="34E9.html">TEST_ZERO</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CFD"></span>1CFD</td>
-<td class="instruction">JP C,<a href="1BB3.html">$1BB3</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP C,<a href="1BB3.html">LINE_END</a></td>
+<td class="comment-11" rowspan="1">If the value was 'FALSE' jump to the next line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">IF_1</td>
 <td class="address-2"><span id="1D00"></span>1D00</td>
-<td class="instruction">JP <a href="1B28.html#1B29">$1B29</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP <a href="1B28.html#1B29">STMT_L_1</a></td>
+<td class="comment-11" rowspan="1">But if 'TRUE' jump to the next statement (after the THEN).</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -110,8 +125,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

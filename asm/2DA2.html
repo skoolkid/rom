@@ -15,7 +15,7 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="2D8C.html">2D8C</a></span></td>
+<td class="prev"><span class="prev-1">Prev: <a href="2D8E.html">2D8E</a></span></td>
 <td class="up">Up: <a href="../maps/all.html#2DA2">Map</a></td>
 <td class="next"><span class="next-1">Next: <a href="2DC1.html">2DC1</a></span></td>
 </tr>
@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="19FB.html">19FB</a>, <a href="1E94.html">1E94</a>, <a href="25AF.html">25AF</a> and <a href="2DD5.html">2DD5</a>.
+Used by the routines at <a href="19FB.html">E_LINE_NO</a>, <a href="1E94.html">FIND_INT1</a>, <a href="25F8.html">S_RND</a> and <a href="2DD5.html">FP_TO_A</a>.
+</div>
+<div class="paragraph">
+This subroutine is used to compress the floating-point 'last value' on the calculator stack into the <span class="register">BC</span> register pair. If the result is too large, i.e. greater than 65536 decimal, then the subroutine returns with the carry flag set. If the 'last value' is negative then the zero flag is reset. The low byte of the result is also copied to the <span class="register">A</span> register.
 </div>
 </div>
 <table class="input-0">
@@ -44,178 +47,178 @@ Used by the routines at <a href="19FB.html">19FB</a>, <a href="1E94.html">1E94</
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">FP_TO_BC</td>
 <td class="address-2"><span id="2DA2"></span>2DA2</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Use the calculator to make <span class="register">HL</span> point to STKEND-5.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DA3"></span>2DA3</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DA4"></span>2DA4</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Collect the exponent byte of the 'last value'; jump if it is zero, indicating a 'small integer'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DA5"></span>2DA5</td>
 <td class="instruction">AND A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DA6"></span>2DA6</td>
-<td class="instruction">JR Z,$2DAD</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="2DA2.html#2DAD">FP_DELETE</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DA8"></span>2DA8</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Now use the calculator to round the 'last value' (V) to the nearest integer, which also changes it to 'small integer' form on the calculator stack if that is possible, i.e. if -65535.5&lt;=V&lt;65535.5.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DA9"></span>2DA9</td>
 <td class="instruction">DEFB $A2</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="341B.html">stk_half</a>: V, 0.5</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DAA"></span>2DAA</td>
 <td class="instruction">DEFB $0F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="3014.html">addition</a>: V+0.5</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DAB"></span>2DAB</td>
 <td class="instruction">DEFB $27</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="36AF.html">int</a>: INT (V+0.5)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DAC"></span>2DAC</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">FP_DELETE</td>
 <td class="address-2"><span id="2DAD"></span>2DAD</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Use the calculator to delete the integer from the stack; <span class="register">DE</span> still points to it in memory (at STKEND).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DAE"></span>2DAE</td>
 <td class="instruction">DEFB $02</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="335B.html#33A1">delete</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DAF"></span>2DAF</td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DB0"></span>2DB0</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Save both stack pointers.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DB1"></span>2DB1</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DB2"></span>2DB2</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">HL</span> now points to the number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DB3"></span>2DB3</td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Copy the first byte to <span class="register">B</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DB4"></span>2DB4</td>
-<td class="instruction">CALL <a href="2D7F.html">$2D7F</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2D7F.html">INT_FETCH</a></td>
+<td class="comment-11" rowspan="1">Copy bytes 2, 3 and 4 to <span class="register">C</span>, <span class="register">E</span> and <span class="register">D</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DB7"></span>2DB7</td>
 <td class="instruction">XOR A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Clear the <span class="register">A</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DB8"></span>2DB8</td>
 <td class="instruction">SUB B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">This sets the carry unless <span class="register">B</span> is zero.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DB9"></span>2DB9</td>
 <td class="instruction">BIT 7,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">This sets the zero flag if the number is positive (NZ denotes negative).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DBB"></span>2DBB</td>
 <td class="instruction">LD B,D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Copy the high byte to <span class="register">B</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DBC"></span>2DBC</td>
 <td class="instruction">LD C,E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">And the low byte to <span class="register">C</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DBD"></span>2DBD</td>
 <td class="instruction">LD A,E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Copy the low byte to <span class="register">A</span> too.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DBE"></span>2DBE</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Restore the stack pointers.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DBF"></span>2DBF</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2DC0"></span>2DC0</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="2D8C.html">2D8C</a></span></td>
+<td class="prev"><span class="prev-1">Prev: <a href="2D8E.html">2D8E</a></span></td>
 <td class="up">Up: <a href="../maps/all.html#2DA2">Map</a></td>
 <td class="next"><span class="next-1">Next: <a href="2DC1.html">2DC1</a></span></td>
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

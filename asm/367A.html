@@ -20,12 +20,17 @@
 <td class="next"><span class="next-1">Next: <a href="3686.html">3686</a></span></td>
 </tr>
 </table>
-<div class="description">367A: THE 'DECREASE THE COUNTER' SUBROUTINE</div>
+<div class="description">367A: THE 'DECREASE THE COUNTER' SUBROUTINE (offset 35)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 35 by the routine at <a href="3449.html">series</a>.
+</div>
+<div class="paragraph">
+This subroutine is only called by the <a href="3449.html">series generator</a> and in effect is a 'DJNZ' operation but the counter is the system variable, BREG, rather than the <span class="register">B</span> register.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,58 +47,58 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">dec_jr_nz</td>
 <td class="address-2"><span id="367A"></span>367A</td>
 <td class="instruction">EXX</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Go to the alternative register set and save the next literal pointer on the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="367B"></span>367B</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="367C"></span>367C</td>
 <td class="instruction">LD HL,$5C67</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Make <span class="register">HL</span> point to BREG.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="367F"></span>367F</td>
 <td class="instruction">DEC (HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Decrease BREG.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3680"></span>3680</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Restore the next literal pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3681"></span>3681</td>
-<td class="instruction">JR NZ,<a href="3686.html#3687">$3687</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="3686.html#3687">JUMP_2</a></td>
+<td class="comment-11" rowspan="1">The jump is made on non-zero.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3683"></span>3683</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The next literal is passed over.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3684"></span>3684</td>
 <td class="instruction">EXX</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return to the main register set.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3685"></span>3685</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -104,8 +109,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

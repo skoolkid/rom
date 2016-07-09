@@ -15,7 +15,7 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1988.html">1988</a></span></td>
+<td class="prev"><span class="prev-1">Prev: <a href="198B.html">198B</a></span></td>
 <td class="up">Up: <a href="../maps/all.html#19B8">Map</a></td>
 <td class="next"><span class="next-1">Next: <a href="19DD.html">19DD</a></span></td>
 </tr>
@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="08B6.html">08B6</a>, <a href="092C.html">092C</a>, <a href="155D.html">155D</a>, <a href="1795.html">1795</a>, <a href="196E.html">196E</a>, <a href="28B2.html">28B2</a> and <a href="2C02.html">2C02</a>.
+Used by the routines at <a href="08B6.html">ME_CONTRL</a>, <a href="092C.html">ME_ENTER</a>, <a href="155D.html">MAIN_ADD</a>, <a href="1795.html">AUTO_LIST</a>, <a href="196E.html">LINE_ADDR</a>, <a href="28B2.html">LOOK_VARS</a> and <a href="2C02.html">DIM</a>.
+</div>
+<div class="paragraph">
+This subroutine can be used to find the 'next line' in the program area or the 'next variable' in the variables area. The subroutine caters for the six different types of variable that are used in the Spectrum system.
 </div>
 </div>
 <table class="input-0">
@@ -44,166 +47,176 @@ Used by the routines at <a href="08B6.html">08B6</a>, <a href="092C.html">092C</
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">NEXT_ONE</td>
 <td class="address-2"><span id="19B8"></span>19B8</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the address of the current line or variable.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19B9"></span>19B9</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the first byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19BA"></span>19BA</td>
 <td class="instruction">CP $40</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if searching for a 'next line'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19BC"></span>19BC</td>
-<td class="instruction">JR C,$19D5</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="19B8.html#19D5">NEXT_O_3</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19BE"></span>19BE</td>
 <td class="instruction">BIT 5,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if searching for the next string or array variable.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19C0"></span>19C0</td>
-<td class="instruction">JR Z,$19D6</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="19B8.html#19D6">NEXT_O_4</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19C2"></span>19C2</td>
 <td class="instruction">ADD A,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward with simple numeric and FOR-NEXT variables.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19C3"></span>19C3</td>
-<td class="instruction">JP M,$19C7</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP M,<a href="19B8.html#19C7">NEXT_O_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19C6"></span>19C6</td>
 <td class="instruction">CCF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Long name numeric variables only.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">NEXT_O_1</td>
 <td class="address-2"><span id="19C7"></span>19C7</td>
 <td class="instruction">LD BC,$0005</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">A numeric variable will occupy five locations but a FOR-NEXT control variable will need eighteen locations.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19CA"></span>19CA</td>
-<td class="instruction">JR NC,$19CE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="19B8.html#19CE">NEXT_O_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19CC"></span>19CC</td>
 <td class="instruction">LD C,$12</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">NEXT_O_2</td>
 <td class="address-2"><span id="19CE"></span>19CE</td>
 <td class="instruction">RLA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The carry flag becomes reset for long named variables only, until the final character of the long name is reached.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19CF"></span>19CF</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Increment the pointer and fetch the new code.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19D0"></span>19D0</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19D1"></span>19D1</td>
-<td class="instruction">JR NC,$19CE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="19B8.html#19CE">NEXT_O_2</a></td>
+<td class="comment-11" rowspan="1">Jump back unless the previous code was the last code of the variable's name.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19D3"></span>19D3</td>
-<td class="instruction">JR $19DB</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="19B8.html#19DB">NEXT_O_5</a></td>
+<td class="comment-11" rowspan="1">Now jump forward (<span class="register">BC</span>=+0005 or +0012).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">NEXT_O_3</td>
 <td class="address-2"><span id="19D5"></span>19D5</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Step past the low byte of the line number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">NEXT_O_4</td>
 <td class="address-2"><span id="19D6"></span>19D6</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Now point to the low byte of the length.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19D7"></span>19D7</td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Fetch the length into the <span class="register">BC</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19D8"></span>19D8</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19D9"></span>19D9</td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19DA"></span>19DA</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Allow for the inclusive byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="19DB"></span>
+<div class="comments">
+<div class="paragraph">
+In all cases the address of the 'next' line or variable is found.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">NEXT_O_5</td>
 <td class="address-2"><span id="19DB"></span>19DB</td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Point to the first byte of the 'next' line or variable.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="19DC"></span>19DC</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the address of the previous one and continue into <a href="19DD.html">DIFFER</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1988.html">1988</a></span></td>
+<td class="prev"><span class="prev-1">Prev: <a href="198B.html">198B</a></span></td>
 <td class="up">Up: <a href="../maps/all.html#19B8">Map</a></td>
 <td class="next"><span class="next-1">Next: <a href="19DD.html">19DD</a></span></td>
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

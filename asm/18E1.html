@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="111D.html">111D</a> and <a href="1855.html">1855</a>.
+Used by the routines at <a href="111D.html">ED_COPY</a> and <a href="1855.html">OUT_LINE</a>.
+</div>
+<div class="paragraph">
+A return is made if it is not the correct place to print the cursor but if it is then 'C', 'E', 'G', 'K' or 'L' will be printed.
 </div>
 </div>
 <table class="input-0">
@@ -44,142 +47,152 @@ Used by the routines at <a href="111D.html">111D</a> and <a href="1855.html">185
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">OUT_CURS</td>
 <td class="address-2"><span id="18E1"></span>18E1</td>
 <td class="instruction">LD HL,($5C5B)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Fetch the address of the cursor but return if the correct place is not being considered.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18E4"></span>18E4</td>
 <td class="instruction">AND A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18E5"></span>18E5</td>
 <td class="instruction">SBC HL,DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18E7"></span>18E7</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18E8"></span>18E8</td>
 <td class="instruction">LD A,($5C41)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">The current value of MODE is fetched and doubled.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18EB"></span>18EB</td>
 <td class="instruction">RLC A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18ED"></span>18ED</td>
-<td class="instruction">JR Z,$18F3</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="18E1.html#18F3">OUT_C_1</a></td>
+<td class="comment-11" rowspan="1">Jump forward unless dealing with Extended mode or Graphics.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18EF"></span>18EF</td>
 <td class="instruction">ADD A,$43</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Add the appropriate offset to give 'E' or 'G'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18F1"></span>18F1</td>
-<td class="instruction">JR $1909</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="18E1.html#1909">OUT_C_2</a></td>
+<td class="comment-11" rowspan="1">Jump forward to print it.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">OUT_C_1</td>
 <td class="address-2"><span id="18F3"></span>18F3</td>
 <td class="instruction">LD HL,$5C3B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">This is FLAGS.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18F6"></span>18F6</td>
 <td class="instruction">RES 3,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'K-mode'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18F8"></span>18F8</td>
 <td class="instruction">LD A,"K"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The character 'K'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18FA"></span>18FA</td>
 <td class="instruction">BIT 2,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward to print 'K' if 'the printing is to be in K-mode'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18FC"></span>18FC</td>
-<td class="instruction">JR Z,$1909</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="18E1.html#1909">OUT_C_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="18FE"></span>18FE</td>
 <td class="instruction">SET 3,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The 'printing is to be in L-mode' so signal 'L-MODE'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1900"></span>1900</td>
 <td class="instruction">INC A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Form the character 'L'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1901"></span>1901</td>
 <td class="instruction">BIT 3,(IY+$30)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if not in 'C-mode'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1905"></span>1905</td>
-<td class="instruction">JR Z,$1909</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="18E1.html#1909">OUT_C_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1907"></span>1907</td>
 <td class="instruction">LD A,"C"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The character 'C'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">OUT_C_2</td>
 <td class="address-2"><span id="1909"></span>1909</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Save the <span class="register">DE</span> register pair whilst the cursor is printed - FLASHing.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="190A"></span>190A</td>
-<td class="instruction">CALL <a href="18C1.html">$18C1</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="18C1.html">OUT_FLASH</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="190D"></span>190D</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="190E"></span>190E</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return once it has been done.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="4">
+
+<div class="comments">
+<div class="paragraph">
+Note: it is the action of considering which cursor-letter is to be printed that determines the mode - 'K', 'L' or 'C'.
+</div>
+</div>
+</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -190,8 +203,8 @@ Used by the routines at <a href="111D.html">111D</a> and <a href="1855.html">185
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="1B28.html">1B28</a>.
+Used by the routine at <a href="1B28.html">STMT_LOOP</a>.
+</div>
+<div class="paragraph">
+The report 'Nonsense in BASIC' is given if the required separator is not present. But note that when syntax is being checked the actual report does not appear on the screen - only the 'error marker'.
 </div>
 </div>
 <table class="input-0">
@@ -44,34 +47,34 @@ Used by the routine at <a href="1B28.html">1B28</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">SEPARATOR</td>
 <td class="address-2"><span id="1B6F"></span>1B6F</td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">The current character is fetched and compared to the entry in the parameter table.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1B70"></span>1B70</td>
 <td class="instruction">CP C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1B71"></span>1B71</td>
-<td class="instruction">JP NZ,<a href="1C79.html#1C8A">$1C8A</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP NZ,<a href="1C79.html#1C8A">REPORT_C</a></td>
+<td class="comment-11" rowspan="1">Give the error report if there is not a match.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1B74"></span>1B74</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Step past a correct character and return.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1B75"></span>1B75</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -82,8 +85,8 @@ Used by the routine at <a href="1B28.html">1B28</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

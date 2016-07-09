@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="0970.html">0970</a>, <a href="0C55.html">0C55</a>, <a href="0F2C.html">0F2C</a> and <a href="101E.html">101E</a>.
+Used by the routines at <a href="0970.html">SA_CONTRL</a>, <a href="0C55.html">PO_SCR</a>, <a href="0F2C.html">EDITOR</a> and <a href="101E.html">ED_IGNORE</a>.
+</div>
+<div class="paragraph">
+This subroutine is the controlling subroutine for calling the current input subroutine.
 </div>
 </div>
 <table class="input-0">
@@ -44,52 +47,62 @@ Used by the routines at <a href="0970.html">0970</a>, <a href="0C55.html">0C55</
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">WAIT_KEY</td>
 <td class="address-2"><span id="15D4"></span>15D4</td>
 <td class="instruction">BIT 5,(IY+$02)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if the flag indicates the lower screen does not require clearing.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="15D8"></span>15D8</td>
-<td class="instruction">JR NZ,$15DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="15D4.html#15DE">WAIT_KEY1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="15DA"></span>15DA</td>
 <td class="instruction">SET 3,(IY+$02)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Otherwise signal 'consider the mode as having changed'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">WAIT_KEY1</td>
 <td class="address-2"><span id="15DE"></span>15DE</td>
-<td class="instruction">CALL <a href="15E6.html">$15E6</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="15E6.html">INPUT_AD</a></td>
+<td class="comment-11" rowspan="1">Call the input subroutine indirectly via <a href="15E6.html">INPUT_AD</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="15E1"></span>15E1</td>
 <td class="instruction">RET C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return with acceptable codes.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="15E2"></span>15E2</td>
-<td class="instruction">JR Z,$15DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="15D4.html#15DE">WAIT_KEY1</a></td>
+<td class="comment-11" rowspan="1">Both the carry flag and the zero flag are reset if 'no key is being pressed'; otherwise signal an error.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="15E4"></span>
+<div class="comments">
+<div class="paragraph">
+Report 8 - End of file.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">REPORT_8</td>
 <td class="address-1"><span id="15E4"></span>15E4</td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="15E5"></span>15E5</td>
 <td class="instruction">DEFB $07</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -100,8 +113,8 @@ Used by the routines at <a href="0970.html">0970</a>, <a href="0C55.html">0C55</
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

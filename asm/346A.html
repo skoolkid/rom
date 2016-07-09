@@ -20,12 +20,20 @@
 <td class="next"><span class="next-1">Next: <a href="346E.html">346E</a></span></td>
 </tr>
 </table>
-<div class="description">346A: THE 'ABSOLUTE MAGNITUDE' FUNCTION</div>
+<div class="description">346A: THE 'ABSOLUTE MAGNITUDE' FUNCTION (offset 2A)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 2A by the routines at <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="3783.html">get_argt</a> and <a href="37AA.html">cos</a>. It is also called indirectly via <a href="33A2.html">fp_calc_2</a>.
+</div>
+<div class="paragraph">
+This subroutine performs its unary operation by ensuring that the sign bit of a floating-point number is reset.
+</div>
+<div class="paragraph">
+'Small integers' have to be treated separately. Most of the work is shared with the 'unary minus' operation.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,16 +50,16 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">abs</td>
 <td class="address-2"><span id="346A"></span>346A</td>
 <td class="instruction">LD B,$FF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">B</span> is set to FF hex.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="346C"></span>346C</td>
-<td class="instruction">JR <a href="346E.html#3474">$3474</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="346E.html#3474">NEG_TEST</a></td>
+<td class="comment-11" rowspan="1">The jump is made into 'unary minus'.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -62,8 +70,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

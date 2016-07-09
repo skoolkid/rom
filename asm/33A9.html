@@ -26,7 +26,10 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="2AB1.html">2AB1</a>, <a href="33C0.html">33C0</a> and <a href="33C6.html">33C6</a>.
+Used by the routines at <a href="2AB1.html">STK_ST_0</a>, <a href="33C0.html">duplicate</a> and <a href="33C6.html">stk_data</a>.
+</div>
+<div class="paragraph">
+This subroutine tests whether there is sufficient room in memory for another 5-byte floating-point number to be added to the calculator stack.
 </div>
 </div>
 <table class="input-0">
@@ -44,46 +47,46 @@ Used by the routines at <a href="2AB1.html">2AB1</a>, <a href="33C0.html">33C0</
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">TEST_5_SP</td>
 <td class="address-2"><span id="33A9"></span>33A9</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save <span class="register">DE</span> briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="33AA"></span>33AA</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save <span class="register">HL</span> briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="33AB"></span>33AB</td>
 <td class="instruction">LD BC,$0005</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Specify the test is for 5 bytes.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="33AE"></span>33AE</td>
-<td class="instruction">CALL <a href="1F05.html">$1F05</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1F05.html">TEST_ROOM</a></td>
+<td class="comment-11" rowspan="1">Make the test.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="33B1"></span>33B1</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Restore <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="33B2"></span>33B2</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Restore <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="33B3"></span>33B3</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -94,8 +97,8 @@ Used by the routines at <a href="2AB1.html">2AB1</a>, <a href="33C0.html">33C0</
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

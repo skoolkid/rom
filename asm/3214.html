@@ -20,12 +20,17 @@
 <td class="next"><span class="next-1">Next: <a href="3293.html">3293</a></span></td>
 </tr>
 </table>
-<div class="description">3214: THE 'INTEGER TRUNCATION TOWARDS ZERO' SUBROUTINE</div>
+<div class="description">3214: THE 'INTEGER TRUNCATION TOWARDS ZERO' SUBROUTINE (offset 3A)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 3A by the routine at <a href="36AF.html">int</a>.
+</div>
+<div class="paragraph">
+This subroutine (say I(x)) returns the result of integer truncation of x, the 'last value', towards zero. Thus I(2.4) is 2 and I(-2.4) is -2. The subroutine returns at once if x is in the form of a 'short integer'. It returns zero if the exponent byte of x is less than 81 hex (ABS x is less than 1). If I(x) is a 'short integer' the subroutine returns it in that form. It returns x if the exponent byte is A0 hex or greater (x has no significant non-integral part). Otherwise the correct number of bytes of x are set to zero and, if needed, one more byte is split with a mask.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,514 +47,554 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">truncate</td>
 <td class="address-2"><span id="3214"></span>3214</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get the exponent byte of x into <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3215"></span>3215</td>
 <td class="instruction">AND A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">If <span class="register">A</span> is zero, return since x is already a small integer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3216"></span>3216</td>
 <td class="instruction">RET Z</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3217"></span>3217</td>
 <td class="instruction">CP $81</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Compare e, the exponent, to 81 hex.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3219"></span>3219</td>
-<td class="instruction">JR NC,$3221</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="3214.html#3221">T_GR_ZERO</a></td>
+<td class="comment-11" rowspan="1">Jump if e is greater than 80 hex.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="321B"></span>321B</td>
 <td class="instruction">LD (HL),$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Else, set the exponent to zero; enter 32 decimal (20 hex) into <span class="register">A</span> and jump forward to <a href="3214.html#3272">NIL_BYTES</a> to make all the bits of x be zero.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="321D"></span>321D</td>
 <td class="instruction">LD A,$20</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="321F"></span>321F</td>
-<td class="instruction">JR $3272</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="3214.html#3272">NIL_BYTES</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">T_GR_ZERO</td>
 <td class="address-2"><span id="3221"></span>3221</td>
 <td class="instruction">CP $91</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Compare e to 91 hex, 145 decimal.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3223"></span>3223</td>
-<td class="instruction">JR NZ,$323F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="3214.html#323F">T_SMALL</a></td>
+<td class="comment-11" rowspan="1">Jump if e not 91 hex.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="3225"></span>
+<div class="comments">
+<div class="paragraph">
+The next 26 bytes seem designed to test whether x is in fact -65536 decimal, i.e. 91 80 00 00 00, and if it is, to set it to 00 FF 00 00 00. This is a mistake. As <a href="3014.html#303C">already stated</a>, the Spectrum system cannot handle this number. The result here is simply to make INT (-65536) return the value -1. This is a pity, since the number would have been perfectly all right if left alone. The remedy would seem to be simply to omit the 28 bytes from 3223 above to 323E inclusive from the program.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3225"></span>3225</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3"><span class="register">HL</span> is pointed at the fourth byte of x, where the 17 bits of the integer part of x end after the first bit.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3226"></span>3226</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3227"></span>3227</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3228"></span>3228</td>
 <td class="instruction">LD A,$80</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">The first bit is obtained in <span class="register">A</span>, using 80 hex as a mask.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="322A"></span>322A</td>
 <td class="instruction">AND (HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="322B"></span>322B</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">That bit and the previous 8 bits are tested together for zero.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="322C"></span>322C</td>
 <td class="instruction">OR (HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="322D"></span>322D</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">HL</span> is pointed at the second byte of x.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="322E"></span>322E</td>
-<td class="instruction">JR NZ,$3233</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="3214.html#3233">T_FIRST</a></td>
+<td class="comment-11" rowspan="1">If already non-zero, the test can end.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3230"></span>3230</td>
 <td class="instruction">LD A,$80</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Otherwise, the test for -65536 is now completed: 91 80 00 00 00 will leave the zero flag set now.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3232"></span>3232</td>
 <td class="instruction">XOR (HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">T_FIRST</td>
 <td class="address-2"><span id="3233"></span>3233</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">HL</span> is pointed at the first byte of x.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3234"></span>3234</td>
-<td class="instruction">JR NZ,$326C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="3214.html#326C">T_EXPNENT</a></td>
+<td class="comment-11" rowspan="1">If zero reset, the jump is made.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3236"></span>3236</td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The first byte is set to zero.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3237"></span>3237</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">HL</span> points to the second byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3238"></span>3238</td>
 <td class="instruction">LD (HL),$FF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The second byte is set to FF.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="323A"></span>323A</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">HL</span> again points to the first byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="323B"></span>323B</td>
 <td class="instruction">LD A,$18</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The last 24 bits are to be zero.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="323D"></span>323D</td>
-<td class="instruction">JR $3272</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="3214.html#3272">NIL_BYTES</a></td>
+<td class="comment-11" rowspan="1">The jump to <a href="3214.html#3272">NIL_BYTES</a> completes the number 00 FF 00 00 00.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="323F"></span>
+<div class="comments">
+<div class="paragraph">
+If the exponent byte of x is between 81 and 90 hex (129 and 144 decimal) inclusive, I(x) is a 'small integer', and will be compressed into one or two bytes. But first a test is made to see whether x is, after all, large.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">T_SMALL</td>
 <td class="address-2"><span id="323F"></span>323F</td>
-<td class="instruction">JR NC,$326D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="3214.html#326D">X_LARGE</a></td>
+<td class="comment-11" rowspan="1">Jump with exponent byte 92 or more (it would be better to jump with 91 too).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3241"></span>3241</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save STKEND in <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3242"></span>3242</td>
 <td class="instruction">CPL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Range 129&lt;=<span class="register">A</span>&lt;=144 becomes 126&gt;=<span class="register">A</span>&gt;=111.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3243"></span>3243</td>
 <td class="instruction">ADD A,$91</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Range is now 15&gt;=<span class="register">A</span>&gt;=0.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3245"></span>3245</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Point <span class="register">HL</span> at second byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3246"></span>3246</td>
 <td class="instruction">LD D,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Second byte to <span class="register">D</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3247"></span>3247</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Point <span class="register">HL</span> at third byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3248"></span>3248</td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Third byte to <span class="register">E</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3249"></span>3249</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Point <span class="register">HL</span> at first byte again.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="324A"></span>324A</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="324B"></span>324B</td>
 <td class="instruction">LD C,$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Assume a positive number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="324D"></span>324D</td>
 <td class="instruction">BIT 7,D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Now test for negative (bit 7 set).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="324F"></span>324F</td>
-<td class="instruction">JR Z,$3252</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="3214.html#3252">T_NUMERIC</a></td>
+<td class="comment-11" rowspan="1">Jump if positive after all.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3251"></span>3251</td>
 <td class="instruction">DEC C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Change the sign.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">T_NUMERIC</td>
 <td class="address-2"><span id="3252"></span>3252</td>
 <td class="instruction">SET 7,D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Insert true numeric bit, 1, in <span class="register">D</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3254"></span>3254</td>
 <td class="instruction">LD B,$08</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Now test whether <span class="register">A</span>&gt;=8 (one byte only) or two bytes needed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3256"></span>3256</td>
 <td class="instruction">SUB B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3257"></span>3257</td>
 <td class="instruction">ADD A,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Leave <span class="register">A</span> unchanged.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3258"></span>3258</td>
-<td class="instruction">JR C,$325E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="3214.html#325E">T_TEST</a></td>
+<td class="comment-11" rowspan="1">Jump if two bytes needed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="325A"></span>325A</td>
 <td class="instruction">LD E,D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Put the one byte into <span class="register">E</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="325B"></span>325B</td>
 <td class="instruction">LD D,$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">And set <span class="register">D</span> to zero.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="325D"></span>325D</td>
 <td class="instruction">SUB B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Now 1&lt;=<span class="register">A</span>&lt;=7 to count the shifts needed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">T_TEST</td>
 <td class="address-2"><span id="325E"></span>325E</td>
-<td class="instruction">JR Z,$3267</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="3214.html#3267">T_STORE</a></td>
+<td class="comment-11" rowspan="1">Jump if no shift needed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3260"></span>3260</td>
 <td class="instruction">LD B,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">B</span> will count the shifts.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">T_SHIFT</td>
 <td class="address-2"><span id="3261"></span>3261</td>
 <td class="instruction">SRL D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Shift <span class="register">D</span> and <span class="register">E</span> right <span class="register">B</span> times to produce the correct number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3263"></span>3263</td>
 <td class="instruction">RR E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3265"></span>3265</td>
-<td class="instruction">DJNZ $3261</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DJNZ <a href="3214.html#3261">T_SHIFT</a></td>
+<td class="comment-11" rowspan="1">Loop until <span class="register">B</span> is zero.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">T_STORE</td>
 <td class="address-2"><span id="3267"></span>3267</td>
-<td class="instruction">CALL <a href="2D8C.html#2D8E">$2D8E</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2D8E.html">INT_STORE</a></td>
+<td class="comment-11" rowspan="1">Store the result on the stack.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="326A"></span>326A</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Restore STKEND to <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="326B"></span>326B</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="326C"></span>
+<div class="comments">
+<div class="paragraph">
+Large values of x remain to be considered.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">T_EXPNENT</td>
 <td class="address-2"><span id="326C"></span>326C</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get the exponent byte of x into <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">X_LARGE</td>
 <td class="address-2"><span id="326D"></span>326D</td>
 <td class="instruction">SUB $A0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Subtract 160 decimal, A0 hex, from e.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="326F"></span>326F</td>
 <td class="instruction">RET P</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return on plus - x has no significant non-integral part. (If the true exponent were reduced to zero, the 'binary point' would come at or after the end of the four bytes of the mantissa.)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3270"></span>3270</td>
 <td class="instruction">NEG</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Else, negate the remainder; this gives the number of bits to become zero (the number of bits after the 'binary point').</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="3272"></span>
+<div class="comments">
+<div class="paragraph">
+Now the bits of the mantissa can be cleared.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">NIL_BYTES</td>
 <td class="address-2"><span id="3272"></span>3272</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the current value of <span class="register">DE</span> (STKEND).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3273"></span>3273</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Make <span class="register">HL</span> point one past the fifth byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3274"></span>3274</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">HL</span> now points to the fifth byte of x.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3275"></span>3275</td>
 <td class="instruction">LD B,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Get the number of bits to be set to zero in <span class="register">B</span> and divide it by 8 to give the number of whole bytes implied.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3276"></span>3276</td>
 <td class="instruction">SRL B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3278"></span>3278</td>
 <td class="instruction">SRL B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="327A"></span>327A</td>
 <td class="instruction">SRL B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="327C"></span>327C</td>
-<td class="instruction">JR Z,$3283</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="3214.html#3283">BITS_ZERO</a></td>
+<td class="comment-11" rowspan="1">Jump forward if the result is zero.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">BYTE_ZERO</td>
 <td class="address-2"><span id="327E"></span>327E</td>
 <td class="instruction">LD (HL),$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Else, set the bytes to zero; <span class="register">B</span> counts them.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3280"></span>3280</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3281"></span>3281</td>
-<td class="instruction">DJNZ $327E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DJNZ <a href="3214.html#327E">BYTE_ZERO</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">BITS_ZERO</td>
 <td class="address-2"><span id="3283"></span>3283</td>
 <td class="instruction">AND $07</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get <span class="register">A</span> (mod 8); this is the number of bits still to be set to zero.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3285"></span>3285</td>
-<td class="instruction">JR Z,$3290</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="3214.html#3290">IX_END</a></td>
+<td class="comment-11" rowspan="1">Jump to the end if nothing more to do.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3287"></span>3287</td>
 <td class="instruction">LD B,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">B</span> will count the bits now.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3288"></span>3288</td>
 <td class="instruction">LD A,$FF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Prepare the mask.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">LESS_MASK</td>
 <td class="address-2"><span id="328A"></span>328A</td>
 <td class="instruction">SLA A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">With each loop a zero enters the mask from the right and thereby a mask of the correct length is produced.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="328C"></span>328C</td>
-<td class="instruction">DJNZ $328A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">DJNZ <a href="3214.html#328A">LESS_MASK</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="328E"></span>328E</td>
 <td class="instruction">AND (HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">The unwanted bits of (<span class="register">HL</span>) are lost as the masking is performed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="328F"></span>328F</td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">IX_END</td>
 <td class="address-2"><span id="3290"></span>3290</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return the pointer to <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3291"></span>3291</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return STKEND to <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="3292"></span>3292</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -560,8 +605,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

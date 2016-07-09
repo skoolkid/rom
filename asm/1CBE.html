@@ -25,7 +25,12 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is derived from an offset found in the <a href="1C01.html">command class table</a>.
+</div>
+<div class="paragraph">
+This routine is used by PLOT, DRAW and CIRCLE statements in order to specify the default conditions of 'FLASH 8; BRIGHT 8; PAPER 8;' that are set up before any embedded colour items are considered.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,76 +47,76 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLASS_09</td>
 <td class="address-2"><span id="1CBE"></span>1CBE</td>
-<td class="instruction">CALL <a href="2530.html">$2530</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="2">Jump forward if checking syntax.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CC1"></span>1CC1</td>
-<td class="instruction">JR Z,$1CD6</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="1CBE.html#1CD6">CL_09_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CC3"></span>1CC3</td>
 <td class="instruction">RES 0,(IY+$02)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'main screen'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CC7"></span>1CC7</td>
-<td class="instruction">CALL <a href="0D4D.html">$0D4D</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="0D4D.html">TEMPS</a></td>
+<td class="comment-11" rowspan="1">Set the temporary colours for the main screen.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CCA"></span>1CCA</td>
 <td class="instruction">LD HL,$5C90</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">This is MASK-T.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CCD"></span>1CCD</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Fetch its present value but keep only its INK part 'unmasked'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CCE"></span>1CCE</td>
 <td class="instruction">OR $F8</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CD0"></span>1CD0</td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Restore the value which now indicates 'FLASH 8; BRIGHT 8; PAPER 8;'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CD1"></span>1CD1</td>
 <td class="instruction">RES 6,(IY+$57)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Also ensure NOT 'PAPER 9'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CD5"></span>1CD5</td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the present character before continuing to deal with embedded colour items.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CL_09_1</td>
 <td class="address-2"><span id="1CD6"></span>1CD6</td>
-<td class="instruction">CALL <a href="21E1.html#21E2">$21E2</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="21E1.html#21E2">CO_TEMP_2</a></td>
+<td class="comment-11" rowspan="1">Deal with the locally dominant colour items.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1CD9"></span>1CD9</td>
-<td class="instruction">JR <a href="1C79.html#1C7A">$1C7A</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="1C79.html#1C7A">CLASS_08</a></td>
+<td class="comment-11" rowspan="1">Now get the first two operands for PLOT, DRAW or CIRCLE.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -122,8 +127,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

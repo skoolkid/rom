@@ -25,7 +25,12 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is derived from an offset found in the <a href="0FA0.html">editing keys table</a>.
+</div>
+<div class="paragraph">
+When in 'editing mode' pressing the EDIT key will bring down the 'current BASIC line'. However in 'INPUT mode' the action of the EDIT key is to clear the current reply and allow a fresh one.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,232 +47,232 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">ED_EDIT</td>
 <td class="address-2"><span id="0FA9"></span>0FA9</td>
 <td class="instruction">LD HL,($5C49)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the current line number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FAC"></span>0FAC</td>
 <td class="instruction">BIT 5,(IY+$37)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">But jump forward if in 'INPUT mode'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FB0"></span>0FB0</td>
-<td class="instruction">JP NZ,<a href="1097.html">$1097</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP NZ,<a href="1097.html">CLEAR_SP</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FB3"></span>0FB3</td>
-<td class="instruction">CALL <a href="196E.html">$196E</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="196E.html">LINE_ADDR</a></td>
+<td class="comment-11" rowspan="2">Find the address of the start of the current line and hence its number.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FB6"></span>0FB6</td>
-<td class="instruction">CALL <a href="168F.html#1695">$1695</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="168F.html#1695">LINE_NO</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FB9"></span>0FB9</td>
 <td class="instruction">LD A,D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">If the line number returned is zero then simply clear the editing area.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FBA"></span>0FBA</td>
 <td class="instruction">OR E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FBB"></span>0FBB</td>
-<td class="instruction">JP Z,<a href="1097.html">$1097</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP Z,<a href="1097.html">CLEAR_SP</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FBE"></span>0FBE</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the address of the line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FBF"></span>0FBF</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Move on to collect the length of the line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FC0"></span>0FC0</td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FC1"></span>0FC1</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FC2"></span>0FC2</td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FC3"></span>0FC3</td>
 <td class="instruction">LD HL,$000A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="5">Add +0A to the length and test that there is sufficient room for a copy of the line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FC6"></span>0FC6</td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FC7"></span>0FC7</td>
 <td class="instruction">LD B,H</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FC8"></span>0FC8</td>
 <td class="instruction">LD C,L</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FC9"></span>0FC9</td>
-<td class="instruction">CALL <a href="1F05.html">$1F05</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1F05.html">TEST_ROOM</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FCC"></span>0FCC</td>
-<td class="instruction">CALL <a href="1097.html">$1097</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1097.html">CLEAR_SP</a></td>
+<td class="comment-11" rowspan="1">Now clear the editing area.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FCF"></span>0FCF</td>
 <td class="instruction">LD HL,($5C51)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Fetch the current channel address and exchange it for the address of the line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FD2"></span>0FD2</td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FD3"></span>0FD3</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save it temporarily.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FD4"></span>0FD4</td>
 <td class="instruction">LD A,$FF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Open channel 'R' so that the line will be copied to the editing area.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FD6"></span>0FD6</td>
-<td class="instruction">CALL <a href="1601.html">$1601</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1601.html">CHAN_OPEN</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FD9"></span>0FD9</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the address of the line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FDA"></span>0FDA</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Go to before the line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FDB"></span>0FDB</td>
 <td class="instruction">DEC (IY+$0F)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Decrement the current line number so as to avoid printing the cursor.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FDE"></span>0FDE</td>
-<td class="instruction">CALL <a href="1855.html">$1855</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1855.html">OUT_LINE</a></td>
+<td class="comment-11" rowspan="1">Print the BASIC line.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FE1"></span>0FE1</td>
 <td class="instruction">INC (IY+$0F)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Increment the current line number. Note: the decrementing of the line number does not always stop the cursor from being printed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FE4"></span>0FE4</td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="6">Fetch the start of the line in the editing area and step past the line number and the length to find the address for K-CUR.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FE7"></span>0FE7</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FE8"></span>0FE8</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FE9"></span>0FE9</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FEA"></span>0FEA</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FEB"></span>0FEB</td>
 <td class="instruction">LD ($5C5B),HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FEE"></span>0FEE</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Fetch the former channel address and set the appropriate flags before returning to <a href="0F2C.html#0F38">ED_LOOP</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FEF"></span>0FEF</td>
-<td class="instruction">CALL <a href="1615.html">$1615</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1615.html">CHAN_FLAG</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0FF2"></span>0FF2</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -278,8 +283,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

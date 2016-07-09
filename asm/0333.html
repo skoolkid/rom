@@ -26,7 +26,13 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="02BF.html">02BF</a> and <a href="25AF.html">25AF</a>.
+Used by the routines at <a href="02BF.html">KEYBOARD</a> and <a href="2634.html">S_INKEY</a>.
+</div>
+<div class="paragraph">
+This subroutine is entered with the 'main code' in the <span class="register">E</span> register, the value of FLAGS in the <span class="register">D</span> register, the value of MODE in the <span class="register">C</span> register and the 'shift byte' in the <span class="register">B</span> register.
+</div>
+<div class="paragraph">
+By considering these four values and referring, as necessary, to the <a href="0205.html">six key tables</a> a 'final code' is produced. This is returned in the <span class="register">A</span> register.
 </div>
 </div>
 <table class="input-0">
@@ -44,448 +50,558 @@ Used by the routines at <a href="02BF.html">02BF</a> and <a href="25AF.html">25A
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">K_DECODE</td>
 <td class="address-2"><span id="0333"></span>0333</td>
 <td class="instruction">LD A,E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Copy the 'main code'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0334"></span>0334</td>
 <td class="instruction">CP $3A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if a digit key is being considered; also SPACE, ENTER and both shifts.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0336"></span>0336</td>
-<td class="instruction">JR C,$0367</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="0333.html#0367">K_DIGIT</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0338"></span>0338</td>
 <td class="instruction">DEC C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Decrement the MODE value.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0339"></span>0339</td>
-<td class="instruction">JP M,$034F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP M,<a href="0333.html#034F">K_KLC_LET</a></td>
+<td class="comment-11" rowspan="2">Jump forward, as needed, for modes 'K', 'L', 'C' and 'E'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="033C"></span>033C</td>
-<td class="instruction">JR Z,$0341</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="0333.html#0341">K_E_LET</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="033E"></span>
+<div class="comments">
+<div class="paragraph">
+Only 'graphics' mode remains and the 'final code' for letter keys in graphics mode is computed from the 'main code'.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="033E"></span>033E</td>
 <td class="instruction">ADD A,$4F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Add the offset.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0340"></span>0340</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return with the 'final code'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0341"></span>
+<div class="comments">
+<div class="paragraph">
+Letter keys in extended mode are considered next.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">K_E_LET</td>
 <td class="address-2"><span id="0341"></span>0341</td>
 <td class="instruction">LD HL,$01EB</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The base address for <a href="0205.html#022C">table 'b'</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0344"></span>0344</td>
 <td class="instruction">INC B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward to use this table if neither shift key is being pressed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0345"></span>0345</td>
-<td class="instruction">JR Z,$034A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="0333.html#034A">K_LOOK_UP</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0347"></span>0347</td>
 <td class="instruction">LD HL,$0205</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Otherwise use the base address for <a href="0205.html#0246">table 'c'</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="034A"></span>
+<div class="comments">
+<div class="paragraph">
+Key tables 'b-f' are all served by the following look-up routine. In all cases a 'final code' is found and returned.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">K_LOOK_UP</td>
 <td class="address-2"><span id="034A"></span>034A</td>
 <td class="instruction">LD D,$00</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Clear the <span class="register">D</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="034C"></span>034C</td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Index the required table and fetch the 'final code'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="034D"></span>034D</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="034E"></span>034E</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Then return.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="034F"></span>
+<div class="comments">
+<div class="paragraph">
+Letter keys in 'K', 'L' or 'C' modes are now considered. But first the special SYMBOL SHIFT codes have to be dealt with.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">K_KLC_LET</td>
 <td class="address-2"><span id="034F"></span>034F</td>
 <td class="instruction">LD HL,$0229</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The base address for <a href="0205.html#026A">table 'e'</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0352"></span>0352</td>
 <td class="instruction">BIT 0,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump back if using the SYMBOL SHIFT key and a letter key.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0354"></span>0354</td>
-<td class="instruction">JR Z,$034A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="0333.html#034A">K_LOOK_UP</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0356"></span>0356</td>
 <td class="instruction">BIT 3,D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward if currently in 'K' mode.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0358"></span>0358</td>
-<td class="instruction">JR Z,$0364</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="0333.html#0364">K_TOKENS</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="035A"></span>035A</td>
 <td class="instruction">BIT 3,(IY+$30)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">If CAPS LOCK is set then return with the 'main code'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="035E"></span>035E</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="035F"></span>035F</td>
 <td class="instruction">INC B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Also return in the same manner if CAPS SHIFT is being pressed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0360"></span>0360</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0361"></span>0361</td>
 <td class="instruction">ADD A,$20</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">However if lower case codes are required then +20 has to be added to the 'main code' to give the correct 'final code'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0363"></span>0363</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0364"></span>
+<div class="comments">
+<div class="paragraph">
+The 'final code' values for tokens are found by adding +A5 to the 'main code'.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">K_TOKENS</td>
 <td class="address-2"><span id="0364"></span>0364</td>
 <td class="instruction">ADD A,$A5</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Add the required offset and return.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0366"></span>0366</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0367"></span>
+<div class="comments">
+<div class="paragraph">
+Next the digit keys, SPACE, ENTER and both shifts are considered.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">K_DIGIT</td>
 <td class="address-2"><span id="0367"></span>0367</td>
 <td class="instruction">CP "0"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Proceed only with the digit keys, i.e. return with SPACE (+20), ENTER (+0D) and both shifts (+0E).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0369"></span>0369</td>
 <td class="instruction">RET C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="036A"></span>036A</td>
 <td class="instruction">DEC C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Now separate the digit keys into three groups - according to the mode.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="036B"></span>036B</td>
-<td class="instruction">JP M,$039D</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP M,<a href="0333.html#039D">K_KLC_DGT</a></td>
+<td class="comment-11" rowspan="2">Jump with 'K', 'L' and 'C' modes, and also with 'G' mode. Continue with 'E' mode.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="036E"></span>036E</td>
-<td class="instruction">JR NZ,$0389</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="0333.html#0389">K_GRA_DGT</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0370"></span>0370</td>
 <td class="instruction">LD HL,$0254</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The base address for <a href="0205.html#0284">table 'f'</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0373"></span>0373</td>
 <td class="instruction">BIT 5,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Use this table for SYMBOL SHIFT and a digit key in extended mode.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0375"></span>0375</td>
-<td class="instruction">JR Z,$034A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="0333.html#034A">K_LOOK_UP</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0377"></span>0377</td>
 <td class="instruction">CP "8"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Jump forward with digit keys '8' and '9'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0379"></span>0379</td>
-<td class="instruction">JR NC,$0382</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="0333.html#0382">K_8_9</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="037B"></span>
+<div class="comments">
+<div class="paragraph">
+The digit keys '0' to '7' in extended mode are to give either a 'paper colour code' or an 'ink colour code' depending on the use of CAPS SHIFT.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="037B"></span>037B</td>
 <td class="instruction">SUB $20</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Reduce the range +30 to +37 giving +10 to +17.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="037D"></span>037D</td>
 <td class="instruction">INC B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Return with this 'paper colour code' if CAPS SHIFT is not being used.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="037E"></span>037E</td>
 <td class="instruction">RET Z</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="037F"></span>037F</td>
 <td class="instruction">ADD A,$08</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">But if it is then the range is to be +18 to +1F instead - indicating an 'ink colour code'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0381"></span>0381</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0382"></span>
+<div class="comments">
+<div class="paragraph">
+The digit keys '8' and '9' are to give 'BRIGHT' and 'FLASH' codes.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">K_8_9</td>
 <td class="address-2"><span id="0382"></span>0382</td>
 <td class="instruction">SUB $36</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">+38 and +39 go to +02 and +03.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0384"></span>0384</td>
 <td class="instruction">INC B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Return with these codes if CAPS SHIFT is not being used. (These are 'BRIGHT' codes.)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0385"></span>0385</td>
 <td class="instruction">RET Z</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0386"></span>0386</td>
 <td class="instruction">ADD A,$FE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Subtract '2' if CAPS SHIFT is being used; giving +00 and +01 (as 'FLASH' codes).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0388"></span>0388</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="0389"></span>
+<div class="comments">
+<div class="paragraph">
+The digit keys in graphics mode are to give the block graphic characters (+80 to +8F), the GRAPHICS code (+0F) and the DELETE code (+0C).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">K_GRA_DGT</td>
 <td class="address-2"><span id="0389"></span>0389</td>
 <td class="instruction">LD HL,$0230</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The base address of <a href="0205.html#0260">table 'd'</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="038C"></span>038C</td>
 <td class="instruction">CP "9"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Use this table directly for both digit key '9' that is to give GRAPHICS, and digit key '0' that is to give DELETE.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="038E"></span>038E</td>
-<td class="instruction">JR Z,$034A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="0333.html#034A">K_LOOK_UP</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0390"></span>0390</td>
 <td class="instruction">CP "0"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0392"></span>0392</td>
-<td class="instruction">JR Z,$034A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="0333.html#034A">K_LOOK_UP</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0394"></span>0394</td>
 <td class="instruction">AND $07</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">For keys '1' to '8' make the range +80 to +87.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0396"></span>0396</td>
 <td class="instruction">ADD A,$80</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0398"></span>0398</td>
 <td class="instruction">INC B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Return with a value from this range if neither shift key is being pressed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0399"></span>0399</td>
 <td class="instruction">RET Z</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="039A"></span>039A</td>
 <td class="instruction">XOR $0F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">But if 'shifted' make the range +88 to +8F.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="039C"></span>039C</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="039D"></span>
+<div class="comments">
+<div class="paragraph">
+Finally consider the digit keys in 'K', 'L' and 'C' modes.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">K_KLC_DGT</td>
 <td class="address-2"><span id="039D"></span>039D</td>
 <td class="instruction">INC B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Return directly if neither shift key is being used. (Final codes +30 to +39.)</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="039E"></span>039E</td>
 <td class="instruction">RET Z</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="039F"></span>039F</td>
 <td class="instruction">BIT 5,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Use <a href="0205.html#0260">table 'd'</a> if the CAPS SHIFT key is also being pressed.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="03A1"></span>03A1</td>
 <td class="instruction">LD HL,$0230</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="03A4"></span>03A4</td>
-<td class="instruction">JR NZ,$034A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="0333.html#034A">K_LOOK_UP</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="03A6"></span>
+<div class="comments">
+<div class="paragraph">
+The codes for the various digit keys and SYMBOL SHIFT can now be found.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="03A6"></span>03A6</td>
 <td class="instruction">SUB $10</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Reduce the range to give +20 to +29.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="03A8"></span>03A8</td>
 <td class="instruction">CP $22</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Separate the '@' character from the others.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="03AA"></span>03AA</td>
-<td class="instruction">JR Z,$03B2</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="0333.html#03B2">K_AT_CHAR</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="03AC"></span>03AC</td>
 <td class="instruction">CP $20</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The '_' character has also to be separated.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="03AE"></span>03AE</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Return now with the 'final codes' +21, +23 to +29.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="03AF"></span>03AF</td>
 <td class="instruction">LD A,"_"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Give the '_' character a code of +5F.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="03B1"></span>03B1</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">K_AT_CHAR</td>
 <td class="address-2"><span id="03B2"></span>03B2</td>
 <td class="instruction">LD A,"@"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Give the '@' character a code of +40.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="03B4"></span>03B4</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -496,8 +612,8 @@ Used by the routines at <a href="02BF.html">02BF</a> and <a href="25AF.html">25A
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

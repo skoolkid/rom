@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 2580</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="2535.html">2535</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#2580">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="2596.html">2596</a></span></td>
+</tr>
+</table>
+<div class="description">2580: THE 'SCANNING ATTRIBUTES' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="4">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="2672.html">S_ATTR</a>.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">S_ATTR_S</td>
+<td class="address-2"><span id="2580"></span>2580</td>
+<td class="instruction">CALL <a href="2307.html">STK_TO_BC</a></td>
+<td class="comment-11" rowspan="1">x to <span class="register">C</span>, y to <span class="register">B</span>. Again, 0&lt;=x&lt;=23 decimal; 0&lt;=y&lt;=31 decimal.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2583"></span>2583</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-11" rowspan="7">x is copied to <span class="register">A</span> and the number 32*(x mod 8)+y is formed in <span class="register">A</span>. 32*(x mod 8)+INT (x/8) is also copied to <span class="register">C</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2584"></span>2584</td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2585"></span>2585</td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2586"></span>2586</td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2587"></span>2587</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2588"></span>2588</td>
+<td class="instruction">AND $E0</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="258A"></span>258A</td>
+<td class="instruction">XOR B</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="258B"></span>258B</td>
+<td class="instruction">LD L,A</td>
+<td class="comment-11" rowspan="1"><span class="register">L</span> holds low byte of attribute address.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="258C"></span>258C</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-11" rowspan="1">32*(x mod 8)+INT (x/8) is copied to <span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="258D"></span>258D</td>
+<td class="instruction">AND $03</td>
+<td class="comment-11" rowspan="2">88+INT (x/8) is formed in <span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="258F"></span>258F</td>
+<td class="instruction">XOR $58</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2591"></span>2591</td>
+<td class="instruction">LD H,A</td>
+<td class="comment-11" rowspan="1"><span class="register">H</span> holds high byte of attribute address.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2592"></span>2592</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-11" rowspan="1">The attribute byte is copied to <span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2593"></span>2593</td>
+<td class="instruction">JP <a href="2D28.html">STACK_A</a></td>
+<td class="comment-11" rowspan="1">Exit, stacking the required byte.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="2535.html">2535</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#2580">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="2596.html">2596</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+</footer>
+</body>
+</html>

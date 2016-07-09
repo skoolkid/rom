@@ -15,18 +15,24 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1C16.html">1C16</a></span></td>
+<td class="prev"><span class="prev-1">Prev: <a href="1C0D.html">1C0D</a></span></td>
 <td class="up">Up: <a href="../maps/all.html#1C1F">Map</a></td>
 <td class="next"><span class="next-1">Next: <a href="1C22.html">1C22</a></span></td>
 </tr>
 </table>
-<div class="description">1C1F: THE 'COMMAND CLASSES - 01, 02 &amp; 04'</div>
+<div class="description">1C1F: THE 'COMMAND CLASS 01' ROUTINE</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="1DEC.html">1DEC</a> and <a href="2089.html">2089</a>.
+Used by the routines at <a href="1DEC.html">READ_3</a> and <a href="2089.html">INPUT</a>.
+</div>
+<div class="paragraph">
+The address of this routine is derived from an offset found in the <a href="1C01.html">command class table</a>.
+</div>
+<div class="paragraph">
+Command class 01 is concerned with the identification of the variable in a LET, READ or INPUT statement.
 </div>
 </div>
 <table class="input-0">
@@ -44,22 +50,32 @@ Used by the routines at <a href="1DEC.html">1DEC</a> and <a href="2089.html">208
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLASS_01</td>
 <td class="address-2"><span id="1C1F"></span>1C1F</td>
-<td class="instruction">CALL <a href="28B2.html">$28B2</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="28B2.html">LOOK_VARS</a></td>
+<td class="comment-11" rowspan="1">Look in the variables area to determine whether or not the variable has been used already.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="4">
+
+<div class="comments">
+<div class="paragraph">
+This routine continues into <a href="1C22.html">VAR_A_1</a>.
+</div>
+</div>
+</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1C16.html">1C16</a></span></td>
+<td class="prev"><span class="prev-1">Prev: <a href="1C0D.html">1C0D</a></span></td>
 <td class="up">Up: <a href="../maps/all.html#1C1F">Map</a></td>
 <td class="next"><span class="next-1">Next: <a href="1C22.html">1C22</a></span></td>
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

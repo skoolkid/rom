@@ -26,7 +26,13 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="0605.html">0605</a>, <a href="1C1F.html">1C1F</a>, <a href="1C6C.html">1C6C</a>, <a href="26C9.html">26C9</a> and <a href="2C02.html">2C02</a>.
+Used by the routines at <a href="0605.html">SAVE_ETC</a>, <a href="1C1F.html">CLASS_01</a>, <a href="1C6C.html">CLASS_04</a>, <a href="26C9.html">S_LETTER</a> and <a href="2C02.html">DIM</a>.
+</div>
+<div class="paragraph">
+This subroutine is called whenever a search of the variables area or of the arguments of a DEF FN statement is required. The subroutine is entered with the system variable CH-ADD pointing to the first letter of the name of the variable whose location is being sought. The name will be in the program area or the work space. The subroutine initially builds up a discriminator byte, in the <span class="register">C</span> register, that is based on the first letter of the variable's name. Bits 5 and 6 of this byte indicate the type of the variable that is being handled.
+</div>
+<div class="paragraph">
+The <span class="register">B</span> register is used as a bit register to hold flags.
 </div>
 </div>
 <table class="input-0">
@@ -44,554 +50,719 @@ Used by the routines at <a href="0605.html">0605</a>, <a href="1C1F.html">1C1F</
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">LOOK_VARS</td>
 <td class="address-2"><span id="28B2"></span>28B2</td>
 <td class="instruction">SET 6,(IY+$01)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Presume a numeric variable.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28B6"></span>28B6</td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get the first character into <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28B7"></span>28B7</td>
-<td class="instruction">CALL <a href="2C8D.html">$2C8D</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2C8D.html">ALPHA</a></td>
+<td class="comment-11" rowspan="1">Is it alphabetic?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28BA"></span>28BA</td>
-<td class="instruction">JP NC,<a href="1C79.html#1C8A">$1C8A</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP NC,<a href="1C79.html#1C8A">REPORT_C</a></td>
+<td class="comment-11" rowspan="1">Give an error report if it is not so.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28BD"></span>28BD</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the pointer to the first letter.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28BE"></span>28BE</td>
 <td class="instruction">AND $1F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Transfer bits 0 to 4 of the letter to the <span class="register">C</span> register; bits 5 and 7 are always reset.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28C0"></span>28C0</td>
 <td class="instruction">LD C,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28C1"></span>28C1</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get the second character into <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28C2"></span>28C2</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save this pointer also.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28C3"></span>28C3</td>
 <td class="instruction">CP "("</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Is the second character a '('?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28C5"></span>28C5</td>
-<td class="instruction">JR Z,$28EF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="28B2.html#28EF">V_RUN_SYN</a></td>
+<td class="comment-11" rowspan="1">Separate arrays of numbers.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28C7"></span>28C7</td>
 <td class="instruction">SET 6,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Now set bit 6.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28C9"></span>28C9</td>
 <td class="instruction">CP "$"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Is the second character a '$'?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28CB"></span>28CB</td>
-<td class="instruction">JR Z,$28DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="28B2.html#28DE">V_STR_VAR</a></td>
+<td class="comment-11" rowspan="1">Separate all the strings.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28CD"></span>28CD</td>
 <td class="instruction">SET 5,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Now set bit 5.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28CF"></span>28CF</td>
-<td class="instruction">CALL <a href="2C88.html">$2C88</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2C88.html">ALPHANUM</a></td>
+<td class="comment-11" rowspan="2">If the variable's name has only one character then jump forward.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28D2"></span>28D2</td>
-<td class="instruction">JR NC,$28E3</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="28B2.html#28E3">V_TEST_FN</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="28D4"></span>
+<div class="comments">
+<div class="paragraph">
+Now find the end character of a name that has more than one character.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">V_CHAR</td>
 <td class="address-2"><span id="28D4"></span>28D4</td>
-<td class="instruction">CALL <a href="2C88.html">$2C88</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2C88.html">ALPHANUM</a></td>
+<td class="comment-11" rowspan="1">Is the character alphanumeric?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28D7"></span>28D7</td>
-<td class="instruction">JR NC,$28EF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="28B2.html#28EF">V_RUN_SYN</a></td>
+<td class="comment-11" rowspan="1">Jump out of the loop when the end of the name is found.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28D9"></span>28D9</td>
 <td class="instruction">RES 6,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Mark the discriminator byte.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28DB"></span>28DB</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28DC"></span>28DC</td>
-<td class="instruction">JR $28D4</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="28B2.html#28D4">V_CHAR</a></td>
+<td class="comment-11" rowspan="1">Go back to test it.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="28DE"></span>
+<div class="comments">
+<div class="paragraph">
+Simple strings and arrays of strings require that bit 6 of FLAGS is reset.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">V_STR_VAR</td>
 <td class="address-2"><span id="28DE"></span>28DE</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Step CH-ADD past the '$'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28DF"></span>28DF</td>
 <td class="instruction">RES 6,(IY+$01)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Reset bit 6 to indicate a string.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="28E3"></span>
+<div class="comments">
+<div class="paragraph">
+If DEFADD-hi is non-zero, indicating that a 'function' (a 'FN') is being evaluated, and if in 'run-time', a search will be made of the arguments in the DEF FN statement.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">V_TEST_FN</td>
 <td class="address-2"><span id="28E3"></span>28E3</td>
 <td class="instruction">LD A,($5C0C)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Is DEFADD-hi zero?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28E6"></span>28E6</td>
 <td class="instruction">AND A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28E7"></span>28E7</td>
-<td class="instruction">JR Z,$28EF</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="28B2.html#28EF">V_RUN_SYN</a></td>
+<td class="comment-11" rowspan="1">If so, jump forward.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28E9"></span>28E9</td>
-<td class="instruction">CALL <a href="2530.html">$2530</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="1">In 'run-time'?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28EC"></span>28EC</td>
-<td class="instruction">JP NZ,<a href="2951.html">$2951</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP NZ,<a href="2951.html">STK_F_ARG</a></td>
+<td class="comment-11" rowspan="1">If so, jump forward to search the DEF FN statement.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="28EF"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="2951.html">2951</a>.
+This entry point is used by the routine at <a href="2951.html">STK_F_ARG</a>.
+</div>
+<div class="paragraph">
+Otherwise (or if the variable was not found in the DEF FN statement) a search of variables area will be made, unless syntax is being checked.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">V_RUN_SYN</td>
 <td class="address-2"><span id="28EF"></span>28EF</td>
 <td class="instruction">LD B,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Copy the discriminator byte to the <span class="register">B</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28F0"></span>28F0</td>
-<td class="instruction">CALL <a href="2530.html">$2530</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="2">Jump forward if in 'run-time'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28F3"></span>28F3</td>
-<td class="instruction">JR NZ,$28FD</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="28B2.html#28FD">V_RUN</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28F5"></span>28F5</td>
 <td class="instruction">LD A,C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Move the discriminator to <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28F6"></span>28F6</td>
 <td class="instruction">AND $E0</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Drop the character code part.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28F8"></span>28F8</td>
 <td class="instruction">SET 7,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Indicate syntax by setting bit 7.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28FA"></span>28FA</td>
 <td class="instruction">LD C,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Restore the discriminator.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="28FB"></span>28FB</td>
-<td class="instruction">JR $2934</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="28B2.html#2934">V_SYNTAX</a></td>
+<td class="comment-11" rowspan="1">Jump forward to continue.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="28FD"></span>
+<div class="comments">
+<div class="paragraph">
+A BASIC line is being executed so make a search of the variables area.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">V_RUN</td>
 <td class="address-2"><span id="28FD"></span>28FD</td>
 <td class="instruction">LD HL,($5C4B)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Pick up the VARS pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="2900"></span>
+<div class="comments">
+<div class="paragraph">
+Now enter a loop to consider the names of the existing variables.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">V_EACH</td>
 <td class="address-2"><span id="2900"></span>2900</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The first letter of each existing variable.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2901"></span>2901</td>
 <td class="instruction">AND $7F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Match on bits 0 to 6.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2903"></span>2903</td>
-<td class="instruction">JR Z,$2932</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="28B2.html#2932">V_80_BYTE</a></td>
+<td class="comment-11" rowspan="1">Jump when the '80-byte' is reached.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2905"></span>2905</td>
 <td class="instruction">CP C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The actual comparison.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2906"></span>2906</td>
-<td class="instruction">JR NZ,$292A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="28B2.html#292A">V_NEXT</a></td>
+<td class="comment-11" rowspan="1">Jump forward if the first characters do not match.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2908"></span>2908</td>
 <td class="instruction">RLA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Rotate <span class="register">A</span> leftwards and then double it to test bits 5 and 6.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2909"></span>2909</td>
 <td class="instruction">ADD A,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="290A"></span>290A</td>
-<td class="instruction">JP P,$293F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JP P,<a href="28B2.html#293F">V_FOUND_2</a></td>
+<td class="comment-11" rowspan="1">Strings and array variables.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="290D"></span>290D</td>
-<td class="instruction">JR C,$293F</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="28B2.html#293F">V_FOUND_2</a></td>
+<td class="comment-11" rowspan="1">Simple numeric and FOR-NEXT variables.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="290F"></span>
+<div class="comments">
+<div class="paragraph">
+Long names are required to be matched fully.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="290F"></span>290F</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Take a copy of the pointer to the second character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2910"></span>2910</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2911"></span>2911</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the first letter pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">V_MATCHES</td>
 <td class="address-2"><span id="2912"></span>2912</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Consider the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">V_SPACES</td>
 <td class="address-2"><span id="2913"></span>2913</td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch each character in turn.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2914"></span>2914</td>
 <td class="instruction">INC DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Point to the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2915"></span>2915</td>
 <td class="instruction">CP " "</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Is the character a 'space'?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2917"></span>2917</td>
-<td class="instruction">JR Z,$2913</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="28B2.html#2913">V_SPACES</a></td>
+<td class="comment-11" rowspan="1">Ignore the spaces.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2919"></span>2919</td>
 <td class="instruction">OR $20</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Set bit 5 so as to match lower and upper case letters.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="291B"></span>291B</td>
 <td class="instruction">CP (HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Make the comparison.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="291C"></span>291C</td>
-<td class="instruction">JR Z,$2912</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="28B2.html#2912">V_MATCHES</a></td>
+<td class="comment-11" rowspan="1">Back for another character if it does match.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="291E"></span>291E</td>
 <td class="instruction">OR $80</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Will it match with bit 7 set?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2920"></span>2920</td>
 <td class="instruction">CP (HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Try it.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2921"></span>2921</td>
-<td class="instruction">JR NZ,$2929</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="28B2.html#2929">V_GET_PTR</a></td>
+<td class="comment-11" rowspan="1">Jump forward if the 'last characters' do not match.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2923"></span>2923</td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Check that the end of the name has been reached before jumping forward.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2924"></span>2924</td>
-<td class="instruction">CALL <a href="2C88.html">$2C88</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2C88.html">ALPHANUM</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2927"></span>2927</td>
-<td class="instruction">JR NC,$293E</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="28B2.html#293E">V_FOUND_1</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="2929"></span>
+<div class="comments">
+<div class="paragraph">
+In all cases where the names fail to match the <span class="register">HL</span> register pair has to be made to point to the next variable in the variables area.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">V_GET_PTR</td>
 <td class="address-2"><span id="2929"></span>2929</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">V_NEXT</td>
 <td class="address-2"><span id="292A"></span>292A</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save <span class="register">B</span> and <span class="register">C</span> briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="292B"></span>292B</td>
-<td class="instruction">CALL <a href="19B8.html">$19B8</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="19B8.html">NEXT_ONE</a></td>
+<td class="comment-11" rowspan="1"><span class="register">DE</span> is made to point to the next variable.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="292E"></span>292E</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Switch the two pointers.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="292F"></span>292F</td>
 <td class="instruction">POP BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Get <span class="register">B</span> and <span class="register">C</span> back.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2930"></span>2930</td>
-<td class="instruction">JR $2900</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="28B2.html#2900">V_EACH</a></td>
+<td class="comment-11" rowspan="1">Go around the loop again.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="2932"></span>
+<div class="comments">
+<div class="paragraph">
+Come here if no entry was found with the correct name.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">V_80_BYTE</td>
 <td class="address-2"><span id="2932"></span>2932</td>
 <td class="instruction">SET 7,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Signal 'variable not found'.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="2934"></span>
+<div class="comments">
+<div class="paragraph">
+Come here if checking syntax.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">V_SYNTAX</td>
 <td class="address-2"><span id="2934"></span>2934</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Drop the pointer to the second character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2935"></span>2935</td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the present character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2936"></span>2936</td>
 <td class="instruction">CP "("</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Is it a '('?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2938"></span>2938</td>
-<td class="instruction">JR Z,$2943</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="28B2.html#2943">V_PASS</a></td>
+<td class="comment-11" rowspan="1">Jump forward if so.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="293A"></span>293A</td>
 <td class="instruction">SET 5,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Indicate not dealing with an array and jump forward.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="293C"></span>293C</td>
-<td class="instruction">JR $294B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="28B2.html#294B">V_END</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="293E"></span>
+<div class="comments">
+<div class="paragraph">
+Come here when an entry with the correct name was found.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">V_FOUND_1</td>
 <td class="address-2"><span id="293E"></span>293E</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Drop the saved variable pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">V_FOUND_2</td>
 <td class="address-2"><span id="293F"></span>293F</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Drop the second character pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2940"></span>2940</td>
 <td class="instruction">POP DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Drop the first letter pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2941"></span>2941</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Save the 'last' letter pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2942"></span>2942</td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the current character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="2943"></span>
+<div class="comments">
+<div class="paragraph">
+If the matching variable name has more than a single letter then the other characters must be passed over.
+</div>
+<div class="paragraph">
+Note: this appears to have been done already at <a href="28B2.html#28D4">V_CHAR</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">V_PASS</td>
 <td class="address-2"><span id="2943"></span>2943</td>
-<td class="instruction">CALL <a href="2C88.html">$2C88</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="2C88.html">ALPHANUM</a></td>
+<td class="comment-11" rowspan="1">Is it alphanumeric?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2946"></span>2946</td>
-<td class="instruction">JR NC,$294B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="28B2.html#294B">V_END</a></td>
+<td class="comment-11" rowspan="1">Jump when the end of the name has been found.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2948"></span>2948</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Fetch the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2949"></span>2949</td>
-<td class="instruction">JR $2943</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR <a href="28B2.html#2943">V_PASS</a></td>
+<td class="comment-11" rowspan="1">Go back and test it.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="routine-comment" colspan="4">
+<span id="294B"></span>
+<div class="comments">
+<div class="paragraph">
+The exit-parameters are now set.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">V_END</td>
 <td class="address-2"><span id="294B"></span>294B</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"><span class="register">HL</span> holds the pointer to the letter of a short name or the 'last' character of a long name.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="294C"></span>294C</td>
 <td class="instruction">RL B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Rotate the whole register.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="294E"></span>294E</td>
 <td class="instruction">BIT 6,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Specify the state of bit 6.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2950"></span>2950</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Finished.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="4">
+
+<div class="comments">
+<div class="paragraph">
+The exit-parameters for the subroutine can be summarised as follows.
+</div>
+<div class="paragraph">
+The system variable CH-ADD points to the first location after the name of the variable as it occurs in the BASIC line.
+</div>
+<div class="paragraph">
+When 'variable not found':
+</div>
+<div class="paragraph">
+<ul class="">
+<li>The carry flag is set.</li>
+<li>The zero flag is set only when the search was for an array variable.</li>
+<li>The <span class="register">HL</span> register pair points to the first letter of the name of the variable as it occurs in the BASIC line.</li>
+</ul>
+</div>
+<div class="paragraph">
+When 'variable found':
+</div>
+<div class="paragraph">
+<ul class="">
+<li>The carry flag is reset.</li>
+<li>The zero flag is set for both simple string variables and all array variables.</li>
+<li>The <span class="register">HL</span> register pair points to the letter of a 'short' name, or the last character of a 'long' name, of the existing entry that was found in the variables area.</li>
+</ul>
+</div>
+<div class="paragraph">
+In all cases bits 5 and 6 of the <span class="register">C</span> register indicate the type of variable being handled. Bit 7 is the complement of the SYNTAX/RUN flag. But only when the subroutine is used in 'runtime' will bits 0 to 4 hold the code of the variable's letter.
+</div>
+<div class="paragraph">
+In syntax time the return is always made with the carry flag reset. The zero flag is set for arrays and reset for all other variables, except that a simple string name incorrectly followed by a '$' sets the zero flag and, in the case of SAVE "name" DATA a$(), passes syntax as well.
+</div>
+</div>
+</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -602,8 +773,8 @@ This entry point is used by the routine at <a href="2951.html">2951</a>.
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

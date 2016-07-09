@@ -25,7 +25,12 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="1A48.html#1B02">parameter table</a>.
+</div>
+<div class="paragraph">
+This command allows the user to close streams. However for streams +00 to +03 the 'initial' stream data is restored and these streams cannot therefore be closed.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,106 +47,106 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLOSE</td>
 <td class="address-2"><span id="16E5"></span>16E5</td>
-<td class="instruction">CALL <a href="171E.html">$171E</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="171E.html">STR_DATA</a></td>
+<td class="comment-11" rowspan="1">The existing data for the stream is fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16E8"></span>16E8</td>
-<td class="instruction">CALL <a href="1701.html">$1701</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1701.html">CLOSE_2</a></td>
+<td class="comment-11" rowspan="1">Check the code in that stream's channel.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16EB"></span>16EB</td>
 <td class="instruction">LD BC,$0000</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Prepare to make the stream's data zero.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16EE"></span>16EE</td>
 <td class="instruction">LD DE,$A3E2</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Prepare to identify the use of streams +00 to +03.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16F1"></span>16F1</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16F2"></span>16F2</td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The carry flag will be set with streams +04 to +0F.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16F3"></span>16F3</td>
-<td class="instruction">JR C,$16FC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR C,<a href="16E5.html#16FC">CLOSE_1</a></td>
+<td class="comment-11" rowspan="3">Jump forward with these streams; otherwise find the correct entry in the <a href="15C6.html">initial stream data table</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16F5"></span>16F5</td>
 <td class="instruction">LD BC,$15D4</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16F8"></span>16F8</td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16F9"></span>16F9</td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Fetch the initial data for streams +00 to +03.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16FA"></span>16FA</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16FB"></span>16FB</td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">CLOSE_1</td>
 <td class="address-2"><span id="16FC"></span>16FC</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Now enter the data: either zero and zero, or the initial values.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16FD"></span>16FD</td>
 <td class="instruction">LD (HL),C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16FE"></span>16FE</td>
 <td class="instruction">INC HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="16FF"></span>16FF</td>
 <td class="instruction">LD (HL),B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1700"></span>1700</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -152,8 +157,8 @@
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

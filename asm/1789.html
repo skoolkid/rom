@@ -25,7 +25,9 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is derived from an offset found in the <a href="177A.html">open stream lookup table</a>.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,62 +44,62 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">OPEN_P</td>
 <td class="address-2"><span id="1789"></span>1789</td>
 <td class="instruction">LD E,$10</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The data bytes will be +10 and +00.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="178B"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="1781.html">1781</a> and <a href="1785.html">1785</a>.
+This entry point is used by the routines at <a href="1781.html">OPEN_K</a> and <a href="1785.html">OPEN_S</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">OPEN_END</td>
 <td class="address-2"><span id="178B"></span>178B</td>
 <td class="instruction">DEC BC</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="4">Decrease the length of the expression and give an error if it was not a single character.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="178C"></span>178C</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="178D"></span>178D</td>
 <td class="instruction">OR C</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="178E"></span>178E</td>
-<td class="instruction">JR NZ,<a href="175D.html#1765">$1765</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="175D.html#1765">REPORT_F_2</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1790"></span>1790</td>
 <td class="instruction">LD D,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Otherwise clear the <span class="register">D</span> register, fetch <span class="register">HL</span> and return.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1791"></span>1791</td>
 <td class="instruction">POP HL</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1792"></span>1792</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -108,8 +110,8 @@ This entry point is used by the routines at <a href="1781.html">1781</a> and <a 
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>

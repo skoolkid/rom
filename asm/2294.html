@@ -15,7 +15,7 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="226C.html">226C</a></span></td>
+<td class="prev"><span class="prev-1">Prev: <a href="21E1.html">21E1</a></span></td>
 <td class="up">Up: <a href="../maps/all.html#2294">Map</a></td>
 <td class="next"><span class="next-1">Next: <a href="22AA.html">22AA</a></span></td>
 </tr>
@@ -25,7 +25,12 @@
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
-
+<div class="paragraph">
+The address of this routine is found in the <a href="1A48.html#1AF5">parameter table</a>.
+</div>
+<div class="paragraph">
+The parameter of the BORDER command is used with an OUT command to actually alter the colour of the border. The parameter is then saved in the system variable BORDCR.
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -42,88 +47,88 @@
 </td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">BORDER</td>
 <td class="address-2"><span id="2294"></span>2294</td>
-<td class="instruction">CALL <a href="1E94.html">$1E94</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">CALL <a href="1E94.html">FIND_INT1</a></td>
+<td class="comment-11" rowspan="3">The parameter is fetched and its range is tested.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2297"></span>2297</td>
 <td class="instruction">CP $08</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2299"></span>2299</td>
-<td class="instruction">JR NC,<a href="21E1.html#2244">$2244</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="21E1.html#2244">REPORT_K</a></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="229B"></span>229B</td>
 <td class="instruction">OUT ($FE),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">The OUT instruction is then used to set the border colour.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="229D"></span>229D</td>
 <td class="instruction">RLCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">The parameter is then multiplied by eight.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="229E"></span>229E</td>
 <td class="instruction">RLCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="229F"></span>229F</td>
 <td class="instruction">RLCA</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22A0"></span>22A0</td>
 <td class="instruction">BIT 5,A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Is the border colour a 'light' colour?</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22A2"></span>22A2</td>
-<td class="instruction">JR NZ,$22A6</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="2294.html#22A6">BORDER_1</a></td>
+<td class="comment-11" rowspan="1">Jump if so (the INK colour will be black).</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22A4"></span>22A4</td>
 <td class="instruction">XOR $07</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Change the INK colour to white.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1">BORDER_1</td>
 <td class="address-2"><span id="22A6"></span>22A6</td>
 <td class="instruction">LD ($5C48),A</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="2">Set the system variable as required and return.</td>
 </tr>
 <tr>
-<td class="asm-label-0"></td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="22A9"></span>22A9</td>
 <td class="instruction">RET</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="226C.html">226C</a></span></td>
+<td class="prev"><span class="prev-1">Prev: <a href="21E1.html">21E1</a></span></td>
 <td class="up">Up: <a href="../maps/all.html#2294">Map</a></td>
 <td class="next"><span class="next-1">Next: <a href="22AA.html">22AA</a></span></td>
 </tr>
 </table>
 <footer>
-<div class="release"></div>
-<div class="copyright"></div>
+<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
+<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
 <div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
 </footer>
 </body>
