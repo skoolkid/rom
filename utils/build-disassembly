@@ -1,5 +1,9 @@
 #!/bin/bash -e
 
+D_VERSIONS=(
+  20160709
+)
+
 declare -A SK_VERSIONS
 SK_VERSIONS=(
   [20150704]=4.5
@@ -19,7 +23,7 @@ if (($# < 2)); then
   echo ""
   echo "  VERSION must be one of:"
   echo ""
-  for v in ${!SK_VERSIONS[@]}; do
+  for v in ${D_VERSIONS[@]} ${!SK_VERSIONS[@]}; do
     echo "    $v"
   done | sort -r | column -c 80
   echo ""
@@ -43,12 +47,6 @@ SK_VERSION=$2
 SK_VERSION_INT=$(echo $SK_VERSION | tr -d .)0
 SK_VERSION_INT=${SK_VERSION_INT:0:3}
 
-D_SK_VERSION=${SK_VERSIONS[$D_VERSION]}
-if [[ -z $D_SK_VERSION ]]; then
-  echo "Disassembly version not recognised: $D_VERSION"
-  exit 1
-fi
-
 odir=rom-$D_VERSION-$SK_VERSION
 rm -rf $odir
 mkdir $odir
@@ -59,12 +57,23 @@ tar xf $SKOOLKIT_ARCHIVE/$SK_DIR.tar.*
 SK_BUILD_DIR=${SK_DIR}-build
 mv $SK_DIR $SK_BUILD_DIR
 
-D_SK_DIR=skoolkit-$D_SK_VERSION
-tar xf $SKOOLKIT_ARCHIVE/$D_SK_DIR.tar.*
-SK_SRC_DIR=$D_SK_DIR-src
-mv $D_SK_DIR $SK_SRC_DIR
+if (($D_VERSION == 20160709)); then
+    wget https://github.com/skoolkid/rom/archive/${D_VERSION}.tar.gz -O - | tar xzf -
+    cp -p rom-${D_VERSION}/sources/48.rom.{ctl,ref} $SK_BUILD_DIR
+    HTML_OPTS=-aH
+else
+    D_SK_VERSION=${SK_VERSIONS[$D_VERSION]}
+    if [[ -z $D_SK_VERSION ]]; then
+        echo "Disassembly version not recognised: $D_VERSION"
+        exit 1
+    fi
+    D_SK_DIR=skoolkit-$D_SK_VERSION
+    tar xf $SKOOLKIT_ARCHIVE/$D_SK_DIR.tar.*
+    SK_SRC_DIR=$D_SK_DIR-src
+    mv $D_SK_DIR $SK_SRC_DIR
+    cp -p $SK_SRC_DIR/examples/48.rom.{ctl,ref} $SK_BUILD_DIR
+fi
 
-cp -p $SK_SRC_DIR/examples/48.rom.{ctl,ref} $SK_BUILD_DIR
 cd $SK_BUILD_DIR
 
 if (($SK_VERSION_INT < 360)); then
@@ -75,4 +84,4 @@ else
 fi
 ./sna2skool.py -o 0 -H -c 48.rom.ctl $binfile > 48.rom.skool
 
-./skool2html.py -t -d .. 48.rom.ref
+./skool2html.py -t -d .. $HTML_OPTS 48.rom.ref
