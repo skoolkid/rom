@@ -538,12 +538,8 @@ D $03B5 This subroutine is entered with the #REGde register pair holding the val
   $03C7 Fetch the present border colour and move it to bits 2, 1 and 0 of the #REGa register.
   $03CF Ensure the MIC output is 'off'.
 N $03D1 Now enter the sound generation loop. #REGde complete passes are made, i.e. a pass for each cycle of the note.
-@ $03D1 label=BE_IX_3
 N $03D1 The #REGhl register holds the 'length of the timing loop' with 16 T states being used for each '1' in the #REGl register and 1024 T states for each '1' in the #REGh register.
-  $03D1 Add 4 T states for each earlier entry port that is used.
-@ $03D2 label=BE_IX_2
-@ $03D3 label=BE_IX_1
-@ $03D4 label=BE_IX_0
+  $03D1 Add 4 T states for each earlier entry point that is used.
   $03D4 The values in the #REGb and #REGc registers will come from the #REGh and #REGl registers - see below.
 @ $03D6 label=BE_H_L_LP
   $03D6 The 'timing loop', i.e. #REGbc*4 T states. (But note that at the half-cycle point, #REGc will be equal to #REGl+1.)
@@ -759,7 +755,6 @@ D $053F The border is set to its original colour and the BREAK key tested for a 
   $054F Enable the maskable interrupt.
   $0550 Jump unless a break is to be made.
 N $0552 Report D - BREAK-CONT repeats.
-@ $0552 label=REPORT_D
 M $0552,2 Call the error handling routine.
 B $0553,1
 N $0554 Continue here.
@@ -894,7 +889,6 @@ D $0605 This entry point is used for all four commands. The value held in T-ADDR
   $0634 This is '-10'.
   $0637 In effect jump forward if the length of the name is not too long (i.e. no more than ten characters).
   $063C But allow for the LOADing, VERIFYing and MERGEing of programs with 'null' names or extra long names.
-@ $0642 label=REPORT_F
 N $0642 Report F - Invalid file name.
 M $0642,2 Call the error handling routine.
 B $0643,1
@@ -920,7 +914,6 @@ N $0652 The many different parameters, if any, that follow the command are now c
 @ $0667 keep
   $0667 Signal 'using a new array'.
   $066A Consider the value in T-ADDR and give an error if trying to SAVE or VERIFY a new array.
-@ $0670 label=REPORT_2
 N $0670 Report 2 - Variable not found.
 M $0670,2 Call the error handling routine.
 B $0671,1
@@ -1088,7 +1081,6 @@ N $07F4 The verify/load flag is now considered and the actual load made.
 E $07CB This routine continues into #R$0802.
 @ $0802 label=LD_BLOCK
 c $0802 THE 'LOAD A DATA BLOCK' SUBROUTINE
-@ $0806 label=REPORT_R
 D $0802 The routine at #R$07CB continues here.
 D $0802 This subroutine is common to all the tape loading routines. In the case of LOAD and VERIFY it acts as a full return from the cassette handling routines but in the case of MERGE the data block has yet to be merged.
   $0802 Load/verify a data block.
@@ -1693,7 +1685,7 @@ N $0CF8 The 'scroll?' message.
 B $0CF8,1 Initial marker - stepped over.
 T $0CF9,7,6:B1 The '?' is inverted.
 N $0D00 Report D - BREAK - CONT repeats.
-@ $0D00 label=REPORT_D_2
+@ $0D00 label=REPORT_D
 M $0D00,2 Call the error handling routine.
 B $0D01,1
 N $0D02 The lower part of the display is handled as follows:
@@ -2329,7 +2321,6 @@ N $11CB The main entry point.
   $11D0 Set the I register to hold the value of +3F.
   $11D4,6 Wait 24 T states.
 N $11DA Now the memory is checked.
-@ $11DA label=RAM_CHECK
   $11DA Transfer the value in #REGde (#R$0000=+FFFF, #R$11B7=RAMTOP).
 @ $11DC label=RAM_FILL
   $11DC Enter the value of +02 into every location above +3FFF.
@@ -2592,7 +2583,6 @@ D $15D4 This subroutine is the controlling subroutine for calling the current in
   $15E1 Return with acceptable codes.
   $15E2 Both the carry flag and the zero flag are reset if 'no key is being pressed'; otherwise signal an error.
 N $15E4 Report 8 - End of file.
-@ $15E4 label=REPORT_8
 M $15E4,2 Call the error handling routine.
 B $15E5,1
 @ $15E6 label=INPUT_AD
@@ -2855,7 +2845,7 @@ D $175D The appropriate stream data bytes for the channel that is associated wit
   $175E Fetch the parameters of the channel code.
   $1761 Give an error if the expression supplied is a null expression, e.g. OPEN #5,"".
 N $1765 Report F - Invalid file name.
-@ $1765 label=REPORT_F_2
+@ $1765 label=REPORT_F
 M $1765,2 Call the error handling routine.
 B $1766,1
 N $1767 Continue if no error occurred.
@@ -3535,7 +3525,6 @@ D $1B76 After the correct interpretation of a statement a return is made to this
   $1B76 The BREAK key is tested after every statement.
   $1B79 Jump forward unless it has been pressed.
 N $1B7B Report L - BREAK into program.
-@ $1B7B label=REPORT_L
 M $1B7B,2 Call the error handling routine.
 B $1B7C,1
 N $1B7D Continue here as the BREAK key was not pressed.
@@ -3560,7 +3549,6 @@ D $1B9E There has been a jump in the program and the starting address of the new
   $1BA9 Also check that the 'first line after' is not after the actual 'end of program'.
   $1BAE Jump forward with valid addresses; otherwise signal the error 'OK'.
 N $1BB0 Report 0 - OK.
-@ $1BB0 label=REPORT_0
 M $1BB0,2 Use the error handling routine.
 B $1BB1,1
 E $1B9E Note: obviously not an error in the normal sense - but rather a jump past the program.
@@ -3649,7 +3637,6 @@ N $1C11 The commands of class-05 may be followed by a set of items, e.g. PRINT a
   $1C11 In all cases drop the address - #R$1B52.
   $1C12 If handling commands of classes 00 and 03 and syntax is being checked move on now to consider the next statement.
   $1C15 Save the line pointer in the #REGde register pair.
-@ $1C16 label=JUMP_C_R
 N $1C16 After the command class entries and the separator entries in the #R$1A7A(parameter table) have been considered the jump to the appropriate command routine is made.
   $1C16 Fetch the pointer to the entries in the #R$1A7A(parameter table) and fetch the address of the required command routine.
   $1C1C Exchange the pointers back and make an indirect jump to the command routine.
@@ -3668,7 +3655,7 @@ D $1C22 This subroutine develops the appropriate values for the system variables
   $1C28 Signal 'a new variable'.
   $1C2C Give an error if trying to use an 'undimensioned array'.
 N $1C2E Report 2 - Variable not found.
-@ $1C2E label=REPORT_2_2
+@ $1C2E label=REPORT_2
 M $1C2E,2 Call the error handling routine.
 B $1C2F,1
 N $1C30 Continue with the handling of existing variables.
@@ -3964,7 +3951,6 @@ N $1DED The address of this entry point is found in the #R$1AC9(parameter table)
   $1E01 The search is for 'DATA'.
   $1E03 Jump forward if the search is successful.
 N $1E08 Report E - Out of DATA.
-@ $1E08 label=REPORT_E
 M $1E08,2 Call the error handling routine.
 B $1E09,1
 N $1E0A Continue - picking up a value from the DATA list.
@@ -4468,14 +4454,12 @@ D $21B9 This subroutine is called twice for each INPUT value: once with the synt
   $21CA Get the present character and check it is a 'carriage return'.
   $21CD Return if it is.
 N $21CE Report C - Nonsense in BASIC.
-@ $21CE label=REPORT_C_2
 M $21CE,2 Call the error handling routine.
 B $21CF,1
 N $21D0 Come here if the INPUT line starts with 'STOP'.
 @ $21D0 label=IN_STOP
   $21D0 But do not give the error report on the syntax-pass.
 N $21D4 Report H - STOP in INPUT.
-@ $21D4 label=REPORT_H
 M $21D4,2 Call the error handling routine.
 B $21D5,1
 @ $21D6 label=IN_CHAN_K
@@ -5588,7 +5572,6 @@ N $27F7 ii. During line execution, a search must first be made for a DEF FN stat
   $280F Restore the name and status.
   $2810 Jump if a DEF FN statement found.
 N $2812 Report P - FN without DEF.
-@ $2812 label=REPORT_P
 M $2812,2 Call the error handling routine.
 B $2813,1
 N $2814 When a DEF FN statement is found, the name and status of the two functions are compared; if they do not match, the search is resumed.
@@ -8361,7 +8344,6 @@ B $3716,1 #R$34F9: X, (1/0)
 B $3717,1 #R$368F to #R$371C: X
 B $3718,1 #R$30CA: X
 B $3719,1 #R$369B: X
-@ $371A label=REPORT_A_2
 N $371A Report A - Invalid argument.
 M $371A,2 Call the error handling routine.
 B $371B,1
