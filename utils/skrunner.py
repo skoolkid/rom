@@ -40,11 +40,11 @@ def write_skool():
     return skoolfile
 
 def run_skool2asm():
-    args = sys.argv[1:] + [write_skool()]
+    args = sys.argv[1:] + ['-H', write_skool()]
     skool2asm.main(args)
 
 def run_skool2html():
-    skool2html_options = '-ad {}/html'.format(BUILD_DIR)
+    skool2html_options = '-Had {}/html'.format(BUILD_DIR)
     skool2html_options += ' -S {}/sources'.format(ROM_HOME)
     args = skool2html_options.split() + sys.argv[1:] + [write_skool()]
     skool2html.main(args)
