@@ -1534,7 +1534,7 @@ N $0B99 Now consider the present state of INVERSE and OVER.
   $0BB6 Exchange the destination address with the base address before entering the loop.
 N $0BB7 The character can now be printed. Eight passes of the loop are made - one for each 'pixel-line'.
 @ $0BB7 label=PR_ALL_4
-  $0BB7 The carry flag is set when using the printer. Save this flag in F'.
+  $0BB7 The carry flag is set when using the printer. Save this flag in #REGf'.
   $0BB8 Fetch the existing 'pixel-line'.
   $0BB9 Use the 'OVER mask' and then XOR the result with the 'pixel-line' of the character form.
   $0BBB Finally consider the 'INVERSE mask'.
