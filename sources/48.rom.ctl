@@ -525,6 +525,7 @@ N $03A6 The codes for the various digit keys and SYMBOL SHIFT can now be found.
   $03B2,3,c2,1 Give the '@' character a code of +40.
 @ $03B5 label=BEEPER
 c $03B5 THE 'BEEPER' SUBROUTINE
+@ $03B5 ignoreua:d
 D $03B5 The loudspeaker is activated by having D4 low during an OUT instruction that is using port '254'. When D4 is high in a similar situation the loudspeaker is deactivated. A 'beep' can therefore be produced by regularly changing the level of D4.
 D $03B5 Consider now the note 'middle C' which has the frequency 261.63 Hz. In order to get this note the loudspeaker will have to be alternately activated and deactivated every 1/523.26th of a second. In the Spectrum the system clock is set to run at 3.5 MHz. and the note of 'middle C' will require that the requisite OUT instruction be executed as close as possible to every 6689 T states. This last value, when reduced slightly for unavoidable overheads, represents the 'length of the timing loop' in this subroutine.
 D $03B5 This subroutine is entered with the #REGde register pair holding the value 'f*t', where a note of given frequency 'f' is to have a duration of 't' seconds, and the #REGhl register pair holding a value equal to the number of T states in the 'timing loop' divided by 4, i.e. for the note 'middle C' to be produced for one second #REGde holds +0105 (INT(261.3*1)) and #REGhl holds +066A (derived from 6689/4-30.125).
@@ -537,6 +538,7 @@ D $03B5 This subroutine is entered with the #REGde register pair holding the val
   $03C5 Alter the length of the timing loop. Use an earlier starting point for each '1' lost by taking INT (#REGl/4).
   $03C7 Fetch the present border colour and move it to bits 2, 1 and 0 of the #REGa register.
   $03CF Ensure the MIC output is 'off'.
+@ $03D1 ignoreua:m
 N $03D1 Now enter the sound generation loop. #REGde complete passes are made, i.e. a pass for each cycle of the note.
 N $03D1 The #REGhl register holds the 'length of the timing loop' with 16 T states being used for each '1' in the #REGl register and 1024 T states for each '1' in the #REGh register.
   $03D1 Add 4 T states for each earlier entry point that is used.
@@ -689,9 +691,11 @@ N $04D8 Note: an 'edge' will be a transition either from 'on' to 'off', or from 
   $04E5 Jump back for another pulse until completion of the leader.
 N $04E8 A sync pulse is now sent.
 @ $04EA label=SA_SYNC_1
+@ $04EA ignoreua
   $04EA MIC off for 667 T states from 'OUT to OUT'.
   $04EC MIC on and red.
   $04EE Signal 'MIC off and cyan'.
+@ $04F0 ignoreua
   $04F0 MIC on for 735 T States from 'OUT to OUT'.
 @ $04F2 label=SA_SYNC_2
   $04F4 Now MIC off and border cyan.
@@ -716,13 +720,16 @@ N $050E When it is time to send the 'parity' byte then it is transferred to the 
 @ $050E label=SA_PARITY
   $050E Get final 'parity' value.
   $050F Jump back.
+@ $0511 ignoreua:m
 N $0511 The following inner loop produces the actual pulses. The loop is entered at #R$0514 with the type of the bit to be saved indicated by the carry flag. Two passes of the loop are made for each bit thereby making an 'off pulse' and an 'on pulse'. The pulses for a reset bit are shorter by 855 T states.
 @ $0511 label=SA_BIT_2
   $0511 Come here on the second pass and fetch 'MIC off and yellow'.
   $0512 Set the zero flag to show 'second pass'.
+@ $0514 ignoreua
 @ $0514 label=SA_BIT_1
   $0514 The main timing loop; always 801 T states on a second pass.
   $0516 Jump, taking the shorter path, if saving a '0'.
+@ $0518 ignoreua
   $0518 However if saving a '1' then add 855 T states.
 @ $051A label=SA_SET
 @ $051C label=SA_OUT
@@ -741,6 +748,7 @@ N $0525 The '8 bit loop' is entered initially with the whole byte in the #REGl r
   $0535 Otherwise test the 'counter' and jump back even if it has reached zero (so as to send the 'parity' byte).
   $053A Exit when the 'counter' reaches +FFFF. But first give a short delay.
 @ $053C label=SA_DELAY
+@ $04C2 ignoreua:e
 E $04C2 Note: a reset bit will give a 'MIC off' pulse of 855 T states followed by a 'MIC on' pulse of 855 T states, whereas a set bit will give pulses of exactly twice as long. Note also that there are no gaps either between the sync pulse and the first bit of the flag, or between bytes.
 @ $053F label=SA_LD_RET
 c $053F THE 'SA/LD-RET' SUBROUTINE
@@ -851,6 +859,7 @@ D $05E3 The subroutines return with the carry flag set if the required number of
 D $05E3 The carry flag will be reset if there is an error. The zero flag then signals 'BREAK pressed' by being reset, or 'time-up' by being set.
 D $05E3 The entry point #R$05E3 is used when the length of a complete pulse is required and #R$05E7 is used to find the time before the next 'edge'.
   $05E3 In effect call #R$05E7 twice, returning in between if there is an error.
+@ $05E7 ignoreua
 @ $05E7 label=LD_EDGE_1
   $05E7 Wait 358 T states before entering the sampling loop.
 @ $05E9 label=LD_DELAY
@@ -868,6 +877,7 @@ N $05FA A new 'edge' has been found within the time period allowed for the searc
   $05FF Signal 'MIC off'.
   $0601 Change the border colour (red/cyan or blue/yellow).
   $0603 Signal the successful search before returning.
+@ $05E3 ignoreua:e
 E $05E3 Note: the #R$05E7 subroutine takes 465 T states, plus an additional 58 T states for each unsuccessful pass around the sampling loop.
 E $05E3 For example, therefore, when awaiting the sync pulse (see #R$058F) allowance is made for ten additional passes through the sampling loop. The search is thereby for the next edge to be found within, roughly, 1100 T states (465+10*58+overhead). This will prove successful for the sync 'off' pulse that comes after the long 'leader pulses'.
 @ $0605 label=SAVE_ETC
@@ -2386,6 +2396,7 @@ N $122E The initialisation routine continues with:
 @ $1282 keep
   $1287 Signal 'printer in use' and clear the printer buffer.
   $128E Set the size of the lower part of the display and clear the whole display.
+@ $1295 ignoreua
   $1295 Now print the message '#CHR169 1982 Sinclair Research Ltd' on the bottom line.
 @ $1296 ssub=LD DE,$1539-1
   $129C Signal 'the lower part will required to be cleared'.
@@ -2505,6 +2516,7 @@ D $1391 Each message is given with the last character inverted (+80 hex.).
 @ $1539 label=COPYRIGHT
 t $1539 THE COPYRIGHT MESSAGE
 D $1539 Used by the routine at #R$11B7.
+@ $1539 ignoreua
   $1539,28,B1:26:B1 #CHR169 1982 Sinclair Research Ltd
 @ $1555 label=REPORT_G
 c $1555 Report G - No room for line
@@ -3215,8 +3227,8 @@ D $19FB In all cases the line number is returned in the #REGbc register pair.
   $1A18 Return via #R$16C5 that restores the calculator stack to its rightful place.
 @ $1A1B label=OUT_NUM_1
 c $1A1B THE 'REPORT AND LINE NUMBER PRINTING' SUBROUTINE
-D $1A1B The entry point #R$1A1B will lead to the number in the #REGbc register pair being printed. Any value over 9999 will not however be printed correctly.
-D $1A1B The entry point #R$1A28 will lead to the number indirectly addressed by the #REGhl register pair being printed. This time any necessary leading spaces will appear. Again the limit of correctly printed numbers is 9999.
+D $1A1B The entry point #R$1A1B will lead to the number in the #REGbc register pair being printed. Any value over 9,999 will not however be printed correctly.
+D $1A1B The entry point #R$1A28 will lead to the number indirectly addressed by the #REGhl register pair being printed. This time any necessary leading spaces will appear. Again the limit of correctly printed numbers is 9,999.
   $1A1B Save the other registers throughout the subroutine.
   $1A1D Clear the #REGa register.
   $1A1E Jump forward to print a zero rather than '-2' when reporting on the edit-line.
@@ -4131,6 +4143,7 @@ N $1F15 Report 4 - Out of memory.
   $1F15 This is a 'run-time' error and the error marker is not to be used.
 @ $1F1A label=FREE_MEM
 u $1F1A THE 'FREE MEMORY' SUBROUTINE
+@ $1F1A ignoreua:d
 D $1F1A There is no BASIC command 'FRE' in the Spectrum but there is a subroutine for performing such a task.
 D $1F1A An estimate of the amount of free space can be found at any time by using 'PRINT 65536-USR 7962'.
 @ $1F1A keep
@@ -7370,6 +7383,7 @@ N $31D2 Now enter the division loop.
   $31FB Loop 32 times for all bits.
   $31FE Save any 33rd bit for extra precision (the present carry).
   $31FF Trial subtract yet again for any 34th bit; the PUSH AF above saves this bit too.
+@ $3201 ignoreua:m
 N $3201 Note: this jump is made to the wrong place. No 34th bit will ever be obtained without first shifting the dividend. Hence important results like 1/10 and 1/1000 are not rounded up as they should be. Rounding up never occurs when it depends on the 34th bit. The jump should have been to #R$31DB above, i.e. byte 3200 hex in the ROM should read DA hex (128 decimal) instead of E1 hex (225 decimal).
   $3201 Now move the four bytes that form the mantissa of the result from #REGb'#REGc'#REGc#REGa to #REGd'#REGe'#REGde.
   $3206 Then put the 34th and 33rd bits into #REGb' to be picked up on normalisation.
@@ -7389,6 +7403,7 @@ D $3214 This subroutine (say I(x)) returns the result of integer truncation of x
 @ $3221 label=T_GR_ZERO
   $3221 Compare e to 91 hex, 145 decimal.
   $3223 Jump if e not 91 hex.
+@ $3225 ignoreua:m
 N $3225 The next 26 bytes seem designed to test whether x is in fact -65536 decimal, i.e. 91 80 00 00 00, and if it is, to set it to 00 FF 00 00 00. This is a mistake. As #R$303C(already stated), the Spectrum system cannot handle this number. The result here is simply to make INT (-65536) return the value -1. This is a pity, since the number would have been perfectly all right if left alone. The remedy would seem to be simply to omit the 28 bytes from 3223 above to 323E inclusive from the program.
   $3225 #REGhl is pointed at the fourth byte of x, where the 17 bits of the integer part of x end after the first bit.
   $3228 The first bit is obtained in #REGa, using 80 hex as a mask.
@@ -7896,6 +7911,7 @@ D $34B3 This subroutine ('USR number' as distinct from 'USR string') handles the
 @ $34B6 nowarn
   $34B6 Make the return address be that of the subroutine #R$2D2B.
   $34BA Make an indirect jump to the required location.
+@ $34B3 ignoreua:e
 E $34B3 Note: it is interesting that the #REGiy register pair is re-initialised when the return to #R$2D2B has been made, but the important #REGhl' that holds the next literal pointer is not restored should it have been disturbed. For a successful return to BASIC, #REGhl' must on exit from the machine code contain the address of the 'end-calc' instruction at #R$2758(2758) hex (10072 decimal).
 @ $34BC label=usr
 c $34BC THE 'USR STRING' FUNCTION (offset 19)
