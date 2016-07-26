@@ -40,7 +40,7 @@ def write_skool():
     return skoolfile
 
 def run_skool2asm():
-    args = sys.argv[1:] + ['-H', write_skool()]
+    args = ['-H'] + sys.argv[1:] + [write_skool()]
     skool2asm.main(args)
 
 def run_skool2html():
