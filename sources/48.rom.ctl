@@ -5804,6 +5804,7 @@ E $28B2 In all cases bits 5 and 6 of the #REGc register indicate the type of var
 E $28B2 In syntax time the return is always made with the carry flag reset. The zero flag is set for arrays and reset for all other variables, except that a simple string name incorrectly followed by a '$' sets the zero flag and, in the case of SAVE "name" DATA a$(), passes syntax as well.
 @ $2951 label=STK_F_ARG
 c $2951 THE 'STACK FUNCTION ARGUMENT' SUBROUTINE
+@ $2951 ignoreua:d
 D $2951 This subroutine is called by #R$28B2 when DEFADD-hi is non-zero, to make a search of the arguments area of a DEF FN statement, before searching in the variables area. If the variable is found in the DEF FN statement, then the parameters of a string variable are stacked and a signal is given that there is no need to call #R$2996. But it is left to #R$26C9 to stack the value of a numerical variable at #R$26DA(#N$26DA) in the usual way.
   $2951 Point to the first character in the arguments area and put it into #REGa.
   $2955,c2 Is it a ')'?
