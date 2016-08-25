@@ -8611,7 +8611,7 @@ B $3850,1 #R$369B
 E $384A Continue into #R$3851 to find the result of X**0.5.
 @ $3851 label=to_power
 c $3851 THE 'EXPONENTIATION' OPERATION (offset 06)
-D $3851 The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
+D $3851 The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2, and the routine at #R$384A continues here.
 D $3851 This subroutine performs the binary operation of raising the first number, X, to the power of the second number, Y.
 D $3851 The subroutine treats the result X**Y as being equivalent to EXP (Y*LN X). It returns this value unless X is zero, in which case it returns 1 if Y is also zero (0**0=1), returns zero if Y is positive, and reports arithmetic overflow if Y is negative.
   $3851 X, Y
