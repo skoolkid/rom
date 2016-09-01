@@ -7385,7 +7385,7 @@ N $31D2 Now enter the division loop.
   $31FE Save any 33rd bit for extra precision (the present carry).
   $31FF Trial subtract yet again for any 34th bit; the PUSH AF above saves this bit too.
 @ $3201 ignoreua:m
-N $3201 Note: this jump is made to the wrong place. No 34th bit will ever be obtained without first shifting the dividend. Hence important results like 1/10 and 1/1000 are not rounded up as they should be. Rounding up never occurs when it depends on the 34th bit. The jump should have been to #R$31DB above, i.e. byte 3200 hex in the ROM should read DA hex (128 decimal) instead of E1 hex (225 decimal).
+N $3201 Note: this jump is made to the wrong place. No 34th bit will ever be obtained without first shifting the dividend. Hence important results like 1/10 and 1/1000 are not rounded up as they should be. Rounding up never occurs when it depends on the 34th bit. The jump should have been to #R$31DB above, i.e. byte #N$3200 hex in the ROM should read DA hex (128 decimal) instead of E1 hex (225 decimal).
   $3201 Now move the four bytes that form the mantissa of the result from #REGb'#REGc'#REGc#REGa to #REGd'#REGe'#REGde.
   $3206 Then put the 34th and 33rd bits into #REGb' to be picked up on normalisation.
   $320D Restore the exponent bytes M1 and N1.
@@ -7405,7 +7405,7 @@ D $3214 This subroutine (say I(x)) returns the result of integer truncation of x
   $3221 Compare e to 91 hex, 145 decimal.
   $3223 Jump if e not 91 hex.
 @ $3225 ignoreua:m
-N $3225 The next 26 bytes seem designed to test whether x is in fact -65536 decimal, i.e. 91 80 00 00 00, and if it is, to set it to 00 FF 00 00 00. This is a mistake. As #R$303C(already stated), the Spectrum system cannot handle this number. The result here is simply to make INT (-65536) return the value -1. This is a pity, since the number would have been perfectly all right if left alone. The remedy would seem to be simply to omit the 28 bytes from 3223 above to 323E inclusive from the program.
+N $3225 The next 26 bytes seem designed to test whether x is in fact -65536 decimal, i.e. 91 80 00 00 00, and if it is, to set it to 00 FF 00 00 00. This is a mistake. As #R$303C(already stated), the Spectrum system cannot handle this number. The result here is simply to make INT (-65536) return the value -1. This is a pity, since the number would have been perfectly all right if left alone. The remedy would seem to be simply to omit the 28 bytes from #N$3223 above to #N$323E inclusive from the program.
   $3225 #REGhl is pointed at the fourth byte of x, where the 17 bits of the integer part of x end after the first bit.
   $3228 The first bit is obtained in #REGa, using 80 hex as a mask.
   $322B That bit and the previous 8 bits are tested together for zero.
