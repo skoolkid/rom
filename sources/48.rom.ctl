@@ -8750,4 +8750,235 @@ D $3D00 These locations hold the 'character set'. There are 8-byte representatio
   $3FE8,8,b1 #UDG$3FE8
   $3FF0,8,b1 #UDG$3FF0
   $3FF8,8,b1 #UDG$3FF8
+@ $3D00 end
 i $4000
+@ $5C00 label=KSTATE
+g $5C00 KSTATE - Used in reading the keyboard
+@ $5C08 label=LAST_K
+g $5C08 LAST-K - Last key pressed
+@ $5C09 label=REPDEL
+g $5C09 REPDEL - Time that a key must be held down before it repeats
+@ $5C0A label=REPPER
+g $5C0A REPPER - Delay between successive repeats of a key held down
+@ $5C0B label=DEFADD
+@ $5C0B keep
+g $5C0B DEFADD - Address of arguments of user defined function
+W $5C0B
+@ $5C0D label=K_DATA
+g $5C0D K-DATA - Second byte of colour controls entered from keyboard
+@ $5C0E label=TVDATA
+g $5C0E TVDATA - Colour, AT and TAB controls going to television
+@ $5C10 label=STRMS
+@ $5C10 keep
+@ $5C12 keep
+@ $5C14 keep
+@ $5C16 keep
+@ $5C18 keep
+@ $5C1A keep
+@ $5C1C keep
+@ $5C1E keep
+@ $5C20 keep
+@ $5C22 keep
+@ $5C24 keep
+@ $5C26 keep
+@ $5C28 keep
+@ $5C2A keep
+@ $5C2C keep
+@ $5C2E keep
+@ $5C30 keep
+@ $5C32 keep
+@ $5C34 keep
+g $5C10 STRMS - Addresses of channels attached to streams
+W $5C10,38,2
+@ $5C36 label=CHARS
+@ $5C36 keep
+g $5C36 CHARS - 256 less than address of character set
+W $5C36
+@ $5C38 label=RASP
+g $5C38 RASP - Length of warning buzz
+@ $5C39 label=PIP
+g $5C39 PIP - Length of keyboard click
+@ $5C3A label=ERR_NR
+g $5C3A ERR-NR - One less than the error report code
+@ $5C3B label=FLAGS
+g $5C3B FLAGS - Various flags to control the BASIC system
+@ $5C3C label=TV_FLAG
+g $5C3C TV-FLAG - Flags associated with the television
+@ $5C3D label=ERR_SP
+@ $5C3D keep
+g $5C3D ERR-SP - Address of item on machine stack to use as error return
+W $5C3D
+@ $5C3F label=LIST_SP
+@ $5C3F keep
+g $5C3F LIST-SP - Return address from automatic listing
+W $5C3F
+@ $5C41 label=MODE
+g $5C41 MODE - Specifies K, L, C, E or G cursor
+@ $5C42 label=NEWPPC
+g $5C42 NEWPPC - Line to be jumped to
+@ $5C44 label=NSPPC
+g $5C44 NSPPC - Statement number in line to be jumped to
+@ $5C45 label=PPC
+g $5C45 PPC - Line number of statement being executed
+@ $5C47 label=SUBPPC
+g $5C47 SUBPPC - Number within line of statement being executed
+@ $5C48 label=BORDCR
+g $5C48 BORDCR - Border colour
+@ $5C49 label=E_PPC
+g $5C49 E-PPC - Number of current line
+@ $5C4B label=VARS
+@ $5C4B keep
+g $5C4B VARS - Address of variables
+W $5C4B
+@ $5C4D label=DEST
+@ $5C4D keep
+g $5C4D DEST - Address of variable in assignment
+W $5C4D
+@ $5C4F label=CHANS
+@ $5C4F keep
+g $5C4F CHANS - Address of channel data
+W $5C4F
+@ $5C51 label=CURCHL
+@ $5C51 keep
+g $5C51 CURCHL - Address of information used for input and output
+W $5C51
+@ $5C53 label=PROG
+@ $5C53 keep
+g $5C53 PROG - Address of BASIC program
+W $5C53
+@ $5C55 label=NXTLIN
+@ $5C55 keep
+g $5C55 NXTLIN - Address of next line in program
+W $5C55
+@ $5C57 label=DATADD
+@ $5C57 keep
+g $5C57 DATADD - Address of terminator of last DATA item
+W $5C57
+@ $5C59 label=E_LINE
+@ $5C59 keep
+g $5C59 E-LINE - Address of command being typed in
+W $5C59
+@ $5C5B label=K_CUR
+@ $5C5B keep
+g $5C5B K-CUR - Address of cursor
+W $5C5B
+@ $5C5D label=CH_ADD
+@ $5C5D keep
+g $5C5D CH-ADD - Address of the next character to be interpreted
+W $5C5D
+@ $5C5F label=X_PTR
+@ $5C5F keep
+g $5C5F X-PTR - Address of the character after the '?' marker
+W $5C5F
+@ $5C61 label=WORKSP
+@ $5C61 keep
+g $5C61 WORKSP - Address of temporary work space
+W $5C61
+@ $5C63 label=STKBOT
+@ $5C63 keep
+g $5C63 STKBOT - Address of bottom of calculator stack
+W $5C63
+@ $5C65 label=STKEND
+@ $5C65 keep
+g $5C65 STKEND - Address of start of spare space
+W $5C65
+@ $5C67 label=BREG
+g $5C67 BREG - Calculator's B register
+@ $5C68 label=MEM
+@ $5C68 keep
+g $5C68 MEM - Address of area used for calculator's memory
+W $5C68
+@ $5C6A label=FLAGS2
+g $5C6A FLAGS2 - More flags
+@ $5C6B label=DF_SZ
+g $5C6B DF-SZ - The number of lines in the lower part of the screen
+@ $5C6C label=S_TOP
+g $5C6C S-TOP - The number of the top program line in automatic listings
+@ $5C6E label=OLDPPC
+g $5C6E OLDPPC - Line number to which CONTINUE jumps
+@ $5C70 label=OSPCC
+g $5C70 OSPCC - Number within line of statement to which CONTINUE jumps
+@ $5C71 label=FLAGX
+g $5C71 FLAGX - Various flags
+@ $5C72 label=STRLEN
+@ $5C72 keep
+g $5C72 STRLEN - Length of string type destination in assignment
+W $5C72
+@ $5C74 label=T_ADDR
+@ $5C74 keep
+g $5C74 T-ADDR - Address of next item in syntax table
+W $5C74
+@ $5C76 label=SEED
+@ $5C76 keep
+g $5C76 SEED - The seed for RND
+W $5C76
+@ $5C78 label=FRAMES
+g $5C78 FRAMES - Frame counter
+@ $5C7B label=UDG
+@ $5C7B keep
+g $5C7B UDG - Address of first user defined graphic
+W $5C7B
+@ $5C7D label=COORDS
+g $5C7D COORDS - Coordinates of last point plotted
+@ $5C7F label=P_POSN
+g $5C7F P-POSN - Column number of printer position
+@ $5C80 label=PR_CC
+@ $5C80 keep
+g $5C80 PR-CC - Address of next position for LPRINT to print at
+W $5C80
+@ $5C82 label=ECHO_E
+g $5C82 ECHO-E - Column and line number of end of input buffer
+@ $5C84 label=DF_CC
+@ $5C84 keep
+g $5C84 DF-CC - Address in display file of PRINT position
+W $5C84
+@ $5C86 label=DFCCL
+@ $5C86 keep
+g $5C86 DFCCL - Like DF-CC for lower part of screen
+W $5C86
+@ $5C88 label=S_POSN
+g $5C88 S-POSN - Column and line number for PRINT position
+@ $5C8A label=SPOSNL
+g $5C8A SPOSNL - Like S-POSN for lower part of screen
+@ $5C8C label=SCR_CT
+g $5C8C SCR-CT - Scroll counter
+@ $5C8D label=ATTR_P
+g $5C8D ATTR-P - Permanent current colours
+@ $5C8E label=MASK_P
+g $5C8E MASK-P - Used for transparent colours
+@ $5C8F label=ATTR_T
+g $5C8F ATTR-T - Temporary current colours
+@ $5C90 label=MASK_T
+g $5C90 MASK-T - Temporary transparent colours
+@ $5C91 label=P_FLAG
+g $5C91 P-FLAG - More flags
+@ $5C92 label=MEMBOT
+g $5C92 MEMBOT - Calculator's memory area
+  $5C92,30,5
+@ $5CB0 label=NMIADD
+@ $5CB0 keep
+g $5CB0 NMIADD - Non-maskable interrupt address
+W $5CB0
+@ $5CB2 label=RAMTOP
+@ $5CB2 keep
+g $5CB2 RAMTOP - Address of last byte of BASIC system area
+W $5CB2
+@ $5CB4 label=P_RAMT
+@ $5CB4 keep
+g $5CB4 P-RAMT - Address of last byte of physical RAM
+W $5CB4
+@ $5CB6 label=CHINFO
+@ $5CB6 keep
+@ $5CB8 keep
+@ $5CBB keep
+@ $5CBD keep
+@ $5CC0 keep
+@ $5CC2 keep
+@ $5CC5 keep
+@ $5CC7 keep
+g $5CB6 Channel information
+W $5CB6,4,2
+B $5CBA,1
+L $5CB6,5,4
+B $5CCA,1
+i $5CCB
