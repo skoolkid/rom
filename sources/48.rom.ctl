@@ -30,15 +30,15 @@ s $0013
   $0013,5,5:$FF Unused locations.
 @ $0018 label=GET_CHAR
 c $0018 THE 'COLLECT CHARACTER' RESTART
-D $0018 The contents of the location currently addressed by CH-ADD are fetched. A return is made if the value represents a printable character, otherwise CH-ADD is incremented and the tests repeated.
-  $0018 Fetch the value that is addressed by CH-ADD.
+D $0018 The contents of the location currently addressed by #R$5C5D(CH-ADD) are fetched. A return is made if the value represents a printable character, otherwise #R$5C5D(CH-ADD) is incremented and the tests repeated.
+  $0018 Fetch the value that is addressed by #R$5C5D(CH-ADD).
 @ $001C label=TEST_CHAR
   $001C Find out if the character is printable.
   $001F Return if it is so.
 @ $0020 label=NEXT_CHAR
 c $0020 THE 'COLLECT NEXT CHARACTER' RESTART
 D $0020 As a BASIC line is interpreted, this routine is called repeatedly to step along the line.
-  $0020 CH-ADD needs to be incremented.
+  $0020 #R$5C5D(CH-ADD) needs to be incremented.
   $0023 Jump back to test the new value.
 s $0025
   $0025,3,3:$FF Unused locations.
@@ -65,35 +65,35 @@ D $0038 The real time clock is incremented and the keyboard scanned whenever a m
   $0051 The maskable interrupt is enabled before returning.
 @ $0053 label=ERROR_2
 c $0053 THE 'ERROR-2' ROUTINE
-D $0053 The return address to the interpreter points to the 'DEFB' that signifies which error has occurred. This 'DEFB' is fetched and transferred to ERR-NR.
+D $0053 The return address to the interpreter points to the 'DEFB' that signifies which error has occurred. This 'DEFB' is fetched and transferred to #R$5C3A(ERR-NR).
 D $0053 The machine stack is cleared before jumping forward to clear the calculator stack.
   $0053 The address on the stack points to the error code.
 @ $0055 label=ERROR_3
-  $0055 It is transferred to ERR-NR.
+  $0055 It is transferred to #R$5C3A(ERR-NR).
   $0058 The machine stack is cleared before exiting via #R$16C5.
 s $005F
   $005F,7,7:$FF Unused locations.
 @ $0066 label=RESET
 u $0066 THE 'NON-MASKABLE INTERRUPT' ROUTINE
-D $0066 This routine is not used in the standard Spectrum but the code allows for a system reset to occur following activation of the NMI line. The system variable at 5CB0, named here NMIADD, has to have the value zero for the reset to occur.
+D $0066 This routine is not used in the standard Spectrum but the code allows for a system reset to occur following activation of the NMI line. The system variable at 5CB0, named here #R$5CB0(NMIADD), has to have the value zero for the reset to occur.
 C $0066 Save the current values held in these registers.
-C $0068 The two bytes of NMIADD must both be zero for the reset to occur.
+C $0068 The two bytes of #R$5CB0(NMIADD) must both be zero for the reset to occur.
 C $006D Note: this should have been 'JR Z'!
 C $006F Jump to #R$0000.
 @ $0070 label=NO_RESET
 C $0070 Restore the current values to these registers and return.
 @ $0074 label=CH_ADD_1
 c $0074 THE 'CH-ADD+1' SUBROUTINE
-D $0074 The address held in CH-ADD is fetched, incremented and restored. The contents of the location now addressed by CH-ADD are fetched. The entry points of #R$0077 and #R$0078 are used to set CH-ADD for a temporary period.
+D $0074 The address held in #R$5C5D(CH-ADD) is fetched, incremented and restored. The contents of the location now addressed by #R$5C5D(CH-ADD) are fetched. The entry points of #R$0077 and #R$0078 are used to set #R$5C5D(CH-ADD) for a temporary period.
   $0074 Fetch the address.
 @ $0077 label=TEMP_PTR1
   $0077 Increment the pointer.
 @ $0078 label=TEMP_PTR2
-  $0078 Set CH-ADD.
+  $0078 Set #R$5C5D(CH-ADD).
   $007B Fetch the addressed value and then return.
 @ $007D label=SKIP_OVER
 c $007D THE 'SKIP-OVER' SUBROUTINE
-D $007D The value brought to the subroutine in the #REGa register is tested to see if it is printable. Various special codes lead to #REGhl being incremented once or twice, and CH-ADD amended accordingly.
+D $007D The value brought to the subroutine in the #REGa register is tested to see if it is printable. Various special codes lead to #REGhl being incremented once or twice, and #R$5C5D(CH-ADD) amended accordingly.
   $007D Return with the carry flag reset if ordinary character code.
   $0080 Return if the end of the line has been reached.
   $0083 Return with codes +00 to +0F but with carry set.
@@ -102,7 +102,7 @@ D $007D The value brought to the subroutine in the #REGa register is tested to s
   $008B Jump forward with codes +10 to +15 (INK to OVER).
   $008F Skip over once more (AT and TAB).
 @ $0090 label=SKIPS
-  $0090 Return with the carry flag set and CH-ADD holding the appropriate address.
+  $0090 Return with the carry flag set and #R$5C5D(CH-ADD) holding the appropriate address.
 @ $0095 label=TOKENS
 t $0095 THE TOKEN TABLE
 D $0095 Used by the routine at #R$0C0A.
@@ -385,14 +385,14 @@ N $02B0 Four tests are now made.
   $02BE Return with the zero flag set if it was SYMBOL SHIFT and 'another key'; otherwise reset.
 @ $02BF label=KEYBOARD
 c $02BF THE 'KEYBOARD' SUBROUTINE
-D $02BF This subroutine is called on every occasion that a maskable interrupt occurs. In normal operation this will happen once every 20 ms. The purpose of this subroutine is to scan the keyboard and decode the key value. The code produced will, if the 'repeat' status allows it, be passed to the system variable LAST-K. When a code is put into this system variable bit 5 of FLAGS is set to show that a 'new' key has been pressed.
+D $02BF This subroutine is called on every occasion that a maskable interrupt occurs. In normal operation this will happen once every 20 ms. The purpose of this subroutine is to scan the keyboard and decode the key value. The code produced will, if the 'repeat' status allows it, be passed to the system variable #R$5C08(LAST-K). When a code is put into this system variable bit 5 of #R$5C3B(FLAGS) is set to show that a 'new' key has been pressed.
   $02BF Fetch a key value in the #REGde register pair but return immediately if the zero flag is reset.
-N $02C3 A double system of 'KSTATE system variables' (KSTATE0-KSTATE3 and KSTATE4-KSTATE7) is used from now on.
+N $02C3 A double system of '#R$5C00(KSTATE) system variables' (KSTATE0-KSTATE3 and KSTATE4-KSTATE7) is used from now on.
 N $02C3 The two sets allow for the detection of a new key being pressed (using one set) whilst still within the 'repeat period' of the previous key to have been pressed (details in the other set).
 N $02C3 A set will only become free to handle a new key if the key is held down for about 1/10th. of a second, i.e. five calls to #R$02BF.
-  $02C3 Start with KSTATE0.
+  $02C3 Start with #R$5C00(KSTATE0).
 @ $02C6 label=K_ST_LOOP
-  $02C6 Jump forward if a 'set is free', i.e. KSTATE0/4 holds +FF.
+  $02C6 Jump forward if a 'set is free', i.e. #R$5C00(KSTATE0/4) holds +FF.
   $02CA However if the set is not free decrease its '5 call counter' and when it reaches zero signal the set as free.
 N $02D1 After considering the first set change the pointer and consider the second set.
 @ $02D1 label=K_CH_SET
@@ -400,38 +400,38 @@ N $02D1 After considering the first set change the pointer and consider the seco
 N $02D8 Return now if the key value indicates 'no-key' or a shift key only.
   $02D8 Make the necessary tests and return if needed. Also change the key value to a 'main code'.
 N $02DC A key stroke that is being repeated (held down) is now separated from a new key stroke.
-  $02DC Look first at KSTATE0.
+  $02DC Look first at #R$5C00(KSTATE0).
   $02DF Jump forward if the codes match - indicating a repeat.
-  $02E2 Save the address of KSTATE0.
-  $02E3 Now look at KSTATE4.
+  $02E2 Save the address of #R$5C00(KSTATE0).
+  $02E3 Now look at #R$5C00(KSTATE4).
   $02E6 Jump forward if the codes match - indicating a repeat.
-N $02E9 But a new key will not be accepted unless one of the sets of KSTATE system variables is 'free'.
+N $02E9 But a new key will not be accepted unless one of the sets of #R$5C00(KSTATE) system variables is 'free'.
   $02E9 Consider the second set.
   $02EB Jump forward if 'free'.
   $02ED Now consider the first set.
   $02EE Continue if the set is 'free' but exit if not.
-N $02F1 The new key is to be accepted. But before the system variable LAST-K can be filled, the KSTATE system variables, of the set being used, have to be initialised to handle any repeats and the key's code has to be decoded.
+N $02F1 The new key is to be accepted. But before the system variable #R$5C08(LAST-K) can be filled, the #R$5C00(KSTATE) system variables, of the set being used, have to be initialised to handle any repeats and the key's code has to be decoded.
 @ $02F1 label=K_NEW
-  $02F1 The code is passed to the #REGe register and to KSTATE0/4.
+  $02F1 The code is passed to the #REGe register and to #R$5C00(KSTATE0/4).
   $02F3 The '5 call counter' for this set is reset to '5'.
-  $02F6 The third system variable of the set holds the REPDEL value (normally 0.7 secs.).
-  $02FB Point to KSTATE3/7.
-N $02FC The decoding of a 'main code' depends upon the present state of MODE, bit 3 of FLAGS and the 'shift byte'.
-  $02FC Fetch MODE.
-  $02FF Fetch FLAGS.
+  $02F6 The third system variable of the set holds the #R$5C09(REPDEL) value (normally 0.7 secs.).
+  $02FB Point to #R$5C00(KSTATE3/7).
+N $02FC The decoding of a 'main code' depends upon the present state of #R$5C41(MODE), bit 3 of #R$5C3B(FLAGS) and the 'shift byte'.
+  $02FC Fetch #R$5C41(MODE).
+  $02FF Fetch #R$5C3B(FLAGS).
   $0302 Save the pointer whilst the 'main code' is decoded.
-  $0307 The final code value is saved in KSTATE3/7, from where it is collected in case of a repeat.
+  $0307 The final code value is saved in #R$5C00(KSTATE3/7), from where it is collected in case of a repeat.
 N $0308 The next three instructions are common to the handling of both 'new keys' and 'repeat keys'.
 @ $0308 label=K_END
-  $0308 Enter the final code value into LAST-K and signal 'a new key'.
+  $0308 Enter the final code value into #R$5C08(LAST-K) and signal 'a new key'.
   $030F Finally return.
 @ $0310 label=K_REPEAT
-N $0310 A key will 'repeat' on the first occasion after the delay period (REPDEL - normally 0.7s) and on subsequent occasions after the delay period (REPPER - normally 0.1s).
+N $0310 A key will 'repeat' on the first occasion after the delay period (#R$5C09(REPDEL) - normally 0.7s) and on subsequent occasions after the delay period (#R$5C0A(REPPER) - normally 0.1s).
   $0310 Point to the '5 call counter' of the set being used and reset it to 5.
-  $0313 Point to the third system variable - the REPDEL/REPPER value - and decrement it.
+  $0313 Point to the third system variable - the #R$5C09(REPDEL)/#R$5C0A(REPPER) value - and decrement it.
   $0315 Exit from the #R$02BF subroutine if the delay period has not passed.
-  $0316 However once it has passed the delay period for the next repeat is to be REPPER.
-  $031A The repeat has been accepted so the final code value is fetched from KSTATE3/7 and passed to #R$0308.
+  $0316 However once it has passed the delay period for the next repeat is to be #R$5C0A(REPPER).
+  $031A The repeat has been accepted so the final code value is fetched from #R$5C00(KSTATE3/7) and passed to #R$0308.
 @ $031E label=K_TEST
 c $031E THE 'K-TEST' SUBROUTINE
 D $031E The key value is tested and a return made if 'no-key' or 'shift-only'; otherwise the 'main code' for that key is found.
@@ -448,11 +448,11 @@ N $032C The 'main code' is found by indexing into the main key table.
   $0331 Signal 'valid keystroke' before returning.
 @ $0333 label=K_DECODE
 c $0333 THE 'KEYBOARD DECODING' SUBROUTINE
-D $0333 This subroutine is entered with the 'main code' in the #REGe register, the value of FLAGS in the #REGd register, the value of MODE in the #REGc register and the 'shift byte' in the #REGb register.
+D $0333 This subroutine is entered with the 'main code' in the #REGe register, the value of #R$5C3B(FLAGS) in the #REGd register, the value of #R$5C41(MODE) in the #REGc register and the 'shift byte' in the #REGb register.
 D $0333 By considering these four values and referring, as necessary, to the #R$0205(six key tables) a 'final code' is produced. This is returned in the #REGa register.
   $0333 Copy the 'main code'.
   $0334 Jump forward if a digit key is being considered; also SPACE, ENTER and both shifts.
-  $0338 Decrement the MODE value.
+  $0338 Decrement the #R$5C41(MODE) value.
   $0339 Jump forward, as needed, for modes 'K', 'L', 'C' and 'E'.
 N $033E Only 'graphics' mode remains and the 'final code' for letter keys in graphics mode is computed from the 'main code'.
   $033E Add the offset.
@@ -581,7 +581,7 @@ B $0404,1 #R$341B(stk_one): t, pK, 1
 B $0405,1 #R$3014: t, pK+1
 B $0406,1 #R$369B
 N $0407 Now perform several tests on i, the integer part of the 'pitch'.
-  $0407 This is 'mem-0-1st' (MEMBOT).
+  $0407 This is 'mem-0-1st' (#R$5C92(MEMBOT)).
   $040A Fetch the exponent of i.
   $040B Give an error if i is not in the integral (short) form.
   $040E Copy the sign byte to the #REGc register.
@@ -882,9 +882,9 @@ E $05E3 Note: the #R$05E7 subroutine takes 465 T states, plus an additional 58 T
 E $05E3 For example, therefore, when awaiting the sync pulse (see #R$058F) allowance is made for ten additional passes through the sampling loop. The search is thereby for the next edge to be found within, roughly, 1100 T states (465+10*58+overhead). This will prove successful for the sync 'off' pulse that comes after the long 'leader pulses'.
 @ $0605 label=SAVE_ETC
 c $0605 THE 'SAVE, LOAD, VERIFY and MERGE' COMMAND ROUTINES
-D $0605 This entry point is used for all four commands. The value held in T-ADDR, however, distinguishes between the four commands. The first part of the following routine is concerned with the construction of the 'header information' in the work space.
+D $0605 This entry point is used for all four commands. The value held in #R$5C74(T-ADDR), however, distinguishes between the four commands. The first part of the following routine is concerned with the construction of the 'header information' in the work space.
   $0605 Drop the address - #R$1B52.
-  $0606 Reduce T-ADDR-lo by +E0, giving +00 for SAVE, +01 for LOAD, +02 for VERIFY and +03 for MERGE.
+  $0606 Reduce #R$5C74(T-ADDR-lo) by +E0, giving +00 for SAVE, +01 for LOAD, +02 for VERIFY and +03 for MERGE.
   $060E Pass the parameters of the 'name' to the calculator stack.
   $0611 Jump forward if checking syntax.
 @ $0616 keep
@@ -917,13 +917,13 @@ N $0652 The many different parameters, if any, that follow the command are now c
   $0652 Is the present code the token 'DATA'?
   $0655 Jump if not.
   $0657 However it is not possible to have 'MERGE name DATA'.
-  $065F Advance CH-ADD.
+  $065F Advance #R$5C5D(CH-ADD).
   $0660 Look in the variables area for the array.
   $0663 Set bit 7 of the array's name.
   $0665 Jump if handling an existing array.
 @ $0667 keep
   $0667 Signal 'using a new array'.
-  $066A Consider the value in T-ADDR and give an error if trying to SAVE or VERIFY a new array.
+  $066A Consider the value in #R$5C74(T-ADDR) and give an error if trying to SAVE or VERIFY a new array.
 N $0670 Report 2 - Variable not found.
 M $0670,2 Call the error handling routine.
 B $0671,1
@@ -947,7 +947,7 @@ N $0692 The last part of the statement is examined before joining the other path
   $0692 Save the pointer in #REGde.
   $0693,3,1,c2 Is the next character a ')'?
   $0696 Give report C if it is not.
-  $0698 Advance CH-ADD.
+  $0698 Advance #R$5C5D(CH-ADD).
   $0699 Move on to the next statement if checking syntax.
   $069C Return the pointer to the #REGhl register pair before jumping forward. (The pointer indicates the start of an existing array's contents.)
 @ $06A0 label=SA_SCR
@@ -955,7 +955,7 @@ N $06A0 Now consider 'SCREEN$'.
   $06A0 Is the present code the token SCREEN$?
   $06A2 Jump if not.
   $06A4 However it is not possible to have 'MERGE name SCREEN$'.
-  $06AC Advance CH-ADD.
+  $06AC Advance #R$5C5D(CH-ADD).
   $06AD Move on to the next statement if checking syntax.
   $06B0 The display area and the attribute area occupy +1B00 locations and these locations start at +4000; these details are passed to the header area in the work space.
   $06C1 Jump forward.
@@ -964,7 +964,7 @@ N $06C3 Now consider 'CODE'.
   $06C3 Is the present code the token 'CODE'?
   $06C5 Jump if not.
   $06C7 However it is not possible to have 'MERGE name CODE'.
-  $06CF Advance CH-ADD.
+  $06CF Advance #R$5C5D(CH-ADD).
   $06D0 Jump forward if the statement has not finished.
   $06D5 However it is not possible to have 'SAVE name CODE' by itself.
   $06DC Put a zero on the calculator stack - for the 'start'.
@@ -980,7 +980,7 @@ N $06E1 Look for a 'starting address'.
   $06F3 Jump forward.
 @ $06F5 label=SA_CODE_3
 N $06F5 Fetch the 'length' as it was specified.
-  $06F5 Advance CH-ADD.
+  $06F5 Advance #R$5C5D(CH-ADD).
   $06F6 Fetch the 'length'.
 @ $06F9 label=SA_CODE_4
 N $06F9 The parameters are now stored in the header area of the work space.
@@ -1002,7 +1002,7 @@ N $0716 Now consider 'LINE' and 'no further parameters'.
 @ $0723 label=SA_LINE_1
 N $0723 Fetch the 'line number' that must follow 'LINE'.
   $0723 However only allow 'SAVE name LINE number'.
-  $072A Advance CH-ADD.
+  $072A Advance #R$5C5D(CH-ADD).
   $072B Pass the number to the calculator stack.
   $072E Move on to the next statement if checking syntax.
   $0731 Compress the 'line number' into the #REGbc register pair and store it.
@@ -1147,9 +1147,9 @@ N $0873 Now deal with the LOADing of a BASIC program and its variables.
   $0887 Save the pointer to the program area and the length of the new data block.
   $0889 Make sufficient room available for the new program and its variables.
   $088C Restore the #REGix register pair.
-  $0890 The system variable VARS has also to be set for the new program.
+  $0890 The system variable #R$5C4B(VARS) has also to be set for the new program.
   $089B If a line number was specified then it too has to be considered.
-  $08A1 Jump if 'no number'; otherwise set NEWPPC and NSPPC.
+  $08A1 Jump if 'no number'; otherwise set #R$5C42(NEWPPC) and #R$5C44(NSPPC).
 N $08AD The data block can now be LOADed.
 @ $08AD label=LD_PROG_1
   $08AD Fetch the 'length'.
@@ -1197,7 +1197,7 @@ N $08F0 In a similar manner the variables of the new program are merged with the
   $08F0 Fetch each variable name in turn and test it.
   $08F2 Return when all the variables have been considered.
   $08F5 Save the current new pointer.
-  $08F6 Fetch VARS (for the old program).
+  $08F6 Fetch #R$5C4B(VARS) (for the old program).
 N $08F9 Now enter an inner loop to search the existing variables area.
 @ $08F9 label=ME_OLD_VP
   $08F9 Fetch each variable name and test it.
@@ -1246,8 +1246,8 @@ N $093E The new entry can now be made.
   $093F Make a copy of the 'destination' pointer.
   $0940 Find the length of the 'new' variable/line.
   $0943 Save the pointer to the 'new' variable/line.
-  $0946 Fetch PROG - to avoid corruption.
-  $0949 Save PROG on the stack and fetch the 'new' pointer.
+  $0946 Fetch #R$5C53(PROG) - to avoid corruption.
+  $0949 Save #R$5C53(PROG) on the stack and fetch the 'new' pointer.
   $094A Save the length.
   $094B Retrieve the flags.
   $094C Jump forward if adding a new variable.
@@ -1259,7 +1259,7 @@ N $093E The new entry can now be made.
 @ $0958 label=ME_ENT_3
   $0958 Point to the first new location.
   $0959 Retrieve the length.
-  $095A Retrieve PROG and store it in its correct place.
+  $095A Retrieve #R$5C53(PROG) and store it in its correct place.
   $095F Also fetch the 'new' pointer.
   $0963 Again save the length and the 'new' pointer.
   $0965 Switch the pointers and copy the 'new' variable/line into the room made for it.
@@ -1358,11 +1358,11 @@ D $0A23 The subroutine is entered with the #REGb register holding the current li
 D $0A3D The address of this routine is derived from an offset found in the #R$0A11(control character table).
 c $0A3D THE 'CURSOR RIGHT' SUBROUTINE
 D $0A3D This subroutine performs an operation identical to the BASIC statement 'PRINT OVER 1;CHR$ 32;'.
-  $0A3D Fetch P-FLAG and save it on the machine stack.
-  $0A41 Set P-FLAG to OVER 1.
+  $0A3D Fetch #R$5C91(P-FLAG) and save it on the machine stack.
+  $0A41 Set #R$5C91(P-FLAG) to OVER 1.
   $0A45,c2 A 'space'.
   $0A47 Print the character.
-  $0A4A Fetch the old value of P-FLAG.
+  $0A4A Fetch the old value of #R$5C91(P-FLAG).
   $0A4E Finished. Note: the programmer has forgotten to exit via #R$0ADC.
 @ $0A4F label=PO_ENTER
 c $0A4F THE 'CARRIAGE RETURN' SUBROUTINE
@@ -1392,13 +1392,13 @@ D $0A69 A question mark is printed whenever an attempt is made to print an unpri
 @ $0A6D label=PO_TV_2
 c $0A6D THE 'CONTROL CHARACTERS WITH OPERANDS' ROUTINE
 D $0A6D The control characters from INK to OVER require a single operand whereas the control characters AT and TAB are required to be followed by two operands.
-D $0A6D The present routine leads to the control character code being saved in TVDATA-lo, the first operand in TVDATA-hi or the #REGa register if there is only a single operand required, and the second operand in the #REGa register.
-  $0A6D Save the first operand in TVDATA-hi and change the address of the 'output' routine to #R$0A87.
+D $0A6D The present routine leads to the control character code being saved in #R$5C0E(TVDATA-lo), the first operand in #R$5C0E(TVDATA-hi) or the #REGa register if there is only a single operand required, and the second operand in the #REGa register.
+  $0A6D Save the first operand in #R$5C0E(TVDATA-hi) and change the address of the 'output' routine to #R$0A87.
 N $0A75 The address of this entry point is derived from an offset found in the #R$0A11(control character table).
 N $0A75 Enter here when handling the characters AT and TAB.
 @ $0A75 nowarn
 @ $0A75 label=PO_2_OPER
-  $0A75 The character code will be saved in TVDATA-lo and the address of the 'output' routine changed to #R$0A6D.
+  $0A75 The character code will be saved in #R$5C0E(TVDATA-lo) and the address of the 'output' routine changed to #R$0A6D.
 N $0A7A The address of this entry point is derived from an offset found in the #R$0A11(control character table).
 N $0A7A Enter here when handling the colour items - INK to OVER.
 @ $0A7A nowarn
@@ -1456,22 +1456,22 @@ D $0ADC The routine at #R$0AD9 continues here.
 D $0ADC The new position's 'line and column' values and the 'pixel' address are stored in the appropriate system variables.
   $0ADC Jump forward if handling the printer.
   $0AE2 Jump forward if handling the lower part of the screen.
-  $0AE8 Save the values that relate to the main part of the screen.
+  $0AE8 Save the values that relate to the main part of the screen at #R$5C88(S-POSN) and #R$5C84(DF-CC).
   $0AEF Then return.
 @ $0AF0 label=PO_ST_E
-  $0AF0 Save the values that relate to the lower part of the screen.
+  $0AF0 Save the values that relate to the lower part of the screen at #R$5C8A(S-POSNL), #R$5C82(ECHO-E) and #R$5C86(DF-CCL).
   $0AFB Then return.
 @ $0AFC label=PO_ST_PR
-  $0AFC Save the values that relate to the printer buffer.
+  $0AFC Save the values that relate to the printer buffer at #R$5C7F(P-POSN) and #R$5C80(PR-CC).
   $0B02 Then return.
 @ $0B03 label=PO_FETCH
 c $0B03 THE 'POSITION FETCH' SUBROUTINE
 D $0B03 The current position's parameters are fetched from the appropriate system variables.
   $0B03 Jump forward if handling the printer.
-  $0B09 Fetch the values relating to the main part of the screen and return if this was the intention.
-  $0B15,7 Otherwise fetch the values relating to the lower part of the screen.
+  $0B09 Fetch the values relating to the main part of the screen from #R$5C88(S-POSN) and #R$5C84(DF-CC) and return if this was the intention.
+  $0B15,7 Otherwise fetch the values relating to the lower part of the screen from #R$5C8A(S-POSNL) and #R$5C86(DF-CCL).
 @ $0B1D label=PO_F_PR
-  $0B1D,6 Fetch the values relating to the printer buffer.
+  $0B1D,6 Fetch the values relating to the printer buffer from #R$5C7F(P-POSN) and #R$5C80(PR-CC).
 @ $0B24 label=PO_ANY
 c $0B24 THE 'PRINT ANY CHARACTER(S)' SUBROUTINE
 D $0B24 Ordinary character codes, token codes and user-defined graphic codes, and graphic codes are dealt with separately.
@@ -1480,11 +1480,11 @@ D $0B24 Ordinary character codes, token codes and user-defined graphic codes, an
   $0B2C Move the graphic code.
   $0B2D Construct the graphic form.
   $0B30 #REGhl has been disturbed so 'fetch' again.
-  $0B33 Make #REGde point to the start of the graphic form, i.e. MEMBOT.
+  $0B33 Make #REGde point to the start of the graphic form, i.e. #R$5C92(MEMBOT).
   $0B36 Jump forward to print the graphic character.
 N $0B38 Graphic characters are constructed in an ad hoc manner in the calculator's memory area, i.e. mem-0 and mem-1.
 @ $0B38 label=PO_GR_1
-  $0B38 This is MEMBOT.
+  $0B38 This is #R$5C92(MEMBOT).
   $0B3B In effect call the following subroutine twice.
 @ $0B3E label=PO_GR_2
   $0B3E Determine bit 0 (and later bit 2) of the graphic code.
@@ -1500,7 +1500,7 @@ N $0B52 Token codes and user-defined graphic codes are now separated.
   $0B52 Jump forward with token codes.
   $0B56 UDG codes are now +00 to +0F.
   $0B58 Save the current position values on the machine stack.
-  $0B59 Fetch the base address of the UDG area and jump forward.
+  $0B59 Fetch the base address of the UDG area (from #R$5C7B(UDG)) and jump forward.
 @ $0B5F label=PO_T
   $0B5F Now print the token and return via #R$0B03.
 N $0B65 The required character form is identified.
@@ -1509,7 +1509,7 @@ N $0B65 The required character form is identified.
   $0B66 The base address of the character area is fetched.
 @ $0B6A label=PO_CHAR_2
   $0B6A The print address is saved.
-  $0B6B This is FLAGS.
+  $0B6B This is #R$5C3B(FLAGS).
   $0B6E Allow for a leading space.
   $0B70,4,c2,2 Jump forward if the character is not a 'space'.
   $0B74 But 'suppress' if it is.
@@ -1532,10 +1532,10 @@ N $0B7F The following subroutine is used to print all '8*8' bit characters. On e
   $0B93 Test whether a new line is being used. If it is see if the display requires to be scrolled.
 N $0B99 Now consider the present state of INVERSE and OVER.
   $0B99 Save the position values and the destination address on the machine stack.
-  $0B9B Fetch P-FLAG and read bit 0.
+  $0B9B Fetch #R$5C91(P-FLAG) and read bit 0.
   $0B9E Prepare the 'OVER mask' in the #REGb register, i.e. OVER 0=+00 and OVER 1=+FF.
 @ $0BA4 label=PR_ALL_2
-  $0BA4 Read bit 2 of P-FLAG and prepare the 'INVERSE mask' in the #REGc register, i.e. INVERSE 0=+00 and INVERSE 1=+FF.
+  $0BA4 Read bit 2 of #R$5C91(P-FLAG) and prepare the 'INVERSE mask' in the #REGc register, i.e. INVERSE 0=+00 and INVERSE 1=+FF.
   $0BA8 Set the #REGa register to hold the 'pixel-line' counter and clear the carry flag.
   $0BAB Jump forward if handling the screen.
   $0BB1 Signal 'printer buffer no longer empty'.
@@ -1570,12 +1570,12 @@ N $0BD3 When the printer is being used the destination address has to be updated
 c $0BDB THE 'SET ATTRIBUTE BYTE' SUBROUTINE
 @ $0BFA label=PO_ATTR_1
 @ $0C08 label=PO_ATTR_2
-D $0BDB The appropriate attribute byte is identified and fetched. The new value is formed by manipulating the old value, ATTR-T, MASK-T and P-FLAG. Finally this new value is copied to the attribute area.
+D $0BDB The appropriate attribute byte is identified and fetched. The new value is formed by manipulating the old value, #R$5C8F(ATTR-T), #R$5C90(MASK-T) and #R$5C91(P-FLAG). Finally this new value is copied to the attribute area.
   $0BDB The high byte of the destination address is divided by eight and ANDed with +03 to determine which third of the screen is being addressed, i.e. 00, 01 or 02.
   $0BE1 The high byte for the attribute area is then formed.
-  $0BE4 #REGd holds ATTR-T, and #REGe holds MASK-T.
+  $0BE4 #REGd holds #R$5C8F(ATTR-T), and #REGe holds #R$5C90(MASK-T).
   $0BE8 The old attribute value.
-  $0BE9 The values of MASK-T and ATTR-R are taken into account.
+  $0BE9 The values of #R$5C90(MASK-T) and #R$5C8F(ATTR-T) are taken into account.
   $0BEC Jump forward unless dealing with PAPER 9.
   $0BF2 The old paper colour is ignored and depending on whether the ink colour is light or dark the new paper colour will be black (000) or white (111).
 @ $0BFA label=PO_ATTR_1
@@ -1645,7 +1645,7 @@ D $0C55 On entry the #REGb register holds the line number under test.
   $0C5A Pre-load the machine stack with the address of #R$0DD9.
   $0C5E Transfer the line number.
   $0C5F Jump forward if considering 'INPUT ... AT ...'.
-  $0C66 Return, via #R$0DD9, if the line number is greater than the value of DF-SZ; give report 5 if it is less; otherwise continue.
+  $0C66 Return, via #R$0DD9, if the line number is greater than the value of #R$5C6B(DF-SZ); give report 5 if it is less; otherwise continue.
   $0C6C Jump forward unless dealing with an 'automatic listing'.
   $0C72 Fetch the line counter.
   $0C75 Decrease this counter.
@@ -1657,16 +1657,16 @@ M $0C86,2 Call the error handling routine.
 B $0C87,1
 N $0C88 Now consider if the prompt 'scroll?' is required.
 @ $0C88 label=PO_SCR_2
-  $0C88 Decrease the scroll counter and proceed to give the prompt only if it becomes zero.
+  $0C88 Decrease the scroll counter (#R$5C8C(SCR-CT)) and proceed to give the prompt only if it becomes zero.
 N $0C8D Proceed to give the prompt message.
-  $0C8D The counter is reset.
-  $0C93 The current values of ATTR-T and MASK-T are saved.
-  $0C97 The current value of P-FLAG is saved.
+  $0C8D The scroll counter (#R$5C8C(SCR-CT)) is reset.
+  $0C93 The current values of #R$5C8F(ATTR-T) and #R$5C90(MASK-T) are saved.
+  $0C97 The current value of #R$5C91(P-FLAG) is saved.
   $0C9B Channel 'K' is opened.
   $0CA0 The message 'scroll?' is message '0'. This message is now printed.
 @ $0CA1 nowarn
   $0CA7 Signal 'clear the lower screen after a keystroke'.
-  $0CAB This is FLAGS.
+  $0CAB This is #R$5C3B(FLAGS).
   $0CAE Signal 'L mode'.
   $0CB0 Signal 'no key yet'.
   $0CB2 Note: #REGde should be pushed also.
@@ -1674,14 +1674,14 @@ N $0C8D Proceed to give the prompt message.
   $0CB6 Restore the registers.
   $0CB7,14,c2,8,c2,2 There is a jump forward to #R$0D00 - 'BREAK - CONT repeats' - if the keystroke was 'BREAK', 'STOP', 'N' or 'n'; otherwise accept the keystroke as indicating the need to scroll the display.
   $0CC5 Open channel 'S'.
-  $0CCA Restore the value of P-FLAG.
-  $0CCE Restore the values of ATTR-T and MASK-T.
+  $0CCA Restore the value of #R$5C91(P-FLAG).
+  $0CCE Restore the values of #R$5C8F(ATTR-T) and #R$5C90(MASK-T).
 N $0CD2 The display is now scrolled.
 @ $0CD2 label=PO_SCR_3
   $0CD2 The whole display is scrolled.
   $0CD5 The line and column numbers for the start of the line above the lower part of the display are found and saved.
   $0CDC The corresponding attribute byte for this character area is then found. The #REGhl register pair holds the address of the byte.
-N $0CE8 The line in question will have 'lower part' attribute values and the new line at the bottom of the display may have 'ATTR-P' values so the attribute values are exchanged.
+N $0CE8 The line in question will have 'lower part' attribute values and the new line at the bottom of the display may have '#R$5C8D(ATTR-P)' values so the attribute values are exchanged.
   $0CE8 #REGde points to the first attribute byte of the bottom line.
   $0CEB The value is fetched.
   $0CEC The 'lower part' value.
@@ -1703,54 +1703,54 @@ N $0D02 The lower part of the display is handled as follows:
   $0D02 The 'out of screen' error is given if the lower part is going to be 'too large' and a return made if scrolling is unnecessary.
   $0D0C The #REGa register will now hold 'the number of scrolls to be made'.
   $0D0E The line and column numbers are now saved.
-  $0D0F The 'scroll number', ATTR-T, MASK-T and P-FLAG are all saved.
+  $0D0F The 'scroll number', #R$5C8F(ATTR-T), #R$5C90(MASK-T) and #R$5C91(P-FLAG) are all saved.
   $0D18 The 'permanent' colour items are to be used.
   $0D1B The 'scroll number' is fetched.
 N $0D1C The lower part of the screen is now scrolled #REGa number of times.
 @ $0D1C label=PO_SCR_4A
   $0D1C Save the 'number'.
-  $0D1D This is DF-SZ.
-  $0D20 The value in DF-SZ is incremented; the #REGb register set to hold the former value and the #REGa register the new value.
-  $0D24 This is S-POSN-hi.
-  $0D27 The jump is taken if only the lower part of the display is to be scrolled (#REGb=old DF-SZ).
-  $0D2A Otherwise S-POSN-hi is incremented and the whole display scrolled (#REGb=+18).
+  $0D1D This is #R$5C6B(DF-SZ).
+  $0D20 The value in #R$5C6B(DF-SZ) is incremented; the #REGb register set to hold the former value and the #REGa register the new value.
+  $0D24 This is #R$5C88(S-POSN-hi).
+  $0D27 The jump is taken if only the lower part of the display is to be scrolled (#REGb=old #R$5C6B(DF-SZ)).
+  $0D2A Otherwise #R$5C88(S-POSN-hi) is incremented and the whole display scrolled (#REGb=+18).
 @ $0D2D label=PO_SCR_4B
   $0D2D Scroll #REGb lines.
   $0D30 Fetch and decrement the 'scroll number'.
   $0D32 Jump back until finished.
-  $0D34 Restore the value of P-FLAG.
-  $0D38 Restore the values of ATTR-T and MASK-T.
-  $0D3C In case S-POSN has been changed #R$0DD9 is called to give a matching value to DF-CC.
+  $0D34 Restore the value of #R$5C91(P-FLAG).
+  $0D38 Restore the values of #R$5C8F(ATTR-T) and #R$5C90(MASK-T).
+  $0D3C In case #R$5C88(S-POSN) has been changed #R$0DD9 is called to give a matching value to #R$5C84(DF-CC).
   $0D47 Reset the flag to indicate that the lower screen is being handled, fetch the line and column numbers, and then return.
 @ $0D4D label=TEMPS
 c $0D4D THE 'TEMPORARY COLOUR ITEMS' SUBROUTINE
-D $0D4D This is a most important subroutine. It is used whenever the 'permanent' details are required to be copied to the 'temporary' system variables. First ATTR-T and MASK-T are considered.
+D $0D4D This is a most important subroutine. It is used whenever the 'permanent' details are required to be copied to the 'temporary' system variables. First #R$5C8F(ATTR-T) and #R$5C90(MASK-T) are considered.
   $0D4D #REGa is set to hold +00.
-  $0D4E The current values of ATTR-P and MASK-P are fetched.
+  $0D4E The current values of #R$5C8D(ATTR-P) and #R$5C8E(MASK-P) are fetched.
   $0D51 Jump forward if handing the main part of the screen.
-  $0D57 Otherwise use +00 and the value in BORDCR instead.
+  $0D57 Otherwise use +00 and the value in #R$5C48(BORDCR) instead.
 @ $0D5B label=TEMPS_1
-  $0D5B Now set ATTR-T and MASK-T.
-N $0D5E Next P-FLAG is considered.
-  $0D5E This is P-FLAG.
+  $0D5B Now set #R$5C8F(ATTR-T) and #R$5C90(MASK-T).
+N $0D5E Next #R$5C91(P-FLAG) is considered.
+  $0D5E This is #R$5C91(P-FLAG).
   $0D61 Jump forward if dealing with the lower part of the screen (#REGa=+00).
-  $0D63 Otherwise fetch the value of P-FLAG and move the odd bits to the even bits.
+  $0D63 Otherwise fetch the value of #R$5C91(P-FLAG) and move the odd bits to the even bits.
 @ $0D65 label=TEMPS_2
-  $0D65,5,1,b2,2 Proceed to copy the even bits of #REGa to P-FLAG.
+  $0D65,5,1,b2,2 Proceed to copy the even bits of #REGa to #R$5C91(P-FLAG).
 @ $0D6B label=CLS
 c $0D6B THE 'CLS' COMMAND ROUTINE
 D $0D6B The address of this routine is found in the #R$1ABE(parameter table).
-D $0D6B In the first instance the whole of the display is 'cleared' - the 'pixels' are all reset and the attribute bytes are set to equal the value in ATTR-P - then the lower part of the display is reformed.
+D $0D6B In the first instance the whole of the display is 'cleared' - the 'pixels' are all reset and the attribute bytes are set to equal the value in #R$5C8D(ATTR-P) - then the lower part of the display is reformed.
   $0D6B The whole of the display is 'cleared'.
 @ $0D6E label=CLS_LOWER
-  $0D6E This is TV-FLAG.
+  $0D6E This is #R$5C3C(TV-FLAG).
   $0D71 Signal 'do not clear the lower screen after keystroke'.
   $0D73 Signal 'lower part'.
-  $0D75 Use the permanent values, i.e. ATTR-T is copied from BORDCR.
+  $0D75 Use the permanent values, i.e. #R$5C8F(ATTR-T) is copied from #R$5C48(BORDCR).
   $0D78 The lower part of the screen is now 'cleared' with these values.
-N $0D7E With the exception of the attribute bytes for lines 22 and 23 the attribute bytes for the lines in the lower part of the display will need to be made equal to ATTR-P.
+N $0D7E With the exception of the attribute bytes for lines 22 and 23 the attribute bytes for the lines in the lower part of the display will need to be made equal to #R$5C8D(ATTR-P).
   $0D7E Attribute byte at start of line 22.
-  $0D81 Fetch ATTR-P.
+  $0D81 Fetch #R$5C8D(ATTR-P).
   $0D84 The line counter.
   $0D85 Jump forward into the loop.
 @ $0D87 label=CLS_1
@@ -1776,7 +1776,7 @@ N $0D94 It now remains for the following 'house keeping' tasks to be performed.
 c $0DAF THE 'CLEARING THE WHOLE DISPLAY AREA' SUBROUTINE
 D $0DAF This subroutine is called from #R$0D6B, #R$12A2, and #R$1795.
 @ $0DAF keep
-  $0DAF The system variable COORDS is reset to zero.
+  $0DAF The system variable #R$5C7D(COORDS) is reset to zero.
   $0DB5 Signal 'the screen is clear'.
   $0DB9 Perform the 'house keeping' tasks.
   $0DBC Open channel 'S'.
@@ -1875,12 +1875,12 @@ N $0E68 Now find if the loop has been used eight times.
   $0E68 Update the address for each pixel line.
   $0E6A Fetch the counters.
   $0E6B Decrease the pixel line counter and jump back unless finished.
-N $0E6E Next the attribute bytes are set as required. The value in ATTR-P will be used when handling the main part of the display and the value in BORDCR when handling the lower part.
+N $0E6E Next the attribute bytes are set as required. The value in #R$5C8D(ATTR-P) will be used when handling the main part of the display and the value in #R$5C48(BORDCR) when handling the lower part.
   $0E6E The address of the first attribute byte and the number of bytes are found.
   $0E71 #REGhl will point to the first attribute byte and #REGde the second.
-  $0E74 Fetch the value in ATTR-P.
+  $0E74 Fetch the value in #R$5C8D(ATTR-P).
   $0E77 Jump forward if handling the main part of the screen.
-  $0E7D Otherwise use BORDCR instead.
+  $0E7D Otherwise use #R$5C48(BORDCR) instead.
 @ $0E80 label=CL_LINE_3
   $0E80 Set the attribute byte.
   $0E81 One byte has been done.
@@ -2032,7 +2032,7 @@ N $0F6C The other bytes for the control characters are now fetched.
 @ $0F6C label=ED_CONTR
   $0F6C Get another code.
   $0F6F Save the previous codes.
-  $0F70 Fetch K-CUR.
+  $0F70 Fetch #R$5C5B(K-CUR).
   $0F73 Signal 'K mode'.
   $0F77 Make two or three spaces.
   $0F7A Restore the previous codes.
@@ -2090,13 +2090,13 @@ D $0FA9 When in 'editing mode' pressing the EDIT key will bring down the 'curren
   $0FDB Decrement the current line number so as to avoid printing the cursor.
   $0FDE Print the BASIC line.
   $0FE1 Increment the current line number. Note: the decrementing of the line number does not always stop the cursor from being printed.
-  $0FE4 Fetch the start of the line in the editing area and step past the line number and the length to find the address for K-CUR.
+  $0FE4 Fetch the start of the line in the editing area and step past the line number and the length to find the address for #R$5C5B(K-CUR).
   $0FEE Fetch the former channel address and set the appropriate flags before returning to #R$0F38.
 @ $0FF3 label=ED_DOWN
 c $0FF3 THE 'CURSOR DOWN EDITING' SUBROUTINE
 D $0FF3 The address of this routine is derived from an offset found in the #R$0FA0(editing keys table).
   $0FF3 Jump forward if in 'INPUT mode'.
-  $0FF9 This is E-PPC.
+  $0FF9 This is #R$5C49(E-PPC).
   $0FFC The next line number is found and a new automatic listing produced.
 @ $1001 label=ED_STOP
   $1001 'STOP in INPUT' report.
@@ -2112,7 +2112,7 @@ D $100C The address of this routine is derived from an offset found in the #R$0F
   $100C The current character is tested and if it is 'carriage return' then return.
   $1010 Otherwise make the cursor come after the character.
 @ $1011 label=ED_CUR
-  $1011,3 Set the system variable K-CUR.
+  $1011,3 Set the system variable #R$5C5B(K-CUR).
 @ $1015 label=ED_DELETE
 c $1015 THE 'DELETE EDITING' SUBROUTINE
 D $1015 The address of this routine is derived from an offset found in the #R$0FA0(editing keys table).
@@ -2129,13 +2129,13 @@ D $1024 The routine at #R$101E continues here.
 D $1024 The address of this routine is derived from an offset found in the #R$0FA0(editing keys table).
   $1024 The addresses of #R$0F38 and #R$107F are discarded.
 @ $1026 label=ED_END
-  $1026 The old value of ERR-SP is restored.
+  $1026 The old value of #R$5C3D(ERR-SP) is restored.
   $102A Now return if there were no errors.
   $102F Otherwise make an indirect jump to the error routine.
 @ $1031 label=ED_EDGE
 c $1031 THE 'ED-EDGE' SUBROUTINE
 D $1031 The address of the cursor is in the #REGhl register pair and will be decremented unless the cursor is already at the start of the line. Care is taken not to put the cursor between control characters and their parameters.
-  $1031 #REGde will hold either E-LINE (for editing) or WORKSP (for INPUTing).
+  $1031 #REGde will hold either #R$5C59(E-LINE) (for editing) or #R$5C61(WORKSP) (for INPUTing).
   $1035 The carry flag will become set if the cursor is already to be at the start of the line.
   $1038 Correct for the subtraction.
   $1039 Drop the return address.
@@ -2154,8 +2154,8 @@ N $103E Now enter a loop to check that control characters are not split from the
   $104E Jump forward unless dealing with AT and TAB which would have two parameters, if used.
 @ $1051 label=ED_EDGE_2
   $1051 Prepare for true subtraction.
-  $1052 The carry flag will be reset when the 'updated pointer' reaches K-CUR.
-  $1055 For the next loop use the 'updated pointer', but if exiting use the 'present pointer' for K-CUR. Note: it is the control character that is deleted when using DELETE.
+  $1052 The carry flag will be reset when the 'updated pointer' reaches #R$5C5B(K-CUR).
+  $1055 For the next loop use the 'updated pointer', but if exiting use the 'present pointer' for #R$5C5B(K-CUR). Note: it is the control character that is deleted when using DELETE.
 @ $1059 label=ED_UP
 c $1059 THE 'CURSOR UP EDITING' SUBROUTINE
 D $1059 The address of this routine is derived from an offset found in the #R$0FA0(editing keys table).
@@ -2163,7 +2163,7 @@ D $1059 The address of this routine is derived from an offset found in the #R$0F
   $105E Fetch the current line number and its start address.
   $1064 #REGhl now points to the previous line.
   $1065 This line's number is fetched.
-  $1068 This is E-PPC-hi.
+  $1068 This is #R$5C49(E-PPC-hi).
   $106B The line number is stored.
 @ $106E label=ED_LIST
   $106E A new automatic listing is now produced and channel 'K' re-opened before returning to #R$0F38.
@@ -2187,7 +2187,7 @@ D $1097 The editing area or the work space is cleared as directed.
   $1097 Save the pointer to the space.
   $1098 #REGde will point to the first character and #REGhl the last.
   $109C The correct amount is now reclaimed.
-  $109F The system variables K-CUR and MODE ('K mode') are initialised before fetching the pointer and returning.
+  $109F The system variables #R$5C5B(K-CUR) and #R$5C41(MODE) ('K mode') are initialised before fetching the pointer and returning.
 @ $10A8 label=KEY_INPUT
 c $10A8 THE 'KEYBOARD INPUT' SUBROUTINE
 D $10A8 The address of this routine is found in the #R$15AF(initial channel information table).
@@ -2211,13 +2211,13 @@ N $10D1 Now deal with the FLASH, BRIGHT and INVERSE codes.
 N $10DB The CAPS LOCK code and the mode codes are dealt with 'locally'.
 @ $10DB label=KEY_M_CL
   $10DB Jump forward with 'mode' codes.
-  $10DD This is FLAGS2.
-  $10E0 Flip bit 3 of FLAGS2. This is the CAPS LOCK flag.
+  $10DD This is #R$5C6A(FLAGS2).
+  $10E0 Flip bit 3 of #R$5C6A(FLAGS2). This is the CAPS LOCK flag.
   $10E4 Jump forward.
 @ $10E6 label=KEY_MODE
   $10E6 Check the lower limit.
   $10E9 Reduce the range.
-  $10EB This is MODE.
+  $10EB This is #R$5C41(MODE).
   $10EE Has it been changed?
   $10EF Enter the new 'mode' code.
   $10F0 Jump if it has changed; otherwise make it 'L mode'.
@@ -2230,7 +2230,7 @@ N $10FA The control key codes (apart from FLASH, BRIGHT and INVERSE) are manipul
   $10FB Make the #REGc register hold the parameter (+00 to +07).
   $10FE #REGa now holds the INK code.
   $1100 But if the code was an 'unshifted' code then make #REGa hold the PAPER code.
-N $1105 The parameter is saved in K-DATA and the channel address changed from #R$10A8 to #R$110D.
+N $1105 The parameter is saved in #R$5C0D(K-DATA) and the channel address changed from #R$10A8 to #R$110D.
 @ $1105 label=KEY_DATA
   $1105 Save the parameter.
 @ $1108 nowarn
@@ -2253,17 +2253,17 @@ c $111D THE 'LOWER SCREEN COPYING' SUBROUTINE
 D $111D This subroutine is called whenever the line in the editing area or the INPUT area is to be printed in the lower part of the screen.
   $111D Use the permanent colours.
   $1120 Signal that the 'mode is to be considered unchanged' and the 'lower screen does not need clearing'.
-  $1128 Save the current value of S-POSNL.
-  $112C Keep the current value of ERR-SP.
+  $1128 Save the current value of #R$5C8A(S-POSNL).
+  $112C Keep the current value of #R$5C3D(ERR-SP).
 @ $1130 nowarn
   $1130 This is #R$1167.
   $1133 Push this address on to the machine stack to make #R$1167 the entry point following an error.
-  $1138 Push the value of ECHO-E on to the stack.
+  $1138 Push the value of #R$5C82(ECHO-E) on to the stack.
   $113C Make #REGhl point to the start of the space and #REGde the end.
   $1141 Now print the line.
   $1144 Exchange the pointers and print the cursor.
-  $1148 Next fetch the current value of S-POSNL and exchange it with ECHO-E.
-  $114C Pass ECHO-E to #REGde.
+  $1148 Next fetch the current value of #R$5C8A(S-POSNL) and exchange it with #R$5C82(ECHO-E).
+  $114C Pass #R$5C82(ECHO-E) to #REGde.
   $114D Again fetch the permanent colours.
 N $1150 The remainder of any line that has been started is now completed with spaces printed with the 'permanent' PAPER colour.
 @ $1150 label=ED_BLANK
@@ -2282,19 +2282,19 @@ N $1167 New deal with any errors.
 @ $1167 label=ED_FULL
   $1167 Give out a 'rasp'.
   $1172 Cancel the error number.
-  $1176 Fetch the current value of S-POSNL and jump forward.
+  $1176 Fetch the current value of #R$5C8A(S-POSNL) and jump forward.
 N $117C The normal exit upon completion of the copying over of the edit or the INPUT line.
 @ $117C label=ED_C_DONE
   $117C The new position value.
   $117D The 'error address'.
 N $117E But come here after an error.
 @ $117E label=ED_C_END
-  $117E The old value of ERR-SP is restored.
-  $1182 Fetch the old value of S-POSNL.
+  $117E The old value of #R$5C3D(ERR-SP) is restored.
+  $1182 Fetch the old value of #R$5C8A(S-POSNL).
   $1183 Save the new position values.
   $1184 Set the system variables.
-  $1187 The old value of S-POSNL goes into ECHO-E.
-  $118B X-PTR is cleared in a suitable manner and the return made.
+  $1187 The old value of #R$5C8A(S-POSNL) goes into #R$5C82(ECHO-E).
+  $118B #R$5C5F(X-PTR) is cleared in a suitable manner and the return made.
 @ $1190 label=SET_HL
 c $1190 THE 'SET-HL' AND 'SET-DE' SUBROUTINES
 D $1190 These subroutines return with #REGhl pointing to the first location and #REGde the 'last' location of either the editing area or the work space.
@@ -2304,7 +2304,7 @@ D $1190 These subroutines return with #REGhl pointing to the first location and 
   $1195 Point to the start of the editing area and return if in 'editing mode'.
   $119E Otherwise change #REGde.
   $11A2 Return if now intended.
-  $11A3 Fetch STKBOT and then return.
+  $11A3 Fetch #R$5C63(STKBOT) and then return.
 @ $11A7 label=REMOVE_FP
 c $11A7 THE 'REMOVE-FP' SUBROUTINE
 D $11A7 This subroutine removes the hidden floating-point forms in a BASIC line.
@@ -2322,8 +2322,8 @@ c $11B7 THE 'NEW' COMMAND ROUTINE
 D $11B7 The address of this routine is found in the #R$1AA8(parameter table).
   $11B7 Disable the maskable interrupt.
   $11B8 The NEW flag.
-  $11BA The existing value of RAMTOP is preserved.
-  $11BE Load the alternate registers with the following system variables (P-RAMT, RASP, PIP, UDG). All of which will also be preserved.
+  $11BA The existing value of #R$5CB2(RAMTOP) is preserved.
+  $11BE Load the alternate registers with the following system variables (#R$5CB4(P-RAMT), #R$5C38(RASP), #R$5C39(PIP), #R$5C7B(UDG)). All of which will also be preserved.
 N $11CB The main entry point.
 @ $11CB label=START_NEW
   $11CB Save the flag for later.
@@ -2331,7 +2331,7 @@ N $11CB The main entry point.
   $11D0 Set the I register to hold the value of +3F.
   $11D4,6 Wait 24 T states.
 N $11DA Now the memory is checked.
-  $11DA Transfer the value in #REGde (#R$0000=+FFFF, #R$11B7=RAMTOP).
+  $11DA Transfer the value in #REGde (#R$0000=+FFFF, #R$11B7=#R$5CB2(RAMTOP)).
 @ $11DC label=RAM_FILL
   $11DC Enter the value of +02 into every location above +3FFF.
 @ $11E2 label=RAM_READ
@@ -2346,7 +2346,7 @@ N $11DA Now the memory is checked.
 @ $11EF label=RAM_DONE
   $11EF #REGhl points to the last actual location in working order.
 N $11F0 Next restore the 'preserved' system variables. (Meaningless when coming from #R$0000.)
-  $11F0 Restore P-RAMT, RASP, PIP and UDG.
+  $11F0 Restore #R$5CB4(P-RAMT), #R$5C38(RASP), #R$5C39(PIP) and #R$5C7B(UDG).
   $11FD Test the #R$0000/#R$11B7 flag.
   $11FE Jump forward if coming from the #R$11B7 command routine.
 N $1200 Overwrite the system variables when coming from #R$0000 and initialise the user-defined graphics area.
@@ -2359,40 +2359,40 @@ N $1200 Overwrite the system variables when coming from #R$0000 and initialise t
   $120A Now copy the character forms of the letter 'A' to 'U'.
   $120C Switch the pointers back.
   $120D Point to the first byte.
-  $120E Now set UDG.
+  $120E Now set #R$5C7B(UDG).
   $1211 Down one location.
 @ $1212 keep
-  $1212 Set the system variables RASP and PIP.
+  $1212 Set the system variables #R$5C38(RASP) and #R$5C39(PIP).
 N $1219 The remainder of the routine is common to both the #R$0000 and the #R$11B7 operations.
 @ $1219 label=RAM_SET
-  $1219 Set RAMTOP.
+  $1219 Set #R$5CB2(RAMTOP).
 @ $121C ssub=LD HL,$3D00-$100
-  $121C Initialise the system variable CHARS.
+  $121C Initialise the system variable #R$5C36(CHARS).
 N $1222 Next the machine stack is set up.
   $1222 The top location is made to hold +3E.
   $1227 The next location is left holding zero.
   $1228 These two locations represent the 'last entry'.
-  $1229 Step down two locations to find the correct value for ERR-SP.
+  $1229 Step down two locations to find the correct value for #R$5C3D(ERR-SP).
 N $122E The initialisation routine continues with:
   $122E Interrupt mode 1 is used.
-  $1230 #REGiy holds +ERR-NR always.
+  $1230 #REGiy holds +#R$5C3A(ERR-NR) always.
   $1234 The maskable interrupt can now be enabled. The real-time clock will be updated and the keyboard scanned every 1/50th of a second.
-  $1235 The base address of the channel information area.
+  $1235 The system variable #R$5C4F(CHANS) is set to the base address of the #R$5CB6(channel information area).
   $123B The initial channel data is moved from the table (#R$15AF) to the channel information area.
 @ $123E keep
-  $1244 The system variable DATADD is made to point to the last location of the channel data.
-  $1249 And PROG and VARS to the the location after that.
+  $1244 The system variable #R$5C57(DATADD) is made to point to the last location of the channel data.
+  $1249 And #R$5C53(PROG) and #R$5C4B(VARS) to the the location after that.
   $1250 The end-marker of the variables area.
-  $1252 Move on one location to find the value for E-LINE.
+  $1252 Move on one location to find the value for #R$5C59(E-LINE).
   $1256 Make the edit-line be a single 'carriage return' character.
   $1259 Now enter an end marker.
-  $125B Move on one location to find the value for WORKSP, STKBOT and STKEND.
+  $125B Move on one location to find the value for #R$5C61(WORKSP), #R$5C63(STKBOT) and #R$5C65(STKEND).
   $1265 Initialise the colour system variables to FLASH 0, BRIGHT 0, PAPER 7, INK 0.
 @ $1270 keep
-  $1270 Initialise the system variables REPDEL and REPPER.
-  $1276 Make KSTATE-0 hold +FF.
-  $1279 Make KSTATE-4 hold +FF.
-  $127C Next move the initial stream data from its table to the streams area.
+  $1270 Initialise the system variables #R$5C09(REPDEL) and #R$5C0A(REPPER).
+  $1276 Make #R$5C00(KSTATE0) hold +FF.
+  $1279 Make #R$5C00(KSTATE4) hold +FF.
+  $127C Next move the #R$15C6(initial stream data) from its table to the #R$5C10(streams area).
 @ $1282 keep
   $1287 Signal 'printer in use' and clear the printer buffer.
   $128E Set the size of the lower part of the display and clear the whole display.
@@ -2407,7 +2407,7 @@ D $12A2 The main loop controls the 'editing mode', the execution of direct comma
   $12A2 The lower part of the screen is to be two lines in size.
   $12A6 Produce an automatic listing.
 @ $12A9 label=MAIN_1
-  $12A9 All the areas from E-LINE onwards are given their minimum configurations.
+  $12A9 All the areas from #R$5C59(E-LINE) onwards are given their minimum configurations.
 @ $12AC label=MAIN_2
   $12AC Channel 'K' is opened before calling the #R$0F2C.
   $12B1 The #R$0F2C is called to allow the user to build up a BASIC line.
@@ -2416,11 +2416,11 @@ D $12A2 The main loop controls the 'editing mode', the execution of direct comma
   $12BD Jump forward if other than channel 'K' is being used.
   $12C3 Point to the start of the line with the error.
   $12C6 Remove the floating-point forms from this line.
-  $12C9 Reset ERR-NR and jump back to #R$12AC leaving the listing unchanged.
+  $12C9 Reset #R$5C3A(ERR-NR) and jump back to #R$12AC leaving the listing unchanged.
 N $12CF The 'edit-line' has passed syntax and the three types of line that are possible have to be distinguished from each other.
 @ $12CF label=MAIN_3
   $12CF Point to the start of the line.
-  $12D2 Set CH-ADD to the start also.
+  $12D2 Set #R$5C5D(CH-ADD) to the start also.
   $12D5 Fetch any line number into #REGbc.
   $12D8 Is the line number a valid one?
   $12DA Jump if it is so, and add the new line to the existing program.
@@ -2429,11 +2429,11 @@ N $12CF The 'edit-line' has passed syntax and the three types of line that are p
 N $12E2 The 'edit-line' must start with a direct BASIC command so this line becomes the first line to be interpreted.
   $12E2 Clear the whole display unless the flag says it is unnecessary.
   $12E9 Clear the lower part anyway.
-  $12EC Set the appropriate value for the scroll counter.
+  $12EC Set the appropriate value for the scroll counter (#R$5C8C(SCR-CT)).
   $12F4 Signal 'line execution'.
-  $12F8 Ensure ERR-NR is correct.
+  $12F8 Ensure #R$5C3A(ERR-NR) is correct.
   $12FC Deal with the first statement in the line.
-  $1300 Now the line is interpreted. Note: the address #R$1303 goes on to the machine stack and is addressed by ERR-SP.
+  $1300 Now the line is interpreted. Note: the address #R$1303 goes on to the machine stack and is addressed by #R$5C3D(ERR-SP).
 N $1303 After the line has been interpreted and all the actions consequential to it have been completed a return is made to #R$1303, so that a report can be made.
 @ $1303 label=MAIN_4
   $1303 The maskable interrupt must be enabled.
@@ -2443,7 +2443,7 @@ N $1303 After the line has been interpreted and all the actions consequential to
 @ $1313 label=MAIN_G
   $1313 Save the new value.
 @ $1314 keep
-  $1314 The system variables FLAGX, X-PTR-hi and DEFADD are all set to zero.
+  $1314 The system variables #R$5C71(FLAGX), #R$5C5F(X-PTR-hi) and #R$5C0B(DEFADD) are all set to zero.
 @ $1320 keep
   $1320 Ensure that stream +00 points to channel 'K'.
   $1326 Clear all the work areas and the calculator stack.
@@ -2467,15 +2467,15 @@ N $1303 After the line has been interpreted and all the actions consequential to
   $1365 Fetch the error number again.
   $1368 Increment it as usual.
   $1369 If the program was completed successfully there cannot be any 'CONTinuing' so jump.
-  $136B If the program halted with 'STOP statement' or 'BREAK into program' CONTinuing will be from the next statement; otherwise SUBPPC is unchanged.
+  $136B If the program halted with 'STOP statement' or 'BREAK into program' CONTinuing will be from the next statement; otherwise #R$5C47(SUBPPC) is unchanged.
 @ $1373 label=MAIN_6
 @ $1376 keep
 @ $1376 label=MAIN_7
-  $1376 The system variables OLDPPC and OSPCC have now to be made to hold the CONTinuing line and statement numbers.
-  $137C The values used will be those in PPC and SUBPPC unless NSPPC indicates that the 'break' occurred before a 'jump' (i.e. after a GO TO statement etc.).
+  $1376 The system variables #R$5C6E(OLDPPC) and #R$5C70(OSPCC) have now to be made to hold the CONTinuing line and statement numbers.
+  $137C The values used will be those in #R$5C45(PPC) and #R$5C47(SUBPPC) unless #R$5C44(NSPPC) indicates that the 'break' occurred before a 'jump' (i.e. after a GO TO statement etc.).
 @ $1384 label=MAIN_8
 @ $1386 label=MAIN_9
-  $1386 NSPPC is reset to indicate 'no jump'.
+  $1386 #R$5C44(NSPPC) is reset to indicate 'no jump'.
   $138A 'K mode' is selected.
   $138E And finally the jump back is made but no program listing will appear until requested.
 @ $1391 label=REPORTS
@@ -2529,10 +2529,10 @@ D $1555 Used by the routine at #R$155D.
 c $155D THE 'MAIN-ADD' SUBROUTINE
 D $155D This subroutine allows for a new BASIC line to be added to the existing BASIC program in the program area. If a line has both an old and a new version then the old one is 'reclaimed'. A new line that consists of only a line number does not go into the program area.
   $155D Make the new line number the 'current line'.
-  $1561 Fetch CH-ADD and save the address in #REGde.
+  $1561 Fetch #R$5C5D(CH-ADD) and save the address in #REGde.
 @ $1565 nowarn
-  $1565 Push the address of #R$1555 on to the machine stack. ERR-SP will now point to #R$1555.
-  $1569 Fetch WORKSP.
+  $1565 Push the address of #R$1555 on to the machine stack. #R$5C3D(ERR-SP) will now point to #R$1555.
+  $1569 Fetch #R$5C61(WORKSP).
   $156C Find the length of the line from after the line number to the 'carriage return' character inclusively.
   $156F Save the length.
   $1570 Move the line number to the #REGhl register pair.
@@ -2544,9 +2544,9 @@ D $155D This subroutine allows for a new BASIC line to be added to the existing 
   $1583 Save the length.
   $1584 Four extra locations will be needed, i.e. two for the number and two for the length.
   $1588 Make #REGhl point to the location before the 'destination'.
-  $1589 Save the current value of PROG to avoid corruption when adding a first line.
+  $1589 Save the current value of #R$5C53(PROG) to avoid corruption when adding a first line.
   $158E Space for the new line is created.
-  $1591 The old value of PROG is fetched and restored.
+  $1591 The old value of #R$5C53(PROG) is fetched and restored.
   $1595 A copy of the line length (without parameters) is taken.
   $1597 Make #REGde point to the end location of the new area and #REGhl to the 'carriage return' character of the new line in the editing area.
   $159D Now copy over the line.
@@ -2686,7 +2686,7 @@ D $1652 This is a very important subroutine. It is called on many occasions to '
   $1656 Make sure that there is sufficient memory available for the task being undertaken.
   $1659 Restore the pointer.
   $165A Alter all the pointers before making the 'room'.
-  $165D Make #REGhl hold the new STKEND.
+  $165D Make #REGhl hold the new #R$5C65(STKEND).
   $1660 Switch 'old' and 'new'.
   $1661 Now make the 'room' and return.
 E $1652 Note: this subroutine returns with the #REGhl register pair pointing to the location before the new 'room' and the #REGde register pair pointing to the last of the new locations. The new 'room' therefore has the description '(#REGhl)+1' to '(#REGde)' inclusive.
@@ -2697,7 +2697,7 @@ c $1664 THE 'POINTERS' SUBROUTINE
 D $1664 Whenever an area has to be 'made' or 'reclaimed' the system variables that address locations beyond the 'position' of the change have to be amended as required. On entry the #REGbc register pair holds the number of bytes involved and the #REGhl register pair addresses the location before the 'position'.
   $1664 These registers are saved.
   $1665 Copy the address of the 'position'.
-  $1666 This is VARS, the first of the fourteen system pointers.
+  $1666 This is #R$5C4B(VARS), the first of the fourteen system pointers.
 N $166B A loop is now entered to consider each pointer in turn. Only those pointers that point beyond the 'position' are changed.
 @ $166B label=PTR_NEXT
   $166B Fetch the two bytes of the current pointer.
@@ -2713,10 +2713,10 @@ N $166B A loop is now entered to consider each pointer in turn. Only those point
 @ $167F label=PTR_DONE
   $167F Point to the next system variable and jump back until all fourteen have been considered.
 N $1683 Now find the size of the block to be moved.
-  $1683 Put the old value of STKEND in #REGhl and restore the other registers.
-  $1686 Now find the difference between the old value of STKEND and the 'position'.
+  $1683 Put the old value of #R$5C65(STKEND) in #REGhl and restore the other registers.
+  $1686 Now find the difference between the old value of #R$5C65(STKEND) and the 'position'.
   $1689 Transfer the result to #REGbc and add 1 for the inclusive byte.
-  $168C Reform the old value of STKEND and pass it to #REGde before returning.
+  $168C Reform the old value of #R$5C65(STKEND) and pass it to #REGde before returning.
 @ $168F label=LINE_ZERO
 c $168F THE 'COLLECT A LINE NUMBER' SUBROUTINE
 D $168F On entry the #REGhl register pair points to the location under consideration. If the location holds a value that constitutes a suitable high byte for a line number then the line number is returned in #REGde. However if this is not so then the location addressed by #REGde is tried instead; and should this also be unsuccessful line number zero is returned.
@@ -2733,12 +2733,12 @@ N $1695 The usual entry point is here.
 @ $169E label=RESERVE
 c $169E THE 'RESERVE' SUBROUTINE
 D $169E This subroutine is normally called by using #R$0030.
-D $169E On entry here the last value on the machine stack is WORKSP and the value above it is the number of spaces that are to be 'reserved'.
+D $169E On entry here the last value on the machine stack is #R$5C61(WORKSP) and the value above it is the number of spaces that are to be 'reserved'.
 D $169E This subroutine always makes 'room' between the existing work space and the calculator stack.
-  $169E Fetch the current value of STKBOT and decrement it to get the last location of the work space.
+  $169E Fetch the current value of #R$5C63(STKBOT) and decrement it to get the last location of the work space.
   $16A2 Now make '#REGbc spaces'.
   $16A5 Point to the first new space and then the second.
-  $16A7 Fetch the old value of WORKSP and restore it.
+  $16A7 Fetch the old value of #R$5C61(WORKSP) and restore it.
   $16AC Restore #REGbc - number of spaces.
   $16AD Switch the pointers.
   $16AE Make #REGhl point to the first of the displaced bytes.
@@ -2747,25 +2747,25 @@ E $169E Note: it can also be considered that the subroutine returns with the #RE
 @ $16B0 label=SET_MIN
 c $16B0 THE 'SET-MIN' SUBROUTINE
 D $16B0 This subroutine resets the editing area and the areas after it to their minimum sizes. In effect it 'clears' the areas.
-  $16B0 Fetch E-LINE.
+  $16B0 Fetch #R$5C59(E-LINE).
   $16B3 Make the editing area hold only the 'carriage return' character and the end marker.
   $16BB Move on to clear the work space.
 N $16BF Entering here will 'clear' the work space and the calculator stack.
 @ $16BF label=SET_WORK
-  $16BF Fetch the WORKSP.
+  $16BF Fetch the #R$5C61(WORKSP).
   $16C2 This clears the work space.
 N $16C5 Entering here will 'clear' only the calculator stack.
 @ $16C5 label=SET_STK
-  $16C5 Fetch STKBOT.
+  $16C5 Fetch #R$5C63(STKBOT).
   $16C8 This clears the stack.
-N $16CB In all cases make MEM address the calculator's memory area.
-  $16CB Save STKEND.
+N $16CB In all cases make #R$5C68(MEM) address the calculator's memory area.
+  $16CB Save #R$5C65(STKEND).
   $16CC The base of the memory area.
-  $16CF Set MEM to this address.
-  $16D2 Restore STKEND to the #REGhl register pair before returning.
+  $16CF Set #R$5C68(MEM) to this address.
+  $16D2 Restore #R$5C65(STKEND) to the #REGhl register pair before returning.
 @ $16D4 label=REC_EDIT
 u $16D4 THE 'RECLAIM THE EDIT-LINE' SUBROUTINE
-C $16D4 Fetch E-LINE.
+C $16D4 Fetch #R$5C59(E-LINE).
 C $16D8 Reclaim the memory.
 @ $16DB label=INDEXER_1
 c $16DB THE 'INDEXER' SUBROUTINE
@@ -2828,7 +2828,7 @@ N $1727 Continue with valid stream numbers.
 @ $1727 label=STR_DATA1
   $1727 Range now +03 to +12.
   $1729 And now +06 to +24.
-  $172A The base address of the stream data area.
+  $172A The base address of the #R$5C10(stream data area).
   $172D Move the stream code to the #REGbc register pair.
   $1730 Index into the data area and fetch the the two data bytes into the #REGbc register pair.
   $1734 Make the pointer address the first of the data bytes before returning.
@@ -2843,7 +2843,7 @@ B $1738,1 #R$369B
   $1739 Fetch the data for the stream.
   $173C Jump forward if both bytes of the data are zero, i.e. the stream was in a closed state.
   $1740 Save #REGhl.
-  $1741 Fetch CHANS - the base address of the channel information and find the code of the channel associated with the stream being OPENed.
+  $1741 Fetch #R$5C4F(CHANS) - the base address of the channel information and find the code of the channel associated with the stream being OPENed.
   $1749 Return #REGhl.
   $174A,12,c2,2,c2,2,c2,2 The code fetched from the channel information area must be 'K', 'S' or 'P'; give an error if it is not.
 @ $1756 label=OPEN_1
@@ -2903,7 +2903,7 @@ D $1793 In the standard Spectrum system the use of these commands leads to the p
 c $1795 THE 'LIST and LLIST' COMMAND ROUTINES
 D $1795 The routines in this part of the 16K program are used to produce listings of the current BASIC program. Each line has to have its line number evaluated, its tokens expanded and the appropriate cursors positioned.
 D $1795 The entry point #R$1795 is used by both #R$12A2 and #R$1059 to produce a single page of the listing.
-  $1795 The stack pointer is saved allowing the machine stack to be reset when the listing is finished (see #R$0C55).
+  $1795 The stack pointer is saved at #R$5C3F(LIST-SP) allowing the machine stack to be reset when the listing is finished (see #R$0C55).
   $1799 Signal 'automatic listing in the main screen'.
   $179D Clear this part of the screen.
   $17A0 Switch to the editing area.
@@ -2925,10 +2925,10 @@ N $17CE A loop is now entered. The 'automatic' line number is increased on each 
   $17D2 Restore the 'result'.
   $17D3 Perform the computation and jump forward if finished.
   $17D6 Move the next line's address to the #REGhl register pair and collect its line number.
-  $17DB Now S-TOP can be updated and the test repeated with the new line.
+  $17DB Now #R$5C6C(S-TOP) can be updated and the test repeated with the new line.
 N $17E1 Now the 'automatic' listing can be made.
 @ $17E1 label=AUTO_L_2
-  $17E1 When E-PPC is less than S-TOP.
+  $17E1 When #R$5C49(E-PPC) is less than #R$5C6C(S-TOP).
 @ $17E4 label=AUTO_L_3
   $17E4 Fetch the top line's number and hence its address.
   $17EA If the line cannot be found use #REGde instead.
@@ -2968,7 +2968,7 @@ N $181F Come here if the stream was unaltered.
   $1825 Line number to #REGbc.
   $1828 High byte to #REGa.
   $1829 Limit the high byte to the correct range and pass the whole line number to #REGhl.
-  $182D Set E-PPC and find the address of the start of this line or the first line after it if the actual line does not exist.
+  $182D Set #R$5C49(E-PPC) and find the address of the start of this line or the first line after it if the actual line does not exist.
 @ $1833 label=LIST_ALL
   $1833 Flag 'before the current line'.
 N $1835 Now the controlling loop for printing a series of lines is entered.
@@ -2978,7 +2978,7 @@ N $1835 Now the controlling loop for printing a series of lines is entered.
   $1839 Jump back unless dealing with an automatic listing.
   $183F Also jump back if there is still part of the main screen that can be used.
   $1847 A return can be made at this point if the screen is full and the current line has been printed (#REGe=+00).
-  $1849 However if the current line is missing from the listing then S-TOP has to be updated and a further line printed (using scrolling).
+  $1849 However if the current line is missing from the listing then #R$5C6C(S-TOP) has to be updated and a further line printed (using scrolling).
 @ $1855 label=OUT_LINE
 c $1855 THE 'PRINT A WHOLE BASIC LINE' SUBROUTINE
 D $1855 The #REGhl register pair points to the start of the line - the location holding the high byte of the line number.
@@ -3002,7 +3002,7 @@ D $1855 Before the line number is printed it is tested to determine whether it c
   $1881 Save the registers.
   $1882 Move the pointer to #REGde.
   $1883 Signal 'not in quotes'.
-  $1887 This is FLAGS.
+  $1887 This is #R$5C3B(FLAGS).
   $188A Signal 'print in K-mode'.
   $188C Jump forward unless in INPUT mode.
   $1892 Signal 'print in L-mode'.
@@ -3035,25 +3035,25 @@ D $18B6 If the #REGa register holds the 'number marker' then the #REGhl register
 c $18C1 THE 'PRINT A FLASHING CHARACTER' SUBROUTINE
 D $18C1 The 'error cursor' and the 'mode cursors' are printed using this subroutine.
   $18C1 Switch to the alternate registers.
-  $18C2 Save the values of ATTR-T and MASK-T on the machine stack.
+  $18C2 Save the values of #R$5C8F(ATTR-T) and #R$5C90(MASK-T) on the machine stack.
   $18C6 Ensure that FLASH is active.
-  $18CA Use these modified values for ATTR-T and MASK-T.
-  $18CD This is P-FLAG.
-  $18D0 Save P-FLAG also on the machine stack.
+  $18CA Use these modified values for #R$5C8F(ATTR-T) and #R$5C90(MASK-T).
+  $18CD This is #R$5C91(P-FLAG).
+  $18D0 Save #R$5C91(P-FLAG) also on the machine stack.
   $18D2 Ensure INVERSE 0, OVER 0, and not PAPER 9 nor INK 9.
   $18D4 The character is printed.
-  $18D7 The former value of P-FLAG is restored.
-  $18DB The former values of ATTR-T and MASK-T are also restored before returning.
+  $18D7 The former value of #R$5C91(P-FLAG) is restored.
+  $18DB The former values of #R$5C8F(ATTR-T) and #R$5C90(MASK-T) are also restored before returning.
 @ $18E1 label=OUT_CURS
 c $18E1 THE 'PRINT THE CURSOR' SUBROUTINE
 D $18E1 A return is made if it is not the correct place to print the cursor but if it is then 'C', 'E', 'G', 'K' or 'L' will be printed.
   $18E1 Fetch the address of the cursor but return if the correct place is not being considered.
-  $18E8 The current value of MODE is fetched and doubled.
+  $18E8 The current value of #R$5C41(MODE) is fetched and doubled.
   $18ED Jump forward unless dealing with Extended mode or Graphics.
   $18EF Add the appropriate offset to give 'E' or 'G'.
   $18F1 Jump forward to print it.
 @ $18F3 label=OUT_C_1
-  $18F3 This is FLAGS.
+  $18F3 This is #R$5C3B(FLAGS).
   $18F6 Signal 'K-mode'.
   $18F8,c2 The character 'K'.
   $18FA Jump forward to print 'K' if 'the printing is to be in K-mode'.
@@ -3067,7 +3067,7 @@ D $18E1 A return is made if it is not the correct place to print the cursor but 
 E $18E1 Note: it is the action of considering which cursor-letter is to be printed that determines the mode - 'K', 'L' or 'C'.
 @ $190F label=LN_FETCH
 c $190F THE 'LN-FETCH' SUBROUTINE
-D $190F This subroutine is entered with the #REGhl register pair addressing a system variable - S-TOP or E-PPC.
+D $190F This subroutine is entered with the #REGhl register pair addressing a system variable - #R$5C6C(S-TOP) or #R$5C49(E-PPC).
 D $190F The subroutine returns with the system variable holding the line number of the following line.
   $190F The line number held by the system variable is collected.
   $1912 The pointer is saved.
@@ -3110,7 +3110,7 @@ N $1937 This entry point is used for all characters, tokens and control characte
 @ $195A label=OUT_CH_1
   $195A,4,c2,2 Accept for printing all characters except '"'.
   $195E Save the character code whilst changing the 'quote mode'.
-  $195F Fetch FLAGS2 and flip bit 2.
+  $195F Fetch #R$5C6A(FLAGS2) and flip bit 2.
   $1964 Enter the amended value and restore the character code.
 @ $1968 label=OUT_CH_2
   $1968 Signal 'the next character is to be printed in L-mode'.
@@ -3123,7 +3123,7 @@ c $196E THE 'LINE-ADDR' SUBROUTINE
 D $196E For a given line number, in the #REGhl register pair, this subroutine returns the starting address of that line or the 'first line after', in the #REGhl register pair, and the start of the previous line in the #REGde register pair.
 D $196E If the line number is being used the zero flag will be set. However if the 'first line after' is substituted then the zero flag is returned reset.
   $196E Save the given line number.
-  $196F Fetch the system variable PROG and transfer the address to the #REGde register pair.
+  $196F Fetch the system variable #R$5C53(PROG) and transfer the address to the #REGde register pair.
 N $1974 Now enter a loop to test the line number of each line of the program against the given line number until the line number is matched or exceeded.
 @ $1974 label=LINE_AD_1
   $1974 The given line number.
@@ -3143,7 +3143,7 @@ C $1988
 c $198B THE 'FIND EACH STATEMENT' SUBROUTINE
 D $198B This subroutine has two distinct functions.
 D $198B #LIST { It can be used to find the #REGdth statement in a BASIC line - returning with the #REGhl register pair addressing the location before the start of the statement and the zero flag set. } { Also the subroutine can be used to find a statement, if any, that starts with a given token code (in the #REGe register). } LIST#
-  $198B Set CH-ADD to the current byte.
+  $198B Set #R$5C5D(CH-ADD) to the current byte.
   $198E Set a 'quotes off' flag.
 N $1990 Enter a loop to handle each statement in the BASIC line.
 @ $1990 label=EACH_S_1
@@ -3155,7 +3155,7 @@ N $1998 Now enter another loop to consider the individual characters in the line
   $1998 Update the pointer and fetch the new code.
 @ $199A label=EACH_S_3
   $199A Step over any number.
-  $199D Update CH-ADD.
+  $199D Update #R$5C5D(CH-ADD).
   $19A0,4,c2,2 Jump forward if the character is not a '"'.
   $19A4 Otherwise set the 'quotes flag'.
 @ $19A5 label=EACH_S_4
@@ -3215,7 +3215,7 @@ c $19FB THE 'E-LINE-NO' SUBROUTINE
 D $19FB This subroutine is used to read the line number of the line in the editing area. If there is no line number, i.e. a direct BASIC line, then the line number is considered to be zero.
 D $19FB In all cases the line number is returned in the #REGbc register pair.
   $19FB Pick up the pointer to the edit-line.
-  $19FE Set CH-ADD to point to the location before any number.
+  $19FE Set #R$5C5D(CH-ADD) to point to the location before any number.
   $1A02 Pass the first code to the #REGa register.
   $1A03 However before considering the code make the calculator's memory area a temporary calculator stack area.
   $1A09 Now read the digits of the line number. Return zero if no number exists.
@@ -3481,18 +3481,18 @@ W $1B15
 @ $1B17 label=LINE_SCAN
 c $1B17 THE 'MAIN PARSER' OF THE BASIC INTERPRETER
 D $1B17 The parsing routine of the BASIC interpreter is entered here when syntax is being checked, and at #R$1B8A when a BASIC program of one or more statements is to be executed.
-D $1B17 Each statement is considered in turn and the system variable CH-ADD is used to point to each code of the statement as it occurs in the program area or the editing area.
+D $1B17 Each statement is considered in turn and the system variable #R$5C5D(CH-ADD) is used to point to each code of the statement as it occurs in the program area or the editing area.
   $1B17 Signal 'syntax checking'.
-  $1B1B CH-ADD is made to point to the first code after any line number.
-  $1B1E The system variable SUBPPC is initialised to +00 and ERR-NR to +FF.
+  $1B1B #R$5C5D(CH-ADD) is made to point to the first code after any line number.
+  $1B1E The system variable #R$5C47(SUBPPC) is initialised to +00 and #R$5C3A(ERR-NR) to +FF.
   $1B26 Jump forward to consider the first statement of the line.
 @ $1B28 label=STMT_LOOP
 c $1B28 THE STATEMENT LOOP
 D $1B28 Each statement is considered in turn until the end of the line is reached.
-  $1B28 Advance CH-ADD along the line.
+  $1B28 Advance #R$5C5D(CH-ADD) along the line.
 @ $1B29 label=STMT_L_1
   $1B29 The work space is cleared.
-  $1B2C Increase SUBPPC on each passage around the loop.
+  $1B2C Increase #R$5C47(SUBPPC) on each passage around the loop.
   $1B2F But only '127' statements are allowed in a single line.
   $1B32 Fetch a character.
   $1B33 Clear the #REGb register for later.
@@ -3502,7 +3502,7 @@ D $1B28 Each statement is considered in turn until the end of the line is reache
 N $1B3D A statement has been identified so, first, its initial command is considered.
 @ $1B3D nowarn
   $1B3D Pre-load the machine stack with the return address #R$1B76.
-  $1B41 Save the command temporarily in the #REGc register whilst CH-ADD is advanced again.
+  $1B41 Save the command temporarily in the #REGc register whilst #R$5C5D(CH-ADD) is advanced again.
   $1B44 Reduce the command's code by +CE, giving the range +00 to +31 for the fifty commands.
   $1B46 Give the appropriate error if not a command code.
   $1B49 Move the command code to the #REGbc register pair (#REGb holds +00).
@@ -3547,8 +3547,8 @@ E $1B76 This routine continues into #R$1B8A.
 @ $1B8A label=LINE_RUN
 c $1B8A THE 'LINE-RUN' ENTRY POINT
 D $1B8A The routine at #R$1B76 continues here.
-D $1B8A This entry point is used wherever a line in the editing area is to be 'run'. In such a case the syntax/run flag (bit 7 of FLAGS) will be set.
-D $1B8A The entry point is also used in the syntax checking of a line in the editing area that has more than one statement (bit 7 of FLAGS will be reset).
+D $1B8A This entry point is used wherever a line in the editing area is to be 'run'. In such a case the syntax/run flag (bit 7 of #R$5C3B(FLAGS)) will be set.
+D $1B8A The entry point is also used in the syntax checking of a line in the editing area that has more than one statement (bit 7 of #R$5C3B(FLAGS) will be reset).
   $1B8A A line in the editing area is considered as line '-2'.
   $1B90 Make #REGhl point to the end marker of the editing area and #REGde to the location before the start of that area.
   $1B99 Fetch the number of the next statement to be handled before jumping forward.
@@ -3573,8 +3573,8 @@ E $1BB2 This routine continues into #R$1BB3.
 @ $1BB3 label=LINE_END
 c $1BB3 THE 'LINE-END' ROUTINE
 D $1BB3 The routine at #R$1BB2 continues here.
-D $1BB3 If checking syntax a simple return is made but when 'running' the address held by NXTLIN has to be checked before it can be used.
-  $1BB3 Return if syntax is being checked; otherwise fetch the address in NXTLIN.
+D $1BB3 If checking syntax a simple return is made but when 'running' the address held by #R$5C55(NXTLIN) has to be checked before it can be used.
+  $1BB3 Return if syntax is being checked; otherwise fetch the address in #R$5C55(NXTLIN).
   $1BBA Return also if the address is after the end of the program - the 'run' is finished.
   $1BBE Signal 'statement zero' before proceeding.
 E $1BB3 This routine continues into #R$1BBF.
@@ -3582,9 +3582,9 @@ E $1BB3 This routine continues into #R$1BBF.
 c $1BBF THE 'LINE-USE' ROUTINE
 D $1BBF The routine at #R$1BB3 continues here.
 D $1BBF This short routine has three functions:
-D $1BBF #LIST { Change statement zero to statement '1'. } { Find the number of the new line and enter it into PPC. } { Form the address of the start of the line after. } LIST#
+D $1BBF #LIST { Change statement zero to statement '1'. } { Find the number of the new line and enter it into #R$5C45(PPC). } { Form the address of the start of the line after. } LIST#
   $1BBF Statement zero becomes statement '1'.
-  $1BC3 The line number of the line to be used is collected and passed to PPC.
+  $1BC3 The line number of the line to be used is collected and passed to #R$5C45(PPC).
   $1BCA Now find the 'length' of the line.
   $1BCE Switch over the values.
   $1BCF Form the address of the start of the line after in #REGhl and the location before the 'next' line's first character in #REGde.
@@ -3593,12 +3593,12 @@ E $1BBF This routine continues into #R$1BD1.
 c $1BD1 THE 'NEXT-LINE' ROUTINE
 D $1BD1 The routine at #R$1BBF continues here.
 D $1BD1 On entry the #REGhl register pair points to the location after the end of the 'next' line to be handled and the #REGde register pair to the location before the first character of the line. This applies to lines in the program area and also to a line in the editing area - where the next line will be the same line again whilst there are still statements to be interpreted.
-  $1BD1 Set NXTLIN for use once the current line has been completed.
-  $1BD4 As usual CH-ADD points to the location before the first character to be considered.
+  $1BD1 Set #R$5C55(NXTLIN) for use once the current line has been completed.
+  $1BD4 As usual #R$5C5D(CH-ADD) points to the location before the first character to be considered.
   $1BD8 The statement number is fetched.
   $1BD9 The #REGe register is cleared in case #R$198B is used.
   $1BDB Signal 'no jump'.
-  $1BDF The statement number minus one goes into SUBPPC.
+  $1BDF The statement number minus one goes into #R$5C47(SUBPPC).
   $1BE3 A first statement can now be considered.
   $1BE6 However for later statements the 'starting address' has to be found.
   $1BEA Jump forward unless the statement does not exist.
@@ -3661,8 +3661,8 @@ E $1C1F This routine continues into #R$1C22.
 @ $1C22 label=VAR_A_1
 c $1C22 THE 'VARIABLE IN ASSIGNMENT' SUBROUTINE
 D $1C22 The routine at #R$1C1F continues here.
-D $1C22 This subroutine develops the appropriate values for the system variables DEST and STRLEN.
-  $1C22 Initialise FLAGX to +00.
+D $1C22 This subroutine develops the appropriate values for the system variables #R$5C4D(DEST) and #R$5C72(STRLEN).
+  $1C22 Initialise #R$5C71(FLAGX) to +00.
   $1C26 Jump forward if the variable has been used before.
   $1C28 Signal 'a new variable'.
   $1C2C Give an error if trying to use an 'undimensioned array'.
@@ -3676,14 +3676,14 @@ N $1C30 Continue with the handling of existing variables.
   $1C33 Jump forward if handling a numeric variable.
   $1C39 Clear the #REGa register.
   $1C3A The parameters of the string of string array variable are fetched unless syntax is being checked.
-  $1C40 This is FLAGX.
+  $1C40 This is #R$5C71(FLAGX).
   $1C43 Bit 0 is set only when handling complete 'simple strings' thereby signalling 'old copy to be deleted'.
   $1C45 #REGhl now points to the string or the element of the array.
-N $1C46 The pathways now come together to set STRLEN and DEST as required. For all numeric variables and 'new' string and string array variables STRLEN-lo holds the 'letter' of the variable's name. But for 'old' string and string array variables whether 'sliced' or complete it holds the 'length' in 'assignment'.
+N $1C46 The pathways now come together to set #R$5C72(STRLEN) and #R$5C4D(DEST) as required. For all numeric variables and 'new' string and string array variables #R$5C72(STRLEN-lo) holds the 'letter' of the variable's name. But for 'old' string and string array variables whether 'sliced' or complete it holds the 'length' in 'assignment'.
 @ $1C46 label=VAR_A_3
-  $1C46 Set STRLEN as required.
-N $1C4A DEST holds the address for the 'destination' of an 'old' variable but in effect the 'source' for a 'new' variable.
-  $1C4A Set DEST as required and return.
+  $1C46 Set #R$5C72(STRLEN) as required.
+N $1C4A #R$5C4D(DEST) holds the address for the 'destination' of an 'old' variable but in effect the 'source' for a 'new' variable.
+  $1C4A Set #R$5C4D(DEST) as required and return.
 @ $1C4E label=CLASS_02
 c $1C4E THE 'COMMAND CLASS 02' ROUTINE
 D $1C4E The address of this routine is derived from an offset found in the #R$1C01(command class table).
@@ -3694,13 +3694,13 @@ D $1C4E Command class 02 is concerned with the actual calculation of the value t
 @ $1C56 label=VAL_FET_1
 c $1C56 THE 'FETCH A VALUE' SUBROUTINE
 D $1C56 This subroutine is used by LET, READ and INPUT statements to first evaluate and then assign values to the previously designated variable.
-D $1C56 The main entry point is used by LET and READ and considers FLAGS, whereas the entry point #R$1C59 is used by INPUT and considers FLAGX.
-  $1C56 Use FLAGS.
+D $1C56 The main entry point is used by LET and READ and considers #R$5C3B(FLAGS), whereas the entry point #R$1C59 is used by INPUT and considers #R$5C71(FLAGX).
+  $1C56 Use #R$5C3B(FLAGS).
 @ $1C59 label=VAL_FET_2
-  $1C59 Save FLAGS or FLAGX.
+  $1C59 Save #R$5C3B(FLAGS) or #R$5C71(FLAGX).
   $1C5A Evaluate the next expression.
-  $1C5D Fetch the old FLAGS or FLAGX.
-  $1C5E Fetch the new FLAGS.
+  $1C5D Fetch the old #R$5C3B(FLAGS) or #R$5C71(FLAGX).
+  $1C5E Fetch the new #R$5C3B(FLAGS).
   $1C61 The nature - numeric or string - of the variable and the expression must match.
   $1C64 Give report C if they do not.
   $1C66 Jump forward to make the actual assignment unless checking syntax (in which case simply return).
@@ -3714,14 +3714,14 @@ D $1C6C The command class 04 entry point is used by FOR and NEXT statements.
 @ $1C79 label=NEXT_2NUM
 c $1C79 THE 'EXPECT NUMERIC/STRING EXPRESSIONS' SUBROUTINE
 D $1C79 There is a series of short subroutines that are used to fetch the result of evaluating the next expression. The result from a single expression is returned as a 'last value' on the calculator stack.
-N $1C79 This entry point is used when CH-ADD needs updating to point to the start of the first expression.
-  $1C79 Advance CH-ADD.
+N $1C79 This entry point is used when #R$5C5D(CH-ADD) needs updating to point to the start of the first expression.
+  $1C79 Advance #R$5C5D(CH-ADD).
 N $1C7A The address of this entry point is derived from an offset found in the #R$1C01(command class table).
 N $1C7A This entry point allows for two numeric expressions, separated by a comma, to be evaluated.
 @ $1C7A label=CLASS_08
   $1C7A Evaluate each expression in turn - so evaluate the first.
   $1C7D,4,c2,2 Give an error report if the separator is not a comma.
-  $1C81 Advance CH-ADD.
+  $1C81 Advance #R$5C5D(CH-ADD).
 N $1C82 The address of this entry point is derived from an offset found in the #R$1C01(command class table).
 N $1C82 This entry point allows for a single numeric expression to be evaluated.
 @ $1C82 label=CLASS_06
@@ -3744,11 +3744,11 @@ D $1C96 This subroutine allows for the current temporary colours to be made perm
   $1C9A Signal 'main screen'.
   $1C9E Only during a 'run' call #R$0D4D to ensure the temporary colours are the main screen colours.
   $1CA1 Drop the return address #R$1B52.
-  $1CA2 Fetch the low byte of T-ADDR and subtract +13 to give the range +D9 to +DE which are the token codes for INK to OVER.
+  $1CA2 Fetch the low byte of #R$5C74(T-ADDR) and subtract +13 to give the range +D9 to +DE which are the token codes for INK to OVER.
   $1CA7 Change the temporary colours as directed by the BASIC statement.
   $1CAA Move on to the next statement if checking syntax.
-  $1CAD Now the temporary colour values are made permanent (both ATTR-P and MASK-P).
-  $1CB3 This is P-FLAG, and that too has to be considered.
+  $1CAD Now the temporary colour values are made permanent (both #R$5C8D(ATTR-P) and #R$5C8E(MASK-P)).
+  $1CB3 This is #R$5C91(P-FLAG), and that too has to be considered.
 N $1CB7 The following instructions cleverly copy the even bits of the supplied byte to the odd bits, in effect making the permanent bits the same as the temporary ones.
   $1CB7 Move the mask leftwards.
   $1CB8 Impress onto the mask only the even bits of the other byte.
@@ -3760,7 +3760,7 @@ D $1CBE This routine is used by PLOT, DRAW and CIRCLE statements in order to spe
   $1CBE Jump forward if checking syntax.
   $1CC3 Signal 'main screen'.
   $1CC7 Set the temporary colours for the main screen.
-  $1CCA This is MASK-T.
+  $1CCA This is #R$5C90(MASK-T).
   $1CCD Fetch its present value but keep only its INK part 'unmasked'.
   $1CD0 Restore the value which now indicates 'FLASH 8; BRIGHT 8; PAPER 8;'.
   $1CD1 Also ensure NOT 'PAPER 9'.
@@ -3810,7 +3810,7 @@ c $1D03 THE 'FOR' COMMAND ROUTINE
 D $1D03 The address of this routine is found in the #R$1A90(parameter table).
 D $1D03 This command routine is entered with the VALUE and the LIMIT of the FOR statement already on the top of the calculator stack.
   $1D03 Jump forward unless a 'STEP' is given.
-  $1D07 Advance CH-ADD and fetch the value of the STEP.
+  $1D07 Advance #R$5C5D(CH-ADD) and fetch the value of the STEP.
   $1D0B Move on to the next statement if checking syntax; otherwise jump forward.
 N $1D10 There has not been a STEP supplied so the value '1' is to be used.
 @ $1D10 label=F_USE_1
@@ -3856,15 +3856,15 @@ N $1D4C The #R$1DDA subroutine is called to test the possibility of a 'pass' and
   $1D4C Is a 'pass' possible?
   $1D4F Return now if it is.
   $1D50 Fetch the variable's name.
-  $1D53 Copy the present line number to NEWPPC.
+  $1D53 Copy the present line number to #R$5C42(NEWPPC).
   $1D59 Fetch the current statement number and two's complement it.
   $1D5E Transfer the result to the #REGd register.
-  $1D5F Fetch the current value of CH-ADD.
+  $1D5F Fetch the current value of #R$5C5D(CH-ADD).
   $1D62 The search will be for 'NEXT'.
 N $1D64 Now a search is made in the program area, from the present point onwards, for the first occurrence of NEXT followed by the correct variable.
 @ $1D64 label=F_LOOP
   $1D64 Save the variable's name.
-  $1D65 Fetch the current value of NXTLIN.
+  $1D65 Fetch the current value of #R$5C55(NXTLIN).
   $1D69 The program area is now searched and #REGbc will change with each new line examined.
   $1D6C Upon return save the pointer.
   $1D70 Restore the variable's name.
@@ -3872,10 +3872,10 @@ N $1D64 Now a search is made in the program area, from the present point onwards
   $1D73 Advance past the NEXT that was found.
   $1D74 Allow for upper and lower case letters before the new variable name is tested.
   $1D77 Jump forward if it matches.
-  $1D79 Advance CH-ADD again and jump back if not the correct variable.
-N $1D7C NEWPPC holds the line number of the line in which the correct NEXT was found. Now the statement number has to be found and stored in NSPPC.
+  $1D79 Advance #R$5C5D(CH-ADD) again and jump back if not the correct variable.
+N $1D7C #R$5C42(NEWPPC) holds the line number of the line in which the correct NEXT was found. Now the statement number has to be found and stored in #R$5C44(NSPPC).
 @ $1D7C label=F_FOUND
-  $1D7C Advance CH-ADD.
+  $1D7C Advance #R$5C5D(CH-ADD).
   $1D7D The statement counter in the #REGd register counted statements back from zero so it has to be subtracted from '1'.
   $1D80 The result is stored.
   $1D83 Now return - to #R$1B76.
@@ -3891,7 +3891,7 @@ D $1D86 This subroutine is used to find occurrences of either DATA, DEF FN or NE
 N $1D8B Now a loop is entered to examine each further line in the program.
 @ $1D8B label=LOOK_P_1
   $1D8B Fetch the high byte of the line number and return with carry set if there are no further lines in the program.
-  $1D91 The line number is fetched and passed to NEWPPC.
+  $1D91 The line number is fetched and passed to #R$5C42(NEWPPC).
   $1D98 Then the length is collected.
   $1D9C The pointer is saved whilst the address of the end of the line is formed in the #REGbc register pair.
   $1DA0 The pointer is restored.
@@ -3952,13 +3952,13 @@ B $1DE9,1 #R$369B: -
 @ $1DEC label=READ_3
 c $1DEC THE 'READ' COMMAND ROUTINE
 D $1DEC The READ command allows for the reading of a DATA list and has an effect similar to a series of LET statements.
-D $1DEC Each assignment within a single READ statement is dealt with in turn. The system variable X-PTR is used as a storage location for the pointer to the READ statement whilst CH-ADD is used to step along the DATA list.
+D $1DEC Each assignment within a single READ statement is dealt with in turn. The system variable #R$5C5F(X-PTR) is used as a storage location for the pointer to the READ statement whilst #R$5C5D(CH-ADD) is used to step along the DATA list.
   $1DEC Come here on each pass, after the first, to move along the READ statement.
 @ $1DED label=READ
 N $1DED The address of this entry point is found in the #R$1AC9(parameter table).
   $1DED Consider whether the variable has been used before; find the existing entry if it has.
   $1DF0 Jump forward if checking syntax.
-  $1DF5 Save the current pointer CH-ADD in X-PTR.
+  $1DF5 Save the current pointer #R$5C5D(CH-ADD) in #R$5C5F(X-PTR).
   $1DF9,8,4,c2,2 Fetch the current DATA list pointer and jump forward unless a new DATA statement has to be found.
   $1E01 The search is for 'DATA'.
   $1E03 Jump forward if the search is successful.
@@ -3967,11 +3967,11 @@ M $1E08,2 Call the error handling routine.
 B $1E09,1
 N $1E0A Continue - picking up a value from the DATA list.
 @ $1E0A label=READ_1
-  $1E0A Advance the pointer along the DATA list and set CH-ADD.
+  $1E0A Advance the pointer along the DATA list and set #R$5C5D(CH-ADD).
   $1E0D Fetch the value and assign it to the variable.
-  $1E10 Fetch the current value of CH-ADD and store it in DATADD.
-  $1E14 Fetch the pointer to the READ statement and clear X-PTR.
-  $1E1B Make CH-ADD once again point to the READ statement.
+  $1E10 Fetch the current value of #R$5C5D(CH-ADD) and store it in #R$5C57(DATADD).
+  $1E14 Fetch the pointer to the READ statement and clear #R$5C5F(X-PTR).
+  $1E1B Make #R$5C5D(CH-ADD) once again point to the READ statement.
 @ $1E1E label=READ_2
   $1E1E,3,1,c2 Get the present character and see if it is a ','.
   $1E21 If it is then jump back as there are further items; otherwise return via either #R$1BEE (if checking syntax) or the RET instruction (to #R$1B76).
@@ -4006,17 +4006,17 @@ D $1E42 The operand for a RESTORE command is taken as a line number, zero being 
 @ $1E45 label=REST_RUN
   $1E45 Transfer the result to the #REGhl register pair.
   $1E47 Now find the address of that line or the 'first line after'.
-  $1E4A Make DATADD point to the location before.
+  $1E4A Make #R$5C57(DATADD) point to the location before.
   $1E4E Return once it is done.
 @ $1E4F label=RANDOMIZE
 c $1E4F THE 'RANDOMIZE' COMMAND ROUTINE
 D $1E4F The address of this routine is found in the #R$1AB5(parameter table).
-D $1E4F The operand is compressed into the #REGbc register pair and transferred to the required system variable. However if the operand is zero the value in FRAMES1 and FRAMES2 is used instead.
+D $1E4F The operand is compressed into the #REGbc register pair and transferred to the required system variable. However if the operand is zero the value in #R$5C78(FRAMES1 and FRAMES2) is used instead.
   $1E4F Fetch the operand.
   $1E52 Jump forward unless the value of the operand is zero.
-  $1E56 Fetch the two low order bytes of FRAMES instead.
+  $1E56 Fetch the two low order bytes of #R$5C78(FRAMES) instead.
 @ $1E5A label=RAND_1
-  $1E5A Now enter the result into the system variable SEED before returning.
+  $1E5A Now enter the result into the system variable #R$5C76(SEED) before returning.
 @ $1E5F label=CONTINUE
 c $1E5F THE 'CONTINUE' COMMAND ROUTINE
 D $1E5F The address of this routine is found in the #R$1AB8(parameter table).
@@ -4075,28 +4075,28 @@ B $1EA0,1
 @ $1EA1 label=RUN
 c $1EA1 THE 'RUN' COMMAND ROUTINE
 D $1EA1 The address of this routine is found in the #R$1AAB(parameter table).
-D $1EA1 The parameter of the RUN command is passed to NEWPPC by calling #R$1E67. The operations of 'RESTORE 0' and 'CLEAR 0' are then performed before a return is made.
-  $1EA1 Set NEWPPC as required.
+D $1EA1 The parameter of the RUN command is passed to #R$5C42(NEWPPC) by calling #R$1E67. The operations of 'RESTORE 0' and 'CLEAR 0' are then performed before a return is made.
+  $1EA1 Set #R$5C42(NEWPPC) as required.
 @ $1EA4 keep
   $1EA4 Now perform a 'RESTORE 0'.
   $1EAA Exit via the #R$1EAC command routine.
 @ $1EAC label=CLEAR
 c $1EAC THE 'CLEAR' COMMAND ROUTINE
 D $1EAC The address of this routine is found in the #R$1ABB(parameter table).
-D $1EAC This routine allows for the variables area to be cleared, the display area cleared and RAMTOP moved. In consequence of the last operation the machine stack is rebuilt thereby having the effect of also clearing the GO SUB stack.
+D $1EAC This routine allows for the variables area to be cleared, the display area cleared and #R$5CB2(RAMTOP) moved. In consequence of the last operation the machine stack is rebuilt thereby having the effect of also clearing the GO SUB stack.
   $1EAC Fetch the operand - using zero by default.
 @ $1EAF label=CLEAR_RUN
   $1EAF Jump forward if the operand is other than zero. When called from #R$1EA1 there is no jump.
-  $1EB3 If zero use the existing value in RAMTOP.
+  $1EB3 If zero use the existing value in #R$5CB2(RAMTOP).
 @ $1EB7 label=CLEAR_1
   $1EB7 Save the value.
   $1EB8 Next reclaim all the bytes of the present variables area.
   $1EC3 Clear the display area.
-N $1EC6 The value in the #REGbc register pair which will be used as RAMTOP is tested to ensure it is neither too low nor too high.
-  $1EC6 The current value of STKEND is increased by 50 before being tested. This forms the lower limit.
+N $1EC6 The value in the #REGbc register pair which will be used as #R$5CB2(RAMTOP) is tested to ensure it is neither too low nor too high.
+  $1EC6 The current value of #R$5C65(STKEND) is increased by 50 before being tested. This forms the lower limit.
 @ $1EC9 keep
-  $1ED0 RAMTOP will be too low.
-  $1ED2 For the upper test the value for RAMTOP is tested against P-RAMT.
+  $1ED0 #R$5CB2(RAMTOP) will be too low.
+  $1ED2 For the upper test the value for #R$5CB2(RAMTOP) is tested against #R$5CB4(P-RAMT).
   $1ED8 Jump forward if acceptable.
 N $1EDA Report M - RAMTOP no good.
 @ $1EDA label=REPORT_M
@@ -4104,27 +4104,27 @@ M $1EDA,2 Call the error handling routine.
 B $1EDB,1
 N $1EDC Continue with the CLEAR operation.
 @ $1EDC label=CLEAR_2
-  $1EDC Now the value can actually be passed to RAMTOP.
+  $1EDC Now the value can actually be passed to #R$5CB2(RAMTOP).
   $1EE0 Fetch the address of #R$1B76.
   $1EE1 Fetch the 'error address'.
   $1EE2 Enter a GO SUB stack end marker.
   $1EE4 Leave one location.
   $1EE5 Make the stack pointer point to an empty GO SUB stack.
-  $1EE6 Next pass the 'error address' to the stack and save its address in ERR-SP.
+  $1EE6 Next pass the 'error address' to the stack and save its address in #R$5C3D(ERR-SP).
   $1EEB An indirect return is now made to #R$1B76.
-E $1EAC Note: when the routine is called from #R$1EA1 the values of NEWPPC and NSPPC will have been affected and no statements coming after RUN can ever be found before the jump is taken.
+E $1EAC Note: when the routine is called from #R$1EA1 the values of #R$5C42(NEWPPC) and #R$5C44(NSPPC) will have been affected and no statements coming after RUN can ever be found before the jump is taken.
 @ $1EED label=GO_SUB
 c $1EED THE 'GO SUB' COMMAND ROUTINE
 D $1EED The address of this routine is found in the #R$1A86(parameter table).
-D $1EED The present value of PPC and the incremented value of SUBPPC are stored on the GO SUB stack.
+D $1EED The present value of #R$5C45(PPC) and the incremented value of #R$5C47(SUBPPC) are stored on the GO SUB stack.
   $1EED Save the address - #R$1B76.
   $1EEE Fetch the statement number and increment it.
   $1EF2 Exchange the 'error address' with the statement number.
   $1EF3 Reclaim the use of a location.
   $1EF4 Next save the present line number.
-  $1EF9 Return the 'error address' to the machine stack and reset ERR-SP to point to it.
+  $1EF9 Return the 'error address' to the machine stack and reset #R$5C3D(ERR-SP) to point to it.
   $1EFE Return the address #R$1B76.
-  $1EFF Now set NEWPPC and NSPPC to the required values.
+  $1EFF Now set #R$5C42(NEWPPC) and #R$5C44(NSPPC) to the required values.
 @ $1F02 keep
   $1F02 But before making the jump make a test for room.
 E $1EED This routine continues into #R$1F05.
@@ -4132,7 +4132,7 @@ E $1EED This routine continues into #R$1F05.
 c $1F05 THE 'TEST-ROOM' SUBROUTINE
 D $1F05 The routine at #R$1EED continues here.
 D $1F05 A series of tests is performed to ensure that there is sufficient free memory available for the task being undertaken.
-  $1F05 Increase the value taken from STKEND by the value carried into the routine by the #REGbc register pair.
+  $1F05 Increase the value taken from #R$5C65(STKEND) by the value carried into the routine by the #REGbc register pair.
   $1F09 Jump forward if the result is over +FFFF.
   $1F0B Try it again allowing for a further eighty bytes.
 @ $1F0C keep
@@ -4163,7 +4163,7 @@ D $1F23 The line number and the statement number that are to be made the object 
   $1F2D Move the statement number.
   $1F2E Reset the error pointer.
   $1F32 Replace the address #R$1B76.
-  $1F33 Jump back to change NEWPPC and NSPPC.
+  $1F33 Jump back to change #R$5C42(NEWPPC) and #R$5C44(NSPPC).
 N $1F36 Report 7 - RETURN without GOSUB.
 @ $1F36 label=REPORT_7
   $1F36,2 Replace the end marker and the 'error address'.
@@ -4173,7 +4173,7 @@ B $1F39,1
 c $1F3A THE 'PAUSE' COMMAND ROUTINE
 D $1F3A The address of this routine is found in the #R$1AC5(parameter table).
 D $1F3A The period of the pause is determined by counting the number of maskable interrupts as they occur every 1/50th of a second.
-D $1F3A A pause is finished either after the appropriate number of interrupts or by the system variable FLAGS indicating that a key has been pressed.
+D $1F3A A pause is finished either after the appropriate number of interrupts or by the system variable #R$5C3B(FLAGS) indicating that a key has been pressed.
   $1F3A Fetch the operand.
 @ $1F3D label=PAUSE_1
   $1F3D Wait for a maskable interrupt.
@@ -4348,7 +4348,7 @@ D $204E The various position controlling characters are considered by this subro
 c $2070 THE 'ALTER STREAM' SUBROUTINE
 D $2070 This subroutine is called whenever there is the need to consider whether the user wishes to use a different stream.
   $2070,4,c2,2 Unless the present character is a '#' return with the carry flag set.
-  $2074 Advance CH-ADD.
+  $2074 Advance #R$5C5D(CH-ADD).
   $2075 Pass the parameter to the calculator stack.
   $2078 Clear the carry flag.
   $2079 Return now if checking syntax.
@@ -4371,8 +4371,8 @@ D $2089 This routine allows for values entered from the keyboard to be assigned 
   $20A4 Jump forward if the current position is above the lower screen.
   $20AA Otherwise set the print position to the top of the lower screen.
 @ $20AD label=INPUT_2
-  $20AD Reset S-POSN.
-  $20B1 Now set the scroll counter.
+  $20AD Reset #R$5C88(S-POSN).
+  $20B1 Now set the scroll counter (#R$5C8C(SCR-CT)).
   $20B7 Signal 'main screen'.
   $20BB Set the system variables and exit via #R$0D6E.
 N $20C1 The INPUT items and embedded PRINT items are dealt with in turn by the following loop.
@@ -4387,7 +4387,7 @@ N $20C1 The INPUT items and embedded PRINT items are dealt with in turn by the f
 N $20D8 Now consider whether INPUT LINE is being used.
 @ $20D8 label=IN_ITEM_2
   $20D8 Jump forward if it is not 'LINE'.
-  $20DC Advance CH-ADD.
+  $20DC Advance #R$5C5D(CH-ADD).
   $20DD Determine the destination address for the variable.
   $20E0 Signal 'using INPUT LINE'.
   $20E4 Give report C unless using a string variable.
@@ -4401,7 +4401,7 @@ N $20FA The prompt message is now built up in the work space.
 @ $20FA label=IN_PROMPT
   $20FA Jump forward if only checking syntax.
   $2100 The work space is set to null.
-  $2103 This is FLAGX.
+  $2103 This is #R$5C71(FLAGX).
   $2106 Signal 'string result'.
   $2108 Signal 'INPUT mode'.
 @ $210A keep
@@ -4410,7 +4410,7 @@ N $20FA The prompt message is now built up in the work space.
   $2111 Jump forward if awaiting a numeric entry.
   $2118 A string entry will need three locations.
 @ $211A label=IN_PR_1
-  $211A Bit 6 of FLAGX will become set for a numeric entry.
+  $211A Bit 6 of #R$5C71(FLAGX) will become set for a numeric entry.
 @ $211C label=IN_PR_2
   $211C The required number of locations is made available.
   $211D A 'carriage return' goes into the last location.
@@ -4420,7 +4420,7 @@ N $20FA The prompt message is now built up in the work space.
   $2129 The position of the cursor can now be saved.
 N $212C In the case of INPUT LINE the EDITOR can be called without further preparation but for other types of INPUT the error stack has to be changed so as to trap errors.
   $212C Jump forward with 'INPUT LINE'.
-  $2132 Save the current values of CH-ADD and ERR-SP on the machine stack.
+  $2132 Save the current values of #R$5C5D(CH-ADD) and #R$5C3D(ERR-SP) on the machine stack.
 @ $213A nowarn
 @ $213A label=IN_VAR_1
   $213A This will be the 'return point' in case of errors.
@@ -4435,16 +4435,16 @@ N $2161 All the system variables have to be reset before the actual assignment o
 @ $2161 label=IN_VAR_4
   $2161 The cursor address is reset.
   $2165 The jump is taken if using other than channel 'K'.
-  $216A The input-line is copied to the display and the position in ECHO-E made the current position in the lower screen.
+  $216A The input-line is copied to the display and the position in #R$5C82(ECHO-E) made the current position in the lower screen.
 @ $2174 label=IN_VAR_5
-  $2174 This is FLAGX.
+  $2174 This is #R$5C71(FLAGX).
   $2177 Signal 'edit mode'.
   $2179 Jump forward if handling an INPUT LINE.
   $217F Drop the address IN-VAR-1.
-  $2180 Reset the ERR-SP to its original address.
-  $2184 Save the original CH-ADD address in X-PTR.
+  $2180 Reset the #R$5C3D(ERR-SP) to its original address.
+  $2184 Save the original #R$5C5D(CH-ADD) address in #R$5C5F(X-PTR).
   $2188 Now with the syntax/run flag indicating 'run' make the assignment.
-  $218F Restore the original address to CH-ADD and clear X-PTR.
+  $218F Restore the original address to #R$5C5D(CH-ADD) and clear #R$5C5F(X-PTR).
   $2199 Jump forward to see if there are further INPUT items.
 @ $219B label=IN_VAR_6
   $219B The length of the 'LINE' in the work space is found.
@@ -4460,7 +4460,7 @@ N $21AF Further items in the INPUT statement are considered.
 @ $21B9 label=IN_ASSIGN
 c $21B9 THE 'IN-ASSIGN' SUBROUTINE
 D $21B9 This subroutine is called twice for each INPUT value: once with the syntax/run flag reset (syntax) and once with it set (run).
-  $21B9 Set CH-ADD to point to the first location of the work space and fetch the character.
+  $21B9 Set #R$5C5D(CH-ADD) to point to the first location of the work space and fetch the character.
   $21C0 Is it a 'STOP'?
   $21C2 Jump if it is.
   $21C4 Otherwise make the assignment of the 'value' to the variable.
@@ -4494,7 +4494,7 @@ D $21E1 A loop is entered to handle each item in turn. The entry point is at #R$
   $21EF Exit via 'report C'.
 @ $21F2 label=CO_TEMP_3
   $21F2 Return with the carry flag set if the code is not in the range +D9 to +DE (INK to OVER).
-  $21F9 The colour item code is preserved whilst CH-ADD is advanced to address the parameter that follows it.
+  $21F9 The colour item code is preserved whilst #R$5C5D(CH-ADD) is advanced to address the parameter that follows it.
 N $21FC The colour item code and the parameter are now 'printed' by calling #R$0010 on two occasions.
 @ $21FC label=CO_TEMP_4
   $21FC The token range (+D9 to +DE) is reduced to the control character range (+10 to +15).
@@ -4503,12 +4503,12 @@ N $21FC The colour item code and the parameter are now 'printed' by calling #R$0
   $2207 The control character code is preserved whilst the parameter is moved to the #REGd register.
   $220D The control character is sent out.
   $220E Then the parameter is fetched and sent out before returning.
-N $2211 ii. The colour system variables - ATTR-T, MASK-T and P-FLAG - are altered as required. On entry the control character code is in the #REGa register and the parameter is in the #REGd register.
+N $2211 ii. The colour system variables - #R$5C8F(ATTR-T), #R$5C90(MASK-T) and #R$5C91(P-FLAG) - are altered as required. On entry the control character code is in the #REGa register and the parameter is in the #REGd register.
 @ $2211 label=CO_TEMP_5
 N $2211 Note that all changes are to the 'temporary' system variables.
   $2211 Reduce the range and jump forward with INK and PAPER.
   $2217 Reduce the range once again and jump forward with FLASH and BRIGHT.
-N $221D The colour control code will now be +01 for INVERSE and +02 for OVER and the system variable P-FLAG is altered accordingly.
+N $221D The colour control code will now be +01 for INVERSE and +02 for OVER and the system variable #R$5C91(P-FLAG) is altered accordingly.
   $221D Prepare to jump with OVER.
   $221F Fetch the parameter.
   $2220 Prepare the mask for OVER.
@@ -4518,8 +4518,8 @@ N $221D The colour control code will now be +01 for INVERSE and +02 for OVER and
   $2228 Save the #REGa register whilst the range is tested.
   $2229 The correct range for INVERSE and OVER is only '0-1'.
   $222E Restore the #REGa register.
-  $222F It is P-FLAG that is to be changed.
-  $2232 Exit via #R$226C and alter P-FLAG using #REGb as a mask, i.e. bit 0 for OVER and bit 2 for INVERSE.
+  $222F It is #R$5C91(P-FLAG) that is to be changed.
+  $2232 Exit via #R$226C and alter #R$5C91(P-FLAG) using #REGb as a mask, i.e. bit 0 for OVER and bit 2 for INVERSE.
 N $2234 PAPER and INK are dealt with by the following routine. On entry the carry flag is set for INK.
 @ $2234 label=CO_TEMP_7
   $2234 Fetch the parameter.
@@ -4537,23 +4537,23 @@ M $2244,2 Call the error handling routine.
 B $2245,1
 N $2246 Continue to handle PAPER and INK.
 @ $2246 label=CO_TEMP_9
-  $2246 Prepare to alter ATTR-T, MASK-T and P-FLAG.
+  $2246 Prepare to alter #R$5C8F(ATTR-T), #R$5C90(MASK-T) and #R$5C91(P-FLAG).
   $2249 Jump forward with PAPER/INK '0' to '7'.
-  $224D Fetch the current value of ATTR-T and use it unchanged, by jumping forward, with PAPER/INK '8'.
+  $224D Fetch the current value of #R$5C8F(ATTR-T) and use it unchanged, by jumping forward, with PAPER/INK '8'.
   $2250 But for PAPER/INK '9' the PAPER and INK colours have to be black and white.
   $2254 Jump for black INK/PAPER, but continue for white INK/PAPER.
 @ $2257 label=CO_TEMP_A
   $2257 Move the value to the #REGc register.
-N $2258 The mask (#REGb) and the value (#REGc) are now used to change ATTR-T.
+N $2258 The mask (#REGb) and the value (#REGc) are now used to change #R$5C8F(ATTR-T).
 @ $2258 label=CO_TEMP_B
   $2258 Move the value.
-  $2259 Now change ATTR-T as needed.
-N $225C Next MASK-T is considered.
-  $225C The bits of MASK-T are set only when using PAPER/INK '8' or '9'.
-  $2260 Now change MASK-T as needed.
-N $2263 Next P-FLAG is considered.
+  $2259 Now change #R$5C8F(ATTR-T) as needed.
+N $225C Next #R$5C90(MASK-T) is considered.
+  $225C The bits of #R$5C90(MASK-T) are set only when using PAPER/INK '8' or '9'.
+  $2260 Now change #R$5C90(MASK-T) as needed.
+N $2263 Next #R$5C91(P-FLAG) is considered.
   $2263 The appropriate mask is built up in the #REGb register in order to change bits 4 and 6 as necessary.
-  $2268 The bits of P-FLAG are set only when using PAPER/INK '9'. Continue into #R$226C to manipulate P-FLAG.
+  $2268 The bits of #R$5C91(P-FLAG) are set only when using PAPER/INK '9'. Continue into #R$226C to manipulate #R$5C91(P-FLAG).
 @ $226C label=CO_CHANGE
 N $226C The following subroutine is used to 'impress' upon a system variable the 'nature' of the bits in the #REGa register. The #REGb register holds a mask that shows which bits are to be 'copied over' from #REGa to (#REGhl).
   $226C The bits, specified by the mask in the #REGb register, are changed in the value and the result goes to form the system variable.
@@ -4569,19 +4569,19 @@ N $2273 FLASH and BRIGHT are handled by the following routine.
 @ $227D label=CO_TEMP_D
   $227D Save the value in the #REGc register.
   $227E Fetch the parameter and test its range; only '0', '1' and '8' are allowable.
-N $2287 The system variable ATTR-T can now be altered.
+N $2287 The system variable #R$5C8F(ATTR-T) can now be altered.
 @ $2287 label=CO_TEMP_E
   $2287 Fetch the value.
-  $2288 This is ATTR-T.
+  $2288 This is #R$5C8F(ATTR-T).
   $228B Now change the system variable.
-N $228E The value in MASK-T is now considered.
+N $228E The value in #R$5C90(MASK-T) is now considered.
   $228E The value is fetched anew.
   $228F The set bit of FLASH/BRIGHT '8' (bit 3) is moved to bit 7 (for FLASH) or bit 6 (for BRIGHT).
   $2292 Exit via #R$226C.
 @ $2294 label=BORDER
 c $2294 THE 'BORDER' COMMAND ROUTINE
 D $2294 The address of this routine is found in the #R$1AF5(parameter table).
-D $2294 The parameter of the BORDER command is used with an OUT command to actually alter the colour of the border. The parameter is then saved in the system variable BORDCR.
+D $2294 The parameter of the BORDER command is used with an OUT command to actually alter the colour of the border. The parameter is then saved in the system variable #R$5C48(BORDCR).
   $2294 The parameter is fetched and its range is tested.
   $229B The OUT instruction is then used to set the border colour.
   $229D The parameter is then multiplied by eight.
@@ -4618,7 +4618,7 @@ D $22CB This subroutine is called from #R$267B. It is entered with the coordinat
 @ $22DC label=PLOT
 c $22DC THE 'PLOT' COMMAND ROUTINE
 D $22DC The address of this routine is found in the #R$1AC1(parameter table).
-D $22DC This routine consists of a main subroutine plus one line to call it and one line to exit from it. The main routine is used twice by #R$2320 and the subroutine is called by #R$24B7. The routine is entered with the coordinates of a pixel on the calculator stack. It finds the address of that pixel and plots it, taking account of the status of INVERSE and OVER held in the P-FLAG.
+D $22DC This routine consists of a main subroutine plus one line to call it and one line to exit from it. The main routine is used twice by #R$2320 and the subroutine is called by #R$24B7. The routine is entered with the coordinates of a pixel on the calculator stack. It finds the address of that pixel and plots it, taking account of the status of INVERSE and OVER held in the #R$5C91(P-FLAG).
   $22DC y-coordinate to #REGb, x to #REGc.
   $22DF The subroutine is called.
   $22E2 Exit, setting temporary colours.
@@ -4631,7 +4631,7 @@ D $22DC This routine consists of a main subroutine plus one line to call it and 
   $22F0 Then lined up with the pixel bit position in the byte.
   $22F3 Then copied to #REGb.
   $22F4 The pixel-byte is obtained in #REGa.
-  $22F5 P-FLAG is obtained and first tested for OVER.
+  $22F5 #R$5C91(P-FLAG) is obtained and first tested for OVER.
   $22FA Jump if OVER 1.
   $22FC OVER 0 first makes the pixel zero.
 @ $22FD label=PL_TST_IN
@@ -4696,7 +4696,7 @@ B $2341,1 #R$342D(st_mem_5): (2#pi is copied to mem-5)
 B $2342,1 #R$33A1: X, Y, Z
 B $2343,1 #R$369B
   $2344 Set the initial parameters.
-N $2347 iii. A test is made to see whether the initial 'arc' length is less than 1. If it is, a jump is made simply to plot X, Y. Otherwise, the parameters are set: X+Z and X-Z*SIN (#pi/A) are stacked twice as start and end point, and copied to COORDS as well; zero and 2*Z*SIN (#pi/A) are stored in mem-1 and mem-2 as initial increments, giving as first 'arc' the vertical straight line joining X+Z, y-Z*SIN (#pi/A) and X+Z, Y+Z*SIN (#pi/A). The arc-drawing loop at #R$2420 will ensure that all subsequent points remain on the same circle as these two points, with incremental angle 2#pi/A. But it is clear that these 2 points in fact subtend this angle at the point X+Z*(1-COS (#pi/A)), Y not at X, Y. Hence the end points of each arc of the circle are displaced right by an amount 2*(1-COS (#pi/A)), which is less than half a pixel, and rounds to one pixel at most.
+N $2347 iii. A test is made to see whether the initial 'arc' length is less than 1. If it is, a jump is made simply to plot X, Y. Otherwise, the parameters are set: X+Z and X-Z*SIN (#pi/A) are stacked twice as start and end point, and copied to #R$5C7D(COORDS) as well; zero and 2*Z*SIN (#pi/A) are stored in mem-1 and mem-2 as initial increments, giving as first 'arc' the vertical straight line joining X+Z, y-Z*SIN (#pi/A) and X+Z, Y+Z*SIN (#pi/A). The arc-drawing loop at #R$2420 will ensure that all subsequent points remain on the same circle as these two points, with incremental angle 2#pi/A. But it is clear that these 2 points in fact subtend this angle at the point X+Z*(1-COS (#pi/A)), Y not at X, Y. Hence the end points of each arc of the circle are displaced right by an amount 2*(1-COS (#pi/A)), which is less than half a pixel, and rounds to one pixel at most.
   $2347 Save the arc-count in #REGb.
   $2348 X, Y, Z
 B $2349,1 #R$33C0: X, Y, Z, Z
@@ -4737,14 +4737,14 @@ N $236E (Here sa denotes X+Z and sb denotes Y-Z*SIN (#pi/A).)
   $2371 The last value X+Z is moved from the stack to #REGa and copied to #REGl.
   $2375 It is saved in #REGhl.
   $2376 Y-Z*SIN (#pi/A) goes from the stack to #REGa and is copied to #REGh. #REGhl now holds the initial point.
-  $237B It is copied to COORDS.
+  $237B It is copied to #R$5C7D(COORDS).
   $237E The arc-count is restored.
   $237F The jump is made to #R$2420.
 E $2320 (The stack now holds X+Z, Y-Z*SIN (#pi/A), Y-Z*SIN (#pi/A), X+Z.)
 @ $2382 label=DRAW
 c $2382 THE 'DRAW' COMMAND ROUTINE
 D $2382 The address of this routine is found in the #R$1AD2(parameter table).
-D $2382 This routine is entered with the co-ordinates of a point X0, Y0, say, in COORDS. If only two parameters X, Y are given with the DRAW command, it draws an approximation to a straight line from the point X0, Y0 to X0+X, Y0+Y. If a third parameter G is given, it draws an approximation to a circular arc from X0, Y0 to X0+X, Y0+Y turning anti-clockwise through an angle G radians.
+D $2382 This routine is entered with the co-ordinates of a point X0, Y0, say, in #R$5C7D(COORDS). If only two parameters X, Y are given with the DRAW command, it draws an approximation to a straight line from the point X0, Y0 to X0+X, Y0+Y. If a third parameter G is given, it draws an approximation to a circular arc from X0, Y0 to X0+X, Y0+Y turning anti-clockwise through an angle G radians.
 D $2382 The routine has four parts:
 D $2382 #LIST { i. Just draws a line if only 2 parameters are given or if the diameter of the implied circle is less than 1. } { ii. Calls #R$247D to set the first parameters. } { iii. Sets up the remaining parameters, including the initial displacements for the first arc. } { iv. Enters the arc-drawing loop and draws the arc as a series of smaller arcs approximated by straight lines, calling the line-drawing subroutine at #R$24B7 as necessary. } LIST#
 D $2382 Two subroutines, #R$247D and #R$24B7, follow the main routine. The above 4 parts of the main routine will now be treated in turn.
@@ -5001,7 +5001,7 @@ B $24B4,1 #R$369B
   $24B6 Finished.
 @ $24B7 label=DRAW_LINE
 c $24B7 THE 'LINE-DRAWING' SUBROUTINE
-D $24B7 This subroutine is called by #R$2382 to draw an approximation to a straight line from the point X0, Y0 held in COORDS to the point X0+X, Y0+Y, where the increments X and Y are on the top of the calculator stack. The subroutine was originally intended for the ZX80 and ZX81 8K ROM, and it is described in a BASIC program on page 121 of the ZX81 manual.
+D $24B7 This subroutine is called by #R$2382 to draw an approximation to a straight line from the point X0, Y0 held in #R$5C7D(COORDS) to the point X0+X, Y0+Y, where the increments X and Y are on the top of the calculator stack. The subroutine was originally intended for the ZX80 and ZX81 8K ROM, and it is described in a BASIC program on page 121 of the ZX81 manual.
 D $24B7 The method is to intersperse as many horizontal or vertical steps as are needed among a basic set of diagonal steps, using an algorithm that spaces the horizontal or vertical steps as evenly as possible.
   $24B7 ABS Y to #REGb; ABS X to #REGc; SGN Y to #REGd; SGN X to #REGe.
   $24BA Jump if ABS X is greater than or equal to ABS Y, so that the smaller goes to #REGl, and the larger (later) goes to #REGh.
@@ -5016,7 +5016,7 @@ D $24B7 The method is to intersperse as many horizontal or vertical steps as are
   $24C9 Horizontal step (0,+/-1) to #REGde here.
 @ $24CB label=DL_LARGER
   $24CB Larger of ABS X, ABS Y to #REGh now.
-N $24CC The algorithm starts here. The larger of ABS X and ABS Y, say #REGh, is put into #REGa and reduced to INT (#REGh/2). The #REGh-#REGl horizontal or vertical steps and #REGl diagonal steps are taken (where #REGl is the smaller of ABS X and ABS Y) in this way: #REGl is added to #REGa; if #REGa now equals or exceeds #REGh, it is reduced by #REGh and a diagonal step is taken; otherwise a horizontal or vertical step is taken. This is repeated #REGh times (#REGb also holds #REGh). Note that meanwhile the exchange registers #REGh' and #REGl' are used to hold COORDS.
+N $24CC The algorithm starts here. The larger of ABS X and ABS Y, say #REGh, is put into #REGa and reduced to INT (#REGh/2). The #REGh-#REGl horizontal or vertical steps and #REGl diagonal steps are taken (where #REGl is the smaller of ABS X and ABS Y) in this way: #REGl is added to #REGa; if #REGa now equals or exceeds #REGh, it is reduced by #REGh and a diagonal step is taken; otherwise a horizontal or vertical step is taken. This is repeated #REGh times (#REGb also holds #REGh). Note that meanwhile the exchange registers #REGh' and #REGl' are used to hold #R$5C7D(COORDS).
   $24CC #REGb to #REGa as well as to #REGh.
   $24CD #REGa starts at INT (#REGh/2).
 @ $24CE label=D_L_LOOP
@@ -5036,7 +5036,7 @@ N $24CC The algorithm starts here. The larger of ABS X and ABS Y, say #REGh, is 
   $24DD Get exchange registers.
   $24DE Step to #REGbc' now.
 @ $24DF label=D_L_STEP
-  $24DF Now take the step: first, COORDS to #REGhl' as the start point.
+  $24DF Now take the step: first, #R$5C7D(COORDS) to #REGhl' as the start point.
   $24E2 Y-step from #REGb' to #REGa.
   $24E3 Add in #REGh'.
   $24E4 Result to #REGb'.
@@ -5062,7 +5062,7 @@ B $24FA,1
 c $24FB THE 'SCANNING' SUBROUTINE
 D $24FB This subroutine is used to produce an evaluation result of the 'next expression'.
 D $24FB The result is returned as the 'last value' on the calculator stack. For a numerical result, the last value will be the actual floating point number. However, for a string result the last value will consist of a set of parameters. The first of the five bytes is unspecified, the second and third bytes hold the address of the start of the string and the fourth and fifth bytes hold the length of the string.
-D $24FB Bit 6 of FLAGS is set for a numeric result and reset for a string result.
+D $24FB Bit 6 of #R$5C3B(FLAGS) is set for a numeric result and reset for a string result.
 D $24FB When a next expression consists of only a single operand (e.g. 'A', 'RND', 'A$(4,3 TO 7)'), then the last value is simply the value that is obtained from evaluating the operand.
 D $24FB However when the next expression contains a function and an operand (e.g. 'CHR$ A', 'NOT A', 'SIN 1'), the operation code of the function is stored on the machine stack until the last value of the operand has been calculated. This last value is then subjected to the appropriate operation to give a new last value.
 D $24FB In the case of there being an arithmetic or logical operation to be performed (e.g. 'A+B', 'A*B', 'A=B'), then both the last value of the first argument and the operation code have to be kept until the last value of the second argument has been found. Indeed the calculation of the last value of the second argument may also involve the storing of last values and operation codes whilst the calculation is being performed.
@@ -5105,17 +5105,17 @@ E $2522 This routine continues into #R$2530.
 @ $2530 label=SYNTAX_Z
 c $2530 THE 'SYNTAX-Z' SUBROUTINE
 D $2530 The routine at #R$2522 continues here.
-D $2530 This subroutine is called 31 times, with a saving of just one byte each call. A simple test of bit 7 of FLAGS will give the zero flag reset during execution and set during syntax checking.
-  $2530 Test bit 7 of FLAGS.
+D $2530 This subroutine is called 31 times, with a saving of just one byte each call. A simple test of bit 7 of #R$5C3B(FLAGS) will give the zero flag reset during execution and set during syntax checking.
+  $2530 Test bit 7 of #R$5C3B(FLAGS).
   $2534 Finished.
 @ $2535 label=S_SCRN_S
 c $2535 THE 'SCANNING SCREEN$' SUBROUTINE
-D $2535 This subroutine is used to find the character that appears at line x, column y of the screen. It only searches the character set 'pointed to' by CHARS.
-D $2535 Note: this is normally the characters +20 (space) to +7F (#CHR(169)) although the user can alter CHARS to match for other characters, including user-defined graphics.
+D $2535 This subroutine is used to find the character that appears at line x, column y of the screen. It only searches the character set 'pointed to' by #R$5C36(CHARS).
+D $2535 Note: this is normally the characters +20 (space) to +7F (#CHR(169)) although the user can alter #R$5C36(CHARS) to match for other characters, including user-defined graphics.
 @ $2535 label=S_SCRN_S
   $2535 x to #REGc, y to #REGb; 0<=x<=23 decimal; 0<=y<=31 decimal.
 @ $253B keep
-  $2538 CHARS plus 256 decimal gives #REGhl pointing to the character set.
+  $2538 #R$5C36(CHARS) plus 256 decimal gives #REGhl pointing to the character set.
   $253F x is copied to #REGa.
   $2540 The number 32*(x mod 8)+y is formed in #REGa and copied to #REGe. This is the low byte of the required screen address.
   $2547 x is copied to #REGa again.
@@ -5209,7 +5209,7 @@ D $25B3 This routine deals with string quotes, whether simple like "name" or mor
 @ $25BE label=S_Q_AGAIN
   $25BE Call it again for a third quote.
   $25C1 And again for the fifth, seventh etc.
-  $25C3 If testing syntax, jump to reset bit 6 of FLAGS and to continue scanning.
+  $25C3 If testing syntax, jump to reset bit 6 of #R$5C3B(FLAGS) and to continue scanning.
   $25C8 Make space in the work space for the string and the terminating quote.
   $25C9 Get the pointer to the start.
   $25CA Save the pointer to the first space.
@@ -5226,7 +5226,7 @@ D $25B3 This routine deals with string quotes, whether simple like "name" or mor
 N $25DA Note that the first quote was not counted into the length; the final quote was, and is discarded now. Inside the string, the first, third, fifth, etc., quotes were counted in but the second, fourth, etc., were not.
   $25DA Restore start of copied string.
 @ $25DB label=S_STRING
-  $25DB This is FLAGS; this entry point is used whenever bit 6 is to be reset and a string stacked if executing a line. This is done now.
+  $25DB This is #R$5C3B(FLAGS); this entry point is used whenever bit 6 is to be reset and a string stacked if executing a line. This is done now.
   $25E5 Jump to continue scanning the line.
 E $25B3 Note that in copying the string to the work space, every two pairs of string quotes inside the string ("") have been reduced to one pair of string quotes(").
 @ $25E8 label=S_BRACKET
@@ -5243,21 +5243,21 @@ D $25F5 This routine, for user-defined functions, just jumps to the #R$27BD('sca
 c $25F8 THE 'SCANNING RND' ROUTINE
 D $25F8 The address of this routine is derived from an offset found in the #R$2596(scanning function table).
   $25F8 Unless syntax is being checked, jump to calculate a random number.
-  $25FD Fetch the current value of SEED.
+  $25FD Fetch the current value of #R$5C76(SEED).
   $2601 Put it on the calculator stack.
   $2604 Now use the calculator.
 B $2605,1 #R$341B(stk_one)
-B $2606,1 #R$3014: The 'last value' is now SEED+1.
+B $2606,1 #R$3014: The 'last value' is now #R$5C76(SEED)+1.
 B $2607,3,1,2 #R$33C6: Put the decimal number 75 on the calculator stack.
-B $260A,1 #R$30CA: 'last value' (SEED+1)*75.
+B $260A,1 #R$30CA: 'last value' (#R$5C76(SEED)+1)*75.
 B $260B,6,1,5 #R$33C6: Put the decimal number 65537 on the calculator stack.
-B $2611,1 #R$36A0: Divide (SEED+1)*75 by 65537 to give a 'remainder' and an 'answer'.
+B $2611,1 #R$36A0: Divide (#R$5C76(SEED)+1)*75 by 65537 to give a 'remainder' and an 'answer'.
 B $2612,1 #R$33A1: Discard the 'answer'.
 B $2613,1 #R$341B(stk_one)
 B $2614,1 #R$300F: The 'last value' is now 'remainder' - 1.
 B $2615,1 #R$33C0: Make a copy of the 'last value'.
 B $2616,1 #R$369B: The calculation is finished.
-  $2617 Use the 'last value' to give the new value for SEED.
+  $2617 Use the 'last value' to give the new value for #R$5C76(SEED).
   $261E Fetch the exponent of 'last value'.
   $261F Jump forward if the exponent is zero.
   $2622 Reduce the exponent, i.e. divide 'last value' by 65536 to give the required 'last value'.
@@ -5282,7 +5282,7 @@ c $2634 THE' SCANNING INKEY$' ROUTINE
 D $2634 The address of this routine is derived from an offset found in the #R$2596(scanning function table).
   $2634 Priority +10 hex, operation code +5A for the 'read-in' subroutine.
   $2638,5,c2,3 If next char. is '#', jump. There will be a numerical argument.
-  $263D This is FLAGS.
+  $263D This is #R$5C3B(FLAGS).
   $2640 Reset bit 6 for a string result.
   $2642 Test for syntax checking.
   $2644 Jump if required.
@@ -5344,14 +5344,14 @@ N $2692 During syntax checking:
   $269D Enter the number marker code.
   $269F Point to the second location.
   $26A0 This pointer is wanted in #REGde.
-  $26A1 Fetch the 'old' STKEND.
+  $26A1 Fetch the 'old' #R$5C65(STKEND).
   $26A4 There are 5 bytes to move.
   $26A6 Clear the carry flag.
-  $26A7 The 'new' STKEND='old' STKEND minus 5.
+  $26A7 The 'new' #R$5C65(STKEND)='old' #R$5C65(STKEND) minus 5.
   $26A9 Move the floating-point number from the calculator stack to the line.
   $26AE Put the line pointer in #REGhl.
   $26AF Point to the last byte added.
-  $26B0 This sets CH-ADD.
+  $26B0 This sets #R$5C5D(CH-ADD).
   $26B3 Jump forward.
 N $26B5 During line execution:
 @ $26B5 label=S_STK_DEC
@@ -5360,8 +5360,8 @@ N $26B5 During line execution:
   $26B6 Now move on to the next character in turn until the number marker code (0E hex) is found.
   $26BC Point to the first byte of the number.
   $26BD Move the floating-point number.
-  $26C0 Set CH-ADD.
-N $26C3 A numeric result has now been identified, coming from RND, PI, ATTR, POINT or a decimal number, therefore bit 6 of FLAGS must be set.
+  $26C0 Set #R$5C5D(CH-ADD).
+N $26C3 A numeric result has now been identified, coming from RND, PI, ATTR, POINT or a decimal number, therefore bit 6 of #R$5C3B(FLAGS) must be set.
 @ $26C3 label=S_NUMERIC
   $26C3 Set the numeric marker flag.
   $26C7 Jump forward.
@@ -5371,7 +5371,7 @@ D $26C9 When a variable name has been identified a call is made to #R$28B2 which
   $26C9 Look in the existing variables for the matching entry.
   $26CC An error is reported if there is no existing entry.
   $26CF Stack the parameters of the string entry/return numeric element base address.
-  $26D2 Fetch FLAGS.
+  $26D2 Fetch #R$5C3B(FLAGS).
   $26D5 Test bits 6 and 7 together.
   $26D7 Jump if one or both bits are reset.
   $26D9 A numeric value is to be stacked.
@@ -5443,11 +5443,11 @@ N $2734 Initially the 'last' operation and priority are taken off the machine st
   $2737 Exit to wait for the argument.
   $2739 Are both priorities zero?
   $273A Exit via #R$0018 thereby making 'last value' the required result.
-N $273D Before the 'last' operation is performed, the 'USR' function is separated into 'USR number' and 'USR string' according as bit 6 of FLAGS was set or reset when the argument of the function was stacked as the 'last value'.
+N $273D Before the 'last' operation is performed, the 'USR' function is separated into 'USR number' and 'USR string' according as bit 6 of #R$5C3B(FLAGS) was set or reset when the argument of the function was stacked as the 'last value'.
   $273D Stack the 'present' values.
-  $273E This is FLAGS.
+  $273E This is #R$5C3B(FLAGS).
   $2741 The 'last' operation is compared with the code for USR, which will give 'USR number' unless modified; jump if not 'USR'.
-  $2746 Test bit 6 of FLAGS.
+  $2746 Test bit 6 of #R$5C3B(FLAGS).
   $2748 Jump if it is set ('USR number').
   $274A Modify the 'last' operation code: 'offset' 19, +80 for string input and numerical result ('USR string').
 @ $274C label=S_STK_LST
@@ -5465,10 +5465,10 @@ N $275B An important part of syntax checking involves the testing of the operati
   $275C This tests the nature of the 'last value' against the requirement of the operation. They are to be the same for correct syntax.
 @ $2761 label=S_RPORT_C_2
   $2761 Jump if syntax fails.
-N $2764 Before jumping back to go round the loop again the nature of the 'last value' must be recorded in FLAGS.
+N $2764 Before jumping back to go round the loop again the nature of the 'last value' must be recorded in #R$5C3B(FLAGS).
 @ $2764 label=S_RUNTEST
   $2764 Get the 'last' operation code.
-  $2765 This is FLAGS.
+  $2765 This is #R$5C3B(FLAGS).
   $2768 Assume result to be numeric.
   $276A Jump forward if the nature of 'last value' is numeric.
   $276E It is a string.
@@ -5557,9 +5557,9 @@ D $27BD #LIST { i. The syntax of the FN statement is checked during syntax check
   $27E6 Report the error if it is not.
 @ $27E9 label=SF_FLAG_6
   $27E9 Point to the next character in the BASIC line.
-  $27EA This is FLAGS; assume a string-valued function and reset bit 6 of FLAGS.
+  $27EA This is #R$5C3B(FLAGS); assume a string-valued function and reset bit 6 of #R$5C3B(FLAGS).
   $27EF Restore the zero flag, jump if the FN is indeed string-valued.
-  $27F2 Otherwise, set bit 6 of FLAGS.
+  $27F2 Otherwise, set bit 6 of #R$5C3B(FLAGS).
 @ $27F4 label=SF_SYN_EN
   $27F4 Jump back to continue scanning the line.
 N $27F7 ii. During line execution, a search must first be made for a DEF FN statement.
@@ -5604,11 +5604,11 @@ N $2814 When a DEF FN statement is found, the name and status of the two functio
 @ $2827 keep
   $2827 Use the search routine to find the end of the DEF FN statement, preparing for the next search; save the name and status meanwhile.
   $282F Jump back for a further search.
-N $2831 iii. The correct DEF FN statement has now been found. The arguments of the FN statement will be evaluated by repeated calls of #R$24FB, and their 5 byte values (or parameters, for strings) will be inserted into the DEF FN statement in the spaces made there at syntax checking. #REGhl will be used to point along the DEF FN statement (calling #R$28AB as needed) while CH-ADD points along the FN statement (calling #R$0020 as needed).
+N $2831 iii. The correct DEF FN statement has now been found. The arguments of the FN statement will be evaluated by repeated calls of #R$24FB, and their 5 byte values (or parameters, for strings) will be inserted into the DEF FN statement in the spaces made there at syntax checking. #REGhl will be used to point along the DEF FN statement (calling #R$28AB as needed) while #R$5C5D(CH-ADD) points along the FN statement (calling #R$0020 as needed).
 @ $2831 label=SF_VALUES
   $2831 If #REGhl is now pointing to a '$', move on to the '('.
   $2835 Discard the pointer to 'DEF FN'.
-  $2836 Get the pointer to the first argument of FN, and copy it to CH-ADD.
+  $2836 Get the pointer to the first argument of FN, and copy it to #R$5C5D(CH-ADD).
   $283B Move past the '(' now.
   $283E Save this pointer on the stack.
   $283F,c2 Is it pointing to a ')'?
@@ -5631,10 +5631,10 @@ N $2831 iii. The correct DEF FN statement has now been found. The arguments of t
   $2859 Test bit 6 of it against the result of #R$24FB.
   $285E Give report Q if they did not match.
   $2860 Get the pointer to the first of the 5 spaces in DEF FN into #REGde.
-  $2862 Point #REGhl at STKEND.
+  $2862 Point #REGhl at #R$5C65(STKEND).
 @ $2865 keep
   $2865 #REGbc will count 5 bytes to be moved.
-  $2868 First, decrease STKEND by 5, so deleting the 'last value' from the stack.
+  $2868 First, decrease #R$5C65(STKEND) by 5, so deleting the 'last value' from the stack.
   $286D Copy the 5 bytes into the spaces in DEF FN.
   $286F Point #REGhl at the next code.
   $2870 Ensure that #REGhl points to the character after the 5 bytes.
@@ -5643,7 +5643,7 @@ N $2831 iii. The correct DEF FN statement has now been found. The arguments of t
   $2878 It is a ',': save the pointer to it.
   $2879 Get the character after the last argument that was evaluated from FN.
   $287A,4,c2,2 If it is not a ',' jump: mismatched arguments of FN and DEF FN.
-  $287E Point CH-ADD to the next argument of FN.
+  $287E Point #R$5C5D(CH-ADD) to the next argument of FN.
   $287F Point #REGhl to the ',' in DEF FN again.
   $2880 Move #REGhl on to the next argument in DEF FN.
   $2883 Jump back to consider this argument.
@@ -5656,32 +5656,32 @@ N $288B Report Q - Parameter error.
 @ $288B label=REPORT_Q
 M $288B,2 Call the error handling routine.
 B $288C,1
-N $288D iv. Finally, the function itself is evaluated by calling #R$24FB, after first setting DEFADD to hold the address of the arguments as they occur in the DEF FN statement. This ensures that #R$28B2, when called by #R$24FB, will first search these arguments for the required values, before making a search of the variables area.
+N $288D iv. Finally, the function itself is evaluated by calling #R$24FB, after first setting #R$5C0B(DEFADD) to hold the address of the arguments as they occur in the DEF FN statement. This ensures that #R$28B2, when called by #R$24FB, will first search these arguments for the required values, before making a search of the variables area.
 @ $288D label=SF_VALUE
   $288D Restore pointer to ')' in DEF FN.
   $288E Get this pointer into #REGhl.
-  $288F Insert it into CH-ADD.
-  $2892 Get the old value of DEFADD.
-  $2895 Stack it, and get the start address of the arguments area of DEF FN into DEFADD.
+  $288F Insert it into #R$5C5D(CH-ADD).
+  $2892 Get the old value of #R$5C0B(DEFADD).
+  $2895 Stack it, and get the start address of the arguments area of DEF FN into #R$5C0B(DEFADD).
   $2899 Save address of ')' in FN.
-  $289A Move CH-ADD on past ')' and '=' to the start of the expression for the function in DEF FN.
+  $289A Move #R$5C5D(CH-ADD) on past ')' and '=' to the start of the expression for the function in DEF FN.
   $289C Now evaluate the function.
   $289F Restore the address of ')' in FN.
-  $28A0 Store it in CH-ADD.
-  $28A3 Restore original value of DEFADD.
-  $28A4 Put it back into DEFADD.
+  $28A0 Store it in #R$5C5D(CH-ADD).
+  $28A3 Restore original value of #R$5C0B(DEFADD).
+  $28A4 Put it back into #R$5C0B(DEFADD).
   $28A7 Get the next character in the BASIC line.
   $28A8 Jump back to continue scanning.
 @ $28AB label=FN_SKPOVR
 c $28AB THE 'FUNCTION SKIPOVER' SUBROUTINE
-D $28AB This subroutine is used by #R$27BD and by #R$2951 to move #REGhl along the DEF FN statement while leaving CH-ADD undisturbed, as it points along the FN statement.
+D $28AB This subroutine is used by #R$27BD and by #R$2951 to move #REGhl along the DEF FN statement while leaving #R$5C5D(CH-ADD) undisturbed, as it points along the FN statement.
   $28AB Point to the next code in the statement.
   $28AC Copy the code to #REGa.
   $28AD Jump back to skip over it if it is a control code or a space.
   $28B1 Finished.
 @ $28B2 label=LOOK_VARS
 c $28B2 THE 'LOOK-VARS' SUBROUTINE
-D $28B2 This subroutine is called whenever a search of the variables area or of the arguments of a DEF FN statement is required. The subroutine is entered with the system variable CH-ADD pointing to the first letter of the name of the variable whose location is being sought. The name will be in the program area or the work space. The subroutine initially builds up a discriminator byte, in the #REGc register, that is based on the first letter of the variable's name. Bits 5 and 6 of this byte indicate the type of the variable that is being handled.
+D $28B2 This subroutine is called whenever a search of the variables area or of the arguments of a DEF FN statement is required. The subroutine is entered with the system variable #R$5C5D(CH-ADD) pointing to the first letter of the name of the variable whose location is being sought. The name will be in the program area or the work space. The subroutine initially builds up a discriminator byte, in the #REGc register, that is based on the first letter of the variable's name. Bits 5 and 6 of this byte indicate the type of the variable that is being handled.
 D $28B2 The #REGb register is used as a bit register to hold flags.
   $28B2 Presume a numeric variable.
   $28B6 Get the first character into #REGa.
@@ -5705,13 +5705,13 @@ N $28D4 Now find the end character of a name that has more than one character.
   $28D9 Mark the discriminator byte.
   $28DB Get the next character.
   $28DC Go back to test it.
-N $28DE Simple strings and arrays of strings require that bit 6 of FLAGS is reset.
+N $28DE Simple strings and arrays of strings require that bit 6 of #R$5C3B(FLAGS) is reset.
 @ $28DE label=V_STR_VAR
-  $28DE Step CH-ADD past the '$'.
+  $28DE Step #R$5C5D(CH-ADD) past the '$'.
   $28DF Reset bit 6 to indicate a string.
-N $28E3 If DEFADD-hi is non-zero, indicating that a 'function' (a 'FN') is being evaluated, and if in 'run-time', a search will be made of the arguments in the DEF FN statement.
+N $28E3 If #R$5C0B(DEFADD-hi) is non-zero, indicating that a 'function' (a 'FN') is being evaluated, and if in 'run-time', a search will be made of the arguments in the DEF FN statement.
 @ $28E3 label=V_TEST_FN
-  $28E3 Is DEFADD-hi zero?
+  $28E3 Is #R$5C0B(DEFADD-hi) zero?
   $28E7 If so, jump forward.
   $28E9 In 'run-time'?
   $28EC If so, jump forward to search the DEF FN statement.
@@ -5726,7 +5726,7 @@ N $28EF Otherwise (or if the variable was not found in the DEF FN statement) a s
   $28FB Jump forward to continue.
 N $28FD A BASIC line is being executed so make a search of the variables area.
 @ $28FD label=V_RUN
-  $28FD Pick up the VARS pointer.
+  $28FD Pick up the #R$5C4B(VARS) pointer.
 N $2900 Now enter a loop to consider the names of the existing variables.
 @ $2900 label=V_EACH
   $2900 The first letter of each existing variable.
@@ -5795,7 +5795,7 @@ N $294B The exit-parameters are now set.
   $294E Specify the state of bit 6.
   $2950 Finished.
 E $28B2 The exit-parameters for the subroutine can be summarised as follows.
-E $28B2 The system variable CH-ADD points to the first location after the name of the variable as it occurs in the BASIC line.
+E $28B2 The system variable #R$5C5D(CH-ADD) points to the first location after the name of the variable as it occurs in the BASIC line.
 E $28B2 When 'variable not found':
 E $28B2 #LIST { The carry flag is set. } { The zero flag is set only when the search was for an array variable. } { The #REGhl register pair points to the first letter of the name of the variable as it occurs in the BASIC line. } LIST#
 E $28B2 When 'variable found':
@@ -5805,7 +5805,7 @@ E $28B2 In syntax time the return is always made with the carry flag reset. The 
 @ $2951 label=STK_F_ARG
 c $2951 THE 'STACK FUNCTION ARGUMENT' SUBROUTINE
 @ $2951 ignoreua:d
-D $2951 This subroutine is called by #R$28B2 when DEFADD-hi is non-zero, to make a search of the arguments area of a DEF FN statement, before searching in the variables area. If the variable is found in the DEF FN statement, then the parameters of a string variable are stacked and a signal is given that there is no need to call #R$2996. But it is left to #R$26C9 to stack the value of a numerical variable at #R$26DA(#N$26DA) in the usual way.
+D $2951 This subroutine is called by #R$28B2 when #R$5C0B(DEFADD-hi) is non-zero, to make a search of the arguments area of a DEF FN statement, before searching in the variables area. If the variable is found in the DEF FN statement, then the parameters of a string variable are stacked and a signal is given that there is no need to call #R$2996. But it is left to #R$26C9 to stack the value of a numerical variable at #R$26DA(#N$26DA) in the usual way.
   $2951 Point to the first character in the arguments area and put it into #REGa.
   $2955,c2 Is it a ')'?
   $2957 Jump to search the variables area.
@@ -5834,9 +5834,9 @@ N $2981 A match has been found. The parameters of a string variable are stacked,
   $2981 Test for a numeric variable.
   $2983 Jump if the variable is numeric; #R$24FB will stack it.
   $2985 Point to the first of the 5 bytes to be stacked.
-  $2986 Point #REGde to STKEND.
+  $2986 Point #REGde to #R$5C65(STKEND).
   $298A Stack the 5 bytes.
-  $298D Point #REGhl to the new position of STKEND, and reset the system variable.
+  $298D Point #REGhl to the new position of #R$5C65(STKEND), and reset the system variable.
 @ $2991 label=SFA_END
   $2991 Discard the #R$28B2 pointers (second and first character pointers).
   $2993 Return from the search with both the carry and zero flags reset - signalling that a call #R$2996 is not required.
@@ -5891,7 +5891,7 @@ N $29C3 The loop is accessed #REGb times, this being, for a numeric array, equal
   $29CE Jump forward if dealing with an array of strings.
   $29D2,c2 Is the present character a ')'?
   $29D4 Report an error if not so.
-  $29D6 Advance CH-ADD.
+  $29D6 Advance #R$5C5D(CH-ADD).
   $29D7 Return as the syntax is correct.
 N $29D8 For an array of strings the present subscript may represent a 'slice', or the subscript for a 'slice' may yet be present in the BASIC line.
 @ $29D8 label=SV_CLOSE
@@ -5901,7 +5901,7 @@ N $29D8 For an array of strings the present subscript may represent a 'slice', o
   $29DE It must not be otherwise.
 @ $29E0 label=SV_CH_ADD
   $29E0 Get the present character.
-  $29E1 Point to the preceding character and set CH-ADD.
+  $29E1 Point to the preceding character and set #R$5C5D(CH-ADD).
   $29E5 Evaluate the 'slice'.
 N $29E7 Enter the loop here.
 @ $29E7 keep
@@ -5909,7 +5909,7 @@ N $29E7 Enter the loop here.
   $29E7 Set the counter to zero.
 @ $29EA label=SV_LOOP
   $29EA Save the counter briefly.
-  $29EB Advance CH-ADD.
+  $29EB Advance #R$5C5D(CH-ADD).
   $29EC Restore the counter.
   $29ED Fetch the discriminator byte.
   $29EE Jump unless checking the syntax for an array of strings.
@@ -5948,7 +5948,7 @@ M $2A20,2 Call the error handling routine.
 B $2A21,1
 N $2A22 The address of the location before the actual floating-point form can now be calculated.
 @ $2A22 label=SV_NUMBER
-  $2A22 Advance CH-ADD.
+  $2A22 Advance #R$5C5D(CH-ADD).
   $2A23 Fetch the counter.
 @ $2A24 keep
   $2A24 There are 5 bytes to each element in an array of numbers.
@@ -6070,7 +6070,7 @@ D $2AB1 Note that when storing the parameters of a string the first value stored
   $2AC3 Step on.
   $2AC4 Transfer the fourth and fifth bytes; for a string these will be the 'length'.
   $2AC7 Step on so as to point to the location above the stack.
-  $2AC8 Save this address in STKEND and return.
+  $2AC8 Save this address in #R$5C65(STKEND) and return.
 @ $2ACC label=INT_EXP1
 c $2ACC THE 'INT-EXP' SUBROUTINE
 D $2ACC This subroutine returns the result of evaluating the 'next expression' as an integer value held in the #REGbc register pair. The subroutine also tests this result against a limit-value supplied in the #REGhl register pair. The carry flag becomes set if there is an 'out of range' error.
@@ -6116,10 +6116,10 @@ D $2AF4 Overflow of the 16 bits available in the #REGhl register pair gives the 
 @ $2AFF label=LET
 c $2AFF THE 'LET' COMMAND ROUTINE
 D $2AFF This is the actual assignment routine for the LET, READ and INPUT commands.
-D $2AFF When the destination variable is a 'newly declared variable' then DEST will point to the first letter of the variable's name as it occurs in the BASIC line. Bit 1 of FLAGX will be set.
-D $2AFF However if the destination variable 'exists already' then bit 1 of FLAGX will be reset and DEST will point for a numeric variable to the location before the five bytes of the 'old number', and for a string variable to the first location of the 'old string'. The use of DEST in this manner applies to simple variables and to elements of arrays.
-D $2AFF Bit 0 of FLAGX is set if the destination variable is a 'complete' simple string variable. (Signalling - delete the old copy.) Initially the current value of DEST is collected and bit 1 of FLAGS tested.
-  $2AFF Fetch the present address in DEST.
+D $2AFF When the destination variable is a 'newly declared variable' then #R$5C4D(DEST) will point to the first letter of the variable's name as it occurs in the BASIC line. Bit 1 of #R$5C71(FLAGX) will be set.
+D $2AFF However if the destination variable 'exists already' then bit 1 of #R$5C71(FLAGX) will be reset and #R$5C4D(DEST) will point for a numeric variable to the location before the five bytes of the 'old number', and for a string variable to the first location of the 'old string'. The use of #R$5C4D(DEST) in this manner applies to simple variables and to elements of arrays.
+D $2AFF Bit 0 of #R$5C71(FLAGX) is set if the destination variable is a 'complete' simple string variable. (Signalling - delete the old copy.) Initially the current value of #R$5C4D(DEST) is collected and bit 1 of #R$5C3B(FLAGS) tested.
+  $2AFF Fetch the present address in #R$5C4D(DEST).
   $2B02 Jump if handling a variable that 'exists already'.
 N $2B08 A 'newly declared variable' is being used. So first the length of its name is found.
 @ $2B08 keep
@@ -6177,14 +6177,14 @@ N $2B59 The 'last value' can now be transferred to the variables area. Note that
 @ $2B59 label=L_NUMERIC
 N $2B59 A 'RST 28' instruction is used to call the calculator and the 'last value' is deleted. However this value is not overwritten.
   $2B59 Save the 'destination' pointer.
-  $2B5A Use the calculator to move STKEND back five bytes.
+  $2B5A Use the calculator to move #R$5C65(STKEND) back five bytes.
 B $2B5B,1 #R$33A1
 B $2B5C,1 #R$369B
   $2B5D Restore the pointer.
 @ $2B5E keep
   $2B5E Give the number a 'length' of five bytes.
   $2B61 Make #REGhl point to the first of the five locations and jump forward to make the actual transfer.
-N $2B66 Come here if considering a variable that 'exists already'. First bit 6 of FLAGS is tested so as to separate numeric variables from string or array of string variables.
+N $2B66 Come here if considering a variable that 'exists already'. First bit 6 of #R$5C3B(FLAGS) is tested so as to separate numeric variables from string or array of string variables.
 @ $2B66 label=L_EXISTS
   $2B66 Jump forward if handling any kind of string variable.
 N $2B6C For numeric variables the 'new' number overwrites the 'old' number. So first #REGhl has to be made to point to the location after the five bytes of the existing entry. At present #REGhl points to the location before the five bytes.
@@ -6201,7 +6201,7 @@ N $2B7F When dealing with a 'slice' of an existing simple string, a 'slice' of a
 N $2B7F However do nothing if the string has no 'length'.
   $2B7F Return if the string is a null string.
 N $2B82 Then make the required number of spaces available in the work space.
-  $2B82 Save the 'start' (DEST).
+  $2B82 Save the 'start' (#R$5C4D(DEST)).
   $2B83 Make the necessary amount of room in the work space.
   $2B84 Save the pointer to the first location.
   $2B85 Save the 'length' for use later on.
@@ -6229,7 +6229,7 @@ N $2BA3 The values that have been saved on the machine stack are restored.
 @ $2BA3 label=L_IN_W_S
   $2BA3 'Length' of new area.
   $2BA4 'Pointer' to new area.
-  $2BA5 The start - the pointer to the 'variable in assignment' which was originally in DEST. #R$2BA6 is now used to pass the 'new' string to the variables area.
+  $2BA5 The start - the pointer to the 'variable in assignment' which was originally in #R$5C4D(DEST). #R$2BA6 is now used to pass the 'new' string to the variables area.
 @ $2BA6 label=L_ENTER
 N $2BA6 The following short subroutine is used to pass either a numeric value from the calculator stack, or a string from the work space, to its appropriate position in the variables area.
 N $2BA6 The subroutine is therefore used for all except 'newly declared' simple strings and 'complete and existing' simple strings.
@@ -6240,7 +6240,7 @@ N $2BA6 The subroutine is therefore used for all except 'newly declared' simple 
   $2BAD Return with the #REGhl register pair pointing to the first byte of the numeric value or the string.
 @ $2BAF label=L_ADD
 N $2BAF When handling a 'complete and existing' simple string the new string is entered as if it were a 'newly declared' simple string before the existing version is 'reclaimed'.
-  $2BAF Make #REGhl point to the letter of the variable's name, i.e. DEST-3.
+  $2BAF Make #REGhl point to the letter of the variable's name, i.e. #R$5C4D(DEST)-3.
   $2BB2 Pick up the letter.
   $2BB3 Save the pointer to the 'existing version'.
   $2BB4 Save the 'length' of the 'existing string'.
@@ -6285,7 +6285,7 @@ N $2BEA The following subroutine is entered with the letter of the variable, sui
 @ $2BF1 label=STK_FETCH
 c $2BF1 THE 'STK-FETCH' SUBROUTINE
 D $2BF1 This important subroutine collects the 'last value' from the calculator stack. The five bytes can be either a floating-point number, in 'short' or 'long' form, or set of parameters that define a string.
-  $2BF1 Get STKEND.
+  $2BF1 Get #R$5C65(STKEND).
   $2BF4 Back one.
   $2BF5 The fifth value.
   $2BF6 Back one.
@@ -6296,7 +6296,7 @@ D $2BF1 This important subroutine collects the 'last value' from the calculator 
   $2BFB The second value.
   $2BFC Back one.
   $2BFD The first value.
-  $2BFE Reset STKEND to its new position.
+  $2BFE Reset #R$5C65(STKEND) to its new position.
   $2C01 Finished.
 @ $2C02 label=DIM
 c $2C02 THE 'DIM' COMMAND ROUTINE
@@ -6328,7 +6328,7 @@ N $2C1F The initial parameters of the new array are found.
   $2C2D Element size to #REGde.
 N $2C2E The following loop is accessed for each dimension that is specified in the parenthesised expression of the DIM statement. The total number of bytes required for the elements of the array is built up in the #REGde register pair.
 @ $2C2E label=D_NO_LOOP
-  $2C2E Advance CH-ADD on each pass.
+  $2C2E Advance #R$5C5D(CH-ADD) on each pass.
   $2C2F Set a 'limit value'.
   $2C31 Evaluate a parameter.
   $2C34 Give an error if 'out of range'.
@@ -6343,7 +6343,7 @@ N $2C46 At this point the #REGde register pair indicates the number of bytes req
 N $2C46 Now check that there is indeed a closing bracket to the parenthesised expression.
   $2C46,c2 Is it a ')'?
   $2C48 Jump back if not so.
-  $2C4A Advance CH-ADD past it.
+  $2C4A Advance #R$5C5D(CH-ADD) past it.
 N $2C4B Allowance is now made for the dimension sizes.
   $2C4B Fetch the dimension counter and the discriminator byte.
   $2C4C Pass the discriminator byte to the #REGa register for later.
@@ -6521,14 +6521,14 @@ c $2D2B THE 'STACK-BC' SUBROUTINE
 D $2D2B The routine at #R$2D28 continues here.
 D $2D2B This subroutine gives the floating-point form for the absolute binary value currently held in the #REGbc register pair.
 D $2D2B The form used in this and hence in the two previous subroutines as well is the one reserved in the Spectrum for small integers n, where -65535<=n<=65535. The first and fifth bytes are zero; the third and fourth bytes are the less significant and more significant bytes of the 16 bit integer n in two's complement form (if n is negative, these two bytes hold 65536+n); and the second byte is a sign byte, 00 for '+' and FF for '-'.
-  $2D2B Re-initialise #REGiy to ERR-NR.
+  $2D2B Re-initialise #REGiy to #R$5C3A(ERR-NR).
   $2D2F Clear the #REGa register.
   $2D30 And the #REGe register, to indicate '+'.
   $2D31 Copy the less significant byte to #REGd.
   $2D32 And the more significant byte to #REGc.
   $2D33 Clear the #REGb register.
   $2D34 Now stack the number.
-  $2D37 Use the calculator to make #REGhl point to STKEND-5.
+  $2D37 Use the calculator to make #REGhl point to #R$5C65(STKEND)-5.
 B $2D38,1 #R$369B
   $2D39 Clear the carry flag.
   $2D3A Finished.
@@ -6563,7 +6563,7 @@ D $2D4F To achieve this, p is shifted right until it is zero, and x is multiplie
   $2D53 Negate m in #REGa without disturbing the carry flag.
 @ $2D55 label=E_SAVE
   $2D55 Save m in #REGa briefly.
-  $2D56 This is MEMBOT; a sign flag is now stored in the first byte of mem-0, i.e. 0 for '+' and 1 for '-'.
+  $2D56 This is #R$5C92(MEMBOT); a sign flag is now stored in the first byte of mem-0, i.e. 0 for '+' and 1 for '-'.
   $2D5C The stack holds x.
 B $2D5D,1 #R$341B(stk_ten): x, 10 (decimal)
 B $2D5E,1 #R$369B: x, 10
@@ -6640,7 +6640,7 @@ N $2D93 The same mechanism is now used as in #R$2D7F to two's complement negativ
 @ $2DA2 label=FP_TO_BC
 c $2DA2 THE 'FLOATING-POINT TO BC' SUBROUTINE
 D $2DA2 This subroutine is used to compress the floating-point 'last value' on the calculator stack into the #REGbc register pair. If the result is too large, i.e. greater than 65536 decimal, then the subroutine returns with the carry flag set. If the 'last value' is negative then the zero flag is reset. The low byte of the result is also copied to the #REGa register.
-  $2DA2 Use the calculator to make #REGhl point to STKEND-5.
+  $2DA2 Use the calculator to make #REGhl point to #R$5C65(STKEND)-5.
 B $2DA3,1 #R$369B
   $2DA4 Collect the exponent byte of the 'last value'; jump if it is zero, indicating a 'small integer'.
   $2DA8 Now use the calculator to round the 'last value' (V) to the nearest integer, which also changes it to 'small integer' form on the calculator stack if that is possible, i.e. if -65535.5<=V<65535.5.
@@ -6649,7 +6649,7 @@ B $2DAA,1 #R$3014: V+0.5
 B $2DAB,1 #R$36AF: INT (V+0.5)
 B $2DAC,1 #R$369B
 @ $2DAD label=FP_DELETE
-  $2DAD Use the calculator to delete the integer from the stack; #REGde still points to it in memory (at STKEND).
+  $2DAD Use the calculator to delete the integer from the stack; #REGde still points to it in memory (at #R$5C65(STKEND)).
 B $2DAE,1 #R$33A1
 B $2DAF,1 #R$369B
   $2DB0 Save both stack pointers.
@@ -7083,7 +7083,7 @@ D $300F Note that #REGhl points to the minuend and #REGde points to the subtrahe
 c $3014 THE 'ADDITION' OPERATION (offset 0F)
 D $3014 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 0F by the routines at #R$03F8, #R$1DAB, #R$2320, #R$2382, #R$247D, #R$25F8, #R$2C9B, #R$2D3B, #R$2DA2, #R$3449, #R$36C4, #R$3713, #R$3783, #R$37B5, #R$37E2 and #R$3833. It is also called indirectly via #R$33A2, and the routine at #R$300F continues here.
 D $3014 The first of three major arithmetical subroutines, this subroutine carries out the floating-point addition of two numbers, each with a 4-byte mantissa and a 1-byte exponent. In these three subroutines, the two numbers at the top of the calculator stack are added/multiplied/divided to give one number at the top of the calculator stack, a 'last value'.
-D $3014 #REGhl points to the second number from the top, the augend/multiplier/dividend. #REGde points to the number at the top of the calculator stack, the addend/multiplicand/divisor. Afterwards #REGhl points to the resultant 'last value' whose address can also be considered to be STKEND-5.
+D $3014 #REGhl points to the second number from the top, the augend/multiplier/dividend. #REGde points to the number at the top of the calculator stack, the addend/multiplicand/divisor. Afterwards #REGhl points to the resultant 'last value' whose address can also be considered to be #R$5C65(STKEND)-5.
 D $3014 But the addition subroutine first tests whether the 2 numbers to be added are 'small integers'. If they are, it adds them quite simply in #REGhl and #REGbc, and puts the result directly on the stack. No two's complementing is needed before or after the addition, since such numbers are held on the stack in two's complement form, ready for addition.
   $3014 Test whether the first bytes of both numbers are zero.
   $3016 If not, jump for full addition.
@@ -7112,7 +7112,7 @@ D $3014 But the addition subroutine first tests whether the 2 numbers to be adde
   $3035 Point to the next location.
   $3036 Store the high byte of the result.
   $3037 Move the pointer back to address the first byte of the result.
-  $303A Restore STKEND to #REGde.
+  $303A Restore #R$5C65(STKEND) to #REGde.
   $303B Finished.
 N $303C Note that the number -65536 decimal can arise here in the form 00 FF 00 00 00 as the result of the addition of two smaller negative integers, e.g. -65000 and -536. It is simply stacked in this form. This is a mistake. The Spectrum system cannot handle this number.
 @ $303C label=ADDN_OFLW
@@ -7239,7 +7239,7 @@ D $30CA This subroutine first tests whether the two numbers to be multiplied are
   $30E5 These 5 bytes ensure that 00 FF 00 00 00 is replaced by zero; that they should not be needed if this number were excluded from the system is noted at #R$303C.
 @ $30EA label=MULT_RSLT
   $30EA Now store the result on the stack.
-  $30ED Restore STKEND to #REGde.
+  $30ED Restore #R$5C65(STKEND) to #REGde.
   $30EE Finished.
 @ $30EF label=MULT_OFLW
   $30EF Restore the pointer to the second number.
@@ -7424,7 +7424,7 @@ N $3225 The next 26 bytes seem designed to test whether x is in fact -65536 deci
 N $323F If the exponent byte of x is between 81 and 90 hex (129 and 144 decimal) inclusive, I(x) is a 'small integer', and will be compressed into one or two bytes. But first a test is made to see whether x is, after all, large.
 @ $323F label=T_SMALL
   $323F Jump with exponent byte 92 or more (it would be better to jump with 91 too).
-  $3241 Save STKEND in #REGde.
+  $3241 Save #R$5C65(STKEND) in #REGde.
   $3242 Range 129<=#REGa<=144 becomes 126>=#REGa>=111.
   $3243 Range is now 15>=#REGa>=0.
   $3245 Point #REGhl at second byte.
@@ -7452,7 +7452,7 @@ N $323F If the exponent byte of x is between 81 and 90 hex (129 and 144 decimal)
   $3265 Loop until #REGb is zero.
 @ $3267 label=T_STORE
   $3267 Store the result on the stack.
-  $326A Restore STKEND to #REGde.
+  $326A Restore #R$5C65(STKEND) to #REGde.
   $326B Finished.
 N $326C Large values of x remain to be considered.
 @ $326C label=T_EXPNENT
@@ -7463,7 +7463,7 @@ N $326C Large values of x remain to be considered.
   $3270 Else, negate the remainder; this gives the number of bits to become zero (the number of bits after the 'binary point').
 N $3272 Now the bits of the mantissa can be cleared.
 @ $3272 label=NIL_BYTES
-  $3272 Save the current value of #REGde (STKEND).
+  $3272 Save the current value of #REGde (#R$5C65(STKEND)).
   $3273 Make #REGhl point one past the fifth byte.
   $3274 #REGhl now points to the fifth byte of x.
   $3275 Get the number of bits to be set to zero in #REGb and divide it by 8 to give the number of whole bytes implied.
@@ -7480,7 +7480,7 @@ N $3272 Now the bits of the mantissa can be cleared.
   $328E The unwanted bits of (#REGhl) are lost as the masking is performed.
 @ $3290 label=IX_END
   $3290 Return the pointer to #REGhl.
-  $3291 Return STKEND to #REGde.
+  $3291 Return #R$5C65(STKEND) to #REGde.
   $3292 Finished.
 @ $3293 label=RE_ST_TWO
 c $3293 THE 'RE-STACK TWO' SUBROUTINE
@@ -7619,18 +7619,18 @@ D $335B This subroutine is used to perform floating-point calculations. These ca
 D $335B #LIST { Binary operations, e.g. #R$3014, where two numbers in floating-point form are added together to give one 'last value'. } { Unary operations, e.g. #R$37B5, where the 'last value' is changed to give the appropriate function result as a new 'last value'. } { Manipulatory operations, e.g. #R$342D, where the 'last value' is copied to the first five bytes of the calculator's memory area. } LIST#
 D $335B The operations to be performed are specified as a series of data-bytes, the literals, that follow an RST 28 instruction that calls this subroutine. The last literal in the list is always '38' which leads to an end to the whole operation.
 D $335B In the case of a single operation needing to be performed, the operation offset can be passed to the calculator in the #REGb register, and operation '3B', the #R$33A2(single calculation operation), performed.
-D $335B It is also possible to call this subroutine recursively, i.e. from within itself, and in such a case it is possible to use the system variable BREG as a counter that controls how many operations are performed before returning.
+D $335B It is also possible to call this subroutine recursively, i.e. from within itself, and in such a case it is possible to use the system variable #R$5C67(BREG) as a counter that controls how many operations are performed before returning.
 D $335B The first part of this subroutine is complicated but essentially it performs the two tasks of setting the registers to hold their required values, and to produce an offset, and possibly a parameter, from the literal that is currently being considered.
 D $335B The offset is used to index into the calculator's #R$32D7(table of addresses) to find the required subroutine address.
 D $335B The parameter is used when the multi-purpose subroutines are called.
 D $335B Note: a floating-point number may in reality be a set of string parameters.
-  $335B Presume a unary operation and therefore set #REGhl to point to the start of the 'last value' on the calculator stack and #REGde one past this floating-point number (STKEND).
+  $335B Presume a unary operation and therefore set #REGhl to point to the start of the 'last value' on the calculator stack and #REGde one past this floating-point number (#R$5C65(STKEND)).
 @ $335E label=GEN_ENT_1
-  $335E Either transfer a single operation offset to BREG temporarily, or, when using the subroutine recursively, pass the parameter to BREG to be used as a counter.
+  $335E Either transfer a single operation offset to #R$5C67(BREG) temporarily, or, when using the subroutine recursively, pass the parameter to #R$5C67(BREG) to be used as a counter.
 @ $3362 label=GEN_ENT_2
-  $3362 The return address of the subroutine is stored in #REGhl'. This saves the pointer to the first literal. Entering the calculator here is done whenever BREG is in use as a counter and is not to be disturbed.
+  $3362 The return address of the subroutine is stored in #REGhl'. This saves the pointer to the first literal. Entering the calculator here is done whenever #R$5C67(BREG) is in use as a counter and is not to be disturbed.
 @ $3365 label=RE_ENTRY
-  $3365 A loop is now entered to handle each literal in the list that follows the calling instruction; so first, always set to STKEND.
+  $3365 A loop is now entered to handle each literal in the list that follows the calling instruction; so first, always set to #R$5C65(STKEND).
   $3369 Go to the alternate register set and fetch the literal for this loop.
   $336B Make #REGhl' point to the next literal.
 @ $336C label=SCAN_ENT
@@ -7654,7 +7654,7 @@ D $335B Note: a floating-point number may in reality be a set of string paramete
 @ $3397 nowarn
   $3397 The address of #R$3365 is put on the machine stack underneath the subroutine address.
   $339C Return to the main set of registers.
-  $339D The current value of BREG is transferred to the #REGb register thereby returning the single operation offset (see #R$353B).
+  $339D The current value of #R$5C67(BREG) is transferred to the #REGb register thereby returning the single operation offset (see #R$353B).
 N $33A1 The address of this entry point is found in the #R$32D7(table of addresses). It is called via the calculator literal 02 by the routines at #R$03F8, #R$1CF0, #R$1D03, #R$1DAB, #R$2320, #R$2382, #R$247D, #R$25F8, #R$2AFF, #R$2C9B, #R$2D4F, #R$2DA2, #R$2DE3, #R$3449, #R$36A0, #R$36C4, #R$3713, #R$3783 and #R$3851.
 @ $33A1 label=delete
   $33A1 An indirect jump to the required subroutine.
@@ -7664,7 +7664,7 @@ E $335B The single RET instruction thereby leads to the first number being consi
 c $33A2 THE 'SINGLE OPERATION' SUBROUTINE (offset 3B)
 @ $33A2 ignoreua:d
 D $33A2 The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 3B by the routine at #R$26C9.
-D $33A2 This subroutine is only called from #R$2757(#N$2757) and is used to perform a single arithmetic operation. The offset that specifies which operation is to be performed is supplied to the calculator in the #REGb register and subsequently transferred to the system variable BREG.
+D $33A2 This subroutine is only called from #R$2757(#N$2757) and is used to perform a single arithmetic operation. The offset that specifies which operation is to be performed is supplied to the calculator in the #REGb register and subsequently transferred to the system variable #R$5C67(BREG).
 D $33A2 The effect of calling this subroutine is essentially to make a jump to the appropriate subroutine for the single operation.
   $33A2 Discard the #R$3365 address.
   $33A3 Transfer the offset to #REGa.
@@ -7683,10 +7683,10 @@ D $33A9 This subroutine tests whether there is sufficient room in memory for ano
   $33B3 Finished.
 @ $33B4 label=STACK_NUM
 c $33B4 THE 'STACK NUMBER' SUBROUTINE
-D $33B4 This subroutine is called by #R$03F8, #R$25AF and #R$26C9 to copy STKEND to #REGde, move a floating-point number to the calculator stack, and reset STKEND from #REGde. It calls #R$33C0 to do the actual move.
-  $33B4 Copy STKEND to #REGde as destination address.
+D $33B4 This subroutine is called by #R$03F8, #R$25AF and #R$26C9 to copy #R$5C65(STKEND) to #REGde, move a floating-point number to the calculator stack, and reset #R$5C65(STKEND) from #REGde. It calls #R$33C0 to do the actual move.
+  $33B4 Copy #R$5C65(STKEND) to #REGde as destination address.
   $33B8 Move the number.
-  $33BB Reset STKEND from #REGde.
+  $33BB Reset #R$5C65(STKEND) from #REGde.
   $33BF Finished.
 @ $33C0 label=duplicate
 c $33C0 THE 'MOVE A FLOATING-POINT NUMBER' SUBROUTINE (offset 31)
@@ -7776,10 +7776,10 @@ D $342D This subroutine is called using the literals C0 to C5 and the parameter 
   $3432 The base address is found.
   $3435 Exchange source and destination pointers.
   $3436 The five bytes are moved.
-  $3439 'Last value'+5, i.e. STKEND, to #REGde.
+  $3439 'Last value'+5, i.e. #R$5C65(STKEND), to #REGde.
   $343A Result pointer to #REGhl.
   $343B Finished.
-E $342D Note that the pointers #REGhl and #REGde remain as they were, pointing to STKEND-5 and STKEND respectively, so that the 'last value' remains on the calculator stack. If required it can be removed by using #R$33A1.
+E $342D Note that the pointers #REGhl and #REGde remain as they were, pointing to #R$5C65(STKEND)-5 and #R$5C65(STKEND) respectively, so that the 'last value' remains on the calculator stack. If required it can be removed by using #R$33A1.
 @ $343C label=exchange
 c $343C THE 'EXCHANGE' SUBROUTINE (offset 01)
 D $343C The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 01 by the routines at #R$03F8, #R$1736, #R$1D03, #R$1DDA, #R$2320, #R$2382, #R$247D, #R$2D3B, #R$2DE3, #R$3449, #R$36A0, #R$36AF, #R$3713, #R$3783, #R$37DA, #R$37E2 and #R$3851.
@@ -7816,7 +7816,7 @@ B $3451,1 #R$341B(stk_zero): 0
 B $3452,1 #R$342D(st_mem_2): 0 (mem-2 holds 0)
 @ $3453 label=G_LOOP
 N $3453 iii. The main loop.
-N $3453 The series is generated by looping, using BREG as a counter; the constants in the calling subroutine are stacked in turn by calling #R$33C6; the calculator is re-entered at #R$3362 so as not to disturb the value of BREG; and the series is built up in the form:
+N $3453 The series is generated by looping, using #R$5C67(BREG) as a counter; the constants in the calling subroutine are stacked in turn by calling #R$33C6; the calculator is re-entered at #R$3362 so as not to disturb the value of #R$5C67(BREG); and the series is built up in the form:
 N $3453 B(R)=2*Z*B(R-1)-B(R-2)+A(R), for R=1, 2, ..., N, where A(1), A(2)...A(N) are the constants supplied by the calling subroutine (SIN, ATN, LN and EXP) and B(0)=0=B(-1).
 N $3453 The (R+1)th loop starts with B(R) on the stack and with 2*Z, B(R-2) and B(R-1) in mem-0, mem-1 and mem-2 respectively.
 B $3453,1 #R$33C0: B(R), B(R)
@@ -7828,7 +7828,7 @@ B $3458,1 #R$300F: B(R), 2*B(R)*Z-B(R-1)
 B $3459,1 #R$369B
 N $345A The next constant is placed on the calculator stack.
   $345A B(R), 2*B(R)*Z-B(R-1), A(R+1)
-N $345D The calculator is re-entered without disturbing BREG.
+N $345D The calculator is re-entered without disturbing #R$5C67(BREG).
 B $3460,1 #R$3014: B(R), 2*B(R)*Z-B(R-1)+A(R+1)
 B $3461,1 #R$343C: 2*B(R)*Z-B(R-1)+A(R+1), B(R)
 B $3462,1 #R$342D(st_mem_2): mem-2 holds B(R)
@@ -7865,7 +7865,7 @@ D $346E Zero is simply returned unchanged. Full five byte floating-point numbers
   $3482 Finished.
 N $3483 The 'integer case' does a similar operation with the sign byte.
 @ $3483 label=INT_CASE
-  $3483 Save STKEND in #REGde.
+  $3483 Save #R$5C65(STKEND) in #REGde.
   $3484 Save pointer to the number in #REGhl.
   $3485 Fetch the sign in #REGc, the number in #REGde.
   $3488 Restore the pointer to the number in #REGhl.
@@ -7873,13 +7873,13 @@ N $3483 The 'integer case' does a similar operation with the sign byte.
   $348A Now +FF for 'abs', no change for 'negate'.
   $348B Now +00 for 'abs', and a changed byte for 'negate'; store it in #REGc.
   $348D Store result on the stack.
-  $3490,1 Return STKEND to #REGde.
+  $3490,1 Return #R$5C65(STKEND) to #REGde.
 @ $3492 label=sgn
 c $3492 THE 'SIGNUM' FUNCTION (offset 29)
 D $3492 The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $3492 This subroutine handles the function SGN X and therefore returns a 'last value' of 1 if X is positive, zero if X is zero and -1 if X is negative.
   $3492 If X is zero, just return with zero as the 'last value'.
-  $3496 Save the pointer to STKEND.
+  $3496 Save the pointer to #R$5C65(STKEND).
 @ $3497 keep
   $3497 Store 1 in #REGde.
   $349A Point to the second byte of X.
@@ -7887,7 +7887,7 @@ D $3492 This subroutine handles the function SGN X and therefore returns a 'last
   $349D Point to the destination again.
   $349E Set #REGc to zero for positive X and to +FF for negative X.
   $34A0 Stack 1 or -1 as required.
-  $34A3 Restore the pointer to STKEND.
+  $34A3 Restore the pointer to #R$5C65(STKEND).
   $34A4 Finished.
 @ $34A5 label=f_in
 c $34A5 THE 'IN' FUNCTION (offset 2C)
@@ -8095,12 +8095,12 @@ D $359C This subroutine performs the binary operation 'A$+B$'. The parameters fo
 E $359C This routine continues into #R$35BF.
 @ $35BF label=STK_PNTRS
 c $35BF THE 'STK-PNTRS' SUBROUTINE
-D $35BF This subroutine resets the #REGhl register pair to point to the first byte of the 'last value', i.e. STKEND-5, and the #REGde register pair to point one past the 'last value', i.e. STKEND.
-  $35BF Fetch the current value of STKEND.
+D $35BF This subroutine resets the #REGhl register pair to point to the first byte of the 'last value', i.e. #R$5C65(STKEND)-5, and the #REGde register pair to point one past the 'last value', i.e. #R$5C65(STKEND).
+  $35BF Fetch the current value of #R$5C65(STKEND).
   $35C2 Set #REGde to -5, two's complement.
-  $35C5 Stack the value for STKEND.
-  $35C6 Calculate STKEND-5.
-  $35C7,1 #REGde now holds STKEND and #REGhl holds STKEND-5.
+  $35C5 Stack the value for #R$5C65(STKEND).
+  $35C6 Calculate #R$5C65(STKEND)-5.
+  $35C7,1 #REGde now holds #R$5C65(STKEND) and #REGhl holds #R$5C65(STKEND)-5.
 @ $35C9 label=chrs
 c $35C9 THE 'CHR$' FUNCTION (offset 2F)
 D $35C9 The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
@@ -8123,14 +8123,14 @@ B $35DD,1
 c $35DE THE 'VAL' AND 'VAL$' FUNCTION (offsets 18, 1D)
 D $35DE The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $35DE This subroutine handles the functions VAL X$ and VAL$ X$. When handling VAL X$, it returns a 'last value' that is the result of evaluating the string (without its bounding quotes) as a numerical expression. when handling VAL$ X$, it evaluates X$ (without its bounding quotes) as a string expression, and returns the parameters of that string expression as a 'last value' on the calculator stack.
-  $35DE The current value of CH-ADD is preserved on the machine stack.
+  $35DE The current value of #R$5C5D(CH-ADD) is preserved on the machine stack.
   $35E2 The 'offset' for 'val' or 'val$' must be in the #REGb register; it is now copied to #REGa.
   $35E3 Produce +00 and carry set for 'val', +FB and carry reset for 'val$'.
   $35E5 Produce +FF (bit 6 therefore set) for 'val', but +00 (bit 6 reset) for 'val$'.
   $35E6 Save this 'flag' on the machine stack.
   $35E7 The parameters of the string are fetched; the starting address is saved; one byte is added to the length and room made available for the string (+1) in the work space.
   $35ED The starting address of the string goes to #REGhl as a source address.
-  $35EE The pointer to the first new space goes to CH-ADD and to the machine stack.
+  $35EE The pointer to the first new space goes to #R$5C5D(CH-ADD) and to the machine stack.
   $35F3 The string is copied to the work space, together with an extra byte.
   $35F5 Switch the pointers.
   $35F6 The extra byte is replaced by a 'carriage return' character.
@@ -8142,22 +8142,22 @@ D $35DE This subroutine handles the functions VAL X$ and VAL$ X$. When handling 
   $3606 The 'flag' for 'val/val$' is fetched and bit 6 is compared with bit 6 of the result of the syntax scan.
 @ $360C label=V_RPORT_C
   $360C Report the error if they do not match.
-  $360F Start address to CH-ADD again.
+  $360F Start address to #R$5C5D(CH-ADD) again.
   $3612 The flag is set for line execution.
   $3616 The string is treated as a 'next expression' and a 'last value' produced.
-  $3619 The original value of CH-ADD is restored.
+  $3619 The original value of #R$5C5D(CH-ADD) is restored.
   $361D The subroutine exits via #R$35BF which resets the pointers.
 @ $361F keep
 @ $361F label=str
 c $361F THE 'STR$' FUNCTION (offset 2E)
 D $361F The address of this routine is found in the #R$32D7(table of addresses). It is called indirectly via #R$33A2.
 D $361F This subroutine handles the function STR$ X and returns a 'last value' which is a set of parameters that define a string containing what would appear on the screen if X were displayed by a PRINT command.
-  $361F One space is made in the work space and its address is copied to K-CUR, the address of the cursor.
+  $361F One space is made in the work space and its address is copied to #R$5C5B(K-CUR), the address of the cursor.
   $3626 This address is saved on the stack too.
   $3627 The current channel address is saved on the machine stack.
   $362B Channel 'R' is opened, allowing the string to be 'printed' out into the work space.
   $3630 The 'last value', X, is now printed out in the work space and the work space is expanded with each character.
-  $3633 Restore CURCHL to #REGhl and restore the flags that are appropriate to it.
+  $3633 Restore #R$5C51(CURCHL) to #REGhl and restore the flags that are appropriate to it.
   $3637 Restore the start address of the string.
   $3638 Now the cursor address is one past the end of the string and hence the difference is the length.
   $363E Transfer the length to #REGbc.
@@ -8183,7 +8183,7 @@ D $3645 This subroutine is called via the calculator offset (+5A) through the fi
   $365E Put the string into it.
 @ $365F label=R_I_STORE
   $365F Pass the parameters of the string to the calculator stack.
-  $3662 Restore CURCHL and the appropriate flags.
+  $3662 Restore #R$5C51(CURCHL) and the appropriate flags.
   $3666 Exit, setting the pointers.
 @ $3669 label=code
 c $3669 THE 'CODE' FUNCTION (offset 1C)
@@ -8203,10 +8203,10 @@ D $3674 This subroutine handles the function LEN A$ and returns a 'last value' t
 @ $367A label=dec_jr_nz
 c $367A THE 'DECREASE THE COUNTER' SUBROUTINE (offset 35)
 D $367A The address of this routine is found in the #R$32D7(table of addresses). It is called via the calculator literal 35 by the routine at #R$3449.
-D $367A This subroutine is only called by the #R$3449(series generator) and in effect is a 'DJNZ' operation but the counter is the system variable, BREG, rather than the #REGb register.
+D $367A This subroutine is only called by the #R$3449(series generator) and in effect is a 'DJNZ' operation but the counter is the system variable, #R$5C67(BREG), rather than the #REGb register.
   $367A Go to the alternative register set and save the next literal pointer on the machine stack.
-  $367C Make #REGhl point to BREG.
-  $367F Decrease BREG.
+  $367C Make #REGhl point to #R$5C67(BREG).
+  $367F Decrease #R$5C67(BREG).
   $3680 Restore the next literal pointer.
   $3681 The jump is made on non-zero.
   $3683 The next literal is passed over.
@@ -8789,7 +8789,7 @@ g $5C0E TVDATA - Colour, AT and TAB controls going to television
 @ $5C32 keep
 @ $5C34 keep
 g $5C10 STRMS - Addresses of channels attached to streams
-W $5C10,38,2
+  $5C10,38,2
 @ $5C36 label=CHARS
 @ $5C36 keep
 g $5C36 CHARS - 256 less than address of character set
@@ -8932,14 +8932,14 @@ g $5C82 ECHO-E - Column and line number of end of input buffer
 @ $5C84 keep
 g $5C84 DF-CC - Address in display file of PRINT position
 W $5C84
-@ $5C86 label=DFCCL
+@ $5C86 label=DF_CCL
 @ $5C86 keep
-g $5C86 DFCCL - Like DF-CC for lower part of screen
+g $5C86 DF-CCL - Like DF-CC for lower part of screen
 W $5C86
 @ $5C88 label=S_POSN
 g $5C88 S-POSN - Column and line number for PRINT position
-@ $5C8A label=SPOSNL
-g $5C8A SPOSNL - Like S-POSN for lower part of screen
+@ $5C8A label=S_POSNL
+g $5C8A S-POSNL - Like S-POSN for lower part of screen
 @ $5C8C label=SCR_CT
 g $5C8C SCR-CT - Scroll counter
 @ $5C8D label=ATTR_P
