@@ -8865,6 +8865,7 @@ W $5C5B
 @ $5C5D label=CH_ADD
 @ $5C5D keep
 g $5C5D CH-ADD - Address of the next character to be interpreted
+D $5C5D Initialised by the routine at #R$12A2, read by the routines at #R$155D and #R$1D03, and updated by the routines at #R$0074, #R$007D, #R$198B, #R$19FB, #R$1BD1, #R$2089, #R$21B9, #R$268D, #R$27BD, #R$2996 and #R$35DE.
 W $5C5D
 @ $5C5F label=X_PTR
 @ $5C5F keep
