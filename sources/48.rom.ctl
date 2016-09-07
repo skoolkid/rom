@@ -2757,7 +2757,7 @@ N $16BF Entering here will 'clear' the work space and the calculator stack.
 N $16C5 Entering here will 'clear' only the calculator stack.
 @ $16C5 label=SET_STK
   $16C5 Fetch #R$5C63(STKBOT).
-  $16C8 This clears the stack.
+  $16C8 This clears the stack (by resetting #R$5C65(STKEND)).
 N $16CB In all cases make #R$5C68(MEM) address the calculator's memory area.
   $16CB Save #R$5C65(STKEND).
   $16CC The base of the memory area.
@@ -3217,7 +3217,7 @@ D $19FB In all cases the line number is returned in the #REGbc register pair.
   $19FB Pick up the pointer to the edit-line.
   $19FE Set #R$5C5D(CH-ADD) to point to the location before any number.
   $1A02 Pass the first code to the #REGa register.
-  $1A03 However before considering the code make the calculator's memory area a temporary calculator stack area.
+  $1A03 However before considering the code make the calculator's memory area a temporary calculator stack area (by setting #R$5C65(STKEND) equal to #R$5C92(MEMBOT)).
   $1A09 Now read the digits of the line number. Return zero if no number exists.
   $1A0C Compress the line number into the #REGbc register pair.
   $1A0F Jump forward if the number exceeds 65,536.
@@ -5348,7 +5348,7 @@ N $2692 During syntax checking:
   $26A4 There are 5 bytes to move.
   $26A6 Clear the carry flag.
   $26A7 The 'new' #R$5C65(STKEND)='old' #R$5C65(STKEND) minus 5.
-  $26A9 Move the floating-point number from the calculator stack to the line.
+  $26AC Move the floating-point number from the calculator stack to the line.
   $26AE Put the line pointer in #REGhl.
   $26AF Point to the last byte added.
   $26B0 This sets #R$5C5D(CH-ADD).
@@ -6063,7 +6063,7 @@ D $2AB1 Note that when storing the parameters of a string the first value stored
   $2AB6 Save #REGb and #REGc briefly.
   $2AB7 Is there room for 5 bytes? Do not return here unless there is room available.
   $2ABA Restore #REGb and #REGc.
-  $2ABB Fetch the address of the first location above the present stack.
+  $2ABB Fetch the address of the first location above the present stack (#R$5C65(STKEND)).
   $2ABE Transfer the first byte.
   $2ABF Step on.
   $2AC0 Transfer the second and third bytes; for a string these will be the 'start'.
@@ -7630,7 +7630,7 @@ D $335B Note: a floating-point number may in reality be a set of string paramete
 @ $3362 label=GEN_ENT_2
   $3362 The return address of the subroutine is stored in #REGhl'. This saves the pointer to the first literal. Entering the calculator here is done whenever #R$5C67(BREG) is in use as a counter and is not to be disturbed.
 @ $3365 label=RE_ENTRY
-  $3365 A loop is now entered to handle each literal in the list that follows the calling instruction; so first, always set to #R$5C65(STKEND).
+  $3365 A loop is now entered to handle each literal in the list that follows the calling instruction; so first, always set #R$5C65(STKEND).
   $3369 Go to the alternate register set and fetch the literal for this loop.
   $336B Make #REGhl' point to the next literal.
 @ $336C label=SCAN_ENT
@@ -8881,6 +8881,7 @@ W $5C63
 @ $5C65 label=STKEND
 @ $5C65 keep
 g $5C65 STKEND - Address of start of spare space
+D $5C65 Initialised by the routine at #R$11B7, read by the routines at #R$1652, #R$1EAC and #R$35BF, and updated by the routines at #R$16B0, #R$19FB, #R$268D, #R$27BD, #R$2951, #R$2AB1, #R$2BF1, #R$335B and #R$33B4.
 W $5C65
 @ $5C67 label=BREG
 g $5C67 BREG - Calculator's B register
