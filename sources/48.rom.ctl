@@ -423,7 +423,7 @@ N $02FC The decoding of a 'main code' depends upon the present state of #R$5C41(
   $0307 The final code value is saved in #R$5C00(KSTATE3/7), from where it is collected in case of a repeat.
 N $0308 The next three instructions are common to the handling of both 'new keys' and 'repeat keys'.
 @ $0308 label=K_END
-  $0308 Enter the final code value into #R$5C08(LAST-K) and signal 'a new key'.
+  $0308 Enter the final code value into #R$5C08(LAST-K) and signal 'a new key' by setting bit 5 of #R$5C3B(FLAGS).
   $030F Finally return.
 @ $0310 label=K_REPEAT
 N $0310 A key will 'repeat' on the first occasion after the delay period (#R$5C09(REPDEL) - normally 0.7s) and on subsequent occasions after the delay period (#R$5C0A(REPPER) - normally 0.1s).
@@ -4235,7 +4235,7 @@ N $1FA6 Next the definition of the function is considered.
   $1FAA The next character is fetched.
   $1FAB,4,c2,2 It must be an '='.
   $1FAF Fetch the next character.
-  $1FB0 Save the nature - numeric or string - of the variable.
+  $1FB0 Save the nature - numeric or string - of the variable (bit 6 of #R$5C3B(FLAGS)).
   $1FB4 Now consider the definition as an expression.
   $1FB7 Fetch the nature of the variable and check that it is of the same type as found for the definition.
 @ $1FBD label=DEF_FN_7
@@ -4407,7 +4407,7 @@ N $20FA The prompt message is now built up in the work space.
 @ $210A keep
   $210A Allow the prompt message only a single location.
   $210D Jump forward if using 'LINE'.
-  $2111 Jump forward if awaiting a numeric entry.
+  $2111 Jump forward if awaiting a numeric entry (bit 6 of #R$5C3B(FLAGS) set).
   $2118 A string entry will need three locations.
 @ $211A label=IN_PR_1
   $211A Bit 6 of #R$5C71(FLAGX) will become set for a numeric entry.
@@ -5557,7 +5557,7 @@ D $27BD #LIST { i. The syntax of the FN statement is checked during syntax check
   $27E6 Report the error if it is not.
 @ $27E9 label=SF_FLAG_6
   $27E9 Point to the next character in the BASIC line.
-  $27EA This is #R$5C3B(FLAGS); assume a string-valued function and reset bit 6 of #R$5C3B(FLAGS).
+  $27EA Assume a string-valued function and reset bit 6 of #R$5C3B(FLAGS).
   $27EF Restore the zero flag, jump if the FN is indeed string-valued.
   $27F2 Otherwise, set bit 6 of #R$5C3B(FLAGS).
 @ $27F4 label=SF_SYN_EN
@@ -8802,6 +8802,7 @@ g $5C39 PIP - Length of keyboard click
 g $5C3A ERR-NR - One less than the error report code
 @ $5C3B label=FLAGS
 g $5C3B FLAGS - Various flags to control the BASIC system
+D $5C3B Read by the routines at #R$04AA, #R$1C56, #R$1F60, #R$2089 and #R$26C9, and updated by the routines at #R$02BF, #R$0B24, #R$0C55, #R$1855, #R$18E1, #R$25B3, #R$2634 and #R$27BD.
 @ $5C3C label=TV_FLAG
 g $5C3C TV-FLAG - Flags associated with the television
 @ $5C3D label=ERR_SP
