@@ -70,7 +70,7 @@ D $0053 The machine stack is cleared before jumping forward to clear the calcula
   $0053 The address on the stack points to the error code.
 @ $0055 label=ERROR_3
   $0055 It is transferred to #R$5C3A(ERR-NR).
-  $0058 The machine stack is cleared before exiting via #R$16C5.
+  $0058 The machine stack is cleared by setting the stack pointer to #R$5C3D(ERR-SP) before exiting via #R$16C5.
 s $005F
   $005F,7,7:$FF Unused locations.
 @ $0066 label=RESET
@@ -1999,7 +1999,7 @@ c $0F2C THE 'EDITOR' ROUTINES
 D $0F2C The editor is called on two occasions:
 D $0F2C #LIST { From the #R$12A2(main execution routine) so that the user can enter a BASIC line into the system. } { From the #R$2089(INPUT command routine). } LIST#
 D $0F2C First the 'error stack pointer' is saved and an alternative address provided.
-  $0F2C The current value is saved on the machine stack.
+  $0F2C The current value of #R$5C3D(ERR-SP) is saved on the machine stack.
 @ $0F30 nowarn
 @ $0F30 label=ED_AGAIN
   $0F30 This is #R$107F.
@@ -4161,7 +4161,7 @@ D $1F23 The line number and the statement number that are to be made the object 
   $1F2B The full entry uses three locations only.
   $1F2C Exchange the statement number with the 'error address'.
   $1F2D Move the statement number.
-  $1F2E Reset the error pointer.
+  $1F2E Reset the error pointer (#R$5C3D(ERR-SP)).
   $1F32 Replace the address #R$1B76.
   $1F33 Jump back to change #R$5C42(NEWPPC) and #R$5C44(NSPPC).
 N $1F36 Report 7 - RETURN without GOSUB.
@@ -4424,7 +4424,7 @@ N $212C In the case of INPUT LINE the EDITOR can be called without further prepa
 @ $213A nowarn
 @ $213A label=IN_VAR_1
   $213A This will be the 'return point' in case of errors.
-  $213E Only change the error stack pointer if using channel 'K'.
+  $213E Only change the error stack pointer (#R$5C3D(ERR-SP)) if using channel 'K'.
 @ $2148 label=IN_VAR_2
   $2148 Set #REGhl to the start of the INPUT line and remove any floating-point forms. (There will not be any except perhaps after an error.)
   $214E Signal 'no error yet'.
@@ -8808,6 +8808,7 @@ g $5C3C TV-FLAG - Flags associated with the television
 @ $5C3D label=ERR_SP
 @ $5C3D keep
 g $5C3D ERR-SP - Address of item on machine stack to use as error return
+D $5C3D Initialised by the routine at #R$11B7, read by the routine at #R$0053, and updated by the routines at #R$0F2C, #R$1024, #R$111D, #R$1EAC, #R$1EED, #R$1F23 and #R$2089.
 W $5C3D
 @ $5C3F label=LIST_SP
 @ $5C3F keep
