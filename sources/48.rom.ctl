@@ -52,7 +52,7 @@ s $002B
 c $0030 THE 'MAKE BC SPACES' RESTART
 D $0030 This routine creates free locations in the work space. The number of locations is determined by the current contents of the #REGbc register pair.
   $0030 Save the 'number'.
-  $0031 Fetch the present address of the start of the work space and save that also before proceeding.
+  $0031 Fetch the present address of the start of the work space (#R$5C61(WORKSP)) and save that also before proceeding.
 @ $0038 label=MASK_INT
 c $0038 THE 'MASKABLE INTERRUPT' ROUTINE
 D $0038 The real time clock is incremented and the keyboard scanned whenever a maskable interrupt occurs.
@@ -2297,12 +2297,12 @@ N $117E But come here after an error.
   $118B #R$5C5F(X-PTR) is cleared in a suitable manner and the return made.
 @ $1190 label=SET_HL
 c $1190 THE 'SET-HL' AND 'SET-DE' SUBROUTINES
-D $1190 These subroutines return with #REGhl pointing to the first location and #REGde the 'last' location of either the editing area or the work space.
-  $1190 Point to the last location of the editing area.
+D $1190 These subroutines return with #REGde pointing to the first location and #REGhl to the last location of either the editing area or the work space.
+  $1190 Point to the last location of the editing area (#R$5C61(WORKSP)-1).
   $1194 Clear the carry flag.
 @ $1195 label=SET_DE
   $1195 Point to the start of the editing area (#R$5C59(E-LINE)) and return if in 'editing mode'.
-  $119E Otherwise change #REGde.
+  $119E Otherwise point #REGde at the start of the work space (#R$5C61(WORKSP)).
   $11A2 Return if now intended.
   $11A3 Fetch #R$5C63(STKBOT) and then return.
 @ $11A7 label=REMOVE_FP
@@ -2548,7 +2548,7 @@ D $155D This subroutine allows for a new BASIC line to be added to the existing 
   $158E Space for the new line is created.
   $1591 The old value of #R$5C53(PROG) is fetched and restored.
   $1595 A copy of the line length (without parameters) is taken.
-  $1597 Make #REGde point to the end location of the new area and #REGhl to the 'carriage return' character of the new line in the editing area.
+  $1597 Make #REGde point to the end location of the new area and #REGhl to the 'carriage return' character of the new line in the editing area (#R$5C61(WORKSP)-2).
   $159D Now copy over the line.
   $159F Fetch the line's number.
   $15A2 Destination into #REGhl and number into #REGde.
@@ -2749,15 +2749,15 @@ c $16B0 THE 'SET-MIN' SUBROUTINE
 D $16B0 This subroutine resets the editing area and the areas after it to their minimum sizes. In effect it 'clears' the areas.
   $16B0 Fetch #R$5C59(E-LINE).
   $16B3 Make the editing area hold only the 'carriage return' character and the end marker.
-  $16BB Move on to clear the work space.
+  $16BB Reset #R$5C61(WORKSP) and move on to clear the work space.
 N $16BF Entering here will 'clear' the work space and the calculator stack.
 @ $16BF label=SET_WORK
-  $16BF Fetch the #R$5C61(WORKSP).
-  $16C2 This clears the work space.
+  $16BF Fetch the start address of the work space #R$5C61(WORKSP).
+  $16C2 Clear the work space by setting #R$5C63(STKBOT) equal to #R$5C61(WORKSP).
 N $16C5 Entering here will 'clear' only the calculator stack.
 @ $16C5 label=SET_STK
   $16C5 Fetch #R$5C63(STKBOT).
-  $16C8 This clears the stack (by resetting #R$5C65(STKEND)).
+  $16C8 Clear the stack by setting #R$5C65(STKEND) equal to #R$5C63(STKBOT).
 N $16CB In all cases make #R$5C68(MEM) address the calculator's memory area.
   $16CB Save #R$5C65(STKEND).
   $16CC The base of the memory area.
@@ -3550,7 +3550,7 @@ D $1B8A The routine at #R$1B76 continues here.
 D $1B8A This entry point is used wherever a line in the editing area is to be 'run'. In such a case the syntax/run flag (bit 7 of #R$5C3B(FLAGS)) will be set.
 D $1B8A The entry point is also used in the syntax checking of a line in the editing area that has more than one statement (bit 7 of #R$5C3B(FLAGS) will be reset).
   $1B8A A line in the editing area is considered as line '-2'.
-  $1B90 Make #REGhl point to the end marker of the editing area and #REGde to the location before the start of that area (#R$5C59(E-LINE)-1).
+  $1B90 Make #REGhl point to the end marker of the editing area (#R$5C61(WORKSP)-1) and #REGde to the location before the start of that area (#R$5C59(E-LINE)-1).
   $1B99 Fetch the number of the next statement to be handled before jumping forward.
 @ $1B9E label=LINE_NEW
 c $1B9E THE 'LINE-NEW' SUBROUTINE
@@ -4426,9 +4426,9 @@ N $212C In the case of INPUT LINE the EDITOR can be called without further prepa
   $213A This will be the 'return point' in case of errors.
   $213E Only change the error stack pointer (#R$5C3D(ERR-SP)) if using channel 'K'.
 @ $2148 label=IN_VAR_2
-  $2148 Set #REGhl to the start of the INPUT line and remove any floating-point forms. (There will not be any except perhaps after an error.)
+  $2148 Set #REGhl to the start of the INPUT line (#R$5C61(WORKSP)) and remove any floating-point forms. (There will not be any except perhaps after an error.)
   $214E Signal 'no error yet'.
-  $2152 Now get the INPUT and with the syntax/run flag indicating syntax, check the INPUT for errors; jump if in order; return to IN-VAR-1 if not.
+  $2152 Now get the INPUT and with the syntax/run flag indicating syntax, check the INPUT for errors; jump if in order; return to #R$213A if not.
 @ $215E label=IN_VAR_3
   $215E Get a 'LINE'.
 N $2161 All the system variables have to be reset before the actual assignment of a value can be made.
@@ -4447,7 +4447,7 @@ N $2161 All the system variables have to be reset before the actual assignment o
   $218F Restore the original address to #R$5C5D(CH-ADD) and clear #R$5C5F(X-PTR).
   $2199 Jump forward to see if there are further INPUT items.
 @ $219B label=IN_VAR_6
-  $219B The length of the 'LINE' in the work space is found.
+  $219B The length of the 'LINE' in the work space is found (#R$5C63(STKBOT)-#R$5C61(WORKSP)-1).
   $21A5 #REGde points to the start and #REGbc holds the length.
   $21A7 These parameters are stacked and the actual assignment made.
   $21AD Also jump forward to consider further items.
@@ -8877,6 +8877,7 @@ W $5C5F
 @ $5C61 label=WORKSP
 @ $5C61 keep
 g $5C61 WORKSP - Address of temporary work space
+D $5C61 Initialised by the routine at #R$11B7, read by the routines at #R$0030, #R$1190, #R$155D, #R$1B8A and #R$2089, and updated by the routines at #R$1664, #R$169E and #R$16B0.
 W $5C61
 @ $5C63 label=STKBOT
 @ $5C63 keep
