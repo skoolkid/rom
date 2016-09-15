@@ -1010,7 +1010,7 @@ N $0723 Fetch the 'line number' that must follow 'LINE'.
 N $073A 'LINE' and 'no further parameters' are both of type 0.
   $073A Enter the 'type' number.
 N $073E The parameters that describe the program, and its variables, are found and stored in the header area of the work space.
-  $073E The pointer to the end of the variables area.
+  $073E The pointer to the end of the variables area (#R$5C59(E-LINE)).
   $0741 The pointer to the start of the BASIC program.
   $0745 Now perform the subtraction to find the length of the 'program + variables'; store the result.
   $074E Repeat the operation but this time storing the length of the 'program' only.
@@ -1127,7 +1127,7 @@ N $082E Now deal with the LOADing of arrays.
   $0841 Save the #REGix register pair temporarily whilst the old array is reclaimed.
 N $084C Space is now made available for the new array - at the end of the present variables area.
 @ $084C label=LD_DATA_1
-  $084C Find the pointer to the end-marker of the variables area - the '80-byte'.
+  $084C Find the pointer to the end-marker of the variables area - the '80-byte' (#R$5C59(E-LINE)).
   $0850 Fetch the 'length' of the new array.
   $0856 Save this 'length'.
   $0857 Add three bytes - one for the name and two for the 'length'.
@@ -1140,7 +1140,7 @@ N $084C Space is now made available for the new array - at the end of the presen
 N $0873 Now deal with the LOADing of a BASIC program and its variables.
 @ $0873 label=LD_PROG
   $0873 Save the 'destination pointer'.
-  $0874 Find the address of the end marker of the current variables area - the '80-byte'.
+  $0874 Find the address of the end marker of the current variables area - the '80-byte' (#R$5C59(E-LINE)).
   $0878 Save #REGix temporarily.
   $087C Fetch the 'length' of the new data block.
   $0882 Keep a copy of the 'length' whilst the present program and variables areas are reclaimed.
@@ -2090,7 +2090,7 @@ D $0FA9 When in 'editing mode' pressing the EDIT key will bring down the 'curren
   $0FDB Decrement the current line number so as to avoid printing the cursor.
   $0FDE Print the BASIC line.
   $0FE1 Increment the current line number. Note: the decrementing of the line number does not always stop the cursor from being printed.
-  $0FE4 Fetch the start of the line in the editing area and step past the line number and the length to find the address for #R$5C5B(K-CUR).
+  $0FE4 Fetch the start of the line in the editing area (#R$5C59(E-LINE)) and step past the line number and the length to find the address for #R$5C5B(K-CUR).
   $0FEE Fetch the former channel address and set the appropriate flags before returning to #R$0F38.
 @ $0FF3 label=ED_DOWN
 c $0FF3 THE 'CURSOR DOWN EDITING' SUBROUTINE
@@ -2301,7 +2301,7 @@ D $1190 These subroutines return with #REGhl pointing to the first location and 
   $1190 Point to the last location of the editing area.
   $1194 Clear the carry flag.
 @ $1195 label=SET_DE
-  $1195 Point to the start of the editing area and return if in 'editing mode'.
+  $1195 Point to the start of the editing area (#R$5C59(E-LINE)) and return if in 'editing mode'.
   $119E Otherwise change #REGde.
   $11A2 Return if now intended.
   $11A3 Fetch #R$5C63(STKBOT) and then return.
@@ -2414,12 +2414,12 @@ D $12A2 The main loop controls the 'editing mode', the execution of direct comma
   $12B4 The current line is scanned for correct syntax.
   $12B7 Jump forward if the syntax is correct.
   $12BD Jump forward if other than channel 'K' is being used.
-  $12C3 Point to the start of the line with the error.
+  $12C3 Point to the start of the line with the error (#R$5C59(E-LINE)).
   $12C6 Remove the floating-point forms from this line.
   $12C9 Reset #R$5C3A(ERR-NR) and jump back to #R$12AC leaving the listing unchanged.
 N $12CF The 'edit-line' has passed syntax and the three types of line that are possible have to be distinguished from each other.
 @ $12CF label=MAIN_3
-  $12CF Point to the start of the line.
+  $12CF Point to the start of the line (#R$5C59(E-LINE)).
   $12D2 Set #R$5C5D(CH-ADD) to the start also.
   $12D5 Fetch any line number into #REGbc.
   $12D8 Is the line number a valid one?
@@ -3550,7 +3550,7 @@ D $1B8A The routine at #R$1B76 continues here.
 D $1B8A This entry point is used wherever a line in the editing area is to be 'run'. In such a case the syntax/run flag (bit 7 of #R$5C3B(FLAGS)) will be set.
 D $1B8A The entry point is also used in the syntax checking of a line in the editing area that has more than one statement (bit 7 of #R$5C3B(FLAGS) will be reset).
   $1B8A A line in the editing area is considered as line '-2'.
-  $1B90 Make #REGhl point to the end marker of the editing area and #REGde to the location before the start of that area.
+  $1B90 Make #REGhl point to the end marker of the editing area and #REGde to the location before the start of that area (#R$5C59(E-LINE)-1).
   $1B99 Fetch the number of the next statement to be handled before jumping forward.
 @ $1B9E label=LINE_NEW
 c $1B9E THE 'LINE-NEW' SUBROUTINE
@@ -4090,7 +4090,7 @@ D $1EAC This routine allows for the variables area to be cleared, the display ar
   $1EB3 If zero use the existing value in #R$5CB2(RAMTOP).
 @ $1EB7 label=CLEAR_1
   $1EB7 Save the value.
-  $1EB8 Next reclaim all the bytes of the present variables area.
+  $1EB8 Next reclaim all the bytes of the present variables area (#R$5C4B(VARS) to #R$5C59(E-LINE)-1).
   $1EC3 Clear the display area.
 N $1EC6 The value in the #REGbc register pair which will be used as #R$5CB2(RAMTOP) is tested to ensure it is neither too low nor too high.
   $1EC6 The current value of #R$5C65(STKEND) is increased by 50 before being tested. This forms the lower limit.
@@ -6145,7 +6145,7 @@ N $2B1F Separate 'numeric' and 'string' names.
 N $2B29 The 'newly declared numeric variable' presently being handled will require #REGbc spaces in the variables area for its name and its value. The room is made available and the name of the variable is copied over with the characters being 'marked' as required.
 @ $2B29 label=L_SPACES
   $2B29 Copy the 'length' to #REGa.
-  $2B2A Make #REGhl point to the '80-byte' at the end of the variables area.
+  $2B2A Make #REGhl point to the '80-byte' at the end of the variables area (#R$5C59(E-LINE)-1).
   $2B2E Now open up the variables area. Note: in effect #REGbc spaces are made before the displaced '80-byte'.
   $2B31 Point to the first 'new' byte.
   $2B32 Make #REGde point to the second 'new' byte.
@@ -6264,7 +6264,7 @@ N $2BC6 The parameters of the 'new' string are fetched, sufficient room is made 
   $2BCD Make #REGhl point to the end of the string.
   $2BCE Save the pointer briefly.
   $2BD1 Allow one byte for the letter and two bytes for the length.
-  $2BD4 Make #REGhl point to the '80-byte' at the end of the variables area.
+  $2BD4 Make #REGhl point to the '80-byte' at the end of the variables area (#R$5C59(E-LINE)-1).
   $2BD8 Now open up the variables area. Note: in effect #REGbc spaces are made before the displaced '80-byte'.
   $2BDB Restore the pointer to the end of the 'new' string.
   $2BDE Make a copy of the length of the 'new' string.
@@ -6280,7 +6280,7 @@ N $2BC6 The parameters of the 'new' string are fetched, sufficient room is made 
 N $2BEA The following subroutine is entered with the letter of the variable, suitably marked, in the #REGa register. The letter overwrites the 'old 80-byte' in the variables area. The subroutine returns with the #REGhl register pair pointing to the 'new 80-byte'.
   $2BEA Make #REGhl point to the 'old 80-byte'.
   $2BEB It is overwritten with the letter of the variable.
-  $2BEC Make #REGhl point to the 'new 80-byte'.
+  $2BEC Make #REGhl point to the 'new 80-byte' (#R$5C59(E-LINE)-1).
   $2BF0 Finished with all the 'newly declared variables'.
 @ $2BF1 label=STK_FETCH
 c $2BF1 THE 'STK-FETCH' SUBROUTINE
@@ -6356,7 +6356,7 @@ N $2C4B Allowance is now made for the dimension sizes.
   $2C59 Save the overall length also.
   $2C5A Move the overall length to #REGbc.
 N $2C5C The required amount of room is made available for the new array at the end of the variables area.
-  $2C5C Make the #REGhl register pair point to the '80-byte'.
+  $2C5C Make the #REGhl register pair point to the '80-byte' (#R$5C59(E-LINE)-1).
   $2C60 The room is made available.
   $2C63 #REGhl is made to point to the first new location.
 N $2C64 The parameters are now entered.
@@ -8859,6 +8859,7 @@ W $5C57
 @ $5C59 label=E_LINE
 @ $5C59 keep
 g $5C59 E-LINE - Address of command being typed in
+D $5C59 Initialised by the routine at #R$11B7, read by the routines at #R$0605, #R$0808, #R$0FA9, #R$1190, #R$12A2, #R$1B8A, #R$1EAC, #R$2AFF and #R$2C02, and updated by the routine at #R$1664.
 W $5C59
 @ $5C5B label=K_CUR
 @ $5C5B keep
