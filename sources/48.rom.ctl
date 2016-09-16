@@ -8868,7 +8868,7 @@ W $5C5B
 @ $5C5D label=CH_ADD
 @ $5C5D keep
 g $5C5D CH-ADD - Address of the next character to be interpreted
-D $5C5D Initialised by the routine at #R$12A2, read by the routines at #R$155D and #R$1D03, and updated by the routines at #R$0074, #R$007D, #R$198B, #R$19FB, #R$1BD1, #R$2089, #R$21B9, #R$268D, #R$27BD, #R$2996 and #R$35DE.
+D $5C5D Initialised by the routine at #R$12A2, read by the routines at #R$155D and #R$1D03, and updated by the routines at #R$0074, #R$007D, #R$1664, #R$198B, #R$19FB, #R$1BD1, #R$2089, #R$21B9, #R$268D, #R$27BD, #R$2996 and #R$35DE.
 W $5C5D
 @ $5C5F label=X_PTR
 @ $5C5F keep
@@ -8886,7 +8886,7 @@ W $5C63
 @ $5C65 label=STKEND
 @ $5C65 keep
 g $5C65 STKEND - Address of start of spare space
-D $5C65 Initialised by the routine at #R$11B7, read by the routines at #R$1652, #R$1EAC and #R$35BF, and updated by the routines at #R$16B0, #R$19FB, #R$268D, #R$27BD, #R$2951, #R$2AB1, #R$2BF1, #R$335B and #R$33B4.
+D $5C65 Initialised by the routine at #R$11B7, read by the routines at #R$1652, #R$1EAC and #R$35BF, and updated by the routines at #R$1664, #R$16B0, #R$19FB, #R$268D, #R$27BD, #R$2951, #R$2AB1, #R$2BF1, #R$335B and #R$33B4.
 W $5C65
 @ $5C67 label=BREG
 g $5C67 BREG - Calculator's B register
