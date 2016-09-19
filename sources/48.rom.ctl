@@ -8805,6 +8805,7 @@ g $5C3B FLAGS - Various flags to control the BASIC system
 D $5C3B Initialised by the routine at #R$11B7, read by the routines at #R$04AA, #R$0A23, #R$0C0A, #R$0DD9, #R$1C22, #R$1C56, #R$1C79, #R$1F60, #R$1FFC, #R$2089, #R$26C9 and #R$2AFF, and updated by the routines at #R$02BF, #R$0A6D, #R$0B24, #R$0C55, #R$10A8, #R$12A2, #R$1634, #R$1642, #R$1855, #R$18E1, #R$1925, #R$1F3A, #R$25B3, #R$2634, #R$268D, #R$27BD, #R$28B2, #R$2996, #R$2A52, #R$2AB and #R$35DE.
 @ $5C3C label=TV_FLAG
 g $5C3C TV-FLAG - Flags associated with the television
+D $5C3C Initialised by the routine at #R$11B7, read by the routines at #R$0A6D, #R$0ADC, #R$0B03, #R$0D4D, #R$0DD9 and #R$0E44, and updated by the routines at #R$0970, #R$0C55, #R$0D6B, #R$10A8, #R$111D, #R$12A2, #R$15D4, #R$1795, #R$17F9, #R$1C96, #R$1CBE and #R$2089.
 @ $5C3D label=ERR_SP
 @ $5C3D keep
 g $5C3D ERR-SP - Address of item on machine stack to use as error return
