@@ -8897,6 +8897,7 @@ g $5C68 MEM - Address of area used for calculator's memory
 W $5C68
 @ $5C6A label=FLAGS2
 g $5C6A FLAGS2 - More flags
+D $5C6A Read by the routines at #R$0333, #R$12A2, #R$18E1, #R$1925 and #R$2089, and updated by the routines at #R$0B24, #R$0DAF, #R$0EDF, #R$10A8, #R$1615, #R$1634, #R$1795 and #R$1855.
 @ $5C6B label=DF_SZ
 g $5C6B DF-SZ - The number of lines in the lower part of the screen
 @ $5C6C label=S_TOP
