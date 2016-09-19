@@ -8961,6 +8961,7 @@ g $5C8F ATTR-T - Temporary current colours
 g $5C90 MASK-T - Temporary transparent colours
 @ $5C91 label=P_FLAG
 g $5C91 P-FLAG - More flags
+D $5C91 Read by the routines at #R$0B24, #R$0BDB and #R$22DC, and updated by the routines at #R$0A3D, #R$0C55, #R$0D4D, #R$18C1, #R$1C96, #R$1CBE and #R$21E1.
 @ $5C92 label=MEMBOT
 g $5C92 MEMBOT - Calculator's memory area
   $5C92,30,5
