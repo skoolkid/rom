@@ -8908,6 +8908,7 @@ g $5C6E OLDPPC - Line number to which CONTINUE jumps
 g $5C70 OSPCC - Number within line of statement to which CONTINUE jumps
 @ $5C71 label=FLAGX
 g $5C71 FLAGX - Various flags
+D $5C71 Read by the routines at #R$0F2C, #R$0FA9, #R$1190, #R$1855, #R$190F, #R$1925, #R$21B9 and #R$2AFF, and updated by the routines at #R$12A2, #R$1C22 and #R$2089.
 @ $5C72 label=STRLEN
 @ $5C72 keep
 g $5C72 STRLEN - Length of string type destination in assignment
