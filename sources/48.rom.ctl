@@ -3551,12 +3551,12 @@ D $1B8A This entry point is used wherever a line in the editing area is to be 'r
 D $1B8A The entry point is also used in the syntax checking of a line in the editing area that has more than one statement (bit 7 of #R$5C3B(FLAGS) will be reset).
   $1B8A A line in the editing area is considered as line '-2'.
   $1B90 Make #REGhl point to the end marker of the editing area (#R$5C61(WORKSP)-1) and #REGde to the location before the start of that area (#R$5C59(E-LINE)-1).
-  $1B99 Fetch the number of the next statement to be handled before jumping forward.
+  $1B99 Fetch the number of the next statement to be handled (#R$5C44(NSPPC)) before jumping forward.
 @ $1B9E label=LINE_NEW
 c $1B9E THE 'LINE-NEW' SUBROUTINE
 D $1B9E There has been a jump in the program and the starting address of the new line has to be found.
   $1B9E The starting address of the line, or the 'first line after' is found.
-  $1BA1 Collect the statement number.
+  $1BA1 Collect the statement number (#R$5C44(NSPPC)).
   $1BA4 Jump forward if the required line was found; otherwise check the validity of the statement number - must be zero.
   $1BA9 Also check that the 'first line after' is not after the actual 'end of program'.
   $1BAE Jump forward with valid addresses; otherwise signal the error 'OK'.
@@ -3877,7 +3877,7 @@ N $1D7C #R$5C42(NEWPPC) holds the line number of the line in which the correct N
 @ $1D7C label=F_FOUND
   $1D7C Advance #R$5C5D(CH-ADD).
   $1D7D The statement counter in the #REGd register counted statements back from zero so it has to be subtracted from '1'.
-  $1D80 The result is stored.
+  $1D80 The result is stored in #R$5C44(NSPPC).
   $1D83 Now return - to #R$1B76.
 N $1D84 Report I - FOR without NEXT.
 @ $1D84 label=REPORT_I
@@ -4033,7 +4033,7 @@ D $1E67 The operand of a GO TO ought to be a line number in the range 1-9999 but
   $1E6E Give the error message 'Integer out of range' with line numbers over 61439.
 N $1E73 This entry point is used to determine the line number of the next line to be handled in several instances.
 @ $1E73 label=GO_TO_2
-  $1E73 Enter the line number and then the statement number.
+  $1E73 Enter the line number (#R$5C42(NEWPPC)) and then the statement number (#R$5C44(NSPPC)).
   $1E79 Return - to #R$1B76.
 @ $1E7A label=OUT_CMD
 c $1E7A THE 'OUT' COMMAND ROUTINE
@@ -8821,6 +8821,7 @@ g $5C41 MODE - Specifies K, L, C, E or G cursor
 g $5C42 NEWPPC - Line to be jumped to
 @ $5C44 label=NSPPC
 g $5C44 NSPPC - Statement number in line to be jumped to
+D $5C44 Read by the routines at #R$1B76, #R$1B8A and #R$1B9E, and updated by the routines at #R$0808, #R$12A2, #R$1BD1, #R$1D03 and #R$1E67.
 @ $5C45 label=PPC
 g $5C45 PPC - Line number of statement being executed
 @ $5C47 label=SUBPPC
