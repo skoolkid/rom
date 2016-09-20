@@ -2099,7 +2099,7 @@ D $0FF3 The address of this routine is derived from an offset found in the #R$0F
   $0FF9 This is #R$5C49(E-PPC).
   $0FFC The next line number is found and a new automatic listing produced.
 @ $1001 label=ED_STOP
-  $1001 'STOP in INPUT' report.
+  $1001 'STOP in INPUT' report (#R$5C3A(ERR-NR)).
   $1005 Jump forward.
 @ $1007 label=ED_LEFT
 c $1007 THE 'CURSOR LEFT EDITING' SUBROUTINE
@@ -2130,7 +2130,7 @@ D $1024 The address of this routine is derived from an offset found in the #R$0F
   $1024 The addresses of #R$0F38 and #R$107F are discarded.
 @ $1026 label=ED_END
   $1026 The old value of #R$5C3D(ERR-SP) is restored.
-  $102A Now return if there were no errors.
+  $102A Now return if there were no errors (bit 7 of #R$5C3A(ERR-NR) is set).
   $102F Otherwise make an indirect jump to the error routine.
 @ $1031 label=ED_EDGE
 c $1031 THE 'ED-EDGE' SUBROUTINE
@@ -2180,7 +2180,7 @@ c $107F THE 'ED-ERROR' SUBROUTINE
 D $107F Used by the routine at #R$0F2C.
 D $107F Come here when there has been some kind of error.
   $107F Jump back if using other than channel 'K'.
-  $1085 Cancel the error number and give a 'rasp' before going around the editor again.
+  $1085 Cancel the error number (#R$5C3A(ERR-NR)) and give a 'rasp' before going around the editor again.
 @ $1097 label=CLEAR_SP
 c $1097 THE 'CLEAR-SP' SUBROUTINE
 D $1097 The editing area or the work space is cleared as directed.
@@ -2281,7 +2281,7 @@ N $1150 The remainder of any line that has been started is now completed with sp
 N $1167 New deal with any errors.
 @ $1167 label=ED_FULL
   $1167 Give out a 'rasp'.
-  $1172 Cancel the error number.
+  $1172 Cancel the error number (#R$5C3A(ERR-NR)).
   $1176 Fetch the current value of #R$5C8A(S-POSNL) and jump forward.
 N $117C The normal exit upon completion of the copying over of the edit or the INPUT line.
 @ $117C label=ED_C_DONE
@@ -4427,7 +4427,7 @@ N $212C In the case of INPUT LINE the EDITOR can be called without further prepa
   $213E Only change the error stack pointer (#R$5C3D(ERR-SP)) if using channel 'K'.
 @ $2148 label=IN_VAR_2
   $2148 Set #REGhl to the start of the INPUT line (#R$5C61(WORKSP)) and remove any floating-point forms. (There will not be any except perhaps after an error.)
-  $214E Signal 'no error yet'.
+  $214E Signal 'no error yet' by resetting #R$5C3A(ERR-NR).
   $2152 Now get the INPUT and with the syntax/run flag indicating syntax, check the INPUT for errors; jump if in order; return to #R$213A if not.
 @ $215E label=IN_VAR_3
   $215E Get a 'LINE'.
@@ -8800,6 +8800,7 @@ g $5C38 RASP - Length of warning buzz
 g $5C39 PIP - Length of keyboard click
 @ $5C3A label=ERR_NR
 g $5C3A ERR-NR - One less than the error report code
+D $5C3A Read by the routine at #R$1024, and updated by the routines at #R$0053, #R$0FF3, #R$107F, #R$111D, #R$12A2, #R$1B17 and #R$2089. The #REGiy register is initialised to #N$5C3A by the routine at #R$11B7.
 @ $5C3B label=FLAGS
 g $5C3B FLAGS - Various flags to control the BASIC system
 D $5C3B Initialised by the routine at #R$11B7, read by the routines at #R$04AA, #R$0A23, #R$0C0A, #R$0DD9, #R$1C22, #R$1C56, #R$1C79, #R$1F60, #R$1FFC, #R$2089, #R$26C9 and #R$2AFF, and updated by the routines at #R$02BF, #R$0A6D, #R$0B24, #R$0C55, #R$10A8, #R$12A2, #R$1634, #R$1642, #R$1855, #R$18E1, #R$1925, #R$1F3A, #R$25B3, #R$2634, #R$268D, #R$27BD, #R$28B2, #R$2996, #R$2A52, #R$2AB and #R$35DE.
