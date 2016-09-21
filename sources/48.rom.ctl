@@ -536,7 +536,7 @@ D $03B5 This subroutine is entered with the #REGde register pair holding the val
 @ $03C1 nowarn
   $03C1 The base address of the timing loop.
   $03C5 Alter the length of the timing loop. Use an earlier starting point for each '1' lost by taking INT (#REGl/4).
-  $03C7 Fetch the present border colour and move it to bits 2, 1 and 0 of the #REGa register.
+  $03C7 Fetch the present border colour from #R$5C48(BORDCR) and move it to bits 2, 1 and 0 of the #REGa register.
   $03CF Ensure the MIC output is 'off'.
 @ $03D1 ignoreua:m
 N $03D1 Now enter the sound generation loop. #REGde complete passes are made, i.e. a pass for each cycle of the note.
@@ -756,7 +756,7 @@ D $053F Used by the routines at #R$04C2 and #R$0556.
 D $053F This subroutine is common to both saving and loading.
 D $053F The border is set to its original colour and the BREAK key tested for a last time.
   $053F Save the carry flag. (It is reset after a loading error.)
-  $0540 Fetch the original border colour from its system variable.
+  $0540 Fetch the original border colour from its system variable (#R$5C48(BORDCR)).
   $0545 Move the border colour to bits 2, 1 and 0.
   $0548 Set the border to its original colour.
   $054A Read the BREAK key for a last time.
@@ -2073,7 +2073,7 @@ D $0FA0 Used by the routine at #R$0F2C.
 c $0FA9 THE 'EDIT KEY' SUBROUTINE
 D $0FA9 The address of this routine is derived from an offset found in the #R$0FA0(editing keys table).
 D $0FA9 When in 'editing mode' pressing the EDIT key will bring down the 'current BASIC line'. However in 'INPUT mode' the action of the EDIT key is to clear the current reply and allow a fresh one.
-  $0FA9 Fetch the current line number.
+  $0FA9 Fetch the current line number (#R$5C49(E-PPC)).
   $0FAC But jump forward if in 'INPUT mode'.
   $0FB3 Find the address of the start of the current line and hence its number.
   $0FB9 If the line number returned is zero then simply clear the editing area.
@@ -2087,9 +2087,9 @@ D $0FA9 When in 'editing mode' pressing the EDIT key will bring down the 'curren
   $0FD4 Open channel 'R' so that the line will be copied to the editing area.
   $0FD9 Fetch the address of the line.
   $0FDA Go to before the line.
-  $0FDB Decrement the current line number so as to avoid printing the cursor.
+  $0FDB Decrement the current line number (#R$5C49(E-PPC)) so as to avoid printing the cursor.
   $0FDE Print the BASIC line.
-  $0FE1 Increment the current line number. Note: the decrementing of the line number does not always stop the cursor from being printed.
+  $0FE1 Increment the current line number (#R$5C49(E-PPC)). Note: the decrementing of the line number does not always stop the cursor from being printed.
   $0FE4 Fetch the start of the line in the editing area (#R$5C59(E-LINE)) and step past the line number and the length to find the address for #R$5C5B(K-CUR).
   $0FEE Fetch the former channel address and set the appropriate flags before returning to #R$0F38.
 @ $0FF3 label=ED_DOWN
@@ -2160,7 +2160,7 @@ N $103E Now enter a loop to check that control characters are not split from the
 c $1059 THE 'CURSOR UP EDITING' SUBROUTINE
 D $1059 The address of this routine is derived from an offset found in the #R$0FA0(editing keys table).
   $1059 Return if in 'INPUT mode'.
-  $105E Fetch the current line number and its start address.
+  $105E Fetch the current line number (#R$5C49(E-PPC)) and its start address.
   $1064 #REGhl now points to the previous line.
   $1065 This line's number is fetched.
   $1068 This is #R$5C49(E-PPC-hi).
@@ -2387,7 +2387,7 @@ N $122E The initialisation routine continues with:
   $1256 Make the edit-line be a single 'carriage return' character.
   $1259 Now enter an end marker.
   $125B Move on one location to find the value for #R$5C61(WORKSP), #R$5C63(STKBOT) and #R$5C65(STKEND).
-  $1265 Initialise the colour system variables to FLASH 0, BRIGHT 0, PAPER 7, INK 0.
+  $1265 Initialise the colour system variables (#R$5C8D(ATTR-P), #R$5C8F(ATTR-T), #R$5C48(BORDCR)) to FLASH 0, BRIGHT 0, PAPER 7, INK 0, BORDER 7.
 @ $1270 keep
   $1270 Initialise the system variables #R$5C09(REPDEL) and #R$5C0A(REPPER).
   $1276 Make #R$5C00(KSTATE0) hold +FF.
@@ -2528,7 +2528,7 @@ D $1555 Used by the routine at #R$155D.
 @ $155D label=MAIN_ADD
 c $155D THE 'MAIN-ADD' SUBROUTINE
 D $155D This subroutine allows for a new BASIC line to be added to the existing BASIC program in the program area. If a line has both an old and a new version then the old one is 'reclaimed'. A new line that consists of only a line number does not go into the program area.
-  $155D Make the new line number the 'current line'.
+  $155D Make the new line number the 'current line' (#R$5C49(E-PPC)).
   $1561 Fetch #R$5C5D(CH-ADD) and save the address in #REGde.
 @ $1565 nowarn
   $1565 Push the address of #R$1555 on to the machine stack. #R$5C3D(ERR-SP) will now point to #R$1555.
@@ -2910,7 +2910,7 @@ D $1795 The entry point #R$1795 is used by both #R$12A2 and #R$1059 to produce a
   $17A4 Now clear the the lower part of the screen as well.
   $17AA Then switch back.
   $17AE Signal 'screen is clear'.
-  $17B2 Now fetch the the 'current' line number and the 'automatic' line number.
+  $17B2 Now fetch the the 'current' line number (#R$5C49(E-PPC)) and the 'automatic' line number (#R$5C6C(S-TOP)).
   $17B9 If the 'current' number is less than the 'automatic' number then jump forward to update the 'automatic' number.
 N $17BF The 'automatic' number has now to be altered to give a listing with the 'current' line appearing near the bottom of the screen.
   $17BF Save the 'automatic' number.
@@ -4589,7 +4589,7 @@ D $2294 The parameter of the BORDER command is used with an OUT command to actua
   $22A2 Jump if so (the INK colour will be black).
   $22A4 Change the INK colour to white.
 @ $22A6 label=BORDER_1
-  $22A6 Set the system variable as required and return.
+  $22A6 Set the system variable (#R$5C48(BORDCR)) as required and return.
 @ $22AA label=PIXEL_ADD
 c $22AA THE 'PIXEL ADDRESS' SUBROUTINE
 D $22AA This subroutine is called by #R$22CB and by #R$22DC. Is is entered with the co-ordinates of a pixel in the #REGbc register pair and returns with #REGhl holding the address of the display file byte which contains that pixel and #REGa pointing to the position of the pixel within the byte.
@@ -8818,6 +8818,7 @@ g $5C3F LIST-SP - Return address from automatic listing
 W $5C3F
 @ $5C41 label=MODE
 g $5C41 MODE - Specifies K, L, C, E or G cursor
+D $5C41 Read by the routines at #R$02BF and #R$18E1, and updated by the routines at #R$0F2C, #R$1097 and #R$10A8.
 @ $5C42 label=NEWPPC
 g $5C42 NEWPPC - Line to be jumped to
 @ $5C44 label=NSPPC
@@ -8827,10 +8828,13 @@ D $5C44 Read by the routines at #R$1B76, #R$1B8A and #R$1B9E, and updated by the
 g $5C45 PPC - Line number of statement being executed
 @ $5C47 label=SUBPPC
 g $5C47 SUBPPC - Number within line of statement being executed
+D $5C47 Read by the routines at #R$1D03 and #R$1EED, and updated by the routines at #R$12A2, #R$1B17, #R$1B28 and #R$1BD1.
 @ $5C48 label=BORDCR
 g $5C48 BORDCR - Border colour
+D $5C48 Initialised by the routine at #R$11B7, read by the routines at #R$03B5, #R$053F, #R$0D4D and #R$0E44, and updated by the routine at #R$2294. The border colour (0-7) is stored in bits 3-5.
 @ $5C49 label=E_PPC
 g $5C49 E-PPC - Number of current line
+D $5C49 Read by the routines at #R$0FF3, #R$1059 and #R$1795, and updated by the routines at #R$0FA9, #R$155D and #R$17F9.
 @ $5C4B label=VARS
 @ $5C4B keep
 g $5C4B VARS - Address of variables
@@ -8902,6 +8906,7 @@ g $5C6A FLAGS2 - More flags
 D $5C6A Read by the routines at #R$0333, #R$12A2, #R$18E1, #R$1925 and #R$2089, and updated by the routines at #R$0B24, #R$0DAF, #R$0EDF, #R$10A8, #R$1615, #R$1634, #R$1795 and #R$1855.
 @ $5C6B label=DF_SZ
 g $5C6B DF-SZ - The number of lines in the lower part of the screen
+D $5C6B Initialised by the routine at #R$11B7, read by the routines at #R$0A6D, #R$0C55, #R$0DD9, #R$1795, #R$17F9 and #R$2089, and updated by the routine at #R$0D6B.
 @ $5C6C label=S_TOP
 g $5C6C S-TOP - The number of the top program line in automatic listings
 @ $5C6E label=OLDPPC
