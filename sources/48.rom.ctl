@@ -1036,7 +1036,7 @@ N $0767 Now enter a loop, leaving it only when a 'header' has been LOADed.
   $0773 Go round the loop until successful.
 N $0775 The new 'header' is now displayed on the screen but the routine will only proceed if the 'new' header matches the 'old' header.
   $0775 Ensure that channel 'S' is open.
-  $077A Set the scroll counter.
+  $077A Set the scroll counter (#R$5C8C(SCR-CT)).
   $077E Signal 'names do not match'.
   $0780 Compare the 'new' type against the 'old' type.
   $0786 Jump if the 'types' do not match.
@@ -1647,7 +1647,7 @@ D $0C55 On entry the #REGb register holds the line number under test.
   $0C5F Jump forward if considering 'INPUT ... AT ...'.
   $0C66 Return, via #R$0DD9, if the line number is greater than the value of #R$5C6B(DF-SZ); give report 5 if it is less; otherwise continue.
   $0C6C Jump forward unless dealing with an 'automatic listing'.
-  $0C72 Fetch the line counter.
+  $0C72 Fetch the line counter from #R$5C67(BREG).
   $0C75 Decrease this counter.
   $0C76 Jump forward if the listing is to be scrolled.
   $0C78 Otherwise open channel 'K', restore the stack pointer, flag that the automatic listing has finished and return via #R$0DD9.
@@ -1784,7 +1784,7 @@ D $0DAF This subroutine is called from #R$0D6B, #R$12A2, and #R$1795.
   $0DC4 Now 'clear' the 24 lines of the display.
   $0DC9 Ensure that the current output address is #R$09F4.
 @ $0DCC nowarn
-  $0DD2 Reset the scroll counter.
+  $0DD2 Reset the scroll counter (#R$5C8C(SCR-CT)).
 @ $0DD6 keep
   $0DD6 As the upper part of the display is being handled the 'upper print line' will be line 0.
 E $0DAF This routine continues into #R$0DD9.
@@ -2989,7 +2989,7 @@ D $1855 Before the line number is printed it is tested to determine whether it c
 @ $1860 keep
   $1860 Load the #REGd register with zero (it is not the cursor) and set #REGe to hold +01 if the line is before the 'current' line and +00 if after. (The carry flag comes from #R$1980.)
 @ $1865 label=OUT_LINE1
-  $1865 Save the line marker.
+  $1865 Save the line marker in #R$5C67(BREG).
   $1868,5 Fetch the high byte of the line number and make a full return if the listing has been finished.
   $186E The line number can now be printed - with leading spaces.
   $1871 Move the pointer on to address the first command code in the line.
@@ -7667,7 +7667,7 @@ D $33A2 The address of this routine is found in the #R$32D7(table of addresses).
 D $33A2 This subroutine is only called from #R$2757(#N$2757) and is used to perform a single arithmetic operation. The offset that specifies which operation is to be performed is supplied to the calculator in the #REGb register and subsequently transferred to the system variable #R$5C67(BREG).
 D $33A2 The effect of calling this subroutine is essentially to make a jump to the appropriate subroutine for the single operation.
   $33A2 Discard the #R$3365 address.
-  $33A3 Transfer the offset to #REGa.
+  $33A3 Transfer the offset from #R$5C67(BREG) to #REGa.
   $33A6 Enter the alternate register set.
   $33A7 Jump back to find the required address; stack the #R$3365 address and jump to the subroutine for the operation.
 @ $33A9 label=TEST_5_SP
@@ -8796,6 +8796,7 @@ g $5C36 CHARS - 256 less than address of character set
 W $5C36
 @ $5C38 label=RASP
 g $5C38 RASP - Length of warning buzz
+D $5C38 Initialised by the routine at #R$11B7, and read by the routines at #R$107F and #R$111D.
 @ $5C39 label=PIP
 g $5C39 PIP - Length of keyboard click
 @ $5C3A label=ERR_NR
@@ -8897,6 +8898,7 @@ D $5C65 Initialised by the routine at #R$11B7, read by the routines at #R$1652, 
 W $5C65
 @ $5C67 label=BREG
 g $5C67 BREG - Calculator's B register
+D $5C67 Read by the routines at #R$0C55 and #R$33A2, and updated by the routines at #R$1855, #R$335B and #R$367A.
 @ $5C68 label=MEM
 @ $5C68 keep
 g $5C68 MEM - Address of area used for calculator's memory
@@ -8941,6 +8943,7 @@ g $5C7F P-POSN - Column number of printer position
 @ $5C80 label=PR_CC
 @ $5C80 keep
 g $5C80 PR-CC - Address of next position for LPRINT to print at
+D $5C80 Read by the routine at #R$0B03, and updated by the routines at #R$0ADC and #R$0EDF.
 W $5C80
 @ $5C82 label=ECHO_E
 g $5C82 ECHO-E - Column and line number of end of input buffer
@@ -8956,8 +8959,10 @@ W $5C86
 g $5C88 S-POSN - Column and line number for PRINT position
 @ $5C8A label=S_POSNL
 g $5C8A S-POSNL - Like S-POSN for lower part of screen
+D $5C8A Read by the routines at #R$0B03 and #R$111D, and updated by the routine at #R$0ADC.
 @ $5C8C label=SCR_CT
 g $5C8C SCR-CT - Scroll counter
+D $5C8C Used by the routines at #R$0605, #R$0C55, #R$0DAF, #R$12A2 and #R$2089.
 @ $5C8D label=ATTR_P
 g $5C8D ATTR-P - Permanent current colours
 @ $5C8E label=MASK_P
