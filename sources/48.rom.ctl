@@ -2008,7 +2008,7 @@ N $0F38 A loop is now entered to handle each keystroke.
 @ $0F38 label=ED_LOOP
   $0F38 Return once a key has been pressed.
   $0F3B Save the code temporarily.
-  $0F3C Fetch the duration of the keyboard click.
+  $0F3C Fetch the duration of the keyboard click (#R$5C39(PIP)).
 @ $0F41 keep
   $0F41 And the pitch.
   $0F44 Now make the 'pip'.
@@ -4022,7 +4022,7 @@ c $1E5F THE 'CONTINUE' COMMAND ROUTINE
 D $1E5F The address of this routine is found in the #R$1AB8(parameter table).
 D $1E5F The required line number and statement number within that line are made the object of a jump.
   $1E5F The line number.
-  $1E62 The statement number.
+  $1E62 The statement number (#R$5C70(OSPCC)).
   $1E65 Jump forward.
 @ $1E67 label=GO_TO
 c $1E67 THE 'GO TO' COMMAND ROUTINE
@@ -8754,6 +8754,7 @@ D $3D00 These locations hold the 'character set'. There are 8-byte representatio
 i $4000
 @ $5C00 label=KSTATE
 g $5C00 KSTATE - Used in reading the keyboard
+D $5C00 Initialised by the routine at #R$11B7, and used by the routine at #R$02BF.
 @ $5C08 label=LAST_K
 g $5C08 LAST-K - Last key pressed
 @ $5C09 label=REPDEL
@@ -8799,6 +8800,7 @@ g $5C38 RASP - Length of warning buzz
 D $5C38 Initialised by the routine at #R$11B7, and read by the routines at #R$107F and #R$111D.
 @ $5C39 label=PIP
 g $5C39 PIP - Length of keyboard click
+D $5C39 Initialised by the routine at #R$11B7, and read by the routine at #R$0F2C.
 @ $5C3A label=ERR_NR
 g $5C3A ERR-NR - One less than the error report code
 D $5C3A Read by the routine at #R$1024, and updated by the routines at #R$0053, #R$0FF3, #R$107F, #R$111D, #R$12A2, #R$1B17 and #R$2089. The #REGiy register is initialised to #N$5C3A by the routine at #R$11B7.
@@ -8915,12 +8917,14 @@ g $5C6C S-TOP - The number of the top program line in automatic listings
 g $5C6E OLDPPC - Line number to which CONTINUE jumps
 @ $5C70 label=OSPCC
 g $5C70 OSPCC - Number within line of statement to which CONTINUE jumps
+D $5C70 Read by the routine at #R$1E5F, and updated by the routine at #R$12A2.
 @ $5C71 label=FLAGX
 g $5C71 FLAGX - Various flags
 D $5C71 Read by the routines at #R$0F2C, #R$0FA9, #R$1190, #R$1855, #R$190F, #R$1925, #R$21B9 and #R$2AFF, and updated by the routines at #R$12A2, #R$1C22 and #R$2089.
 @ $5C72 label=STRLEN
 @ $5C72 keep
 g $5C72 STRLEN - Length of string type destination in assignment
+D $5C72 Read by the routines at #R$1D03 and #R$2AFF, and updated by the routine at #R$1C22.
 W $5C72
 @ $5C74 label=T_ADDR
 @ $5C74 keep
@@ -8940,6 +8944,7 @@ W $5C7B
 g $5C7D COORDS - Coordinates of last point plotted
 @ $5C7F label=P_POSN
 g $5C7F P-POSN - Column number of printer position
+D $5C7F Read by the routine at #R$0B03, and updated by the routine at #R$0ADC.
 @ $5C80 label=PR_CC
 @ $5C80 keep
 g $5C80 PR-CC - Address of next position for LPRINT to print at
