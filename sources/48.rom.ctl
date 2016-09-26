@@ -21,7 +21,7 @@ D $0000 The maskable interrupt is disabled and the #REGde register pair set to h
 @ $0008 label=ERROR_1
 c $0008 THE 'ERROR' RESTART
 D $0008 The error pointer is made to point to the position of the error.
-  $0008 The address reached by the interpreter is copied to the error pointer before proceeding.
+  $0008 The address reached by the interpreter is copied to the error pointer (#R$5C5F(X-PTR)) before proceeding.
 @ $0010 label=PRINT_A_1
 c $0010 THE 'PRINT A CHARACTER' RESTART
 D $0010 The #REGa register holds the code of the character that is to be printed.
@@ -1013,7 +1013,7 @@ N $073E The parameters that describe the program, and its variables, are found a
   $073E The pointer to the end of the variables area (#R$5C59(E-LINE)).
   $0741 The pointer to the start of the BASIC program.
   $0745 Now perform the subtraction to find the length of the 'program + variables'; store the result.
-  $074E Repeat the operation but this time storing the length of the 'program' only.
+  $074E Repeat the operation but this time storing the length of the 'program' only (#R$5C4B(VARS)-#R$5C53(PROG)).
   $0759 Transfer the 'pointer' to the #REGhl register pair as usual.
 @ $075A label=SA_ALL
 N $075A In all cases the header information has now been prepared.
@@ -1124,7 +1124,7 @@ N $082E Now deal with the LOADing of arrays.
   $0839 Fetch the 'length' of the existing array by collecting the length bytes from the variables area.
   $083D Point to its old name.
   $083E Add three bytes to the length - one for the name and two for the 'length'.
-  $0841 Save the #REGix register pair temporarily whilst the old array is reclaimed.
+  $0841 Save the #REGix register pair temporarily (in #R$5C5F(X-PTR)) whilst the old array is reclaimed.
 N $084C Space is now made available for the new array - at the end of the present variables area.
 @ $084C label=LD_DATA_1
   $084C Find the pointer to the end-marker of the variables area - the '80-byte' (#R$5C59(E-LINE)).
@@ -1141,7 +1141,7 @@ N $0873 Now deal with the LOADing of a BASIC program and its variables.
 @ $0873 label=LD_PROG
   $0873 Save the 'destination pointer'.
   $0874 Find the address of the end marker of the current variables area - the '80-byte' (#R$5C59(E-LINE)).
-  $0878 Save #REGix temporarily.
+  $0878 Save #REGix temporarily (in #R$5C5F(X-PTR)).
   $087C Fetch the 'length' of the new data block.
   $0882 Keep a copy of the 'length' whilst the present program and variables areas are reclaimed.
   $0887 Save the pointer to the program area and the length of the new data block.
@@ -1238,14 +1238,14 @@ D $092C This subroutine is entered with the following parameters:
 D $092C #LIST { Carry flag reset - MERGE a BASIC line. } { Carry flag set - MERGE a variable. } { Zero flag reset - it will be an 'addition'. } { Zero flag set - it is a 'replacement'. } { #REGhl register pair - points to the start of the new entry. } { #REGde register pair - points to where it is to MERGE. } LIST#
   $092C Jump if handling an 'addition'.
   $092E Save the flags.
-  $092F Save the 'new' pointer whilst the 'old' line or variable is reclaimed.
+  $092F Save the 'new' pointer (in #R$5C5F(X-PTR)) whilst the 'old' line or variable is reclaimed.
   $093D Restore the flags.
 N $093E The new entry can now be made.
 @ $093E label=ME_ENT_1
   $093E Save the flags.
   $093F Make a copy of the 'destination' pointer.
   $0940 Find the length of the 'new' variable/line.
-  $0943 Save the pointer to the 'new' variable/line.
+  $0943 Save the pointer to the 'new' variable/line (in #R$5C5F(X-PTR)).
   $0946 Fetch #R$5C53(PROG) - to avoid corruption.
   $0949 Save #R$5C53(PROG) on the stack and fetch the 'new' pointer.
   $094A Save the length.
@@ -1260,7 +1260,7 @@ N $093E The new entry can now be made.
   $0958 Point to the first new location.
   $0959 Retrieve the length.
   $095A Retrieve #R$5C53(PROG) and store it in its correct place.
-  $095F Also fetch the 'new' pointer.
+  $095F Also fetch the 'new' pointer (from #R$5C5F(X-PTR)).
   $0963 Again save the length and the 'new' pointer.
   $0965 Switch the pointers and copy the 'new' variable/line into the room made for it.
 N $0968 The 'new' variable/line has now to be removed from the work space.
@@ -1408,7 +1408,7 @@ N $0A7A Enter here when handling the colour items - INK to OVER.
   $0A7D Save the control character code.
 N $0A80 The current 'output' routine address is changed temporarily.
 @ $0A80 label=PO_CHANGE
-  $0A80 #REGhl will point to the 'output' routine address.
+  $0A80 #REGhl will point to the 'output' routine address (#R$5C51(CURCHL)).
   $0A83 Enter the new 'output' routine address and thereby force the next character code to be considered as an operand.
 N $0A87 Once the operands have been collected the routine continues.
 @ $0A87 nowarn
@@ -1764,7 +1764,7 @@ N $0D90 The size of the lower part of the display can now be fixed.
 N $0D94 It now remains for the following 'house keeping' tasks to be performed.
 @ $0D94 label=CL_CHAN
   $0D94 Open channel 'K'.
-  $0D99 Fetch the address of the current channel and make the output address #R$09F4 and the input address #R$10A8.
+  $0D99 Fetch the address of the current channel (#R$5C51(CURCHL)) and make the output address #R$09F4 and the input address #R$10A8.
 @ $0D9C nowarn
 @ $0DA0 label=CL_CHAN_A
 @ $0DA4 nowarn
@@ -2082,7 +2082,7 @@ D $0FA9 When in 'editing mode' pressing the EDIT key will bring down the 'curren
 @ $0FC3 keep
   $0FC3 Add +0A to the length and test that there is sufficient room for a copy of the line.
   $0FCC Now clear the editing area.
-  $0FCF Fetch the current channel address and exchange it for the address of the line.
+  $0FCF Fetch the current channel address (#R$5C51(CURCHL)) and exchange it for the address of the line.
   $0FD3 Save it temporarily.
   $0FD4 Open channel 'R' so that the line will be copied to the editing area.
   $0FD9 Fetch the address of the line.
@@ -2238,7 +2238,7 @@ N $1105 The parameter is saved in #R$5C0D(K-DATA) and the channel address change
   $110B Jump forward.
 N $110D Note: on the first pass entering at #R$10A8 the #REGa register is returned holding a 'control code' and then on the next pass, entering at #R$110D, it is the parameter that is returned.
 @ $110D label=KEY_NEXT
-  $110D Fetch the parameter.
+  $110D Fetch the parameter (#R$5C0D(K-DATA)).
 @ $1110 nowarn
   $1110 This is #R$10A8.
 N $1113 Now set the input address in the first channel area.
@@ -2601,7 +2601,7 @@ B $15E5,1
 c $15E6 THE 'INPUT-AD' SUBROUTINE
 D $15E6 The registers are saved and #REGhl made to point to the input address.
   $15E6 Save the registers.
-  $15E8 Fetch the base address for the current channel information.
+  $15E8 Fetch the base address for the current channel information (#R$5C51(CURCHL)).
   $15EB Step past the output address.
   $15ED Jump forward.
 @ $15EF label=OUT_CODE
@@ -2610,7 +2610,7 @@ D $15EF The subroutine is called with either an absolute value or a proper chara
   $15EF Increase the value in the #REGa register by +30.
 @ $15F2 label=PRINT_A_2
   $15F2 Save the registers.
-  $15F4 Fetch the base address for the current channel. This will point to an output address.
+  $15F4 Fetch the base address for the current channel (#R$5C51(CURCHL)). This will point to an output address.
 N $15F7 Now call the actual subroutine. #REGhl points to the output or the input address as directed.
 @ $15F7 label=CALL_SUB
   $15F7 Fetch the low byte.
@@ -3008,7 +3008,7 @@ D $1855 Before the line number is printed it is tested to determine whether it c
   $1892 Signal 'print in L-mode'.
 N $1894 Now enter a loop to print all the codes in the rest of the BASIC line - jumping over floating-point forms as necessary.
 @ $1894 label=OUT_LINE4
-  $1894 Fetch the syntax error pointer and jump forward unless it is time to print the error marker.
+  $1894 Fetch the syntax error pointer (#R$5C5F(X-PTR)) and jump forward unless it is time to print the error marker.
   $189C,5,c2,3 Print the error marker now. It is a flashing '?'.
 @ $18A1 label=OUT_LINE5
   $18A1 Consider whether to print the cursor.
@@ -3047,7 +3047,7 @@ D $18C1 The 'error cursor' and the 'mode cursors' are printed using this subrout
 @ $18E1 label=OUT_CURS
 c $18E1 THE 'PRINT THE CURSOR' SUBROUTINE
 D $18E1 A return is made if it is not the correct place to print the cursor but if it is then 'C', 'E', 'G', 'K' or 'L' will be printed.
-  $18E1 Fetch the address of the cursor but return if the correct place is not being considered.
+  $18E1 Fetch the address of the cursor (#R$5C5B(K-CUR)) but return if the correct place is not being considered.
   $18E8 The current value of #R$5C41(MODE) is fetched and doubled.
   $18ED Jump forward unless dealing with Extended mode or Graphics.
   $18EF Add the appropriate offset to give 'E' or 'G'.
@@ -4478,7 +4478,7 @@ B $21D5,1
 @ $21D6 label=IN_CHAN_K
 c $21D6 THE 'IN-CHAN-K' SUBROUTINE
 D $21D6 This subroutine returns with the zero flag reset only if channel 'K' is being used.
-  $21D6,10,8,c2 The base address of the channel information for the current channel is fetched and the channel code compared to the character 'K'.
+  $21D6,10,8,c2 The base address of the channel information for the current channel (#R$5C51(CURCHL)) is fetched and the channel code compared to the character 'K'.
   $21E0 Return afterwards.
 @ $21E1 label=CO_TEMP_1
 c $21E1 THE 'COLOUR ITEM' ROUTINES
@@ -8154,7 +8154,7 @@ D $361F The address of this routine is found in the #R$32D7(table of addresses).
 D $361F This subroutine handles the function STR$ X and returns a 'last value' which is a set of parameters that define a string containing what would appear on the screen if X were displayed by a PRINT command.
   $361F One space is made in the work space and its address is copied to #R$5C5B(K-CUR), the address of the cursor.
   $3626 This address is saved on the stack too.
-  $3627 The current channel address is saved on the machine stack.
+  $3627 The current channel address (#R$5C51(CURCHL)) is saved on the machine stack.
   $362B Channel 'R' is opened, allowing the string to be 'printed' out into the work space.
   $3630 The 'last value', X, is now printed out in the work space and the work space is expanded with each character.
   $3633 Restore #R$5C51(CURCHL) to #REGhl and restore the flags that are appropriate to it.
@@ -8172,7 +8172,7 @@ D $3645 This subroutine is called via the calculator offset (+5A) through the fi
   $3645 The numerical parameter is compressed into the #REGa register.
   $3648 Is it smaller than 16 decimal?
   $364A If not, report the error.
-  $364D The current channel address is saved on the machine stack.
+  $364D The current channel address (#R$5C51(CURCHL)) is saved on the machine stack.
   $3651 The channel specified by the parameter is opened.
   $3654 The signal is now accepted, like a 'key-value'.
 @ $3657 keep
@@ -8767,6 +8767,7 @@ g $5C0B DEFADD - Address of arguments of user defined function
 W $5C0B
 @ $5C0D label=K_DATA
 g $5C0D K-DATA - Second byte of colour controls entered from keyboard
+D $5C0D Used by the routine at #R$10A8.
 @ $5C0E label=TVDATA
 g $5C0E TVDATA - Colour, AT and TAB controls going to television
 @ $5C10 label=STRMS
@@ -8841,6 +8842,7 @@ D $5C49 Read by the routines at #R$0FF3, #R$1059 and #R$1795, and updated by the
 @ $5C4B label=VARS
 @ $5C4B keep
 g $5C4B VARS - Address of variables
+D $5C4B Initialised by the routine at #R$11B7, read by the routines at #R$0605, #R$08B6, #R$1EAC and #R$28B2, and updated by the routines at #R$0808 and #R$1664.
 W $5C4B
 @ $5C4D label=DEST
 @ $5C4D keep
@@ -8853,6 +8855,7 @@ W $5C4F
 @ $5C51 label=CURCHL
 @ $5C51 keep
 g $5C51 CURCHL - Address of information used for input and output
+D $5C51 Read by the routines at #R$0A6D, #R$0D6B, #R$0DAF, #R$0FA9, #R$15E6, #R$15EF, #R$21D6, #R$361F and #R$3645, and updated by the routines at #R$1615 and #R$1664.
 W $5C51
 @ $5C53 label=PROG
 @ $5C53 keep
@@ -8874,6 +8877,7 @@ W $5C59
 @ $5C5B label=K_CUR
 @ $5C5B keep
 g $5C5B K-CUR - Address of cursor
+D $5C5B Read by the routine at #R$18E1, and updated by the routines at #R$0F2C, #R$0FA9, #R$100C, #R$1097, #R$1664, #R$16B0, #R$2089 and #R$361F.
 W $5C5B
 @ $5C5D label=CH_ADD
 @ $5C5D keep
@@ -8883,6 +8887,7 @@ W $5C5D
 @ $5C5F label=X_PTR
 @ $5C5F keep
 g $5C5F X-PTR - Address of the character after the '?' marker
+D $5C5F Read by the routine at #R$1855, and updated by the routines at #R$0008, #R$0808, #R$092C, #R$111D, #R$12A2, #R$1664, #R$1DEC and #R$2089.
 W $5C5F
 @ $5C61 label=WORKSP
 @ $5C61 keep
