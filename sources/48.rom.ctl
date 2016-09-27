@@ -2243,7 +2243,7 @@ N $110D Note: on the first pass entering at #R$10A8 the #REGa register is return
   $1110 This is #R$10A8.
 N $1113 Now set the input address in the first channel area.
 @ $1113 label=KEY_CHAN
-  $1113 Fetch the channel address.
+  $1113 Fetch the channel address (#R$5C4F(CHANS)).
   $1118 Now set the input address.
 N $111B Finally exit with the required code in the #REGa register.
 @ $111B label=KEY_DONE_2
@@ -2460,7 +2460,7 @@ N $1303 After the line has been interpreted and all the actions consequential to
   $1343 Print the message.
   $1349 Follow it by a 'comma' and a 'space'.
 @ $134A ssub=LD DE,$1537-1
-  $1350 Now fetch the current line number and print it as well.
+  $1350 Now fetch the current line number (#R$5C45(PPC)) and print it as well.
   $1357,3,c2,1 Follow it by a ':'.
   $135A Fetch the current statement number into the #REGbc register pair and print it.
   $1362 Clear the editing area.
@@ -2634,7 +2634,7 @@ B $160F,1
 N $1610 Using the stream data now find the base address of the channel information associated with that stream.
 @ $1610 label=CHAN_OP_1
   $1610 Reduce the stream data.
-  $1611 The base address of the whole channel information area.
+  $1611 The base address of the whole channel information area (#R$5C4F(CHANS)).
   $1614 Form the required address in this area.
 E $1601 This routine continues into #R$1615.
 @ $1615 label=CHAN_FLAG
@@ -2760,7 +2760,7 @@ N $16C5 Entering here will 'clear' only the calculator stack.
   $16C8 Clear the stack by setting #R$5C65(STKEND) equal to #R$5C63(STKBOT).
 N $16CB In all cases make #R$5C68(MEM) address the calculator's memory area.
   $16CB Save #R$5C65(STKEND).
-  $16CC The base of the memory area.
+  $16CC The base of the memory area (#R$5C92(MEMBOT)).
   $16CF Set #R$5C68(MEM) to this address.
   $16D2 Restore #R$5C65(STKEND) to the #REGhl register pair before returning.
 @ $16D4 label=REC_EDIT
@@ -2797,7 +2797,7 @@ D $16E5 This command allows the user to close streams. However for streams +00 t
 c $1701 THE 'CLOSE-2' SUBROUTINE
 D $1701 The code of the channel associated with the stream being closed has to be 'K', 'S', or 'P'.
   $1701 Save the address of the stream's data.
-  $1702 Fetch the base address of the channel information area and find the channel data for the stream being closed.
+  $1702 Fetch the base address of the channel information area (#R$5C4F(CHANS)) and find the channel data for the stream being closed.
   $1706 Step past the subroutine addresses and pick up the code for that channel.
   $170A Save the pointer.
   $170B The base address of the #R$1716(CLOSE stream look-up table).
@@ -3542,7 +3542,7 @@ B $1B7C,1
 N $1B7D Continue here as the BREAK key was not pressed.
 @ $1B7D label=STMT_R_1
   $1B7D Jump forward if there is not a 'jump' to be made.
-  $1B83 Fetch the 'new line' number and jump forward unless dealing with a further statement in the editing area.
+  $1B83 Fetch the 'new line' number (#R$5C42(NEWPPC)) and jump forward unless dealing with a further statement in the editing area.
 E $1B76 This routine continues into #R$1B8A.
 @ $1B8A label=LINE_RUN
 c $1B8A THE 'LINE-RUN' ENTRY POINT
@@ -3747,7 +3747,7 @@ D $1C96 This subroutine allows for the current temporary colours to be made perm
   $1CA2 Fetch the low byte of #R$5C74(T-ADDR) and subtract +13 to give the range +D9 to +DE which are the token codes for INK to OVER.
   $1CA7 Change the temporary colours as directed by the BASIC statement.
   $1CAA Move on to the next statement if checking syntax.
-  $1CAD Now the temporary colour values are made permanent (both #R$5C8D(ATTR-P) and #R$5C8E(MASK-P)).
+  $1CAD Now the temporary colour values (#R$5C8F(ATTR-T) and #R$5C90(MASK-T)) are made permanent (#R$5C8D(ATTR-P) and #R$5C8E(MASK-P)).
   $1CB3 This is #R$5C91(P-FLAG), and that too has to be considered.
 N $1CB7 The following instructions cleverly copy the even bits of the supplied byte to the odd bits, in effect making the permanent bits the same as the temporary ones.
   $1CB7 Move the mask leftwards.
@@ -3849,14 +3849,14 @@ B $1D38,1 #R$369B: #REGde still points to 'l'
   $1D39 The pointer is restored and both pointers exchanged.
   $1D3B The ten bytes of the LIMIT and the STEP are moved.
 N $1D3F The looping line number and statement number are now entered.
-  $1D3F The current line number.
+  $1D3F The current line number (#R$5C45(PPC)).
   $1D42 Exchange the registers before adding the line number to the FOR control variable.
   $1D46 The looping statement is always the next statement whether it exists or not.
 N $1D4C The #R$1DDA subroutine is called to test the possibility of a 'pass' and a return is made if one is possible; otherwise the statement after for FOR - NEXT loop has to be identified.
   $1D4C Is a 'pass' possible?
   $1D4F Return now if it is.
   $1D50 Fetch the variable's name.
-  $1D53 Copy the present line number to #R$5C42(NEWPPC).
+  $1D53 Copy the present line number (#R$5C45(PPC)) to #R$5C42(NEWPPC).
   $1D59 Fetch the current statement number and two's complement it.
   $1D5E Transfer the result to the #REGd register.
   $1D5F Fetch the current value of #R$5C5D(CH-ADD).
@@ -4121,7 +4121,7 @@ D $1EED The present value of #R$5C45(PPC) and the incremented value of #R$5C47(S
   $1EEE Fetch the statement number and increment it.
   $1EF2 Exchange the 'error address' with the statement number.
   $1EF3 Reclaim the use of a location.
-  $1EF4 Next save the present line number.
+  $1EF4 Next save the present line number (#R$5C45(PPC)).
   $1EF9 Return the 'error address' to the machine stack and reset #R$5C3D(ERR-SP) to point to it.
   $1EFE Return the address #R$1B76.
   $1EFF Now set #R$5C42(NEWPPC) and #R$5C44(NSPPC) to the required values.
@@ -8825,11 +8825,13 @@ g $5C41 MODE - Specifies K, L, C, E or G cursor
 D $5C41 Read by the routines at #R$02BF and #R$18E1, and updated by the routines at #R$0F2C, #R$1097 and #R$10A8.
 @ $5C42 label=NEWPPC
 g $5C42 NEWPPC - Line to be jumped to
+D $5C42 Read by the routine at #R$1B76, and updated by the routines at #R$0808, #R$1D03, #R$1D86 and #R$1E67.
 @ $5C44 label=NSPPC
 g $5C44 NSPPC - Statement number in line to be jumped to
 D $5C44 Read by the routines at #R$1B76, #R$1B8A and #R$1B9E, and updated by the routines at #R$0808, #R$12A2, #R$1BD1, #R$1D03 and #R$1E67.
 @ $5C45 label=PPC
 g $5C45 PPC - Line number of statement being executed
+D $5C45 Read by the routines at #R$12A2, #R$1D03 and #R$1EED, and updated by the routines at #R$1B8A and #R$1BBF.
 @ $5C47 label=SUBPPC
 g $5C47 SUBPPC - Number within line of statement being executed
 D $5C47 Read by the routines at #R$1D03 and #R$1EED, and updated by the routines at #R$12A2, #R$1B17, #R$1B28 and #R$1BD1.
@@ -8851,6 +8853,7 @@ W $5C4D
 @ $5C4F label=CHANS
 @ $5C4F keep
 g $5C4F CHANS - Address of channel data
+D $5C4F Initialised by the routine at #R$11B7, read by the routines at #R$10A8, #R$1601, #R$1701 and #R$1736, and updated by the routine at #R$1664.
 W $5C4F
 @ $5C51 label=CURCHL
 @ $5C51 keep
@@ -8979,6 +8982,7 @@ g $5C8D ATTR-P - Permanent current colours
 g $5C8E MASK-P - Used for transparent colours
 @ $5C8F label=ATTR_T
 g $5C8F ATTR-T - Temporary current colours
+D $5C8F Initialised by the routine at #R$11B7, read by the routines at #R$0BDB, #R$1C96 and #R$21E1, and updated by the routines at #R$0C55, #R$0D4D and #R$18C1.
 @ $5C90 label=MASK_T
 g $5C90 MASK-T - Temporary transparent colours
 @ $5C91 label=P_FLAG
@@ -8986,6 +8990,7 @@ g $5C91 P-FLAG - More flags
 D $5C91 Read by the routines at #R$0B24, #R$0BDB and #R$22DC, and updated by the routines at #R$0A3D, #R$0C55, #R$0D4D, #R$18C1, #R$1C96, #R$1CBE and #R$21E1.
 @ $5C92 label=MEMBOT
 g $5C92 MEMBOT - Calculator's memory area
+D $5C92 Used by the routines at #R$03F8, #R$0B24, #R$2320, #R$2D4F and #R$2DE3.
   $5C92,30,5
 @ $5CB0 label=NMIADD
 @ $5CB0 keep
