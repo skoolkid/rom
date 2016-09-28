@@ -1011,7 +1011,7 @@ N $073A 'LINE' and 'no further parameters' are both of type 0.
   $073A Enter the 'type' number.
 N $073E The parameters that describe the program, and its variables, are found and stored in the header area of the work space.
   $073E The pointer to the end of the variables area (#R$5C59(E-LINE)).
-  $0741 The pointer to the start of the BASIC program.
+  $0741 The pointer to the start of the BASIC program (#R$5C53(PROG)).
   $0745 Now perform the subtraction to find the length of the 'program + variables'; store the result.
   $074E Repeat the operation but this time storing the length of the 'program' only (#R$5C4B(VARS)-#R$5C53(PROG)).
   $0759 Transfer the 'pointer' to the #REGhl register pair as usual.
@@ -1175,7 +1175,7 @@ D $08B6 Start therefore with the loading of the data block.
   $08CA Load the data block.
 N $08CD The lines of the new program are merged with the lines of the old program.
   $08CD Fetch the 'start' of the new program.
-  $08CE Initialise #REGde to the 'start' of the old program.
+  $08CE Initialise #REGde to the 'start' of the old program (#R$5C53(PROG)).
 N $08D2 Enter a loop to deal with the lines of the new program.
 @ $08D2 label=ME_NEW_LP
   $08D2 Fetch a line number and test it.
@@ -3829,7 +3829,7 @@ B $1D1B,1 #R$343C: l, s, v
 B $1D1C,1 #R$369B
 N $1D1D A FOR control variable is now established and treated as a temporary calculator memory area.
   $1D1D The variable is found, or created if needed (v is used).
-  $1D20 Make it a 'memory area'.
+  $1D20 Make it a 'memory area' by setting #R$5C68(MEM).
 N $1D23 The variable that has been found may be a simple numeric variable using only six locations in which case it will need extending.
   $1D23 Fetch the variable's single character name.
   $1D25 Ensure bit 7 of the name is set.
@@ -3907,7 +3907,7 @@ D $1DAB The 'variable in assignment' has already been determined (see #R$1C6C), 
   $1DB2 The address of the variable is fetched and the name tested further.
 N $1DB9 Next the variable's VALUE (v) and STEP (s) are manipulated by the calculator.
   $1DB9 Step past the name.
-  $1DBA Make the variable a temporary 'memory area'.
+  $1DBA Make the variable a temporary 'memory area' by setting #R$5C68(MEM).
   $1DBD -
 B $1DBE,1 #R$340F(get_mem_0): v
 B $1DBF,1 #R$340F(get_mem_2): v, s
@@ -3919,7 +3919,7 @@ N $1DC4 The result of adding the VALUE and the STEP is now tested against the LI
   $1DC4 Test the new VALUE against the LIMIT.
   $1DC7 Return now if the FOR-NEXT loop has been completed.
 N $1DC8 Otherwise collect the 'looping' line number and statement.
-  $1DC8 Find the address of the low byte of the looping line number.
+  $1DC8 Find the address of the low byte of the looping line number (#R$5C68(MEM)+#N$0F).
 @ $1DCB keep
   $1DCF Now fetch this line number.
   $1DD3 Followed by the statement number.
@@ -5575,7 +5575,7 @@ N $27F7 ii. During line execution, a search must first be made for a DEF FN stat
 @ $2802 label=SF_ARGMT1
   $2802 Get 1st character of 1st argument.
   $2803 Save the pointer to it on the stack.
-  $2804 Point to the start of the program.
+  $2804 Point to the start of the program (#R$5C53(PROG)).
   $2807 Go back one location.
 @ $2808 keep
 @ $2808 label=SF_FND_DF
@@ -7749,7 +7749,7 @@ c $340F THE 'GET FROM MEMORY AREA' SUBROUTINE (offset 41)
 D $340F The address of this routine is found in the #R$32D7(table of addresses). It is called via a calculator literal (E0-E5) by the routines at #R$03F8, #R$1D03, #R$1DAB, #R$1DDA, #R$2320, #R$2382, #R$247D, #R$2C9B, #R$2D4F, #R$2DE3, #R$3449, #R$36A0, #R$36AF, #R$36C4 and #R$37AA.
 D $340F This subroutine is called using the literals E0 to E5 and the parameter derived from these literals is held in the #REGa register. The subroutine calls #R$3406 to put the required source address into the #REGhl register pair and #R$33C0 to copy the five bytes involved from the calculator's memory area to the top of the calculator stack to form a new 'last value'.
   $340F Save the result pointer.
-  $3410 Fetch the pointer to the current memory area.
+  $3410 Fetch the pointer to the current memory area (#R$5C68(MEM)).
   $3413 The base address is found.
   $3416 The five bytes are moved.
   $3419 Set the result pointer.
@@ -7772,7 +7772,7 @@ D $342D The address of this routine is found in the #R$32D7(table of addresses).
 D $342D This subroutine is called using the literals C0 to C5 and the parameter derived from these literals is held in the #REGa register. This subroutine is very similar to #R$340F but the source and destination pointers are exchanged.
   $342D Save the result pointer.
   $342E Source to #REGde briefly.
-  $342F Fetch the pointer to the current memory area.
+  $342F Fetch the pointer to the current memory area (#R$5C68(MEM)).
   $3432 The base address is found.
   $3435 Exchange source and destination pointers.
   $3436 The five bytes are moved.
@@ -8863,6 +8863,7 @@ W $5C51
 @ $5C53 label=PROG
 @ $5C53 keep
 g $5C53 PROG - Address of BASIC program
+D $5C53 Initialised by the routine at #R$11B7, read by the routines at #R$0605, #R$08B6, #R$196E and #R$27BD, and updated by the routines at #R$092C, #R$155D and #R$1664.
 W $5C53
 @ $5C55 label=NXTLIN
 @ $5C55 keep
@@ -8900,6 +8901,7 @@ W $5C61
 @ $5C63 label=STKBOT
 @ $5C63 keep
 g $5C63 STKBOT - Address of bottom of calculator stack
+D $5C63 Initialised by the routine at #R$11B7, read by the routines at #R$1190, #R$169E and #R$2089, and updated by the routines at #R$1664 and #R$16B0.
 W $5C63
 @ $5C65 label=STKEND
 @ $5C65 keep
@@ -8912,6 +8914,7 @@ D $5C67 Read by the routines at #R$0C55 and #R$33A2, and updated by the routines
 @ $5C68 label=MEM
 @ $5C68 keep
 g $5C68 MEM - Address of area used for calculator's memory
+D $5C68 Read by the routines at #R$340F and #R$342D, and updated by the routines at #R$16B0, #R$1D03 and #R$1DAB.
 W $5C68
 @ $5C6A label=FLAGS2
 g $5C6A FLAGS2 - More flags
@@ -8970,6 +8973,7 @@ g $5C86 DF-CCL - Like DF-CC for lower part of screen
 W $5C86
 @ $5C88 label=S_POSN
 g $5C88 S-POSN - Column and line number for PRINT position
+D $5C88 Read by the routines at #R$0B03, #R$0C55, #R$12A2 and #R$17F9, and updated by the routines at #R$0ADC and #R$2089.
 @ $5C8A label=S_POSNL
 g $5C8A S-POSNL - Like S-POSN for lower part of screen
 D $5C8A Read by the routines at #R$0B03 and #R$111D, and updated by the routine at #R$0ADC.
@@ -8985,6 +8989,7 @@ g $5C8F ATTR-T - Temporary current colours
 D $5C8F Initialised by the routine at #R$11B7, read by the routines at #R$0BDB, #R$1C96 and #R$21E1, and updated by the routines at #R$0C55, #R$0D4D and #R$18C1.
 @ $5C90 label=MASK_T
 g $5C90 MASK-T - Temporary transparent colours
+D $5C90 Read by the routines at #R$0BDB and #R$1C96, and updated by the routines at #R$0C55, #R$0D4D, #R$18C1, #R$1CBE and #R$21E1.
 @ $5C91 label=P_FLAG
 g $5C91 P-FLAG - More flags
 D $5C91 Read by the routines at #R$0B24, #R$0BDB and #R$22DC, and updated by the routines at #R$0A3D, #R$0C55, #R$0D4D, #R$18C1, #R$1C96, #R$1CBE and #R$21E1.
