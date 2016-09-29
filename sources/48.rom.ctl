@@ -3511,7 +3511,7 @@ N $1B3D A statement has been identified so, first, its initial command is consid
   $1B50 Jump forward into the scanning loop with this address.
 N $1B52 Each of the command class routines applicable to the present command is executed in turn. Any required separators are also considered.
 @ $1B52 label=SCAN_LOOP
-  $1B52 The temporary pointer to the entries in the #R$1A7A(parameter table).
+  $1B52 The temporary pointer to the entries in the #R$1A7A(parameter table) (#R$5C74(T-ADDR)).
 @ $1B55 label=GET_PARAM
   $1B55 Fetch each entry in turn.
   $1B56 Update the pointer to the entries for the next pass.
@@ -3650,7 +3650,7 @@ N $1C11 The commands of class-05 may be followed by a set of items, e.g. PRINT a
   $1C12 If handling commands of classes 00 and 03 and syntax is being checked move on now to consider the next statement.
   $1C15 Save the line pointer in the #REGde register pair.
 N $1C16 After the command class entries and the separator entries in the #R$1A7A(parameter table) have been considered the jump to the appropriate command routine is made.
-  $1C16 Fetch the pointer to the entries in the #R$1A7A(parameter table) and fetch the address of the required command routine.
+  $1C16 Fetch the pointer to the entries in the #R$1A7A(parameter table) from #R$5C74(T-ADDR) and fetch the address of the required command routine.
   $1C1C Exchange the pointers back and make an indirect jump to the command routine.
 @ $1C1F label=CLASS_01
 c $1C1F THE 'COMMAND CLASS 01' ROUTINE
@@ -3904,7 +3904,7 @@ c $1DAB THE 'NEXT' COMMAND ROUTINE
 D $1DAB The address of this routine is found in the #R$1A98(parameter table).
 D $1DAB The 'variable in assignment' has already been determined (see #R$1C6C), and it remains to change the VALUE as required.
   $1DAB Jump to give the error report if the variable was not found.
-  $1DB2 The address of the variable is fetched and the name tested further.
+  $1DB2 The address of the variable is fetched from #R$5C4D(DEST) and the name tested further.
 N $1DB9 Next the variable's VALUE (v) and STEP (s) are manipulated by the calculator.
   $1DB9 Step past the name.
   $1DBA Make the variable a temporary 'memory area' by setting #R$5C68(MEM).
@@ -4623,7 +4623,7 @@ D $22DC This routine consists of a main subroutine plus one line to call it and 
   $22DF The subroutine is called.
   $22E2 Exit, setting temporary colours.
 @ $22E5 label=PLOT_SUB
-  $22E5 The system variable is set.
+  $22E5 The system variable #R$5C7D(COORDS) is set.
   $22E9 Pixel address to #REGhl.
   $22EC #REGb will count #REGa+1 loops to get a zero to the correct place in #REGa.
   $22EE The zero is entered.
@@ -6150,7 +6150,7 @@ N $2B29 The 'newly declared numeric variable' presently being handled will requi
   $2B31 Point to the first 'new' byte.
   $2B32 Make #REGde point to the second 'new' byte.
   $2B34 Save this pointer.
-  $2B35 Fetch the pointer to the start of the name.
+  $2B35 Fetch the pointer to the start of the name (#R$5C4D(DEST)).
   $2B38 Make #REGde point to the first 'new' byte.
   $2B39 Make #REGb hold the 'number of extra letters' that are found in a 'long name'.
   $2B3C Jump forward if dealing with a variable with a 'short name'.
@@ -6167,7 +6167,7 @@ N $2B4A The last code of a 'long' name has to be ORed with +80.
 N $2B4D The first letter of the name of the variable being handled is now considered.
   $2B4D Prepare to mark the letter of a 'long' name.
 @ $2B4F label=L_SINGLE
-  $2B4F Fetch the pointer to the letter.
+  $2B4F Fetch the pointer to the letter (#R$5C4D(DEST)).
   $2B52 #REGa holds +00 for a 'short' name and +C0 for a 'long' name.
   $2B53 Set bit 5, as for lower case letters.
   $2B55 Drop the pointer now.
@@ -6194,7 +6194,7 @@ N $2B6C For numeric variables the 'new' number overwrites the 'old' number. So f
   $2B70 Jump back to make the actual transfer.
 N $2B72 The parameters of the string variable are fetched and complete simple strings separated from 'sliced' strings and array strings.
 @ $2B72 label=L_DELETE
-  $2B72 Fetch the 'start'. Note: this line is redundant.
+  $2B72 Fetch the 'start' (#R$5C4D(DEST)). Note: this line is redundant.
   $2B75 Fetch the 'length'.
   $2B79 Jump if dealing with a complete simple string; the old string will need to be 'deleted' in this case only.
 N $2B7F When dealing with a 'slice' of an existing simple string, a 'slice' of a string from an array of strings or a complete string from an array of strings there are two distinct stages involved. The first is to build up the 'new' string in the work space, lengthening or shortening it as required. The second stage is then to copy the 'new' string to its allotted room in the variables area.
@@ -6252,7 +6252,7 @@ N $2BAF When handling a 'complete and existing' simple string the new string is 
 N $2BC0 'Newly declared' simple strings are handled as follows:
 @ $2BC0 label=L_NEW
   $2BC0 Prepare for the marking of the variable's letter.
-  $2BC2 Fetch the pointer to the letter.
+  $2BC2 Fetch the pointer to the letter (#R$5C4D(DEST)).
   $2BC5 Mark the letter as required. #R$2BC6 is now used to add the new string to the variables area.
 @ $2BC6 label=L_STRING
 N $2BC6 The parameters of the 'new' string are fetched, sufficient room is made available for it and the string is then transferred.
@@ -6262,11 +6262,11 @@ N $2BC6 The parameters of the 'new' string are fetched, sufficient room is made 
   $2BCB Make #REGhl point one past the string.
   $2BCC Save the 'length'.
   $2BCD Make #REGhl point to the end of the string.
-  $2BCE Save the pointer briefly.
+  $2BCE Save the pointer briefly in #R$5C4D(DEST).
   $2BD1 Allow one byte for the letter and two bytes for the length.
   $2BD4 Make #REGhl point to the '80-byte' at the end of the variables area (#R$5C59(E-LINE)-1).
   $2BD8 Now open up the variables area. Note: in effect #REGbc spaces are made before the displaced '80-byte'.
-  $2BDB Restore the pointer to the end of the 'new' string.
+  $2BDB Restore the pointer to the end of the 'new' string from #R$5C4D(DEST).
   $2BDE Make a copy of the length of the 'new' string.
   $2BE0 Add one to the length in case the 'new' string is a 'null' string.
   $2BE1 Now copy the 'new' string + one byte.
@@ -7934,7 +7934,7 @@ D $34BC This subroutine handles the function USR X$, where X$ is a string. The s
   $34D4 Multiply by 8 to get an offset for the address.
   $34D7 Test the range of the offset.
   $34D9 Give report A if out of range.
-  $34DB Fetch the address of the first user-defined graphic in #REGbc.
+  $34DB Fetch the address of the first user-defined graphic (#R$5C7B(UDG)) in #REGbc.
   $34DF Add #REGc to the offset.
   $34E0 Store the result back in #REGc.
   $34E1 Jump if there is no carry.
@@ -8849,6 +8849,7 @@ W $5C4B
 @ $5C4D label=DEST
 @ $5C4D keep
 g $5C4D DEST - Address of variable in assignment
+D $5C4D Read by the routine at #R$1DAB, and updated by the routines at #R$1664, #R$1C22 and #R$2AFF.
 W $5C4D
 @ $5C4F label=CHANS
 @ $5C4F keep
@@ -8939,7 +8940,8 @@ D $5C72 Read by the routines at #R$1D03 and #R$2AFF, and updated by the routine 
 W $5C72
 @ $5C74 label=T_ADDR
 @ $5C74 keep
-g $5C74 T-ADDR - Address of next item in syntax table
+g $5C74 T-ADDR - Address of next item in parameter table
+D $5C74 Read by the routines at #R$07CB, #R$1C0D and #R$1C96, and updated by the routines at #R$0605 and #R$1B28.
 W $5C74
 @ $5C76 label=SEED
 @ $5C76 keep
@@ -8950,9 +8952,11 @@ g $5C78 FRAMES - Frame counter
 @ $5C7B label=UDG
 @ $5C7B keep
 g $5C7B UDG - Address of first user defined graphic
+D $5C7B Initialised by the routine at #R$11B7, and read by the routines at #R$0B24 and #R$34BC.
 W $5C7B
 @ $5C7D label=COORDS
 g $5C7D COORDS - Coordinates of last point plotted
+D $5C7D Read by the routines at #R$2382 and #R$24B7, and updated by the routines at #R$0DAF, #R$22DC and #R$2320.
 @ $5C7F label=P_POSN
 g $5C7F P-POSN - Column number of printer position
 D $5C7F Read by the routine at #R$0B03, and updated by the routine at #R$0ADC.
@@ -8982,6 +8986,7 @@ g $5C8C SCR-CT - Scroll counter
 D $5C8C Used by the routines at #R$0605, #R$0C55, #R$0DAF, #R$12A2 and #R$2089.
 @ $5C8D label=ATTR_P
 g $5C8D ATTR-P - Permanent current colours
+D $5C8D Initialised by the routine at #R$11B7, read by the routines at #R$0D4D, #R$0D6B and #R$0E44, and updated by the routine at #R$1C96.
 @ $5C8E label=MASK_P
 g $5C8E MASK-P - Used for transparent colours
 @ $5C8F label=ATTR_T
