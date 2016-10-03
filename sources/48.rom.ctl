@@ -3959,7 +3959,7 @@ N $1DED The address of this entry point is found in the #R$1AC9(parameter table)
   $1DED Consider whether the variable has been used before; find the existing entry if it has.
   $1DF0 Jump forward if checking syntax.
   $1DF5 Save the current pointer #R$5C5D(CH-ADD) in #R$5C5F(X-PTR).
-  $1DF9,8,4,c2,2 Fetch the current DATA list pointer and jump forward unless a new DATA statement has to be found.
+  $1DF9,8,4,c2,2 Fetch the current DATA list pointer (#R$5C57(DATADD)) and jump forward unless a new DATA statement has to be found.
   $1E01 The search is for 'DATA'.
   $1E03 Jump forward if the search is successful.
 N $1E08 Report E - Out of DATA.
@@ -8764,6 +8764,7 @@ g $5C0A REPPER - Delay between successive repeats of a key held down
 @ $5C0B label=DEFADD
 @ $5C0B keep
 g $5C0B DEFADD - Address of arguments of user defined function
+D $5C0B Read by the routines at #R$28B2 and #R$2951, and updated by the routines at #R$12A2 and #R$27BD.
 W $5C0B
 @ $5C0D label=K_DATA
 g $5C0D K-DATA - Second byte of colour controls entered from keyboard
@@ -8791,6 +8792,7 @@ g $5C0E TVDATA - Colour, AT and TAB controls going to television
 @ $5C32 keep
 @ $5C34 keep
 g $5C10 STRMS - Addresses of channels attached to streams
+D $5C10 Initialised by the routine at #R$11B7, and read by the routine at #R$171E.
   $5C10,38,2
 @ $5C36 label=CHARS
 @ $5C36 keep
@@ -8873,6 +8875,7 @@ W $5C55
 @ $5C57 label=DATADD
 @ $5C57 keep
 g $5C57 DATADD - Address of terminator of last DATA item
+D $5C57 Initialised by the routine at #R$11B7, used by the routine at #R$1DEC, and updated by the routines at #R$1664 and #R$1E42.
 W $5C57
 @ $5C59 label=E_LINE
 @ $5C59 keep
@@ -8946,6 +8949,7 @@ W $5C74
 @ $5C76 label=SEED
 @ $5C76 keep
 g $5C76 SEED - The seed for RND
+D $5C76 Used by the routine at #R$25F8, and updated by the routine at #R$1E4F.
 W $5C76
 @ $5C78 label=FRAMES
 g $5C78 FRAMES - Frame counter
@@ -8970,6 +8974,7 @@ g $5C82 ECHO-E - Column and line number of end of input buffer
 @ $5C84 label=DF_CC
 @ $5C84 keep
 g $5C84 DF-CC - Address in display file of PRINT position
+D $5C84 Read by the routine at #R$0B03, and updated by the routine at #R$0ADC.
 W $5C84
 @ $5C86 label=DF_CCL
 @ $5C86 keep
