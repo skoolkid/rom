@@ -57,7 +57,7 @@ D $0030 This routine creates free locations in the work space. The number of loc
 c $0038 THE 'MASKABLE INTERRUPT' ROUTINE
 D $0038 The real time clock is incremented and the keyboard scanned whenever a maskable interrupt occurs.
   $0038 Save the current values held in these registers.
-  $003A The lower two bytes of the frame counter are incremented every 20 ms. (U.K.) The highest byte of the frame counter is only incremented when the value of the lower two bytes is zero.
+  $003A The lower two bytes of the frame counter (#R$5C78(FRAMES)) are incremented every 20 ms. (U.K.) The highest byte of the frame counter is only incremented when the value of the lower two bytes is zero.
 @ $0048 label=KEY_INT
   $0048 Save the current values held in these registers.
   $004A Now scan the keyboard.
@@ -8797,6 +8797,7 @@ D $5C10 Initialised by the routine at #R$11B7, and read by the routine at #R$171
 @ $5C36 label=CHARS
 @ $5C36 keep
 g $5C36 CHARS - 256 less than address of character set
+D $5C36 Initialised by the routine at #R$11B7, and read by the routines at #R$0B24 and #R$2535.
 W $5C36
 @ $5C38 label=RASP
 g $5C38 RASP - Length of warning buzz
@@ -8871,6 +8872,7 @@ W $5C53
 @ $5C55 label=NXTLIN
 @ $5C55 keep
 g $5C55 NXTLIN - Address of next line in program
+D $5C55 Read by the routine at #R$1BB3, and updated by the routines at #R$1664, #R$1BD1 and #R$1D03.
 W $5C55
 @ $5C57 label=DATADD
 @ $5C57 keep
@@ -8953,6 +8955,7 @@ D $5C76 Used by the routine at #R$25F8, and updated by the routine at #R$1E4F.
 W $5C76
 @ $5C78 label=FRAMES
 g $5C78 FRAMES - Frame counter
+D $5C78 Read by the routine at #R$1E4F, and updated by the routine at #R$0038.
 @ $5C7B label=UDG
 @ $5C7B keep
 g $5C7B UDG - Address of first user defined graphic
@@ -8971,6 +8974,7 @@ D $5C80 Read by the routine at #R$0B03, and updated by the routines at #R$0ADC a
 W $5C80
 @ $5C82 label=ECHO_E
 g $5C82 ECHO-E - Column and line number of end of input buffer
+D $5C82 Read by the routine at #R$2089, and updated by the routines at #R$0ADC and #R$111D.
 @ $5C84 label=DF_CC
 @ $5C84 keep
 g $5C84 DF-CC - Address in display file of PRINT position
