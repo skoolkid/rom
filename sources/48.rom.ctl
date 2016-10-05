@@ -8759,8 +8759,10 @@ D $5C00 Initialised by the routine at #R$11B7, and used by the routine at #R$02B
 g $5C08 LAST-K - Last key pressed
 @ $5C09 label=REPDEL
 g $5C09 REPDEL - Time that a key must be held down before it repeats
+D $5C09 Initialised by the routine at #R$11B7, and read by the routine at #R$02BF.
 @ $5C0A label=REPPER
 g $5C0A REPPER - Delay between successive repeats of a key held down
+D $5C0A Initialised by the routine at #R$11B7, and read by the routine at #R$02BF.
 @ $5C0B label=DEFADD
 @ $5C0B keep
 g $5C0B DEFADD - Address of arguments of user defined function
@@ -8983,6 +8985,7 @@ W $5C84
 @ $5C86 label=DF_CCL
 @ $5C86 keep
 g $5C86 DF-CCL - Like DF-CC for lower part of screen
+D $5C86 Read by the routine at #R$0B03, and updated by the routine at #R$0ADC.
 W $5C86
 @ $5C88 label=S_POSN
 g $5C88 S-POSN - Column and line number for PRINT position
@@ -9022,6 +9025,7 @@ W $5CB2
 @ $5CB4 label=P_RAMT
 @ $5CB4 keep
 g $5CB4 P-RAMT - Address of last byte of physical RAM
+D $5CB4 Initialised by the routine at #R$11B7, and read by the routine at #R$1EAC.
 W $5CB4
 @ $5CB6 label=CHINFO
 @ $5CB6 keep
