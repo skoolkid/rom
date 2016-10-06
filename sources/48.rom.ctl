@@ -4021,7 +4021,7 @@ D $1E4F The operand is compressed into the #REGbc register pair and transferred 
 c $1E5F THE 'CONTINUE' COMMAND ROUTINE
 D $1E5F The address of this routine is found in the #R$1AB8(parameter table).
 D $1E5F The required line number and statement number within that line are made the object of a jump.
-  $1E5F The line number.
+  $1E5F The line number (#R$5C6E(OLDPPC)).
   $1E62 The statement number (#R$5C70(OSPCC)).
   $1E65 Jump forward.
 @ $1E67 label=GO_TO
@@ -8757,6 +8757,7 @@ g $5C00 KSTATE - Used in reading the keyboard
 D $5C00 Initialised by the routine at #R$11B7, and used by the routine at #R$02BF.
 @ $5C08 label=LAST_K
 g $5C08 LAST-K - Last key pressed
+D $5C08 Read by the routine at #R$10A8, and updated by the routine at #R$02BF.
 @ $5C09 label=REPDEL
 g $5C09 REPDEL - Time that a key must be held down before it repeats
 D $5C09 Initialised by the routine at #R$11B7, and read by the routine at #R$02BF.
@@ -8824,6 +8825,7 @@ W $5C3D
 @ $5C3F label=LIST_SP
 @ $5C3F keep
 g $5C3F LIST-SP - Return address from automatic listing
+D $5C3F Read by the routine at #R$0C55, and updated by the routine at #R$1795.
 W $5C3F
 @ $5C41 label=MODE
 g $5C41 MODE - Specifies K, L, C, E or G cursor
@@ -8934,6 +8936,7 @@ D $5C6B Initialised by the routine at #R$11B7, read by the routines at #R$0A6D, 
 g $5C6C S-TOP - The number of the top program line in automatic listings
 @ $5C6E label=OLDPPC
 g $5C6E OLDPPC - Line number to which CONTINUE jumps
+D $5C6E Read by the routine at #R$1E5F, and updated by the routine at #R$12A2.
 @ $5C70 label=OSPCC
 g $5C70 OSPCC - Number within line of statement to which CONTINUE jumps
 D $5C70 Read by the routine at #R$1E5F, and updated by the routine at #R$12A2.
@@ -9001,6 +9004,7 @@ g $5C8D ATTR-P - Permanent current colours
 D $5C8D Initialised by the routine at #R$11B7, read by the routines at #R$0D4D, #R$0D6B and #R$0E44, and updated by the routine at #R$1C96.
 @ $5C8E label=MASK_P
 g $5C8E MASK-P - Used for transparent colours
+D $5C8E Read by the routine at #R$0D4D, and updated by the routine at #R$1C96.
 @ $5C8F label=ATTR_T
 g $5C8F ATTR-T - Temporary current colours
 D $5C8F Initialised by the routine at #R$11B7, read by the routines at #R$0BDB, #R$1C96 and #R$21E1, and updated by the routines at #R$0C55, #R$0D4D and #R$18C1.
