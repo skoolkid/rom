@@ -2356,7 +2356,7 @@ N $1200 Overwrite the system variables when coming from #R$0000 and initialise t
 @ $1206 keep
   $1206 There are this number of bytes in twenty one letters.
   $1209 Switch the pointers.
-  $120A Now copy the character forms of the letter 'A' to 'U'.
+  $120A Now copy the character forms of the letters 'A' to 'U'.
   $120C Switch the pointers back.
   $120D Point to the first byte.
   $120E Now set #R$5C7B(UDG).
