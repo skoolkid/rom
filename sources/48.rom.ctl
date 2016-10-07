@@ -2369,7 +2369,7 @@ N $1219 The remainder of the routine is common to both the #R$0000 and the #R$11
 @ $121C ssub=LD HL,$3D00-$100
   $121C Initialise the system variable #R$5C36(CHARS).
 N $1222 Next the machine stack is set up.
-  $1222 The top location is made to hold +3E.
+  $1222 The top location (#R$5CB2(RAMTOP)) is made to hold +3E.
   $1227 The next location is left holding zero.
   $1228 These two locations represent the 'last entry'.
   $1229 Step down two locations to find the correct value for #R$5C3D(ERR-SP).
@@ -8774,6 +8774,7 @@ g $5C0D K-DATA - Second byte of colour controls entered from keyboard
 D $5C0D Used by the routine at #R$10A8.
 @ $5C0E label=TVDATA
 g $5C0E TVDATA - Colour, AT and TAB controls going to television
+D $5C0E Used by the routine at #R$0A6D.
 @ $5C10 label=STRMS
 @ $5C10 keep
 @ $5C12 keep
@@ -8934,6 +8935,7 @@ g $5C6B DF-SZ - The number of lines in the lower part of the screen
 D $5C6B Initialised by the routine at #R$11B7, read by the routines at #R$0A6D, #R$0C55, #R$0DD9, #R$1795, #R$17F9 and #R$2089, and updated by the routine at #R$0D6B.
 @ $5C6C label=S_TOP
 g $5C6C S-TOP - The number of the top program line in automatic listings
+D $5C6C Used by the routines at #R$1795 and #R$17F9.
 @ $5C6E label=OLDPPC
 g $5C6E OLDPPC - Line number to which CONTINUE jumps
 D $5C6E Read by the routine at #R$1E5F, and updated by the routine at #R$12A2.
@@ -9021,10 +9023,12 @@ D $5C92 Used by the routines at #R$03F8, #R$0B24, #R$2320, #R$2D4F and #R$2DE3.
 @ $5CB0 label=NMIADD
 @ $5CB0 keep
 g $5CB0 NMIADD - Non-maskable interrupt address
+D $5CB0 Read by the routine at #R$0066.
 W $5CB0
 @ $5CB2 label=RAMTOP
 @ $5CB2 keep
 g $5CB2 RAMTOP - Address of last byte of BASIC system area
+D $5CB2 Initialised by the routine at #R$11B7, and used by the routine at #R$1EAC.
 W $5CB2
 @ $5CB4 label=P_RAMT
 @ $5CB4 keep
