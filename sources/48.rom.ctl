@@ -2624,7 +2624,7 @@ c $1601 THE 'CHAN-OPEN' SUBROUTINE
 D $1601 This subroutine is called with the #REGa register holding a valid stream number - normally +FD to +03. Then depending on the stream data a particular channel will be made the current channel.
   $1601 The value in the #REGa register is doubled and then increased by +16.
   $1604 The result is moved to #REGl.
-  $1605 The address 5C16 is the base address for stream +00.
+  $1605 The address #R$5C16(#N$5C16) is the base address for stream +00.
   $1607 Fetch the first two bytes of the required stream's data.
   $160A Give an error if both bytes are zero; otherwise jump forward.
 N $160E Report O - Invalid stream.
@@ -9045,6 +9045,7 @@ W $5CB4
 @ $5CC5 keep
 @ $5CC7 keep
 g $5CB6 Channel information
+D $5CB6 Initialised by the routine at #R$11B7, read by the routines at #R$1615, #R$1701 and #R$1736, and updated by the routine at #R$10A8.
 W $5CB6,4,2
 B $5CBA,1
 L $5CB6,5,4
