@@ -2352,6 +2352,7 @@ N $11F0 Next restore the 'preserved' system variables. (Meaningless when coming 
 N $1200 Overwrite the system variables when coming from #R$0000 and initialise the user-defined graphics area.
   $1200 Top of physical RAM.
 @ $1203 nowarn
+@ $1203 ssub=LD DE,$3D00+$01AF
   $1203 Last byte of 'U' in character set.
 @ $1206 keep
   $1206 There are this number of bytes in twenty one letters.
