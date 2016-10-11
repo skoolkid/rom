@@ -8,6 +8,7 @@
 @ $0000 start
 @ $0000 replace=/#pi/#CHR(960)
 @ $0000 replace=/#power/#CHR(8593)
+@ $0000 replace=/#iy(.)\i/#REGiy\1#N\2,,,1($)
 @ $0000 org=$0000
 @ $0000 set-handle-unsupported-macros=1
 @ $0000 label=START
@@ -8755,7 +8756,7 @@ D $3D00 These locations hold the 'character set'. There are 8-byte representatio
 i $4000
 @ $5C00 label=KSTATE
 g $5C00 KSTATE - Used in reading the keyboard
-D $5C00 Initialised by the routine at #R$11B7, and used by the routine at #R$02BF.
+D $5C00 Initialised by the routine at #R$11B7, and used by the routine at #R$02BF. KSTATE0 (#N$5C00) and KSTATE4 (#N$5C04) are accessed by the routine at #R$11B7 via the #REGiy register at #iy-$3A and #iy-$36.
 @ $5C08 label=LAST_K
 g $5C08 LAST-K - Last key pressed
 D $5C08 Read by the routine at #R$10A8, and updated by the routine at #R$02BF.
@@ -8772,7 +8773,7 @@ D $5C0B Read by the routines at #R$28B2 and #R$2951, and updated by the routines
 W $5C0B
 @ $5C0D label=K_DATA
 g $5C0D K-DATA - Second byte of colour controls entered from keyboard
-D $5C0D Used by the routine at #R$10A8.
+D $5C0D Used by the routine at #R$10A8 (by direct addressing and also via the #REGiy register at #iy-$2D).
 @ $5C0E label=TVDATA
 g $5C0E TVDATA - Colour, AT and TAB controls going to television
 D $5C0E Used by the routine at #R$0A6D.
@@ -8806,19 +8807,19 @@ D $5C36 Initialised by the routine at #R$11B7, and read by the routines at #R$0B
 W $5C36
 @ $5C38 label=RASP
 g $5C38 RASP - Length of warning buzz
-D $5C38 Initialised by the routine at #R$11B7, and read by the routines at #R$107F and #R$111D.
+D $5C38 Initialised by the routine at #R$11B7, and read by the routines at #R$107F and #R$111D. This system variable is accessed by some routines via the #REGiy register at #iy-$02.
 @ $5C39 label=PIP
 g $5C39 PIP - Length of keyboard click
-D $5C39 Initialised by the routine at #R$11B7, and read by the routine at #R$0F2C.
+D $5C39 Initialised by the routine at #R$11B7, and read by the routine at #R$0F2C (via the #REGiy register at #iy-$01).
 @ $5C3A label=ERR_NR
 g $5C3A ERR-NR - One less than the error report code
-D $5C3A Read by the routine at #R$1024, and updated by the routines at #R$0053, #R$0FF3, #R$107F, #R$111D, #R$12A2, #R$1B17 and #R$2089. The #REGiy register is initialised to #N$5C3A by the routine at #R$11B7.
+D $5C3A Read by the routine at #R$1024, and updated by the routines at #R$0053, #R$0FF3, #R$107F, #R$111D, #R$12A2, #R$1B17 and #R$2089. The #REGiy register is initialised to #N$5C3A by the routine at #R$11B7, and reinitialised by the routine at #R$2D2B. This system variable is accessed by some routines via the #REGiy register at #iy+$00.
 @ $5C3B label=FLAGS
 g $5C3B FLAGS - Various flags to control the BASIC system
-D $5C3B Initialised by the routine at #R$11B7, read by the routines at #R$04AA, #R$0A23, #R$0C0A, #R$0DD9, #R$1C22, #R$1C56, #R$1C79, #R$1F60, #R$1FFC, #R$2089, #R$26C9 and #R$2AFF, and updated by the routines at #R$02BF, #R$0A6D, #R$0B24, #R$0C55, #R$10A8, #R$12A2, #R$1634, #R$1642, #R$1855, #R$18E1, #R$1925, #R$1F3A, #R$25B3, #R$2634, #R$268D, #R$27BD, #R$28B2, #R$2996, #R$2A52, #R$2AB and #R$35DE.
+D $5C3B Initialised by the routine at #R$11B7, read by the routines at #R$04AA, #R$0A23, #R$0A4F, #R$0ADC, #R$0B03, #R$0C0A, #R$0DD9, #R$1C22, #R$1C56, #R$1C79, #R$1C96, #R$1F60, #R$1FFC, #R$2089, #R$2530, #R$26C9 and #R$2AFF, and updated by the routines at #R$02BF, #R$0A6D, #R$0B24, #R$0C55, #R$10A8, #R$12A2, #R$1634, #R$1642, #R$164D, #R$1855, #R$18E1, #R$1925, #R$1B17, #R$1F3A, #R$25B3, #R$2634, #R$268D, #R$27BD, #R$28B2, #R$2996, #R$2A52, #R$2AB and #R$35DE. This system variable is accessed by some routines via the #REGiy register at #iy+$01.
 @ $5C3C label=TV_FLAG
 g $5C3C TV-FLAG - Flags associated with the television
-D $5C3C Initialised by the routine at #R$11B7, read by the routines at #R$0A6D, #R$0ADC, #R$0B03, #R$0D4D, #R$0DD9 and #R$0E44, and updated by the routines at #R$0970, #R$0C55, #R$0D6B, #R$10A8, #R$111D, #R$12A2, #R$15D4, #R$1795, #R$17F9, #R$1C96, #R$1CBE and #R$2089.
+D $5C3C Initialised by the routine at #R$11B7, read by the routines at #R$0A6D, #R$0ADC, #R$0B03, #R$0D4D, #R$0DD9 and #R$0E44, and updated by the routines at #R$0970, #R$0C55, #R$0D6B, #R$10A8, #R$111D, #R$12A2, #R$15D4, #R$1634, #R$1642, #R$1795, #R$17F9, #R$1C96, #R$1CBE and #R$2089. This system variable is accessed by some routines via the #REGiy register at #iy+$02.
 @ $5C3D label=ERR_SP
 @ $5C3D keep
 g $5C3D ERR-SP - Address of item on machine stack to use as error return
@@ -8831,25 +8832,25 @@ D $5C3F Read by the routine at #R$0C55, and updated by the routine at #R$1795.
 W $5C3F
 @ $5C41 label=MODE
 g $5C41 MODE - Specifies K, L, C, E or G cursor
-D $5C41 Read by the routines at #R$02BF and #R$18E1, and updated by the routines at #R$0F2C, #R$1097 and #R$10A8.
+D $5C41 Read by the routines at #R$02BF and #R$18E1, and updated by the routines at #R$0F2C, #R$1097 and #R$10A8. This system variable is accessed by some routines via the #REGiy register at #iy+$07.
 @ $5C42 label=NEWPPC
 g $5C42 NEWPPC - Line to be jumped to
 D $5C42 Read by the routine at #R$1B76, and updated by the routines at #R$0808, #R$1D03, #R$1D86 and #R$1E67.
 @ $5C44 label=NSPPC
 g $5C44 NSPPC - Statement number in line to be jumped to
-D $5C44 Read by the routines at #R$1B76, #R$1B8A and #R$1B9E, and updated by the routines at #R$0808, #R$12A2, #R$1BD1, #R$1D03 and #R$1E67.
+D $5C44 Read by the routines at #R$1B76, #R$1B8A and #R$1B9E, and updated by the routines at #R$0808, #R$12A2, #R$1BD1, #R$1D03 and #R$1E67. This system variable is accessed by some routines via the #REGiy register at #iy+$0A.
 @ $5C45 label=PPC
 g $5C45 PPC - Line number of statement being executed
 D $5C45 Read by the routines at #R$12A2, #R$1D03 and #R$1EED, and updated by the routines at #R$1B8A and #R$1BBF.
 @ $5C47 label=SUBPPC
 g $5C47 SUBPPC - Number within line of statement being executed
-D $5C47 Read by the routines at #R$1D03 and #R$1EED, and updated by the routines at #R$12A2, #R$1B17, #R$1B28 and #R$1BD1.
+D $5C47 Read by the routines at #R$1D03 and #R$1EED, and updated by the routines at #R$12A2, #R$1B17, #R$1B28 and #R$1BD1. This system variable is accessed by some routines via the #REGiy register at #iy+$0D.
 @ $5C48 label=BORDCR
 g $5C48 BORDCR - Border colour
-D $5C48 Initialised by the routine at #R$11B7, read by the routines at #R$03B5, #R$053F, #R$0D4D and #R$0E44, and updated by the routine at #R$2294. The border colour (0-7) is stored in bits 3-5.
+D $5C48 Initialised by the routine at #R$11B7, read by the routines at #R$03B5, #R$053F, #R$0D4D (via the #REGiy register at #iy+$0E) and #R$0E44, and updated by the routine at #R$2294. The border colour (0-7) is stored in bits 3-5.
 @ $5C49 label=E_PPC
 g $5C49 E-PPC - Number of current line
-D $5C49 Read by the routines at #R$0FF3, #R$1059 and #R$1795, and updated by the routines at #R$0FA9, #R$155D and #R$17F9.
+D $5C49 Read by the routines at #R$0FF3, #R$1059, #R$1795 and #R$1855, and updated by the routines at #R$0FA9, #R$155D and #R$17F9. The first byte of this system variable is accessed by the routine at #R$0FA9 via the #REGiy register at #iy+$0F.
 @ $5C4B label=VARS
 @ $5C4B keep
 g $5C4B VARS - Address of variables
@@ -8893,7 +8894,7 @@ W $5C59
 @ $5C5B label=K_CUR
 @ $5C5B keep
 g $5C5B K-CUR - Address of cursor
-D $5C5B Read by the routine at #R$18E1, and updated by the routines at #R$0F2C, #R$0FA9, #R$100C, #R$1097, #R$1664, #R$16B0, #R$2089 and #R$361F.
+D $5C5B Read by the routine at #R$18E1, and updated by the routines at #R$0F2C, #R$0FA9, #R$100C, #R$1097, #R$1664, #R$16B0, #R$2089 and #R$361F. The second byte of this system variable is accessed by the routine at #R$2089 via the #REGiy register at #iy+$22.
 W $5C5B
 @ $5C5D label=CH_ADD
 @ $5C5D keep
@@ -8903,7 +8904,7 @@ W $5C5D
 @ $5C5F label=X_PTR
 @ $5C5F keep
 g $5C5F X-PTR - Address of the character after the '?' marker
-D $5C5F Read by the routine at #R$1855, and updated by the routines at #R$0008, #R$0808, #R$092C, #R$111D, #R$12A2, #R$1664, #R$1DEC and #R$2089.
+D $5C5F Read by the routine at #R$1855, and updated by the routines at #R$0008, #R$0808, #R$092C, #R$111D, #R$12A2, #R$1664, #R$1DEC and #R$2089. The second byte of this system variable is accessed by some routines via the #REGiy register at #iy+$26.
 W $5C5F
 @ $5C61 label=WORKSP
 @ $5C61 keep
@@ -8922,7 +8923,7 @@ D $5C65 Initialised by the routine at #R$11B7, read by the routines at #R$1652, 
 W $5C65
 @ $5C67 label=BREG
 g $5C67 BREG - Calculator's B register
-D $5C67 Read by the routines at #R$0C55 and #R$33A2, and updated by the routines at #R$1855, #R$335B and #R$367A.
+D $5C67 Read by the routines at #R$0C55 and #R$33A2, and updated by the routines at #R$1855, #R$335B and #R$367A. This system variable is accessed by some routines via the #REGiy register at #iy+$2D.
 @ $5C68 label=MEM
 @ $5C68 keep
 g $5C68 MEM - Address of area used for calculator's memory
@@ -8930,10 +8931,10 @@ D $5C68 Read by the routines at #R$340F and #R$342D, and updated by the routines
 W $5C68
 @ $5C6A label=FLAGS2
 g $5C6A FLAGS2 - More flags
-D $5C6A Read by the routines at #R$0333, #R$12A2, #R$18E1, #R$1925 and #R$2089, and updated by the routines at #R$0B24, #R$0DAF, #R$0EDF, #R$10A8, #R$1615, #R$1634, #R$1795 and #R$1855.
+D $5C6A Read by the routines at #R$0333, #R$107F, #R$12A2, #R$18E1, #R$1925 and #R$2089, and updated by the routines at #R$0B24, #R$0DAF, #R$0EDF, #R$10A8, #R$1615, #R$1634, #R$1795 and #R$1855. This system variable is accessed by most routines via the #REGiy register at #iy+$30.
 @ $5C6B label=DF_SZ
 g $5C6B DF-SZ - The number of lines in the lower part of the screen
-D $5C6B Initialised by the routine at #R$11B7, read by the routines at #R$0A6D, #R$0C55, #R$0DD9, #R$1795, #R$17F9 and #R$2089, and updated by the routine at #R$0D6B.
+D $5C6B Initialised by the routine at #R$11B7, read by the routines at #R$0A6D, #R$0C55, #R$0DD9, #R$1795, #R$17F9 and #R$2089, and updated by the routines at #R$0D6B and #R$12A2. This system variable is accessed by some routines via the #REGiy register at #iy+$31.
 @ $5C6C label=S_TOP
 g $5C6C S-TOP - The number of the top program line in automatic listings
 D $5C6C Used by the routines at #R$1795 and #R$17F9.
@@ -8942,15 +8943,14 @@ g $5C6E OLDPPC - Line number to which CONTINUE jumps
 D $5C6E Read by the routine at #R$1E5F, and updated by the routine at #R$12A2.
 @ $5C70 label=OSPCC
 g $5C70 OSPCC - Number within line of statement to which CONTINUE jumps
-D $5C70 Read by the routine at #R$1E5F, and updated by the routine at #R$12A2.
+D $5C70 Read by the routine at #R$1E5F (via the #REGiy register at #iy+$36), and updated by the routine at #R$12A2.
 @ $5C71 label=FLAGX
 g $5C71 FLAGX - Various flags
-D $5C71 Read by the routines at #R$0F2C, #R$0FA9, #R$1190, #R$1855, #R$190F, #R$1925, #R$21B9 and #R$2AFF, and updated by the routines at #R$12A2, #R$1C22 and #R$2089.
+D $5C71 Read by the routines at #R$0F2C, #R$0FA9, #R$0FF3, #R$1059, #R$1076, #R$1190, #R$1855, #R$190F, #R$1925, #R$1DAB, #R$21B9 and #R$2AFF, and updated by the routines at #R$12A2, #R$1C22 and #R$2089. This system variable is accessed by most routines via the #REGiy register at #iy+$37.
 @ $5C72 label=STRLEN
 @ $5C72 keep
 g $5C72 STRLEN - Length of string type destination in assignment
-D $5C72 Read by the routines at #R$1D03 and #R$2AFF, and updated by the routine at #R$1C22.
-W $5C72
+D $5C72 Read by the routines at #R$1D03 and #R$2AFF, and updated by the routine at #R$1C22. The first byte of this system variable (which holds the variable's name in some cases) is accessed by the routine at #R$1D03 via the #REGiy register at #iy+$38.
 @ $5C74 label=T_ADDR
 @ $5C74 keep
 g $5C74 T-ADDR - Address of next item in parameter table
@@ -8963,7 +8963,7 @@ D $5C76 Used by the routine at #R$25F8, and updated by the routine at #R$1E4F.
 W $5C76
 @ $5C78 label=FRAMES
 g $5C78 FRAMES - Frame counter
-D $5C78 Read by the routine at #R$1E4F, and updated by the routine at #R$0038.
+D $5C78 Read by the routine at #R$1E4F, and updated by the routine at #R$0038. The third byte of this system variable is accessed by the routine at #R$0038 via the #REGiy register at #iy+$40.
 @ $5C7B label=UDG
 @ $5C7B keep
 g $5C7B UDG - Address of first user defined graphic
@@ -8974,11 +8974,11 @@ g $5C7D COORDS - Coordinates of last point plotted
 D $5C7D Read by the routines at #R$2382 and #R$24B7, and updated by the routines at #R$0DAF, #R$22DC and #R$2320.
 @ $5C7F label=P_POSN
 g $5C7F P-POSN - Column number of printer position
-D $5C7F Read by the routine at #R$0B03, and updated by the routine at #R$0ADC.
+D $5C7F Read by the routine at #R$0B03, and updated by the routine at #R$0ADC. This system variable is accessed via the #REGiy register at #iy+$45.
 @ $5C80 label=PR_CC
 @ $5C80 keep
 g $5C80 PR-CC - Address of next position for LPRINT to print at
-D $5C80 Read by the routine at #R$0B03, and updated by the routines at #R$0ADC and #R$0EDF.
+D $5C80 Read by the routine at #R$0B03, and updated by the routines at #R$0ADC and #R$0EDF. The first byte of this system variable is accessed by the routine at #R$0EDF via the #REGiy register at #iy+$46.
 W $5C80
 @ $5C82 label=ECHO_E
 g $5C82 ECHO-E - Column and line number of end of input buffer
@@ -8995,13 +8995,13 @@ D $5C86 Read by the routine at #R$0B03, and updated by the routine at #R$0ADC.
 W $5C86
 @ $5C88 label=S_POSN
 g $5C88 S-POSN - Column and line number for PRINT position
-D $5C88 Read by the routines at #R$0B03, #R$0C55, #R$12A2 and #R$17F9, and updated by the routines at #R$0ADC and #R$2089.
+D $5C88 Read by the routines at #R$0B03, #R$0C55, #R$12A2 and #R$17F9, and updated by the routines at #R$0ADC and #R$2089. The second byte of this system variable (the line number) is accessed by some routines via the #REGiy register at #iy+$4F.
 @ $5C8A label=S_POSNL
 g $5C8A S-POSNL - Like S-POSN for lower part of screen
-D $5C8A Read by the routines at #R$0B03 and #R$111D, and updated by the routine at #R$0ADC.
+D $5C8A Read by the routines at #R$0B03 and #R$111D, and updated by the routine at #R$0ADC. The first byte of this system variable (the column number) is accessed by the routine at #R$111D via the #REGiy register at #iy+$50.
 @ $5C8C label=SCR_CT
 g $5C8C SCR-CT - Scroll counter
-D $5C8C Used by the routines at #R$0605, #R$0C55, #R$0DAF, #R$12A2 and #R$2089.
+D $5C8C Used by the routines at #R$0605, #R$0C55, #R$0DAF, #R$12A2 and #R$2089. This system variable is accessed by some routines via the #REGiy register at #iy+$52.
 @ $5C8D label=ATTR_P
 g $5C8D ATTR-P - Permanent current colours
 D $5C8D Initialised by the routine at #R$11B7, read by the routines at #R$0D4D, #R$0D6B and #R$0E44, and updated by the routine at #R$1C96.
@@ -9016,10 +9016,10 @@ g $5C90 MASK-T - Temporary transparent colours
 D $5C90 Read by the routines at #R$0BDB and #R$1C96, and updated by the routines at #R$0C55, #R$0D4D, #R$18C1, #R$1CBE and #R$21E1.
 @ $5C91 label=P_FLAG
 g $5C91 P-FLAG - More flags
-D $5C91 Read by the routines at #R$0B24, #R$0BDB and #R$22DC, and updated by the routines at #R$0A3D, #R$0C55, #R$0D4D, #R$18C1, #R$1C96, #R$1CBE and #R$21E1.
+D $5C91 Read by the routines at #R$0B24, #R$0BDB and #R$22DC, and updated by the routines at #R$0A3D, #R$0C55, #R$0D4D, #R$18C1, #R$1C96, #R$1CBE and #R$21E1. This system variable is accessed by some routines via the #REGiy register at #iy+$57.
 @ $5C92 label=MEMBOT
 g $5C92 MEMBOT - Calculator's memory area
-D $5C92 Used by the routines at #R$03F8, #R$0B24, #R$2320, #R$2D4F and #R$2DE3.
+D $5C92 Used by the routines at #R$03F8, #R$0B24, #R$2320, #R$2D4F and #R$2DE3. The 10th, 23rd, 25th and 26th bytes of this area are accessed by some routines via the #REGiy register at #iy+$62, #iy+$6F, #iy+$71 and #iy+$72.
   $5C92,30,5
 @ $5CB0 label=NMIADD
 @ $5CB0 keep
