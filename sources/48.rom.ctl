@@ -22,7 +22,7 @@ D $0000 The maskable interrupt is disabled and the #REGde register pair set to h
 @ $0008 label=ERROR_1
 c $0008 THE 'ERROR' RESTART
 D $0008 The error pointer is made to point to the position of the error.
-  $0008 The address reached by the interpreter is copied to the error pointer (#R$5C5F(X-PTR)) before proceeding.
+  $0008 The address reached by the interpreter (#R$5C5D(CH-ADD)) is copied to the error pointer (#R$5C5F(X-PTR)) before proceeding.
 @ $0010 label=PRINT_A_1
 c $0010 THE 'PRINT A CHARACTER' RESTART
 D $0010 The #REGa register holds the code of the character that is to be printed.
@@ -4462,7 +4462,7 @@ N $21AF Further items in the INPUT statement are considered.
 @ $21B9 label=IN_ASSIGN
 c $21B9 THE 'IN-ASSIGN' SUBROUTINE
 D $21B9 This subroutine is called twice for each INPUT value: once with the syntax/run flag reset (syntax) and once with it set (run).
-  $21B9 Set #R$5C5D(CH-ADD) to point to the first location of the work space and fetch the character.
+  $21B9 Set #R$5C5D(CH-ADD) to point to the first location of the work space (#R$5C61(WORKSP)) and fetch the character.
   $21C0 Is it a 'STOP'?
   $21C2 Jump if it is.
   $21C4 Otherwise make the assignment of the 'value' to the variable.
@@ -8798,7 +8798,7 @@ D $5C0E Used by the routine at #R$0A6D.
 @ $5C32 keep
 @ $5C34 keep
 g $5C10 STRMS - Addresses of channels attached to streams
-D $5C10 Initialised by the routine at #R$11B7, and read by the routine at #R$171E.
+D $5C10 Initialised by the routine at #R$11B7, and read by the routines at #R$1601 and #R$171E.
   $5C10,38,2
 @ $5C36 label=CHARS
 @ $5C36 keep
@@ -8889,7 +8889,7 @@ W $5C57
 @ $5C59 label=E_LINE
 @ $5C59 keep
 g $5C59 E-LINE - Address of command being typed in
-D $5C59 Initialised by the routine at #R$11B7, read by the routines at #R$0605, #R$0808, #R$0FA9, #R$1190, #R$12A2, #R$1B8A, #R$1EAC, #R$2AFF and #R$2C02, and updated by the routine at #R$1664.
+D $5C59 Initialised by the routine at #R$11B7, read by the routines at #R$0605, #R$0808, #R$0FA9, #R$1190, #R$12A2, #R$16B0, #R$19FB, #R$1B8A, #R$1EAC, #R$2AFF and #R$2C02, and updated by the routine at #R$1664.
 W $5C59
 @ $5C5B label=K_CUR
 @ $5C5B keep
@@ -8899,7 +8899,7 @@ W $5C5B
 @ $5C5D label=CH_ADD
 @ $5C5D keep
 g $5C5D CH-ADD - Address of the next character to be interpreted
-D $5C5D Initialised by the routine at #R$12A2, read by the routines at #R$155D and #R$1D03, and updated by the routines at #R$0074, #R$007D, #R$1664, #R$198B, #R$19FB, #R$1BD1, #R$2089, #R$21B9, #R$268D, #R$27BD, #R$2996 and #R$35DE.
+D $5C5D Initialised by the routine at #R$12A2, read by the routines at #R$0008, #R$0018, #R$155D and #R$1D03, and updated by the routines at #R$0074, #R$007D, #R$1664, #R$198B, #R$19FB, #R$1BD1, #R$2089, #R$21B9, #R$268D, #R$27BD, #R$2996 and #R$35DE.
 W $5C5D
 @ $5C5F label=X_PTR
 @ $5C5F keep
@@ -8909,7 +8909,7 @@ W $5C5F
 @ $5C61 label=WORKSP
 @ $5C61 keep
 g $5C61 WORKSP - Address of temporary work space
-D $5C61 Initialised by the routine at #R$11B7, read by the routines at #R$0030, #R$1190, #R$155D, #R$1B8A and #R$2089, and updated by the routines at #R$1664, #R$169E and #R$16B0.
+D $5C61 Initialised by the routine at #R$11B7, read by the routines at #R$0030, #R$1190, #R$155D, #R$1B8A, #R$2089 and #R$21B9, and updated by the routines at #R$1664, #R$169E and #R$16B0.
 W $5C61
 @ $5C63 label=STKBOT
 @ $5C63 keep
@@ -8919,7 +8919,7 @@ W $5C63
 @ $5C65 label=STKEND
 @ $5C65 keep
 g $5C65 STKEND - Address of start of spare space
-D $5C65 Initialised by the routine at #R$11B7, read by the routines at #R$1652, #R$1EAC and #R$35BF, and updated by the routines at #R$1664, #R$16B0, #R$19FB, #R$268D, #R$27BD, #R$2951, #R$2AB1, #R$2BF1, #R$335B and #R$33B4.
+D $5C65 Initialised by the routine at #R$11B7, read by the routines at #R$1652, #R$1EAC, #R$1F05 and #R$35BF, and updated by the routines at #R$1664, #R$16B0, #R$19FB, #R$268D, #R$27BD, #R$2951, #R$2AB1, #R$2BF1, #R$335B and #R$33B4.
 W $5C65
 @ $5C67 label=BREG
 g $5C67 BREG - Calculator's B register
