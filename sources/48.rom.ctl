@@ -3753,7 +3753,7 @@ D $1C96 This subroutine allows for the current temporary colours to be made perm
   $1CB3 This is #R$5C91(P-FLAG), and that too has to be considered.
 N $1CB7 The following instructions cleverly copy the even bits of the supplied byte to the odd bits, in effect making the permanent bits the same as the temporary ones.
   $1CB7 Move the mask leftwards.
-  $1CB8 Impress onto the mask only the even bits of the other byte.
+  $1CB8,4,1,b2,1 Impress onto the mask only the even bits of the other byte.
   $1CBC,1 Restore the result.
 @ $1CBE label=CLASS_09
 c $1CBE THE 'COMMAND CLASS 09' ROUTINE
