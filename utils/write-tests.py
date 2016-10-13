@@ -14,9 +14,7 @@ from testwriter import write_tests
 
 SNAPSHOT = os.environ.get('ROM', '/usr/share/spectrum-roms/48.rom')
 
-CTL = '../sources/48.rom.ctl'
-
-REF = '../sources/48.rom.ref'
+SKOOL = '../sources/rom.skool'
 
 OUTPUT = """Using skool file: {skoolfile}
 Using ref file: {reffile}
@@ -29,7 +27,8 @@ Copying {SKOOLKIT_HOME}/skoolkit/resources/skoolkit.css to {odir}/rom/skoolkit.c
   Writing rom/maps/data.html
   Writing rom/maps/messages.html
   Writing rom/maps/unused.html
+  Writing rom/buffers/gbuffer.html
   Writing rom/reference/changelog.html
   Writing rom/index.html"""
 
-write_tests(snapshot=SNAPSHOT, output=OUTPUT, ctl=CTL, org=0, ref=REF, clean=False)
+write_tests(SKOOL, SNAPSHOT, OUTPUT, org=0)
