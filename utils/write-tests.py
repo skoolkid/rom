@@ -31,4 +31,4 @@ Copying {SKOOLKIT_HOME}/skoolkit/resources/skoolkit.css to {odir}/rom/skoolkit.c
   Writing rom/reference/changelog.html
   Writing rom/index.html"""
 
-write_tests(SKOOL, SNAPSHOT, OUTPUT, org=0)
+write_tests(SKOOL, SNAPSHOT, OUTPUT, sna2skool_opts='-Ho 0')
