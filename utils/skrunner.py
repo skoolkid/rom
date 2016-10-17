@@ -25,5 +25,9 @@ def run_skool2asm():
     skool2asm.main(['-H'] + sys.argv[1:] + [ROM_SKOOL])
 
 def run_skool2html():
-    options = '-Had {}/build/html'.format(ROM_HOME)
-    skool2html.main(options.split() + sys.argv[1:] + [ROM_SKOOL])
+    options = [
+        '-c', 'Game/AddressAnchor={address:04X}',
+        '-c', 'Paths/CodeFiles={address:04X}.html',
+        '-Had', '{}/build/html'.format(ROM_HOME)
+    ]
+    skool2html.main(options + sys.argv[1:] + [ROM_SKOOL])
