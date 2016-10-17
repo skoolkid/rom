@@ -3974,7 +3974,7 @@ c$11B7 DI              ; Disable the maskable interrupt.
                        ; routine.
 ; Overwrite the system variables when coming from #R$0000 and initialise the
 ; user-defined graphics area.
- $1200 LD ($5CB4),HL   ; Top of physical RAM.
+ $1200 LD ($5CB4),HL   ; Top of physical RAM (#R$5CB4(P-RAMT)).
 @nowarn
 @ssub=LD DE,$3D00+$01AF
  $1203 LD DE,$3EAF     ; Last byte of 'U' in character set.
@@ -4050,8 +4050,8 @@ c$11B7 DI              ; Disable the maskable interrupt.
  $1285 LDIR            ; }
  $1287 SET 1,(IY+$01)  ; {Signal 'printer in use' and clear the printer
  $128B CALL $0EDF      ; buffer.}
- $128E LD (IY+$31),$02 ; {Set the size of the lower part of the display and
- $1292 CALL $0D6B      ; clear the whole display.}
+ $128E LD (IY+$31),$02 ; {Set the size of the lower part of the display
+ $1292 CALL $0D6B      ; (#R$5C6B(DF-SZ)) and clear the whole display.}
 @ignoreua
  $1295 XOR A           ; {Now print the message '#CHR169 1982 Sinclair Research
 @ssub=LD DE,$1539-1
@@ -15302,7 +15302,7 @@ i$4000 DEFS $1C00
 ; KSTATE0 (#N$5C00) and KSTATE4 (#N$5C04) are accessed by the routine at
 ; #R$11B7 via the #REGiy register at #iy-$3A and #iy-$36.
 @label=KSTATE
-g$5C00 DEFB $00,$00,$00,$00,$00,$00,$00,$00
+g$5C00 DEFB $FF,$00,$00,$00,$FF,$00,$00,$00
 
 ; LAST-K - Last key pressed
 ;
@@ -15314,13 +15314,13 @@ g$5C08 DEFB $00
 ;
 ; Initialised by the routine at #R$11B7, and read by the routine at #R$02BF.
 @label=REPDEL
-g$5C09 DEFB $00
+g$5C09 DEFB $23
 
 ; REPPER - Delay between successive repeats of a key held down
 ;
 ; Initialised by the routine at #R$11B7, and read by the routine at #R$02BF.
 @label=REPPER
-g$5C0A DEFB $00
+g$5C0A DEFB $05
 
 ; DEFADD - Address of arguments of user defined function
 ;
@@ -15348,44 +15348,25 @@ g$5C0E DEFB $00,$00
 ; Initialised by the routine at #R$11B7, and read by the routines at #R$1601
 ; and #R$171E.
 @label=STRMS
-@keep
-g$5C10 DEFB $00,$00
-@keep
- $5C12 DEFB $00,$00
-@keep
- $5C14 DEFB $00,$00
-@keep
- $5C16 DEFB $00,$00
-@keep
- $5C18 DEFB $00,$00
-@keep
- $5C1A DEFB $00,$00
-@keep
- $5C1C DEFB $00,$00
-@keep
- $5C1E DEFB $00,$00
-@keep
- $5C20 DEFB $00,$00
-@keep
- $5C22 DEFB $00,$00
-@keep
- $5C24 DEFB $00,$00
-@keep
- $5C26 DEFB $00,$00
-@keep
- $5C28 DEFB $00,$00
-@keep
- $5C2A DEFB $00,$00
-@keep
- $5C2C DEFB $00,$00
-@keep
- $5C2E DEFB $00,$00
-@keep
- $5C30 DEFB $00,$00
-@keep
- $5C32 DEFB $00,$00
-@keep
- $5C34 DEFB $00,$00
+g$5C10 DEFB $01,$00 ; Stream +FD (keyboard).
+ $5C12 DEFB $06,$00 ; Stream +FE (screen).
+ $5C14 DEFB $0B,$00 ; Stream +FF (work space).
+ $5C16 DEFB $01,$00 ; Stream +00 (keyboard).
+ $5C18 DEFB $01,$00 ; Stream +01 (keyboard).
+ $5C1A DEFB $06,$00 ; Stream +02 (screen).
+ $5C1C DEFB $10,$00 ; Stream +03 (printer).
+ $5C1E DEFB $00,$00 ; Stream +04.
+ $5C20 DEFB $00,$00 ; Stream +05.
+ $5C22 DEFB $00,$00 ; Stream +06.
+ $5C24 DEFB $00,$00 ; Stream +07.
+ $5C26 DEFB $00,$00 ; Stream +08.
+ $5C28 DEFB $00,$00 ; Stream +09.
+ $5C2A DEFB $00,$00 ; Stream +0A.
+ $5C2C DEFB $00,$00 ; Stream +0B.
+ $5C2E DEFB $00,$00 ; Stream +0C.
+ $5C30 DEFB $00,$00 ; Stream +0D.
+ $5C32 DEFB $00,$00 ; Stream +0E.
+ $5C34 DEFB $00,$00 ; Stream +0F.
 
 ; CHARS - 256 less than address of character set
 ;
@@ -15393,7 +15374,7 @@ g$5C10 DEFB $00,$00
 ; and #R$2535.
 @label=CHARS
 @keep
-g$5C36 DEFW $0000
+g$5C36 DEFW $3C00
 
 ; RASP - Length of warning buzz
 ;
@@ -15401,7 +15382,7 @@ g$5C36 DEFW $0000
 ; and #R$111D. This system variable is accessed by some routines via the #REGiy
 ; register at #iy-$02.
 @label=RASP
-g$5C38 DEFB $00
+g$5C38 DEFB $40
 
 ; PIP - Length of keyboard click
 ;
@@ -15450,7 +15431,7 @@ g$5C3C DEFB $00
 ; #R$1F23 and #R$2089.
 @label=ERR_SP
 @keep
-g$5C3D DEFW $0000
+g$5C3D DEFW $FF54
 
 ; LIST-SP - Return address from automatic listing
 ;
@@ -15504,7 +15485,7 @@ g$5C47 DEFB $00
 ; updated by the routine at #R$2294. The border colour (0-7) is stored in bits
 ; 3-5.
 @label=BORDCR
-g$5C48 DEFB $00
+g$5C48 DEFB $38
 
 ; E-PPC - Number of current line
 ;
@@ -15522,7 +15503,7 @@ g$5C49 DEFB $00,$00
 ; #R$1664.
 @label=VARS
 @keep
-g$5C4B DEFW $0000
+g$5C4B DEFW $5CCB
 
 ; DEST - Address of variable in assignment
 ;
@@ -15538,7 +15519,7 @@ g$5C4D DEFW $0000
 ; #R$1601, #R$1701 and #R$1736, and updated by the routine at #R$1664.
 @label=CHANS
 @keep
-g$5C4F DEFW $0000
+g$5C4F DEFW $5CB6
 
 ; CURCHL - Address of information used for input and output
 ;
@@ -15556,7 +15537,7 @@ g$5C51 DEFW $0000
 ; and #R$1664.
 @label=PROG
 @keep
-g$5C53 DEFW $0000
+g$5C53 DEFW $5CCB
 
 ; NXTLIN - Address of next line in program
 ;
@@ -15572,7 +15553,7 @@ g$5C55 DEFW $0000
 ; updated by the routines at #R$1664 and #R$1E42.
 @label=DATADD
 @keep
-g$5C57 DEFW $0000
+g$5C57 DEFW $5CCA
 
 ; E-LINE - Address of command being typed in
 ;
@@ -15581,7 +15562,7 @@ g$5C57 DEFW $0000
 ; #R$2AFF and #R$2C02, and updated by the routine at #R$1664.
 @label=E_LINE
 @keep
-g$5C59 DEFW $0000
+g$5C59 DEFW $5CCC
 
 ; K-CUR - Address of cursor
 ;
@@ -15620,7 +15601,7 @@ g$5C5F DEFW $0000
 ; at #R$1664, #R$169E and #R$16B0.
 @label=WORKSP
 @keep
-g$5C61 DEFW $0000
+g$5C61 DEFW $5CCE
 
 ; STKBOT - Address of bottom of calculator stack
 ;
@@ -15628,7 +15609,7 @@ g$5C61 DEFW $0000
 ; #R$169E and #R$2089, and updated by the routines at #R$1664 and #R$16B0.
 @label=STKBOT
 @keep
-g$5C63 DEFW $0000
+g$5C63 DEFW $5CCE
 
 ; STKEND - Address of start of spare space
 ;
@@ -15638,7 +15619,7 @@ g$5C63 DEFW $0000
 ; #R$33B4.
 @label=STKEND
 @keep
-g$5C65 DEFW $0000
+g$5C65 DEFW $5CCE
 
 ; BREG - Calculator's B register
 ;
@@ -15672,7 +15653,7 @@ g$5C6A DEFB $00
 ; at #R$0D6B and #R$12A2. This system variable is accessed by some routines via
 ; the #REGiy register at #iy+$31.
 @label=DF_SZ
-g$5C6B DEFB $00
+g$5C6B DEFB $02
 
 ; S-TOP - The number of the top program line in automatic listings
 ;
@@ -15741,7 +15722,7 @@ g$5C78 DEFB $00,$00,$00
 ; and #R$34BC.
 @label=UDG
 @keep
-g$5C7B DEFW $0000
+g$5C7B DEFW $FF58
 
 ; COORDS - Coordinates of last point plotted
 ;
@@ -15817,7 +15798,7 @@ g$5C8C DEFB $00
 ; Initialised by the routine at #R$11B7, read by the routines at #R$0D4D,
 ; #R$0D6B and #R$0E44, and updated by the routine at #R$1C96.
 @label=ATTR_P
-g$5C8D DEFB $00
+g$5C8D DEFB $38
 
 ; MASK-P - Used for transparent colours
 ;
@@ -15831,7 +15812,7 @@ g$5C8E DEFB $00
 ; #R$1C96 and #R$21E1, and updated by the routines at #R$0C55, #R$0D4D and
 ; #R$18C1.
 @label=ATTR_T
-g$5C8F DEFB $00
+g$5C8F DEFB $38
 
 ; MASK-T - Temporary transparent colours
 ;
@@ -15874,39 +15855,30 @@ g$5CB0 DEFW $0000
 ; Initialised by the routine at #R$11B7, and used by the routine at #R$1EAC.
 @label=RAMTOP
 @keep
-g$5CB2 DEFW $0000
+g$5CB2 DEFW $FF57
 
 ; P-RAMT - Address of last byte of physical RAM
 ;
 ; Initialised by the routine at #R$11B7, and read by the routine at #R$1EAC.
 @label=P_RAMT
 @keep
-g$5CB4 DEFW $0000
+g$5CB4 DEFW $FFFF
 
 ; Channel information
 ;
 ; Initialised by the routine at #R$11B7, read by the routines at #R$1615,
 ; #R$1701 and #R$1736, and updated by the routine at #R$10A8.
 @label=CHINFO
-@keep
-g$5CB6 DEFW $0000
-@keep
- $5CB8 DEFW $0000
- $5CBA DEFB $00
-@keep
- $5CBB DEFW $0000
-@keep
- $5CBD DEFW $0000
- $5CBF DEFB $00
-@keep
- $5CC0 DEFW $0000
-@keep
- $5CC2 DEFW $0000
- $5CC4 DEFB $00
-@keep
- $5CC5 DEFW $0000
-@keep
- $5CC7 DEFW $0000
- $5CC9 DEFB $00
- $5CCA DEFB $00
-
+g$5CB6 DEFW $09F4
+ $5CB8 DEFW $10A8
+ $5CBA DEFB "K"
+ $5CBB DEFW $09F4
+ $5CBD DEFW $15C4
+ $5CBF DEFB "S"
+ $5CC0 DEFW $0F81
+ $5CC2 DEFW $15C4
+ $5CC4 DEFB "R"
+ $5CC5 DEFW $09F4
+ $5CC7 DEFW $15C4
+ $5CC9 DEFB "P"
+ $5CCA DEFB $80
