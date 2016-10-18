@@ -15716,6 +15716,18 @@ g$5C70 DEFB $00
 ; #R$1855, #R$190F, #R$1925, #R$1DAB, #R$21B9 and #R$2AFF, and updated by the
 ; routines at #R$12A2, #R$1C22 and #R$2089. This system variable is accessed by
 ; most routines via the #REGiy register at #iy+$37.
+; .
+; #TABLE(default,centre)
+; { =h Bit | =h Description }
+; { 0      | Set when dealing with a complete simple string }
+; { 1      | Set when dealing with a new (rather than existing) variable }
+; { 2      | Unused }
+; { 3      | Unused }
+; { 4      | Unused }
+; { 5      | Reset when in editing mode, set when in INPUT mode }
+; { 6      | Unused }
+; { 7      | Set when dealing with INPUT LINE }
+; TABLE#
 @label=FLAGX
 g$5C71 DEFB $00
 
