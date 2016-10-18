@@ -15411,6 +15411,18 @@ g$5C3A DEFB $00
 ; #R$1F3A, #R$25B3, #R$2634, #R$268D, #R$27BD, #R$28B2, #R$2996, #R$2A52,
 ; #R$2AB and #R$35DE. This system variable is accessed by some routines via the
 ; #REGiy register at #iy+$01.
+; .
+; #TABLE(default,centre)
+; { =h Bit | =h Description }
+; { 0      | Leading space flag (set to suppress leading space) }
+; { 1      | Printer flag (set when printer in use) }
+; { 2      | Printer mode: K (reset) or L (set) }
+; { 3      | Keyboard mode: K (reset) or L (set) }
+; { 4      | Unused }
+; { 5      | Set when a new key has been pressed }
+; { 6      | Variable type flag: string (reset) or numeric (set) }
+; { 7      | Reset when checking syntax, set during execution }
+; TABLE#
 @label=FLAGS
 g$5C3B DEFB $00
 
