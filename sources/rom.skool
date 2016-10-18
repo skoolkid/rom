@@ -15433,6 +15433,18 @@ g$5C3B DEFB $00
 ; at #R$0970, #R$0C55, #R$0D6B, #R$10A8, #R$111D, #R$12A2, #R$15D4, #R$1634,
 ; #R$1642, #R$1795, #R$17F9, #R$1C96, #R$1CBE and #R$2089. This system variable
 ; is accessed by some routines via the #REGiy register at #iy+$02.
+; .
+; #TABLE(default,centre)
+; { =h Bit | =h Description }
+; { 0      | Set when printing to the lower screen }
+; { 1      | Unused }
+; { 2      | Unused }
+; { 3      | Set when the input mode has changed }
+; { 4      | Set when an automatic listing is being produced }
+; { 5      | Set when the lower screen needs clearing }
+; { 6      | Unused }
+; { 7      | Unused }
+; TABLE#
 @label=TV_FLAG
 g$5C3C DEFB $00
 
