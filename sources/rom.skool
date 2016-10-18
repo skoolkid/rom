@@ -15667,6 +15667,18 @@ g$5C68 DEFW $0000
 ; #R$2089, and updated by the routines at #R$0B24, #R$0DAF, #R$0EDF, #R$10A8,
 ; #R$1615, #R$1634, #R$1795 and #R$1855. This system variable is accessed by
 ; most routines via the #REGiy register at #iy+$30.
+; .
+; #TABLE(default,centre)
+; { =h Bit | =h Description }
+; { 0      | Reset when the screen is clear }
+; { 1      | Set when the printer buffer is in use }
+; { 2      | Set when in quotes during line parsing }
+; { 3      | Set when CAPS LOCK is on }
+; { 4      | Set when using channel K (keyboard) }
+; { 5      | Unused }
+; { 6      | Unused }
+; { 7      | Unused }
+; TABLE#
 @label=FLAGS2
 g$5C6A DEFB $00
 
