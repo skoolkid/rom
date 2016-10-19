@@ -27,7 +27,7 @@ Copying {SKOOLKIT_HOME}/skoolkit/resources/skoolkit.css to {odir}/rom/skoolkit.c
   Writing rom/maps/data.html
   Writing rom/maps/messages.html
   Writing rom/maps/unused.html
-  Writing rom/buffers/gbuffer.html
+  Writing rom/buffers/sysvars.html
   Writing rom/reference/changelog.html
   Writing rom/index.html"""
 
