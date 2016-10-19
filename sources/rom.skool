@@ -15875,6 +15875,18 @@ g$5C90 DEFB $00
 ; routines at #R$0A3D, #R$0C55, #R$0D4D, #R$18C1, #R$1C96, #R$1CBE and #R$21E1.
 ; This system variable is accessed by some routines via the #REGiy register at
 ; #iy+$57.
+; .
+; #TABLE(default,centre)
+; { =h Bit | =h Description }
+; { 0      | OVER bit (temporary) }
+; { 1      | OVER bit (permanent) }
+; { 2      | INVERSE bit (temporary) }
+; { 3      | INVERSE bit (permanent) }
+; { 4      | INK 9 if set (temporary) }
+; { 5      | INK 9  if set (permanent) }
+; { 6      | PAPER 9 if set (temporary) }
+; { 7      | PAPER 9 if set (permanent) }
+; TABLE#
 @label=P_FLAG
 g$5C91 DEFB $00
 
