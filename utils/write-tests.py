@@ -12,7 +12,7 @@ if not os.path.isdir(SKOOLKIT_HOME):
 sys.path.insert(0, '{}/tools'.format(SKOOLKIT_HOME))
 from testwriter import write_tests
 
-SNAPSHOT = os.environ.get('ROM', '/usr/share/spectrum-roms/48.rom')
+SNAPSHOT = '../build/rom+sysvars.bin'
 
 SKOOL = '../sources/rom.skool'
 
