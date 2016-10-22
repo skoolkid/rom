@@ -6244,7 +6244,7 @@ c$1C22 LD (IY+$37),$00 ; Initialise #R$5C71(FLAGX) to +00.
  $1C33 BIT 6,(IY+$01)  ; {Jump forward if handling a numeric variable.
  $1C37 JR NZ,$1C46     ; }
  $1C39 XOR A           ; Clear the #REGa register.
- $1C3A CALL $2530      ; {The parameters of the string of string array variable
+ $1C3A CALL $2530      ; {The parameters of the string or string array variable
  $1C3D CALL NZ,$2BF1   ; are fetched unless syntax is being checked.}
  $1C40 LD HL,$5C71     ; This is #R$5C71(FLAGX).
  $1C43 OR (HL)         ; {Bit 0 is set only when handling complete 'simple
