@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 D_VERSIONS=(
+  20161023
   20160709
 )
 
@@ -57,10 +58,22 @@ tar xf $SKOOLKIT_ARCHIVE/$SK_DIR.tar.*
 SK_BUILD_DIR=${SK_DIR}-build
 mv $SK_DIR $SK_BUILD_DIR
 
-if (($D_VERSION == 20160709)); then
+HTML_OPTS=-aH
+if (($D_VERSION >= 20161023)); then
+    if [[ -z $DISASSEMBLY_ARCHIVE ]]; then
+        echo 'DISASSEMBLY_ARCHIVE is not set; aborting'
+        exit 1
+    fi
+    if [[ ! -d $DISASSEMBLY_ARCHIVE ]]; then
+        echo "DISASSEMBLY_ARCHIVE=$DISASSEMBLY_ARCHIVE: directory not found"
+        exit 1
+    fi
+    D_DIR=rom-disassembly-$D_VERSION
+    tar xf $DISASSEMBLY_ARCHIVE/$D_DIR.tar.xz
+    cp -p $D_DIR/sources/rom.{skool,ref} $SK_BUILD_DIR
+elif (($D_VERSION == 20160709)); then
     wget https://github.com/skoolkid/rom/archive/${D_VERSION}.tar.gz -O - | tar xzf -
     cp -p rom-${D_VERSION}/sources/48.rom.{ctl,ref} $SK_BUILD_DIR
-    HTML_OPTS=-aH
 else
     D_SK_VERSION=${SK_VERSIONS[$D_VERSION]}
     if [[ -z $D_SK_VERSION ]]; then
@@ -72,6 +85,7 @@ else
     SK_SRC_DIR=$D_SK_DIR-src
     mv $D_SK_DIR $SK_SRC_DIR
     cp -p $SK_SRC_DIR/examples/48.rom.{ctl,ref} $SK_BUILD_DIR
+    unset HTML_OPTS
 fi
 
 cd $SK_BUILD_DIR
@@ -82,6 +96,11 @@ if (($SK_VERSION_INT < 360)); then
 else
   binfile=$ROM
 fi
-./sna2skool.py -o 0 -H -c 48.rom.ctl $binfile > 48.rom.skool
 
-./skool2html.py -t -d .. $HTML_OPTS 48.rom.ref
+REF=rom.ref
+if [[ -f 48.rom.ctl ]]; then
+  ./sna2skool.py -o 0 -H -c 48.rom.ctl $binfile > 48.rom.skool
+  REF=48.rom.ref
+fi
+
+./skool2html.py -t -d .. $HTML_OPTS $REF
