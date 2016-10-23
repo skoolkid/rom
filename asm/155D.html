@@ -50,13 +50,13 @@ This subroutine allows for a new BASIC line to be added to the existing BASIC pr
 <td class="asm-label-1">MAIN_ADD</td>
 <td class="address-2"><span id="155D"></span>155D</td>
 <td class="instruction">LD ($5C49),BC</td>
-<td class="comment-11" rowspan="1">Make the new line number the 'current line'.</td>
+<td class="comment-11" rowspan="1">Make the new line number the 'current line' (<a href="5C49.html">E-PPC</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1561"></span>1561</td>
 <td class="instruction">LD HL,($5C5D)</td>
-<td class="comment-11" rowspan="2">Fetch CH-ADD and save the address in <span class="register">DE</span>.</td>
+<td class="comment-11" rowspan="2">Fetch <a href="5C5D.html">CH-ADD</a> and save the address in <span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -68,7 +68,7 @@ This subroutine allows for a new BASIC line to be added to the existing BASIC pr
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1565"></span>1565</td>
 <td class="instruction">LD HL,$1555</td>
-<td class="comment-11" rowspan="2">Push the address of <a href="1555.html">REPORT_G</a> on to the machine stack. ERR-SP will now point to <a href="1555.html">REPORT_G</a>.</td>
+<td class="comment-11" rowspan="2">Push the address of <a href="1555.html">REPORT_G</a> on to the machine stack. <a href="5C3D.html">ERR-SP</a> will now point to <a href="1555.html">REPORT_G</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -80,7 +80,7 @@ This subroutine allows for a new BASIC line to be added to the existing BASIC pr
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1569"></span>1569</td>
 <td class="instruction">LD HL,($5C61)</td>
-<td class="comment-11" rowspan="1">Fetch WORKSP.</td>
+<td class="comment-11" rowspan="1">Fetch <a href="5C61.html">WORKSP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -206,7 +206,7 @@ This subroutine allows for a new BASIC line to be added to the existing BASIC pr
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1589"></span>1589</td>
 <td class="instruction">LD DE,($5C53)</td>
-<td class="comment-11" rowspan="2">Save the current value of PROG to avoid corruption when adding a first line.</td>
+<td class="comment-11" rowspan="2">Save the current value of <a href="5C53.html">PROG</a> to avoid corruption when adding a first line.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -224,7 +224,7 @@ This subroutine allows for a new BASIC line to be added to the existing BASIC pr
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1591"></span>1591</td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">The old value of PROG is fetched and restored.</td>
+<td class="comment-11" rowspan="2">The old value of <a href="5C53.html">PROG</a> is fetched and restored.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -248,7 +248,7 @@ This subroutine allows for a new BASIC line to be added to the existing BASIC pr
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1597"></span>1597</td>
 <td class="instruction">INC DE</td>
-<td class="comment-11" rowspan="4">Make <span class="register">DE</span> point to the end location of the new area and <span class="register">HL</span> to the 'carriage return' character of the new line in the editing area.</td>
+<td class="comment-11" rowspan="4">Make <span class="register">DE</span> point to the end location of the new area and <span class="register">HL</span> to the 'carriage return' character of the new line in the editing area (<a href="5C61.html">WORKSP</a>-2).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -355,9 +355,9 @@ This subroutine allows for a new BASIC line to be added to the existing BASIC pr
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

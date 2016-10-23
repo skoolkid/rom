@@ -234,7 +234,7 @@ ii. 2&#960; is stored in mem-5 and <a href="247D.html">CD_PRMS1</a> is called. T
 <span id="2347"></span>
 <div class="comments">
 <div class="paragraph">
-iii. A test is made to see whether the initial 'arc' length is less than 1. If it is, a jump is made simply to plot X, Y. Otherwise, the parameters are set: X+Z and X-Z*SIN (&#960;/A) are stacked twice as start and end point, and copied to COORDS as well; zero and 2*Z*SIN (&#960;/A) are stored in mem-1 and mem-2 as initial increments, giving as first 'arc' the vertical straight line joining X+Z, y-Z*SIN (&#960;/A) and X+Z, Y+Z*SIN (&#960;/A). The arc-drawing loop at <a href="2382.html#2420">DRW_STEPS</a> will ensure that all subsequent points remain on the same circle as these two points, with incremental angle 2&#960;/A. But it is clear that these 2 points in fact subtend this angle at the point X+Z*(1-COS (&#960;/A)), Y not at X, Y. Hence the end points of each arc of the circle are displaced right by an amount 2*(1-COS (&#960;/A)), which is less than half a pixel, and rounds to one pixel at most.
+iii. A test is made to see whether the initial 'arc' length is less than 1. If it is, a jump is made simply to plot X, Y. Otherwise, the parameters are set: X+Z and X-Z*SIN (&#960;/A) are stacked twice as start and end point, and copied to <a href="5C7D.html">COORDS</a> as well; zero and 2*Z*SIN (&#960;/A) are stored in mem-1 and mem-2 as initial increments, giving as first 'arc' the vertical straight line joining X+Z, y-Z*SIN (&#960;/A) and X+Z, Y+Z*SIN (&#960;/A). The arc-drawing loop at <a href="2382.html#2420">DRW_STEPS</a> will ensure that all subsequent points remain on the same circle as these two points, with incremental angle 2&#960;/A. But it is clear that these 2 points in fact subtend this angle at the point X+Z*(1-COS (&#960;/A)), Y not at X, Y. Hence the end points of each arc of the circle are displaced right by an amount 2*(1-COS (&#960;/A)), which is less than half a pixel, and rounds to one pixel at most.
 </div>
 </div>
 </td>
@@ -505,7 +505,7 @@ iii. A test is made to see whether the initial 'arc' length is less than 1. If i
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="237B"></span>237B</td>
 <td class="instruction">LD ($5C7D),HL</td>
-<td class="comment-11" rowspan="1">It is copied to COORDS.</td>
+<td class="comment-11" rowspan="1">It is copied to <a href="5C7D.html">COORDS</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -538,9 +538,9 @@ iii. A test is made to see whether the initial 'arc' length is less than 1. If i
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

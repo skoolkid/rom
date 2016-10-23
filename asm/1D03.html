@@ -62,7 +62,7 @@ This command routine is entered with the VALUE and the LIMIT of the FOR statemen
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1D07"></span>1D07</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="2">Advance CH-ADD and fetch the value of the STEP.</td>
+<td class="comment-11" rowspan="2">Advance <a href="5C5D.html">CH-ADD</a> and fetch the value of the STEP.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -188,7 +188,7 @@ A FOR control variable is now established and treated as a temporary calculator 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1D20"></span>1D20</td>
 <td class="instruction">LD ($5C68),HL</td>
-<td class="comment-11" rowspan="1">Make it a 'memory area'.</td>
+<td class="comment-11" rowspan="1">Make it a 'memory area' by setting <a href="5C68.html">MEM</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
@@ -338,7 +338,7 @@ The looping line number and statement number are now entered.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1D3F"></span>1D3F</td>
 <td class="instruction">LD HL,($5C45)</td>
-<td class="comment-11" rowspan="1">The current line number.</td>
+<td class="comment-11" rowspan="1">The current line number (<a href="5C45.html">PPC</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -420,7 +420,7 @@ The <a href="1DDA.html">NEXT_LOOP</a> subroutine is called to test the possibili
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1D53"></span>1D53</td>
 <td class="instruction">LD HL,($5C45)</td>
-<td class="comment-11" rowspan="2">Copy the present line number to NEWPPC.</td>
+<td class="comment-11" rowspan="2">Copy the present line number (<a href="5C45.html">PPC</a>) to <a href="5C42.html">NEWPPC</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -450,7 +450,7 @@ The <a href="1DDA.html">NEXT_LOOP</a> subroutine is called to test the possibili
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1D5F"></span>1D5F</td>
 <td class="instruction">LD HL,($5C5D)</td>
-<td class="comment-11" rowspan="1">Fetch the current value of CH-ADD.</td>
+<td class="comment-11" rowspan="1">Fetch the current value of <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -478,7 +478,7 @@ Now a search is made in the program area, from the present point onwards, for th
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1D65"></span>1D65</td>
 <td class="instruction">LD BC,($5C55)</td>
-<td class="comment-11" rowspan="1">Fetch the current value of NXTLIN.</td>
+<td class="comment-11" rowspan="1">Fetch the current value of <a href="5C55.html">NXTLIN</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -532,7 +532,7 @@ Now a search is made in the program area, from the present point onwards, for th
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1D79"></span>1D79</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="2">Advance CH-ADD again and jump back if not the correct variable.</td>
+<td class="comment-11" rowspan="2">Advance <a href="5C5D.html">CH-ADD</a> again and jump back if not the correct variable.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -545,7 +545,7 @@ Now a search is made in the program area, from the present point onwards, for th
 <span id="1D7C"></span>
 <div class="comments">
 <div class="paragraph">
-NEWPPC holds the line number of the line in which the correct NEXT was found. Now the statement number has to be found and stored in NSPPC.
+<a href="5C42.html">NEWPPC</a> holds the line number of the line in which the correct NEXT was found. Now the statement number has to be found and stored in <a href="5C44.html">NSPPC</a>.
 </div>
 </div>
 </td>
@@ -554,7 +554,7 @@ NEWPPC holds the line number of the line in which the correct NEXT was found. No
 <td class="asm-label-1">F_FOUND</td>
 <td class="address-2"><span id="1D7C"></span>1D7C</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Advance CH-ADD.</td>
+<td class="comment-11" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -572,7 +572,7 @@ NEWPPC holds the line number of the line in which the correct NEXT was found. No
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1D80"></span>1D80</td>
 <td class="instruction">LD ($5C44),A</td>
-<td class="comment-11" rowspan="1">The result is stored.</td>
+<td class="comment-11" rowspan="1">The result is stored in <a href="5C44.html">NSPPC</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -611,9 +611,9 @@ Report I - FOR without NEXT.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

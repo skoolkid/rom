@@ -92,7 +92,7 @@ Ordinary character codes, token codes and user-defined graphic codes, and graphi
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0B33"></span>0B33</td>
 <td class="instruction">LD DE,$5C92</td>
-<td class="comment-11" rowspan="1">Make <span class="register">DE</span> point to the start of the graphic form, i.e. MEMBOT.</td>
+<td class="comment-11" rowspan="1">Make <span class="register">DE</span> point to the start of the graphic form, i.e. <a href="5C92.html">MEMBOT</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -114,7 +114,7 @@ Graphic characters are constructed in an ad hoc manner in the calculator's memor
 <td class="asm-label-1">PO_GR_1</td>
 <td class="address-2"><span id="0B38"></span>0B38</td>
 <td class="instruction">LD HL,$5C92</td>
-<td class="comment-11" rowspan="1">This is MEMBOT.</td>
+<td class="comment-11" rowspan="1">This is <a href="5C92.html">MEMBOT</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -244,7 +244,7 @@ Token codes and user-defined graphic codes are now separated.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0B59"></span>0B59</td>
 <td class="instruction">LD BC,($5C7B)</td>
-<td class="comment-11" rowspan="2">Fetch the base address of the UDG area and jump forward.</td>
+<td class="comment-11" rowspan="2">Fetch the base address of the UDG area (from <a href="5C7B.html">UDG</a>) and jump forward.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -299,7 +299,7 @@ The required character form is identified.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0B6B"></span>0B6B</td>
 <td class="instruction">LD HL,$5C3B</td>
-<td class="comment-11" rowspan="1">This is FLAGS.</td>
+<td class="comment-11" rowspan="1">This is <a href="5C3B.html">FLAGS</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -505,7 +505,7 @@ Now consider the present state of INVERSE and OVER.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0B9B"></span>0B9B</td>
 <td class="instruction">LD A,($5C91)</td>
-<td class="comment-11" rowspan="1">Fetch P-FLAG and read bit 0.</td>
+<td class="comment-11" rowspan="1">Fetch <a href="5C91.html">P-FLAG</a> and read bit 0.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -535,7 +535,7 @@ Now consider the present state of INVERSE and OVER.
 <td class="asm-label-1">PR_ALL_2</td>
 <td class="address-2"><span id="0BA4"></span>0BA4</td>
 <td class="instruction">RRA</td>
-<td class="comment-11" rowspan="4">Read bit 2 of P-FLAG and prepare the 'INVERSE mask' in the <span class="register">C</span> register, i.e. INVERSE 0=+00 and INVERSE 1=+FF.</td>
+<td class="comment-11" rowspan="4">Read bit 2 of <a href="5C91.html">P-FLAG</a> and prepare the 'INVERSE mask' in the <span class="register">C</span> register, i.e. INVERSE 0=+00 and INVERSE 1=+FF.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -611,7 +611,7 @@ The character can now be printed. Eight passes of the loop are made - one for ea
 <td class="asm-label-1">PR_ALL_4</td>
 <td class="address-2"><span id="0BB7"></span>0BB7</td>
 <td class="instruction">EX AF,AF'</td>
-<td class="comment-11" rowspan="1">The carry flag is set when using the printer. Save this flag in F'.</td>
+<td class="comment-11" rowspan="1">The carry flag is set when using the printer. Save this flag in <span class="register">F'</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -798,9 +798,9 @@ When the printer is being used the destination address has to be updated in incr
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

@@ -29,7 +29,7 @@
 Used by the routine at <a href="1097.html">CLEAR_SP</a>.
 </div>
 <div class="paragraph">
-These subroutines return with <span class="register">HL</span> pointing to the first location and <span class="register">DE</span> the 'last' location of either the editing area or the work space.
+These subroutines return with <span class="register">DE</span> pointing to the first location and <span class="register">HL</span> to the last location of either the editing area or the work space.
 </div>
 </div>
 <table class="input-0">
@@ -50,7 +50,7 @@ These subroutines return with <span class="register">HL</span> pointing to the f
 <td class="asm-label-1">SET_HL</td>
 <td class="address-2"><span id="1190"></span>1190</td>
 <td class="instruction">LD HL,($5C61)</td>
-<td class="comment-11" rowspan="2">Point to the last location of the editing area.</td>
+<td class="comment-11" rowspan="2">Point to the last location of the editing area (<a href="5C61.html">WORKSP</a>-1).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -78,7 +78,7 @@ This entry point is used by the routines at <a href="1031.html">ED_EDGE</a> and 
 <td class="asm-label-1">SET_DE</td>
 <td class="address-2"><span id="1195"></span>1195</td>
 <td class="instruction">LD DE,($5C59)</td>
-<td class="comment-11" rowspan="3">Point to the start of the editing area and return if in 'editing mode'.</td>
+<td class="comment-11" rowspan="3">Point to the start of the editing area (<a href="5C59.html">E-LINE</a>) and return if in 'editing mode'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -96,7 +96,7 @@ This entry point is used by the routines at <a href="1031.html">ED_EDGE</a> and 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="119E"></span>119E</td>
 <td class="instruction">LD DE,($5C61)</td>
-<td class="comment-11" rowspan="1">Otherwise change <span class="register">DE</span>.</td>
+<td class="comment-11" rowspan="1">Otherwise point <span class="register">DE</span> at the start of the work space (<a href="5C61.html">WORKSP</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -108,7 +108,7 @@ This entry point is used by the routines at <a href="1031.html">ED_EDGE</a> and 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="11A3"></span>11A3</td>
 <td class="instruction">LD HL,($5C63)</td>
-<td class="comment-11" rowspan="2">Fetch STKBOT and then return.</td>
+<td class="comment-11" rowspan="2">Fetch <a href="5C63.html">STKBOT</a> and then return.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -125,9 +125,9 @@ This entry point is used by the routines at <a href="1031.html">ED_EDGE</a> and 
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

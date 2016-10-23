@@ -29,7 +29,7 @@
 Used by the routine at <a href="1CDB.html">CLASS_0B</a>.
 </div>
 <div class="paragraph">
-This entry point is used for all four commands. The value held in T-ADDR, however, distinguishes between the four commands. The first part of the following routine is concerned with the construction of the 'header information' in the work space.
+This entry point is used for all four commands. The value held in <a href="5C74.html">T-ADDR</a>, however, distinguishes between the four commands. The first part of the following routine is concerned with the construction of the 'header information' in the work space.
 </div>
 </div>
 <table class="input-0">
@@ -56,7 +56,7 @@ This entry point is used for all four commands. The value held in T-ADDR, howeve
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0606"></span>0606</td>
 <td class="instruction">LD A,($5C74)</td>
-<td class="comment-11" rowspan="3">Reduce T-ADDR-lo by +E0, giving +00 for SAVE, +01 for LOAD, +02 for VERIFY and +03 for MERGE.</td>
+<td class="comment-11" rowspan="3">Reduce <a href="5C74.html">T-ADDR-lo</a> by +E0, giving +00 for SAVE, +01 for LOAD, +02 for VERIFY and +03 for MERGE.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -237,7 +237,7 @@ Report F - Invalid file name.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">REPORT_F</td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0642"></span>0642</td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
 <td class="comment-11" rowspan="2">Call the error handling routine.</td>
@@ -372,7 +372,7 @@ The many different parameters, if any, that follow the command are now considere
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="065F"></span>065F</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Advance CH-ADD.</td>
+<td class="comment-11" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -402,7 +402,7 @@ The many different parameters, if any, that follow the command are now considere
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="066A"></span>066A</td>
 <td class="instruction">LD A,($5C74)</td>
-<td class="comment-11" rowspan="3">Consider the value in T-ADDR and give an error if trying to SAVE or VERIFY a new array.</td>
+<td class="comment-11" rowspan="3">Consider the value in <a href="5C74.html">T-ADDR</a> and give an error if trying to SAVE or VERIFY a new array.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -427,7 +427,7 @@ Report 2 - Variable not found.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">REPORT_2</td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="0670"></span>0670</td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
 <td class="comment-11" rowspan="2">Call the error handling routine.</td>
@@ -592,7 +592,7 @@ The last part of the statement is examined before joining the other pathways.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0698"></span>0698</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Advance CH-ADD.</td>
+<td class="comment-11" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -656,7 +656,7 @@ Now consider 'SCREEN$'.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="06AC"></span>06AC</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Advance CH-ADD.</td>
+<td class="comment-11" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -744,7 +744,7 @@ Now consider 'CODE'.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="06CF"></span>06CF</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Advance CH-ADD.</td>
+<td class="comment-11" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -866,7 +866,7 @@ Fetch the 'length' as it was specified.
 <td class="asm-label-1">SA_CODE_3</td>
 <td class="address-2"><span id="06F5"></span>06F5</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Advance CH-ADD.</td>
+<td class="comment-11" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1032,7 +1032,7 @@ Fetch the 'line number' that must follow 'LINE'.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="072A"></span>072A</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Advance CH-ADD.</td>
+<td class="comment-11" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1094,13 +1094,13 @@ The parameters that describe the program, and its variables, are found and store
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="073E"></span>073E</td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-11" rowspan="1">The pointer to the end of the variables area.</td>
+<td class="comment-11" rowspan="1">The pointer to the end of the variables area (<a href="5C59.html">E-LINE</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0741"></span>0741</td>
 <td class="instruction">LD DE,($5C53)</td>
-<td class="comment-11" rowspan="1">The pointer to the start of the BASIC program.</td>
+<td class="comment-11" rowspan="1">The pointer to the start of the BASIC program (<a href="5C53.html">PROG</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1130,7 +1130,7 @@ The parameters that describe the program, and its variables, are found and store
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="074E"></span>074E</td>
 <td class="instruction">LD HL,($5C4B)</td>
-<td class="comment-11" rowspan="4">Repeat the operation but this time storing the length of the 'program' only.</td>
+<td class="comment-11" rowspan="4">Repeat the operation but this time storing the length of the 'program' only (<a href="5C4B.html">VARS</a>-<a href="5C53.html">PROG</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1301,7 +1301,7 @@ The new 'header' is now displayed on the screen but the routine will only procee
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="077A"></span>077A</td>
 <td class="instruction">LD (IY+$52),$03</td>
-<td class="comment-11" rowspan="1">Set the scroll counter.</td>
+<td class="comment-11" rowspan="1">Set the scroll counter (<a href="5C8C.html">SCR-CT</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1610,9 +1610,9 @@ The correct header has been found and the time has come to consider the three co
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

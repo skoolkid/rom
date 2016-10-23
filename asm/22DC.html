@@ -32,7 +32,7 @@ Used by the routine at <a href="2320.html">CIRCLE</a>.
 The address of this routine is found in the <a href="1A48.html#1AC1">parameter table</a>.
 </div>
 <div class="paragraph">
-This routine consists of a main subroutine plus one line to call it and one line to exit from it. The main routine is used twice by <a href="2320.html">CIRCLE</a> and the subroutine is called by <a href="24B7.html">DRAW_LINE</a>. The routine is entered with the coordinates of a pixel on the calculator stack. It finds the address of that pixel and plots it, taking account of the status of INVERSE and OVER held in the P-FLAG.
+This routine consists of a main subroutine plus one line to call it and one line to exit from it. The main routine is used twice by <a href="2320.html">CIRCLE</a> and the subroutine is called by <a href="24B7.html">DRAW_LINE</a>. The routine is entered with the coordinates of a pixel on the calculator stack. It finds the address of that pixel and plots it, taking account of the status of INVERSE and OVER held in the <a href="5C91.html">P-FLAG</a>.
 </div>
 </div>
 <table class="input-0">
@@ -81,7 +81,7 @@ This entry point is used by the routine at <a href="24B7.html">DRAW_LINE</a>.
 <td class="asm-label-1">PLOT_SUB</td>
 <td class="address-2"><span id="22E5"></span>22E5</td>
 <td class="instruction">LD ($5C7D),BC</td>
-<td class="comment-11" rowspan="1">The system variable is set.</td>
+<td class="comment-11" rowspan="1">The system variable <a href="5C7D.html">COORDS</a> is set.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -135,7 +135,7 @@ This entry point is used by the routine at <a href="24B7.html">DRAW_LINE</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22F5"></span>22F5</td>
 <td class="instruction">LD C,(IY+$57)</td>
-<td class="comment-11" rowspan="2">P-FLAG is obtained and first tested for OVER.</td>
+<td class="comment-11" rowspan="2"><a href="5C91.html">P-FLAG</a> is obtained and first tested for OVER.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -200,9 +200,9 @@ This entry point is used by the routine at <a href="24B7.html">DRAW_LINE</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

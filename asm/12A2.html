@@ -72,7 +72,7 @@ This entry point is used by the routine at <a href="11B7.html">NEW</a>.
 <td class="asm-label-1">MAIN_1</td>
 <td class="address-2"><span id="12A9"></span>12A9</td>
 <td class="instruction">CALL <a href="16B0.html">SET_MIN</a></td>
-<td class="comment-11" rowspan="1">All the areas from E-LINE onwards are given their minimum configurations.</td>
+<td class="comment-11" rowspan="1">All the areas from <a href="5C59.html">E-LINE</a> onwards are given their minimum configurations.</td>
 </tr>
 <tr>
 <td class="asm-label-1">MAIN_2</td>
@@ -126,7 +126,7 @@ This entry point is used by the routine at <a href="11B7.html">NEW</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="12C3"></span>12C3</td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-11" rowspan="1">Point to the start of the line with the error.</td>
+<td class="comment-11" rowspan="1">Point to the start of the line with the error (<a href="5C59.html">E-LINE</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -138,7 +138,7 @@ This entry point is used by the routine at <a href="11B7.html">NEW</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="12C9"></span>12C9</td>
 <td class="instruction">LD (IY+$00),$FF</td>
-<td class="comment-11" rowspan="2">Reset ERR-NR and jump back to <a href="12A2.html#12AC">MAIN_2</a> leaving the listing unchanged.</td>
+<td class="comment-11" rowspan="2">Reset <a href="5C3A.html">ERR-NR</a> and jump back to <a href="12A2.html#12AC">MAIN_2</a> leaving the listing unchanged.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -160,13 +160,13 @@ The 'edit-line' has passed syntax and the three types of line that are possible 
 <td class="asm-label-1">MAIN_3</td>
 <td class="address-2"><span id="12CF"></span>12CF</td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-11" rowspan="1">Point to the start of the line.</td>
+<td class="comment-11" rowspan="1">Point to the start of the line (<a href="5C59.html">E-LINE</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="12D2"></span>12D2</td>
 <td class="instruction">LD ($5C5D),HL</td>
-<td class="comment-11" rowspan="1">Set CH-ADD to the start also.</td>
+<td class="comment-11" rowspan="1">Set <a href="5C5D.html">CH-ADD</a> to the start also.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -242,7 +242,7 @@ The 'edit-line' must start with a direct BASIC command so this line becomes the 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="12EC"></span>12EC</td>
 <td class="instruction">LD A,$19</td>
-<td class="comment-11" rowspan="3">Set the appropriate value for the scroll counter.</td>
+<td class="comment-11" rowspan="3">Set the appropriate value for the scroll counter (<a href="5C8C.html">SCR-CT</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -266,7 +266,7 @@ The 'edit-line' must start with a direct BASIC command so this line becomes the 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="12F8"></span>12F8</td>
 <td class="instruction">LD (IY+$00),$FF</td>
-<td class="comment-11" rowspan="1">Ensure ERR-NR is correct.</td>
+<td class="comment-11" rowspan="1">Ensure <a href="5C3A.html">ERR-NR</a> is correct.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -278,7 +278,7 @@ The 'edit-line' must start with a direct BASIC command so this line becomes the 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1300"></span>1300</td>
 <td class="instruction">CALL <a href="1B8A.html">LINE_RUN</a></td>
-<td class="comment-11" rowspan="1">Now the line is interpreted. Note: the address <a href="12A2.html#1303">MAIN_4</a> goes on to the machine stack and is addressed by ERR-SP.</td>
+<td class="comment-11" rowspan="1">Now the line is interpreted. Note: the address <a href="12A2.html#1303">MAIN_4</a> goes on to the machine stack and is addressed by <a href="5C3D.html">ERR-SP</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
@@ -346,7 +346,7 @@ This entry point is used by the routine at <a href="1555.html">REPORT_G</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1314"></span>1314</td>
 <td class="instruction">LD HL,$0000</td>
-<td class="comment-11" rowspan="4">The system variables FLAGX, X-PTR-hi and DEFADD are all set to zero.</td>
+<td class="comment-11" rowspan="4">The system variables <a href="5C71.html">FLAGX</a>, <a href="5C5F.html">X-PTR-hi</a> and <a href="5C0B.html">DEFADD</a> are all set to zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -490,7 +490,7 @@ This entry point is used by the routine at <a href="1555.html">REPORT_G</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1350"></span>1350</td>
 <td class="instruction">LD BC,($5C45)</td>
-<td class="comment-11" rowspan="2">Now fetch the current line number and print it as well.</td>
+<td class="comment-11" rowspan="2">Now fetch the current line number (<a href="5C45.html">PPC</a>) and print it as well.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -556,7 +556,7 @@ This entry point is used by the routine at <a href="1555.html">REPORT_G</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="136B"></span>136B</td>
 <td class="instruction">CP $09</td>
-<td class="comment-11" rowspan="5">If the program halted with 'STOP statement' or 'BREAK into program' CONTinuing will be from the next statement; otherwise SUBPPC is unchanged.</td>
+<td class="comment-11" rowspan="5">If the program halted with 'STOP statement' or 'BREAK into program' CONTinuing will be from the next statement; otherwise <a href="5C47.html">SUBPPC</a> is unchanged.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -586,7 +586,7 @@ This entry point is used by the routine at <a href="1555.html">REPORT_G</a>.
 <td class="asm-label-1">MAIN_7</td>
 <td class="address-2"><span id="1376"></span>1376</td>
 <td class="instruction">LD BC,$0003</td>
-<td class="comment-11" rowspan="2">The system variables OLDPPC and OSPCC have now to be made to hold the CONTinuing line and statement numbers.</td>
+<td class="comment-11" rowspan="2">The system variables <a href="5C6E.html">OLDPPC</a> and <a href="5C70.html">OSPCC</a> have now to be made to hold the CONTinuing line and statement numbers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -598,7 +598,7 @@ This entry point is used by the routine at <a href="1555.html">REPORT_G</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="137C"></span>137C</td>
 <td class="instruction">LD HL,$5C44</td>
-<td class="comment-11" rowspan="5">The values used will be those in PPC and SUBPPC unless NSPPC indicates that the 'break' occurred before a 'jump' (i.e. after a GO TO statement etc.).</td>
+<td class="comment-11" rowspan="5">The values used will be those in <a href="5C45.html">PPC</a> and <a href="5C47.html">SUBPPC</a> unless <a href="5C44.html">NSPPC</a> indicates that the 'break' occurred before a 'jump' (i.e. after a GO TO statement etc.).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -628,7 +628,7 @@ This entry point is used by the routine at <a href="1555.html">REPORT_G</a>.
 <td class="asm-label-1">MAIN_9</td>
 <td class="address-2"><span id="1386"></span>1386</td>
 <td class="instruction">LD (IY+$0A),$FF</td>
-<td class="comment-11" rowspan="1">NSPPC is reset to indicate 'no jump'.</td>
+<td class="comment-11" rowspan="1"><a href="5C44.html">NSPPC</a> is reset to indicate 'no jump'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -651,9 +651,9 @@ This entry point is used by the routine at <a href="1555.html">REPORT_G</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

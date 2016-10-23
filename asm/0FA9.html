@@ -50,7 +50,7 @@ When in 'editing mode' pressing the EDIT key will bring down the 'current BASIC 
 <td class="asm-label-1">ED_EDIT</td>
 <td class="address-2"><span id="0FA9"></span>0FA9</td>
 <td class="instruction">LD HL,($5C49)</td>
-<td class="comment-11" rowspan="1">Fetch the current line number.</td>
+<td class="comment-11" rowspan="1">Fetch the current line number (<a href="5C49.html">E-PPC</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -164,7 +164,7 @@ When in 'editing mode' pressing the EDIT key will bring down the 'current BASIC 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0FCF"></span>0FCF</td>
 <td class="instruction">LD HL,($5C51)</td>
-<td class="comment-11" rowspan="2">Fetch the current channel address and exchange it for the address of the line.</td>
+<td class="comment-11" rowspan="2">Fetch the current channel address (<a href="5C51.html">CURCHL</a>) and exchange it for the address of the line.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -206,7 +206,7 @@ When in 'editing mode' pressing the EDIT key will bring down the 'current BASIC 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0FDB"></span>0FDB</td>
 <td class="instruction">DEC (IY+$0F)</td>
-<td class="comment-11" rowspan="1">Decrement the current line number so as to avoid printing the cursor.</td>
+<td class="comment-11" rowspan="1">Decrement the current line number (<a href="5C49.html">E-PPC</a>) so as to avoid printing the cursor.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -218,13 +218,13 @@ When in 'editing mode' pressing the EDIT key will bring down the 'current BASIC 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0FE1"></span>0FE1</td>
 <td class="instruction">INC (IY+$0F)</td>
-<td class="comment-11" rowspan="1">Increment the current line number. Note: the decrementing of the line number does not always stop the cursor from being printed.</td>
+<td class="comment-11" rowspan="1">Increment the current line number (<a href="5C49.html">E-PPC</a>). Note: the decrementing of the line number does not always stop the cursor from being printed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0FE4"></span>0FE4</td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-11" rowspan="6">Fetch the start of the line in the editing area and step past the line number and the length to find the address for K-CUR.</td>
+<td class="comment-11" rowspan="6">Fetch the start of the line in the editing area (<a href="5C59.html">E-LINE</a>) and step past the line number and the length to find the address for <a href="5C5B.html">K-CUR</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -283,9 +283,9 @@ When in 'editing mode' pressing the EDIT key will bring down the 'current BASIC 
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

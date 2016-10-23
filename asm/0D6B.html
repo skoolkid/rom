@@ -32,7 +32,7 @@ Used by the routines at <a href="11B7.html">NEW</a> and <a href="1EAC.html">CLEA
 The address of this routine is found in the <a href="1A48.html#1ABE">parameter table</a>.
 </div>
 <div class="paragraph">
-In the first instance the whole of the display is 'cleared' - the 'pixels' are all reset and the attribute bytes are set to equal the value in ATTR-P - then the lower part of the display is reformed.
+In the first instance the whole of the display is 'cleared' - the 'pixels' are all reset and the attribute bytes are set to equal the value in <a href="5C8D.html">ATTR-P</a> - then the lower part of the display is reformed.
 </div>
 </div>
 <table class="input-0">
@@ -69,7 +69,7 @@ This entry point is used by the routines at <a href="10A8.html">KEY_INPUT</a>, <
 <td class="asm-label-1">CLS_LOWER</td>
 <td class="address-2"><span id="0D6E"></span>0D6E</td>
 <td class="instruction">LD HL,$5C3C</td>
-<td class="comment-11" rowspan="1">This is TV-FLAG.</td>
+<td class="comment-11" rowspan="1">This is <a href="5C3C.html">TV-FLAG</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -87,7 +87,7 @@ This entry point is used by the routines at <a href="10A8.html">KEY_INPUT</a>, <
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0D75"></span>0D75</td>
 <td class="instruction">CALL <a href="0D4D.html">TEMPS</a></td>
-<td class="comment-11" rowspan="1">Use the permanent values, i.e. ATTR-T is copied from BORDCR.</td>
+<td class="comment-11" rowspan="1">Use the permanent values, i.e. <a href="5C8F.html">ATTR-T</a> is copied from <a href="5C48.html">BORDCR</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -106,7 +106,7 @@ This entry point is used by the routines at <a href="10A8.html">KEY_INPUT</a>, <
 <span id="0D7E"></span>
 <div class="comments">
 <div class="paragraph">
-With the exception of the attribute bytes for lines 22 and 23 the attribute bytes for the lines in the lower part of the display will need to be made equal to ATTR-P.
+With the exception of the attribute bytes for lines 22 and 23 the attribute bytes for the lines in the lower part of the display will need to be made equal to <a href="5C8D.html">ATTR-P</a>.
 </div>
 </div>
 </td>
@@ -121,7 +121,7 @@ With the exception of the attribute bytes for lines 22 and 23 the attribute byte
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0D81"></span>0D81</td>
 <td class="instruction">LD A,($5C8D)</td>
-<td class="comment-11" rowspan="1">Fetch ATTR-P.</td>
+<td class="comment-11" rowspan="1">Fetch <a href="5C8D.html">ATTR-P</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -216,7 +216,7 @@ It now remains for the following 'house keeping' tasks to be performed.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0D99"></span>0D99</td>
 <td class="instruction">LD HL,($5C51)</td>
-<td class="comment-11" rowspan="8">Fetch the address of the current channel and make the output address <a href="09F4.html">PRINT_OUT</a> and the input address <a href="10A8.html">KEY_INPUT</a>.</td>
+<td class="comment-11" rowspan="8">Fetch the address of the current channel (<a href="5C51.html">CURCHL</a>) and make the output address <a href="09F4.html">PRINT_OUT</a> and the input address <a href="10A8.html">KEY_INPUT</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -293,9 +293,9 @@ It now remains for the following 'house keeping' tasks to be performed.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

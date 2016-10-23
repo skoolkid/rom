@@ -68,7 +68,7 @@ This subroutine is called whenever the line in the editing area or the INPUT are
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1128"></span>1128</td>
 <td class="instruction">LD HL,($5C8A)</td>
-<td class="comment-11" rowspan="2">Save the current value of S-POSNL.</td>
+<td class="comment-11" rowspan="2">Save the current value of <a href="5C8A.html">S-POSNL</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -80,7 +80,7 @@ This subroutine is called whenever the line in the editing area or the INPUT are
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="112C"></span>112C</td>
 <td class="instruction">LD HL,($5C3D)</td>
-<td class="comment-11" rowspan="2">Keep the current value of ERR-SP.</td>
+<td class="comment-11" rowspan="2">Keep the current value of <a href="5C3D.html">ERR-SP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -110,7 +110,7 @@ This subroutine is called whenever the line in the editing area or the INPUT are
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1138"></span>1138</td>
 <td class="instruction">LD HL,($5C82)</td>
-<td class="comment-11" rowspan="2">Push the value of ECHO-E on to the stack.</td>
+<td class="comment-11" rowspan="2">Push the value of <a href="5C82.html">ECHO-E</a> on to the stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -158,7 +158,7 @@ This subroutine is called whenever the line in the editing area or the INPUT are
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1148"></span>1148</td>
 <td class="instruction">LD HL,($5C8A)</td>
-<td class="comment-11" rowspan="2">Next fetch the current value of S-POSNL and exchange it with ECHO-E.</td>
+<td class="comment-11" rowspan="2">Next fetch the current value of <a href="5C8A.html">S-POSNL</a> and exchange it with <a href="5C82.html">ECHO-E</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -170,7 +170,7 @@ This subroutine is called whenever the line in the editing area or the INPUT are
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="114C"></span>114C</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Pass ECHO-E to <span class="register">DE</span>.</td>
+<td class="comment-11" rowspan="1">Pass <a href="5C82.html">ECHO-E</a> to <span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -298,13 +298,13 @@ New deal with any errors.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1172"></span>1172</td>
 <td class="instruction">LD (IY+$00),$FF</td>
-<td class="comment-11" rowspan="1">Cancel the error number.</td>
+<td class="comment-11" rowspan="1">Cancel the error number (<a href="5C3A.html">ERR-NR</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1176"></span>1176</td>
 <td class="instruction">LD DE,($5C8A)</td>
-<td class="comment-11" rowspan="2">Fetch the current value of S-POSNL and jump forward.</td>
+<td class="comment-11" rowspan="2">Fetch the current value of <a href="5C8A.html">S-POSNL</a> and jump forward.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -348,7 +348,7 @@ But come here after an error.
 <td class="asm-label-1">ED_C_END</td>
 <td class="address-2"><span id="117E"></span>117E</td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">The old value of ERR-SP is restored.</td>
+<td class="comment-11" rowspan="2">The old value of <a href="5C3D.html">ERR-SP</a> is restored.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -360,7 +360,7 @@ But come here after an error.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1182"></span>1182</td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">Fetch the old value of S-POSNL.</td>
+<td class="comment-11" rowspan="1">Fetch the old value of <a href="5C8A.html">S-POSNL</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -378,7 +378,7 @@ But come here after an error.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1187"></span>1187</td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">The old value of S-POSNL goes into ECHO-E.</td>
+<td class="comment-11" rowspan="2">The old value of <a href="5C8A.html">S-POSNL</a> goes into <a href="5C82.html">ECHO-E</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -390,7 +390,7 @@ But come here after an error.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="118B"></span>118B</td>
 <td class="instruction">LD (IY+$26),$00</td>
-<td class="comment-11" rowspan="2">X-PTR is cleared in a suitable manner and the return made.</td>
+<td class="comment-11" rowspan="2"><a href="5C5F.html">X-PTR</a> is cleared in a suitable manner and the return made.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -407,9 +407,9 @@ But come here after an error.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

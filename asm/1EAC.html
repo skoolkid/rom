@@ -29,7 +29,7 @@
 The address of this routine is found in the <a href="1A48.html#1ABB">parameter table</a>.
 </div>
 <div class="paragraph">
-This routine allows for the variables area to be cleared, the display area cleared and RAMTOP moved. In consequence of the last operation the machine stack is rebuilt thereby having the effect of also clearing the GO SUB stack.
+This routine allows for the variables area to be cleared, the display area cleared and <a href="5CB2.html">RAMTOP</a> moved. In consequence of the last operation the machine stack is rebuilt thereby having the effect of also clearing the GO SUB stack.
 </div>
 </div>
 <table class="input-0">
@@ -84,7 +84,7 @@ This entry point is used by the routine at <a href="1EA1.html">RUN</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1EB3"></span>1EB3</td>
 <td class="instruction">LD BC,($5CB2)</td>
-<td class="comment-11" rowspan="1">If zero use the existing value in RAMTOP.</td>
+<td class="comment-11" rowspan="1">If zero use the existing value in <a href="5CB2.html">RAMTOP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1">CLEAR_1</td>
@@ -96,7 +96,7 @@ This entry point is used by the routine at <a href="1EA1.html">RUN</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1EB8"></span>1EB8</td>
 <td class="instruction">LD DE,($5C4B)</td>
-<td class="comment-11" rowspan="4">Next reclaim all the bytes of the present variables area.</td>
+<td class="comment-11" rowspan="4">Next reclaim all the bytes of the present variables area (<a href="5C4B.html">VARS</a> to <a href="5C59.html">E-LINE</a>-1).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -127,7 +127,7 @@ This entry point is used by the routine at <a href="1EA1.html">RUN</a>.
 <span id="1EC6"></span>
 <div class="comments">
 <div class="paragraph">
-The value in the <span class="register">BC</span> register pair which will be used as RAMTOP is tested to ensure it is neither too low nor too high.
+The value in the <span class="register">BC</span> register pair which will be used as <a href="5CB2.html">RAMTOP</a> is tested to ensure it is neither too low nor too high.
 </div>
 </div>
 </td>
@@ -136,7 +136,7 @@ The value in the <span class="register">BC</span> register pair which will be us
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1EC6"></span>1EC6</td>
 <td class="instruction">LD HL,($5C65)</td>
-<td class="comment-11" rowspan="5">The current value of STKEND is increased by 50 before being tested. This forms the lower limit.</td>
+<td class="comment-11" rowspan="5">The current value of <a href="5C65.html">STKEND</a> is increased by 50 before being tested. This forms the lower limit.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -166,13 +166,13 @@ The value in the <span class="register">BC</span> register pair which will be us
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1ED0"></span>1ED0</td>
 <td class="instruction">JR NC,<a href="1EAC.html#1EDA">REPORT_M</a></td>
-<td class="comment-11" rowspan="1">RAMTOP will be too low.</td>
+<td class="comment-11" rowspan="1"><a href="5CB2.html">RAMTOP</a> will be too low.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1ED2"></span>1ED2</td>
 <td class="instruction">LD HL,($5CB4)</td>
-<td class="comment-11" rowspan="3">For the upper test the value for RAMTOP is tested against P-RAMT.</td>
+<td class="comment-11" rowspan="3">For the upper test the value for <a href="5CB2.html">RAMTOP</a> is tested against <a href="5CB4.html">P-RAMT</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -228,7 +228,7 @@ Continue with the CLEAR operation.
 <td class="asm-label-1">CLEAR_2</td>
 <td class="address-2"><span id="1EDC"></span>1EDC</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="2">Now the value can actually be passed to RAMTOP.</td>
+<td class="comment-11" rowspan="2">Now the value can actually be passed to <a href="5CB2.html">RAMTOP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -270,7 +270,7 @@ Continue with the CLEAR operation.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1EE6"></span>1EE6</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="2">Next pass the 'error address' to the stack and save its address in ERR-SP.</td>
+<td class="comment-11" rowspan="2">Next pass the 'error address' to the stack and save its address in <a href="5C3D.html">ERR-SP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -295,7 +295,7 @@ Continue with the CLEAR operation.
 
 <div class="comments">
 <div class="paragraph">
-Note: when the routine is called from <a href="1EA1.html">RUN</a> the values of NEWPPC and NSPPC will have been affected and no statements coming after RUN can ever be found before the jump is taken.
+Note: when the routine is called from <a href="1EA1.html">RUN</a> the values of <a href="5C42.html">NEWPPC</a> and <a href="5C44.html">NSPPC</a> will have been affected and no statements coming after RUN can ever be found before the jump is taken.
 </div>
 </div>
 </td>
@@ -309,9 +309,9 @@ Note: when the routine is called from <a href="1EA1.html">RUN</a> the values of 
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

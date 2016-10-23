@@ -32,7 +32,7 @@ The address of this routine is found in the <a href="32D7.html">table of address
 The first of three major arithmetical subroutines, this subroutine carries out the floating-point addition of two numbers, each with a 4-byte mantissa and a 1-byte exponent. In these three subroutines, the two numbers at the top of the calculator stack are added/multiplied/divided to give one number at the top of the calculator stack, a 'last value'.
 </div>
 <div class="paragraph">
-<span class="register">HL</span> points to the second number from the top, the augend/multiplier/dividend. <span class="register">DE</span> points to the number at the top of the calculator stack, the addend/multiplicand/divisor. Afterwards <span class="register">HL</span> points to the resultant 'last value' whose address can also be considered to be STKEND-5.
+<span class="register">HL</span> points to the second number from the top, the augend/multiplier/dividend. <span class="register">DE</span> points to the number at the top of the calculator stack, the addend/multiplicand/divisor. Afterwards <span class="register">HL</span> points to the resultant 'last value' whose address can also be considered to be <a href="5C65.html">STKEND</a>-5.
 </div>
 <div class="paragraph">
 But the addition subroutine first tests whether the 2 numbers to be added are 'small integers'. If they are, it adds them quite simply in <span class="register">HL</span> and <span class="register">BC</span>, and puts the result directly on the stack. No two's complementing is needed before or after the addition, since such numbers are held on the stack in two's complement form, ready for addition.
@@ -266,7 +266,7 @@ But the addition subroutine first tests whether the 2 numbers to be added are 's
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="303A"></span>303A</td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="1">Restore STKEND to <span class="register">DE</span>.</td>
+<td class="comment-11" rowspan="1">Restore <a href="5C65.html">STKEND</a> to <span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -795,9 +795,9 @@ The full addition subroutine first calls <a href="2F9B.html">PREP_ADD</a> for ea
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

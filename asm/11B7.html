@@ -59,13 +59,13 @@ The address of this routine is found in the <a href="1A48.html#1AA8">parameter t
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="11BA"></span>11BA</td>
 <td class="instruction">LD DE,($5CB2)</td>
-<td class="comment-11" rowspan="1">The existing value of RAMTOP is preserved.</td>
+<td class="comment-11" rowspan="1">The existing value of <a href="5CB2.html">RAMTOP</a> is preserved.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="11BE"></span>11BE</td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="5">Load the alternate registers with the following system variables (P-RAMT, RASP, PIP, UDG). All of which will also be preserved.</td>
+<td class="comment-11" rowspan="5">Load the alternate registers with the following system variables (<a href="5CB4.html">P-RAMT</a>, <a href="5C38.html">RASP</a>, <a href="5C39.html">PIP</a>, <a href="5C7B.html">UDG</a>). All of which will also be preserved.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -181,10 +181,10 @@ Now the memory is checked.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">RAM_CHECK</td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="11DA"></span>11DA</td>
 <td class="instruction">LD H,D</td>
-<td class="comment-11" rowspan="2">Transfer the value in <span class="register">DE</span> (<a href="0000.html">START</a>=+FFFF, <a href="11B7.html">NEW</a>=RAMTOP).</td>
+<td class="comment-11" rowspan="2">Transfer the value in <span class="register">DE</span> (<a href="0000.html">START</a>=+FFFF, <a href="11B7.html">NEW</a>=<a href="5CB2.html">RAMTOP</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -290,7 +290,7 @@ Next restore the 'preserved' system variables. (Meaningless when coming from <a 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="11F0"></span>11F0</td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="5">Restore P-RAMT, RASP, PIP and UDG.</td>
+<td class="comment-11" rowspan="5">Restore <a href="5CB4.html">P-RAMT</a>, <a href="5C38.html">RASP</a>, <a href="5C39.html">PIP</a> and <a href="5C7B.html">UDG</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -342,7 +342,7 @@ Overwrite the system variables when coming from <a href="0000.html">START</a> an
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1200"></span>1200</td>
 <td class="instruction">LD ($5CB4),HL</td>
-<td class="comment-11" rowspan="1">Top of physical RAM.</td>
+<td class="comment-11" rowspan="1">Top of physical RAM (<a href="5CB4.html">P-RAMT</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -366,7 +366,7 @@ Overwrite the system variables when coming from <a href="0000.html">START</a> an
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="120A"></span>120A</td>
 <td class="instruction">LDDR</td>
-<td class="comment-11" rowspan="1">Now copy the character forms of the letter 'A' to 'U'.</td>
+<td class="comment-11" rowspan="1">Now copy the character forms of the letters 'A' to 'U'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -384,7 +384,7 @@ Overwrite the system variables when coming from <a href="0000.html">START</a> an
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="120E"></span>120E</td>
 <td class="instruction">LD ($5C7B),HL</td>
-<td class="comment-11" rowspan="1">Now set UDG.</td>
+<td class="comment-11" rowspan="1">Now set <a href="5C7B.html">UDG</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -396,7 +396,7 @@ Overwrite the system variables when coming from <a href="0000.html">START</a> an
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1212"></span>1212</td>
 <td class="instruction">LD BC,$0040</td>
-<td class="comment-11" rowspan="2">Set the system variables RASP and PIP.</td>
+<td class="comment-11" rowspan="2">Set the system variables <a href="5C38.html">RASP</a> and <a href="5C39.html">PIP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -418,13 +418,13 @@ The remainder of the routine is common to both the <a href="0000.html">START</a>
 <td class="asm-label-1">RAM_SET</td>
 <td class="address-2"><span id="1219"></span>1219</td>
 <td class="instruction">LD ($5CB2),HL</td>
-<td class="comment-11" rowspan="1">Set RAMTOP.</td>
+<td class="comment-11" rowspan="1">Set <a href="5CB2.html">RAMTOP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="121C"></span>121C</td>
 <td class="instruction">LD HL,$3C00</td>
-<td class="comment-11" rowspan="2">Initialise the system variable CHARS.</td>
+<td class="comment-11" rowspan="2">Initialise the system variable <a href="5C36.html">CHARS</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -446,7 +446,7 @@ Next the machine stack is set up.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1222"></span>1222</td>
 <td class="instruction">LD HL,($5CB2)</td>
-<td class="comment-11" rowspan="2">The top location is made to hold +3E.</td>
+<td class="comment-11" rowspan="2">The top location (<a href="5CB2.html">RAMTOP</a>) is made to hold +3E.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -470,7 +470,7 @@ Next the machine stack is set up.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1229"></span>1229</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="3">Step down two locations to find the correct value for ERR-SP.</td>
+<td class="comment-11" rowspan="3">Step down two locations to find the correct value for <a href="5C3D.html">ERR-SP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -504,7 +504,7 @@ The initialisation routine continues with:
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1230"></span>1230</td>
 <td class="instruction">LD IY,$5C3A</td>
-<td class="comment-11" rowspan="1"><span class="register">IY</span> holds +ERR-NR always.</td>
+<td class="comment-11" rowspan="1"><span class="register">IY</span> holds +<a href="5C3A.html">ERR-NR</a> always.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -516,7 +516,7 @@ The initialisation routine continues with:
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1235"></span>1235</td>
 <td class="instruction">LD HL,$5CB6</td>
-<td class="comment-11" rowspan="2">The base address of the channel information area.</td>
+<td class="comment-11" rowspan="2">The system variable <a href="5C4F.html">CHANS</a> is set to the base address of the <a href="5CB6.html">channel information area</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -552,7 +552,7 @@ The initialisation routine continues with:
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1244"></span>1244</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="3">The system variable DATADD is made to point to the last location of the channel data.</td>
+<td class="comment-11" rowspan="3">The system variable <a href="5C57.html">DATADD</a> is made to point to the last location of the channel data.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -570,7 +570,7 @@ The initialisation routine continues with:
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1249"></span>1249</td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="3">And PROG and VARS to the the location after that.</td>
+<td class="comment-11" rowspan="3">And <a href="5C53.html">PROG</a> and <a href="5C4B.html">VARS</a> to the the location after that.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -594,7 +594,7 @@ The initialisation routine continues with:
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1252"></span>1252</td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="2">Move on one location to find the value for E-LINE.</td>
+<td class="comment-11" rowspan="2">Move on one location to find the value for <a href="5C59.html">E-LINE</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -624,7 +624,7 @@ The initialisation routine continues with:
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="125B"></span>125B</td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="4">Move on one location to find the value for WORKSP, STKBOT and STKEND.</td>
+<td class="comment-11" rowspan="4">Move on one location to find the value for <a href="5C61.html">WORKSP</a>, <a href="5C63.html">STKBOT</a> and <a href="5C65.html">STKEND</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -648,7 +648,7 @@ The initialisation routine continues with:
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1265"></span>1265</td>
 <td class="instruction">LD A,$38</td>
-<td class="comment-11" rowspan="4">Initialise the colour system variables to FLASH 0, BRIGHT 0, PAPER 7, INK 0.</td>
+<td class="comment-11" rowspan="4">Initialise the colour system variables (<a href="5C8D.html">ATTR-P</a>, <a href="5C8F.html">ATTR-T</a>, <a href="5C48.html">BORDCR</a>) to FLASH 0, BRIGHT 0, PAPER 7, INK 0, BORDER 7.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -672,7 +672,7 @@ The initialisation routine continues with:
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1270"></span>1270</td>
 <td class="instruction">LD HL,$0523</td>
-<td class="comment-11" rowspan="2">Initialise the system variables REPDEL and REPPER.</td>
+<td class="comment-11" rowspan="2">Initialise the system variables <a href="5C09.html">REPDEL</a> and <a href="5C0A.html">REPPER</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -684,19 +684,19 @@ The initialisation routine continues with:
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1276"></span>1276</td>
 <td class="instruction">DEC (IY-$3A)</td>
-<td class="comment-11" rowspan="1">Make KSTATE-0 hold +FF.</td>
+<td class="comment-11" rowspan="1">Make <a href="5C00.html">KSTATE0</a> hold +FF.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1279"></span>1279</td>
 <td class="instruction">DEC (IY-$36)</td>
-<td class="comment-11" rowspan="1">Make KSTATE-4 hold +FF.</td>
+<td class="comment-11" rowspan="1">Make <a href="5C00.html">KSTATE4</a> hold +FF.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="127C"></span>127C</td>
 <td class="instruction">LD HL,$15C6</td>
-<td class="comment-11" rowspan="4">Next move the initial stream data from its table to the streams area.</td>
+<td class="comment-11" rowspan="4">Next move the <a href="15C6.html">initial stream data</a> from its table to the <a href="5C10.html">streams area</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -732,7 +732,7 @@ The initialisation routine continues with:
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="128E"></span>128E</td>
 <td class="instruction">LD (IY+$31),$02</td>
-<td class="comment-11" rowspan="2">Set the size of the lower part of the display and clear the whole display.</td>
+<td class="comment-11" rowspan="2">Set the size of the lower part of the display (<a href="5C6B.html">DF-SZ</a>) and clear the whole display.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -779,9 +779,9 @@ The initialisation routine continues with:
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

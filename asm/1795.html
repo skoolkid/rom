@@ -53,7 +53,7 @@ The entry point <a href="1795.html">AUTO_LIST</a> is used by both <a href="12A2.
 <td class="asm-label-1">AUTO_LIST</td>
 <td class="address-2"><span id="1795"></span>1795</td>
 <td class="instruction">LD ($5C3F),SP</td>
-<td class="comment-11" rowspan="1">The stack pointer is saved allowing the machine stack to be reset when the listing is finished (see <a href="0C55.html">PO_SCR</a>).</td>
+<td class="comment-11" rowspan="1">The stack pointer is saved at <a href="5C3F.html">LIST-SP</a> allowing the machine stack to be reset when the listing is finished (see <a href="0C55.html">PO_SCR</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -101,7 +101,7 @@ The entry point <a href="1795.html">AUTO_LIST</a> is used by both <a href="12A2.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="17B2"></span>17B2</td>
 <td class="instruction">LD HL,($5C49)</td>
-<td class="comment-11" rowspan="2">Now fetch the the 'current' line number and the 'automatic' line number.</td>
+<td class="comment-11" rowspan="2">Now fetch the the 'current' line number (<a href="5C49.html">E-PPC</a>) and the 'automatic' line number (<a href="5C6C.html">S-TOP</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -265,7 +265,7 @@ A loop is now entered. The 'automatic' line number is increased on each pass unt
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="17DB"></span>17DB</td>
 <td class="instruction">LD ($5C6C),DE</td>
-<td class="comment-11" rowspan="2">Now S-TOP can be updated and the test repeated with the new line.</td>
+<td class="comment-11" rowspan="2">Now <a href="5C6C.html">S-TOP</a> can be updated and the test repeated with the new line.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -287,7 +287,7 @@ Now the 'automatic' listing can be made.
 <td class="asm-label-1">AUTO_L_2</td>
 <td class="address-2"><span id="17E1"></span>17E1</td>
 <td class="instruction">LD ($5C6C),HL</td>
-<td class="comment-11" rowspan="1">When E-PPC is less than S-TOP.</td>
+<td class="comment-11" rowspan="1">When <a href="5C49.html">E-PPC</a> is less than <a href="5C6C.html">S-TOP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1">AUTO_L_3</td>
@@ -340,9 +340,9 @@ Now the 'automatic' listing can be made.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

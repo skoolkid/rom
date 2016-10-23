@@ -29,7 +29,7 @@
 Used by the routine at <a href="28B2.html">LOOK_VARS</a>.
 </div>
 <div class="paragraph">
-This subroutine is called by <a href="28B2.html">LOOK_VARS</a> when DEFADD-hi is non-zero, to make a search of the arguments area of a DEF FN statement, before searching in the variables area. If the variable is found in the DEF FN statement, then the parameters of a string variable are stacked and a signal is given that there is no need to call <a href="2996.html">STK_VAR</a>. But it is left to <a href="26C9.html">S_LETTER</a> to stack the value of a numerical variable at <a href="26C9.html#26DA">26DA</a> in the usual way.
+This subroutine is called by <a href="28B2.html">LOOK_VARS</a> when <a href="5C0B.html">DEFADD-hi</a> is non-zero, to make a search of the arguments area of a DEF FN statement, before searching in the variables area. If the variable is found in the DEF FN statement, then the parameters of a string variable are stacked and a signal is given that there is no need to call <a href="2996.html">STK_VAR</a>. But it is left to <a href="26C9.html">S_LETTER</a> to stack the value of a numerical variable at <a href="26C9.html#26DA">26DA</a> in the usual way.
 </div>
 </div>
 <table class="input-0">
@@ -246,7 +246,7 @@ A match has been found. The parameters of a string variable are stacked, avoidin
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2986"></span>2986</td>
 <td class="instruction">LD DE,($5C65)</td>
-<td class="comment-11" rowspan="1">Point <span class="register">DE</span> to STKEND.</td>
+<td class="comment-11" rowspan="1">Point <span class="register">DE</span> to <a href="5C65.html">STKEND</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -258,7 +258,7 @@ A match has been found. The parameters of a string variable are stacked, avoidin
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="298D"></span>298D</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="2">Point <span class="register">HL</span> to the new position of STKEND, and reset the system variable.</td>
+<td class="comment-11" rowspan="2">Point <span class="register">HL</span> to the new position of <a href="5C65.html">STKEND</a>, and reset the system variable.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -305,9 +305,9 @@ A match has been found. The parameters of a string variable are stacked, avoidin
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

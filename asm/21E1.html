@@ -163,7 +163,7 @@ This entry point is used by the routine at <a href="1FFC.html">PR_ITEM_1</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="21F9"></span>21F9</td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="3">The colour item code is preserved whilst CH-ADD is advanced to address the parameter that follows it.</td>
+<td class="comment-11" rowspan="3">The colour item code is preserved whilst <a href="5C5D.html">CH-ADD</a> is advanced to address the parameter that follows it.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -282,7 +282,7 @@ The colour item code and the parameter are now 'printed' by calling <a href="001
 This entry point is used by the routine at <a href="0A6D.html">PO_TV_2</a>.
 </div>
 <div class="paragraph">
-ii. The colour system variables - ATTR-T, MASK-T and P-FLAG - are altered as required. On entry the control character code is in the <span class="register">A</span> register and the parameter is in the <span class="register">D</span> register.
+ii. The colour system variables - <a href="5C8F.html">ATTR-T</a>, <a href="5C90.html">MASK-T</a> and <a href="5C91.html">P-FLAG</a> - are altered as required. On entry the control character code is in the <span class="register">A</span> register and the parameter is in the <span class="register">D</span> register.
 </div>
 <div class="paragraph">
 Note that all changes are to the 'temporary' system variables.
@@ -331,7 +331,7 @@ Note that all changes are to the 'temporary' system variables.
 <span id="221D"></span>
 <div class="comments">
 <div class="paragraph">
-The colour control code will now be +01 for INVERSE and +02 for OVER and the system variable P-FLAG is altered accordingly.
+The colour control code will now be +01 for INVERSE and +02 for OVER and the system variable <a href="5C91.html">P-FLAG</a> is altered accordingly.
 </div>
 </div>
 </td>
@@ -412,13 +412,13 @@ The colour control code will now be +01 for INVERSE and +02 for OVER and the sys
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="222F"></span>222F</td>
 <td class="instruction">LD HL,$5C91</td>
-<td class="comment-11" rowspan="1">It is P-FLAG that is to be changed.</td>
+<td class="comment-11" rowspan="1">It is <a href="5C91.html">P-FLAG</a> that is to be changed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2232"></span>2232</td>
 <td class="instruction">JR <a href="21E1.html#226C">CO_CHANGE</a></td>
-<td class="comment-11" rowspan="1">Exit via <a href="21E1.html#226C">CO_CHANGE</a> and alter P-FLAG using <span class="register">B</span> as a mask, i.e. bit 0 for OVER and bit 2 for INVERSE.</td>
+<td class="comment-11" rowspan="1">Exit via <a href="21E1.html#226C">CO_CHANGE</a> and alter <a href="5C91.html">P-FLAG</a> using <span class="register">B</span> as a mask, i.e. bit 0 for OVER and bit 2 for INVERSE.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
@@ -535,7 +535,7 @@ Continue to handle PAPER and INK.
 <td class="asm-label-1">CO_TEMP_9</td>
 <td class="address-2"><span id="2246"></span>2246</td>
 <td class="instruction">LD HL,$5C8F</td>
-<td class="comment-11" rowspan="1">Prepare to alter ATTR-T, MASK-T and P-FLAG.</td>
+<td class="comment-11" rowspan="1">Prepare to alter <a href="5C8F.html">ATTR-T</a>, <a href="5C90.html">MASK-T</a> and <a href="5C91.html">P-FLAG</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -553,7 +553,7 @@ Continue to handle PAPER and INK.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="224D"></span>224D</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="2">Fetch the current value of ATTR-T and use it unchanged, by jumping forward, with PAPER/INK '8'.</td>
+<td class="comment-11" rowspan="2">Fetch the current value of <a href="5C8F.html">ATTR-T</a> and use it unchanged, by jumping forward, with PAPER/INK '8'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -602,7 +602,7 @@ Continue to handle PAPER and INK.
 <span id="2258"></span>
 <div class="comments">
 <div class="paragraph">
-The mask (<span class="register">B</span>) and the value (<span class="register">C</span>) are now used to change ATTR-T.
+The mask (<span class="register">B</span>) and the value (<span class="register">C</span>) are now used to change <a href="5C8F.html">ATTR-T</a>.
 </div>
 </div>
 </td>
@@ -617,14 +617,14 @@ The mask (<span class="register">B</span>) and the value (<span class="register"
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2259"></span>2259</td>
 <td class="instruction">CALL <a href="21E1.html#226C">CO_CHANGE</a></td>
-<td class="comment-11" rowspan="1">Now change ATTR-T as needed.</td>
+<td class="comment-11" rowspan="1">Now change <a href="5C8F.html">ATTR-T</a> as needed.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="225C"></span>
 <div class="comments">
 <div class="paragraph">
-Next MASK-T is considered.
+Next <a href="5C90.html">MASK-T</a> is considered.
 </div>
 </div>
 </td>
@@ -633,7 +633,7 @@ Next MASK-T is considered.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="225C"></span>225C</td>
 <td class="instruction">LD A,$07</td>
-<td class="comment-11" rowspan="3">The bits of MASK-T are set only when using PAPER/INK '8' or '9'.</td>
+<td class="comment-11" rowspan="3">The bits of <a href="5C90.html">MASK-T</a> are set only when using PAPER/INK '8' or '9'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -651,14 +651,14 @@ Next MASK-T is considered.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2260"></span>2260</td>
 <td class="instruction">CALL <a href="21E1.html#226C">CO_CHANGE</a></td>
-<td class="comment-11" rowspan="1">Now change MASK-T as needed.</td>
+<td class="comment-11" rowspan="1">Now change <a href="5C90.html">MASK-T</a> as needed.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="2263"></span>
 <div class="comments">
 <div class="paragraph">
-Next P-FLAG is considered.
+Next <a href="5C91.html">P-FLAG</a> is considered.
 </div>
 </div>
 </td>
@@ -691,7 +691,7 @@ Next P-FLAG is considered.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2268"></span>2268</td>
 <td class="instruction">LD A,$08</td>
-<td class="comment-11" rowspan="3">The bits of P-FLAG are set only when using PAPER/INK '9'. Continue into <a href="21E1.html#226C">CO_CHANGE</a> to manipulate P-FLAG.</td>
+<td class="comment-11" rowspan="3">The bits of <a href="5C91.html">P-FLAG</a> are set only when using PAPER/INK '9'. Continue into <a href="21E1.html#226C">CO_CHANGE</a> to manipulate <a href="5C91.html">P-FLAG</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -850,7 +850,7 @@ FLASH and BRIGHT are handled by the following routine.
 <span id="2287"></span>
 <div class="comments">
 <div class="paragraph">
-The system variable ATTR-T can now be altered.
+The system variable <a href="5C8F.html">ATTR-T</a> can now be altered.
 </div>
 </div>
 </td>
@@ -865,7 +865,7 @@ The system variable ATTR-T can now be altered.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2288"></span>2288</td>
 <td class="instruction">LD HL,$5C8F</td>
-<td class="comment-11" rowspan="1">This is ATTR-T.</td>
+<td class="comment-11" rowspan="1">This is <a href="5C8F.html">ATTR-T</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -878,7 +878,7 @@ The system variable ATTR-T can now be altered.
 <span id="228E"></span>
 <div class="comments">
 <div class="paragraph">
-The value in MASK-T is now considered.
+The value in <a href="5C90.html">MASK-T</a> is now considered.
 </div>
 </div>
 </td>
@@ -922,9 +922,9 @@ The value in MASK-T is now considered.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

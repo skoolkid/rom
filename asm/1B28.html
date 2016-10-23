@@ -50,7 +50,7 @@ Each statement is considered in turn until the end of the line is reached.
 <td class="asm-label-1">STMT_LOOP</td>
 <td class="address-2"><span id="1B28"></span>1B28</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Advance CH-ADD along the line.</td>
+<td class="comment-11" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a> along the line.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
@@ -72,7 +72,7 @@ This entry point is used by the routines at <a href="1B17.html">LINE_SCAN</a> an
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B2C"></span>1B2C</td>
 <td class="instruction">INC (IY+$0D)</td>
-<td class="comment-11" rowspan="1">Increase SUBPPC on each passage around the loop.</td>
+<td class="comment-11" rowspan="1">Increase <a href="5C47.html">SUBPPC</a> on each passage around the loop.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -142,7 +142,7 @@ A statement has been identified so, first, its initial command is considered.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B41"></span>1B41</td>
 <td class="instruction">LD C,A</td>
-<td class="comment-11" rowspan="3">Save the command temporarily in the <span class="register">C</span> register whilst CH-ADD is advanced again.</td>
+<td class="comment-11" rowspan="3">Save the command temporarily in the <span class="register">C</span> register whilst <a href="5C5D.html">CH-ADD</a> is advanced again.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -218,7 +218,7 @@ Each of the command class routines applicable to the present command is executed
 <td class="asm-label-1">SCAN_LOOP</td>
 <td class="address-1"><span id="1B52"></span>1B52</td>
 <td class="instruction">LD HL,($5C74)</td>
-<td class="comment-11" rowspan="1">The temporary pointer to the entries in the <a href="1A48.html#1A7A">parameter table</a>.</td>
+<td class="comment-11" rowspan="1">The temporary pointer to the entries in the <a href="1A48.html#1A7A">parameter table</a> (<a href="5C74.html">T-ADDR</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1">GET_PARAM</td>
@@ -331,9 +331,9 @@ Each of the command class routines applicable to the present command is executed
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

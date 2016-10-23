@@ -50,7 +50,7 @@ This subroutine resets the editing area and the areas after it to their minimum 
 <td class="asm-label-1">SET_MIN</td>
 <td class="address-2"><span id="16B0"></span>16B0</td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-11" rowspan="1">Fetch E-LINE.</td>
+<td class="comment-11" rowspan="1">Fetch <a href="5C59.html">E-LINE</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -80,7 +80,7 @@ This subroutine resets the editing area and the areas after it to their minimum 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16BB"></span>16BB</td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="2">Move on to clear the work space.</td>
+<td class="comment-11" rowspan="2">Reset <a href="5C61.html">WORKSP</a> and move on to clear the work space.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -105,13 +105,13 @@ Entering here will 'clear' the work space and the calculator stack.
 <td class="asm-label-1">SET_WORK</td>
 <td class="address-2"><span id="16BF"></span>16BF</td>
 <td class="instruction">LD HL,($5C61)</td>
-<td class="comment-11" rowspan="1">Fetch the WORKSP.</td>
+<td class="comment-11" rowspan="1">Fetch the start address of the work space <a href="5C61.html">WORKSP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16C2"></span>16C2</td>
 <td class="instruction">LD ($5C63),HL</td>
-<td class="comment-11" rowspan="1">This clears the work space.</td>
+<td class="comment-11" rowspan="1">Clear the work space by setting <a href="5C63.html">STKBOT</a> equal to <a href="5C61.html">WORKSP</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
@@ -130,20 +130,20 @@ Entering here will 'clear' only the calculator stack.
 <td class="asm-label-1">SET_STK</td>
 <td class="address-2"><span id="16C5"></span>16C5</td>
 <td class="instruction">LD HL,($5C63)</td>
-<td class="comment-11" rowspan="1">Fetch STKBOT.</td>
+<td class="comment-11" rowspan="1">Fetch <a href="5C63.html">STKBOT</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16C8"></span>16C8</td>
 <td class="instruction">LD ($5C65),HL</td>
-<td class="comment-11" rowspan="1">This clears the stack.</td>
+<td class="comment-11" rowspan="1">Clear the stack by setting <a href="5C65.html">STKEND</a> equal to <a href="5C63.html">STKBOT</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="16CB"></span>
 <div class="comments">
 <div class="paragraph">
-In all cases make MEM address the calculator's memory area.
+In all cases make <a href="5C68.html">MEM</a> address the calculator's memory area.
 </div>
 </div>
 </td>
@@ -152,25 +152,25 @@ In all cases make MEM address the calculator's memory area.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16CB"></span>16CB</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save STKEND.</td>
+<td class="comment-11" rowspan="1">Save <a href="5C65.html">STKEND</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16CC"></span>16CC</td>
 <td class="instruction">LD HL,$5C92</td>
-<td class="comment-11" rowspan="1">The base of the memory area.</td>
+<td class="comment-11" rowspan="1">The base of the memory area (<a href="5C92.html">MEMBOT</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16CF"></span>16CF</td>
 <td class="instruction">LD ($5C68),HL</td>
-<td class="comment-11" rowspan="1">Set MEM to this address.</td>
+<td class="comment-11" rowspan="1">Set <a href="5C68.html">MEM</a> to this address.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16D2"></span>16D2</td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">Restore STKEND to the <span class="register">HL</span> register pair before returning.</td>
+<td class="comment-11" rowspan="2">Restore <a href="5C65.html">STKEND</a> to the <span class="register">HL</span> register pair before returning.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -187,9 +187,9 @@ In all cases make MEM address the calculator's memory area.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

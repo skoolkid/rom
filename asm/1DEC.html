@@ -29,7 +29,7 @@
 The READ command allows for the reading of a DATA list and has an effect similar to a series of LET statements.
 </div>
 <div class="paragraph">
-Each assignment within a single READ statement is dealt with in turn. The system variable X-PTR is used as a storage location for the pointer to the READ statement whilst CH-ADD is used to step along the DATA list.
+Each assignment within a single READ statement is dealt with in turn. The system variable <a href="5C5F.html">X-PTR</a> is used as a storage location for the pointer to the READ statement whilst <a href="5C5D.html">CH-ADD</a> is used to step along the DATA list.
 </div>
 </div>
 <table class="input-0">
@@ -84,7 +84,7 @@ The address of this entry point is found in the <a href="1A48.html#1AC9">paramet
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1DF5"></span>1DF5</td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-11" rowspan="2">Save the current pointer CH-ADD in X-PTR.</td>
+<td class="comment-11" rowspan="2">Save the current pointer <a href="5C5D.html">CH-ADD</a> in <a href="5C5F.html">X-PTR</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -96,7 +96,7 @@ The address of this entry point is found in the <a href="1A48.html#1AC9">paramet
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1DF9"></span>1DF9</td>
 <td class="instruction">LD HL,($5C57)</td>
-<td class="comment-11" rowspan="4">Fetch the current DATA list pointer and jump forward unless a new DATA statement has to be found.</td>
+<td class="comment-11" rowspan="4">Fetch the current DATA list pointer (<a href="5C57.html">DATADD</a>) and jump forward unless a new DATA statement has to be found.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -145,7 +145,7 @@ Report E - Out of DATA.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">REPORT_E</td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="1E08"></span>1E08</td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
 <td class="comment-11" rowspan="2">Call the error handling routine.</td>
@@ -170,7 +170,7 @@ Continue - picking up a value from the DATA list.
 <td class="asm-label-1">READ_1</td>
 <td class="address-2"><span id="1E0A"></span>1E0A</td>
 <td class="instruction">CALL <a href="0074.html#0077">TEMP_PTR1</a></td>
-<td class="comment-11" rowspan="1">Advance the pointer along the DATA list and set CH-ADD.</td>
+<td class="comment-11" rowspan="1">Advance the pointer along the DATA list and set <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -182,7 +182,7 @@ Continue - picking up a value from the DATA list.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1E10"></span>1E10</td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-11" rowspan="2">Fetch the current value of CH-ADD and store it in DATADD.</td>
+<td class="comment-11" rowspan="2">Fetch the current value of <a href="5C5D.html">CH-ADD</a> and store it in <a href="5C57.html">DATADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -194,7 +194,7 @@ Continue - picking up a value from the DATA list.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1E14"></span>1E14</td>
 <td class="instruction">LD HL,($5C5F)</td>
-<td class="comment-11" rowspan="2">Fetch the pointer to the READ statement and clear X-PTR.</td>
+<td class="comment-11" rowspan="2">Fetch the pointer to the READ statement and clear <a href="5C5F.html">X-PTR</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -206,7 +206,7 @@ Continue - picking up a value from the DATA list.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1E1B"></span>1E1B</td>
 <td class="instruction">CALL <a href="0074.html#0078">TEMP_PTR2</a></td>
-<td class="comment-11" rowspan="1">Make CH-ADD once again point to the READ statement.</td>
+<td class="comment-11" rowspan="1">Make <a href="5C5D.html">CH-ADD</a> once again point to the READ statement.</td>
 </tr>
 <tr>
 <td class="asm-label-1">READ_2</td>
@@ -247,9 +247,9 @@ Continue - picking up a value from the DATA list.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

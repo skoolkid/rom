@@ -89,7 +89,7 @@ Before the line number is printed it is tested to determine whether it comes bef
 <td class="asm-label-1">OUT_LINE1</td>
 <td class="address-2"><span id="1865"></span>1865</td>
 <td class="instruction">LD (IY+$2D),E</td>
-<td class="comment-11" rowspan="1">Save the line marker.</td>
+<td class="comment-11" rowspan="1">Save the line marker in <a href="5C67.html">BREG</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -213,7 +213,7 @@ This entry point is used by the routine at <a href="111D.html">ED_COPY</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1887"></span>1887</td>
 <td class="instruction">LD HL,$5C3B</td>
-<td class="comment-11" rowspan="1">This is FLAGS.</td>
+<td class="comment-11" rowspan="1">This is <a href="5C3B.html">FLAGS</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -253,7 +253,7 @@ Now enter a loop to print all the codes in the rest of the BASIC line - jumping 
 <td class="asm-label-1">OUT_LINE4</td>
 <td class="address-2"><span id="1894"></span>1894</td>
 <td class="instruction">LD HL,($5C5F)</td>
-<td class="comment-11" rowspan="4">Fetch the syntax error pointer and jump forward unless it is time to print the error marker.</td>
+<td class="comment-11" rowspan="4">Fetch the syntax error pointer (<a href="5C5F.html">X-PTR</a>) and jump forward unless it is time to print the error marker.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -376,9 +376,9 @@ The line has now been printed.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

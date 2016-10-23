@@ -29,7 +29,7 @@
 The control characters from INK to OVER require a single operand whereas the control characters AT and TAB are required to be followed by two operands.
 </div>
 <div class="paragraph">
-The present routine leads to the control character code being saved in TVDATA-lo, the first operand in TVDATA-hi or the <span class="register">A</span> register if there is only a single operand required, and the second operand in the <span class="register">A</span> register.
+The present routine leads to the control character code being saved in <a href="5C0E.html">TVDATA-lo</a>, the first operand in <a href="5C0E.html">TVDATA-hi</a> or the <span class="register">A</span> register if there is only a single operand required, and the second operand in the <span class="register">A</span> register.
 </div>
 </div>
 <table class="input-0">
@@ -50,7 +50,7 @@ The present routine leads to the control character code being saved in TVDATA-lo
 <td class="asm-label-1">PO_TV_2</td>
 <td class="address-2"><span id="0A6D"></span>0A6D</td>
 <td class="instruction">LD DE,$0A87</td>
-<td class="comment-11" rowspan="3">Save the first operand in TVDATA-hi and change the address of the 'output' routine to <a href="0A6D.html#0A87">PO_CONT</a>.</td>
+<td class="comment-11" rowspan="3">Save the first operand in <a href="5C0E.html">TVDATA-hi</a> and change the address of the 'output' routine to <a href="0A6D.html#0A87">PO_CONT</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -81,7 +81,7 @@ Enter here when handling the characters AT and TAB.
 <td class="asm-label-1">PO_2_OPER</td>
 <td class="address-1"><span id="0A75"></span>0A75</td>
 <td class="instruction">LD DE,$0A6D</td>
-<td class="comment-11" rowspan="2">The character code will be saved in TVDATA-lo and the address of the 'output' routine changed to <a href="0A6D.html">PO_TV_2</a>.</td>
+<td class="comment-11" rowspan="2">The character code will be saved in <a href="5C0E.html">TVDATA-lo</a> and the address of the 'output' routine changed to <a href="0A6D.html">PO_TV_2</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -128,7 +128,7 @@ The current 'output' routine address is changed temporarily.
 <td class="asm-label-1">PO_CHANGE</td>
 <td class="address-2"><span id="0A80"></span>0A80</td>
 <td class="instruction">LD HL,($5C51)</td>
-<td class="comment-11" rowspan="1"><span class="register">HL</span> will point to the 'output' routine address.</td>
+<td class="comment-11" rowspan="1"><span class="register">HL</span> will point to the 'output' routine address (<a href="5C51.html">CURCHL</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -449,9 +449,9 @@ This entry point is used by the routine at <a href="0A5F.html">PO_COMMA</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

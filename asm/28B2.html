@@ -29,7 +29,7 @@
 Used by the routines at <a href="0605.html">SAVE_ETC</a>, <a href="1C1F.html">CLASS_01</a>, <a href="1C6C.html">CLASS_04</a>, <a href="26C9.html">S_LETTER</a> and <a href="2C02.html">DIM</a>.
 </div>
 <div class="paragraph">
-This subroutine is called whenever a search of the variables area or of the arguments of a DEF FN statement is required. The subroutine is entered with the system variable CH-ADD pointing to the first letter of the name of the variable whose location is being sought. The name will be in the program area or the work space. The subroutine initially builds up a discriminator byte, in the <span class="register">C</span> register, that is based on the first letter of the variable's name. Bits 5 and 6 of this byte indicate the type of the variable that is being handled.
+This subroutine is called whenever a search of the variables area or of the arguments of a DEF FN statement is required. The subroutine is entered with the system variable <a href="5C5D.html">CH-ADD</a> pointing to the first letter of the name of the variable whose location is being sought. The name will be in the program area or the work space. The subroutine initially builds up a discriminator byte, in the <span class="register">C</span> register, that is based on the first letter of the variable's name. Bits 5 and 6 of this byte indicate the type of the variable that is being handled.
 </div>
 <div class="paragraph">
 The <span class="register">B</span> register is used as a bit register to hold flags.
@@ -196,7 +196,7 @@ Now find the end character of a name that has more than one character.
 <span id="28DE"></span>
 <div class="comments">
 <div class="paragraph">
-Simple strings and arrays of strings require that bit 6 of FLAGS is reset.
+Simple strings and arrays of strings require that bit 6 of <a href="5C3B.html">FLAGS</a> is reset.
 </div>
 </div>
 </td>
@@ -205,7 +205,7 @@ Simple strings and arrays of strings require that bit 6 of FLAGS is reset.
 <td class="asm-label-1">V_STR_VAR</td>
 <td class="address-2"><span id="28DE"></span>28DE</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Step CH-ADD past the '$'.</td>
+<td class="comment-11" rowspan="1">Step <a href="5C5D.html">CH-ADD</a> past the '$'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -218,7 +218,7 @@ Simple strings and arrays of strings require that bit 6 of FLAGS is reset.
 <span id="28E3"></span>
 <div class="comments">
 <div class="paragraph">
-If DEFADD-hi is non-zero, indicating that a 'function' (a 'FN') is being evaluated, and if in 'run-time', a search will be made of the arguments in the DEF FN statement.
+If <a href="5C0B.html">DEFADD-hi</a> is non-zero, indicating that a 'function' (a 'FN') is being evaluated, and if in 'run-time', a search will be made of the arguments in the DEF FN statement.
 </div>
 </div>
 </td>
@@ -227,7 +227,7 @@ If DEFADD-hi is non-zero, indicating that a 'function' (a 'FN') is being evaluat
 <td class="asm-label-1">V_TEST_FN</td>
 <td class="address-2"><span id="28E3"></span>28E3</td>
 <td class="instruction">LD A,($5C0C)</td>
-<td class="comment-11" rowspan="2">Is DEFADD-hi zero?</td>
+<td class="comment-11" rowspan="2">Is <a href="5C0B.html">DEFADD-hi</a> zero?</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -328,7 +328,7 @@ A BASIC line is being executed so make a search of the variables area.
 <td class="asm-label-1">V_RUN</td>
 <td class="address-2"><span id="28FD"></span>28FD</td>
 <td class="instruction">LD HL,($5C4B)</td>
-<td class="comment-11" rowspan="1">Pick up the VARS pointer.</td>
+<td class="comment-11" rowspan="1">Pick up the <a href="5C4B.html">VARS</a> pointer.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
@@ -733,7 +733,7 @@ The exit-parameters are now set.
 The exit-parameters for the subroutine can be summarised as follows.
 </div>
 <div class="paragraph">
-The system variable CH-ADD points to the first location after the name of the variable as it occurs in the BASIC line.
+The system variable <a href="5C5D.html">CH-ADD</a> points to the first location after the name of the variable as it occurs in the BASIC line.
 </div>
 <div class="paragraph">
 When 'variable not found':
@@ -773,9 +773,9 @@ In syntax time the return is always made with the carry flag reset. The zero fla
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

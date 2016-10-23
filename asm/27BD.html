@@ -202,7 +202,7 @@ This subroutine evaluates a user defined function which occurs in a BASIC line. 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="27EA"></span>27EA</td>
 <td class="instruction">LD HL,$5C3B</td>
-<td class="comment-11" rowspan="2">This is FLAGS; assume a string-valued function and reset bit 6 of FLAGS.</td>
+<td class="comment-11" rowspan="2">Assume a string-valued function and reset bit 6 of <a href="5C3B.html">FLAGS</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -226,7 +226,7 @@ This subroutine evaluates a user defined function which occurs in a BASIC line. 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="27F2"></span>27F2</td>
 <td class="instruction">SET 6,(HL)</td>
-<td class="comment-11" rowspan="1">Otherwise, set bit 6 of FLAGS.</td>
+<td class="comment-11" rowspan="1">Otherwise, set bit 6 of <a href="5C3B.html">FLAGS</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1">SF_SYN_EN</td>
@@ -308,7 +308,7 @@ ii. During line execution, a search must first be made for a DEF FN statement.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2804"></span>2804</td>
 <td class="instruction">LD HL,($5C53)</td>
-<td class="comment-11" rowspan="1">Point to the start of the program.</td>
+<td class="comment-11" rowspan="1">Point to the start of the program (<a href="5C53.html">PROG</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -357,7 +357,7 @@ Report P - FN without DEF.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">REPORT_P</td>
+<td class="asm-label-1"></td>
 <td class="address-1"><span id="2812"></span>2812</td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
 <td class="comment-11" rowspan="2">Call the error handling routine.</td>
@@ -479,7 +479,7 @@ When a DEF FN statement is found, the name and status of the two functions are c
 <span id="2831"></span>
 <div class="comments">
 <div class="paragraph">
-iii. The correct DEF FN statement has now been found. The arguments of the FN statement will be evaluated by repeated calls of <a href="24FB.html">SCANNING</a>, and their 5 byte values (or parameters, for strings) will be inserted into the DEF FN statement in the spaces made there at syntax checking. <span class="register">HL</span> will be used to point along the DEF FN statement (calling <a href="28AB.html">FN_SKPOVR</a> as needed) while CH-ADD points along the FN statement (calling <a href="0020.html">NEXT_CHAR</a> as needed).
+iii. The correct DEF FN statement has now been found. The arguments of the FN statement will be evaluated by repeated calls of <a href="24FB.html">SCANNING</a>, and their 5 byte values (or parameters, for strings) will be inserted into the DEF FN statement in the spaces made there at syntax checking. <span class="register">HL</span> will be used to point along the DEF FN statement (calling <a href="28AB.html">FN_SKPOVR</a> as needed) while <a href="5C5D.html">CH-ADD</a> points along the FN statement (calling <a href="0020.html">NEXT_CHAR</a> as needed).
 </div>
 </div>
 </td>
@@ -506,7 +506,7 @@ iii. The correct DEF FN statement has now been found. The arguments of the FN st
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2836"></span>2836</td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="2">Get the pointer to the first argument of FN, and copy it to CH-ADD.</td>
+<td class="comment-11" rowspan="2">Get the pointer to the first argument of FN, and copy it to <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -656,7 +656,7 @@ iii. The correct DEF FN statement has now been found. The arguments of the FN st
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2862"></span>2862</td>
 <td class="instruction">LD HL,($5C65)</td>
-<td class="comment-11" rowspan="1">Point <span class="register">HL</span> at STKEND.</td>
+<td class="comment-11" rowspan="1">Point <span class="register">HL</span> at <a href="5C65.html">STKEND</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -668,7 +668,7 @@ iii. The correct DEF FN statement has now been found. The arguments of the FN st
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2868"></span>2868</td>
 <td class="instruction">SBC HL,BC</td>
-<td class="comment-11" rowspan="2">First, decrease STKEND by 5, so deleting the 'last value' from the stack.</td>
+<td class="comment-11" rowspan="2">First, decrease <a href="5C65.html">STKEND</a> by 5, so deleting the 'last value' from the stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -740,7 +740,7 @@ iii. The correct DEF FN statement has now been found. The arguments of the FN st
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="287E"></span>287E</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Point CH-ADD to the next argument of FN.</td>
+<td class="comment-11" rowspan="1">Point <a href="5C5D.html">CH-ADD</a> to the next argument of FN.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -811,7 +811,7 @@ Report Q - Parameter error.
 <span id="288D"></span>
 <div class="comments">
 <div class="paragraph">
-iv. Finally, the function itself is evaluated by calling <a href="24FB.html">SCANNING</a>, after first setting DEFADD to hold the address of the arguments as they occur in the DEF FN statement. This ensures that <a href="28B2.html">LOOK_VARS</a>, when called by <a href="24FB.html">SCANNING</a>, will first search these arguments for the required values, before making a search of the variables area.
+iv. Finally, the function itself is evaluated by calling <a href="24FB.html">SCANNING</a>, after first setting <a href="5C0B.html">DEFADD</a> to hold the address of the arguments as they occur in the DEF FN statement. This ensures that <a href="28B2.html">LOOK_VARS</a>, when called by <a href="24FB.html">SCANNING</a>, will first search these arguments for the required values, before making a search of the variables area.
 </div>
 </div>
 </td>
@@ -832,19 +832,19 @@ iv. Finally, the function itself is evaluated by calling <a href="24FB.html">SCA
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="288F"></span>288F</td>
 <td class="instruction">LD ($5C5D),HL</td>
-<td class="comment-11" rowspan="1">Insert it into CH-ADD.</td>
+<td class="comment-11" rowspan="1">Insert it into <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2892"></span>2892</td>
 <td class="instruction">LD HL,($5C0B)</td>
-<td class="comment-11" rowspan="1">Get the old value of DEFADD.</td>
+<td class="comment-11" rowspan="1">Get the old value of <a href="5C0B.html">DEFADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2895"></span>2895</td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-11" rowspan="2">Stack it, and get the start address of the arguments area of DEF FN into DEFADD.</td>
+<td class="comment-11" rowspan="2">Stack it, and get the start address of the arguments area of DEF FN into <a href="5C0B.html">DEFADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -862,7 +862,7 @@ iv. Finally, the function itself is evaluated by calling <a href="24FB.html">SCA
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="289A"></span>289A</td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="2">Move CH-ADD on past ')' and '=' to the start of the expression for the function in DEF FN.</td>
+<td class="comment-11" rowspan="2">Move <a href="5C5D.html">CH-ADD</a> on past ')' and '=' to the start of the expression for the function in DEF FN.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -886,19 +886,19 @@ iv. Finally, the function itself is evaluated by calling <a href="24FB.html">SCA
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="28A0"></span>28A0</td>
 <td class="instruction">LD ($5C5D),HL</td>
-<td class="comment-11" rowspan="1">Store it in CH-ADD.</td>
+<td class="comment-11" rowspan="1">Store it in <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="28A3"></span>28A3</td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Restore original value of DEFADD.</td>
+<td class="comment-11" rowspan="1">Restore original value of <a href="5C0B.html">DEFADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="28A4"></span>28A4</td>
 <td class="instruction">LD ($5C0B),HL</td>
-<td class="comment-11" rowspan="1">Put it back into DEFADD.</td>
+<td class="comment-11" rowspan="1">Put it back into <a href="5C0B.html">DEFADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -921,9 +921,9 @@ iv. Finally, the function itself is evaluated by calling <a href="24FB.html">SCA
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

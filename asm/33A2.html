@@ -29,7 +29,7 @@
 The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 3B by the routine at <a href="26C9.html">S_LETTER</a>.
 </div>
 <div class="paragraph">
-This subroutine is only called from <a href="26C9.html#2757">2757</a> and is used to perform a single arithmetic operation. The offset that specifies which operation is to be performed is supplied to the calculator in the <span class="register">B</span> register and subsequently transferred to the system variable BREG.
+This subroutine is only called from <a href="26C9.html#2757">2757</a> and is used to perform a single arithmetic operation. The offset that specifies which operation is to be performed is supplied to the calculator in the <span class="register">B</span> register and subsequently transferred to the system variable <a href="5C67.html">BREG</a>.
 </div>
 <div class="paragraph">
 The effect of calling this subroutine is essentially to make a jump to the appropriate subroutine for the single operation.
@@ -59,7 +59,7 @@ The effect of calling this subroutine is essentially to make a jump to the appro
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33A3"></span>33A3</td>
 <td class="instruction">LD A,($5C67)</td>
-<td class="comment-11" rowspan="1">Transfer the offset to <span class="register">A</span>.</td>
+<td class="comment-11" rowspan="1">Transfer the offset from <a href="5C67.html">BREG</a> to <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -82,9 +82,9 @@ The effect of calling this subroutine is essentially to make a jump to the appro
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

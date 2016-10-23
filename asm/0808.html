@@ -302,7 +302,7 @@ Now deal with the LOADing of arrays.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0841"></span>0841</td>
 <td class="instruction">LD ($5C5F),IX</td>
-<td class="comment-11" rowspan="3">Save the <span class="register">IX</span> register pair temporarily whilst the old array is reclaimed.</td>
+<td class="comment-11" rowspan="3">Save the <span class="register">IX</span> register pair temporarily (in <a href="5C5F.html">X-PTR</a>) whilst the old array is reclaimed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -330,7 +330,7 @@ Space is now made available for the new array - at the end of the present variab
 <td class="asm-label-1">LD_DATA_1</td>
 <td class="address-2"><span id="084C"></span>084C</td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-11" rowspan="2">Find the pointer to the end-marker of the variables area - the '80-byte'.</td>
+<td class="comment-11" rowspan="2">Find the pointer to the end-marker of the variables area - the '80-byte' (<a href="5C59.html">E-LINE</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -496,7 +496,7 @@ Now deal with the LOADing of a BASIC program and its variables.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0874"></span>0874</td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-11" rowspan="2">Find the address of the end marker of the current variables area - the '80-byte'.</td>
+<td class="comment-11" rowspan="2">Find the address of the end marker of the current variables area - the '80-byte' (<a href="5C59.html">E-LINE</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -508,7 +508,7 @@ Now deal with the LOADing of a BASIC program and its variables.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0878"></span>0878</td>
 <td class="instruction">LD ($5C5F),IX</td>
-<td class="comment-11" rowspan="1">Save <span class="register">IX</span> temporarily.</td>
+<td class="comment-11" rowspan="1">Save <span class="register">IX</span> temporarily (in <a href="5C5F.html">X-PTR</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -568,7 +568,7 @@ Now deal with the LOADing of a BASIC program and its variables.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0890"></span>0890</td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="5">The system variable VARS has also to be set for the new program.</td>
+<td class="comment-11" rowspan="5">The system variable <a href="5C4B.html">VARS</a> has also to be set for the new program.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -616,7 +616,7 @@ Now deal with the LOADing of a BASIC program and its variables.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="08A1"></span>08A1</td>
 <td class="instruction">JR NZ,<a href="0808.html#08AD">LD_PROG_1</a></td>
-<td class="comment-11" rowspan="4">Jump if 'no number'; otherwise set NEWPPC and NSPPC.</td>
+<td class="comment-11" rowspan="4">Jump if 'no number'; otherwise set <a href="5C42.html">NEWPPC</a> and <a href="5C44.html">NSPPC</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -685,9 +685,9 @@ The data block can now be LOADed.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

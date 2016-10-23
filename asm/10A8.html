@@ -220,13 +220,13 @@ The CAPS LOCK code and the mode codes are dealt with 'locally'.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="10DD"></span>10DD</td>
 <td class="instruction">LD HL,$5C6A</td>
-<td class="comment-11" rowspan="1">This is FLAGS2.</td>
+<td class="comment-11" rowspan="1">This is <a href="5C6A.html">FLAGS2</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="10E0"></span>10E0</td>
 <td class="instruction">LD A,$08</td>
-<td class="comment-11" rowspan="3">Flip bit 3 of FLAGS2. This is the CAPS LOCK flag.</td>
+<td class="comment-11" rowspan="3">Flip bit 3 of <a href="5C6A.html">FLAGS2</a>. This is the CAPS LOCK flag.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -268,7 +268,7 @@ The CAPS LOCK code and the mode codes are dealt with 'locally'.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="10EB"></span>10EB</td>
 <td class="instruction">LD HL,$5C41</td>
-<td class="comment-11" rowspan="1">This is MODE.</td>
+<td class="comment-11" rowspan="1">This is <a href="5C41.html">MODE</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -369,7 +369,7 @@ The control key codes (apart from FLASH, BRIGHT and INVERSE) are manipulated.
 <span id="1105"></span>
 <div class="comments">
 <div class="paragraph">
-The parameter is saved in K-DATA and the channel address changed from <a href="10A8.html">KEY_INPUT</a> to <a href="10A8.html#110D">KEY_NEXT</a>.
+The parameter is saved in <a href="5C0D.html">K-DATA</a> and the channel address changed from <a href="10A8.html">KEY_INPUT</a> to <a href="10A8.html#110D">KEY_NEXT</a>.
 </div>
 </div>
 </td>
@@ -406,7 +406,7 @@ Note: on the first pass entering at <a href="10A8.html">KEY_INPUT</a> the <span 
 <td class="asm-label-1">KEY_NEXT</td>
 <td class="address-1"><span id="110D"></span>110D</td>
 <td class="instruction">LD A,($5C0D)</td>
-<td class="comment-11" rowspan="1">Fetch the parameter.</td>
+<td class="comment-11" rowspan="1">Fetch the parameter (<a href="5C0D.html">K-DATA</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -428,7 +428,7 @@ Now set the input address in the first channel area.
 <td class="asm-label-1">KEY_CHAN</td>
 <td class="address-2"><span id="1113"></span>1113</td>
 <td class="instruction">LD HL,($5C4F)</td>
-<td class="comment-11" rowspan="3">Fetch the channel address.</td>
+<td class="comment-11" rowspan="3">Fetch the channel address (<a href="5C4F.html">CHANS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -491,9 +491,9 @@ Finally exit with the required code in the <span class="register">A</span> regis
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

@@ -32,7 +32,7 @@ Used by the routine at <a href="1C6C.html">CLASS_04</a>.
 The routine at <a href="1C1F.html">CLASS_01</a> continues here.
 </div>
 <div class="paragraph">
-This subroutine develops the appropriate values for the system variables DEST and STRLEN.
+This subroutine develops the appropriate values for the system variables <a href="5C4D.html">DEST</a> and <a href="5C72.html">STRLEN</a>.
 </div>
 </div>
 <table class="input-0">
@@ -53,7 +53,7 @@ This subroutine develops the appropriate values for the system variables DEST an
 <td class="asm-label-1">VAR_A_1</td>
 <td class="address-2"><span id="1C22"></span>1C22</td>
 <td class="instruction">LD (IY+$37),$00</td>
-<td class="comment-11" rowspan="1">Initialise FLAGX to +00.</td>
+<td class="comment-11" rowspan="1">Initialise <a href="5C71.html">FLAGX</a> to +00.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -87,7 +87,7 @@ Report 2 - Variable not found.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">REPORT_2_2</td>
+<td class="asm-label-1">REPORT_2</td>
 <td class="address-2"><span id="1C2E"></span>1C2E</td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
 <td class="comment-11" rowspan="2">Call the error handling routine.</td>
@@ -136,7 +136,7 @@ Continue with the handling of existing variables.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C3A"></span>1C3A</td>
 <td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
-<td class="comment-11" rowspan="2">The parameters of the string of string array variable are fetched unless syntax is being checked.</td>
+<td class="comment-11" rowspan="2">The parameters of the string or string array variable are fetched unless syntax is being checked.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -148,7 +148,7 @@ Continue with the handling of existing variables.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C40"></span>1C40</td>
 <td class="instruction">LD HL,$5C71</td>
-<td class="comment-11" rowspan="1">This is FLAGX.</td>
+<td class="comment-11" rowspan="1">This is <a href="5C71.html">FLAGX</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -173,7 +173,7 @@ Continue with the handling of existing variables.
 <span id="1C46"></span>
 <div class="comments">
 <div class="paragraph">
-The pathways now come together to set STRLEN and DEST as required. For all numeric variables and 'new' string and string array variables STRLEN-lo holds the 'letter' of the variable's name. But for 'old' string and string array variables whether 'sliced' or complete it holds the 'length' in 'assignment'.
+The pathways now come together to set <a href="5C72.html">STRLEN</a> and <a href="5C4D.html">DEST</a> as required. For all numeric variables and 'new' string and string array variables <a href="5C72.html">STRLEN-lo</a> holds the 'letter' of the variable's name. But for 'old' string and string array variables whether 'sliced' or complete it holds the 'length' in 'assignment'.
 </div>
 </div>
 </td>
@@ -182,14 +182,14 @@ The pathways now come together to set STRLEN and DEST as required. For all numer
 <td class="asm-label-1">VAR_A_3</td>
 <td class="address-2"><span id="1C46"></span>1C46</td>
 <td class="instruction">LD ($5C72),BC</td>
-<td class="comment-11" rowspan="1">Set STRLEN as required.</td>
+<td class="comment-11" rowspan="1">Set <a href="5C72.html">STRLEN</a> as required.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="1C4A"></span>
 <div class="comments">
 <div class="paragraph">
-DEST holds the address for the 'destination' of an 'old' variable but in effect the 'source' for a 'new' variable.
+<a href="5C4D.html">DEST</a> holds the address for the 'destination' of an 'old' variable but in effect the 'source' for a 'new' variable.
 </div>
 </div>
 </td>
@@ -198,7 +198,7 @@ DEST holds the address for the 'destination' of an 'old' variable but in effect 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C4A"></span>1C4A</td>
 <td class="instruction">LD ($5C4D),HL</td>
-<td class="comment-11" rowspan="2">Set DEST as required and return.</td>
+<td class="comment-11" rowspan="2">Set <a href="5C4D.html">DEST</a> as required and return.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -215,9 +215,9 @@ DEST holds the address for the 'destination' of an 'old' variable but in effect 
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

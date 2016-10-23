@@ -45,7 +45,7 @@ The operations to be performed are specified as a series of data-bytes, the lite
 In the case of a single operation needing to be performed, the operation offset can be passed to the calculator in the <span class="register">B</span> register, and operation '3B', the <a href="33A2.html">single calculation operation</a>, performed.
 </div>
 <div class="paragraph">
-It is also possible to call this subroutine recursively, i.e. from within itself, and in such a case it is possible to use the system variable BREG as a counter that controls how many operations are performed before returning.
+It is also possible to call this subroutine recursively, i.e. from within itself, and in such a case it is possible to use the system variable <a href="5C67.html">BREG</a> as a counter that controls how many operations are performed before returning.
 </div>
 <div class="paragraph">
 The first part of this subroutine is complicated but essentially it performs the two tasks of setting the registers to hold their required values, and to produce an offset, and possibly a parameter, from the literal that is currently being considered.
@@ -78,7 +78,7 @@ Note: a floating-point number may in reality be a set of string parameters.
 <td class="asm-label-1">CALCULATE</td>
 <td class="address-2"><span id="335B"></span>335B</td>
 <td class="instruction">CALL <a href="35BF.html">STK_PNTRS</a></td>
-<td class="comment-11" rowspan="1">Presume a unary operation and therefore set <span class="register">HL</span> to point to the start of the 'last value' on the calculator stack and <span class="register">DE</span> one past this floating-point number (STKEND).</td>
+<td class="comment-11" rowspan="1">Presume a unary operation and therefore set <span class="register">HL</span> to point to the start of the 'last value' on the calculator stack and <span class="register">DE</span> one past this floating-point number (<a href="5C65.html">STKEND</a>).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
@@ -94,7 +94,7 @@ This entry point is used by the routine at <a href="3449.html">series</a>.
 <td class="asm-label-1">GEN_ENT_1</td>
 <td class="address-2"><span id="335E"></span>335E</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-11" rowspan="2">Either transfer a single operation offset to BREG temporarily, or, when using the subroutine recursively, pass the parameter to BREG to be used as a counter.</td>
+<td class="comment-11" rowspan="2">Either transfer a single operation offset to <a href="5C67.html">BREG</a> temporarily, or, when using the subroutine recursively, pass the parameter to <a href="5C67.html">BREG</a> to be used as a counter.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -116,7 +116,7 @@ This entry point is used by the routine at <a href="3449.html">series</a>.
 <td class="asm-label-1">GEN_ENT_2</td>
 <td class="address-2"><span id="3362"></span>3362</td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="3">The return address of the subroutine is stored in <span class="register">HL'</span>. This saves the pointer to the first literal. Entering the calculator here is done whenever BREG is in use as a counter and is not to be disturbed.</td>
+<td class="comment-11" rowspan="3">The return address of the subroutine is stored in <span class="register">HL'</span>. This saves the pointer to the first literal. Entering the calculator here is done whenever <a href="5C67.html">BREG</a> is in use as a counter and is not to be disturbed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -134,7 +134,7 @@ This entry point is used by the routine at <a href="3449.html">series</a>.
 <td class="asm-label-1">RE_ENTRY</td>
 <td class="address-1"><span id="3365"></span>3365</td>
 <td class="instruction">LD ($5C65),DE</td>
-<td class="comment-11" rowspan="1">A loop is now entered to handle each literal in the list that follows the calling instruction; so first, always set to STKEND.</td>
+<td class="comment-11" rowspan="1">A loop is now entered to handle each literal in the list that follows the calling instruction; so first, always set <a href="5C65.html">STKEND</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -372,7 +372,7 @@ This entry point is used by the routine at <a href="33A2.html">fp_calc_2</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="339D"></span>339D</td>
 <td class="instruction">LD BC,($5C66)</td>
-<td class="comment-11" rowspan="1">The current value of BREG is transferred to the <span class="register">B</span> register thereby returning the single operation offset (see <a href="353B.html">compare</a>).</td>
+<td class="comment-11" rowspan="1">The current value of <a href="5C67.html">BREG</a> is transferred to the <span class="register">B</span> register thereby returning the single operation offset (see <a href="353B.html">compare</a>).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
@@ -412,9 +412,9 @@ The single RET instruction thereby leads to the first number being considered as
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

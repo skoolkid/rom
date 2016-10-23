@@ -32,13 +32,13 @@ Used by the routines at <a href="1C56.html">VAL_FET_1</a>, <a href="1D03.html">F
 This is the actual assignment routine for the LET, READ and INPUT commands.
 </div>
 <div class="paragraph">
-When the destination variable is a 'newly declared variable' then DEST will point to the first letter of the variable's name as it occurs in the BASIC line. Bit 1 of FLAGX will be set.
+When the destination variable is a 'newly declared variable' then <a href="5C4D.html">DEST</a> will point to the first letter of the variable's name as it occurs in the BASIC line. Bit 1 of <a href="5C71.html">FLAGX</a> will be set.
 </div>
 <div class="paragraph">
-However if the destination variable 'exists already' then bit 1 of FLAGX will be reset and DEST will point for a numeric variable to the location before the five bytes of the 'old number', and for a string variable to the first location of the 'old string'. The use of DEST in this manner applies to simple variables and to elements of arrays.
+However if the destination variable 'exists already' then bit 1 of <a href="5C71.html">FLAGX</a> will be reset and <a href="5C4D.html">DEST</a> will point for a numeric variable to the location before the five bytes of the 'old number', and for a string variable to the first location of the 'old string'. The use of <a href="5C4D.html">DEST</a> in this manner applies to simple variables and to elements of arrays.
 </div>
 <div class="paragraph">
-Bit 0 of FLAGX is set if the destination variable is a 'complete' simple string variable. (Signalling - delete the old copy.) Initially the current value of DEST is collected and bit 1 of FLAGS tested.
+Bit 0 of <a href="5C71.html">FLAGX</a> is set if the destination variable is a 'complete' simple string variable. (Signalling - delete the old copy.) Initially the current value of <a href="5C4D.html">DEST</a> is collected and bit 1 of <a href="5C3B.html">FLAGS</a> tested.
 </div>
 </div>
 <table class="input-0">
@@ -59,7 +59,7 @@ Bit 0 of FLAGX is set if the destination variable is a 'complete' simple string 
 <td class="asm-label-1">LET</td>
 <td class="address-2"><span id="2AFF"></span>2AFF</td>
 <td class="instruction">LD HL,($5C4D)</td>
-<td class="comment-11" rowspan="1">Fetch the present address in DEST.</td>
+<td class="comment-11" rowspan="1">Fetch the present address in <a href="5C4D.html">DEST</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -225,7 +225,7 @@ The 'newly declared numeric variable' presently being handled will require <span
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2B2A"></span>2B2A</td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-11" rowspan="2">Make <span class="register">HL</span> point to the '80-byte' at the end of the variables area.</td>
+<td class="comment-11" rowspan="2">Make <span class="register">HL</span> point to the '80-byte' at the end of the variables area (<a href="5C59.html">E-LINE</a>-1).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -267,7 +267,7 @@ The 'newly declared numeric variable' presently being handled will require <span
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2B35"></span>2B35</td>
 <td class="instruction">LD HL,($5C4D)</td>
-<td class="comment-11" rowspan="1">Fetch the pointer to the start of the name.</td>
+<td class="comment-11" rowspan="1">Fetch the pointer to the start of the name (<a href="5C4D.html">DEST</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -393,7 +393,7 @@ The first letter of the name of the variable being handled is now considered.
 <td class="asm-label-1">L_SINGLE</td>
 <td class="address-2"><span id="2B4F"></span>2B4F</td>
 <td class="instruction">LD HL,($5C4D)</td>
-<td class="comment-11" rowspan="1">Fetch the pointer to the letter.</td>
+<td class="comment-11" rowspan="1">Fetch the pointer to the letter (<a href="5C4D.html">DEST</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -452,7 +452,7 @@ A 'RST 28' instruction is used to call the calculator and the 'last value' is de
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2B5A"></span>2B5A</td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-11" rowspan="1">Use the calculator to move STKEND back five bytes.</td>
+<td class="comment-11" rowspan="1">Use the calculator to move <a href="5C65.html">STKEND</a> back five bytes.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -501,7 +501,7 @@ A 'RST 28' instruction is used to call the calculator and the 'last value' is de
 <span id="2B66"></span>
 <div class="comments">
 <div class="paragraph">
-Come here if considering a variable that 'exists already'. First bit 6 of FLAGS is tested so as to separate numeric variables from string or array of string variables.
+Come here if considering a variable that 'exists already'. First bit 6 of <a href="5C3B.html">FLAGS</a> is tested so as to separate numeric variables from string or array of string variables.
 </div>
 </div>
 </td>
@@ -560,7 +560,7 @@ The parameters of the string variable are fetched and complete simple strings se
 <td class="asm-label-1">L_DELETE</td>
 <td class="address-2"><span id="2B72"></span>2B72</td>
 <td class="instruction">LD HL,($5C4D)</td>
-<td class="comment-11" rowspan="1">Fetch the 'start'. Note: this line is redundant.</td>
+<td class="comment-11" rowspan="1">Fetch the 'start' (<a href="5C4D.html">DEST</a>). Note: this line is redundant.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -625,7 +625,7 @@ Then make the required number of spaces available in the work space.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2B82"></span>2B82</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the 'start' (DEST).</td>
+<td class="comment-11" rowspan="1">Save the 'start' (<a href="5C4D.html">DEST</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -833,7 +833,7 @@ The values that have been saved on the machine stack are restored.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BA5"></span>2BA5</td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">The start - the pointer to the 'variable in assignment' which was originally in DEST. <a href="2AFF.html#2BA6">L_ENTER</a> is now used to pass the 'new' string to the variables area.</td>
+<td class="comment-11" rowspan="1">The start - the pointer to the 'variable in assignment' which was originally in <a href="5C4D.html">DEST</a>. <a href="2AFF.html#2BA6">L_ENTER</a> is now used to pass the 'new' string to the variables area.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
@@ -910,7 +910,7 @@ When handling a 'complete and existing' simple string the new string is entered 
 <td class="asm-label-1">L_ADD</td>
 <td class="address-2"><span id="2BAF"></span>2BAF</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="3">Make <span class="register">HL</span> point to the letter of the variable's name, i.e. DEST-3.</td>
+<td class="comment-11" rowspan="3">Make <span class="register">HL</span> point to the letter of the variable's name, i.e. <a href="5C4D.html">DEST</a>-3.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1004,7 +1004,7 @@ When handling a 'complete and existing' simple string the new string is entered 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BC2"></span>2BC2</td>
 <td class="instruction">LD HL,($5C4D)</td>
-<td class="comment-11" rowspan="1">Fetch the pointer to the letter.</td>
+<td class="comment-11" rowspan="1">Fetch the pointer to the letter (<a href="5C4D.html">DEST</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1062,7 +1062,7 @@ The parameters of the 'new' string are fetched, sufficient room is made availabl
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BCE"></span>2BCE</td>
 <td class="instruction">LD ($5C4D),HL</td>
-<td class="comment-11" rowspan="1">Save the pointer briefly.</td>
+<td class="comment-11" rowspan="1">Save the pointer briefly in <a href="5C4D.html">DEST</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1086,7 +1086,7 @@ The parameters of the 'new' string are fetched, sufficient room is made availabl
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BD4"></span>2BD4</td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-11" rowspan="2">Make <span class="register">HL</span> point to the '80-byte' at the end of the variables area.</td>
+<td class="comment-11" rowspan="2">Make <span class="register">HL</span> point to the '80-byte' at the end of the variables area (<a href="5C59.html">E-LINE</a>-1).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1104,7 +1104,7 @@ The parameters of the 'new' string are fetched, sufficient room is made availabl
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BDB"></span>2BDB</td>
 <td class="instruction">LD HL,($5C4D)</td>
-<td class="comment-11" rowspan="1">Restore the pointer to the end of the 'new' string.</td>
+<td class="comment-11" rowspan="1">Restore the pointer to the end of the 'new' string from <a href="5C4D.html">DEST</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1198,7 +1198,7 @@ The following subroutine is entered with the letter of the variable, suitably ma
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BEC"></span>2BEC</td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-11" rowspan="2">Make <span class="register">HL</span> point to the 'new 80-byte'.</td>
+<td class="comment-11" rowspan="2">Make <span class="register">HL</span> point to the 'new 80-byte' (<a href="5C59.html">E-LINE</a>-1).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1221,9 +1221,9 @@ The following subroutine is entered with the letter of the variable, suitably ma
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>

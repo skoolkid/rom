@@ -72,7 +72,7 @@ This subroutine is entered with the following parameters:
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="092F"></span>092F</td>
 <td class="instruction">LD ($5C5F),HL</td>
-<td class="comment-11" rowspan="6">Save the 'new' pointer whilst the 'old' line or variable is reclaimed.</td>
+<td class="comment-11" rowspan="6">Save the 'new' pointer (in <a href="5C5F.html">X-PTR</a>) whilst the 'old' line or variable is reclaimed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -142,19 +142,19 @@ The new entry can now be made.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0943"></span>0943</td>
 <td class="instruction">LD ($5C5F),HL</td>
-<td class="comment-11" rowspan="1">Save the pointer to the 'new' variable/line.</td>
+<td class="comment-11" rowspan="1">Save the pointer to the 'new' variable/line (in <a href="5C5F.html">X-PTR</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0946"></span>0946</td>
 <td class="instruction">LD HL,($5C53)</td>
-<td class="comment-11" rowspan="1">Fetch PROG - to avoid corruption.</td>
+<td class="comment-11" rowspan="1">Fetch <a href="5C53.html">PROG</a> - to avoid corruption.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0949"></span>0949</td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-11" rowspan="1">Save PROG on the stack and fetch the 'new' pointer.</td>
+<td class="comment-11" rowspan="1">Save <a href="5C53.html">PROG</a> on the stack and fetch the 'new' pointer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -220,7 +220,7 @@ The new entry can now be made.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="095A"></span>095A</td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="2">Retrieve PROG and store it in its correct place.</td>
+<td class="comment-11" rowspan="2">Retrieve <a href="5C53.html">PROG</a> and store it in its correct place.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -232,7 +232,7 @@ The new entry can now be made.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="095F"></span>095F</td>
 <td class="instruction">LD DE,($5C5F)</td>
-<td class="comment-11" rowspan="1">Also fetch the 'new' pointer.</td>
+<td class="comment-11" rowspan="1">Also fetch the 'new' pointer (from <a href="5C5F.html">X-PTR</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -313,9 +313,9 @@ The 'new' variable/line has now to be removed from the work space.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20160709</div>
-<div class="copyright">&#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.2.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
 </footer>
 </body>
 </html>
