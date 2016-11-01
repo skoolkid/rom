@@ -11426,11 +11426,11 @@ c$2DE3 RST $28          ; Use the calculator.
 @label=PF_FR_DGT
 *$2EEC LD BC,$0200      ; Initial zero to #REGc, count of 2 to #REGb.
 @label=PF_FR_EXX
-*$2EEF LD A,E           ; {#REGd'#REGe'#REGd#REGe is multiplied by 10 in 2
- $2EF0 CALL $2F8B       ; stages, first #REGde then #REGde', each byte by byte
- $2EF3 LD E,A           ; in 2 steps, and the integer part of the result is
- $2EF4 LD A,D           ; obtained in #REGc to be passed into the print
- $2EF5 CALL $2F8B       ; buffer.
+*$2EEF LD A,E           ; {#REG(d'e'de) is multiplied by 10 in 2 stages, first
+ $2EF0 CALL $2F8B       ; #REGde then #REGde', each byte by byte in 2 steps,
+ $2EF3 LD E,A           ; and the integer part of the result is obtained in
+ $2EF4 LD A,D           ; #REGc to be passed into the print buffer.
+ $2EF5 CALL $2F8B       ;
  $2EF8 LD D,A           ; }
  $2EF9 PUSH BC          ; {The count and the result alternate between #REGbc
  $2EFA EXX              ; and #REGbc'.
@@ -11547,12 +11547,12 @@ c$2DE3 RST $28          ; Use the calculator.
 ;
 ; Used by the routine at #R$2DE3.
 ; .
-; This subroutine is called by #R$2DE3 to multiply each byte of
-; #REGd'#REGe'#REGde by 10 and return the integer part of the result in the
-; #REGc register. On entry, the #REGa register contains the byte to be
-; multiplied by 10 and the #REGc register contains the carry over from the
-; previous byte. On return, the #REGa register contains the resulting byte and
-; the #REGc register the carry forward to the next byte.
+; This subroutine is called by #R$2DE3 to multiply each byte of #REG(d'e'de) by
+; 10 and return the integer part of the result in the #REGc register. On entry,
+; the #REGa register contains the byte to be multiplied by 10 and the #REGc
+; register contains the carry over from the previous byte. On return, the #REGa
+; register contains the resulting byte and the #REGc register the carry forward
+; to the next byte.
 @label=CA_10A_C
 c$2F8B PUSH DE       ; Save whichever #REGde pair is in use.
  $2F8C LD L,A        ; {Copy the multiplicand from #REGa to #REGhl.
@@ -11885,14 +11885,14 @@ c$3014 LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
  $3064 EXX           ; {N2 to #REGh' and N3 to #REGl' (see #R$2FBA).
  $3065 EX DE,HL      ; }
  $3066 ADC HL,BC     ; Add left bytes with carry.
- $3068 EX DE,HL      ; Result back in #REGd'#REGe'.
+ $3068 EX DE,HL      ; Result back in #REG(d'e').
  $3069 LD A,H        ; {Add #REGh', #REGl' and the carry; the resulting
  $306A ADC A,L       ; mechanisms will ensure that a single shift right is
  $306B LD L,A        ; called if the sum of 2 positive numbers has overflowed
  $306C RRA           ; left, or the sum of 2 negative numbers has not
  $306D XOR L         ; overflowed left.
  $306E EXX           ; }
- $306F EX DE,HL      ; The result is now in #REGd#REGe#REGd'#REGe'.
+ $306F EX DE,HL      ; The result is now in #REG(ded'e').
  $3070 POP HL        ; Get the pointer to the exponent.
  $3071 RRA           ; {The test for shift (#REGh', #REGl' were +00 for
  $3072 JR NC,$307C   ; positive numbers and +FF for negative numbers).}
@@ -12074,27 +12074,27 @@ c$30CA LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
 @label=MLT_LOOP
 *$3114 JR NC,$311B   ; Jump forward to #R$311B if no carry, i.e. the multiplier
                      ; bit was reset.
- $3116 ADD HL,DE     ; {Else, add the multiplicand in #REGd'#REGe'#REGde (see
- $3117 EXX           ; #R$2FBA) into the result being built up in
- $3118 ADC HL,DE     ; #REGh'#REGl'#REGhl.
+ $3116 ADD HL,DE     ; {Else, add the multiplicand in #REG(d'e'de) (see
+ $3117 EXX           ; #R$2FBA) into the result being built up in #REG(h'l'hl).
+ $3118 ADC HL,DE     ;
  $311A EXX           ; }
 @label=NO_ADD
 *$311B EXX           ; {Whether multiplicand was added or not, shift result
- $311C RR H          ; right in #REGh'#REGl'#REGhl; the shift is done by
- $311E RR L          ; rotating each byte with carry, so that any bit that
- $3120 EXX           ; drops into the carry is picked up by the next byte, and
- $3121 RR H          ; the shift continued into #REGb'#REGc'#REGc#REGa.
+ $311C RR H          ; right in #REG(h'l'hl); the shift is done by rotating
+ $311E RR L          ; each byte with carry, so that any bit that drops into
+ $3120 EXX           ; the carry is picked up by the next byte, and the shift
+ $3121 RR H          ; continued into #REG(b'c'ca).
  $3123 RR L          ; }
 @label=STRT_MLT
-*$3125 EXX           ; {Shift right the multiplier in #REGb'#REGc'#REGc#REGa
- $3126 RR B          ; (see #R$2FBA and above).}
+*$3125 EXX           ; {Shift right the multiplier in #REG(b'c'ca) (see #R$2FBA
+ $3126 RR B          ; and above).}
  $3128 RR C          ; {A final bit dropping into the carry will trigger
  $312A EXX           ; another add of the multiplicand to the result.
  $312B RR C          ;
  $312D RRA           ; }
  $312E DJNZ $3114    ; Loop 33 times to get all the bits.
- $3130 EX DE,HL      ; {Move the result from #REGh'#REGl'#REGhl to
- $3131 EXX           ; #REGd'#REGe'#REGde.
+ $3130 EX DE,HL      ; {Move the result from #REG(h'l'hl) to #REG(d'e'de).
+ $3131 EXX           ;
  $3132 EX DE,HL      ;
  $3133 EXX           ; }
 ; Now add the exponents together.
@@ -12159,12 +12159,12 @@ c$30CA LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
 @label=NORMALISE
 *$316C LD B,$20      ; {Normalise the result by up to 32 shifts left of
 @label=SHIFT_ONE
-*$316E EXX           ; #REGd'#REGe'#REGde (with #REGa adjoined) until bit 7 of
- $316F BIT 7,D       ; #REGd' is set. #REGa holds zero after addition so no
- $3171 EXX           ; precision is gained or lost; #REGa holds the fifth byte
- $3172 JR NZ,$3186   ; from #REGb' after multiplication or division; but as
- $3174 RLCA          ; only about 32 bits can be correct, no precision is lost.
- $3175 RL E          ; Note that #REGa is rotated circularly, with branch at
+*$316E EXX           ; #REG(d'e'de) (with #REGa adjoined) until bit 7 of #REGd'
+ $316F BIT 7,D       ; is set. #REGa holds zero after addition so no precision
+ $3171 EXX           ; is gained or lost; #REGa holds the fifth byte from
+ $3172 JR NZ,$3186   ; #REGb' after multiplication or division; but as only
+ $3174 RLCA          ; about 32 bits can be correct, no precision is lost. Note
+ $3175 RL E          ; that #REGa is rotated circularly, with branch at
  $3177 RL D          ; carry...eventually a random process.
  $3179 EXX           ;
  $317A RL E          ;
@@ -12192,8 +12192,8 @@ c$30CA LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
 @label=OFLOW_CLR
 *$3195 PUSH HL       ; Save the result pointer.
  $3196 INC HL        ; Point to the sign byte in the result.
- $3197 EXX           ; {The result is moved from #REGd'#REGe'#REGde to
- $3198 PUSH DE       ; #REGbc#REGde, and then to #REGa#REGc#REGde.
+ $3197 EXX           ; {The result is moved from #REG(d'e'de) to #REG(bcde),
+ $3198 PUSH DE       ; and then to #REG(acde).
  $3199 EXX           ;
  $319A POP BC        ;
  $319B LD A,B        ; }
@@ -12255,8 +12255,8 @@ c$31AF CALL $3293    ; Use full floating-point forms.
  $31C7 PUSH HL       ; Save M1 and N1 (the exponent bytes) on the machine
                      ; stack.
  $31C8 LD H,B        ; {Copy the four bytes of the dividend from registers
- $31C9 LD L,C        ; #REGb'#REGc'#REGc#REGb (i.e. M2, M3, M4 and M5; see
- $31CA EXX           ; #R$2FBA) to the registers #REGh'#REGl'#REGhl.
+ $31C9 LD L,C        ; #REG(b'c'cb) (i.e. M2, M3, M4 and M5; see #R$2FBA) to
+ $31CA EXX           ; the registers #REG(h'l'hl).
  $31CB LD H,C        ;
  $31CC LD L,B        ; }
  $31CD XOR A         ; Clear #REGa and reset the carry flag.
@@ -12267,22 +12267,22 @@ c$31AF CALL $3293    ; Use full floating-point forms.
                      ; subtraction.
 ; Now enter the division loop.
 @label=DIV_LOOP
-*$31D2 RLA           ; {Shift the result left into #REGb'#REGc'#REGc#REGa,
- $31D3 RL C          ; shifting out the bits already there, picking up 1 from
- $31D5 EXX           ; the carry whenever it is set, and rotating left each
- $31D6 RL C          ; byte with carry to achieve the 32-bit shift.
+*$31D2 RLA           ; {Shift the result left into #REG(b'c'ca), shifting out
+ $31D3 RL C          ; the bits already there, picking up 1 from the carry
+ $31D5 EXX           ; whenever it is set, and rotating left each byte with
+ $31D6 RL C          ; carry to achieve the 32-bit shift.
  $31D8 RL B          ;
  $31DA EXX           ; }
 @label=DIV_34TH
- $31DB ADD HL,HL     ; {Move what remains of the dividend left in
- $31DC EXX           ; #REGh'#REGl'#REGhl before the next trial subtraction; if
- $31DD ADC HL,HL     ; a bit drops into the carry, force no restore and a bit
- $31DF EXX           ; for the quotient, thus retrieving the lost bit and
- $31E0 JR C,$31F2    ; allowing a full 32-bit divisor.}
+ $31DB ADD HL,HL     ; {Move what remains of the dividend left in #REG(h'l'hl)
+ $31DC EXX           ; before the next trial subtraction; if a bit drops into
+ $31DD ADC HL,HL     ; the carry, force no restore and a bit for the quotient,
+ $31DF EXX           ; thus retrieving the lost bit and allowing a full 32-bit
+ $31E0 JR C,$31F2    ; divisor.}
 @label=DIV_START
-*$31E2 SBC HL,DE     ; {Trial subtract divisor in #REGd'#REGe'#REGde from rest
- $31E4 EXX           ; of dividend in #REGh'#REGl'#REGhl; there is no initial
- $31E5 SBC HL,DE     ; carry (see previous step).
+*$31E2 SBC HL,DE     ; {Trial subtract divisor in #REG(d'e'de) from rest of
+ $31E4 EXX           ; dividend in #REG(h'l'hl); there is no initial carry (see
+ $31E5 SBC HL,DE     ; previous step).
  $31E7 EXX           ; }
  $31E8 JR NC,$31F9   ; Jump forward if there is no carry.
  $31EA ADD HL,DE     ; {Otherwise restore, i.e. add back the divisor. Then
@@ -12298,7 +12298,7 @@ c$31AF CALL $3293    ; Use full floating-point forms.
  $31F6 SBC HL,DE     ;
  $31F8 EXX           ; }
 @label=NO_RSTORE
-*$31F9 SCF           ; One for the quotient in #REGb'#REGc'#REGc#REGa.
+*$31F9 SCF           ; One for the quotient in #REG(b'c'ca).
 @label=COUNT_ONE
 *$31FA INC B         ; Step the loop count up by one.
  $31FB JP M,$31D2    ; Loop 32 times for all bits.
@@ -12314,8 +12314,8 @@ c$31AF CALL $3293    ; Use full floating-point forms.
 ; byte #N$3200 hex in the ROM should read DA hex (128 decimal) instead of E1
 ; hex (225 decimal).
  $3201 LD E,A        ; {Now move the four bytes that form the mantissa of the
- $3202 LD D,C        ; result from #REGb'#REGc'#REGc#REGa to
- $3203 EXX           ; #REGd'#REGe'#REGde.
+ $3202 LD D,C        ; result from #REG(b'c'ca) to #REG(d'e'de).
+ $3203 EXX           ;
  $3204 LD E,C        ;
  $3205 LD D,B        ; }
  $3206 POP AF        ; {Then put the 34th and 33rd bits into #REGb' to be
