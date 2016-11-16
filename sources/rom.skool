@@ -2,6 +2,7 @@
 @replace=/#pi/#CHR(960)
 @replace=/#power/#CHR(8593)
 @replace=/#iy(.)\i/#REGiy\1#N\2,,,1($)
+@replace=/#BUG/#LINK:Bugs
 @set-handle-unsupported-macros=1
 
 ; 48K Spectrum ROM disassembly
@@ -2305,7 +2306,7 @@ c$0A3D LD A,($5C91)    ; {Fetch #R$5C91(P-FLAG) and save it on the machine
  $0A4A POP AF          ; {Fetch the old value of #R$5C91(P-FLAG).
  $0A4B LD ($5C91),A    ; }
  $0A4E RET             ; Finished. Note: the programmer has forgotten to exit
-                       ; via #R$0ADC.
+                       ; via #R$0ADC, which is a #BUG#noStepForward(bug).
 
 ; THE 'CARRIAGE RETURN' SUBROUTINE
 ;

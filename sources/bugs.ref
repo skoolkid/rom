@@ -1,0 +1,19 @@
+; Copyright 2016 Richard Dymond (rjdymond@gmail.com)
+
+[Bug:noStepForward:No step forward]
+Consider this PRINT command:
+
+<code>PRINT "12";CHR$ 9;"34"</code>
+
+You might, because of the cursor-right control character (CHR$ 9) between "12"
+and "34", expect it to print:
+
+<code>12 34</code>
+
+But in fact it prints:
+
+<code>1234</code>
+
+The reason is that the routine at #R$0A3D, which is responsible for handling
+CHR$ 9, does not update the print position after printing a transparent space,
+and so effectively prints nothing at all.

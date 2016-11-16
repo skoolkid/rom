@@ -17,7 +17,7 @@ SNAPSHOT = '../build/rom+sysvars.bin'
 SKOOL = '../sources/rom.skool'
 
 OUTPUT = """Using skool file: {skoolfile}
-Using ref file: {reffile}
+Using ref files: {reffile}, ../sources/bugs.ref
 Parsing {skoolfile}
 Creating directory {odir}/rom
 Copying {SKOOLKIT_HOME}/skoolkit/resources/skoolkit.css to {odir}/rom/skoolkit.css
@@ -28,6 +28,7 @@ Copying {SKOOLKIT_HOME}/skoolkit/resources/skoolkit.css to {odir}/rom/skoolkit.c
   Writing rom/maps/messages.html
   Writing rom/maps/unused.html
   Writing rom/buffers/sysvars.html
+  Writing rom/reference/bugs.html
   Writing rom/reference/changelog.html
   Writing rom/index.html"""
 
