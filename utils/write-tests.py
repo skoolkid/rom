@@ -17,7 +17,7 @@ SNAPSHOT = '../build/rom+sysvars.bin'
 SKOOL = '../sources/rom.skool'
 
 OUTPUT = """Using skool file: {skoolfile}
-Using ref files: {reffile}, ../sources/bugs.ref
+Using ref files: {reffile}, ../sources/bugs.ref, ../sources/changelog.ref
 Parsing {skoolfile}
 Creating directory {odir}/rom
 Copying {SKOOLKIT_HOME}/skoolkit/resources/skoolkit.css to {odir}/rom/skoolkit.css
