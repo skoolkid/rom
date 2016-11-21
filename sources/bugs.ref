@@ -17,3 +17,15 @@ But in fact it prints:
 The reason is that the routine at #R$0A3D, which is responsible for handling
 CHR$ 9, does not update the print position after printing a transparent space,
 and so effectively prints nothing at all.
+
+[Bug:str$AndSmallNumbers:STR$ and small numbers]
+Because of a bug in the handling of the calculator stack at #R$2E24, a binary
+expression with STR$ on the right hand side is evaluated as if its left hand
+side is empty. For example:
+
+<code>PRINT "2"+STR$ 0.5</code>
+
+prints '0.5' instead of '20.5'.
+
+Note that the bug is triggered only if the argument of STR$ is a non-zero
+number strictly between -1 and 1.
