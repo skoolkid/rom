@@ -2281,8 +2281,8 @@ c$0A23 INC C          ; Move leftwards by one column.
  $0A2D JR NZ,$0A38    ; }
  $0A2F INC B          ; Go up one line.
  $0A30 LD C,$02       ; Set column value.
- $0A32 LD A,$18       ; {Test against top line. Note: this ought to be +19.
- $0A34 CP B           ; }
+ $0A32 LD A,$18       ; {Test against top line. Note: #BUG#noStepBack(this
+ $0A34 CP B           ; ought to be +19).}
  $0A35 JR NZ,$0A3A    ; Accept the change unless at the top of the screen.
  $0A37 DEC B          ; Unacceptable so down a line.
 @label=PO_BACK_2
