@@ -46,6 +46,27 @@ prints '0.5' instead of '20.5'.
 Note that the bug is triggered only if the argument of STR$ is a non-zero
 number strictly between -1 and 1.
 
+[Bug:dontCloseTheStreams:Don't close the streams]
+It can be dangerous to close a stream, especially if it's aleady been closed or
+was never opened. For example, on a freshly booted Spectrum:
+
+<code>CLOSE #4</code>
+
+makes the computer hang.
+
+The root cause is that there is no end marker in the #R$1716(close stream
+lookup table). This makes the 'JP (HL)' at the end of the routine at #R$1701
+jump to #R$175B, and the 'RET' that follows at #N$175C causes an indirect jump
+to #N$5C1E (an address pushed onto the stack earlier at
+#R$1701#$1701(#N$1701)). After proceeding through the RAM at #N$5C1E onwards,
+and disabling interrupts along the way, the Spectrum finally hangs on the
+'HALT' instruction at #R$1303.
+
+If there were an end marker (#n$00) in the close stream lookup table, the
+'JP (HL)' at the end of the routine at #R$1701 would jump to #R$171C, the 'RET'
+that follows at #N$171D would return to #R$16EB, and the stream would be closed
+successfully.
+
 [Bug:troubleWith-65536:The trouble with -65536]
 In some circumstances, the number -65536 is stored in short form instead of
 full floating point form, which causes problems. For example:

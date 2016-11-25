@@ -4857,7 +4857,8 @@ c$1701 PUSH HL       ; Save the address of the stream's data.
 b$1716 DEFB "K",$05  ; Channel 'K', offset +05 (#R$171C)
  $1718 DEFB "S",$03  ; Channel 'S', offset +03 (#R$171C)
  $171A DEFB "P",$01  ; Channel 'P', offset +01 (#R$171C)
-; Note: there is no end marker at the end of this table.
+; Note: there is no end marker at the end of this table, which is a
+; #BUG#dontCloseTheStreams(bug).
 
 ; THE 'CLOSE STREAM' SUBROUTINE
 ;
