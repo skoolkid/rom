@@ -30,9 +30,9 @@ of the cursor-left character (CHR$ 8) before the '2' - but instead the '2' is
 printed at the beginning of the second line, as if the CHR$ 8 were not there.
 However, the '3' is (correctly) printed at the right end of the second line.
 
-The reason is that the instruction at #R$0A32 is 'LD A,#N$18,,,1($)' instead of
-'LD A,#N$19,,,1($)', which prevents CHR$ 8 from moving the print position up to
-the top line of the display.
+The reason is that the instruction at #R$0A32 is 'LD A,#n$18' instead of
+'LD A,#n$19', which prevents CHR$ 8 from moving the print position up to the
+top line of the display.
 
 [Bug:str$AndSmallNumbers:STR$ and small numbers]
 Because of a bug in the handling of the calculator stack at #R$2E24, a binary
@@ -45,3 +45,38 @@ prints '0.5' instead of '20.5'.
 
 Note that the bug is triggered only if the argument of STR$ is a non-zero
 number strictly between -1 and 1.
+
+[Bug:troubleWith-65536:The trouble with -65536]
+In some circumstances, the number -65536 is stored in short form instead of
+full floating point form, which causes problems. For example:
+
+<code>PRINT -65535-1</code>
+
+prints '-1E-38', and:
+
+<code>PRINT INT -65536</code>
+
+prints '-1'.
+
+The first of these problems is caused by the routine at #R$3014, which fails to
+detect an overflow when adding two small negative integers whose sum is -65536.
+Specifically, when #R$302B is reached, the carry flag is set, #REGa holds
+#n$FF (the sign byte of the second number), and #REG[(HL)] also holds #n$FF
+(the sign byte of the first number). Then:
+
+#TABLE(asm,address-1,instruction,comment-11)
+{ #N$302B | ADC A,(HL)    | #REGa=#n$FF (#n$FF+#n$FF+carry). }
+{ #N$302C | RRCA          | #REGa=#n$FF, carry flag set. }
+{ #N$302D | ADC A,#n$00   | #REGa=#n$00. }
+{ #N$302F | JR NZ,#R$303C | This jump is not made. }
+TABLE#
+
+The result is then stored as 00 FF 00 00 00, which other ROM routines do not
+always handle correctly.
+
+The second problem is caused by the routine at #R$3214. Specifically, the
+section of code at #R$3225 checks whether the argument <i>x</i> satisfies
+-65537&lt;<i>x</i>&lt;=-65536; if it does, its floating point form is
+(erroneously) modified to 00 FF 00 00 00. (-65537 in floating point form is
+91 80 00 80 00, which explains why the mask 0x80 is used when testing the
+fourth byte of <i>x</i> at #R$3230.)
