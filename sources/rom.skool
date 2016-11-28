@@ -15587,10 +15587,11 @@ g$5C48 DEFB $38
 ;
 ; Read by the routines at #R$0FF3, #R$1059, #R$1795 and #R$1855, and updated by
 ; the routines at #R$0FA9, #R$155D and #R$17F9. The first byte of this system
-; variable is accessed by the routine at #R$0FA9 via the #REGiy register at
-; #iy+$0F.
+; variable (the LSB) is accessed by the routine at #R$0FA9 via the #REGiy
+; register at #iy+$0F.
 @label=E_PPC
-g$5C49 DEFB $00,$00
+@keep
+g$5C49 DEFW $0000
 
 ; VARS - Address of variables
 ;
