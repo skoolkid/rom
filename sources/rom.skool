@@ -11940,7 +11940,7 @@ c$3014 LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
 *$30A3 LD D,A        ; {Store the last byte.
  $30A4 EXX           ; }
 @label=GO_NC_MLT
-*$30A5 XOR A         ; Clear the carry flag.
+*$30A5 XOR A         ; Clear #REGa and the carry flag.
  $30A6 JP $3155      ; Exit via #R$3155.
 
 ; THE 'HL=HL*DE' SUBROUTINE
