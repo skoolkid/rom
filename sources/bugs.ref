@@ -67,6 +67,22 @@ If there were an end marker (#n$00) in the close stream lookup table, the
 that follows at #N$171D would return to #R$16EB, and the stream would be closed
 successfully.
 
+[Bug:34thBitOfDivision:The 34th bit of division]
+In the division loop at #R$31D2, the 34th bit of the quotient is always set to
+0, meaning that some results - such as 1/10 and 1/1000 - are not rounded up as
+they should be. For example:
+
+<code>PRINT 1/2-.5</code>
+
+prints '2.3283064E-10' instead of '0', because while '1/2' is calculated
+correctly, '.5' is evaluated as '5 * 1/10', which is not calculated correctly.
+Specifically, '1/10' is represented as 7D 4C CC CC CC (0.0999999999767) in
+floating point form, but if the 34th bit were included, it would be rounded up
+to 7D 4C CC CC CD (0.100000000006), which is more accurate.
+
+The problem is caused by the jump at #R$31FF, which should be to #R$31DB
+instead of #R$31E2.
+
 [Bug:troubleWith-65536:The trouble with -65536]
 In some circumstances, the number -65536 is stored in short form instead of
 full floating point form, which causes problems. For example:
