@@ -5174,9 +5174,9 @@ c$17F9 LD A,$02        ; Use stream +02.
 ; Before the line number is printed it is tested to determine whether it comes
 ; before the 'current' line, is the 'current' line, or comes after.
 @label=OUT_LINE
-c$1855 LD BC,($5C49)  ; {Fetch the 'current' line number and compare it.
- $1859 CALL $1980     ; }
- $185C LD D,$3E       ; Pre-load the #REGd register with the current line
+c$1855 LD BC,($5C49)  ; {Fetch the 'current' line number from #R$5C49(E-PPC)
+ $1859 CALL $1980     ; and compare it.}
+ $185C LD D,">"       ; Pre-load the #REGd register with the current line
                       ; cursor.
  $185E JR Z,$1865     ; Jump forward if printing the 'current' line.
 @keep
