@@ -8809,8 +8809,9 @@ c$2535 CALL $2307    ; x to #REGc, y to #REGb; 0<=x<=23 decimal; 0<=y<=31
 @label=S_SCR_STO
 *$257D JP $2AB2      ; Jump to stack the matching character, or the null string
                      ; if no match is found.
-; Note: this exit, via #R$2AB2, is a mistake as it leads to 'double storing' of
-; the string result (see #R$25DB). The instruction line should be 'RET'.
+; Note: this exit, via #R$2AB2, is a #BUG#anythingEqualsSCREEN$xy(mistake) as
+; it leads to 'double storing' of the string result (see #R$25DB). The
+; instruction line should be 'RET'.
 
 ; THE 'SCANNING ATTRIBUTES' SUBROUTINE
 ;

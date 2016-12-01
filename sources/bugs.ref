@@ -67,6 +67,25 @@ If there were an end marker (#n$00) in the close stream lookup table, the
 that follows at #N$171D would return to #R$16EB, and the stream would be closed
 successfully.
 
+[Bug:anythingEqualsSCREEN$xy:Anything equals SCREEN$ (x,y)]
+Some care is needed when using SCREEN$, because it doesn't always work as you
+would expect. For example:
+
+<code>IF ""=SCREEN$ (0,0) THEN PRINT "?"</code>
+
+will print "?" no matter what is on the screen at (0,0) at the time.
+
+The reason is that the routine at #R$2535 exits via #R$2AB2, which results in
+the character found at (0,0) being stored on the calculator stack twice instead
+of just once. So when the '=' operation above is performed, the last two items
+on the stack - the two copies of SCREEN$ (0,0) - are equal, and the result of
+the operation is always true, regardless of what's on the left hand side of the
+equation.
+
+Note that the calculator stack is cleared before each statement of a BASIC
+program (or the edit line) is executed, so the bug is confined to the statement
+that contains SCREEN$, and will not affect any other statements.
+
 [Bug:34thBitOfDivision:The 34th bit of division]
 In the division loop at #R$31D2, the 34th bit of the quotient is always set to
 0, meaning that some results - such as 1/10 and 1/1000 - are not rounded up as
