@@ -3589,8 +3589,9 @@ c$0FA9 LD HL,($5C49)  ; Fetch the current line number (#R$5C49(E-PPC)).
                       ; as to avoid printing the cursor.
  $0FDE CALL $1855     ; Print the BASIC line.
  $0FE1 INC (IY+$0F)   ; Increment the current line number (#R$5C49(E-PPC)).
-                      ; Note: the decrementing of the line number does not
-                      ; always stop the cursor from being printed.
+                      ; Note: the decrementing of the line number
+                      ; #BUG#curseTheCursor(does not always stop the cursor
+                      ; from being printed).
  $0FE4 LD HL,($5C59)  ; {Fetch the start of the line in the editing area
  $0FE7 INC HL         ; (#R$5C59(E-LINE)) and step past the line number and the
  $0FE8 INC HL         ; length to find the address for #R$5C5B(K-CUR).
