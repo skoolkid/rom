@@ -34,6 +34,18 @@ The reason is that the instruction at #R$0A32 is 'LD A,#n$18' instead of
 'LD A,#n$19', which prevents CHR$ 8 from moving the print position up to the
 top line of the display.
 
+[Bug:neverendingRestore:The neverending RESTORE]
+When the following program is run, the Spectrum will enter an infinite loop:
+
+<code>10 RESTORE 60000</code>
+
+The reason is that the routine at #R$19B8 - which is called from #R$196E to
+find the next line in the BASIC program - does not stop at the end of the BASIC
+program (if there even is one), but keeps going through the variables area and
+the rest of the RAM. Depending on the contents of the RAM, the routine can end
+up examining the same memory area over and over again, never finding anything
+that looks like a BASIC line with a suitably high number.
+
 [Bug:str$AndSmallNumbers:STR$ and small numbers]
 Because of a bug in the handling of the calculator stack at #R$2E24, a binary
 expression with STR$ on the right hand side is evaluated as if its left hand
