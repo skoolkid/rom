@@ -1568,7 +1568,8 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
  $0671 DEFB $01        ; }
 ; Continue with the handling of an existing array.
 @label=SA_V_OLD
-*$0672 JP NZ,$1C8A     ; Note: this fails to exclude simple strings.
+*$0672 JP NZ,$1C8A     ; Note: #BUG#savingASimpleString(this fails to exclude
+                       ; simple strings).
  $0675 CALL $2530      ; {Jump forward if checking syntax.
  $0678 JR Z,$0692      ; }
  $067A INC HL          ; Point to the 'low length' of the variable.

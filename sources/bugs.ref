@@ -41,6 +41,25 @@ The reason is that the instruction at #R$0A32 is 'LD A,#n$18' instead of
 'LD A,#n$19', which prevents CHR$ 8 from moving the print position up to the
 top line of the display.
 
+[Bug:savingASimpleString:Saving a simple string]
+It is possible to save a simple string (as opposed to an array) to tape, but it
+cannot be restored. For example:
+
+<div><code>LET a$="12"</code></div>
+<div><code>SAVE "a" DATA a$()</code></div>
+
+saves the simple string variable a$ to tape without giving an error. When the
+same variable is loaded from tape:
+
+<code>LOAD "" DATA a$()</code>
+
+no error is given until a$ is accessed - both <code>PRINT a$</code> and
+<code>PRINT a$(1)</code> result in a '3 Subscript wrong' error.
+
+The reason it's possible to save a simple string to tape is that the routine at
+#R$0605, when it finds the string variable to be saved, does not check whether
+it is an array.
+
 [Bug:neverendingRestore:The neverending RESTORE]
 When the following program is run, the Spectrum will enter an infinite loop:
 
