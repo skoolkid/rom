@@ -9243,7 +9243,7 @@ c$26C9 CALL $28B2     ; Look in the existing variables for the matching entry.
  $272E LD C,(HL)      ; Get required code from the table.
 @nowarn
 @ssub=LD HL,$27B0-$C3
- $272F LD HL,$26ED    ; The pointer to the priority table (26ED+C3 gives
+ $272F LD HL,$26ED    ; The pointer to the priority table (#N$26ED+#N$C3 gives
                       ; #R$27B0 as the first address).
  $2732 ADD HL,BC      ; Index into the table.
  $2733 LD B,(HL)      ; Fetch the appropriate priority.
