@@ -9343,7 +9343,8 @@ c$26C9 CALL $28B2     ; Look in the existing variables for the matching entry.
 
 ; THE TABLE OF OPERATORS
 ;
-; Used by the routine at #R$26C9.
+; Used by the routine at #R$26C9. Each entry in this table points to an entry
+; in the #R$27B0(table of priorities).
 @label=OPERATORS
 b$2795 DEFB "+",$CF  ; +
  $2797 DEFB "-",$C3  ; -
@@ -9362,7 +9363,8 @@ b$2795 DEFB "+",$CF  ; +
 
 ; THE TABLE OF PRIORITIES
 ;
-; Used by the routine at #R$26C9.
+; Used by the routine at #R$26C9. Each entry in this table is pointed to by an
+; entry in the #R$2795(table of operators).
 @label=PRIORITIES
 b$27B0 DEFB $06      ; -
  $27B1 DEFB $08      ; *
