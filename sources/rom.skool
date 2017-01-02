@@ -6951,10 +6951,8 @@ c$1E67 CALL $1E99    ; {Fetch the operand and transfer it to the #REGhl
  $1E6E LD A,H        ; {Give the error message 'Integer out of range' with line
  $1E6F CP $F0        ; numbers over 61439.
  $1E71 JR NC,$1E9F   ; }
-; This entry point is used by the routines at #R$1DAB, #R$1E5F and #R$1F23.
-; .
-; This entry point is used to determine the line number of the next line to be
-; handled in several instances.
+; This entry point is used by the routines at #R$1DAB, #R$1E5F and #R$1F23 to
+; determine the line number of the next line to be handled.
 @label=GO_TO_2
 *$1E73 LD ($5C42),HL ; {Enter the line number (#R$5C42(NEWPPC)) and then the
  $1E76 LD (IY+$0A),D ; statement number (#R$5C44(NSPPC)).}
