@@ -1,4 +1,4 @@
-; Copyright 2016 Richard Dymond (rjdymond@gmail.com)
+; Copyright 2016, 2017 Richard Dymond (rjdymond@gmail.com)
 
 [Bug:noStepForward:No step forward]
 Consider this PRINT command:
@@ -39,6 +39,21 @@ However, the '3' is (correctly) printed at the right end of the second line.
 
 The reason is that the instruction at #R$0A32 is 'LD A,#n$18' instead of
 'LD A,#n$19', which prevents CHR$ 8 from moving the print position up to the
+top line of the display.
+
+[Bug:stepBackTooFar:A step back too far]
+In addition to sometimes not working when it should, the cursor-left character
+(CHR$ 8) also sometimes works when it shouldn't - specifically, when the print
+position is at the top-left of the screen. For example:
+
+<code>PRINT AT 0,0;CHR$ 8;12</code>
+
+Here the CHR$ 8 should have no effect, but instead the '1' is printed at
+(-1,0), which the ROM calculates to be at address #N($58FF), or (7,31) in the
+attribute file.
+
+The reason, again, is that the instruction at #R$0A32 is 'LD A,#n$18' instead
+of 'LD A,#n$19', which allows CHR$ 8 to move the print position up beyond the
 top line of the display.
 
 [Bug:savingASimpleString:Saving a simple string]
