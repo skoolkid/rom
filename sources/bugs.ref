@@ -137,6 +137,16 @@ If there were an end marker (#n$00) in the close stream lookup table, the
 that follows at #N$171D would return to #R$16EB, and the stream would be closed
 successfully.
 
+[Bug:pressAlmostAnyKey:Press (almost) any key]
+Not every key besides 'n', 'N', BREAK and STOP will work at the 'scroll?' and
+'Start tape then press any key.' prompts: pressing CAPS LOCK, or GRAPHICS, or
+CAPS SHIFT and SYMBOL SHIFT together at these prompts causes the previous edit
+line to appear at the bottom of the screen instead.
+
+This is because the routine at #R$10A8, which is used (via #R$15D4) to decode a
+keypress, copies the edit line to the lower part of the screen when the mode
+changes (from 'L').
+
 [Bug:anythingEqualsSCREEN$xy:Anything equals SCREEN$ (x,y)]
 Some care is needed when using SCREEN$, because it doesn't always work as you
 would expect. For example:
