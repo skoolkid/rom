@@ -13,7 +13,7 @@
 ;
 ; Copyright 1982 Amstrad
 ; Copyright 1983 Dr Ian Logan & Dr Frank O'Hara
-; Copyright 2013-2016 Richard Dymond
+; Copyright 2013-2017 Richard Dymond
 
 @equ=KSTATE=23552
 @equ=LAST_K=23560
@@ -12093,9 +12093,9 @@ c$30CA LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
  $3123 RR L          ; }
 @label=STRT_MLT
 *$3125 EXX           ; {Shift right the multiplier in #REG(b'c'ca) (see #R$2FBA
- $3126 RR B          ; and above).}
- $3128 RR C          ; {A final bit dropping into the carry will trigger
- $312A EXX           ; another add of the multiplicand to the result.
+ $3126 RR B          ; and above). A final bit dropping into the carry will
+ $3128 RR C          ; trigger another add of the multiplicand to the result.
+ $312A EXX           ;
  $312B RR C          ;
  $312D RRA           ; }
  $312E DJNZ $3114    ; Loop 33 times to get all the bits.
@@ -12114,8 +12114,6 @@ c$30CA LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
 *$313B DEC A         ; {Prepare to increase the exponent by +80.
  $313C CCF           ; }
 ; This entry point is used by the routine at #R$31AF.
-; .
-; The rest of the subroutine is common to both #R$30CA and #R$31AF.
 @label=DIVN_EXPT
 *$313D RLA           ; {These few bytes very cleverly make the correct exponent
  $313E CCF           ; byte. Rotating left then right gets the exponent byte
@@ -12177,7 +12175,7 @@ c$30CA LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
  $317C RL D          ;
  $317E EXX           ; }
  $317F DEC (HL)      ; The exponent is decremented on each shift.
- $3180 JR Z,$3159    ; If the exponent becomes zero, then number from 2**-129
+ $3180 JR Z,$3159    ; If the exponent becomes zero, then numbers from 2**-129
                      ; are rounded up to 2**-128.
  $3182 DJNZ $316E    ; Loop back, up to 32 times.
  $3184 JR $315D      ; If bit 7 never became 1 then the whole result is to be
