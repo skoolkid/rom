@@ -146,7 +146,7 @@ This subroutine first prepares the divisor by calling <a href="30C0.html">PREP_M
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31C8"></span>31C8</td>
 <td class="instruction">LD H,B</td>
-<td class="comment-11" rowspan="5">Copy the four bytes of the dividend from registers <span class="register">B'</span><span class="register">C'</span><span class="register">C</span><span class="register">B</span> (i.e. M2, M3, M4 and M5; see <a href="2FBA.html">FETCH_TWO</a>) to the registers <span class="register">H'</span><span class="register">L'</span><span class="register">HL</span>.</td>
+<td class="comment-11" rowspan="5">Copy the four bytes of the dividend from registers <span class="register">B'C'CB</span> (i.e. M2, M3, M4 and M5; see <a href="2FBA.html">FETCH_TWO</a>) to the registers <span class="register">H'L'HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -204,7 +204,7 @@ Now enter the division loop.
 <td class="asm-label-1">DIV_LOOP</td>
 <td class="address-2"><span id="31D2"></span>31D2</td>
 <td class="instruction">RLA</td>
-<td class="comment-11" rowspan="6">Shift the result left into <span class="register">B'</span><span class="register">C'</span><span class="register">C</span><span class="register">A</span>, shifting out the bits already there, picking up 1 from the carry whenever it is set, and rotating left each byte with carry to achieve the 32-bit shift.</td>
+<td class="comment-11" rowspan="6">Shift the result left into <span class="register">B'C'CA</span>, shifting out the bits already there, picking up 1 from the carry whenever it is set, and rotating left each byte with carry to achieve the 32-bit shift.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -240,7 +240,7 @@ Now enter the division loop.
 <td class="asm-label-1">DIV_34TH</td>
 <td class="address-1"><span id="31DB"></span>31DB</td>
 <td class="instruction">ADD HL,HL</td>
-<td class="comment-11" rowspan="5">Move what remains of the dividend left in <span class="register">H'</span><span class="register">L'</span><span class="register">HL</span> before the next trial subtraction; if a bit drops into the carry, force no restore and a bit for the quotient, thus retrieving the lost bit and allowing a full 32-bit divisor.</td>
+<td class="comment-11" rowspan="5">Move what remains of the dividend left in <span class="register">H'L'HL</span> before the next trial subtraction; if a bit drops into the carry, force no restore and a bit for the quotient, thus retrieving the lost bit and allowing a full 32-bit divisor.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -270,7 +270,7 @@ Now enter the division loop.
 <td class="asm-label-1">DIV_START</td>
 <td class="address-2"><span id="31E2"></span>31E2</td>
 <td class="instruction">SBC HL,DE</td>
-<td class="comment-11" rowspan="4">Trial subtract divisor in <span class="register">D'</span><span class="register">E'</span><span class="register">DE</span> from rest of dividend in <span class="register">H'</span><span class="register">L'</span><span class="register">HL</span>; there is no initial carry (see previous step).</td>
+<td class="comment-11" rowspan="4">Trial subtract divisor in <span class="register">D'E'DE</span> from rest of dividend in <span class="register">H'L'HL</span>; there is no initial carry (see previous step).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -366,7 +366,7 @@ Now enter the division loop.
 <td class="asm-label-1">NO_RSTORE</td>
 <td class="address-2"><span id="31F9"></span>31F9</td>
 <td class="instruction">SCF</td>
-<td class="comment-11" rowspan="1">One for the quotient in <span class="register">B'</span><span class="register">C'</span><span class="register">C</span><span class="register">A</span>.</td>
+<td class="comment-11" rowspan="1">One for the quotient in <span class="register">B'C'CA</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1">COUNT_ONE</td>
@@ -406,7 +406,7 @@ Note: this jump is made to the wrong place. No 34th bit will ever be obtained wi
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3201"></span>3201</td>
 <td class="instruction">LD E,A</td>
-<td class="comment-11" rowspan="5">Now move the four bytes that form the mantissa of the result from <span class="register">B'</span><span class="register">C'</span><span class="register">C</span><span class="register">A</span> to <span class="register">D'</span><span class="register">E'</span><span class="register">DE</span>.</td>
+<td class="comment-11" rowspan="5">Now move the four bytes that form the mantissa of the result from <span class="register">B'C'CA</span> to <span class="register">D'E'DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -501,9 +501,9 @@ Note: this jump is made to the wrong place. No 34th bit will ever be obtained wi
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
 </footer>
 </body>
 </html>

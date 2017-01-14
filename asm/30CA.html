@@ -376,7 +376,7 @@ Now enter the multiplier loop.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3116"></span>3116</td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-11" rowspan="4">Else, add the multiplicand in <span class="register">D'</span><span class="register">E'</span><span class="register">DE</span> (see <a href="2FBA.html">FETCH_TWO</a>) into the result being built up in <span class="register">H'</span><span class="register">L'</span><span class="register">HL</span>.</td>
+<td class="comment-11" rowspan="4">Else, add the multiplicand in <span class="register">D'E'DE</span> (see <a href="2FBA.html">FETCH_TWO</a>) into the result being built up in <span class="register">H'L'HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -400,7 +400,7 @@ Now enter the multiplier loop.
 <td class="asm-label-1">NO_ADD</td>
 <td class="address-2"><span id="311B"></span>311B</td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="6">Whether multiplicand was added or not, shift result right in <span class="register">H'</span><span class="register">L'</span><span class="register">HL</span>; the shift is done by rotating each byte with carry, so that any bit that drops into the carry is picked up by the next byte, and the shift continued into <span class="register">B'</span><span class="register">C'</span><span class="register">C</span><span class="register">A</span>.</td>
+<td class="comment-11" rowspan="6">Whether multiplicand was added or not, shift result right in <span class="register">H'L'HL</span>; the shift is done by rotating each byte with carry, so that any bit that drops into the carry is picked up by the next byte, and the shift continued into <span class="register">B'C'CA</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -436,7 +436,7 @@ Now enter the multiplier loop.
 <td class="asm-label-1">STRT_MLT</td>
 <td class="address-2"><span id="3125"></span>3125</td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="2">Shift right the multiplier in <span class="register">B'</span><span class="register">C'</span><span class="register">C</span><span class="register">A</span> (see <a href="2FBA.html">FETCH_TWO</a> and above).</td>
+<td class="comment-11" rowspan="6">Shift right the multiplier in <span class="register">B'C'CA</span> (see <a href="2FBA.html">FETCH_TWO</a> and above). A final bit dropping into the carry will trigger another add of the multiplicand to the result.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -448,7 +448,7 @@ Now enter the multiplier loop.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3128"></span>3128</td>
 <td class="instruction">RR C</td>
-<td class="comment-11" rowspan="4">A final bit dropping into the carry will trigger another add of the multiplicand to the result.</td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -478,7 +478,7 @@ Now enter the multiplier loop.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3130"></span>3130</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="4">Move the result from <span class="register">H'</span><span class="register">L'</span><span class="register">HL</span> to <span class="register">D'</span><span class="register">E'</span><span class="register">DE</span>.</td>
+<td class="comment-11" rowspan="4">Move the result from <span class="register">H'L'HL</span> to <span class="register">D'E'DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -562,9 +562,6 @@ Now add the exponents together.
 <div class="comments">
 <div class="paragraph">
 This entry point is used by the routine at <a href="31AF.html">division</a>.
-</div>
-<div class="paragraph">
-The rest of the subroutine is common to both <a href="30CA.html">multiply</a> and <a href="31AF.html">division</a>.
 </div>
 </div>
 </td>
@@ -794,7 +791,7 @@ The actual normalisation operation.
 <td class="asm-label-1">NORMALISE</td>
 <td class="address-2"><span id="316C"></span>316C</td>
 <td class="instruction">LD B,$20</td>
-<td class="comment-11" rowspan="12">Normalise the result by up to 32 shifts left of <span class="register">D'</span><span class="register">E'</span><span class="register">DE</span> (with <span class="register">A</span> adjoined) until bit 7 of <span class="register">D'</span> is set. <span class="register">A</span> holds zero after addition so no precision is gained or lost; <span class="register">A</span> holds the fifth byte from <span class="register">B'</span> after multiplication or division; but as only about 32 bits can be correct, no precision is lost. Note that <span class="register">A</span> is rotated circularly, with branch at carry...eventually a random process.</td>
+<td class="comment-11" rowspan="12">Normalise the result by up to 32 shifts left of <span class="register">D'E'DE</span> (with <span class="register">A</span> adjoined) until bit 7 of <span class="register">D'</span> is set. <span class="register">A</span> holds zero after addition so no precision is gained or lost; <span class="register">A</span> holds the fifth byte from <span class="register">B'</span> after multiplication or division; but as only about 32 bits can be correct, no precision is lost. Note that <span class="register">A</span> is rotated circularly, with branch at carry...eventually a random process.</td>
 </tr>
 <tr>
 <td class="asm-label-1">SHIFT_ONE</td>
@@ -872,7 +869,7 @@ The actual normalisation operation.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3180"></span>3180</td>
 <td class="instruction">JR Z,<a href="30CA.html#3159">NEAR_ZERO</a></td>
-<td class="comment-11" rowspan="1">If the exponent becomes zero, then number from 2**-129 are rounded up to 2**-128.</td>
+<td class="comment-11" rowspan="1">If the exponent becomes zero, then numbers from 2**-129 are rounded up to 2**-128.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -976,7 +973,7 @@ The final part of the subroutine involves passing the result to the bytes reserv
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3197"></span>3197</td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="5">The result is moved from <span class="register">D'</span><span class="register">E'</span><span class="register">DE</span> to <span class="register">BC</span><span class="register">DE</span>, and then to <span class="register">A</span><span class="register">C</span><span class="register">DE</span>.</td>
+<td class="comment-11" rowspan="5">The result is moved from <span class="register">D'E'DE</span> to <span class="register">BCDE</span>, and then to <span class="register">ACDE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1132,9 +1129,9 @@ Report 6 - Arithmetic overflow.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20161023</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2016 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.3.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
 </footer>
 </body>
 </html>
