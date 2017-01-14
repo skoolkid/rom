@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 D_VERSIONS=(
+  20170114
   20161023
   20160709
 )
@@ -70,7 +71,8 @@ if (($D_VERSION >= 20161023)); then
     fi
     D_DIR=rom-disassembly-$D_VERSION
     tar xf $DISASSEMBLY_ARCHIVE/$D_DIR.tar.xz
-    cp -p $D_DIR/sources/rom.{skool,ref} $SK_BUILD_DIR
+    cp -p $D_DIR/sources/*.{skool,ref} $SK_BUILD_DIR
+    find $D_DIR -name '*.css' -exec cp -p {} $SK_BUILD_DIR \;
 elif (($D_VERSION == 20160709)); then
     wget https://github.com/skoolkid/rom/archive/${D_VERSION}.tar.gz -O - | tar xzf -
     cp -p rom-${D_VERSION}/sources/48.rom.{ctl,ref} $SK_BUILD_DIR
