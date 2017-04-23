@@ -2,6 +2,7 @@
 
 [Config]
 GameDir=rom
+HtmlWriterClass=:rom.ROMHtmlWriter
 RefFiles=bugs.ref;changelog.ref
 
 [Game]
@@ -16,7 +17,7 @@ AddressAnchor={address#IF({base}==16)(:04X)}
 
 [Paths]
 GameStatusBuffer=buffers/sysvars.html
-CodeFiles={address#IF({base}==16)(:04#IF({case}==1)//x/X//)}.html
+CodeFiles={address#IF({base}==16)(:04#S/X/)}.html
 
 [Titles]
 Asm-g=System variable at

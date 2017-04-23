@@ -33,4 +33,8 @@ Copying ../sources/rom.css to {odir}/rom/rom.css
   Writing rom/reference/changelog.html
   Writing rom/index.html"""
 
-write_tests(SKOOL, SNAPSHOT, OUTPUT, sna2skool_opts='-Ho 0')
+HTML_WRITER = '../sources:rom.ROMHtmlWriter'
+
+ASM_WRITER = '../sources:rom.ROMAsmWriter'
+
+write_tests(SKOOL, SNAPSHOT, OUTPUT, HTML_WRITER, ASM_WRITER, '-Ho 0')
