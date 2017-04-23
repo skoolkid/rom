@@ -37,9 +37,9 @@ of the cursor-left character (CHR$ 8) before the '2' - but instead the '2' is
 printed at the beginning of the second line, as if the CHR$ 8 were not there.
 However, the '3' is (correctly) printed at the right end of the second line.
 
-The reason is that the instruction at #R$0A32 is 'LD A,#n$18' instead of
-'LD A,#n$19', which prevents CHR$ 8 from moving the print position up to the
-top line of the display.
+The reason is that the instruction at #R$0A32 is '#S/LD A/,#n$18' instead of
+'#S/LD A/,#n$19', which prevents CHR$ 8 from moving the print position up to
+the top line of the display.
 
 [Bug:stepBackTooFar:A step back too far]
 In addition to sometimes not working when it should, the cursor-left character
@@ -52,9 +52,9 @@ Here the CHR$ 8 should have no effect, but instead the '1' is printed at
 (-1,0), which the ROM calculates to be at address #N($58FF), or (7,31) in the
 attribute file.
 
-The reason, again, is that the instruction at #R$0A32 is 'LD A,#n$18' instead
-of 'LD A,#n$19', which allows CHR$ 8 to move the print position up beyond the
-top line of the display.
+The reason, again, is that the instruction at #R$0A32 is '#S/LD A/,#n$18'
+instead of '#S/LD A/,#n$19', which allows CHR$ 8 to move the print position up
+beyond the top line of the display.
 
 [Bug:savingASimpleString:Saving a simple string]
 It is possible to save a simple string (as opposed to an array) to tape, but it
@@ -125,17 +125,17 @@ was never opened. For example, on a freshly booted Spectrum:
 makes the computer hang.
 
 The root cause is that there is no end marker in the #R$1716(close stream
-lookup table). This makes the 'JP (HL)' at the end of the routine at #R$1701
-jump to #R$175B, and the 'RET' that follows at #N$175C causes an indirect jump
-to #N$5C1E (an address pushed onto the stack earlier at
+lookup table). This makes the '#S/JP (HL)/' at the end of the routine at
+#R$1701 jump to #R$175B, and the '#S/RET/' that follows at #N$175C causes an
+indirect jump to #N$5C1E (an address pushed onto the stack earlier at
 #R$1701#$1701(#N$1701)). After proceeding through the RAM at #N$5C1E onwards,
 and disabling interrupts along the way, the Spectrum finally hangs on the
-'HALT' instruction at #R$1303.
+'#S/HALT/' instruction at #R$1303.
 
 If there were an end marker (#n$00) in the close stream lookup table, the
-'JP (HL)' at the end of the routine at #R$1701 would jump to #R$171C, the 'RET'
-that follows at #N$171D would return to #R$16EB, and the stream would be closed
-successfully.
+'#S/JP (HL)/' at the end of the routine at #R$1701 would jump to #R$171C, the
+'#S/RET/' that follows at #N$171D would return to #R$16EB, and the stream would
+be closed successfully.
 
 [Bug:pressAlmostAnyKey:Press (almost) any key]
 Not every key besides 'n', 'N', BREAK and STOP will work at the 'scroll?' and
@@ -201,10 +201,10 @@ Specifically, when #R$302B is reached, the carry flag is set, #REGa holds
 (the sign byte of the first number). Then:
 
 #TABLE(asm,address-1,instruction,comment-11)
-{ #N$302B | ADC A,(HL)    | #REGa=#n$FF (#n$FF+#n$FF+carry). }
-{ #N$302C | RRCA          | #REGa=#n$FF, carry flag set. }
-{ #N$302D | ADC A,#n$00   | #REGa=#n$00. }
-{ #N$302F | JR NZ,#R$303C | This jump is not made. }
+{ #N$302B | #S/ADC A,(HL)/    | #REGa=#n$FF (#n$FF+#n$FF+carry). }
+{ #N$302C | #S/RRCA/          | #REGa=#n$FF, carry flag set. }
+{ #N$302D | #S/ADC A/,#n$00   | #REGa=#n$00. }
+{ #N$302F | #S/JR NZ/,#R$303C | This jump is not made. }
 TABLE#
 
 The result is then stored as 00 FF 00 00 00, which other ROM routines do not
