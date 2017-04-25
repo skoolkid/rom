@@ -246,7 +246,7 @@ u$0066 PUSH AF       ; {Save the current values held in these registers.
  $0068 LD HL,($5CB0) ; {The two bytes of #R$5CB0(NMIADD) must both be zero for
  $006B LD A,H        ; the reset to occur.
  $006C OR L          ; }
- $006D JR NZ,$0070   ; Note: this should have been 'JR Z'!
+ $006D JR NZ,$0070   ; Note: this should have been '#S/JR Z/'!
  $006F JP (HL)       ; Jump to #R$0000.
 @label=NO_RESET
 *$0070 POP HL        ; {Restore the current values to these registers and
@@ -881,18 +881,18 @@ c$0333 LD A,E         ; Copy the 'main code'.
 @ignoreua
 ; Used by the routines at #R$03F8, #R$0F2C, #R$107F and #R$111D.
 ; .
-; The loudspeaker is activated by having D4 low during an OUT instruction that
-; is using port '254'. When D4 is high in a similar situation the loudspeaker
-; is deactivated. A 'beep' can therefore be produced by regularly changing the
-; level of D4.
+; The loudspeaker is activated by having D4 low during an '#S/OUT/' instruction
+; that is using port '254'. When D4 is high in a similar situation the
+; loudspeaker is deactivated. A 'beep' can therefore be produced by regularly
+; changing the level of D4.
 ; .
 ; Consider now the note 'middle C' which has the frequency 261.63 Hz. In order
 ; to get this note the loudspeaker will have to be alternately activated and
 ; deactivated every 1/523.26th of a second. In the Spectrum the system clock is
 ; set to run at 3.5 MHz. and the note of 'middle C' will require that the
-; requisite OUT instruction be executed as close as possible to every 6689 T
-; states. This last value, when reduced slightly for unavoidable overheads,
-; represents the 'length of the timing loop' in this subroutine.
+; requisite '#S/OUT/' instruction be executed as close as possible to every
+; 6689 T states. This last value, when reduced slightly for unavoidable
+; overheads, represents the 'length of the timing loop' in this subroutine.
 ; .
 ; This subroutine is entered with the #REGde register pair holding the value
 ; 'f*t', where a note of given frequency 'f' is to have a duration of 't'
@@ -940,7 +940,8 @@ c$03B5 DI            ; Disable the interrupt for the duration of a 'beep'.
  $03DC JP NZ,$03D6   ; }
 ; The loudspeaker is now alternately activated and deactivated.
  $03DF XOR $10       ; Flip bit 4.
- $03E1 OUT ($FE),A   ; Perform the OUT operation, leaving the border unchanged.
+ $03E1 OUT ($FE),A   ; Perform the '#S/OUT/' operation, leaving the border
+                     ; unchanged.
  $03E3 LD B,H        ; Reset the #REGb register.
  $03E4 LD C,A        ; Save the #REGa register.
  $03E5 BIT 4,A       ; {Jump if at the half-cycle point.
@@ -1168,11 +1169,11 @@ c$04C2 LD HL,$053F   ; {Pre-load the machine stack with the address #R$053F.
  $04E8 LD B,$2F      ;
 @label=SA_SYNC_1
 @ignoreua
-*$04EA DJNZ $04EA    ; MIC off for 667 T states from 'OUT to OUT'.
+*$04EA DJNZ $04EA    ; MIC off for 667 T states from '#S/OUT/ to #S/OUT/'.
  $04EC OUT ($FE),A   ; MIC on and red.
  $04EE LD A,$0D      ; Signal 'MIC off and cyan'.
 @ignoreua
- $04F0 LD B,$37      ; {MIC on for 735 T States from 'OUT to OUT'.
+ $04F0 LD B,$37      ; {MIC on for 735 T States from '#S/OUT/ to #S/OUT/'.
 @label=SA_SYNC_2
 *$04F2 DJNZ $04F2    ; }
  $04F4 OUT ($FE),A   ; Now MIC off and border cyan.
@@ -2630,8 +2631,8 @@ c$0B24 CP $80         ; {Jump forward with ordinary character codes.
 *$0BB7 EX AF,AF'      ; The carry flag is set when using the printer. Save this
                       ; flag in #REGf'.
  $0BB8 LD A,(DE)      ; Fetch the existing 'pixel-line'.
- $0BB9 AND B          ; {Use the 'OVER mask' and then XOR the result with the
- $0BBA XOR (HL)       ; 'pixel-line' of the character form.}
+ $0BB9 AND B          ; {Use the 'OVER mask' and then '#S/XOR/' the result with
+ $0BBA XOR (HL)       ; the 'pixel-line' of the character form.}
  $0BBB XOR C          ; Finally consider the 'INVERSE mask'.
  $0BBC LD (DE),A      ; Enter the result.
  $0BBD EX AF,AF'      ; {Fetch the printer flag and jump forward if required.
@@ -2671,8 +2672,8 @@ c$0B24 CP $80         ; {Jump forward with ordinary character codes.
 ; #R$5C91(P-FLAG). Finally this new value is copied to the attribute area.
 @label=PO_ATTR
 c$0BDB LD A,H         ; {The high byte of the destination address is divided by
- $0BDC RRCA           ; eight and ANDed with +03 to determine which third of
- $0BDD RRCA           ; the screen is being addressed, i.e. 00, 01 or 02.
+ $0BDC RRCA           ; eight and #S/AND/ed with +03 to determine which third
+ $0BDD RRCA           ; of the screen is being addressed, i.e. 00, 01 or 02.
  $0BDE RRCA           ;
  $0BDF AND $03        ; }
  $0BE1 OR $58         ; {The high byte for the attribute area is then formed.
@@ -2777,7 +2778,7 @@ c$0C3B PUSH DE       ; Save the #REGde register pair.
 @label=PO_SEARCH
 c$0C41 PUSH AF       ; Save the 'entry number'.
  $0C42 EX DE,HL      ; #REGhl now holds the base address.
- $0C43 INC A         ; Compensate for the 'DEC A' below.
+ $0C43 INC A         ; Compensate for the '#S/DEC A/' below.
 @label=PO_STEP
 *$0C44 BIT 7,(HL)    ; {Wait for an 'inverted character'.
  $0C46 INC HL        ;
@@ -6850,7 +6851,7 @@ c$1DEC RST $20         ; Come here on each pass, after the first, to move along
  $1E1F CP ","          ; }
  $1E21 JR Z,$1DEC      ; {If it is then jump back as there are further items;
  $1E23 CALL $1BEE      ; otherwise return via either #R$1BEE (if checking
- $1E26 RET             ; syntax) or the RET instruction (to #R$1B76).}
+ $1E26 RET             ; syntax) or the '#S/RET/' instruction (to #R$1B76).}
 
 ; THE 'DATA' COMMAND ROUTINE
 ;
@@ -6963,11 +6964,11 @@ c$1E67 CALL $1E99    ; {Fetch the operand and transfer it to the #REGhl
 ;
 ; The address of this routine is found in the #R$1AF1(parameter table).
 ; .
-; The two parameters for the OUT instruction are fetched from the calculator
-; stack and used as directed.
+; The two parameters for the '#S/OUT/' instruction are fetched from the
+; calculator stack and used as directed.
 @label=OUT_CMD
 c$1E7A CALL $1E85    ; The operands are fetched.
- $1E7D OUT (C),A     ; The actual OUT instruction.
+ $1E7D OUT (C),A     ; The actual '#S/OUT/' instruction.
  $1E7F RET           ; Return - to #R$1B76.
 
 ; THE 'POKE' COMMAND ROUTINE
@@ -7906,14 +7907,14 @@ c$21E1 RST $20       ; Consider the next character in the BASIC statement.
 ;
 ; The address of this routine is found in the #R$1AF5(parameter table).
 ; .
-; The parameter of the BORDER command is used with an OUT command to actually
-; alter the colour of the border. The parameter is then saved in the system
-; variable #R$5C48(BORDCR).
+; The parameter of the BORDER command is used with an '#S/OUT/' command to
+; actually alter the colour of the border. The parameter is then saved in the
+; system variable #R$5C48(BORDCR).
 @label=BORDER
 c$2294 CALL $1E94    ; {The parameter is fetched and its range is tested.
  $2297 CP $08        ;
  $2299 JR NC,$2244   ; }
- $229B OUT ($FE),A   ; The OUT instruction is then used to set the border
+ $229B OUT ($FE),A   ; The '#S/OUT/' instruction is then used to set the border
                      ; colour.
  $229D RLCA          ; {The parameter is then multiplied by eight.
  $229E RLCA          ;
@@ -8812,7 +8813,7 @@ c$2535 CALL $2307    ; x to #REGc, y to #REGb; 0<=x<=23 decimal; 0<=y<=31
                      ; if no match is found.
 ; Note: this exit, via #R$2AB2, is a #BUG#anythingEqualsSCREEN$xy(mistake) as
 ; it leads to 'double storing' of the string result (see #R$25DB). The
-; instruction line should be 'RET'.
+; instruction line should be '#S/RET/'.
 
 ; THE 'SCANNING ATTRIBUTES' SUBROUTINE
 ;
@@ -10227,14 +10228,14 @@ c$2ACC XOR A         ; Clear the 'error register'.
 ;
 ; Used by the routine at #R$2996.
 ; .
-; This subroutine performs the construction 'LD DE,(DE+1)' and returns #REGhl
-; pointing to '#REGde+2'.
+; This subroutine performs the construction '#S/LD DE,(DE+1)/' and returns
+; #REGhl pointing to '#REGde+2'.
 @label=DE_DE_1
 c$2AEE EX DE,HL      ; Use #REGhl for the construction.
  $2AEF INC HL        ; Point to '#REGde+1'.
- $2AF0 LD E,(HL)     ; In effect - LD E,(DE+1).
+ $2AF0 LD E,(HL)     ; In effect - #S/LD E,(DE+1)/.
  $2AF1 INC HL        ; Point to '#REGde+2'.
- $2AF2 LD D,(HL)     ; In effect - LD D,(DE+2).
+ $2AF2 LD D,(HL)     ; In effect - #S/LD D,(DE+2)/.
  $2AF3 RET           ; Finished.
 
 ; THE 'GET-HL*DE' SUBROUTINE
@@ -10338,7 +10339,7 @@ c$2AFF LD HL,($5C4D)  ; Fetch the present address in #R$5C4D(DEST).
  $2B46 INC DE         ; {Transfer the codes in turn to the 2nd 'new' byte
  $2B47 LD (DE),A      ; onwards.}
  $2B48 DJNZ $2B3E     ; Go round the loop for all the 'extra' codes.
-; The last code of a 'long' name has to be ORed with +80.
+; The last code of a 'long' name has to be #S/OR/ed with +80.
  $2B4A OR $80         ; {Mark the code as required and overwrite the last
  $2B4C LD (DE),A      ; code.}
 ; The first letter of the name of the variable being handled is now considered.
@@ -11370,7 +11371,7 @@ c$2DE3 RST $28          ; Use the calculator.
  $2E92 DJNZ $2E7B       ; Jump for each bit of INT (x).
 ; Decimal adjusting each byte of mem-4 gave 2 decimal digits per byte, there
 ; being at most 9 digits. The digits will now be re-packed, one to a byte, in
-; mem-3 and mem-4, using the instruction RLD.
+; mem-3 and mem-4, using the instruction '#S/RLD/'.
  $2E94 XOR A            ; #REGa is cleared to receive the digits.
  $2E95 LD HL,$5CA6      ; Source address: first byte of mem-4.
  $2E98 LD DE,$5CA1      ; Destination: first byte of mem-3.
@@ -12309,8 +12310,8 @@ c$31AF CALL $3293    ; Use full floating-point forms.
  $31FB JP M,$31D2    ; Loop 32 times for all bits.
  $31FE PUSH AF       ; Save any 33rd bit for extra precision (the present
                      ; carry).
- $31FF JR Z,$31E2    ; Trial subtract yet again for any 34th bit; the PUSH AF
-                     ; above saves this bit too.
+ $31FF JR Z,$31E2    ; Trial subtract yet again for any 34th bit; the
+                     ; '#S/PUSH AF/' above saves this bit too.
 @ignoreua
 ; Note: this jump is made to the wrong place. No 34th bit will ever be obtained
 ; without first shifting the dividend. Hence important results like 1/10 and
@@ -12765,15 +12766,15 @@ c$335B CALL $35BF    ; Presume a unary operation and therefore set #REGhl to
 ; #R$3783 and #R$3851.
 @label=delete
  $33A1 RET           ; An indirect jump to the required subroutine.
-; The #R$33A1 subroutine contains only the single RET instruction above. The
-; literal '02' results in this subroutine being considered as a binary
+; The #R$33A1 subroutine contains only the single '#S/RET/' instruction above.
+; The literal '02' results in this subroutine being considered as a binary
 ; operation that is to be entered with a first number addressed by the #REGhl
 ; register pair and a second number addressed by the #REGde register pair, and
 ; the result produced again addressed by the #REGhl register pair.
 ; .
-; The single RET instruction thereby leads to the first number being considered
-; as the resulting 'last value' and the second number considered as being
-; deleted. Of course the number has not been deleted from the memory but
+; The single '#S/RET/' instruction thereby leads to the first number being
+; considered as the resulting 'last value' and the second number considered as
+; being deleted. Of course the number has not been deleted from the memory but
 ; remains inactive and will probably soon be overwritten.
 
 ; THE 'SINGLE OPERATION' SUBROUTINE (offset 3B)
@@ -13257,7 +13258,7 @@ c$3492 CALL $34E9    ; {If X is zero, just return with zero as the 'last
 ; is called indirectly via #R$33A2.
 ; .
 ; This subroutine handles the function IN X. It inputs at processor level from
-; port X, loading #REGbc with X and performing the instruction IN A,(C).
+; port X, loading #REGbc with X and performing the instruction '#S/IN A,(C)/'.
 @label=f_in
 c$34A5 CALL $1E99    ; The 'last value', X, is compressed into #REGbc.
  $34A8 IN A,(C)      ; The signal is received.
@@ -13365,11 +13366,11 @@ c$34E9 PUSH HL       ; Save #REGhl on the stack.
  $34EB LD B,A        ; Save the value of #REGa in #REGb.
  $34EC LD A,(HL)     ; Get the first byte.
  $34ED INC HL        ; Point to the second byte.
- $34EE OR (HL)       ; OR the first byte with the second.
+ $34EE OR (HL)       ; '#S/OR/' the first byte with the second.
  $34EF INC HL        ; Point to the third byte.
- $34F0 OR (HL)       ; OR the result with the third byte.
+ $34F0 OR (HL)       ; '#S/OR/' the result with the third byte.
  $34F1 INC HL        ; Point to the fourth byte.
- $34F2 OR (HL)       ; OR the result with the fourth byte.
+ $34F2 OR (HL)       ; '#S/OR/' the result with the fourth byte.
  $34F3 LD A,B        ; Restore the original value of #REGa.
  $34F4 POP BC        ; And of #REGbc.
  $34F5 POP HL        ; Restore the pointer to the number to #REGhl.
@@ -13841,8 +13842,8 @@ c$3674 CALL $2BF1    ; The parameters of the string are fetched.
 ; is called via the calculator literal 35 by the routine at #R$3449.
 ; .
 ; This subroutine is only called by the #R$3449(series generator) and in effect
-; is a 'DJNZ' operation but the counter is the system variable, #R$5C67(BREG),
-; rather than the #REGb register.
+; is a '#S/DJNZ/' operation but the counter is the system variable,
+; #R$5C67(BREG), rather than the #REGb register.
 @label=dec_jr_nz
 c$367A EXX           ; {Go to the alternative register set and save the next
  $367B PUSH HL       ; literal pointer on the machine stack.}
