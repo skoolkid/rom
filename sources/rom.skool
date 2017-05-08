@@ -825,8 +825,8 @@ c$0333 LD A,E         ; Copy the 'main code'.
  $0354 JR Z,$034A     ; key.}
  $0356 BIT 3,D        ; {Jump forward if currently in 'K' mode.
  $0358 JR Z,$0364     ; }
- $035A BIT 3,(IY+$30) ; {If CAPS LOCK is set then return with the 'main code'.
- $035E RET NZ         ; }
+ $035A BIT 3,(IY+$30) ; {If CAPS LOCK is set (bit 3 of #R$5C6A(FLAGS2) set)
+ $035E RET NZ         ; then return with the 'main code'.}
  $035F INC B          ; {Also return in the same manner if CAPS SHIFT is being
  $0360 RET NZ         ; pressed.}
  $0361 ADD A,$20      ; {However if lower case codes are required then +20 has
@@ -2231,7 +2231,8 @@ c$0970 PUSH HL        ; Save the 'pointer'.
  $0976 XOR A          ; Signal 'first message'.
  $0977 LD DE,$09A1    ; {Print the message 'Start tape, then press any key.'
  $097A CALL $0C0A     ; (see #R$09A1).}
- $097D SET 5,(IY+$02) ; Signal 'screen will require to be cleared'.
+ $097D SET 5,(IY+$02) ; Signal 'screen will require to be cleared' (set bit 5
+                      ; of #R$5C3C(TV-FLAG)).
  $0981 CALL $15D4     ; Wait for a key to be pressed.
 ; Upon receipt of a keystroke the 'header' is saved.
  $0984 PUSH IX        ; Save the base address of the 'header' on the machine
@@ -2340,8 +2341,8 @@ c$0A23 INC C          ; Move leftwards by one column.
  $0A24 LD A,$22       ; {Accept the change unless up against the lefthand
  $0A26 CP C           ; side.
  $0A27 JR NZ,$0A3A    ; }
- $0A29 BIT 1,(IY+$01) ; {If dealing with the printer jump forward.
- $0A2D JR NZ,$0A38    ; }
+ $0A29 BIT 1,(IY+$01) ; {If dealing with the printer (bit 1 of #R$5C3B(FLAGS)
+ $0A2D JR NZ,$0A38    ; set) jump forward.}
  $0A2F INC B          ; Go up one line.
  $0A30 LD C,$02       ; Set column value.
  $0A32 LD A,$18       ; {Test against top line. Note: #BUG#noStepBack(this
@@ -2387,8 +2388,8 @@ c$0A3D LD A,($5C91)    ; {Fetch #R$5C91(P-FLAG) and save it on the machine
 ;
 ; B Current line number
 @label=PO_ENTER
-c$0A4F BIT 1,(IY+$01) ; {Jump if handling the printer.
- $0A53 JP NZ,$0ECD    ; }
+c$0A4F BIT 1,(IY+$01) ; {Jump if handling the printer (bit 1 of #R$5C3B(FLAGS)
+ $0A53 JP NZ,$0ECD    ; set).}
  $0A56 LD C,$21       ; Set to lefthand column.
  $0A58 CALL $0C55     ; Scroll if necessary.
  $0A5B DEC B          ; Now down a line.
@@ -2484,8 +2485,8 @@ c$0A6D LD DE,$0A87    ; {Save the first operand in #R$5C0E(TVDATA-hi) and
  $0A9E JR C,$0AAC     ; Must be in range.
  $0AA0 ADD A,$02      ; {Add in the offset to give #REGc holding +21 to +02.
  $0AA2 LD C,A         ; }
- $0AA3 BIT 1,(IY+$01) ; {Jump forward if handling the printer.
- $0AA7 JR NZ,$0ABF    ; }
+ $0AA3 BIT 1,(IY+$01) ; {Jump forward if handling the printer (bit 1 of
+ $0AA7 JR NZ,$0ABF    ; #R$5C3B(FLAGS) set).}
  $0AA9 LD A,$16       ; {Reverse the line number, i.e. +00 to +15 becomes +16
  $0AAB SUB B          ; to +01.}
 @label=PO_AT_ERR
@@ -2493,10 +2494,11 @@ c$0A6D LD DE,$0A87    ; {Save the first operand in #R$5C0E(TVDATA-hi) and
  $0AAF INC A          ; {The range +16 to +01 becomes +17 to +02.
  $0AB0 LD B,A         ; }
  $0AB1 INC B          ; And now +18 to +03.
- $0AB2 BIT 0,(IY+$02) ; {If printing in the lower part of the screen then
- $0AB6 JP NZ,$0C55    ; consider whether scrolling is needed.}
- $0AB9 CP (IY+$31)    ; {Give report 5 - Out of screen, if required.
- $0ABC JP C,$0C86     ; }
+ $0AB2 BIT 0,(IY+$02) ; {If printing in the lower part of the screen (bit 0 of
+ $0AB6 JP NZ,$0C55    ; #R$5C3C(TV-FLAG) set) then consider whether scrolling
+                      ; is needed.}
+ $0AB9 CP (IY+$31)    ; {Give report 5 - Out of screen, if required
+ $0ABC JP C,$0C86     ; (#R$5C6B(DF-SZ)>#REGa).}
 @label=PO_AT_SET
 *$0ABF JP $0DD9       ; Return via #R$0DD9 and #R$0ADC.
 ; And the TAB control character.
@@ -2510,7 +2512,7 @@ c$0A6D LD DE,$0A87    ; {Save the first operand in #R$5C0E(TVDATA-hi) and
  $0AC8 AND $1F        ; return if the result is zero.
  $0ACA RET Z          ; }
  $0ACB LD D,A         ; Use #REGd as the counter.
- $0ACC SET 0,(IY+$01) ; Suppress 'leading space'.
+ $0ACC SET 0,(IY+$01) ; Suppress 'leading space' (set bit 0 of #R$5C3B(FLAGS)).
 @label=PO_SPACE
 *$0AD0 LD A," "       ; {Print #REGd number of spaces.
  $0AD2 CALL $0C3B     ;
@@ -2542,10 +2544,10 @@ c$0AD9 CALL $0B24    ; Print the character(s) and continue into #R$0ADC.
 ; C Column number
 ; HL Display file address or printer buffer address
 @label=PO_STORE
-c$0ADC BIT 1,(IY+$01) ; {Jump forward if handling the printer.
- $0AE0 JR NZ,$0AFC    ; }
+c$0ADC BIT 1,(IY+$01) ; {Jump forward if handling the printer (bit 1 of
+ $0AE0 JR NZ,$0AFC    ; #R$5C3B(FLAGS) set).}
  $0AE2 BIT 0,(IY+$02) ; {Jump forward if handling the lower part of the
- $0AE6 JR NZ,$0AF0    ; screen.}
+ $0AE6 JR NZ,$0AF0    ; screen (bit 0 of #R$5C3C(TV-FLAG) set).}
  $0AE8 LD ($5C88),BC  ; {Save the values that relate to the main part of the
  $0AEC LD ($5C84),HL  ; screen at #R$5C88(S-POSN) and #R$5C84(DF-CC).}
  $0AEF RET            ; Then return.
@@ -2570,12 +2572,12 @@ c$0ADC BIT 1,(IY+$01) ; {Jump forward if handling the printer.
 ; O:C Column number
 ; O:HL Display file address or printer buffer address
 @label=PO_FETCH
-c$0B03 BIT 1,(IY+$01) ; {Jump forward if handling the printer.
- $0B07 JR NZ,$0B1D    ; }
+c$0B03 BIT 1,(IY+$01) ; {Jump forward if handling the printer (bit 1 of
+ $0B07 JR NZ,$0B1D    ; #R$5C3B(FLAGS) set).}
  $0B09 LD BC,($5C88)  ; {Fetch the values relating to the main part of the
  $0B0D LD HL,($5C84)  ; screen from #R$5C88(S-POSN) and #R$5C84(DF-CC) and
- $0B10 BIT 0,(IY+$02) ; return if this was the intention.
- $0B14 RET Z          ; }
+ $0B10 BIT 0,(IY+$02) ; return if this was the intention (bit 0 of
+ $0B14 RET Z          ; #R$5C3C(TV-FLAG) set).}
  $0B15 LD BC,($5C8A)  ; {Otherwise fetch the values relating to the lower part
  $0B19 LD HL,($5C86)  ; of the screen from #R$5C8A(S-POSNL) and
                       ; #R$5C86(DF-CCL).}
@@ -2673,8 +2675,8 @@ c$0B24 CP $80         ; {Jump forward with ordinary character codes.
  $0B83 JR NZ,$0B93    ; }
  $0B85 DEC B          ; Move down one line.
  $0B86 LD C,A         ; Column number is +21.
- $0B87 BIT 1,(IY+$01) ; {Jump forward if handling the screen.
- $0B8B JR Z,$0B93     ; }
+ $0B87 BIT 1,(IY+$01) ; {Jump forward if handling the screen (bit 1 of
+ $0B8B JR Z,$0B93     ; #R$5C3B(FLAGS) reset).}
  $0B8D PUSH DE        ; {Save the base address whilst the printer buffer is
  $0B8E CALL $0ECD     ; emptied.
  $0B91 POP DE         ; }
@@ -2699,9 +2701,10 @@ c$0B24 CP $80         ; {Jump forward with ordinary character codes.
  $0BA7 LD C,A         ; }
  $0BA8 LD A,$08       ; {Set the #REGa register to hold the 'pixel-line'
  $0BAA AND A          ; counter and clear the carry flag.}
- $0BAB BIT 1,(IY+$01) ; {Jump forward if handling the screen.
- $0BAF JR Z,$0BB6     ; }
- $0BB1 SET 1,(IY+$30) ; Signal 'printer buffer no longer empty'.
+ $0BAB BIT 1,(IY+$01) ; {Jump forward if handling the screen (bit 1 of
+ $0BAF JR Z,$0BB6     ; #R$5C3B(FLAGS) reset).}
+ $0BB1 SET 1,(IY+$30) ; Signal 'printer buffer no longer empty' (set bit 1 of
+                      ; #R$5C6A(FLAGS2)).
  $0BB5 SCF            ; Set the carry flag to show that the printer is being
                       ; used.
 @label=PR_ALL_3
@@ -2728,8 +2731,8 @@ c$0B24 CP $80         ; {Jump forward with ordinary character codes.
 ; required.
  $0BC5 EX DE,HL       ; {Make the #REGh register hold a correct high-address
  $0BC6 DEC H          ; for the character area.}
- $0BC7 BIT 1,(IY+$01) ; {Set the attribute byte only if handling the screen.
- $0BCB CALL Z,$0BDB   ; }
+ $0BC7 BIT 1,(IY+$01) ; {Set the attribute byte only if handling the screen
+ $0BCB CALL Z,$0BDB   ; (bit 1 of #R$5C3B(FLAGS) reset).}
  $0BCE POP HL         ; {Restore the original destination address and the
  $0BCF POP BC         ; position values.}
  $0BD0 DEC C          ; {Decrease the column number and increase the
@@ -2768,16 +2771,16 @@ c$0BDB LD A,H         ; {The high byte of the destination address is divided by
  $0BE9 XOR E          ; {The values of #R$5C90(MASK-T) and #R$5C8F(ATTR-T) are
  $0BEA AND D          ; taken into account.
  $0BEB XOR E          ; }
- $0BEC BIT 6,(IY+$57) ; {Jump forward unless dealing with PAPER 9.
- $0BF0 JR Z,$0BFA     ; }
+ $0BEC BIT 6,(IY+$57) ; {Jump forward unless dealing with PAPER 9 (bit 6 of
+ $0BF0 JR Z,$0BFA     ; #R$5C91(P-FLAG) set).}
  $0BF2 AND $C7        ; {The old paper colour is ignored and depending on
  $0BF4 BIT 2,A        ; whether the ink colour is light or dark the new paper
  $0BF6 JR NZ,$0BFA    ; colour will be black (000) or white (111).
  $0BF8 XOR $38        ; }
 @label=PO_ATTR_1
 @label=PO_ATTR_1
-*$0BFA BIT 4,(IY+$57) ; {Jump forward unless dealing with INK 9.
- $0BFE JR Z,$0C08     ; }
+*$0BFA BIT 4,(IY+$57) ; {Jump forward unless dealing with INK 9 (bit 4 of
+ $0BFE JR Z,$0C08     ; #R$5C91(P-FLAG) set).}
  $0C00 AND $F8        ; {The old ink colour is ignored and depending on whether
  $0C02 BIT 5,A        ; the paper colour is light or dark the new ink colour
  $0C04 JR NZ,$0C08    ; will be black (000) or white (111).
@@ -2813,7 +2816,7 @@ c$0C0A PUSH HL        ; {The high byte of the last entry on the machine stack
 *$0C14 CALL $0C41     ; Locate the required entry.
  $0C17 JR C,$0C22     ; Print the message/token.
  $0C19 LD A," "       ; {A 'space' will be printed before the message/token if
- $0C1B BIT 0,(IY+$01) ; required.
+ $0C1B BIT 0,(IY+$01) ; required (bit 0 of #R$5C3B(FLAGS) reset).
  $0C1F CALL Z,$0C3B   ; }
 ; The characters of the message/token are printed in turn.
 @label=PO_EACH
@@ -2897,26 +2900,26 @@ c$0C41 PUSH AF       ; Save the 'entry number'.
 ;
 ; B Current line number
 @label=PO_SCR
-c$0C55 BIT 1,(IY+$01)    ; {Return immediately if the printer is being used.
- $0C59 RET NZ            ; }
+c$0C55 BIT 1,(IY+$01)    ; {Return immediately if the printer is being used
+ $0C59 RET NZ            ; (bit 1 of #R$5C3B(FLAGS) set).}
 @nowarn
  $0C5A LD DE,$0DD9       ; {Pre-load the machine stack with the address of
  $0C5D PUSH DE           ; #R$0DD9.}
  $0C5E LD A,B            ; Transfer the line number.
- $0C5F BIT 0,(IY+$02)    ; {Jump forward if considering 'INPUT ... AT ...'.
- $0C63 JP NZ,$0D02       ; }
+ $0C5F BIT 0,(IY+$02)    ; {Jump forward if considering 'INPUT ... AT ...' (bit
+ $0C63 JP NZ,$0D02       ; 0 of #R$5C3C(TV-FLAG) set).}
  $0C66 CP (IY+$31)       ; {Return, via #R$0DD9, if the line number is greater
  $0C69 JR C,$0C86        ; than the value of #R$5C6B(DF-SZ); give report 5 if
  $0C6B RET NZ            ; it is less; otherwise continue.}
  $0C6C BIT 4,(IY+$02)    ; {Jump forward unless dealing with an 'automatic
- $0C70 JR Z,$0C88        ; listing'.}
+ $0C70 JR Z,$0C88        ; listing' (bit 4 of #R$5C3C(TV-FLAG) set).}
  $0C72 LD E,(IY+$2D)     ; Fetch the line counter from #R$5C67(BREG).
  $0C75 DEC E             ; Decrease this counter.
  $0C76 JR Z,$0CD2        ; Jump forward if the listing is to be scrolled.
  $0C78 LD A,$00          ; {Otherwise open channel 'K', restore the stack
  $0C7A CALL $1601        ; pointer, flag that the automatic listing has
- $0C7D LD SP,($5C3F)     ; finished and return via #R$0DD9.
- $0C81 RES 4,(IY+$02)    ;
+ $0C7D LD SP,($5C3F)     ; finished (reset bit 4 of #R$5C3C(TV-FLAG)) and
+ $0C81 RES 4,(IY+$02)    ; return via #R$0DD9.
  $0C85 RET               ; }
 ; This entry point is used by the routine at #R$0A6D.
 ; .
@@ -2942,7 +2945,8 @@ c$0C55 BIT 1,(IY+$01)    ; {Return immediately if the printer is being used.
 @nowarn
  $0CA1 LD DE,$0CF8       ; is now printed.
  $0CA4 CALL $0C0A        ; }
- $0CA7 SET 5,(IY+$02)    ; Signal 'clear the lower screen after a keystroke'.
+ $0CA7 SET 5,(IY+$02)    ; Signal 'clear the lower screen after a keystroke'
+                         ; (set bit 5 of #R$5C3C(TV-FLAG)).
  $0CAB LD HL,$5C3B       ; This is #R$5C3B(FLAGS).
  $0CAE SET 3,(HL)        ; Signal 'L mode'.
  $0CB0 RES 5,(HL)        ; Signal 'no key yet'.
@@ -2965,9 +2969,9 @@ c$0C55 BIT 1,(IY+$01)    ; {Return immediately if the printer is being used.
 ; The display is now scrolled.
 @label=PO_SCR_3
 *$0CD2 CALL $0DFE        ; The whole display is scrolled.
- $0CD5 LD B,(IY+$31)     ; {The line and column numbers for the start of the
- $0CD8 INC B             ; line above the lower part of the display are found
- $0CD9 LD C,$21          ; and saved.
+ $0CD5 LD B,(IY+$31)     ; {The line (#R$5C6B(DF-SZ)) and column numbers for
+ $0CD8 INC B             ; the start of the line above the lower part of the
+ $0CD9 LD C,$21          ; display are found and saved.
  $0CDB PUSH BC           ; }
  $0CDC CALL $0E9B        ; {The corresponding attribute byte for this character
  $0CDF LD A,H            ; area is then found. The #REGhl register pair holds
@@ -3005,8 +3009,8 @@ c$0C55 BIT 1,(IY+$01)    ; {Return immediately if the printer is being used.
 ; The lower part of the display is handled as follows:
 @label=PO_SCR_4
 *$0D02 CP $02            ; {The 'out of screen' error is given if the lower
- $0D04 JR C,$0C86        ; part is going to be 'too large' and a return made if
- $0D06 ADD A,(IY+$31)    ; scrolling is unnecessary.
+ $0D04 JR C,$0C86        ; part is going to be 'too large' (see #R$5C6B(DF-SZ))
+ $0D06 ADD A,(IY+$31)    ; and a return made if scrolling is unnecessary.
  $0D09 SUB $19           ;
  $0D0B RET NC            ; }
  $0D0C NEG               ; The #REGa register will now hold 'the number of
@@ -3043,11 +3047,11 @@ c$0C55 BIT 1,(IY+$01)    ; {Return immediately if the printer is being used.
  $0D38 POP HL            ; {Restore the values of #R$5C8F(ATTR-T) and
  $0D39 LD ($5C8F),HL     ; #R$5C90(MASK-T).}
  $0D3C LD BC,($5C88)     ; {In case #R$5C88(S-POSN) has been changed #R$0DD9 is
- $0D40 RES 0,(IY+$02)    ; called to give a matching value to #R$5C84(DF-CC).
- $0D44 CALL $0DD9        ; }
- $0D47 SET 0,(IY+$02)    ; {Reset the flag to indicate that the lower screen is
- $0D4B POP BC            ; being handled, fetch the line and column numbers,
- $0D4C RET               ; and then return.}
+ $0D40 RES 0,(IY+$02)    ; called to give a matching value to #R$5C84(DF-CC)
+ $0D44 CALL $0DD9        ; (after resetting bit 0 of #R$5C3C(TV-FLAG)).}
+ $0D47 SET 0,(IY+$02)    ; {Set bit 0 of #R$5C3C(TV-FLAG) to indicate that the
+ $0D4B POP BC            ; lower screen is being handled, fetch the line and
+ $0D4C RET               ; column numbers, and then return.}
 
 ; THE 'TEMPORARY COLOUR ITEMS' SUBROUTINE
 ;
@@ -3061,8 +3065,8 @@ c$0C55 BIT 1,(IY+$01)    ; {Return immediately if the printer is being used.
 c$0D4D XOR A          ; #REGa is set to hold +00.
  $0D4E LD HL,($5C8D)  ; The current values of #R$5C8D(ATTR-P) and
                       ; #R$5C8E(MASK-P) are fetched.
- $0D51 BIT 0,(IY+$02) ; {Jump forward if handing the main part of the screen.
- $0D55 JR Z,$0D5B     ; }
+ $0D51 BIT 0,(IY+$02) ; {Jump forward if handing the main part of the screen
+ $0D55 JR Z,$0D5B     ; (bit 0 of #R$5C3C(TV-FLAG) reset).}
  $0D57 LD H,A         ; {Otherwise use +00 and the value in #R$5C48(BORDCR)
  $0D58 LD L,(IY+$0E)  ; instead.}
 @label=TEMPS_1
@@ -3100,7 +3104,7 @@ c$0D6B CALL $0DAF      ; The whole of the display is 'cleared'.
  $0D75 CALL $0D4D      ; Use the permanent values, i.e. #R$5C8F(ATTR-T) is
                        ; copied from #R$5C48(BORDCR).
  $0D78 LD B,(IY+$31)   ; {The lower part of the screen is now 'cleared' with
- $0D7B CALL $0E44      ; these values.}
+ $0D7B CALL $0E44      ; these values (#REGb=#R$5C6B(DF-SZ)).}
 ; With the exception of the attribute bytes for lines 22 and 23 the attribute
 ; bytes for the lines in the lower part of the display will need to be made
 ; equal to #R$5C8D(ATTR-P).
@@ -3118,7 +3122,7 @@ c$0D6B CALL $0DAF      ; The whole of the display is 'cleared'.
 @label=CLS_3
 *$0D8E DJNZ $0D87      ; Loop back until finished.
 ; The size of the lower part of the display can now be fixed.
- $0D90 LD (IY+$31),$02 ; It will be two lines in size.
+ $0D90 LD (IY+$31),$02 ; It will be two lines in size (#R$5C6B(DF-SZ)).
 ; This entry point is used by the routine at #R$0DAF.
 ; .
 ; It now remains for the following 'house keeping' tasks to be performed.
@@ -3150,7 +3154,8 @@ c$0D6B CALL $0DAF      ; The whole of the display is 'cleared'.
 @keep
 c$0DAF LD HL,$0000     ; {The system variable #R$5C7D(COORDS) is reset to
  $0DB2 LD ($5C7D),HL   ; zero.}
- $0DB5 RES 0,(IY+$30)  ; Signal 'the screen is clear'.
+ $0DB5 RES 0,(IY+$30)  ; Signal 'the screen is clear' (reset bit 0 of
+                       ; #R$5C6A(FLAGS2)).
  $0DB9 CALL $0D94      ; Perform the 'house keeping' tasks.
  $0DBC LD A,$FE        ; {Open channel 'S'.
  $0DBE CALL $1601      ; }
@@ -3186,13 +3191,14 @@ c$0DAF LD HL,$0000     ; {The system variable #R$5C7D(COORDS) is reset to
 ; C Column number
 @label=CL_SET
 c$0DD9 LD HL,$5B00    ; The start of the printer buffer.
- $0DDC BIT 1,(IY+$01) ; {Jump forward if handling the printer buffer.
- $0DE0 JR NZ,$0DF4    ; }
+ $0DDC BIT 1,(IY+$01) ; {Jump forward if handling the printer buffer (bit 1 of
+ $0DE0 JR NZ,$0DF4    ; #R$5C3B(FLAGS) set).}
  $0DE2 LD A,B         ; Transfer the line number.
  $0DE3 BIT 0,(IY+$02) ; {Jump forward if handling the main part of the
- $0DE7 JR Z,$0DEE     ; display.}
+ $0DE7 JR Z,$0DEE     ; display (bit 0 of #R$5C3C(TV-FLAG) reset).}
  $0DE9 ADD A,(IY+$31) ; {The top line of the lower part of the display is
- $0DEC SUB $18        ; called 'line +18' and this has to be converted.}
+ $0DEC SUB $18        ; called 'line +18' and this has to be converted (see
+                      ; #R$5C6B(DF-SZ)).}
 @label=CL_SET_1
 *$0DEE PUSH BC        ; The line and column numbers are saved.
  $0DEF LD B,A         ; The line number is moved.
@@ -3337,8 +3343,8 @@ c$0E44 PUSH BC        ; The line number is saved for the duration of the
  $0E72 LD L,E         ; #REGde the second.
  $0E73 INC DE         ; }
  $0E74 LD A,($5C8D)   ; Fetch the value in #R$5C8D(ATTR-P).
- $0E77 BIT 0,(IY+$02) ; {Jump forward if handling the main part of the screen.
- $0E7B JR Z,$0E80     ; }
+ $0E77 BIT 0,(IY+$02) ; {Jump forward if handling the main part of the screen
+ $0E7B JR Z,$0E80     ; (bit 0 of #R$5C3C(TV-FLAG) reset).}
  $0E7D LD A,($5C48)   ; Otherwise use #R$5C48(BORDCR) instead.
 @label=CL_LINE_3
 *$0E80 LD (HL),A      ; Set the attribute byte.
@@ -3477,7 +3483,7 @@ c$0ECD DI            ; Disable the maskable interrupt.
 ; The printer buffer is cleared by calling this subroutine.
 @label=CLEAR_PRB
 c$0EDF LD HL,$5B00    ; The base address of the printer buffer.
- $0EE2 LD (IY+$46),L  ; Reset the printer 'column'.
+ $0EE2 LD (IY+$46),L  ; Reset the printer 'column' at #R$5C80(PR-CC).
  $0EE5 XOR A          ; Clear the #REGa register.
  $0EE6 LD B,A         ; Also clear the #REGb register (in effect #REGb holds
                       ; 256).
@@ -3485,7 +3491,8 @@ c$0EDF LD HL,$5B00    ; The base address of the printer buffer.
 *$0EE7 LD (HL),A      ; {The 256 bytes of the printer buffer are all cleared in
  $0EE8 INC HL         ; turn.
  $0EE9 DJNZ $0EE7     ; }
- $0EEB RES 1,(IY+$30) ; Signal 'the buffer is empty'.
+ $0EEB RES 1,(IY+$30) ; Signal 'the buffer is empty' (reset bit 1 of
+                      ; #R$5C6A(FLAGS2)).
  $0EEF LD C,$21       ; {Set the printer position and return via #R$0DD9 and
  $0EF1 JP $0DD9       ; #R$0ADC.}
 
@@ -3593,8 +3600,8 @@ c$0F2C LD HL,($5C3D)  ; {The current value of #R$5C3D(ERR-SP) is saved on the
  $0F5E JR C,$0F6C     ; }
 ; AT and TAB would be handled as follows:
  $0F60 INC BC         ; Three locations required.
- $0F61 BIT 7,(IY+$37) ; {Jump forward unless dealing with 'INPUT LINE...'.
- $0F65 JP Z,$101E     ; }
+ $0F61 BIT 7,(IY+$37) ; {Jump forward unless dealing with 'INPUT LINE...' (bit
+ $0F65 JP Z,$101E     ; 7 of #R$5C71(FLAGX) set).}
  $0F68 CALL $15D4     ; {Get the second code and put it in #REGe.
  $0F6B LD E,A         ; }
 ; The other bytes for the control characters are now fetched.
@@ -3602,7 +3609,7 @@ c$0F2C LD HL,($5C3D)  ; {The current value of #R$5C3D(ERR-SP) is saved on the
 *$0F6C CALL $15D4     ; Get another code.
  $0F6F PUSH DE        ; Save the previous codes.
  $0F70 LD HL,($5C5B)  ; Fetch #R$5C5B(K-CUR).
- $0F73 RES 0,(IY+$07) ; Signal 'K mode'.
+ $0F73 RES 0,(IY+$07) ; Signal 'K mode' (reset bit 0 of #R$5C41(MODE)).
  $0F77 CALL $1655     ; Make two or three spaces.
  $0F7A POP BC         ; Restore the previous codes.
  $0F7B INC HL         ; Point to the first location.
@@ -3618,7 +3625,7 @@ c$0F2C LD HL,($5C3D)  ; {The current value of #R$5C3D(ERR-SP) is saved on the
 ; The following subroutine actually adds a code to the current EDIT or INPUT
 ; line.
 @label=ADD_CHAR
-*$0F81 RES 0,(IY+$07) ; Signal 'K mode'.
+*$0F81 RES 0,(IY+$07) ; Signal 'K mode' (reset bit 0 of #R$5C41(MODE)).
  $0F85 LD HL,($5C5B)  ; Fetch the cursor position.
  $0F88 CALL $1652     ; Make a single space.
 @label=ADD_CH_1
@@ -3664,8 +3671,8 @@ b$0FA0 DEFB $09      ; EDIT (#R$0FA9)
 ; the current reply and allow a fresh one.
 @label=ED_EDIT
 c$0FA9 LD HL,($5C49)  ; Fetch the current line number (#R$5C49(E-PPC)).
- $0FAC BIT 5,(IY+$37) ; {But jump forward if in 'INPUT mode'.
- $0FB0 JP NZ,$1097    ; }
+ $0FAC BIT 5,(IY+$37) ; {But jump forward if in 'INPUT mode' (bit 5 of
+ $0FB0 JP NZ,$1097    ; #R$5C71(FLAGX) set).}
  $0FB3 CALL $196E     ; {Find the address of the start of the current line and
  $0FB6 CALL $1695     ; hence its number.}
  $0FB9 LD A,D         ; {If the line number returned is zero then simply clear
@@ -3712,8 +3719,8 @@ c$0FA9 LD HL,($5C49)  ; Fetch the current line number (#R$5C49(E-PPC)).
 ; The address of this routine is derived from an offset found in the
 ; #R$0FA0(editing keys table).
 @label=ED_DOWN
-c$0FF3 BIT 5,(IY+$37)  ; {Jump forward if in 'INPUT mode'.
- $0FF7 JR NZ,$1001     ; }
+c$0FF3 BIT 5,(IY+$37)  ; {Jump forward if in 'INPUT mode' (bit 5 of
+ $0FF7 JR NZ,$1001     ; #R$5C71(FLAGX) set).}
  $0FF9 LD HL,$5C49     ; This is #R$5C49(E-PPC).
  $0FFC CALL $190F      ; {The next line number is found and a new automatic
  $0FFF JR $106E        ; listing produced.}
@@ -3782,8 +3789,8 @@ c$1024 POP HL         ; {The addresses of #R$0F38 and #R$107F are discarded.
 @label=ED_END
 *$1026 POP HL         ; {The old value of #R$5C3D(ERR-SP) is restored.
  $1027 LD ($5C3D),HL  ; }
- $102A BIT 7,(IY+$00) ; {Now return if there were no errors (bit 7 of
- $102E RET NZ         ; #R$5C3A(ERR-NR) is set).}
+ $102A BIT 7,(IY+$00) ; {Now return if there were no errors (#R$5C3A(ERR-NR) is
+ $102E RET NZ         ; +FF).}
  $102F LD SP,HL       ; {Otherwise make an indirect jump to the error routine.
  $1030 RET            ; }
 
@@ -3840,8 +3847,8 @@ c$1031 SCF           ; {#REGde will hold either #R$5C59(E-LINE) (for editing)
 ; The address of this routine is derived from an offset found in the
 ; #R$0FA0(editing keys table).
 @label=ED_UP
-c$1059 BIT 5,(IY+$37) ; {Return if in 'INPUT mode'.
- $105D RET NZ         ; }
+c$1059 BIT 5,(IY+$37) ; {Return if in 'INPUT mode' (bit 5 of #R$5C71(FLAGX)
+ $105D RET NZ         ; set).}
  $105E LD HL,($5C49)  ; {Fetch the current line number (#R$5C49(E-PPC)) and its
  $1061 CALL $196E     ; start address.}
  $1064 EX DE,HL       ; #REGhl now points to the previous line.
@@ -3863,8 +3870,8 @@ c$1059 BIT 5,(IY+$37) ; {Return if in 'INPUT mode'.
 ;
 ; If SYMBOL and GRAPHICS codes were used they would be handled as follows:
 @label=ED_SYMBOL
-c$1076 BIT 7,(IY+$37) ; {Jump back unless dealing with INPUT LINE.
- $107A JR Z,$1024     ; }
+c$1076 BIT 7,(IY+$37) ; {Jump back unless dealing with INPUT LINE (bit 7 of
+ $107A JR Z,$1024     ; #R$5C71(FLAGX) set).}
 ; The address of this entry point is derived from an offset found in the
 ; #R$0FA0(editing keys table).
 @label=ED_GRAPH
@@ -3876,11 +3883,11 @@ c$1076 BIT 7,(IY+$37) ; {Jump back unless dealing with INPUT LINE.
 ; .
 ; Come here when there has been some kind of error.
 @label=ED_ERROR
-c$107F BIT 4,(IY+$30)  ; {Jump back if using other than channel 'K'.
- $1083 JR Z,$1026      ; }
+c$107F BIT 4,(IY+$30)  ; {Jump back if using other than channel 'K' (bit 4 of
+ $1083 JR Z,$1026      ; #R$5C6A(FLAGS2) reset).}
  $1085 LD (IY+$00),$FF ; {Cancel the error number (#R$5C3A(ERR-NR)) and give a
- $1089 LD D,$00        ; 'rasp' before going around the editor again.
- $108B LD E,(IY-$02)   ;
+ $1089 LD D,$00        ; 'rasp' (see #R$5C38(RASP)) before going around the
+ $108B LD E,(IY-$02)   ; editor again.
  $108E LD HL,$1A90     ;
  $1091 CALL $03B5      ;
  $1094 JP $0F30        ; }
@@ -3913,15 +3920,15 @@ c$1097 PUSH HL         ; Save the pointer to the space.
 ; O:F Carry flag set if a key was pressed
 @label=KEY_INPUT
 c$10A8 BIT 3,(IY+$02) ; {Copy the edit-line or the INPUT-line to the screen if
- $10AC CALL NZ,$111D  ; the mode has changed.}
+ $10AC CALL NZ,$111D  ; the mode has changed (bit 3 of #R$5C3C(TV-FLAG) set).}
  $10AF AND A          ; {Return with both carry and zero flags reset if no new
- $10B0 BIT 5,(IY+$01) ; key has been pressed.
+ $10B0 BIT 5,(IY+$01) ; key has been pressed (bit 5 of #R$5C3B(FLAGS) reset).
  $10B4 RET Z          ; }
  $10B5 LD A,($5C08)   ; {Otherwise fetch the code and signal that it has been
- $10B8 RES 5,(IY+$01) ; taken.}
+ $10B8 RES 5,(IY+$01) ; taken (reset bit 5 of #R$5C3B(FLAGS)).}
  $10BC PUSH AF        ; Save the code temporarily.
- $10BD BIT 5,(IY+$02) ; {Clear the lower part of the display if necessary, e.g.
- $10C1 CALL NZ,$0D6E  ; after 'scroll?'.}
+ $10BD BIT 5,(IY+$02) ; {Clear the lower part of the display if necessary (bit
+ $10C1 CALL NZ,$0D6E  ; 5 of #R$5C3C(TV-FLAG) set), e.g. after 'scroll?'.}
  $10C4 POP AF         ; Fetch the code.
  $10C5 CP " "         ; {Accept all characters and token codes.
  $10C7 JR NC,$111B    ; }
@@ -3955,7 +3962,8 @@ c$10A8 BIT 3,(IY+$02) ; {Copy the edit-line or the INPUT-line to the screen if
  $10F0 JR NZ,$10F4    ; {Jump if it has changed; otherwise make it 'L mode'.
  $10F2 LD (HL),$00    ; }
 @label=KEY_FLAG
-*$10F4 SET 3,(IY+$02) ; Signal 'the mode might have changed'.
+*$10F4 SET 3,(IY+$02) ; Signal 'the mode might have changed' (set bit 3 of
+                      ; #R$5C3C(TV-FLAG)).
  $10F8 CP A           ; {Reset the carry flag and return.
  $10F9 RET            ; }
 ; The control key codes (apart from FLASH, BRIGHT and INVERSE) are manipulated.
@@ -3970,7 +3978,7 @@ c$10A8 BIT 3,(IY+$02) ; {Copy the edit-line or the INPUT-line to the screen if
 ; The parameter is saved in #R$5C0D(K-DATA) and the channel address changed
 ; from #R$10A8 to #R$110D.
 @label=KEY_DATA
-*$1105 LD (IY-$2D),C  ; Save the parameter.
+*$1105 LD (IY-$2D),C  ; Save the parameter at #R$5C0D(K-DATA).
 @nowarn
  $1108 LD DE,$110D    ; This is #R$110D.
  $110B JR $1113       ; Jump forward.
@@ -4003,7 +4011,8 @@ c$10A8 BIT 3,(IY+$02) ; {Copy the edit-line or the INPUT-line to the screen if
 @label=ED_COPY
 c$111D CALL $0D4D      ; Use the permanent colours.
  $1120 RES 3,(IY+$02)  ; {Signal that the 'mode is to be considered unchanged'
- $1124 RES 5,(IY+$02)  ; and the 'lower screen does not need clearing'.}
+ $1124 RES 5,(IY+$02)  ; (reset bit 3 of #R$5C3C(TV-FLAG)) and the 'lower
+                       ; screen does not need clearing' (reset bit 5).}
  $1128 LD HL,($5C8A)   ; {Save the current value of #R$5C8A(S-POSNL).
  $112B PUSH HL         ; }
  $112C LD HL,($5C3D)   ; {Keep the current value of #R$5C3D(ERR-SP).
@@ -4032,7 +4041,7 @@ c$111D CALL $0D4D      ; Use the permanent colours.
  $1154 JR C,$117C      ; Jump forward if no 'blanking' of lines required.
  $1156 JR NZ,$115E     ; Jump forward if not on the same line.
  $1158 LD A,E          ; {Fetch the old column number and subtract the new
- $1159 SUB (IY+$50)    ; column number.}
+ $1159 SUB (IY+$50)    ; column number (at #R$5C8A(S-POSNL)).}
  $115C JR NC,$117C     ; Jump if no spaces required.
 @label=ED_SPACES
 *$115E LD A," "        ; A 'space'.
@@ -4042,7 +4051,7 @@ c$111D CALL $0D4D      ; Use the permanent colours.
  $1165 JR $1150        ; Back again.
 ; New deal with any errors.
 @label=ED_FULL
- $1167 LD D,$00        ; {Give out a 'rasp'.
+ $1167 LD D,$00        ; {Give out a 'rasp' (see #R$5C38(RASP)).
  $1169 LD E,(IY-$02)   ;
  $116C LD HL,$1A90     ;
  $116F CALL $03B5      ; }
@@ -4083,8 +4092,8 @@ c$1190 LD HL,($5C61)  ; {Point to the last location of the editing area
 ; carry flag set.
 @label=SET_DE
 *$1195 LD DE,($5C59)  ; {Point to the start of the editing area
- $1199 BIT 5,(IY+$37) ; (#R$5C59(E-LINE)) and return if in 'editing mode'.
- $119D RET Z          ; }
+ $1199 BIT 5,(IY+$37) ; (#R$5C59(E-LINE)) and return if in 'editing mode' (bit
+ $119D RET Z          ; 5 of #R$5C71(FLAGX) reset).}
  $119E LD DE,($5C61)  ; Otherwise point #REGde at the start of the work space
                       ; (#R$5C61(WORKSP)).
  $11A2 RET C          ; Return if now intended.
@@ -4245,8 +4254,8 @@ c$11B7 DI              ; Disable the maskable interrupt.
 @keep
  $1282 LD BC,$000E     ;
  $1285 LDIR            ; }
- $1287 SET 1,(IY+$01)  ; {Signal 'printer in use' and clear the printer
- $128B CALL $0EDF      ; buffer.}
+ $1287 SET 1,(IY+$01)  ; {Signal 'printer in use' (set bit 1 of #R$5C3B(FLAGS))
+ $128B CALL $0EDF      ; and clear the printer buffer.}
  $128E LD (IY+$31),$02 ; {Set the size of the lower part of the display
  $1292 CALL $0D6B      ; (#R$5C6B(DF-SZ)) and clear the whole display.}
 @ignoreua
@@ -4254,7 +4263,8 @@ c$11B7 DI              ; Disable the maskable interrupt.
 @ssub=LD DE,$1539-1
  $1296 LD DE,$1538     ; Ltd' on the bottom line.
  $1299 CALL $0C0A      ; }
- $129C SET 5,(IY+$02)  ; Signal 'the lower part will required to be cleared'.
+ $129C SET 5,(IY+$02)  ; Signal 'the lower part will required to be cleared'
+                       ; (set bit 5 of #R$5C3C(TV-FLAG)).
  $12A0 JR $12A9        ; Jump forward into the main execution loop.
 
 ; THE 'MAIN EXECUTION' LOOP
@@ -4265,7 +4275,7 @@ c$11B7 DI              ; Disable the maskable interrupt.
 ; and the production of reports.
 @label=MAIN_EXEC
 c$12A2 LD (IY+$31),$02 ; The lower part of the screen is to be two lines in
-                       ; size.
+                       ; size (see #R$5C6B(DF-SZ)).
  $12A6 CALL $1795      ; Produce an automatic listing.
 ; This entry point is used by the routine at #R$11B7.
 @label=MAIN_1
@@ -4277,10 +4287,10 @@ c$12A2 LD (IY+$31),$02 ; The lower part of the screen is to be two lines in
  $12B1 CALL $0F2C      ; The #R$0F2C is called to allow the user to build up a
                        ; BASIC line.
  $12B4 CALL $1B17      ; The current line is scanned for correct syntax.
- $12B7 BIT 7,(IY+$00)  ; {Jump forward if the syntax is correct.
- $12BB JR NZ,$12CF     ; }
+ $12B7 BIT 7,(IY+$00)  ; {Jump forward if the syntax is correct
+ $12BB JR NZ,$12CF     ; (#R$5C3A(ERR-NR) is +FF).}
  $12BD BIT 4,(IY+$30)  ; {Jump forward if other than channel 'K' is being
- $12C1 JR Z,$1303      ; used.}
+ $12C1 JR Z,$1303      ; used (bit 4 of #R$5C6A(FLAGS2) is set).}
  $12C3 LD HL,($5C59)   ; Point to the start of the line with the error
                        ; (#R$5C59(E-LINE)).
  $12C6 CALL $11A7      ; Remove the floating-point forms from this line.
@@ -4301,15 +4311,16 @@ c$12A2 LD (IY+$31),$02 ; The lower part of the screen is to be two lines in
  $12E0 JR Z,$12A2      ; If it is then jump back.
 ; The 'edit-line' must start with a direct BASIC command so this line becomes
 ; the first line to be interpreted.
- $12E2 BIT 0,(IY+$30)  ; {Clear the whole display unless the flag says it is
- $12E6 CALL NZ,$0DAF   ; unnecessary.}
+ $12E2 BIT 0,(IY+$30)  ; {Clear the whole display unless the flag (bit 0 of
+ $12E6 CALL NZ,$0DAF   ; #R$5C6A(FLAGS2)) says it is unnecessary.}
  $12E9 CALL $0D6E      ; Clear the lower part anyway.
  $12EC LD A,$19        ; {Set the appropriate value for the scroll counter
- $12EE SUB (IY+$4F)    ; (#R$5C8C(SCR-CT)).
- $12F1 LD ($5C8C),A    ; }
- $12F4 SET 7,(IY+$01)  ; Signal 'line execution'.
+ $12EE SUB (IY+$4F)    ; (#R$5C8C(SCR-CT)) by subtracting the second byte of
+ $12F1 LD ($5C8C),A    ; #R$5C88(S-POSN) from +19).}
+ $12F4 SET 7,(IY+$01)  ; Signal 'line execution' (set bit 7 of #R$5C3B(FLAGS)).
  $12F8 LD (IY+$00),$FF ; Ensure #R$5C3A(ERR-NR) is correct.
- $12FC LD (IY+$0A),$01 ; Deal with the first statement in the line.
+ $12FC LD (IY+$0A),$01 ; Deal with the first statement in the line (set
+                       ; #R$5C44(NSPPC) to +01).
  $1300 CALL $1B8A      ; Now the line is interpreted. Note: the address #R$1303
                        ; goes on to the machine stack and is addressed by
                        ; #R$5C3D(ERR-SP).
@@ -4318,9 +4329,10 @@ c$12A2 LD (IY+$31),$02 ; The lower part of the screen is to be two lines in
 ; made.
 @label=MAIN_4
 *$1303 HALT            ; The maskable interrupt must be enabled.
- $1304 RES 5,(IY+$01)  ; Signal 'ready for a new key'.
- $1308 BIT 1,(IY+$30)  ; {Empty the printer buffer if it has been used.
- $130C CALL NZ,$0ECD   ; }
+ $1304 RES 5,(IY+$01)  ; Signal 'ready for a new key' (reset bit 5 of
+                       ; #R$5C3B(FLAGS)).
+ $1308 BIT 1,(IY+$30)  ; {Empty the printer buffer if it has been used (bit 1
+ $130C CALL NZ,$0ECD   ; of #R$5C6A(FLAGS2) set).}
  $130F LD A,($5C3A)    ; {Fetch the error number and increment it.
  $1312 INC A           ; }
 ; This entry point is used by the routine at #R$1555.
@@ -4335,9 +4347,10 @@ c$12A2 LD (IY+$31),$02 ; The lower part of the screen is to be two lines in
  $1320 LD HL,$0001     ; {Ensure that stream +00 points to channel 'K'.
  $1323 LD ($5C16),HL   ; }
  $1326 CALL $16B0      ; Clear all the work areas and the calculator stack.
- $1329 RES 5,(IY+$37)  ; Signal 'editing mode'.
+ $1329 RES 5,(IY+$37)  ; Signal 'editing mode' (reset bit 5 of #R$5C71(FLAGX)).
  $132D CALL $0D6E      ; Clear the lower screen.
- $1330 SET 5,(IY+$02)  ; Signal 'the lower screen will require clearing'.
+ $1330 SET 5,(IY+$02)  ; Signal 'the lower screen will require clearing' (set
+                       ; bit 5 of #R$5C3C(TV-FLAG)).
  $1334 POP AF          ; Fetch the report value.
  $1335 LD B,A          ; Make a copy in #REGb.
  $1336 CP $0A          ; {Jump forward with report numbers '0 to 9'.
@@ -4359,8 +4372,8 @@ c$12A2 LD (IY+$31),$02 ; The lower part of the screen is to be two lines in
  $1354 CALL $1A1B      ; print it as well.}
  $1357 LD A,":"        ; {Follow it by a ':'.
  $1359 RST $10         ; }
- $135A LD C,(IY+$0D)   ; {Fetch the current statement number into the #REGbc
- $135D LD B,$00        ; register pair and print it.
+ $135A LD C,(IY+$0D)   ; {Fetch the current statement number (#R$5C47(SUBPPC))
+ $135D LD B,$00        ; into the #REGbc register pair and print it.
  $135F CALL $1A1B      ; }
  $1362 CALL $1097      ; Clear the editing area.
  $1365 LD A,($5C3A)    ; Fetch the error number again.
@@ -4386,7 +4399,7 @@ c$12A2 LD (IY+$31),$02 ; The lower part of the screen is to be two lines in
 *$1384 LDDR            ; }
 @label=MAIN_9
 *$1386 LD (IY+$0A),$FF ; #R$5C44(NSPPC) is reset to indicate 'no jump'.
- $138A RES 3,(IY+$01)  ; 'K mode' is selected.
+ $138A RES 3,(IY+$01)  ; 'K mode' is selected (reset bit 3 of #R$5C3B(FLAGS)).
  $138E JP $12AC        ; And finally the jump back is made but no program
                        ; listing will appear until requested.
 
@@ -4564,9 +4577,10 @@ b$15C6 DEFB $01,$00  ; Leads to channel 'K' (keyboard)
 ; This subroutine is the controlling subroutine for calling the current input
 ; subroutine.
 @label=WAIT_KEY
-c$15D4 BIT 5,(IY+$02) ; {Jump forward if the flag indicates the lower screen
- $15D8 JR NZ,$15DE    ; does not require clearing.}
- $15DA SET 3,(IY+$02) ; Otherwise signal 'consider the mode as having changed'.
+c$15D4 BIT 5,(IY+$02) ; {Jump forward if the flag (bit 5 of #R$5C3C(TV-FLAG))
+ $15D8 JR NZ,$15DE    ; indicates the lower screen does not require clearing.}
+ $15DA SET 3,(IY+$02) ; Otherwise signal 'consider the mode as having changed'
+                      ; (set bit 3 of #R$5C3C(TV-FLAG)).
 @label=WAIT_KEY1
 *$15DE CALL $15E6     ; Call the input subroutine indirectly via #R$15E6.
  $15E1 RET C          ; Return with acceptable codes.
@@ -4669,7 +4683,8 @@ c$1601 ADD A,A       ; {The value in the #REGa register is doubled and then
 @label=CHAN_FLAG
 c$1615 LD ($5C51),HL  ; The #REGhl register pair holds the base address for a
                       ; particular channel.
- $1618 RES 4,(IY+$30) ; Signal 'using other than channel 'K''.
+ $1618 RES 4,(IY+$30) ; Signal 'using other than channel 'K'' (reset bit 4 of
+                      ; #R$5C6A(FLAGS2)).
  $161C INC HL         ; {Step past the output and the input addresses and make
  $161D INC HL         ; #REGhl point to the channel code.
  $161E INC HL         ;
@@ -4700,9 +4715,12 @@ b$162D DEFB "K",$06  ; Channel 'K', offset +06 (#R$1634).
 ; The address of this routine is derived from an offset found in the
 ; #R$162D(channel code lookup table).
 @label=CHAN_K
-c$1634 SET 0,(IY+$02) ; Signal 'using lower screen'.
- $1638 RES 5,(IY+$01) ; Signal 'ready for a key'.
- $163C SET 4,(IY+$30) ; Signal 'using channel 'K''.
+c$1634 SET 0,(IY+$02) ; Signal 'using lower screen' (set bit 0 of
+                      ; #R$5C3C(TV-FLAG)).
+ $1638 RES 5,(IY+$01) ; Signal 'ready for a key' (reset bit 5 of
+                      ; #R$5C3B(FLAGS)).
+ $163C SET 4,(IY+$30) ; Signal 'using channel 'K'' (set bit 4 of
+                      ; #R$5C6A(FLAGS2)).
  $1640 JR $1646       ; Jump forward.
 
 ; THE 'CHANNEL 'S' FLAG' SUBROUTINE
@@ -4710,10 +4728,12 @@ c$1634 SET 0,(IY+$02) ; Signal 'using lower screen'.
 ; The address of this routine is derived from an offset found in the
 ; #R$162D(channel code lookup table).
 @label=CHAN_S
-c$1642 RES 0,(IY+$02) ; Signal 'using main screen'.
+c$1642 RES 0,(IY+$02) ; Signal 'using main screen' (reset bit 0 of
+                      ; #R$5C3C(TV-FLAG)).
 ; This entry point is used by the routine at #R$1634.
 @label=CHAN_S_1
-*$1646 RES 1,(IY+$01) ; Signal 'printer not being used'.
+*$1646 RES 1,(IY+$01) ; Signal 'printer not being used' (reset bit 1 of
+                      ; #R$5C3B(FLAGS)).
  $164A JP $0D4D       ; Exit via #R$0D4D so as to set the colour system
                       ; variables.
 
@@ -4722,7 +4742,7 @@ c$1642 RES 0,(IY+$02) ; Signal 'using main screen'.
 ; The address of this routine is derived from an offset found in the
 ; #R$162D(channel code lookup table).
 @label=CHAN_P
-c$164D SET 1,(IY+$01) ; Signal 'printer in use'.
+c$164D SET 1,(IY+$01) ; Signal 'printer in use' (set bit 1 of #R$5C3B(FLAGS)).
  $1651 RET            ;
 
 ; THE 'MAKE-ROOM' SUBROUTINE
@@ -5201,13 +5221,16 @@ c$1793 JR $1725      ; Give this report.
 c$1795 LD ($5C3F),SP   ; The stack pointer is saved at #R$5C3F(LIST-SP)
                        ; allowing the machine stack to be reset when the
                        ; listing is finished (see #R$0C55).
- $1799 LD (IY+$02),$10 ; Signal 'automatic listing in the main screen'.
+ $1799 LD (IY+$02),$10 ; Signal 'automatic listing in the main screen' (set bit
+                       ; 4 of #R$5C3C(TV-FLAG) and reset all other bits).
  $179D CALL $0DAF      ; Clear this part of the screen.
- $17A0 SET 0,(IY+$02)  ; Switch to the editing area.
- $17A4 LD B,(IY+$31)   ; {Now clear the the lower part of the screen as well.
- $17A7 CALL $0E44      ; }
- $17AA RES 0,(IY+$02)  ; Then switch back.
- $17AE SET 0,(IY+$30)  ; Signal 'screen is clear'.
+ $17A0 SET 0,(IY+$02)  ; Switch to the editing area (set bit 0 of
+                       ; #R$5C3C(TV-FLAG)).
+ $17A4 LD B,(IY+$31)   ; {Now clear the the lower part of the screen as well
+ $17A7 CALL $0E44      ; (see #R$5C6B(DF-SZ)).}
+ $17AA RES 0,(IY+$02)  ; Then switch back (reset bit 0 of #R$5C3C(TV-FLAG)).
+ $17AE SET 0,(IY+$30)  ; Signal 'screen is clear' (set bit 0 of
+                       ; #R$5C6A(FLAGS2)).
  $17B2 LD HL,($5C49)   ; {Now fetch the the 'current' line number
  $17B5 LD DE,($5C6C)   ; (#R$5C49(E-PPC)) and the 'automatic' line number
                        ; (#R$5C6C(S-TOP)).}
@@ -5253,7 +5276,8 @@ c$1795 LD ($5C3F),SP   ; The stack pointer is saved at #R$5C3F(LIST-SP)
 @label=AUTO_L_4
 *$17ED CALL $1833      ; The listing is produced.
  $17F0 RES 4,(IY+$02)  ; {The return will be to here unless scrolling was
- $17F4 RET             ; needed to show the current line.}
+ $17F4 RET             ; needed to show the current line; reset bit 4 of
+                       ; #R$5C3C(TV-FLAG) before returning.}
 
 ; THE 'LLIST' ENTRY POINT
 ;
@@ -5274,7 +5298,8 @@ c$17F9 LD A,$02        ; Use stream +02.
 ; This entry point is used by the routine at #R$17F5.
 @label=LIST_1
 *$17FB LD (IY+$02),$00 ; Signal 'an ordinary listing in the main part of the
-                       ; screen'.
+                       ; screen' (reset bit 4 of #R$5C3C(TV-FLAG) and all other
+                       ; bits).
  $17FF CALL $2530      ; {Open the channel unless checking syntax.
  $1802 CALL NZ,$1601   ; }
  $1805 RST $18         ; {With the present character in the #REGa register see
@@ -5313,11 +5338,11 @@ c$17F9 LD A,$02        ; Use stream +02.
 @label=LIST_ALL_1
 *$1835 CALL $1855      ; Print the whole of a BASIC line.
  $1838 RST $10         ; This will be a 'carriage return'.
- $1839 BIT 4,(IY+$02)  ; {Jump back unless dealing with an automatic listing.
- $183D JR Z,$1835      ; }
+ $1839 BIT 4,(IY+$02)  ; {Jump back unless dealing with an automatic listing
+ $183D JR Z,$1835      ; (bit 4 of #R$5C3C(TV-FLAG) set).}
  $183F LD A,($5C6B)    ; {Also jump back if there is still part of the main
- $1842 SUB (IY+$4F)    ; screen that can be used.
- $1845 JR NZ,$1835     ; }
+ $1842 SUB (IY+$4F)    ; screen that can be used (#R$5C6B(DF-SZ) <>
+ $1845 JR NZ,$1835     ; #R$5C88(S-POSN-hi)).}
  $1847 XOR E           ; {A return can be made at this point if the screen is
  $1848 RET Z           ; full and the current line has been printed
                        ; (#REGe=+00).}
@@ -5363,22 +5388,25 @@ c$1855 LD BC,($5C49)  ; {Fetch the 'current' line number from #R$5C49(E-PPC)
  $1871 INC HL         ; {Move the pointer on to address the first command code
  $1872 INC HL         ; in the line.
  $1873 INC HL         ; }
- $1874 RES 0,(IY+$01) ; Signal 'leading space allowed'.
+ $1874 RES 0,(IY+$01) ; Signal 'leading space allowed' (reset bit 0 of
+                      ; #R$5C3B(FLAGS)).
  $1878 LD A,D         ; {Fetch the cursor code and jump forward unless the
  $1879 AND A          ; cursor is to be printed.
  $187A JR Z,$1881     ; }
  $187C RST $10        ; So print the cursor now.
 ; This entry point is used by the routine at #R$111D.
 @label=OUT_LINE2
-*$187D SET 0,(IY+$01) ; Signal 'no leading space now'.
+*$187D SET 0,(IY+$01) ; Signal 'no leading space now' (set bit 0 of
+                      ; #R$5C3B(FLAGS)).
 @label=OUT_LINE3
 *$1881 PUSH DE        ; Save the registers.
  $1882 EX DE,HL       ; Move the pointer to #REGde.
- $1883 RES 2,(IY+$30) ; Signal 'not in quotes'.
+ $1883 RES 2,(IY+$30) ; Signal 'not in quotes' (reset bit 2 of
+                      ; #R$5C6A(FLAGS2)).
  $1887 LD HL,$5C3B    ; This is #R$5C3B(FLAGS).
  $188A RES 2,(HL)     ; Signal 'print in K-mode'.
- $188C BIT 5,(IY+$37) ; {Jump forward unless in INPUT mode.
- $1890 JR Z,$1894     ; }
+ $188C BIT 5,(IY+$37) ; {Jump forward unless in INPUT mode (bit 5 of
+ $1890 JR Z,$1894     ; #R$5C71(FLAGX) set).}
  $1892 SET 2,(HL)     ; Signal 'print in L-mode'.
 ; Now enter a loop to print all the codes in the rest of the BASIC line -
 ; jumping over floating-point forms as necessary.
@@ -5483,8 +5511,8 @@ c$18E1 LD HL,($5C5B)  ; {Fetch the address of the cursor (#R$5C5B(K-CUR)) but
  $18FC JR Z,$1909     ; K-mode'.}
  $18FE SET 3,(HL)     ; The 'printing is to be in L-mode' so signal 'L-MODE'.
  $1900 INC A          ; Form the character 'L'.
- $1901 BIT 3,(IY+$30) ; {Jump forward if not in 'C-mode'.
- $1905 JR Z,$1909     ; }
+ $1901 BIT 3,(IY+$30) ; {Jump forward if not in 'C-mode' (bit 3 of
+ $1905 JR Z,$1909     ; #R$5C6A(FLAGS2) reset).}
  $1907 LD A,"C"       ; The character 'C'.
 @label=OUT_C_2
 *$1909 PUSH DE        ; {Save the #REGde register pair whilst the cursor is
@@ -5518,8 +5546,8 @@ c$190F LD E,(HL)      ; {The line number held by the system variable is
  $191B POP HL         ; The pointer to the system variable is restored.
 ; This entry point is used by the routine at #R$1059.
 @label=LN_STORE
-*$191C BIT 5,(IY+$37) ; {Return if in 'INPUT mode'.
- $1920 RET NZ         ; }
+*$191C BIT 5,(IY+$37) ; {Return if in 'INPUT mode' (bit 5 of #R$5C71(FLAGX)
+ $1920 RET NZ         ; set).}
  $1921 LD (HL),D      ; {Otherwise proceed to enter the line number into the
  $1922 DEC HL         ; two locations of the system variable.
  $1923 LD (HL),E      ; }
@@ -5557,15 +5585,17 @@ c$1925 LD A,E         ; The #REGa register will hold +20 for a space or +FF for
  $193A JR NC,$196C    ; Jump forward to print the digit.
  $193C CP $21         ; {Also print the control characters and 'space'.
  $193E JR C,$196C     ; }
- $1940 RES 2,(IY+$01) ; Signal 'print in K-mode'.
+ $1940 RES 2,(IY+$01) ; Signal 'print in K-mode' (reset bit 2 of
+                      ; #R$5C3B(FLAGS)).
  $1944 CP $CB         ; {Jump forward if dealing with the token 'THEN'.
  $1946 JR Z,$196C     ; }
  $1948 CP ":"         ; {Jump forward unless dealing with ':'.
  $194A JR NZ,$195A    ; }
- $194C BIT 5,(IY+$37) ; {Jump forward to print the ':' if in 'INPUT mode'.
- $1950 JR NZ,$1968    ; }
- $1952 BIT 2,(IY+$30) ; {Jump forward if the ':' is 'not in quotes', i.e. an
- $1956 JR Z,$196C     ; inter-statement marker.}
+ $194C BIT 5,(IY+$37) ; {Jump forward to print the ':' if in 'INPUT mode' (bit
+ $1950 JR NZ,$1968    ; 5 of #R$5C71(FLAGX) set).}
+ $1952 BIT 2,(IY+$30) ; {Jump forward if the ':' is 'not in quotes' (bit 2 of
+ $1956 JR Z,$196C     ; #R$5C6A(FLAGS2) reset), i.e. an inter-statement
+                      ; marker.}
  $1958 JR $1968       ; The ':' is inside quotes and can now be printed.
 @label=OUT_CH_1
 *$195A CP "\""        ; {Accept for printing all characters except '"'.
@@ -5577,7 +5607,8 @@ c$1925 LD A,E         ; The #REGa register will hold +20 for a space or +FF for
  $1964 LD ($5C6A),A   ; {Enter the amended value and restore the character
  $1967 POP AF         ; code.}
 @label=OUT_CH_2
-*$1968 SET 2,(IY+$01) ; Signal 'the next character is to be printed in L-mode'.
+*$1968 SET 2,(IY+$01) ; Signal 'the next character is to be printed in L-mode'
+                      ; (set bit 2 of #R$5C3B(FLAGS)).
 @label=OUT_CH_3
 *$196C RST $10        ; {The present character is printed before returning.
  $196D RET            ; }
@@ -6151,7 +6182,8 @@ b$1A48 DEFB $B1      ; #R$1AF9
 ; is used to point to each code of the statement as it occurs in the program
 ; area or the editing area.
 @label=LINE_SCAN
-c$1B17 RES 7,(IY+$01) ; Signal 'syntax checking'.
+c$1B17 RES 7,(IY+$01) ; Signal 'syntax checking' (reset bit 7 of
+                      ; #R$5C3B(FLAGS)).
  $1B1B CALL $19FB     ; #R$5C5D(CH-ADD) is made to point to the first code
                       ; after any line number.
  $1B1E XOR A          ; {The system variable #R$5C47(SUBPPC) is initialised to
@@ -6252,8 +6284,8 @@ c$1B76 CALL $1F54     ; The BREAK key is tested after every statement.
  $1B7C DEFB $14       ; }
 ; Continue here as the BREAK key was not pressed.
 @label=STMT_R_1
-*$1B7D BIT 7,(IY+$0A) ; {Jump forward if there is not a 'jump' to be made.
- $1B81 JR NZ,$1BF4    ; }
+*$1B7D BIT 7,(IY+$0A) ; {Jump forward if there is not a 'jump' to be made
+ $1B81 JR NZ,$1BF4    ; (#R$5C44(NSPPC) is +FF).}
  $1B83 LD HL,($5C42)  ; {Fetch the 'new line' number (#R$5C42(NEWPPC)) and jump
  $1B86 BIT 7,H        ; forward unless dealing with a further statement in the
  $1B88 JR Z,$1B9E     ; editing area.}
@@ -6390,7 +6422,7 @@ c$1BD1 LD ($5C55),HL   ; Set #R$5C55(NXTLIN) for use once the current line has
  $1BD5 LD ($5C5D),HL   ; before the first character to be considered.}
  $1BD8 LD D,A          ; The statement number is fetched.
  $1BD9 LD E,$00        ; The #REGe register is cleared in case #R$198B is used.
- $1BDB LD (IY+$0A),$FF ; Signal 'no jump'.
+ $1BDB LD (IY+$0A),$FF ; Signal 'no jump' by setting #R$5C44(NSPPC) to +FF.
  $1BDF DEC D           ; {The statement number minus one goes into
  $1BE0 LD (IY+$0D),D   ; #R$5C47(SUBPPC).}
  $1BE3 JP Z,$1B28      ; A first statement can now be considered.
@@ -6527,7 +6559,7 @@ c$1C1F CALL $28B2    ; Look in the variables area to determine whether or not
 @label=VAR_A_1
 c$1C22 LD (IY+$37),$00 ; Initialise #R$5C71(FLAGX) to +00.
  $1C26 JR NC,$1C30     ; Jump forward if the variable has been used before.
- $1C28 SET 1,(IY+$37)  ; Signal 'a new variable'.
+ $1C28 SET 1,(IY+$37)  ; Signal 'a new variable' (set bit 1 of #R$5C71(FLAGX)).
  $1C2C JR NZ,$1C46     ; Give an error if trying to use an 'undimensioned
                        ; array'.
 ; This entry point is used by the routines at #R$1DAB and #R$26C9.
@@ -6541,8 +6573,8 @@ c$1C22 LD (IY+$37),$00 ; Initialise #R$5C71(FLAGX) to +00.
 *$1C30 CALL Z,$2996    ; The parameters of simple string variables and all
                        ; array variables are passed to the calculator stack.
                        ; (#R$2996 will 'slice' a string if required.)
- $1C33 BIT 6,(IY+$01)  ; {Jump forward if handling a numeric variable.
- $1C37 JR NZ,$1C46     ; }
+ $1C33 BIT 6,(IY+$01)  ; {Jump forward if handling a numeric variable (bit 6 of
+ $1C37 JR NZ,$1C46     ; #R$5C3B(FLAGS) set).}
  $1C39 XOR A           ; Clear the #REGa register.
  $1C3A CALL $2530      ; {The parameters of the string or string array variable
  $1C3D CALL NZ,$2BF1   ; are fetched unless syntax is being checked.}
@@ -6655,8 +6687,8 @@ c$1C79 RST $20        ; Advance #R$5C5D(CH-ADD).
 ; This entry point allows for a single numeric expression to be evaluated.
 @label=CLASS_06
 *$1C82 CALL $24FB     ; Evaluate the next expression.
- $1C85 BIT 6,(IY+$01) ; {Return as long as the result was numeric; otherwise it
- $1C89 RET NZ         ; is an error.}
+ $1C85 BIT 6,(IY+$01) ; {Return as long as the result was numeric (bit 6 of
+ $1C89 RET NZ         ; #R$5C3B(FLAGS) set); otherwise it is an error.}
 ; This entry point is used by the routines at #R$04AA, #R$0605, #R$19FB,
 ; #R$1B28, #R$1B6F, #R$1BF4, #R$1C56, #R$1C6C, #R$1F60, #R$2089, #R$21E1,
 ; #R$2320, #R$250F, #R$2522, #R$25E8, #R$26C9, #R$27BD, #R$28B2, #R$2A52,
@@ -6674,9 +6706,9 @@ c$1C79 RST $20        ; Advance #R$5C5D(CH-ADD).
 ; This entry point allows for a single string expression to be evaluated.
 @label=CLASS_0A
 *$1C8C CALL $24FB     ; Evaluate the next expression.
- $1C8F BIT 6,(IY+$01) ; {This time return if the result indicates a string;
- $1C93 RET Z          ; otherwise give an error report.
- $1C94 JR $1C8A       ; }
+ $1C8F BIT 6,(IY+$01) ; {This time return if the result indicates a string (bit
+ $1C93 RET Z          ; 6 of #R$5C3B(FLAGS) reset); otherwise give an error
+ $1C94 JR $1C8A       ; report.}
 
 ; THE 'SET PERMANENT COLOURS' SUBROUTINE
 ;
@@ -6687,8 +6719,8 @@ c$1C79 RST $20        ; Advance #R$5C5D(CH-ADD).
 ; permanent. As command class 07 it is in effect the command routine for the
 ; six colour item commands.
 @label=CLASS_07
-c$1C96 BIT 7,(IY+$01) ; The syntax/run flag is read.
- $1C9A RES 0,(IY+$02) ; Signal 'main screen'.
+c$1C96 BIT 7,(IY+$01) ; The syntax/run flag (bit 7 of #R$5C3B(FLAGS)) is read.
+ $1C9A RES 0,(IY+$02) ; Signal 'main screen' (reset bit 0 of #R$5C3C(TV-FLAG)).
  $1C9E CALL NZ,$0D4D  ; Only during a 'run' call #R$0D4D to ensure the
                       ; temporary colours are the main screen colours.
  $1CA1 POP AF         ; Drop the return address #R$1B52.
@@ -6724,14 +6756,15 @@ c$1C96 BIT 7,(IY+$01) ; The syntax/run flag is read.
 @label=CLASS_09
 c$1CBE CALL $2530     ; {Jump forward if checking syntax.
  $1CC1 JR Z,$1CD6     ; }
- $1CC3 RES 0,(IY+$02) ; Signal 'main screen'.
+ $1CC3 RES 0,(IY+$02) ; Signal 'main screen' (reset bit 0 of #R$5C3C(TV-FLAG)).
  $1CC7 CALL $0D4D     ; Set the temporary colours for the main screen.
  $1CCA LD HL,$5C90    ; This is #R$5C90(MASK-T).
  $1CCD LD A,(HL)      ; {Fetch its present value but keep only its INK part
  $1CCE OR $F8         ; 'unmasked'.}
  $1CD0 LD (HL),A      ; Restore the value which now indicates 'FLASH 8; BRIGHT
                       ; 8; PAPER 8;'.
- $1CD1 RES 6,(IY+$57) ; Also ensure NOT 'PAPER 9'.
+ $1CD1 RES 6,(IY+$57) ; Also ensure NOT 'PAPER 9' (reset bit 6 of
+                      ; #R$5C91(P-FLAG)).
  $1CD5 RST $18        ; Fetch the present character before continuing to deal
                       ; with embedded colour items.
 @label=CL_09_1
@@ -6873,7 +6906,7 @@ c$1D03 CP $CD        ; {Jump forward unless a 'STEP' is given.
  $1D44 INC HL        ;
  $1D45 LD (HL),D     ; }
  $1D46 LD D,(IY+$0D) ; {The looping statement is always the next statement
- $1D49 INC D         ; whether it exists or not.
+ $1D49 INC D         ; whether it exists or not (increment #R$5C47(SUBPPC)).
  $1D4A INC HL        ;
  $1D4B LD (HL),D     ; }
 ; The #R$1DDA subroutine is called to test the possibility of a 'pass' and a
@@ -6881,7 +6914,7 @@ c$1D03 CP $CD        ; {Jump forward unless a 'STEP' is given.
 ; NEXT loop has to be identified.
  $1D4C CALL $1DDA    ; Is a 'pass' possible?
  $1D4F RET NC        ; Return now if it is.
- $1D50 LD B,(IY+$38) ; Fetch the variable's name.
+ $1D50 LD B,(IY+$38) ; Fetch the variable's name from #R$5C72(STRLEN).
  $1D53 LD HL,($5C45) ; {Copy the present line number (#R$5C45(PPC)) to
  $1D56 LD ($5C42),HL ; #R$5C42(NEWPPC).}
  $1D59 LD A,($5C47)  ; {Fetch the current statement number and two's complement
@@ -6969,7 +7002,7 @@ c$1D86 LD A,(HL)     ; Fetch the present character.
 ; it remains to change the VALUE as required.
 @label=NEXT
 c$1DAB BIT 1,(IY+$37) ; {Jump to give the error report if the variable was not
- $1DAF JP NZ,$1C2E    ; found.}
+ $1DAF JP NZ,$1C2E    ; found (bit 1 of #R$5C71(FLAGX) set).}
  $1DB2 LD HL,($5C4D)  ; {The address of the variable is fetched from
  $1DB5 BIT 7,(HL)     ; #R$5C4D(DEST) and the name tested further.
  $1DB7 JR Z,$1DD8     ; }
@@ -7338,8 +7371,8 @@ c$1EAC CALL $1E99    ; Fetch the operand - using zero by default.
 ; #R$5C47(SUBPPC) are stored on the GO SUB stack.
 @label=GO_SUB
 c$1EED POP DE        ; Save the address - #R$1B76.
- $1EEE LD H,(IY+$0D) ; {Fetch the statement number and increment it.
- $1EF1 INC H         ; }
+ $1EEE LD H,(IY+$0D) ; {Fetch the statement number (#R$5C47(SUBPPC)) and
+ $1EF1 INC H         ; increment it.}
  $1EF2 EX (SP),HL    ; Exchange the 'error address' with the statement number.
  $1EF3 INC SP        ; Reclaim the use of a location.
  $1EF4 LD BC,($5C45) ; {Next save the present line number (#R$5C45(PPC)).
@@ -7451,11 +7484,12 @@ c$1F3A CALL $1E99     ; Fetch the operand.
  $1F46 JR NZ,$1F49    ;
  $1F48 INC BC         ; }
 @label=PAUSE_2
-*$1F49 BIT 5,(IY+$01) ; {Jump back unless a key has been pressed.
- $1F4D JR Z,$1F3D     ; }
+*$1F49 BIT 5,(IY+$01) ; {Jump back unless a key has been pressed (bit 5 of
+ $1F4D JR Z,$1F3D     ; #R$5C3B(FLAGS) set).}
 ; The period of the pause has now finished.
 @label=PAUSE_END
-*$1F4F RES 5,(IY+$01) ; Signal 'no key pressed'.
+*$1F4F RES 5,(IY+$01) ; Signal 'no key pressed' (reset bit 5 of
+                      ; #R$5C3B(FLAGS)).
  $1F53 RET            ; Now return - to #R$1B76.
 
 ; THE 'BREAK-KEY' SUBROUTINE
@@ -7494,13 +7528,15 @@ c$1F60 CALL $2530     ; {Jump forward if checking syntax.
  $1F67 JP $1E39       ; }
 ; First consider the variable of the function.
 @label=DEF_FN_1
-*$1F6A SET 6,(IY+$01) ; Signal 'a numeric variable'.
+*$1F6A SET 6,(IY+$01) ; Signal 'a numeric variable' (set bit 6 of
+                      ; #R$5C3B(FLAGS)).
  $1F6E CALL $2C8D     ; Check that the present code is a letter.
  $1F71 JR NC,$1F89    ; Jump forward if not.
  $1F73 RST $20        ; Fetch the next character.
  $1F74 CP "$"         ; {Jump forward unless it is a '$'.
  $1F76 JR NZ,$1F7D    ; }
- $1F78 RES 6,(IY+$01) ; Change bit 6 as it is a string variable.
+ $1F78 RES 6,(IY+$01) ; Reset bit 6 of #R$5C3B(FLAGS) as it is a string
+                      ; variable.
  $1F7C RST $20        ; Fetch the next character.
 @label=DEF_FN_2
 *$1F7D CP "("         ; {A '(' must follow the variable's name.
@@ -7544,8 +7580,8 @@ c$1F60 CALL $2530     ; {Jump forward if checking syntax.
  $1FB3 PUSH AF        ; (bit 6 of #R$5C3B(FLAGS)).}
  $1FB4 CALL $24FB     ; Now consider the definition as an expression.
  $1FB7 POP AF         ; {Fetch the nature of the variable and check that it is
- $1FB8 XOR (IY+$01)   ; of the same type as found for the definition.
- $1FBB AND $40        ; }
+ $1FB8 XOR (IY+$01)   ; of the same type as found for the definition (specified
+ $1FBB AND $40        ; by bit 6 of #R$5C3B(FLAGS)).}
 @label=DEF_FN_7
 *$1FBD JP NZ,$1C8A    ; Give an error report if it is required.
  $1FC0 CALL $1BEE     ; Exit via #R$1BEE (thereby moving on to consider the
@@ -7670,7 +7706,8 @@ c$1FFC RST $18        ; The first character is fetched.
 ; The print item must now be an expression, either numeric or string.
  $202C CALL $24FB     ; {Evaluate the expression but return now if checking
  $202F CALL $1FC3     ; syntax.}
- $2032 BIT 6,(IY+$01) ; Test for the nature of the expression.
+ $2032 BIT 6,(IY+$01) ; Test for the nature of the expression (bit 6 of
+                      ; #R$5C3B(FLAGS)).
  $2036 CALL Z,$2BF1   ; {If it is a string then fetch the necessary parameters;
  $2039 JP NZ,$2DE3    ; but if it is numeric then exit via #R$2DE3.}
 ; A loop is now set up to deal with each character in turn of the string.
@@ -7773,8 +7810,8 @@ c$2089 CALL $2530      ; {Jump forward if syntax is being checked.
  $2090 CALL $1601      ; }
  $2093 CALL $0D6E      ; The lower part of the display is cleared.
 @label=INPUT_1
-*$2096 LD (IY+$02),$01 ; Signal that the lower screen is being handled. Reset
-                       ; all other bits.
+*$2096 LD (IY+$02),$01 ; Signal that the lower screen is being handled (set bit
+                       ; 0 of #R$5C3C(TV-FLAG) and reset all other bits).
  $209A CALL $20C1      ; Call the subroutine to deal with the INPUT items.
  $209D CALL $1BEE      ; Move on to the next statement if checking syntax.
  $20A0 LD BC,($5C88)   ; Fetch the current print position.
@@ -7788,7 +7825,8 @@ c$2089 CALL $2530      ; {Jump forward if syntax is being checked.
  $20B1 LD A,$19        ; {Now set the scroll counter (#R$5C8C(SCR-CT)).
  $20B3 SUB B           ;
  $20B4 LD ($5C8C),A    ; }
- $20B7 RES 0,(IY+$02)  ; Signal 'main screen'.
+ $20B7 RES 0,(IY+$02)  ; Signal 'main screen' (reset bit 0 of
+                       ; #R$5C3C(TV-FLAG)).
  $20BB CALL $0DD9      ; {Set the system variables and exit via #R$0D6E.
  $20BE JP $0D6E        ; }
 ; The INPUT items and embedded PRINT items are dealt with in turn by the
@@ -7812,16 +7850,18 @@ c$2089 CALL $2530      ; {Jump forward if syntax is being checked.
  $20DA JR NZ,$20ED     ; }
  $20DC RST $20         ; Advance #R$5C5D(CH-ADD).
  $20DD CALL $1C1F      ; Determine the destination address for the variable.
- $20E0 SET 7,(IY+$37)  ; Signal 'using INPUT LINE'.
- $20E4 BIT 6,(IY+$01)  ; {Give report C unless using a string variable.
- $20E8 JP NZ,$1C8A     ; }
+ $20E0 SET 7,(IY+$37)  ; Signal 'using INPUT LINE' (set bit 7 of
+                       ; #R$5C71(FLAGX)).
+ $20E4 BIT 6,(IY+$01)  ; {Give report C unless using a string variable (bit 6
+ $20E8 JP NZ,$1C8A     ; of #R$5C3B(FLAGS) reset).}
  $20EB JR $20FA        ; Jump forward to issue the prompt message.
 ; Proceed to handle simple INPUT variables.
 @label=IN_ITEM_3
 *$20ED CALL $2C8D      ; {Jump to consider going round the loop again if the
  $20F0 JP NC,$21AF     ; present character is not a letter.}
  $20F3 CALL $1C1F      ; Determine the destination address for the variable.
- $20F6 RES 7,(IY+$37)  ; Signal 'not INPUT LINE'.
+ $20F6 RES 7,(IY+$37)  ; Signal 'not INPUT LINE' (reset bit 7 of
+                       ; #R$5C71(FLAGX)).
 ; The prompt message is now built up in the work space.
 @label=IN_PROMPT
 *$20FA CALL $2530      ; {Jump forward if only checking syntax.
@@ -7857,8 +7897,8 @@ c$2089 CALL $2530      ; {Jump forward if syntax is being checked.
 ; In the case of INPUT LINE the EDITOR can be called without further
 ; preparation but for other types of INPUT the error stack has to be changed so
 ; as to trap errors.
- $212C BIT 7,(IY+$37)  ; {Jump forward with 'INPUT LINE'.
- $2130 JR NZ,$215E     ; }
+ $212C BIT 7,(IY+$37)  ; {Jump forward with 'INPUT LINE' (bit 7 of
+ $2130 JR NZ,$215E     ; #R$5C71(FLAGX) set).}
  $2132 LD HL,($5C5D)   ; {Save the current values of #R$5C5D(CH-ADD) and
  $2135 PUSH HL         ; #R$5C3D(ERR-SP) on the machine stack.
  $2136 LD HL,($5C3D)   ;
@@ -7868,7 +7908,7 @@ c$2089 CALL $2530      ; {Jump forward if syntax is being checked.
  $213A LD HL,$213A     ; {This will be the 'return point' in case of errors.
  $213D PUSH HL         ; }
  $213E BIT 4,(IY+$30)  ; {Only change the error stack pointer (#R$5C3D(ERR-SP))
- $2142 JR Z,$2148      ; if using channel 'K'.
+ $2142 JR Z,$2148      ; if using channel 'K' (bit 4 of #R$5C6A(FLAGS2) set).
  $2144 LD ($5C3D),SP   ; }
 @label=IN_VAR_2
 *$2148 LD HL,($5C61)   ; {Set #REGhl to the start of the INPUT line
@@ -7876,16 +7916,16 @@ c$2089 CALL $2530      ; {Jump forward if syntax is being checked.
                        ; (There will not be any except perhaps after an
                        ; error.)}
  $214E LD (IY+$00),$FF ; Signal 'no error yet' by resetting #R$5C3A(ERR-NR).
- $2152 CALL $0F2C      ; {Now get the INPUT and with the syntax/run flag
- $2155 RES 7,(IY+$01)  ; indicating syntax, check the INPUT for errors; jump if
- $2159 CALL $21B9      ; in order; return to #R$213A if not.
- $215C JR $2161        ; }
+ $2152 CALL $0F2C      ; {Now get the INPUT and with the syntax/run flag (bit 7
+ $2155 RES 7,(IY+$01)  ; of #R$5C3B(FLAGS)) indicating syntax, check the INPUT
+ $2159 CALL $21B9      ; for errors; jump if in order; return to #R$213A if
+ $215C JR $2161        ; not.}
 @label=IN_VAR_3
 *$215E CALL $0F2C      ; Get a 'LINE'.
 ; All the system variables have to be reset before the actual assignment of a
 ; value can be made.
 @label=IN_VAR_4
-*$2161 LD (IY+$22),$00 ; The cursor address is reset.
+*$2161 LD (IY+$22),$00 ; The cursor address (#R$5C5B(K-CUR)) is reset.
  $2165 CALL $21D6      ; {The jump is taken if using other than channel 'K'.
  $2168 JR NZ,$2174     ; }
  $216A CALL $111D      ; {The input-line is copied to the display and the
@@ -7902,8 +7942,8 @@ c$2089 CALL $2530      ; {Jump forward if syntax is being checked.
  $2181 LD ($5C3D),HL   ; }
  $2184 POP HL          ; {Save the original #R$5C5D(CH-ADD) address in
  $2185 LD ($5C5F),HL   ; #R$5C5F(X-PTR).}
- $2188 SET 7,(IY+$01)  ; {Now with the syntax/run flag indicating 'run' make
- $218C CALL $21B9      ; the assignment.}
+ $2188 SET 7,(IY+$01)  ; {Now with the syntax/run flag (bit 7 of
+ $218C CALL $21B9      ; #R$5C3B(FLAGS)) indicating 'run' make the assignment.}
  $218F LD HL,($5C5F)   ; {Restore the original address to #R$5C5D(CH-ADD) and
  $2192 LD (IY+$26),$00 ; clear #R$5C5F(X-PTR).
  $2196 LD ($5C5D),HL   ; }
@@ -8430,8 +8470,8 @@ c$2320 RST $18       ; Get the present character.
  $236C DEFB $02      ; #R$33A1: sa, sb, sa, sb, sb, sa
  $236D DEFB $38      ; #R$369B
 ; (Here sa denotes X+Z and sb denotes Y-Z*SIN (#pi/A).)
- $236E INC (IY+$62)  ; Incrementing the exponent byte of mem-2 sets mem-2 to
-                     ; 2*Z*SIN(#pi/A).
+ $236E INC (IY+$62)  ; Incrementing the exponent byte of #R$5C9C(mem-2) sets
+                     ; mem-2 to 2*Z*SIN(#pi/A).
  $2371 CALL $1E94    ; {The last value X+Z is moved from the stack to #REGa and
  $2374 LD L,A        ; copied to #REGl.}
  $2375 PUSH HL       ; It is saved in #REGhl.
@@ -9398,7 +9438,7 @@ c$268D CALL $2530     ; {Jump forward if a line is being executed.
 ; A numeric result has now been identified, coming from RND, PI, ATTR, POINT or
 ; a decimal number, therefore bit 6 of #R$5C3B(FLAGS) must be set.
 @label=S_NUMERIC
-*$26C3 SET 6,(IY+$01) ; Set the numeric marker flag.
+*$26C3 SET 6,(IY+$01) ; Set the numeric marker flag (bit 6 of #R$5C3B(FLAGS)).
  $26C7 JR $26DD       ; Jump forward.
 
 ; THE 'SCANNING VARIABLE' ROUTINE
@@ -9497,7 +9537,7 @@ c$26C9 CALL $28B2     ; Look in the existing variables for the matching entry.
 ; array or a slice of a string. A call to #R$2A52 modifies the parameters of
 ; the string as required.
  $2717 BIT 6,(IY+$01) ; {Jump forward if dealing with a numeric parenthesised
- $271B JR NZ,$2734    ; expression.}
+ $271B JR NZ,$2734    ; expression (bit 6 of #R$5C3B(FLAGS) set).}
  $271D CALL $2A52     ; Modify the parameters of the 'last value'.
  $2720 RST $20        ; {Move on to consider the next character.
  $2721 JR $2713       ; }
@@ -9567,9 +9607,9 @@ c$26C9 CALL $28B2     ; Look in the existing variables for the matching entry.
 ; operation under consideration.
 @label=S_SYNTEST
 *$275B LD A,E         ; Get the 'last' operation code.
- $275C XOR (IY+$01)   ; {This tests the nature of the 'last value' against the
- $275F AND $40        ; requirement of the operation. They are to be the same
-                      ; for correct syntax.}
+ $275C XOR (IY+$01)   ; {This tests the nature of the 'last value' (bit 6 of
+ $275F AND $40        ; #R$5C3B(FLAGS)) against the requirement of the
+                      ; operation. They are to be the same for correct syntax.}
 @label=S_RPORT_C_2
 *$2761 JP NZ,$1C8A    ; Jump if syntax fails.
 ; Before jumping back to go round the loop again the nature of the 'last value'
@@ -9592,7 +9632,7 @@ c$26C9 CALL $28B2     ; Look in the existing variables for the matching entry.
 *$2773 PUSH DE        ; The 'last' values go on the stack.
  $2774 LD A,C         ; Get the 'present' operation code.
  $2775 BIT 6,(IY+$01) ; {Do not modify the operation code if dealing with a
- $2779 JR NZ,$2790    ; numeric operand.}
+ $2779 JR NZ,$2790    ; numeric operand (bit 6 of #R$5C3B(FLAGS) set).}
  $277B AND $3F        ; Clear bits 6 and 7.
  $277D ADD A,$08      ; Increase the code by +08 hex.
  $277F LD C,A         ; Return the code to the #REGc register.
@@ -9785,8 +9825,8 @@ c$27BD CALL $2530    ; {Unless syntax is being checked, a jump is made to
  $2854 PUSH DE       ; Save the 'string status' of the argument.
  $2855 CALL $24FB    ; Now evaluate the argument.
  $2858 POP AF        ; Get the no./string flag into #REGa.
- $2859 XOR (IY+$01)  ; {Test bit 6 of it against the result of #R$24FB.
- $285C AND $40       ; }
+ $2859 XOR (IY+$01)  ; {Test bit 6 of it against the result of #R$24FB (bit 6
+ $285C AND $40       ; of #R$5C3B(FLAGS)).}
  $285E JR NZ,$288B   ; Give report Q if they did not match.
  $2860 POP HL        ; {Get the pointer to the first of the 5 spaces in DEF FN
  $2861 EX DE,HL      ; into #REGde.}
@@ -9885,7 +9925,8 @@ c$28AB INC HL        ; Point to the next code in the statement.
 ; O:F Zero flag reset if the variable is simple (not an array) and does not
 ; .   exist
 @label=LOOK_VARS
-c$28B2 SET 6,(IY+$01) ; Presume a numeric variable.
+c$28B2 SET 6,(IY+$01) ; Presume a numeric variable (set bit 6 of
+                      ; #R$5C3B(FLAGS)).
  $28B6 RST $18        ; Get the first character into #REGa.
  $28B7 CALL $2C8D     ; Is it alphabetic?
  $28BA JP NC,$1C8A    ; Give an error report if it is not so.
@@ -9913,7 +9954,7 @@ c$28B2 SET 6,(IY+$01) ; Presume a numeric variable.
 ; reset.
 @label=V_STR_VAR
 *$28DE RST $20        ; Step #R$5C5D(CH-ADD) past the '$'.
- $28DF RES 6,(IY+$01) ; Reset bit 6 to indicate a string.
+ $28DF RES 6,(IY+$01) ; Reset bit 6 of #R$5C3B(FLAGS) to indicate a string.
 ; If #R$5C0B(DEFADD-hi) is non-zero, indicating that a 'function' (a 'FN') is
 ; being evaluated, and if in 'run-time', a search will be made of the arguments
 ; in the DEF FN statement.
@@ -10317,7 +10358,7 @@ c$2996 XOR A          ; Clear the array flag.
 *$2A49 CP "("         ; Is It a '('?
  $2A4B JR Z,$2A45     ; Jump back if there is a 'slice' to be considered.
 ; When finished considering the last subscript a return can be made.
- $2A4D RES 6,(IY+$01) ; Signal - string result.
+ $2A4D RES 6,(IY+$01) ; Signal - string result (reset bit 6 of #R$5C3B(FLAGS)).
  $2A51 RET            ; Return with the parameters of the required string
                       ; forming a 'last value' on the calculator stack.
 
@@ -10413,7 +10454,8 @@ c$2A52 CALL $2530     ; Check the flag.
  $2AA7 LD C,L         ; }
 @label=SL_OVER
 *$2AA8 POP DE         ; Get the 'new start'.
- $2AA9 RES 6,(IY+$01) ; Ensure that a string is still indicated.
+ $2AA9 RES 6,(IY+$01) ; Ensure that a string is still indicated (reset bit 6 of
+                      ; #R$5C3B(FLAGS)).
 @label=SL_STORE
 *$2AAD CALL $2530     ; {Return at this point if checking syntax; otherwise
  $2AB0 RET Z          ; continue into #R$2AB1.}
@@ -10450,7 +10492,8 @@ c$2AB1 XOR A          ; Signal - a string from an array of strings or a
 ; This entry point is used by the routines at #R$2089, #R$2535, #R$25B3,
 ; #R$2634, #R$2996, #R$359C, #R$35C9, #R$361F and #R$3645.
 @label=STK_STO
-*$2AB2 RES 6,(IY+$01) ; Ensure the flag indicates a string result.
+*$2AB2 RES 6,(IY+$01) ; Ensure the flag indicates a string result (reset bit 6
+                      ; of #R$5C3B(FLAGS)).
 ; This entry point is used by the routines at #R$2D2B and #R$2DC1.
 @label=STK_STORE
 *$2AB6 PUSH BC        ; Save #REGb and #REGc briefly.
@@ -10585,8 +10628,8 @@ c$2AF4 CALL $2530    ; {Return directly if syntax is being checked.
 ; tested.
 @label=LET
 c$2AFF LD HL,($5C4D)  ; Fetch the present address in #R$5C4D(DEST).
- $2B02 BIT 1,(IY+$37) ; {Jump if handling a variable that 'exists already'.
- $2B06 JR Z,$2B66     ; }
+ $2B02 BIT 1,(IY+$37) ; {Jump if handling a variable that 'exists already' (bit
+ $2B06 JR Z,$2B66     ; 1 of #R$5C71(FLAGX) reset).}
 ; A 'newly declared variable' is being used. So first the length of its name is
 ; found.
 @keep
@@ -10683,8 +10726,8 @@ c$2AFF LD HL,($5C4D)  ; Fetch the present address in #R$5C4D(DEST).
 ; #R$5C3B(FLAGS) is tested so as to separate numeric variables from string or
 ; array of string variables.
 @label=L_EXISTS
-*$2B66 BIT 6,(IY+$01) ; {Jump forward if handling any kind of string variable.
- $2B6A JR Z,$2B72     ; }
+*$2B66 BIT 6,(IY+$01) ; {Jump forward if handling any kind of string variable
+ $2B6A JR Z,$2B72     ; (bit 6 of #R$5C3B(FLAGS) reset).}
 ; For numeric variables the 'new' number overwrites the 'old' number. So first
 ; #REGhl has to be made to point to the location after the five bytes of the
 ; existing entry. At present #REGhl points to the location before the five
@@ -10699,8 +10742,9 @@ c$2AFF LD HL,($5C4D)  ; Fetch the present address in #R$5C4D(DEST).
 *$2B72 LD HL,($5C4D)  ; Fetch the 'start' (#R$5C4D(DEST)). Note: this line is
                       ; redundant.
  $2B75 LD BC,($5C72)  ; Fetch the 'length'.
- $2B79 BIT 0,(IY+$37) ; {Jump if dealing with a complete simple string; the old
- $2B7D JR NZ,$2BAF    ; string will need to be 'deleted' in this case only.}
+ $2B79 BIT 0,(IY+$37) ; {Jump if dealing with a complete simple string (bit 0
+ $2B7D JR NZ,$2BAF    ; of #R$5C71(FLAGX) set); the old string will need to be
+                      ; 'deleted' in this case only.}
 ; When dealing with a 'slice' of an existing simple string, a 'slice' of a
 ; string from an array of strings or a complete string from an array of strings
 ; there are two distinct stages involved. The first is to build up the 'new'
@@ -11761,8 +11805,8 @@ c$2DE3 RST $28          ; Use the calculator.
  $2EBD SUB $09          ; zeros?}
  $2EBF JR C,$2ECB       ; If not, jump to get more digits.
  $2EC1 DEC (IY+$71)     ; Prepare to round: reduce count to 8.
- $2EC4 LD A,$04         ; {Compare 9th digit, byte 4 of mem-4, with 4 to set
- $2EC6 CP (IY+$6F)      ; carry for rounding up.}
+ $2EC4 LD A,$04         ; {Compare 9th digit, byte 4 of #R$5CA6(mem-4),
+ $2EC6 CP (IY+$6F)      ; with 4 to set carry for rounding up.}
  $2EC9 JR $2F0C         ; Jump forward to round up.
 @label=PF_MORE
 *$2ECB RST $28          ; Use the calculator again.
@@ -11803,7 +11847,7 @@ c$2DE3 RST $28          ; Use the calculator.
  $2EFA EXX              ; and #REGbc'.
  $2EFB POP BC           ; }
  $2EFC DJNZ $2EEF       ; Loop back once through the exchange registers.
- $2EFE LD HL,$5CA1      ; The start - 1st byte of mem-3.
+ $2EFE LD HL,$5CA1      ; The start - 1st byte of #R$5CA1(mem-3).
  $2F01 LD A,C           ; Result to #REGa for storing.
  $2F02 LD C,(IY+$71)    ; Count of digits so far in number to #REGc.
  $2F05 ADD HL,BC        ; Address the first empty byte.
@@ -11814,7 +11858,7 @@ c$2DE3 RST $28          ; Use the calculator.
 ; digits for printing.
 @label=PF_ROUND
 *$2F0C PUSH AF          ; Save the carry flag for the rounding.
- $2F0D LD HL,$5CA1      ; Base address of number: mem-3, byte 1.
+ $2F0D LD HL,$5CA1      ; Base address of number: #R$5CA1(mem-3), byte 1.
  $2F10 LD C,(IY+$71)    ; {Offset (number of digits in number) to #REGbc.
  $2F13 LD B,$00         ; }
  $2F15 ADD HL,BC        ; Address the last byte of the number.
@@ -14198,20 +14242,21 @@ c$35DE LD HL,($5C5D)  ; {The current value of #R$5C5D(CH-ADD) is preserved on
  $35F5 EX DE,HL       ; Switch the pointers.
  $35F6 DEC HL         ; {The extra byte is replaced by a 'carriage return'
  $35F7 LD (HL),$0D    ; character.}
- $35F9 RES 7,(IY+$01) ; {The syntax flag is reset and the string is scanned for
- $35FD CALL $24FB     ; correct syntax.}
+ $35F9 RES 7,(IY+$01) ; {The syntax flag (bit 7 of #R$5C3B(FLAGS)) is reset and
+ $35FD CALL $24FB     ; the string is scanned for correct syntax.}
  $3600 RST $18        ; The character after the string is fetched.
  $3601 CP $0D         ; A check is made that the end of the expression has been
                       ; reached.
  $3603 JR NZ,$360C    ; If not, the error is reported.
  $3605 POP HL         ; The starting address of the string is fetched.
  $3606 POP AF         ; {The 'flag' for 'val/val$' is fetched and bit 6 is
- $3607 XOR (IY+$01)   ; compared with bit 6 of the result of the syntax scan.
- $360A AND $40        ; }
+ $3607 XOR (IY+$01)   ; compared with bit 6 of the result (#R$5C3B(FLAGS)) of
+ $360A AND $40        ; the syntax scan.}
 @label=V_RPORT_C
 *$360C JP NZ,$1C8A    ; Report the error if they do not match.
  $360F LD ($5C5D),HL  ; Start address to #R$5C5D(CH-ADD) again.
- $3612 SET 7,(IY+$01) ; The flag is set for line execution.
+ $3612 SET 7,(IY+$01) ; The flag (bit 7 of #R$5C3B(FLAGS)) is set for line
+                      ; execution.
  $3616 CALL $24FB     ; The string is treated as a 'next expression' and a
                       ; 'last value' produced.
  $3619 POP HL         ; {The original value of #R$5C5D(CH-ADD) is restored.
@@ -16460,7 +16505,7 @@ g$5C91 DEFB $00
 ; MEMBOT - Calculator's memory area
 ;
 ; Used by the routines at #R$03F8, #R$0B24, #R$2320, #R$2D4F and #R$2DE3. The
-; 10th, 23rd, 25th and 26th bytes of this area are accessed by some routines
+; 11th, 24th, 26th and 27th bytes of this area are accessed by some routines
 ; via the #REGiy register at #iy+$62, #iy+$6F, #iy+$71 and #iy+$72.
 @label=MEMBOT
 g$5C92 DEFB $00,$00,$00,$00,$00
