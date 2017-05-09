@@ -272,7 +272,7 @@ u$0066 PUSH AF       ; {Save the current values held in these registers.
 ;
 ; O:A Code of the character at #R$5C5D(CH-ADD)+1
 @label=CH_ADD_1
-c$0074 LD HL,($5C5D) ; Fetch the address.
+c$0074 LD HL,($5C5D) ; Fetch the address from #R$5C5D(CH-ADD).
 ; This entry point is used by the routines at #R$1DEC and #R$268D.
 @label=TEMP_PTR1
 *$0077 INC HL        ; Increment the pointer.
@@ -677,8 +677,8 @@ c$02BF CALL $028E     ; {Fetch a key value in the #REGde register pair but
 ; set.
 @label=K_CH_SET
 *$02D1 LD A,L         ; {Fetch the low byte of the address and jump back if the
- $02D2 LD HL,$5C04    ; second set has still to be considered.
- $02D5 CP L           ;
+ $02D2 LD HL,$5C04    ; second set (#R$5C04(KSTATE4)) has still to be
+ $02D5 CP L           ; considered.
  $02D6 JR NZ,$02C6    ; }
 ; Return now if the key value indicates 'no-key' or a shift key only.
  $02D8 CALL $031E     ; {Make the necessary tests and return if needed. Also
@@ -689,7 +689,7 @@ c$02BF CALL $028E     ; {Fetch a key value in the #REGde register pair but
  $02DF CP (HL)        ; {Jump forward if the codes match - indicating a
  $02E0 JR Z,$0310     ; repeat.}
  $02E2 EX DE,HL       ; Save the address of #R$5C00(KSTATE0).
- $02E3 LD HL,$5C04    ; Now look at #R$5C00(KSTATE4).
+ $02E3 LD HL,$5C04    ; Now look at #R$5C04(KSTATE4).
  $02E6 CP (HL)        ; {Jump forward if the codes match - indicating a
  $02E7 JR Z,$0310     ; repeat.}
 ; But a new key will not be accepted unless one of the sets of #R$5C00(KSTATE)
@@ -1549,8 +1549,8 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
  $0614 JR Z,$0652      ; }
 @keep
  $0616 LD BC,$0011     ; {Allow seventeen locations for the header of a SAVE
- $0619 LD A,($5C74)    ; but thirty four for the other commands.
- $061C AND A           ;
+ $0619 LD A,($5C74)    ; (#R$5C74(T-ADDR-lo)=+00) but thirty four for the other
+ $061C AND A           ; commands.
  $061D JR Z,$0621      ;
  $061F LD C,$22        ; }
 @label=SA_SPACE
@@ -1573,8 +1573,8 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
  $0639 INC BC          ;
  $063A JR NC,$064B     ; }
  $063C LD A,($5C74)    ; {But allow for the LOADing, VERIFYing and MERGEing of
- $063F AND A           ; programs with 'null' names or extra long names.
- $0640 JR NZ,$0644     ; }
+ $063F AND A           ; programs (#R$5C74(T-ADDR-lo)>+00) with 'null' names or
+ $0640 JR NZ,$0644     ; extra long names.}
 ; Report F - Invalid file name.
  $0642 RST $08         ; {Call the error handling routine.
  $0643 DEFB $0E        ; }
@@ -1599,7 +1599,7 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
  $0653 CP $E4          ; }
  $0655 JR NZ,$06A0     ; Jump if not.
  $0657 LD A,($5C74)    ; {However it is not possible to have 'MERGE name
- $065A CP $03          ; DATA'.
+ $065A CP $03          ; DATA' (#R$5C74(T-ADDR-lo)=+03).
  $065C JP Z,$1C8A      ; }
  $065F RST $20         ; Advance #R$5C5D(CH-ADD).
  $0660 CALL $28B2      ; Look in the variables area for the array.
@@ -1607,7 +1607,7 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
  $0665 JR NC,$0672     ; Jump if handling an existing array.
 @keep
  $0667 LD HL,$0000     ; Signal 'using a new array'.
- $066A LD A,($5C74)    ; {Consider the value in #R$5C74(T-ADDR) and give an
+ $066A LD A,($5C74)    ; {Consider the value in #R$5C74(T-ADDR-lo) and give an
  $066D DEC A           ; error if trying to SAVE or VERIFY a new array.
  $066E JR Z,$0685      ; }
 ; Report 2 - Variable not found.
@@ -1653,7 +1653,7 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
 *$06A0 CP $AA          ; Is the present code the token SCREEN$?
  $06A2 JR NZ,$06C3     ; Jump if not.
  $06A4 LD A,($5C74)    ; {However it is not possible to have 'MERGE name
- $06A7 CP $03          ; SCREEN$'.
+ $06A7 CP $03          ; SCREEN$' (#R$5C74(T-ADDR-lo)=+03).
  $06A9 JP Z,$1C8A      ; }
  $06AC RST $20         ; Advance #R$5C5D(CH-ADD).
  $06AD CALL $1BEE      ; Move on to the next statement if checking syntax.
@@ -1668,13 +1668,13 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
 *$06C3 CP $AF          ; Is the present code the token 'CODE'?
  $06C5 JR NZ,$0716     ; Jump if not.
  $06C7 LD A,($5C74)    ; {However it is not possible to have 'MERGE name
- $06CA CP $03          ; CODE'.
+ $06CA CP $03          ; CODE' (#R$5C74(T-ADDR-lo)=+03).
  $06CC JP Z,$1C8A      ; }
  $06CF RST $20         ; Advance #R$5C5D(CH-ADD).
  $06D0 CALL $2048      ; {Jump forward if the statement has not finished.
  $06D3 JR NZ,$06E1     ; }
  $06D5 LD A,($5C74)    ; {However it is not possible to have 'SAVE name CODE'
- $06D8 AND A           ; by itself.
+ $06D8 AND A           ; (#R$5C74(T-ADDR-lo)=+00) by itself.
  $06D9 JP Z,$1C8A      ; }
  $06DC CALL $1CE6      ; Put a zero on the calculator stack - for the 'start'.
  $06DF JR $06F0        ; Jump forward.
@@ -1685,7 +1685,7 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
  $06E5 CP ","          ; }
  $06E7 JR Z,$06F5      ; Jump if it is - the number was a 'starting address'.
  $06E9 LD A,($5C74)    ; {However refuse 'SAVE name CODE' that does not have a
- $06EC AND A           ; 'start' and a 'length'.
+ $06EC AND A           ; 'start' and a 'length' (#R$5C74(T-ADDR-lo)=+00).
  $06ED JP Z,$1C8A      ; }
 @label=SA_CODE_2
 *$06F0 CALL $1CE6      ; Put a zero on the calculator stack - for the 'length'.
@@ -1720,8 +1720,8 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
  $0721 JR $073A        ; Jump forward.
 ; Fetch the 'line number' that must follow 'LINE'.
 @label=SA_LINE_1
-*$0723 LD A,($5C74)    ; {However only allow 'SAVE name LINE number'.
- $0726 AND A           ;
+*$0723 LD A,($5C74)    ; {However only allow 'SAVE name LINE number'
+ $0726 AND A           ; (#R$5C74(T-ADDR-lo)=+00).
  $0727 JP NZ,$1C8A     ; }
  $072A RST $20         ; Advance #R$5C5D(CH-ADD).
  $072B CALL $1C82      ; Pass the number to the calculator stack.
@@ -1762,8 +1762,8 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
 ; The routine continues with the first task being to separate SAVE from LOAD,
 ; VERIFY and MERGE.
 @label=SA_ALL
-*$075A LD A,($5C74)    ; {Jump forward when handling a SAVE command.
- $075D AND A           ;
+*$075A LD A,($5C74)    ; {Jump forward when handling a SAVE command
+ $075D AND A           ; (#R$5C74(T-ADDR-lo)=+00).
  $075E JP Z,$0970      ; }
 ; In the case of a LOAD, VERIFY or MERGE command the first seventeen bytes of
 ; the 'header area' in the work space hold the prepared information, as
@@ -1837,8 +1837,8 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
  $07B8 LD A,(IX+$00)   ; {'SCREEN$' and 'CODE' are handled with VERIFY.
  $07BB CP $03          ;
  $07BD JR Z,$07CB      ; }
- $07BF LD A,($5C74)    ; {Jump forward if using a LOAD command.
- $07C2 DEC A           ;
+ $07BF LD A,($5C74)    ; {Jump forward if using a LOAD command
+ $07C2 DEC A           ; (#R$5C74(T-ADDR-lo)=+01).
  $07C3 JP Z,$0808      ; }
  $07C6 CP $02          ; {Jump forward if using a MERGE command; continue into
  $07C8 JP Z,$08B6      ; #R$07CB with a VERIFY command.}
@@ -1879,9 +1879,9 @@ c$07CB PUSH HL       ; Save the 'pointer'.
 @label=VR_CONT_2
 *$07F4 PUSH HL       ; {Move the 'pointer' to the #REGix register pair.
  $07F5 POP IX        ; }
- $07F7 LD A,($5C74)  ; {Jump forward unless using the VERIFY command, with the
- $07FA CP $02        ; carry flag signalling 'LOAD'.
- $07FC SCF           ;
+ $07F7 LD A,($5C74)  ; {Jump forward unless using the VERIFY command
+ $07FA CP $02        ; (#R$5C74(T-ADDR-lo)=+02), with the carry flag signalling
+ $07FC SCF           ; 'LOAD'.
  $07FD JR NZ,$0800   ; }
  $07FF AND A         ; Signal 'VERIFY'.
 @label=VR_CONT_3
@@ -2016,7 +2016,7 @@ c$0808 LD E,(IX+$0B)   ; {Fetch the 'number of bytes' as given in the 'new
  $0888 PUSH BC         ; of the new data block.}
  $0889 CALL $1655      ; Make sufficient room available for the new program and
                        ; its variables.
- $088C LD IX,($5C5F)   ; Restore the #REGix register pair.
+ $088C LD IX,($5C5F)   ; Restore the #REGix register pair from #R$5C5F(X-PTR).
  $0890 INC HL          ; {The system variable #R$5C4B(VARS) has also to be set
  $0891 LD C,(IX+$0F)   ; for the new program.
  $0894 LD B,(IX+$10)   ;
@@ -2456,7 +2456,7 @@ c$0A6D LD DE,$0A87    ; {Save the first operand in #R$5C0E(TVDATA-hi) and
 @label=PO_1_OPER
  $0A7A LD DE,$0A87    ; The 'output' routine is to be changed to #R$0A87.
 @label=PO_TV_1
-*$0A7D LD ($5C0E),A   ; Save the control character code.
+*$0A7D LD ($5C0E),A   ; Save the control character code in #R$5C0E(TVDATA-hi).
 ; The current 'output' routine address is changed temporarily.
 @label=PO_CHANGE
 *$0A80 LD HL,($5C51)  ; #REGhl will point to the 'output' routine address
@@ -2470,8 +2470,8 @@ c$0A6D LD DE,$0A87    ; {Save the first operand in #R$5C0E(TVDATA-hi) and
 @label=PO_CONT
  $0A87 LD DE,$09F4    ; {Restore the original address for #R$09F4.
  $0A8A CALL $0A80     ; }
- $0A8D LD HL,($5C0E)  ; Fetch the control code and the first operand if there
-                      ; are indeed two operands.
+ $0A8D LD HL,($5C0E)  ; Fetch the control code and the first operand from
+                      ; #R$5C0E(TVDATA) if there are indeed two operands.
  $0A90 LD D,A         ; {The 'last' operand and the control code are moved.
  $0A91 LD A,L         ; }
  $0A92 CP $16         ; {Jump forward if handling INK to OVER.
@@ -2647,7 +2647,8 @@ c$0B24 CP $80         ; {Jump forward with ordinary character codes.
 ; The required character form is identified.
 @label=PO_CHAR
 *$0B65 PUSH BC        ; The current position is saved.
- $0B66 LD BC,($5C36)  ; The base address of the character area is fetched.
+ $0B66 LD BC,($5C36)  ; The base address of the character area is fetched
+                      ; (#R$5C36(CHARS)).
 @label=PO_CHAR_2
 *$0B6A EX DE,HL       ; The print address is saved.
  $0B6B LD HL,$5C3B    ; This is #R$5C3B(FLAGS).
@@ -3162,9 +3163,9 @@ c$0DAF LD HL,$0000     ; {The system variable #R$5C7D(COORDS) is reset to
  $0DC1 CALL $0D4D      ; Use the 'permanent' values.
  $0DC4 LD B,$18        ; {Now 'clear' the 24 lines of the display.
  $0DC6 CALL $0E44      ; }
- $0DC9 LD HL,($5C51)   ; {Ensure that the current output address is #R$09F4.
+ $0DC9 LD HL,($5C51)   ; {Ensure that the current output address
 @nowarn
- $0DCC LD DE,$09F4     ;
+ $0DCC LD DE,$09F4     ; (at (#R$5C51(CURCHL))) is #R$09F4.
  $0DCF LD (HL),E       ;
  $0DD0 INC HL          ;
  $0DD1 LD (HL),D       ; }
@@ -3571,7 +3572,8 @@ c$0F2C LD HL,($5C3D)  ; {The current value of #R$5C3D(ERR-SP) is saved on the
 @label=ED_AGAIN
 *$0F30 LD HL,$107F    ; This is #R$107F.
  $0F33 PUSH HL        ; {Any event that leads to the error handling routine
- $0F34 LD ($5C3D),SP  ; being used will come back to #R$107F.}
+ $0F34 LD ($5C3D),SP  ; (see #R$5C3D(ERR-SP)) being used will come back to
+                      ; #R$107F.}
 ; A loop is now entered to handle each keystroke.
 @label=ED_LOOP
  $0F38 CALL $15D4     ; Return once a key has been pressed.
@@ -3626,12 +3628,12 @@ c$0F2C LD HL,($5C3D)  ; {The current value of #R$5C3D(ERR-SP) is saved on the
 ; line.
 @label=ADD_CHAR
 *$0F81 RES 0,(IY+$07) ; Signal 'K mode' (reset bit 0 of #R$5C41(MODE)).
- $0F85 LD HL,($5C5B)  ; Fetch the cursor position.
+ $0F85 LD HL,($5C5B)  ; Fetch the cursor position (#R$5C5B(K-CUR)).
  $0F88 CALL $1652     ; Make a single space.
 @label=ADD_CH_1
-*$0F8B LD (DE),A      ; {Enter the code into the space and signal that the
- $0F8C INC DE         ; cursor is to occur at the location after. Then return
- $0F8D LD ($5C5B),DE  ; indirectly to #R$0F38.
+*$0F8B LD (DE),A      ; {Enter the code into the space and set #R$5C5B(K-CUR)
+ $0F8C INC DE         ; to signal that the cursor is to occur at the location
+ $0F8D LD ($5C5B),DE  ; after. Then return indirectly to #R$0F38.
  $0F91 RET            ; }
 ; The editing keys are dealt with as follows:
 @label=ED_KEYS
@@ -3644,8 +3646,8 @@ c$0F2C LD HL,($5C3D)  ; {The current value of #R$5C3D(ERR-SP) is saved on the
  $0F99 LD E,(HL)      ; }
  $0F9A ADD HL,DE      ; {The address of the handling routine is saved on the
  $0F9B PUSH HL        ; machine stack.}
- $0F9C LD HL,($5C5B)  ; {The #REGhl register pair is set and an indirect jump
- $0F9F RET            ; made to the required routine.}
+ $0F9C LD HL,($5C5B)  ; {The #REGhl register pair is set to #R$5C5B(K-CUR) and
+ $0F9F RET            ; an indirect jump made to the required routine.}
 
 ; THE 'EDITING KEYS' TABLE
 ;
@@ -3924,8 +3926,9 @@ c$10A8 BIT 3,(IY+$02) ; {Copy the edit-line or the INPUT-line to the screen if
  $10AF AND A          ; {Return with both carry and zero flags reset if no new
  $10B0 BIT 5,(IY+$01) ; key has been pressed (bit 5 of #R$5C3B(FLAGS) reset).
  $10B4 RET Z          ; }
- $10B5 LD A,($5C08)   ; {Otherwise fetch the code and signal that it has been
- $10B8 RES 5,(IY+$01) ; taken (reset bit 5 of #R$5C3B(FLAGS)).}
+ $10B5 LD A,($5C08)   ; {Otherwise fetch the code (#R$5C08(LAST-K)) and signal
+ $10B8 RES 5,(IY+$01) ; that it has been taken (reset bit 5 of #R$5C3B(FLAGS)).
+                      ; }
  $10BC PUSH AF        ; Save the code temporarily.
  $10BD BIT 5,(IY+$02) ; {Clear the lower part of the display if necessary (bit
  $10C1 CALL NZ,$0D6E  ; 5 of #R$5C3C(TV-FLAG) set), e.g. after 'scroll?'.}
@@ -4020,7 +4023,8 @@ c$111D CALL $0D4D      ; Use the permanent colours.
 @nowarn
  $1130 LD HL,$1167     ; This is #R$1167.
  $1133 PUSH HL         ; {Push this address on to the machine stack to make
- $1134 LD ($5C3D),SP   ; #R$1167 the entry point following an error.}
+ $1134 LD ($5C3D),SP   ; #R$1167 the entry point following an error (see
+                       ; #R$5C3D(ERR-SP)).}
  $1138 LD HL,($5C82)   ; {Push the value of #R$5C82(ECHO-E) on to the stack.
  $113B PUSH HL         ; }
  $113C SCF             ; {Make #REGhl point to the start of the space and
@@ -4036,8 +4040,8 @@ c$111D CALL $0D4D      ; Use the permanent colours.
 ; The remainder of any line that has been started is now completed with spaces
 ; printed with the 'permanent' PAPER colour.
 @label=ED_BLANK
-*$1150 LD A,($5C8B)    ; {Fetch the current line number and subtract the old
- $1153 SUB D           ; line number.}
+*$1150 LD A,($5C8B)    ; {Fetch the current line number from #R$5C8A(S-POSNL)
+ $1153 SUB D           ; and subtract the old line number.}
  $1154 JR C,$117C      ; Jump forward if no 'blanking' of lines required.
  $1156 JR NZ,$115E     ; Jump forward if not on the same line.
  $1158 LD A,E          ; {Fetch the old column number and subtract the new
@@ -4248,7 +4252,7 @@ c$11B7 DI              ; Disable the maskable interrupt.
  $1270 LD HL,$0523     ; {Initialise the system variables #R$5C09(REPDEL) and
  $1273 LD ($5C09),HL   ; #R$5C0A(REPPER).}
  $1276 DEC (IY-$3A)    ; Make #R$5C00(KSTATE0) hold +FF.
- $1279 DEC (IY-$36)    ; Make #R$5C00(KSTATE4) hold +FF.
+ $1279 DEC (IY-$36)    ; Make #R$5C04(KSTATE4) hold +FF.
  $127C LD HL,$15C6     ; {Next move the #R$15C6(initial stream data) from its
  $127F LD DE,$5C10     ; table to the #R$5C10(streams area).
 @keep
@@ -4333,8 +4337,8 @@ c$12A2 LD (IY+$31),$02 ; The lower part of the screen is to be two lines in
                        ; #R$5C3B(FLAGS)).
  $1308 BIT 1,(IY+$30)  ; {Empty the printer buffer if it has been used (bit 1
  $130C CALL NZ,$0ECD   ; of #R$5C6A(FLAGS2) set).}
- $130F LD A,($5C3A)    ; {Fetch the error number and increment it.
- $1312 INC A           ; }
+ $130F LD A,($5C3A)    ; {Fetch the error number (#R$5C3A(ERR-NR)) and
+ $1312 INC A           ; increment it.}
 ; This entry point is used by the routine at #R$1555.
 @label=MAIN_G
 *$1313 PUSH AF         ; Save the new value.
@@ -4344,8 +4348,8 @@ c$12A2 LD (IY+$31),$02 ; The lower part of the screen is to be two lines in
  $131A LD (IY+$26),H   ; zero.
  $131D LD ($5C0B),HL   ; }
 @keep
- $1320 LD HL,$0001     ; {Ensure that stream +00 points to channel 'K'.
- $1323 LD ($5C16),HL   ; }
+ $1320 LD HL,$0001     ; {Ensure that stream +00 points to channel 'K' (see
+ $1323 LD ($5C16),HL   ; #R$5C16(STRMS)).}
  $1326 CALL $16B0      ; Clear all the work areas and the calculator stack.
  $1329 RES 5,(IY+$37)  ; Signal 'editing mode' (reset bit 5 of #R$5C71(FLAGX)).
  $132D CALL $0D6E      ; Clear the lower screen.
@@ -4376,7 +4380,7 @@ c$12A2 LD (IY+$31),$02 ; The lower part of the screen is to be two lines in
  $135D LD B,$00        ; into the #REGbc register pair and print it.
  $135F CALL $1A1B      ; }
  $1362 CALL $1097      ; Clear the editing area.
- $1365 LD A,($5C3A)    ; Fetch the error number again.
+ $1365 LD A,($5C3A)    ; Fetch the error number (#R$5C3A(ERR-NR)) again.
  $1368 INC A           ; Increment it as usual.
  $1369 JR Z,$1386      ; If the program was completed successfully there cannot
                        ; be any 'CONTinuing' so jump.
@@ -4511,7 +4515,7 @@ c$155D LD ($5C49),BC ; Make the new line number the 'current line'
  $159B DEC HL        ; line in the editing area (#R$5C61(WORKSP)-2).
  $159C DEC HL        ; }
  $159D LDDR          ; Now copy over the line.
- $159F LD HL,($5C49) ; Fetch the line's number.
+ $159F LD HL,($5C49) ; Fetch the line's number (#R$5C49(E_PPC)).
  $15A2 EX DE,HL      ; Destination into #REGhl and number into #REGde.
  $15A3 POP BC        ; Fetch the new line's length.
  $15A4 LD (HL),B     ; {The high length byte.
@@ -4682,7 +4686,7 @@ c$1601 ADD A,A       ; {The value in the #REGa register is doubled and then
 ; HL Base address of the channel (see #R$5CB6(CHINFO))
 @label=CHAN_FLAG
 c$1615 LD ($5C51),HL  ; The #REGhl register pair holds the base address for a
-                      ; particular channel.
+                      ; particular channel; set #R$5C51(CURCHL) accordingly.
  $1618 RES 4,(IY+$30) ; Signal 'using other than channel 'K'' (reset bit 4 of
                       ; #R$5C6A(FLAGS2)).
  $161C INC HL         ; {Step past the output and the input addresses and make
@@ -4913,8 +4917,8 @@ c$169E LD HL,($5C63) ; {Fetch the current value of #R$5C63(STKBOT) and
 @label=SET_MIN
 c$16B0 LD HL,($5C59) ; Fetch #R$5C59(E-LINE).
  $16B3 LD (HL),$0D   ; {Make the editing area hold only the 'carriage return'
- $16B5 LD ($5C5B),HL ; character and the end marker.
- $16B8 INC HL        ;
+ $16B5 LD ($5C5B),HL ; character and the end marker, and set #R$5C5B(K-CUR)
+ $16B8 INC HL        ; accordingly
  $16B9 LD (HL),$80   ; }
  $16BB INC HL        ; {Reset #R$5C61(WORKSP) and move on to clear the work
  $16BC LD ($5C61),HL ; space.}
@@ -5269,8 +5273,8 @@ c$1795 LD ($5C3F),SP   ; The stack pointer is saved at #R$5C3F(LIST-SP)
 @label=AUTO_L_2
 *$17E1 LD ($5C6C),HL   ; When #R$5C49(E-PPC) is less than #R$5C6C(S-TOP).
 @label=AUTO_L_3
-*$17E4 LD HL,($5C6C)   ; {Fetch the top line's number and hence its address.
- $17E7 CALL $196E      ; }
+*$17E4 LD HL,($5C6C)   ; {Fetch the top line's number (#R$5C6C(S-TOP)) and
+ $17E7 CALL $196E      ; hence its address.}
  $17EA JR Z,$17ED      ; {If the line cannot be found use #REGde instead.
  $17EC EX DE,HL        ; }
 @label=AUTO_L_4
@@ -5604,8 +5608,8 @@ c$1925 LD A,E         ; The #REGa register will hold +20 for a space or +FF for
                       ; mode'.
  $195F LD A,($5C6A)   ; {Fetch #R$5C6A(FLAGS2) and flip bit 2.
  $1962 XOR $04        ; }
- $1964 LD ($5C6A),A   ; {Enter the amended value and restore the character
- $1967 POP AF         ; code.}
+ $1964 LD ($5C6A),A   ; {Enter the amended value into #R$5C6A(FLAGS2) and
+ $1967 POP AF         ; restore the character code.}
 @label=OUT_CH_2
 *$1968 SET 2,(IY+$01) ; Signal 'the next character is to be printed in L-mode'
                       ; (set bit 2 of #R$5C3B(FLAGS)).
@@ -5857,7 +5861,7 @@ c$19E5 CALL $19DD    ; Use the 'difference' subroutine to develop the
 ;
 ; O:BC Number of the line in the editing area (or +0000 if none)
 @label=E_LINE_NO
-c$19FB LD HL,($5C59) ; Pick up the pointer to the edit-line.
+c$19FB LD HL,($5C59) ; Pick up the pointer to the edit-line (#R$5C59(E-LINE)).
  $19FE DEC HL        ; {Set #R$5C5D(CH-ADD) to point to the location before any
  $19FF LD ($5C5D),HL ; number.}
  $1A02 RST $20       ; Pass the first code to the #REGa register.
@@ -6236,8 +6240,8 @@ c$1B28 RST $20       ; Advance #R$5C5D(CH-ADD) along the line.
                      ; #R$1A7A(parameter table) (#R$5C74(T-ADDR)).
 @label=GET_PARAM
 *$1B55 LD A,(HL)     ; Fetch each entry in turn.
- $1B56 INC HL        ; {Update the pointer to the entries for the next pass.
- $1B57 LD ($5C74),HL ; }
+ $1B56 INC HL        ; {Update the pointer to the entries (#R$5C74(T-ADDR)) for
+ $1B57 LD ($5C74),HL ; the next pass.}
 @nowarn
  $1B5A LD BC,$1B52   ; {Pre-load the machine stack with the return address
  $1B5D PUSH BC       ; #R$1B52.}
@@ -6304,8 +6308,8 @@ c$1B76 CALL $1F54     ; The BREAK key is tested after every statement.
 ; area that has more than one statement (bit 7 of #R$5C3B(FLAGS) will be
 ; reset).
 @label=LINE_RUN
-c$1B8A LD HL,$FFFE   ; {A line in the editing area is considered as line '-2'.
- $1B8D LD ($5C45),HL ; }
+c$1B8A LD HL,$FFFE   ; {A line in the editing area is considered as line '-2';
+ $1B8D LD ($5C45),HL ; set #R$5C45(PPC) accordingly}
  $1B90 LD HL,($5C61) ; {Make #REGhl point to the end marker of the editing area
  $1B93 DEC HL        ; (#R$5C61(WORKSP)-1) and #REGde to the location before
  $1B94 LD DE,($5C59) ; the start of that area (#R$5C59(E-LINE)-1).
@@ -6917,8 +6921,8 @@ c$1D03 CP $CD        ; {Jump forward unless a 'STEP' is given.
  $1D50 LD B,(IY+$38) ; Fetch the variable's name from #R$5C72(STRLEN).
  $1D53 LD HL,($5C45) ; {Copy the present line number (#R$5C45(PPC)) to
  $1D56 LD ($5C42),HL ; #R$5C42(NEWPPC).}
- $1D59 LD A,($5C47)  ; {Fetch the current statement number and two's complement
- $1D5C NEG           ; it.}
+ $1D59 LD A,($5C47)  ; {Fetch the current statement number (#R$5C47(SUBPPC))
+ $1D5C NEG           ; and two's complement it.}
  $1D5E LD D,A        ; Transfer the result to the #REGd register.
  $1D5F LD HL,($5C5D) ; Fetch the current value of #R$5C5D(CH-ADD).
  $1D62 LD E,$F3      ; The search will be for 'NEXT'.
@@ -6929,7 +6933,7 @@ c$1D03 CP $CD        ; {Jump forward unless a 'STEP' is given.
  $1D65 LD BC,($5C55) ; Fetch the current value of #R$5C55(NXTLIN).
  $1D69 CALL $1D86    ; The program area is now searched and #REGbc will change
                      ; with each new line examined.
- $1D6C LD ($5C55),BC ; Upon return save the pointer.
+ $1D6C LD ($5C55),BC ; Upon return save the pointer at #R$5C55(NXTLIN).
  $1D70 POP BC        ; Restore the variable's name.
  $1D71 JR C,$1D84    ; If there are no further NEXTs then give an error.
  $1D73 RST $20       ; Advance past the NEXT that was found.
@@ -7106,8 +7110,8 @@ c$1DEC RST $20         ; Come here on each pass, after the first, to move along
  $1E0D CALL $1C56      ; Fetch the value and assign it to the variable.
  $1E10 RST $18         ; {Fetch the current value of #R$5C5D(CH-ADD) and store
  $1E11 LD ($5C57),HL   ; it in #R$5C57(DATADD).}
- $1E14 LD HL,($5C5F)   ; {Fetch the pointer to the READ statement and clear
- $1E17 LD (IY+$26),$00 ; #R$5C5F(X-PTR).}
+ $1E14 LD HL,($5C5F)   ; {Fetch the pointer to the READ statement from
+ $1E17 LD (IY+$26),$00 ; #R$5C5F(X-PTR) and clear it.}
  $1E1B CALL $0078      ; Make #R$5C5D(CH-ADD) once again point to the READ
                        ; statement.
 @label=READ_2
@@ -7814,9 +7818,9 @@ c$2089 CALL $2530      ; {Jump forward if syntax is being checked.
                        ; 0 of #R$5C3C(TV-FLAG) and reset all other bits).
  $209A CALL $20C1      ; Call the subroutine to deal with the INPUT items.
  $209D CALL $1BEE      ; Move on to the next statement if checking syntax.
- $20A0 LD BC,($5C88)   ; Fetch the current print position.
+ $20A0 LD BC,($5C88)   ; Fetch the current print position (#R$5C88(S-POSN)).
  $20A4 LD A,($5C6B)    ; {Jump forward if the current position is above the
- $20A7 CP B            ; lower screen.
+ $20A7 CP B            ; lower screen (see #R$5C6B(DF-SZ)).
  $20A8 JR C,$20AD      ; }
  $20AA LD C,$21        ; {Otherwise set the print position to the top of the
  $20AC LD B,A          ; lower screen.}
@@ -7893,7 +7897,8 @@ c$2089 CALL $2530      ; {Jump forward if syntax is being checked.
  $2127 DEC HL          ;
  $2128 LD (HL),A       ; }
 @label=IN_PR_3
-*$2129 LD ($5C5B),HL   ; The position of the cursor can now be saved.
+*$2129 LD ($5C5B),HL   ; The position of the cursor (#R$5C5B(K-CUR)) can now be
+                       ; saved.
 ; In the case of INPUT LINE the EDITOR can be called without further
 ; preparation but for other types of INPUT the error stack has to be changed so
 ; as to trap errors.
@@ -7978,8 +7983,8 @@ c$21B9 LD HL,($5C61) ; {Set #R$5C5D(CH-ADD) to point to the first location of
  $21BF RST $18       ; character.}
  $21C0 CP $E2        ; Is it a 'STOP'?
  $21C2 JR Z,$21D0    ; Jump if it is.
- $21C4 LD A,($5C71)  ; {Otherwise make the assignment of the 'value' to the
- $21C7 CALL $1C59    ; variable.}
+ $21C4 LD A,($5C71)  ; {Otherwise pick up #R$5C71(FLAGX) and make the
+ $21C7 CALL $1C59    ; assignment of the 'value' to the variable.}
  $21CA RST $18       ; {Get the present character and check it is a 'carriage
  $21CB CP $0D        ; return'.}
  $21CD RET Z         ; Return if it is.
@@ -8659,15 +8664,15 @@ c$2382 RST $18       ; Get the current character.
  $2405 RST $28       ; stack.}
  $2406 DEFB $01      ; #R$343C: Y, X
  $2407 DEFB $38      ; #R$369B
- $2408 LD A,($5C7D)  ; {Get X0 into #REGa and so on to the stack.
- $240B CALL $2D28    ; }
+ $2408 LD A,($5C7D)  ; {Get X0 from #R$5C7D(COORDS) into #REGa and so on to the
+ $240B CALL $2D28    ; stack.}
  $240E RST $28       ; Y, X, X0
  $240F DEFB $C0      ; #R$342D(st_mem_0): (X0 is copied to mem-0).
  $2410 DEFB $0F      ; #R$3014: Y, X0+X
  $2411 DEFB $01      ; #R$343C: X0+X, Y
  $2412 DEFB $38      ; #R$369B
- $2413 LD A,($5C7E)  ; {Get Y0 into #REGa and so on to the stack.
- $2416 CALL $2D28    ; }
+ $2413 LD A,($5C7E)  ; {Get Y0 from #R$5C7D(COORDS) into #REGa and so on to the
+ $2416 CALL $2D28    ; stack.}
  $2419 RST $28       ; X0+X, Y, Y0
  $241A DEFB $C5      ; #R$342D(st_mem_5): (Y0 is copied to mem-5).
  $241B DEFB $0F      ; #R$3014: X0+X, Y0+Y
@@ -8728,8 +8733,8 @@ c$2382 RST $18       ; Get the current character.
  $243F DEFB $31      ; #R$33C0: X0+X, Y0+Y, Xn+1, Xn+1
  $2440 DEFB $38      ; #R$369B
  $2441 LD A,($5C7D)  ; {Next Xn', the approximate value of Xn reached by the
- $2444 CALL $2D28    ; line-drawing subroutine is copied to #REGa and hence to
-                     ; the stack.}
+ $2444 CALL $2D28    ; line-drawing subroutine is copied from #R$5C7D(COORDS)
+                     ; to #REGa and hence to the stack.}
  $2447 RST $28       ; X0+X, Y0+Y, Xn+1, Xn'
  $2448 DEFB $03      ; #R$300F: X0+X, Y0+Y, Xn+1, Xn+1, Xn'-Xn'=Un'
  $2449 DEFB $E0      ; #R$340F(get_mem_0): X0+X, Y0+Y, Xn+1, Un', Yn
@@ -8739,8 +8744,8 @@ c$2382 RST $18       ; Get the current character.
  $244D DEFB $01      ; #R$343C: X0+X, Y0+Y, Xn+1, Yn+1, Un'
  $244E DEFB $E0      ; #R$340F(get_mem_0): X0+X, Y0+Y, Xn+1, Yn+1, Un', Yn+1
  $244F DEFB $38      ; #R$369B
- $2450 LD A,($5C7E)  ; {Yn', approximate like Xn', is copied to #REGa and hence
- $2453 CALL $2D28    ; to the stack.}
+ $2450 LD A,($5C7E)  ; {Yn', approximate like Xn', is copied from
+ $2453 CALL $2D28    ; #R$5C7D(COORDS) to #REGa and hence to the stack.}
  $2456 RST $28       ; X0+X, Y0+Y, Xn+1, Yn+1, Un', Yn+1, Yn'
  $2457 DEFB $03      ; #R$300F: X0+X, Y0+Y, Xn+1, Yn+1, Un', Vn'
  $2458 DEFB $38      ; #R$369B
@@ -8754,13 +8759,14 @@ c$2382 RST $18       ; Get the current character.
  $2462 DEFB $01      ; #R$343C: Y0+Y, X0+X
  $2463 DEFB $38      ; #R$369B
  $2464 LD A,($5C7D)  ; {The X-co-ordinate of the end of the last arc that was
- $2467 CALL $2D28    ; drawn, say Xz', is copied to the stack.}
+ $2467 CALL $2D28    ; drawn, say Xz', is copied from #R$5C7D(COORDS) to the
+                     ; stack.}
  $246A RST $28       ;
  $246B DEFB $03      ; #R$300F: Y0+Y, X0+X-Xz'
  $246C DEFB $01      ; #R$343C: X0+X-Xz', Y0+Y
  $246D DEFB $38      ; #R$369B
- $246E LD A,($5C7E)  ; {The Y-co-ordinate is obtained.
- $2471 CALL $2D28    ; }
+ $246E LD A,($5C7E)  ; {The Y-co-ordinate is obtained from #R$5C7D(COORDS) and
+ $2471 CALL $2D28    ; stacked.}
  $2474 RST $28       ; X0+X-Xz', Y0+Y, Yz'
  $2475 DEFB $03      ; #R$300F: X0+X-Xz', Y0+Y-Yz'
  $2476 DEFB $38      ; #R$369B
@@ -10101,8 +10107,8 @@ c$28B2 SET 6,(IY+$01) ; Presume a numeric variable (set bit 6 of
 ; there is no need to call #R$2996. But it is left to #R$26C9 to stack the
 ; value of a numerical variable at #R$26DA(#N$26DA) in the usual way.
 @label=STK_F_ARG
-c$2951 LD HL,($5C0B) ; {Point to the first character in the arguments area and
- $2954 LD A,(HL)     ; put it into #REGa.}
+c$2951 LD HL,($5C0B) ; {Point to the first character in the arguments area
+ $2954 LD A,(HL)     ; (#R$5C0B(DEFADD)) and put it into #REGa.}
  $2955 CP ")"        ; Is it a ')'?
  $2957 JP Z,$28EF    ; Jump to search the variables area.
 @label=SFA_LOOP
@@ -10741,7 +10747,7 @@ c$2AFF LD HL,($5C4D)  ; Fetch the present address in #R$5C4D(DEST).
 @label=L_DELETE
 *$2B72 LD HL,($5C4D)  ; Fetch the 'start' (#R$5C4D(DEST)). Note: this line is
                       ; redundant.
- $2B75 LD BC,($5C72)  ; Fetch the 'length'.
+ $2B75 LD BC,($5C72)  ; Fetch the 'length' (#R$5C72(STRLEN)).
  $2B79 BIT 0,(IY+$37) ; {Jump if dealing with a complete simple string (bit 0
  $2B7D JR NZ,$2BAF    ; of #R$5C71(FLAGX) set); the old string will need to be
                       ; 'deleted' in this case only.}
@@ -11695,7 +11701,7 @@ c$2DE3 RST $28          ; Use the calculator.
  $2E2D LD D,A           ; is performed (LOG is to base 10); i.e. #REGa=n, say:
                         ; n is copied from #REGa to #REGd.}
  $2E2E LD A,($5CAC)     ; {The current count is collected from the second byte
- $2E31 SUB D            ; of mem-5 and n is subtracted from it.
+ $2E31 SUB D            ; of #R$5CAB(mem-5) and n is subtracted from it.
  $2E32 LD ($5CAC),A     ; }
  $2E35 LD A,D           ; n is copied from #REGd to #REGa.
  $2E36 CALL $2D4F       ; y=f*10#powern is formed and stacked.
@@ -11708,16 +11714,16 @@ c$2DE3 RST $28          ; Use the calculator.
  $2E3F DEFB $38         ; #R$369B: i, f2, i2 (f2=y-i2)
  $2E40 CALL $2DD5       ; i2 is transferred from the stack to #REGa.
  $2E43 PUSH HL          ; The pointer to f2 is saved.
- $2E44 LD ($5CA1),A     ; i2 is stored in the first byte of mem-3: a digit for
-                        ; printing.
+ $2E44 LD ($5CA1),A     ; i2 is stored in the first byte of #R$5CA1(mem-3): a
+                        ; digit for printing.
  $2E47 DEC A            ; {i2 will not count as a digit for printing if it is
  $2E48 RLA              ; zero; #REGa is manipulated so that zero will produce
  $2E49 SBC A,A          ; zero but a non-zero digit will produce 1.
  $2E4A INC A            ; }
  $2E4B LD HL,$5CAB      ; {The zero or one is inserted into the first byte of
- $2E4E LD (HL),A        ; mem-5 (the number of digits for printing) and added
- $2E4F INC HL           ; to the second byte of mem-5 (the number of digits
- $2E50 ADD A,(HL)       ; before the decimal).
+ $2E4E LD (HL),A        ; #R$5CAB(mem-5) (the number of digits for printing)
+ $2E4F INC HL           ; and added to the second byte of mem-5 (the number of
+ $2E50 ADD A,(HL)       ; digits before the decimal).
  $2E51 LD (HL),A        ; }
  $2E52 POP HL           ; The pointer to f2 is restored.
  $2E53 JP $2ECF         ; Jump to store f2 in buffer (#REGhl now points to f2,
@@ -11732,9 +11738,9 @@ c$2DE3 RST $28          ; Use the calculator.
  $2E5C CALL $2DC1       ; n is formed in #REGa.
  $2E5F SUB $07          ; And reduced to n-7.
  $2E61 LD B,A           ; Then copied to #REGb.
- $2E62 LD HL,$5CAC      ; {n-7 is added in to the second byte of mem-5, the
- $2E65 ADD A,(HL)       ; number of digits required before the decimal in x.
- $2E66 LD (HL),A        ; }
+ $2E62 LD HL,$5CAC      ; {n-7 is added in to the second byte of
+ $2E65 ADD A,(HL)       ; #R$5CAB(mem-5), the number of digits required before
+ $2E66 LD (HL),A        ; the decimal in x.}
  $2E67 LD A,B           ; {Then i is multiplied by 10#power(-n+7). This will
  $2E68 NEG              ; bring it into medium range for printing.
  $2E6A CALL $2D4F       ; }
@@ -11761,8 +11767,8 @@ c$2DE3 RST $28          ; Use the calculator.
  $2E80 RL E             ;
  $2E82 RL D             ; }
  $2E84 EXX              ; Back to the main registers.
- $2E85 LD HL,$5CAA      ; {Address of fifth byte of mem-4 to #REGhl; count of 5
- $2E88 LD C,$05         ; bytes to #REGc.}
+ $2E85 LD HL,$5CAA      ; {Address of fifth byte of #R$5CA6(mem-4) to #REGhl;
+ $2E88 LD C,$05         ; count of 5 bytes to #REGc.}
 @label=PF_BYTES
 *$2E8A LD A,(HL)        ; Get the byte of mem-4.
  $2E8B ADC A,A          ; Shift it left, taking in the new bit.
@@ -11776,8 +11782,8 @@ c$2DE3 RST $28          ; Use the calculator.
 ; being at most 9 digits. The digits will now be re-packed, one to a byte, in
 ; mem-3 and mem-4, using the instruction '#S/RLD/'.
  $2E94 XOR A            ; #REGa is cleared to receive the digits.
- $2E95 LD HL,$5CA6      ; Source address: first byte of mem-4.
- $2E98 LD DE,$5CA1      ; Destination: first byte of mem-3.
+ $2E95 LD HL,$5CA6      ; Source address: first byte of #R$5CA6(mem-4).
+ $2E98 LD DE,$5CA1      ; Destination: first byte of #R$5CA1(mem-3).
  $2E9B LD B,$09         ; There are at most 9 digits.
  $2E9D RLD              ; The left nibble of mem-4 is discarded.
  $2E9F LD C,$FF         ; FF in #REGc will signal a leading zero, 00 will
@@ -11801,8 +11807,8 @@ c$2DE3 RST $28          ; Use the calculator.
  $2EB7 INC HL           ; }
 @label=PF_ALL_9
 *$2EB8 DJNZ $2EA1       ; Jump back for all 9 digits.
- $2EBA LD A,($5CAB)     ; {Get counter: were there 9 digits excluding leading
- $2EBD SUB $09          ; zeros?}
+ $2EBA LD A,($5CAB)     ; {Get counter from the first byte of #R$5CAB(mem-5):
+ $2EBD SUB $09          ; were there 9 digits excluding leading zeros?}
  $2EBF JR C,$2ECB       ; If not, jump to get more digits.
  $2EC1 DEC (IY+$71)     ; Prepare to round: reduce count to 8.
  $2EC4 LD A,$04         ; {Compare 9th digit, byte 4 of #R$5CA6(mem-4),
@@ -11891,8 +11897,10 @@ c$2DE3 RST $28          ; Use the calculator.
 ; viii. The number can now be printed. First #REGc will be set to hold the
 ; number of digits to be printed, not counting final zeros, while #REGb will
 ; hold the number of digits required before the decimal.
- $2F36 LD BC,($5CAB)    ; The counters are set.
- $2F3A LD HL,$5CA1      ; The start of the digits.
+ $2F36 LD BC,($5CAB)    ; The counters are set (first two bytes of
+                        ; #R$5CAB(mem-5)).
+ $2F3A LD HL,$5CA1      ; The start of the digits (first byte of
+                        ; #R$5CA1(mem-3)).
  $2F3D LD A,B           ; {If more than 9, or fewer than minus 4, digits are
  $2F3E CP $09           ; required before the decimal, then E-format will be
  $2F40 JR C,$2F46       ; needed.}
@@ -15913,7 +15921,8 @@ i$4000 DEFS $1C00
 ; KSTATE0 (#N$5C00) and KSTATE4 (#N$5C04) are accessed by the routine at
 ; #R$11B7 via the #REGiy register at #iy-$3A and #iy-$36.
 @label=KSTATE
-g$5C00 DEFB $FF,$00,$00,$00,$FF,$00,$00,$00
+g$5C00 DEFB $FF,$00,$00,$00
+ $5C04 DEFB $FF,$00,$00,$00
 
 ; LAST-K - Last key pressed
 ;
@@ -16508,12 +16517,12 @@ g$5C91 DEFB $00
 ; 11th, 24th, 26th and 27th bytes of this area are accessed by some routines
 ; via the #REGiy register at #iy+$62, #iy+$6F, #iy+$71 and #iy+$72.
 @label=MEMBOT
-g$5C92 DEFB $00,$00,$00,$00,$00
- $5C97 DEFB $00,$00,$00,$00,$00
- $5C9C DEFB $00,$00,$00,$00,$00
- $5CA1 DEFB $00,$00,$00,$00,$00
- $5CA6 DEFB $00,$00,$00,$00,$00
- $5CAB DEFB $00,$00,$00,$00,$00
+g$5C92 DEFB $00,$00,$00,$00,$00 ; mem-0
+ $5C97 DEFB $00,$00,$00,$00,$00 ; mem-1
+ $5C9C DEFB $00,$00,$00,$00,$00 ; mem-2
+ $5CA1 DEFB $00,$00,$00,$00,$00 ; mem-3
+ $5CA6 DEFB $00,$00,$00,$00,$00 ; mem-4
+ $5CAB DEFB $00,$00,$00,$00,$00 ; mem-5
 
 ; NMIADD - Non-maskable interrupt address
 ;
