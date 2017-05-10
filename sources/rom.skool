@@ -675,6 +675,7 @@ c$02BF CALL $028E     ; {Fetch a key value in the #REGde register pair but
 ; set.
 @label=K_CH_SET
 *$02D1 LD A,L         ; {Fetch the low byte of the address and jump back if the
+@ssub=LD HL,$5C00+4
  $02D2 LD HL,$5C04    ; second set (#R$5C04(KSTATE4)) has still to be
  $02D5 CP L           ; considered.
  $02D6 JR NZ,$02C6    ; }
@@ -687,6 +688,7 @@ c$02BF CALL $028E     ; {Fetch a key value in the #REGde register pair but
  $02DF CP (HL)        ; {Jump forward if the codes match - indicating a
  $02E0 JR Z,$0310     ; repeat.}
  $02E2 EX DE,HL       ; Save the address of #R$5C00(KSTATE0).
+@ssub=LD HL,$5C00+4
  $02E3 LD HL,$5C04    ; Now look at #R$5C04(KSTATE4).
  $02E6 CP (HL)        ; {Jump forward if the codes match - indicating a
  $02E7 JR Z,$0310     ; repeat.}
@@ -2435,6 +2437,7 @@ c$0A69 LD A,"?"      ; The character '?'.
 @nowarn
 @label=PO_TV_2
 c$0A6D LD DE,$0A87    ; {Save the first operand in #R$5C0E(TVDATA-hi) and
+@ssub=LD ($5C0E+1),A
  $0A70 LD ($5C0F),A   ; change the address of the 'output' routine to #R$0A87.
  $0A73 JR $0A80       ; }
 ; The address of this entry point is derived from an offset found in the
@@ -3030,6 +3033,7 @@ c$0C55 BIT 1,(IY+$01)    ; {Return immediately if the printer is being used
  $0D21 LD A,B            ; #REGb register set to hold the former value and the
  $0D22 INC A             ; #REGa register the new value.
  $0D23 LD (HL),A         ; }
+@ssub=LD HL,$5C88+1
  $0D24 LD HL,$5C89       ; This is #R$5C88(S-POSN-hi).
  $0D27 CP (HL)           ; {The jump is taken if only the lower part of the
  $0D28 JR C,$0D2D        ; display is to be scrolled (#REGb=old
@@ -3853,6 +3857,7 @@ c$1059 BIT 5,(IY+$37) ; {Return if in 'INPUT mode' (bit 5 of #R$5C71(FLAGX)
  $1061 CALL $196E     ; start address.}
  $1064 EX DE,HL       ; #REGhl now points to the previous line.
  $1065 CALL $1695     ; This line's number is fetched.
+@ssub=LD HL,$5C49+1
  $1068 LD HL,$5C4A    ; This is #R$5C49(E-PPC-hi).
  $106B CALL $191C     ; The line number is stored.
 ; This entry point is used by the routine at #R$0FF3.
@@ -4038,6 +4043,7 @@ c$111D CALL $0D4D      ; Use the permanent colours.
 ; The remainder of any line that has been started is now completed with spaces
 ; printed with the 'permanent' PAPER colour.
 @label=ED_BLANK
+@ssub=LD A,($5C8A+1)
 *$1150 LD A,($5C8B)    ; {Fetch the current line number from #R$5C8A(S-POSNL)
  $1153 SUB D           ; and subtract the old line number.}
  $1154 JR C,$117C      ; Jump forward if no 'blanking' of lines required.
@@ -4347,6 +4353,7 @@ c$12A2 LD (IY+$31),$02 ; The lower part of the screen is to be two lines in
  $131D LD ($5C0B),HL   ; }
 @keep
  $1320 LD HL,$0001     ; {Ensure that stream +00 points to channel 'K' (see
+@ssub=LD ($5C10+6),HL
  $1323 LD ($5C16),HL   ; #R$5C16(STRMS)).}
  $1326 CALL $16B0      ; Clear all the work areas and the calculator stack.
  $1329 RES 5,(IY+$37)  ; Signal 'editing mode' (reset bit 5 of #R$5C71(FLAGX)).
@@ -8655,6 +8662,7 @@ c$2382 RST $18       ; Get the current character.
  $2410 DEFB $0F      ; #R$3014: Y, X0+X
  $2411 DEFB $01      ; #R$343C: X0+X, Y
  $2412 DEFB $38      ; #R$369B
+@ssub=LD A,($5C7D+1)
  $2413 LD A,($5C7E)  ; {Get Y0 from #R$5C7D(COORDS) into #REGa and so on to the
  $2416 CALL $2D28    ; stack.}
  $2419 RST $28       ; X0+X, Y, Y0
@@ -8728,6 +8736,7 @@ c$2382 RST $18       ; Get the current character.
  $244D DEFB $01      ; #R$343C: X0+X, Y0+Y, Xn+1, Yn+1, Un'
  $244E DEFB $E0      ; #R$340F(get_mem_0): X0+X, Y0+Y, Xn+1, Yn+1, Un', Yn+1
  $244F DEFB $38      ; #R$369B
+@ssub=LD A,($5C7D+1)
  $2450 LD A,($5C7E)  ; {Yn', approximate like Xn', is copied from
  $2453 CALL $2D28    ; #R$5C7D(COORDS) to #REGa and hence to the stack.}
  $2456 RST $28       ; X0+X, Y0+Y, Xn+1, Yn+1, Un', Yn+1, Yn'
@@ -8749,6 +8758,7 @@ c$2382 RST $18       ; Get the current character.
  $246B DEFB $03      ; #R$300F: Y0+Y, X0+X-Xz'
  $246C DEFB $01      ; #R$343C: X0+X-Xz', Y0+Y
  $246D DEFB $38      ; #R$369B
+@ssub=LD A,($5C7D+1)
  $246E LD A,($5C7E)  ; {The Y-co-ordinate is obtained from #R$5C7D(COORDS) and
  $2471 CALL $2D28    ; stacked.}
  $2474 RST $28       ; X0+X-Xz', Y0+Y, Yz'
@@ -9945,6 +9955,7 @@ c$28B2 SET 6,(IY+$01) ; Presume a numeric variable (set bit 6 of
 ; being evaluated, and if in 'run-time', a search will be made of the arguments
 ; in the DEF FN statement.
 @label=V_TEST_FN
+@ssub=LD A,($5C0B+1)
 *$28E3 LD A,($5C0C)   ; {Is #R$5C0B(DEFADD-hi) zero?
  $28E6 AND A          ; }
  $28E7 JR Z,$28EF     ; If so, jump forward.
@@ -11680,8 +11691,10 @@ c$2DE3 RST $28          ; Use the calculator.
  $2E2A CALL $2DC1       ; {The construction #REGa=ABS INT (LOG (2#power#REGa))
  $2E2D LD D,A           ; is performed (LOG is to base 10); i.e. #REGa=n, say:
                         ; n is copied from #REGa to #REGd.}
+@ssub=LD A,($5C92+26)
  $2E2E LD A,($5CAC)     ; {The current count is collected from the second byte
  $2E31 SUB D            ; of #R$5CAB(mem-5) and n is subtracted from it.
+@ssub=LD ($5C92+26),A
  $2E32 LD ($5CAC),A     ; }
  $2E35 LD A,D           ; n is copied from #REGd to #REGa.
  $2E36 CALL $2D4F       ; y=f*10#powern is formed and stacked.
@@ -11694,12 +11707,14 @@ c$2DE3 RST $28          ; Use the calculator.
  $2E3F DEFB $38         ; #R$369B: i, f2, i2 (f2=y-i2)
  $2E40 CALL $2DD5       ; i2 is transferred from the stack to #REGa.
  $2E43 PUSH HL          ; The pointer to f2 is saved.
+@ssub=LD ($5C92+15),A
  $2E44 LD ($5CA1),A     ; i2 is stored in the first byte of #R$5CA1(mem-3): a
                         ; digit for printing.
  $2E47 DEC A            ; {i2 will not count as a digit for printing if it is
  $2E48 RLA              ; zero; #REGa is manipulated so that zero will produce
  $2E49 SBC A,A          ; zero but a non-zero digit will produce 1.
  $2E4A INC A            ; }
+@ssub=LD HL,$5C92+25
  $2E4B LD HL,$5CAB      ; {The zero or one is inserted into the first byte of
  $2E4E LD (HL),A        ; #R$5CAB(mem-5) (the number of digits for printing)
  $2E4F INC HL           ; and added to the second byte of mem-5 (the number of
@@ -11718,6 +11733,7 @@ c$2DE3 RST $28          ; Use the calculator.
  $2E5C CALL $2DC1       ; n is formed in #REGa.
  $2E5F SUB $07          ; And reduced to n-7.
  $2E61 LD B,A           ; Then copied to #REGb.
+@ssub=LD HL,$5C92+26
  $2E62 LD HL,$5CAC      ; {n-7 is added in to the second byte of
  $2E65 ADD A,(HL)       ; #R$5CAB(mem-5), the number of digits required before
  $2E66 LD (HL),A        ; the decimal in x.}
@@ -11747,6 +11763,7 @@ c$2DE3 RST $28          ; Use the calculator.
  $2E80 RL E             ;
  $2E82 RL D             ; }
  $2E84 EXX              ; Back to the main registers.
+@ssub=LD HL,$5C92+24
  $2E85 LD HL,$5CAA      ; {Address of fifth byte of #R$5CA6(mem-4) to #REGhl;
  $2E88 LD C,$05         ; count of 5 bytes to #REGc.}
 @label=PF_BYTES
@@ -11762,7 +11779,9 @@ c$2DE3 RST $28          ; Use the calculator.
 ; being at most 9 digits. The digits will now be re-packed, one to a byte, in
 ; mem-3 and mem-4, using the instruction '#S/RLD/'.
  $2E94 XOR A            ; #REGa is cleared to receive the digits.
+@ssub=LD HL,$5C92+20
  $2E95 LD HL,$5CA6      ; Source address: first byte of #R$5CA6(mem-4).
+@ssub=LD DE,$5C92+15
  $2E98 LD DE,$5CA1      ; Destination: first byte of #R$5CA1(mem-3).
  $2E9B LD B,$09         ; There are at most 9 digits.
  $2E9D RLD              ; The left nibble of mem-4 is discarded.
@@ -11787,6 +11806,7 @@ c$2DE3 RST $28          ; Use the calculator.
  $2EB7 INC HL           ; }
 @label=PF_ALL_9
 *$2EB8 DJNZ $2EA1       ; Jump back for all 9 digits.
+@ssub=LD A,($5C92+25)
  $2EBA LD A,($5CAB)     ; {Get counter from the first byte of #R$5CAB(mem-5):
  $2EBD SUB $09          ; were there 9 digits excluding leading zeros?}
  $2EBF JR C,$2ECB       ; If not, jump to get more digits.
@@ -11833,6 +11853,7 @@ c$2DE3 RST $28          ; Use the calculator.
  $2EFA EXX              ; and #REGbc'.
  $2EFB POP BC           ; }
  $2EFC DJNZ $2EEF       ; Loop back once through the exchange registers.
+@ssub=LD HL,$5C92+15
  $2EFE LD HL,$5CA1      ; The start - 1st byte of #R$5CA1(mem-3).
  $2F01 LD A,C           ; Result to #REGa for storing.
  $2F02 LD C,(IY+$71)    ; Count of digits so far in number to #REGc.
@@ -11844,6 +11865,7 @@ c$2DE3 RST $28          ; Use the calculator.
 ; digits for printing.
 @label=PF_ROUND
 *$2F0C PUSH AF          ; Save the carry flag for the rounding.
+@ssub=LD HL,$5C92+15
  $2F0D LD HL,$5CA1      ; Base address of number: #R$5CA1(mem-3), byte 1.
  $2F10 LD C,(IY+$71)    ; {Offset (number of digits in number) to #REGbc.
  $2F13 LD B,$00         ; }
@@ -11877,8 +11899,10 @@ c$2DE3 RST $28          ; Use the calculator.
 ; viii. The number can now be printed. First #REGc will be set to hold the
 ; number of digits to be printed, not counting final zeros, while #REGb will
 ; hold the number of digits required before the decimal.
+@ssub=LD BC,($5C92+25)
  $2F36 LD BC,($5CAB)    ; The counters are set (first two bytes of
                         ; #R$5CAB(mem-5)).
+@ssub=LD HL,$5C92+15
  $2F3A LD HL,$5CA1      ; The start of the digits (first byte of
                         ; #R$5CA1(mem-3)).
  $2F3D LD A,B           ; {If more than 9, or fewer than minus 4, digits are
@@ -13198,6 +13222,7 @@ c$335B CALL $35BF    ; Presume a unary operation and therefore set #REGhl to
  $339A EX (SP),HL    ; underneath the subroutine address.
  $339B PUSH DE       ; }
  $339C EXX           ; Return to the main set of registers.
+@ssub=LD BC,($5C67-1)
  $339D LD BC,($5C66) ; The current value of #R$5C67(BREG) is transferred to the
                      ; #REGb register thereby returning the single operation
                      ; offset (see #R$353B).
