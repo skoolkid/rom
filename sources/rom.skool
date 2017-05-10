@@ -15977,7 +15977,9 @@ g$5C0D DEFB $00
 
 ; TVDATA - Colour, AT and TAB controls going to television
 ;
-; Used by the routine at #R$0A6D.
+; Used by the routine at #R$0A6D. When a control character (codes +10 to +17)
+; and its operand(s) are being processed, these two bytes are used as temporary
+; storage for the character code and its first operand.
 @label=TVDATA
 g$5C0E DEFB $00,$00
 
