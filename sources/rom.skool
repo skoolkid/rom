@@ -16483,9 +16483,11 @@ g$5C8C DEFB $00
 ; ATTR-P - Permanent current colours
 ;
 ; Initialised by the routine at #R$11B7, read by the routines at #R$0D4D,
-; #R$0D6B and #R$0E44, and updated by the routine at #R$1C96.
+; #R$0D6B and #R$0E44, and updated by the routine at #R$1C96. Holds the
+; attribute byte that is used for the main part of the display when the screen
+; is cleared.
 @label=ATTR_P
-g$5C8D DEFB $38
+g$5C8D DEFB $38 ; FLASH 0: BRIGHT 0: PAPER 7: INK 0
 
 ; MASK-P - Used for transparent colours
 ;
@@ -16497,9 +16499,11 @@ g$5C8E DEFB $00
 ;
 ; Initialised by the routine at #R$11B7, read by the routines at #R$0BDB,
 ; #R$1C96 and #R$21E1, and updated by the routines at #R$0C55, #R$0D4D and
-; #R$18C1.
+; #R$18C1. Holds the attribute byte that is used for printing to the main part
+; of the display, which will be the same as #R$5C8D(ATTR-P) unless temporary
+; colours have been specified.
 @label=ATTR_T
-g$5C8F DEFB $38
+g$5C8F DEFB $38 ; FLASH 0: BRIGHT 0: PAPER 7: INK 0
 
 ; MASK-T - Temporary transparent colours
 ;
