@@ -571,10 +571,8 @@ b$0205 DEFB $42      ; B
 
 ; THE 'KEYBOARD SCANNING' SUBROUTINE
 ;
-; Used by the routines at #R$02BF and #R$2634.
-; .
-; This very important subroutine is called by both the #R$02BF(main keyboard
-; subroutine) and the #R$2634(INKEY$ routine) (in #R$24FB).
+; This very important subroutine is called by both the main keyboard subroutine
+; (#R$02BF) and the INKEY$ routine (#R$2634).
 ; .
 ; In all instances the #REGe register is returned with a value in the range of
 ; +00 to +27, the value being different for each of the forty keys of the
@@ -5213,8 +5211,6 @@ c$1793 JR $1725      ; Give this report.
 
 ; THE 'LIST and LLIST' COMMAND ROUTINES
 ;
-; Used by the routines at #R$1059 and #R$12A2.
-; .
 ; The routines in this part of the 16K program are used to produce listings of
 ; the current BASIC program. Each line has to have its line number evaluated,
 ; its tokens expanded and the appropriate cursors positioned.
@@ -7630,10 +7626,7 @@ c$1FC9 LD A,$03      ; Prepare to open channel 'P'.
 
 ; THE 'PRINT CONTROLLING' SUBROUTINE
 ;
-; Used by the routines at #R$1FC9 and #R$2089.
-; .
-; This subroutine is called by the #R$1FCD, #R$1FC9 and #R$2089 command
-; routines.
+; This subroutine is called by the #R$1FC9 and #R$2089 command routines.
 @label=PRINT_2
 c$1FDF RST $18       ; Get the first character.
  $1FE0 CALL $2045    ; {Jump forward if already at the end of the item list.
@@ -7663,10 +7656,7 @@ c$1FF5 CALL $1FC3    ; Return if checking syntax.
 
 ; THE 'PRINT ITEMS' SUBROUTINE
 ;
-; Used by the routines at #R$1FDF and #R$2089.
-; .
-; This subroutine is called from the #R$1FCD, #R$1FC9 and #R$2089 command
-; routines.
+; This subroutine is called from the #R$1FDF and #R$2089 routines.
 ; .
 ; The various types of print item are identified and printed.
 @label=PR_ITEM_1
@@ -8220,8 +8210,6 @@ c$2294 CALL $1E94    ; {The parameter is fetched and its range is tested.
 
 ; THE 'PIXEL ADDRESS' SUBROUTINE
 ;
-; Used by the routines at #R$22CB and #R$22DC.
-; .
 ; This subroutine is called by #R$22CB and by #R$22DC. Is is entered with the
 ; co-ordinates of a pixel in the #REGbc register pair and returns with #REGhl
 ; holding the address of the display file byte which contains that pixel and
@@ -8262,8 +8250,6 @@ c$22AA LD A,$AF      ; {Test that the y co-ordinate (in #REGb) is not greater
 
 ; THE 'POINT' SUBROUTINE
 ;
-; Used by the routine at #R$267B.
-; .
 ; This subroutine is called from #R$267B. It is entered with the coordinates of
 ; a pixel on the calculator stack, and returns a last value of 1 if that pixel
 ; is ink colour, and 0 if it is paper colour.
@@ -8281,8 +8267,6 @@ c$22CB CALL $2307    ; y-coordinate to #REGb, x to #REGc.
 
 ; THE 'PLOT' COMMAND ROUTINE
 ;
-; Used by the routine at #R$2320.
-; .
 ; The address of this routine is found in the #R$1AC1(parameter table).
 ; .
 ; This routine consists of a main subroutine plus one line to call it and one
@@ -8777,8 +8761,6 @@ c$2382 RST $18       ; Get the current character.
 
 ; THE 'INITIAL PARAMETERS' SUBROUTINE
 ;
-; Used by the routines at #R$2320 and #R$2382.
-; .
 ; This subroutine is called by both #R$2320 and #R$2382 to set their initial
 ; parameters. It is called by #R$2320 with X, Y and the radius Z on the top of
 ; the stack, reading upwards. It is called by #R$2382 with its own X, Y, SIN
@@ -8844,8 +8826,6 @@ c$247D RST $28       ; Z
 
 ; THE 'LINE-DRAWING' SUBROUTINE
 ;
-; Used by the routine at #R$2382.
-; .
 ; This subroutine is called by #R$2382 to draw an approximation to a straight
 ; line from the point X0, Y0 held in #R$5C7D(COORDS) to the point X0+X, Y0+Y,
 ; where the increments X and Y are on the top of the calculator stack. The
