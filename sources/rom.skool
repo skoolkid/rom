@@ -16491,7 +16491,9 @@ g$5C8D DEFB $38 ; FLASH 0: BRIGHT 0: PAPER 7: INK 0
 
 ; MASK-P - Used for transparent colours
 ;
-; Read by the routine at #R$0D4D, and updated by the routine at #R$1C96.
+; Read by the routine at #R$0D4D, and updated by the routine at #R$1C96. It
+; holds the attribute mask for the main part of the display, and is used only
+; after first being copied to #R$5C90(MASK-T).
 @label=MASK_P
 g$5C8E DEFB $00
 
@@ -16508,7 +16510,11 @@ g$5C8F DEFB $38 ; FLASH 0: BRIGHT 0: PAPER 7: INK 0
 ; MASK-T - Temporary transparent colours
 ;
 ; Read by the routines at #R$0BDB and #R$1C96, and updated by the routines at
-; #R$0C55, #R$0D4D, #R$18C1, #R$1CBE and #R$21E1.
+; #R$0C55, #R$0D4D, #R$18C1, #R$1CBE and #R$21E1. Holds the attribute mask that
+; is used when printing to the main part of the display. Set bits in the mask
+; preserve the corresponding bits in the original (on-screen) attribute; reset
+; bits in the mask replace the corresponding bits in the original attribute
+; with those in the target attribute (#R$5C8F(ATTR-T)).
 @label=MASK_T
 g$5C90 DEFB $00
 
