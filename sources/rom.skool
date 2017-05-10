@@ -15925,6 +15925,19 @@ i$4000 DEFS $1C00
 ; Initialised by the routine at #R$11B7, and used by the routine at #R$02BF.
 ; KSTATE0 (#N$5C00) and KSTATE4 (#N$5C04) are accessed by the routine at
 ; #R$11B7 via the #REGiy register at #iy-$3A and #iy-$36.
+; .
+; There are two sets of four bytes here, each set corresponding to a separate
+; keypress. The bytes in each set are used as follows:
+; .
+; #TABLE(default,centre,:w)
+; { =h Byte | =h Contents }
+; { 0 | +FF if the set is unused, or a main code from the #R$0205#0205(main key
+;       table) otherwise }
+; { 1 | Call counter; initially +05, and decremented on each call to #R$02BF }
+; { 2 | Repeat delay counter; initially #R$5C09(REPDEL), decremented on each
+;       call to #R$02BF, reset to #R$5C0A(REPPER) whenever it reaches zero }
+; { 3 | Final code from the #R$0205(key tables) (as computed by #R$0333) }
+; TABLE#
 @label=KSTATE
 g$5C00 DEFB $FF,$00,$00,$00
  $5C04 DEFB $FF,$00,$00,$00
