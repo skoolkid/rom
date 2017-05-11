@@ -4571,13 +4571,20 @@ c$15C4 RST $08       ; {Call the error handling routine.
 ; .
 ; Initially there are seven streams - +FD to +03.
 @label=STRMDATA
-b$15C6 DEFB $01,$00  ; Leads to channel 'K' (keyboard)
- $15C8 DEFB $06,$00  ; Leads to channel 'S' (screen)
- $15CA DEFB $0B,$00  ; Leads to channel 'R' (work space)
- $15CC DEFB $01,$00  ; Leads to channel 'K' (keyboard)
- $15CE DEFB $01,$00  ; Leads to channel 'K' (keyboard)
- $15D0 DEFB $06,$00  ; Leads to channel 'S' (screen)
- $15D2 DEFB $10,$00  ; Leads to channel 'P' (printer)
+@keep
+w$15C6 DEFW $0001    ; +FD: Leads to channel 'K' (keyboard)
+@keep
+ $15C8 DEFW $0006    ; +FE: Leads to channel 'S' (screen)
+@keep
+ $15CA DEFW $000B    ; +FF: Leads to channel 'R' (work space)
+@keep
+ $15CC DEFW $0001    ; +00: Leads to channel 'K' (keyboard)
+@keep
+ $15CE DEFW $0001    ; +01: Leads to channel 'K' (keyboard)
+@keep
+ $15D0 DEFW $0006    ; +02: Leads to channel 'S' (screen)
+@keep
+ $15D2 DEFW $0010    ; +03: Leads to channel 'P' (printer)
 
 ; THE 'WAIT-KEY' SUBROUTINE
 ;
@@ -15985,28 +15992,50 @@ g$5C0E DEFB $00,$00
 
 ; STRMS - Addresses of channels attached to streams
 ;
-; Initialised by the routine at #R$11B7, and read by the routines at #R$1601
-; and #R$171E.
+; Initialised by the routine at #R$11B7 (from the #R$15C6(initial stream data)
+; table), and read by the routines at #R$1601 and #R$171E. Each of these values
+; is an offset that is added to the base address of the channel data (stored at
+; #R$5C4F(CHANS)) to find the corresponding entry in the channel information
+; table (#R$5CB6(CHINFO)).
 @label=STRMS
-g$5C10 DEFB $01,$00 ; Stream +FD (keyboard).
- $5C12 DEFB $06,$00 ; Stream +FE (screen).
- $5C14 DEFB $0B,$00 ; Stream +FF (work space).
- $5C16 DEFB $01,$00 ; Stream +00 (keyboard).
- $5C18 DEFB $01,$00 ; Stream +01 (keyboard).
- $5C1A DEFB $06,$00 ; Stream +02 (screen).
- $5C1C DEFB $10,$00 ; Stream +03 (printer).
- $5C1E DEFB $00,$00 ; Stream +04.
- $5C20 DEFB $00,$00 ; Stream +05.
- $5C22 DEFB $00,$00 ; Stream +06.
- $5C24 DEFB $00,$00 ; Stream +07.
- $5C26 DEFB $00,$00 ; Stream +08.
- $5C28 DEFB $00,$00 ; Stream +09.
- $5C2A DEFB $00,$00 ; Stream +0A.
- $5C2C DEFB $00,$00 ; Stream +0B.
- $5C2E DEFB $00,$00 ; Stream +0C.
- $5C30 DEFB $00,$00 ; Stream +0D.
- $5C32 DEFB $00,$00 ; Stream +0E.
- $5C34 DEFB $00,$00 ; Stream +0F.
+@keep
+g$5C10 DEFW $0001 ; Stream +FD (keyboard).
+@keep
+ $5C12 DEFW $0006 ; Stream +FE (screen).
+@keep
+ $5C14 DEFW $000B ; Stream +FF (work space).
+@keep
+ $5C16 DEFW $0001 ; Stream +00 (keyboard).
+@keep
+ $5C18 DEFW $0001 ; Stream +01 (keyboard).
+@keep
+ $5C1A DEFW $0006 ; Stream +02 (screen).
+@keep
+ $5C1C DEFW $0010 ; Stream +03 (printer).
+@keep
+ $5C1E DEFW $0000 ; Stream +04.
+@keep
+ $5C20 DEFW $0000 ; Stream +05.
+@keep
+ $5C22 DEFW $0000 ; Stream +06.
+@keep
+ $5C24 DEFW $0000 ; Stream +07.
+@keep
+ $5C26 DEFW $0000 ; Stream +08.
+@keep
+ $5C28 DEFW $0000 ; Stream +09.
+@keep
+ $5C2A DEFW $0000 ; Stream +0A.
+@keep
+ $5C2C DEFW $0000 ; Stream +0B.
+@keep
+ $5C2E DEFW $0000 ; Stream +0C.
+@keep
+ $5C30 DEFW $0000 ; Stream +0D.
+@keep
+ $5C32 DEFW $0000 ; Stream +0E.
+@keep
+ $5C34 DEFW $0000 ; Stream +0F.
 
 ; CHARS - 256 less than address of character set
 ;
@@ -16183,7 +16212,6 @@ g$5C4D DEFW $0000
 ; Initialised by the routine at #R$11B7, read by the routines at #R$10A8,
 ; #R$1601, #R$1701 and #R$1736, and updated by the routine at #R$1664.
 @label=CHANS
-@keep
 g$5C4F DEFW $5CB6
 
 ; CURCHL - Address of information used for input and output
