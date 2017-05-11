@@ -4536,25 +4536,26 @@ c$155D LD ($5C49),BC ; Make the new line number the 'current line'
 
 ; THE 'INITIAL CHANNEL INFORMATION'
 ;
-; Used by the routine at #R$11B7.
+; Used by the routine at #R$11B7, which copies the information from here to
+; #R$5CB6(CHINFO).
 ; .
 ; Initially there are four channels - 'K', 'S', 'R', and 'P' - for
 ; communicating with the 'keyboard', 'screen', 'work space' and 'printer'. For
 ; each channel the output routine address comes before the input routine
 ; address and the channel's code.
 @label=CHANINFO
-b$15AF DEFW $09F4
- $15B1 DEFW $10A8
- $15B3 DEFB "K"
- $15B4 DEFW $09F4
- $15B6 DEFW $15C4
- $15B8 DEFB "S"
- $15B9 DEFW $0F81
- $15BB DEFW $15C4
- $15BD DEFB "R"
- $15BE DEFW $09F4
- $15C0 DEFW $15C4
- $15C2 DEFB "P"
+b$15AF DEFW $09F4    ; {Keyboard.
+ $15B1 DEFW $10A8    ;
+ $15B3 DEFB "K"      ; }
+ $15B4 DEFW $09F4    ; {Screen.
+ $15B6 DEFW $15C4    ;
+ $15B8 DEFB "S"      ; }
+ $15B9 DEFW $0F81    ; {Work space.
+ $15BB DEFW $15C4    ;
+ $15BD DEFB "R"      ; }
+ $15BE DEFW $09F4    ; {Printer.
+ $15C0 DEFW $15C4    ;
+ $15C2 DEFB "P"      ; }
  $15C3 DEFB $80      ; End marker.
 
 ; Report J - Invalid I/O device
@@ -16605,19 +16606,21 @@ g$5CB4 DEFW $FFFF
 
 ; Channel information
 ;
-; Initialised by the routine at #R$11B7, read by the routines at #R$1615,
-; #R$1701 and #R$1736, and updated by the routine at #R$10A8.
+; Initialised by the routine at #R$11B7 (from the #R$15AF(initial channel
+; information) table), read by the routines at #R$1615, #R$1701 and #R$1736,
+; and updated by the routine at #R$10A8. For each channel the output routine
+; address comes before the input routine address and the channel's code.
 @label=CHINFO
-g$5CB6 DEFW $09F4
- $5CB8 DEFW $10A8
- $5CBA DEFB "K"
- $5CBB DEFW $09F4
- $5CBD DEFW $15C4
- $5CBF DEFB "S"
- $5CC0 DEFW $0F81
- $5CC2 DEFW $15C4
- $5CC4 DEFB "R"
- $5CC5 DEFW $09F4
- $5CC7 DEFW $15C4
- $5CC9 DEFB "P"
- $5CCA DEFB $80
+g$5CB6 DEFW $09F4 ; {Keyboard.
+ $5CB8 DEFW $10A8 ;
+ $5CBA DEFB "K"   ; }
+ $5CBB DEFW $09F4 ; {Screen.
+ $5CBD DEFW $15C4 ;
+ $5CBF DEFB "S"   ; }
+ $5CC0 DEFW $0F81 ; {Work space.
+ $5CC2 DEFW $15C4 ;
+ $5CC4 DEFB "R"   ; }
+ $5CC5 DEFW $09F4 ; {Printer.
+ $5CC7 DEFW $15C4 ;
+ $5CC9 DEFB "P"   ; }
+ $5CCA DEFB $80   ; End marker.
