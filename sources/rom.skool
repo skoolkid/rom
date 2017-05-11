@@ -2,6 +2,7 @@
 @writer=:rom.ROMAsmWriter
 @replace=/#pi/#CHR(960)
 @replace=/#power/#CHR(8593)
+@replace=/#ix(.)\i/#REGix\1#N\2,,,1($)
 @replace=/#iy(.)\i/#REGiy\1#N\2,,,1($)
 @replace=/#BUG/#LINK:Bugs
 @replace=/#n\i/#N\1,,,1($)
@@ -1751,11 +1752,11 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
 ; In all cases the header information has now been prepared.
 ; .
 ; #LIST
-; { The location 'IX+00' holds the type number. }
-; { Locations 'IX+01 to IX+0A' hold the name (+FF in 'IX+01' if null). }
-; { Locations 'IX+0B and IX+0C' hold the number of bytes that are to be found
-; in the 'data block'. }
-; { Locations 'IX+0D to IX+10' hold a variety of parameters whose exact
+; { The location '#ix+$00' holds the type number. }
+; { Locations '#ix+$01 to #ix+$0A' hold the name (+FF in '#ix+$01' if null). }
+; { Locations '#ix+$0B and #ix+$0C' hold the number of bytes that are to be
+; found in the 'data block'. }
+; { Locations '#ix+$0D to #ix+$10' hold a variety of parameters whose exact
 ; interpretation depends on the 'type'. }
 ; LIST#
 ; .
