@@ -16517,7 +16517,9 @@ g$5C8A DEFB $00,$00
 ;
 ; Used by the routines at #R$0605, #R$0C55, #R$0DAF, #R$12A2 and #R$2089. This
 ; system variable is accessed by some routines via the #REGiy register at
-; #iy+$52.
+; #iy+$52. It is decremented by the routine at #R$0C55 whenever the PRINT
+; position moves to the next line down; when it reaches zero, the 'scroll?'
+; prompt is printed.
 @label=SCR_CT
 g$5C8C DEFB $00
 
