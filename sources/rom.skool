@@ -16156,7 +16156,8 @@ g$5C41 DEFB $00
 ; Read by the routine at #R$1B76, and updated by the routines at #R$0808,
 ; #R$1D03, #R$1D86 and #R$1E67.
 @label=NEWPPC
-g$5C42 DEFB $00,$00
+@keep
+g$5C42 DEFW $0000
 
 ; NSPPC - Statement number in line to be jumped to
 ;
@@ -16171,7 +16172,8 @@ g$5C44 DEFB $00
 ; Read by the routines at #R$12A2, #R$1D03 and #R$1EED, and updated by the
 ; routines at #R$1B8A and #R$1BBF.
 @label=PPC
-g$5C45 DEFB $00,$00
+@keep
+g$5C45 DEFW $0000
 
 ; SUBPPC - Number within line of statement being executed
 ;
@@ -16374,13 +16376,15 @@ g$5C6B DEFB $02
 ;
 ; Used by the routines at #R$1795 and #R$17F9.
 @label=S_TOP
-g$5C6C DEFB $00,$00
+@keep
+g$5C6C DEFW $0000
 
 ; OLDPPC - Line number to which CONTINUE jumps
 ;
 ; Read by the routine at #R$1E5F, and updated by the routine at #R$12A2.
 @label=OLDPPC
-g$5C6E DEFB $00,$00
+@keep
+g$5C6E DEFW $0000
 
 ; OSPCC - Number within line of statement to which CONTINUE jumps
 ;
