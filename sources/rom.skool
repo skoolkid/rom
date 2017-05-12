@@ -145,6 +145,7 @@ c$0018 LD HL,($5C5D) ; {Fetch the value that is addressed by #R$5C5D(CH-ADD).
 @label=TEST_CHAR
 *$001C CALL $007D    ; Find out if the character is printable.
  $001F RET NC        ; Return if it is so.
+; This routine continues into #R$0020.
 
 ; THE 'COLLECT NEXT CHARACTER' RESTART
 ;
@@ -153,6 +154,8 @@ c$0018 LD HL,($5C5D) ; {Fetch the value that is addressed by #R$5C5D(CH-ADD).
 ; #R$2089, #R$21E1, #R$2320, #R$2382, #R$2522, #R$25AF, #R$25E8, #R$2627,
 ; #R$2634, #R$2668, #R$2672, #R$267B, #R$26C9, #R$27BD, #R$28B2, #R$2996,
 ; #R$2A52, #R$2C02 and #R$2C9B.
+; .
+; The routine at #R$0018 continues here.
 ; .
 ; As a BASIC line is interpreted, this routine is called repeatedly to step
 ; along the line.
