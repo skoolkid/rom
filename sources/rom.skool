@@ -16139,7 +16139,15 @@ g$5C3F DEFW $0000
 ;
 ; Read by the routines at #R$02BF and #R$18E1, and updated by the routines at
 ; #R$0F2C, #R$1097 and #R$10A8. This system variable is accessed by some
-; routines via the #REGiy register at #iy+$07.
+; routines via the #REGiy register at #iy+$07. It holds one of the following
+; values:
+; .
+; #TABLE(default,centre)
+; { =h Value | =h Cursor }
+; { 0 | C, K or L }
+; { 1 | E }
+; { 2 | G }
+; TABLE#
 @label=MODE
 g$5C41 DEFB $00
 
