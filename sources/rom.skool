@@ -2771,7 +2771,7 @@ c$0BDB LD A,H         ; {The high byte of the destination address is divided by
  $0BDF AND $03        ; }
  $0BE1 OR $58         ; {The high byte for the attribute area is then formed.
  $0BE3 LD H,A         ; }
- $0BE4 LD DE,($5C8F)  ; #REGd holds #R$5C8F(ATTR-T), and #REGe holds
+ $0BE4 LD DE,($5C8F)  ; #REGe holds #R$5C8F(ATTR-T), and #REGd holds
                       ; #R$5C90(MASK-T).
  $0BE8 LD A,(HL)      ; The old attribute value.
  $0BE9 XOR E          ; {The values of #R$5C90(MASK-T) and #R$5C8F(ATTR-T) are
