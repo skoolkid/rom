@@ -2139,9 +2139,9 @@ c$08B6 LD C,(IX+$0B) ; {Fetch the 'length' of the data block.
 @label=ME_OLD_V3
 *$0912 INC HL        ; {Update both the 'old' and the 'new' pointers.
  $0913 INC DE        ; }
- $0914 LD A,(DE)     ; {Compare the two letters Jump forward if the match
- $0915 CP (HL)       ; fails.
- $0916 JR NZ,$091E   ; }
+ $0914 LD A,(DE)     ; {Compare the two letters.
+ $0915 CP (HL)       ; }
+ $0916 JR NZ,$091E   ; Jump forward if the match fails.
  $0918 RLA           ; {Go round the loop until the 'last character' is found.
  $0919 JR NC,$0912   ; }
  $091B POP HL        ; {Fetch the pointer to the start of the 'old' name and
