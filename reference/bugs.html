@@ -83,8 +83,8 @@ However, the '3' is (correctly) printed at the right end of the second line.
 </div>
 <div class="paragraph">
 The reason is that the instruction at <a href="../asm/0A23.html#0A32">0A32</a> is 'LD A,$18' instead of
-'LD A,$19', which prevents CHR$ 8 from moving the print position up to the
-top line of the display.
+'LD A,$19', which prevents CHR$ 8 from moving the print position up to
+the top line of the display.
 </div>
 </div>
 <div><span id="stepBackTooFar"></span></div>
@@ -104,9 +104,9 @@ Here the CHR$ 8 should have no effect, but instead the '1' is printed at
 attribute file.
 </div>
 <div class="paragraph">
-The reason, again, is that the instruction at <a href="../asm/0A23.html#0A32">0A32</a> is 'LD A,$18' instead
-of 'LD A,$19', which allows CHR$ 8 to move the print position up beyond the
-top line of the display.
+The reason, again, is that the instruction at <a href="../asm/0A23.html#0A32">0A32</a> is 'LD A,$18'
+instead of 'LD A,$19', which allows CHR$ 8 to move the print position up
+beyond the top line of the display.
 </div>
 </div>
 <div><span id="savingASimpleString"></span></div>
@@ -213,18 +213,18 @@ makes the computer hang.
 </div>
 <div class="paragraph">
 The root cause is that there is no end marker in the <a href="../asm/1716.html">close stream
-lookup table</a>. This makes the 'JP (HL)' at the end of the routine at <a href="../asm/1701.html">CLOSE_2</a>
-jump to <a href="../asm/1736.html#175B">175B</a>, and the 'RET' that follows at 175C causes an indirect jump
-to 5C1E (an address pushed onto the stack earlier at
+lookup table</a>. This makes the 'JP (HL)' at the end of the routine at
+<a href="../asm/1701.html">CLOSE_2</a> jump to <a href="../asm/1736.html#175B">175B</a>, and the 'RET' that follows at 175C causes an
+indirect jump to 5C1E (an address pushed onto the stack earlier at
 <a href="../asm/1701.html#1701">1701</a>). After proceeding through the RAM at 5C1E onwards,
 and disabling interrupts along the way, the Spectrum finally hangs on the
 'HALT' instruction at <a href="../asm/12A2.html#1303">MAIN_4</a>.
 </div>
 <div class="paragraph">
 If there were an end marker ($00) in the close stream lookup table, the
-'JP (HL)' at the end of the routine at <a href="../asm/1701.html">CLOSE_2</a> would jump to <a href="../asm/171C.html">CLOSE_STR</a>, the 'RET'
-that follows at 171D would return to <a href="../asm/16E5.html#16EB">16EB</a>, and the stream would be closed
-successfully.
+'JP (HL)' at the end of the routine at <a href="../asm/1701.html">CLOSE_2</a> would jump to <a href="../asm/171C.html">CLOSE_STR</a>, the
+'RET' that follows at 171D would return to <a href="../asm/16E5.html#16EB">16EB</a>, and the stream would
+be closed successfully.
 </div>
 </div>
 <div><span id="pressAlmostAnyKey"></span></div>
@@ -356,9 +356,9 @@ fourth byte of <i>x</i> at <a href="../asm/3214.html#3230">3230</a>.)
 </div>
 </div>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

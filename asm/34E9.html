@@ -32,17 +32,23 @@ Used by the routines at <a href="1CF0.html">IF_CMD</a>, <a href="30C0.html">PREP
 This subroutine is called at least nine times to test whether a floating-point number is zero. This test requires that the first four bytes of the number should each be zero. The subroutine returns with the carry flag set if the number was in fact zero.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the first byte of the number</td>
+</tr>
 </table>
-<table class="output-0">
+<table class="output-1">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
-
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry flag set if the number is zero</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -80,7 +86,7 @@ This subroutine is called at least nine times to test whether a floating-point n
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34EE"></span>34EE</td>
 <td class="instruction">OR (HL)</td>
-<td class="comment-11" rowspan="1">OR the first byte with the second.</td>
+<td class="comment-11" rowspan="1">'OR' the first byte with the second.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -92,7 +98,7 @@ This subroutine is called at least nine times to test whether a floating-point n
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34F0"></span>34F0</td>
 <td class="instruction">OR (HL)</td>
-<td class="comment-11" rowspan="1">OR the result with the third byte.</td>
+<td class="comment-11" rowspan="1">'OR' the result with the third byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -104,7 +110,7 @@ This subroutine is called at least nine times to test whether a floating-point n
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34F2"></span>34F2</td>
 <td class="instruction">OR (HL)</td>
-<td class="comment-11" rowspan="1">OR the result with the fourth byte.</td>
+<td class="comment-11" rowspan="1">'OR' the result with the fourth byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -151,9 +157,9 @@ This subroutine is called at least nine times to test whether a floating-point n
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

@@ -60,11 +60,14 @@ The parameter is used when the multi-purpose subroutines are called.
 Note: a floating-point number may in reality be a set of string parameters.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">B</td>
+<td class="register-desc">Operation offset or counter</td>
+</tr>
 </table>
 <table class="output-0">
 <tr class="asm-output-header">
@@ -395,10 +398,10 @@ The address of this entry point is found in the <a href="32D7.html">table of add
 
 <div class="comments">
 <div class="paragraph">
-The <a href="335B.html#33A1">delete</a> subroutine contains only the single RET instruction above. The literal '02' results in this subroutine being considered as a binary operation that is to be entered with a first number addressed by the <span class="register">HL</span> register pair and a second number addressed by the <span class="register">DE</span> register pair, and the result produced again addressed by the <span class="register">HL</span> register pair.
+The <a href="335B.html#33A1">delete</a> subroutine contains only the single 'RET' instruction above. The literal '02' results in this subroutine being considered as a binary operation that is to be entered with a first number addressed by the <span class="register">HL</span> register pair and a second number addressed by the <span class="register">DE</span> register pair, and the result produced again addressed by the <span class="register">HL</span> register pair.
 </div>
 <div class="paragraph">
-The single RET instruction thereby leads to the first number being considered as the resulting 'last value' and the second number considered as being deleted. Of course the number has not been deleted from the memory but remains inactive and will probably soon be overwritten.
+The single 'RET' instruction thereby leads to the first number being considered as the resulting 'last value' and the second number considered as being deleted. Of course the number has not been deleted from the memory but remains inactive and will probably soon be overwritten.
 </div>
 </div>
 </td>
@@ -412,9 +415,9 @@ The single RET instruction thereby leads to the first number being considered as
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

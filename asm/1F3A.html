@@ -119,7 +119,7 @@ A pause is finished either after the appropriate number of interrupts or by the 
 <td class="asm-label-1">PAUSE_2</td>
 <td class="address-2"><span id="1F49"></span>1F49</td>
 <td class="instruction">BIT 5,(IY+$01)</td>
-<td class="comment-11" rowspan="2">Jump back unless a key has been pressed.</td>
+<td class="comment-11" rowspan="2">Jump back unless a key has been pressed (bit 5 of <a href="5C3B.html">FLAGS</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -141,7 +141,7 @@ The period of the pause has now finished.
 <td class="asm-label-1">PAUSE_END</td>
 <td class="address-2"><span id="1F4F"></span>1F4F</td>
 <td class="instruction">RES 5,(IY+$01)</td>
-<td class="comment-11" rowspan="1">Signal 'no key pressed'.</td>
+<td class="comment-11" rowspan="1">Signal 'no key pressed' (reset bit 5 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -158,9 +158,9 @@ The period of the pause has now finished.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

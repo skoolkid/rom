@@ -92,7 +92,7 @@ This entry point is used for all four commands. The value held in <a href="5C74.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0616"></span>0616</td>
 <td class="instruction">LD BC,$0011</td>
-<td class="comment-11" rowspan="5">Allow seventeen locations for the header of a SAVE but thirty four for the other commands.</td>
+<td class="comment-11" rowspan="5">Allow seventeen locations for the header of a SAVE (<a href="5C74.html">T-ADDR-lo</a>=+00) but thirty four for the other commands.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -212,7 +212,7 @@ This entry point is used for all four commands. The value held in <a href="5C74.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="063C"></span>063C</td>
 <td class="instruction">LD A,($5C74)</td>
-<td class="comment-11" rowspan="3">But allow for the LOADing, VERIFYing and MERGEing of programs with 'null' names or extra long names.</td>
+<td class="comment-11" rowspan="3">But allow for the LOADing, VERIFYing and MERGEing of programs (<a href="5C74.html">T-ADDR-lo</a>&gt;+00) with 'null' names or extra long names.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -354,7 +354,7 @@ The many different parameters, if any, that follow the command are now considere
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0657"></span>0657</td>
 <td class="instruction">LD A,($5C74)</td>
-<td class="comment-11" rowspan="3">However it is not possible to have 'MERGE name DATA'.</td>
+<td class="comment-11" rowspan="3">However it is not possible to have 'MERGE name DATA' (<a href="5C74.html">T-ADDR-lo</a>=+03).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -402,7 +402,7 @@ The many different parameters, if any, that follow the command are now considere
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="066A"></span>066A</td>
 <td class="instruction">LD A,($5C74)</td>
-<td class="comment-11" rowspan="3">Consider the value in <a href="5C74.html">T-ADDR</a> and give an error if trying to SAVE or VERIFY a new array.</td>
+<td class="comment-11" rowspan="3">Consider the value in <a href="5C74.html">T-ADDR-lo</a> and give an error if trying to SAVE or VERIFY a new array.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -638,7 +638,7 @@ Now consider 'SCREEN$'.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="06A4"></span>06A4</td>
 <td class="instruction">LD A,($5C74)</td>
-<td class="comment-11" rowspan="3">However it is not possible to have 'MERGE name SCREEN$'.</td>
+<td class="comment-11" rowspan="3">However it is not possible to have 'MERGE name SCREEN$' (<a href="5C74.html">T-ADDR-lo</a>=+03).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -726,7 +726,7 @@ Now consider 'CODE'.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="06C7"></span>06C7</td>
 <td class="instruction">LD A,($5C74)</td>
-<td class="comment-11" rowspan="3">However it is not possible to have 'MERGE name CODE'.</td>
+<td class="comment-11" rowspan="3">However it is not possible to have 'MERGE name CODE' (<a href="5C74.html">T-ADDR-lo</a>=+03).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -762,7 +762,7 @@ Now consider 'CODE'.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="06D5"></span>06D5</td>
 <td class="instruction">LD A,($5C74)</td>
-<td class="comment-11" rowspan="3">However it is not possible to have 'SAVE name CODE' by itself.</td>
+<td class="comment-11" rowspan="3">However it is not possible to have 'SAVE name CODE' (<a href="5C74.html">T-ADDR-lo</a>=+00) by itself.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -826,7 +826,7 @@ Look for a 'starting address'.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="06E9"></span>06E9</td>
 <td class="instruction">LD A,($5C74)</td>
-<td class="comment-11" rowspan="3">However refuse 'SAVE name CODE' that does not have a 'start' and a 'length'.</td>
+<td class="comment-11" rowspan="3">However refuse 'SAVE name CODE' that does not have a 'start' and a 'length' (<a href="5C74.html">T-ADDR-lo</a>=+00).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1014,7 +1014,7 @@ Fetch the 'line number' that must follow 'LINE'.
 <td class="asm-label-1">SA_LINE_1</td>
 <td class="address-2"><span id="0723"></span>0723</td>
 <td class="instruction">LD A,($5C74)</td>
-<td class="comment-11" rowspan="3">However only allow 'SAVE name LINE number'.</td>
+<td class="comment-11" rowspan="3">However only allow 'SAVE name LINE number' (<a href="5C74.html">T-ADDR-lo</a>=+00).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1165,10 +1165,10 @@ In all cases the header information has now been prepared.
 </div>
 <div class="paragraph">
 <ul class="">
-<li>The location 'IX+00' holds the type number.</li>
-<li>Locations 'IX+01 to IX+0A' hold the name (+FF in 'IX+01' if null).</li>
-<li>Locations 'IX+0B and IX+0C' hold the number of bytes that are to be found in the 'data block'.</li>
-<li>Locations 'IX+0D to IX+10' hold a variety of parameters whose exact interpretation depends on the 'type'.</li>
+<li>The location '<span class="register">IX</span>+$00' holds the type number.</li>
+<li>Locations '<span class="register">IX</span>+$01 to <span class="register">IX</span>+$0A' hold the name (+FF in '<span class="register">IX</span>+$01' if null).</li>
+<li>Locations '<span class="register">IX</span>+$0B and <span class="register">IX</span>+$0C' hold the number of bytes that are to be found in the 'data block'.</li>
+<li>Locations '<span class="register">IX</span>+$0D to <span class="register">IX</span>+$10' hold a variety of parameters whose exact interpretation depends on the 'type'.</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -1181,7 +1181,7 @@ The routine continues with the first task being to separate SAVE from LOAD, VERI
 <td class="asm-label-1">SA_ALL</td>
 <td class="address-2"><span id="075A"></span>075A</td>
 <td class="instruction">LD A,($5C74)</td>
-<td class="comment-11" rowspan="3">Jump forward when handling a SAVE command.</td>
+<td class="comment-11" rowspan="3">Jump forward when handling a SAVE command (<a href="5C74.html">T-ADDR-lo</a>=+00).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1575,7 +1575,7 @@ The correct header has been found and the time has come to consider the three co
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="07BF"></span>07BF</td>
 <td class="instruction">LD A,($5C74)</td>
-<td class="comment-11" rowspan="3">Jump forward if using a LOAD command.</td>
+<td class="comment-11" rowspan="3">Jump forward if using a LOAD command (<a href="5C74.html">T-ADDR-lo</a>=+01).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1610,9 +1610,9 @@ The correct header has been found and the time has come to consider the three co
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

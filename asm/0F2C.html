@@ -87,7 +87,7 @@ This entry point is used by the routine at <a href="107F.html">ED_ERROR</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F33"></span>0F33</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="2">Any event that leads to the error handling routine being used will come back to <a href="107F.html">ED_ERROR</a>.</td>
+<td class="comment-11" rowspan="2">Any event that leads to the error handling routine (see <a href="5C3D.html">ERR-SP</a>) being used will come back to <a href="107F.html">ED_ERROR</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -259,7 +259,7 @@ AT and TAB would be handled as follows:
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F61"></span>0F61</td>
 <td class="instruction">BIT 7,(IY+$37)</td>
-<td class="comment-11" rowspan="2">Jump forward unless dealing with 'INPUT LINE...'.</td>
+<td class="comment-11" rowspan="2">Jump forward unless dealing with 'INPUT LINE...' (bit 7 of <a href="5C71.html">FLAGX</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -311,7 +311,7 @@ The other bytes for the control characters are now fetched.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F73"></span>0F73</td>
 <td class="instruction">RES 0,(IY+$07)</td>
-<td class="comment-11" rowspan="1">Signal 'K mode'.</td>
+<td class="comment-11" rowspan="1">Signal 'K mode' (reset bit 0 of <a href="5C41.html">MODE</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -375,13 +375,13 @@ The following subroutine actually adds a code to the current EDIT or INPUT line.
 <td class="asm-label-1">ADD_CHAR</td>
 <td class="address-2"><span id="0F81"></span>0F81</td>
 <td class="instruction">RES 0,(IY+$07)</td>
-<td class="comment-11" rowspan="1">Signal 'K mode'.</td>
+<td class="comment-11" rowspan="1">Signal 'K mode' (reset bit 0 of <a href="5C41.html">MODE</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F85"></span>0F85</td>
 <td class="instruction">LD HL,($5C5B)</td>
-<td class="comment-11" rowspan="1">Fetch the cursor position.</td>
+<td class="comment-11" rowspan="1">Fetch the cursor position (<a href="5C5B.html">K-CUR</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -393,7 +393,7 @@ The following subroutine actually adds a code to the current EDIT or INPUT line.
 <td class="asm-label-1">ADD_CH_1</td>
 <td class="address-2"><span id="0F8B"></span>0F8B</td>
 <td class="instruction">LD (DE),A</td>
-<td class="comment-11" rowspan="4">Enter the code into the space and signal that the cursor is to occur at the location after. Then return indirectly to <a href="0F2C.html#0F38">ED_LOOP</a>.</td>
+<td class="comment-11" rowspan="4">Enter the code into the space and set <a href="5C5B.html">K-CUR</a> to signal that the cursor is to occur at the location after. Then return indirectly to <a href="0F2C.html#0F38">ED_LOOP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -469,7 +469,7 @@ The editing keys are dealt with as follows:
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F9C"></span>0F9C</td>
 <td class="instruction">LD HL,($5C5B)</td>
-<td class="comment-11" rowspan="2">The <span class="register">HL</span> register pair is set and an indirect jump made to the required routine.</td>
+<td class="comment-11" rowspan="2">The <span class="register">HL</span> register pair is set to <a href="5C5B.html">K-CUR</a> and an indirect jump made to the required routine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -486,9 +486,9 @@ The editing keys are dealt with as follows:
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

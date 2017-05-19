@@ -38,11 +38,18 @@ These subroutines return with <span class="register">DE</span> pointing to the f
 </tr>
 
 </table>
-<table class="output-0">
+<table class="output-1">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
-
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Address of the first byte of the editing area or work space</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the last byte of the editing area or work space</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -69,7 +76,7 @@ These subroutines return with <span class="register">DE</span> pointing to the f
 <span id="1195"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="1031.html">ED_EDGE</a> and <a href="111D.html">ED_COPY</a>.
+This entry point is used by the routines at <a href="1031.html">ED_EDGE</a> and <a href="111D.html">ED_COPY</a> with the carry flag set.
 </div>
 </div>
 </td>
@@ -78,7 +85,7 @@ This entry point is used by the routines at <a href="1031.html">ED_EDGE</a> and 
 <td class="asm-label-1">SET_DE</td>
 <td class="address-2"><span id="1195"></span>1195</td>
 <td class="instruction">LD DE,($5C59)</td>
-<td class="comment-11" rowspan="3">Point to the start of the editing area (<a href="5C59.html">E-LINE</a>) and return if in 'editing mode'.</td>
+<td class="comment-11" rowspan="3">Point to the start of the editing area (<a href="5C59.html">E-LINE</a>) and return if in 'editing mode' (bit 5 of <a href="5C71.html">FLAGX</a> reset).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -125,9 +132,9 @@ This entry point is used by the routines at <a href="1031.html">ED_EDGE</a> and 
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

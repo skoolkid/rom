@@ -28,31 +28,40 @@
 <div class="paragraph">
 Used by the routine at <a href="08B6.html">ME_CONTRL</a>.
 </div>
-<div class="paragraph">
-This subroutine is entered with the following parameters:
 </div>
-<div class="paragraph">
-<ul class="">
-<li>Carry flag reset - MERGE a BASIC line.</li>
-<li>Carry flag set - MERGE a variable.</li>
-<li>Zero flag reset - it will be an 'addition'.</li>
-<li>Zero flag set - it is a 'replacement'.</li>
-<li><span class="register">HL</span> register pair - points to the start of the new entry.</li>
-<li><span class="register">DE</span> register pair - points to where it is to MERGE.</li>
-</ul>
-</div>
-</div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Destination address of the new line/variable</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the new line/variable to MERGE</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry flag: MERGE a BASIC line (reset) or a variable (set)</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Zero flag: add (reset) or replace (set) the line/variable</td>
+</tr>
 </table>
-<table class="output-0">
+<table class="output-1">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
-
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Address of the next line/variable in the existing program</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the next new line/variable to MERGE</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -313,9 +322,9 @@ The 'new' variable/line has now to be removed from the work space.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

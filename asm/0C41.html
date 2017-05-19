@@ -28,21 +28,32 @@
 <div class="paragraph">
 Used by the routine at <a href="0C0A.html">PO_MSG</a>.
 </div>
-<div class="paragraph">
-The subroutine returns with the <span class="register">DE</span> register pair pointing to the initial character of the required entry and the carry flag reset if a 'leading space' is to be considered.
 </div>
-</div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Message table entry number</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Message table start address</td>
+</tr>
 </table>
-<table class="output-0">
+<table class="output-1">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
-
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Address of the first character of message number <span class="register">A</span></td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry flag: suppress (set) or allow (reset) a leading space</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -122,7 +133,7 @@ The subroutine returns with the <span class="register">DE</span> register pair p
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0C51"></span>0C51</td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-11" rowspan="3">However if the intial character is a letter then a leading space may be needed.</td>
+<td class="comment-11" rowspan="3">However if the initial character is a letter then a leading space may be needed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -145,9 +156,9 @@ The subroutine returns with the <span class="register">DE</span> register pair p
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

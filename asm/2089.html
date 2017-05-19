@@ -80,7 +80,7 @@ This routine allows for values entered from the keyboard to be assigned to varia
 <td class="asm-label-1">INPUT_1</td>
 <td class="address-2"><span id="2096"></span>2096</td>
 <td class="instruction">LD (IY+$02),$01</td>
-<td class="comment-11" rowspan="1">Signal that the lower screen is being handled. Reset all other bits.</td>
+<td class="comment-11" rowspan="1">Signal that the lower screen is being handled (set bit 0 of <a href="5C3C.html">TV-FLAG</a> and reset all other bits).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -98,13 +98,13 @@ This routine allows for values entered from the keyboard to be assigned to varia
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="20A0"></span>20A0</td>
 <td class="instruction">LD BC,($5C88)</td>
-<td class="comment-11" rowspan="1">Fetch the current print position.</td>
+<td class="comment-11" rowspan="1">Fetch the current print position (<a href="5C88.html">S-POSN</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="20A4"></span>20A4</td>
 <td class="instruction">LD A,($5C6B)</td>
-<td class="comment-11" rowspan="3">Jump forward if the current position is above the lower screen.</td>
+<td class="comment-11" rowspan="3">Jump forward if the current position is above the lower screen (see <a href="5C6B.html">DF-SZ</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -158,7 +158,7 @@ This routine allows for values entered from the keyboard to be assigned to varia
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="20B7"></span>20B7</td>
 <td class="instruction">RES 0,(IY+$02)</td>
-<td class="comment-11" rowspan="1">Signal 'main screen'.</td>
+<td class="comment-11" rowspan="1">Signal 'main screen' (reset bit 0 of <a href="5C3C.html">TV-FLAG</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -286,13 +286,13 @@ Now consider whether INPUT LINE is being used.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="20E0"></span>20E0</td>
 <td class="instruction">SET 7,(IY+$37)</td>
-<td class="comment-11" rowspan="1">Signal 'using INPUT LINE'.</td>
+<td class="comment-11" rowspan="1">Signal 'using INPUT LINE' (set bit 7 of <a href="5C71.html">FLAGX</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="20E4"></span>20E4</td>
 <td class="instruction">BIT 6,(IY+$01)</td>
-<td class="comment-11" rowspan="2">Give report C unless using a string variable.</td>
+<td class="comment-11" rowspan="2">Give report C unless using a string variable (bit 6 of <a href="5C3B.html">FLAGS</a> reset).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -338,7 +338,7 @@ Proceed to handle simple INPUT variables.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="20F6"></span>20F6</td>
 <td class="instruction">RES 7,(IY+$37)</td>
-<td class="comment-11" rowspan="1">Signal 'not INPUT LINE'.</td>
+<td class="comment-11" rowspan="1">Signal 'not INPUT LINE' (reset bit 7 of <a href="5C71.html">FLAGX</a>).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
@@ -504,7 +504,7 @@ The prompt message is now built up in the work space.
 <td class="asm-label-1">IN_PR_3</td>
 <td class="address-2"><span id="2129"></span>2129</td>
 <td class="instruction">LD ($5C5B),HL</td>
-<td class="comment-11" rowspan="1">The position of the cursor can now be saved.</td>
+<td class="comment-11" rowspan="1">The position of the cursor (<a href="5C5B.html">K-CUR</a>) can now be saved.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
@@ -520,7 +520,7 @@ In the case of INPUT LINE the EDITOR can be called without further preparation b
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="212C"></span>212C</td>
 <td class="instruction">BIT 7,(IY+$37)</td>
-<td class="comment-11" rowspan="2">Jump forward with 'INPUT LINE'.</td>
+<td class="comment-11" rowspan="2">Jump forward with 'INPUT LINE' (bit 7 of <a href="5C71.html">FLAGX</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -568,7 +568,7 @@ In the case of INPUT LINE the EDITOR can be called without further preparation b
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="213E"></span>213E</td>
 <td class="instruction">BIT 4,(IY+$30)</td>
-<td class="comment-11" rowspan="3">Only change the error stack pointer (<a href="5C3D.html">ERR-SP</a>) if using channel 'K'.</td>
+<td class="comment-11" rowspan="3">Only change the error stack pointer (<a href="5C3D.html">ERR-SP</a>) if using channel 'K' (bit 4 of <a href="5C6A.html">FLAGS2</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -604,7 +604,7 @@ In the case of INPUT LINE the EDITOR can be called without further preparation b
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2152"></span>2152</td>
 <td class="instruction">CALL <a href="0F2C.html">EDITOR</a></td>
-<td class="comment-11" rowspan="4">Now get the INPUT and with the syntax/run flag indicating syntax, check the INPUT for errors; jump if in order; return to <a href="2089.html#213A">IN_VAR_1</a> if not.</td>
+<td class="comment-11" rowspan="4">Now get the INPUT and with the syntax/run flag (bit 7 of <a href="5C3B.html">FLAGS</a>) indicating syntax, check the INPUT for errors; jump if in order; return to <a href="2089.html#213A">IN_VAR_1</a> if not.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -644,7 +644,7 @@ All the system variables have to be reset before the actual assignment of a valu
 <td class="asm-label-1">IN_VAR_4</td>
 <td class="address-2"><span id="2161"></span>2161</td>
 <td class="instruction">LD (IY+$22),$00</td>
-<td class="comment-11" rowspan="1">The cursor address is reset.</td>
+<td class="comment-11" rowspan="1">The cursor address (<a href="5C5B.html">K-CUR</a>) is reset.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -740,7 +740,7 @@ All the system variables have to be reset before the actual assignment of a valu
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2188"></span>2188</td>
 <td class="instruction">SET 7,(IY+$01)</td>
-<td class="comment-11" rowspan="2">Now with the syntax/run flag indicating 'run' make the assignment.</td>
+<td class="comment-11" rowspan="2">Now with the syntax/run flag (bit 7 of <a href="5C3B.html">FLAGS</a>) indicating 'run' make the assignment.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -869,9 +869,9 @@ Further items in the INPUT statement are considered.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

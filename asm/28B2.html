@@ -41,11 +41,38 @@ The <span class="register">B</span> register is used as a bit register to hold f
 </tr>
 
 </table>
-<table class="output-0">
+<table class="output-1">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
-
+<tr>
+<td class="register">C</td>
+<td class="register-desc">Bits 0-4: Code of the variable's name (if executing)</td>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">Bit 5: Set if the variable is numeric, reset if it's a string</td>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">Bit 6: Set if the variable is simple, reset if it's an array</td>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">Bit 7: Set if checking syntax, reset if executing</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the last letter of the variable's name (in the variables area, if found)</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry flag reset if the variable already exists or if checking syntax</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Zero flag reset if the variable is simple (not an array) and does not exist</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -53,7 +80,7 @@ The <span class="register">B</span> register is used as a bit register to hold f
 <td class="asm-label-1">LOOK_VARS</td>
 <td class="address-2"><span id="28B2"></span>28B2</td>
 <td class="instruction">SET 6,(IY+$01)</td>
-<td class="comment-11" rowspan="1">Presume a numeric variable.</td>
+<td class="comment-11" rowspan="1">Presume a numeric variable (set bit 6 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -211,7 +238,7 @@ Simple strings and arrays of strings require that bit 6 of <a href="5C3B.html">F
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="28DF"></span>28DF</td>
 <td class="instruction">RES 6,(IY+$01)</td>
-<td class="comment-11" rowspan="1">Reset bit 6 to indicate a string.</td>
+<td class="comment-11" rowspan="1">Reset bit 6 of <a href="5C3B.html">FLAGS</a> to indicate a string.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
@@ -773,9 +800,9 @@ In syntax time the return is always made with the carry flag reset. The zero fla
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

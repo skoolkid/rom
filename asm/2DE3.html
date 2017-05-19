@@ -447,7 +447,7 @@ Note that the stack is now unbalanced. An extra byte 'DEFB +02, delete' is neede
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2E2E"></span>2E2E</td>
 <td class="instruction">LD A,($5CAC)</td>
-<td class="comment-11" rowspan="3">The current count is collected from the second byte of mem-5 and n is subtracted from it.</td>
+<td class="comment-11" rowspan="3">The current count is collected from the second byte of <a href="5C92.html#5CAB">mem-5</a> and n is subtracted from it.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -531,7 +531,7 @@ Note that the stack is now unbalanced. An extra byte 'DEFB +02, delete' is neede
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2E44"></span>2E44</td>
 <td class="instruction">LD ($5CA1),A</td>
-<td class="comment-11" rowspan="1">i2 is stored in the first byte of mem-3: a digit for printing.</td>
+<td class="comment-11" rowspan="1">i2 is stored in the first byte of <a href="5C92.html#5CA1">mem-3</a>: a digit for printing.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -561,7 +561,7 @@ Note that the stack is now unbalanced. An extra byte 'DEFB +02, delete' is neede
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2E4B"></span>2E4B</td>
 <td class="instruction">LD HL,$5CAB</td>
-<td class="comment-11" rowspan="5">The zero or one is inserted into the first byte of mem-5 (the number of digits for printing) and added to the second byte of mem-5 (the number of digits before the decimal).</td>
+<td class="comment-11" rowspan="5">The zero or one is inserted into the first byte of <a href="5C92.html#5CAB">mem-5</a> (the number of digits for printing) and added to the second byte of mem-5 (the number of digits before the decimal).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -649,7 +649,7 @@ iv. Numbers greater than 2&#8593;27 are similarly multiplied by 2&#8593;(-n+7), 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2E62"></span>2E62</td>
 <td class="instruction">LD HL,$5CAC</td>
-<td class="comment-11" rowspan="3">n-7 is added in to the second byte of mem-5, the number of digits required before the decimal in x.</td>
+<td class="comment-11" rowspan="3">n-7 is added in to the second byte of <a href="5C92.html#5CAB">mem-5</a>, the number of digits required before the decimal in x.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -795,7 +795,7 @@ Note that the case where i is a small integer (less than 65536) re-enters here.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2E85"></span>2E85</td>
 <td class="instruction">LD HL,$5CAA</td>
-<td class="comment-11" rowspan="2">Address of fifth byte of mem-4 to <span class="register">HL</span>; count of 5 bytes to <span class="register">C</span>.</td>
+<td class="comment-11" rowspan="2">Address of fifth byte of <a href="5C92.html#5CA6">mem-4</a> to <span class="register">HL</span>; count of 5 bytes to <span class="register">C</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -856,7 +856,7 @@ Note that the case where i is a small integer (less than 65536) re-enters here.
 <span id="2E94"></span>
 <div class="comments">
 <div class="paragraph">
-Decimal adjusting each byte of mem-4 gave 2 decimal digits per byte, there being at most 9 digits. The digits will now be re-packed, one to a byte, in mem-3 and mem-4, using the instruction RLD.
+Decimal adjusting each byte of mem-4 gave 2 decimal digits per byte, there being at most 9 digits. The digits will now be re-packed, one to a byte, in mem-3 and mem-4, using the instruction 'RLD'.
 </div>
 </div>
 </td>
@@ -871,13 +871,13 @@ Decimal adjusting each byte of mem-4 gave 2 decimal digits per byte, there being
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2E95"></span>2E95</td>
 <td class="instruction">LD HL,$5CA6</td>
-<td class="comment-11" rowspan="1">Source address: first byte of mem-4.</td>
+<td class="comment-11" rowspan="1">Source address: first byte of <a href="5C92.html#5CA6">mem-4</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2E98"></span>2E98</td>
 <td class="instruction">LD DE,$5CA1</td>
-<td class="comment-11" rowspan="1">Destination: first byte of mem-3.</td>
+<td class="comment-11" rowspan="1">Destination: first byte of <a href="5C92.html#5CA1">mem-3</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -985,7 +985,7 @@ Decimal adjusting each byte of mem-4 gave 2 decimal digits per byte, there being
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2EBA"></span>2EBA</td>
 <td class="instruction">LD A,($5CAB)</td>
-<td class="comment-11" rowspan="2">Get counter: were there 9 digits excluding leading zeros?</td>
+<td class="comment-11" rowspan="2">Get counter from the first byte of <a href="5C92.html#5CAB">mem-5</a>: were there 9 digits excluding leading zeros?</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1009,7 +1009,7 @@ Decimal adjusting each byte of mem-4 gave 2 decimal digits per byte, there being
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2EC4"></span>2EC4</td>
 <td class="instruction">LD A,$04</td>
-<td class="comment-11" rowspan="2">Compare 9th digit, byte 4 of mem-4, with 4 to set carry for rounding up.</td>
+<td class="comment-11" rowspan="2">Compare 9th digit, byte 4 of <a href="5C92.html#5CA6">mem-4</a>, with 4 to set carry for rounding up.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1223,7 +1223,7 @@ vi. The fractional part of x is now stored in the print buffer.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2EFE"></span>2EFE</td>
 <td class="instruction">LD HL,$5CA1</td>
-<td class="comment-11" rowspan="1">The start - 1st byte of mem-3.</td>
+<td class="comment-11" rowspan="1">The start - 1st byte of <a href="5C92.html#5CA1">mem-3</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1281,7 +1281,7 @@ vii. The digits stored in the print buffer are rounded to a maximum of 8 digits 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2F0D"></span>2F0D</td>
 <td class="instruction">LD HL,$5CA1</td>
-<td class="comment-11" rowspan="1">Base address of number: mem-3, byte 1.</td>
+<td class="comment-11" rowspan="1">Base address of number: <a href="5C92.html#5CA1">mem-3</a>, byte 1.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1447,13 +1447,13 @@ viii. The number can now be printed. First <span class="register">C</span> will 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2F36"></span>2F36</td>
 <td class="instruction">LD BC,($5CAB)</td>
-<td class="comment-11" rowspan="1">The counters are set.</td>
+<td class="comment-11" rowspan="1">The counters are set (first two bytes of <a href="5C92.html#5CAB">mem-5</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2F3A"></span>2F3A</td>
 <td class="instruction">LD HL,$5CA1</td>
-<td class="comment-11" rowspan="1">The start of the digits.</td>
+<td class="comment-11" rowspan="1">The start of the digits (first byte of <a href="5C92.html#5CA1">mem-3</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1762,9 +1762,9 @@ The next entry point is also used to print the digits needed for E-format printi
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

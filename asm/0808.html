@@ -32,11 +32,18 @@ Used by the routine at <a href="0605.html">SAVE_ETC</a>.
 This routine controls the LOADing of a BASIC program, and its variables, or an array.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Destination address (<a href="5C53.html">PROG</a>, or the address of the array, or +0000 for a new array)</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">Address of the header loaded from tape</td>
+</tr>
 </table>
 <table class="output-0">
 <tr class="asm-output-header">
@@ -562,7 +569,7 @@ Now deal with the LOADing of a BASIC program and its variables.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="088C"></span>088C</td>
 <td class="instruction">LD IX,($5C5F)</td>
-<td class="comment-11" rowspan="1">Restore the <span class="register">IX</span> register pair.</td>
+<td class="comment-11" rowspan="1">Restore the <span class="register">IX</span> register pair from <a href="5C5F.html">X-PTR</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -685,9 +692,9 @@ The data block can now be LOADed.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

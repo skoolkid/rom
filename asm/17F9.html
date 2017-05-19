@@ -66,7 +66,7 @@ This entry point is used by the routine at <a href="17F5.html">LLIST</a>.
 <td class="asm-label-1">LIST_1</td>
 <td class="address-2"><span id="17FB"></span>17FB</td>
 <td class="instruction">LD (IY+$02),$00</td>
-<td class="comment-11" rowspan="1">Signal 'an ordinary listing in the main part of the screen'.</td>
+<td class="comment-11" rowspan="1">Signal 'an ordinary listing in the main part of the screen' (reset bit 4 of <a href="5C3C.html">TV-FLAG</a> and all other bits).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -264,7 +264,7 @@ Now the controlling loop for printing a series of lines is entered.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1839"></span>1839</td>
 <td class="instruction">BIT 4,(IY+$02)</td>
-<td class="comment-11" rowspan="2">Jump back unless dealing with an automatic listing.</td>
+<td class="comment-11" rowspan="2">Jump back unless dealing with an automatic listing (bit 4 of <a href="5C3C.html">TV-FLAG</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -276,7 +276,7 @@ Now the controlling loop for printing a series of lines is entered.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="183F"></span>183F</td>
 <td class="instruction">LD A,($5C6B)</td>
-<td class="comment-11" rowspan="3">Also jump back if there is still part of the main screen that can be used.</td>
+<td class="comment-11" rowspan="3">Also jump back if there is still part of the main screen that can be used (<a href="5C6B.html">DF-SZ</a> &lt;&gt; <a href="5C88.html">S-POSN-hi</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -353,9 +353,9 @@ Now the controlling loop for printing a series of lines is entered.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

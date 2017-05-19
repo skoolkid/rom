@@ -32,11 +32,22 @@ Used by the routines at <a href="2DE3.html">PRINT_FP</a> and <a href="3014.html"
 This subroutine shifts a floating-point number up to 32 places right to line it up properly for addition. The number with the smaller exponent has been put in the addend position before this subroutine is called. Any overflow to the right, into the carry, is added back into the number. If the exponent difference is greater than 32 decimal, or the carry ripples right back to the beginning of the number then the number is set to zero so that the addition will not alter the other number (the augend).
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Number of shifts to perform</td>
+</tr>
+<tr>
+<td class="register">D'E'DE</td>
+<td class="register-desc">Mantissa of number to shift right</td>
+</tr>
+<tr>
+<td class="register">L'</td>
+<td class="register-desc">Sign byte of number to shift right (+00 or +FF)</td>
+</tr>
 </table>
 <table class="output-0">
 <tr class="asm-output-header">
@@ -221,9 +232,9 @@ This entry point is used by the routine at <a href="30CA.html">multiply</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

@@ -32,11 +32,22 @@ Used by the routines at <a href="30CA.html">multiply</a>, <a href="3214.html">tr
 This subroutine stores a small integer n (-65535&lt;=n&lt;=65535) in the location addressed by <span class="register">HL</span> and the four following locations, i.e. n replaces the first (or second) number at the top of the calculator stack. The subroutine returns <span class="register">HL</span> pointing to the first byte of n on the stack.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">C</td>
+<td class="register-desc">Sign byte</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Value to store</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the first byte of the slot on the calculator stack</td>
+</tr>
 </table>
 <table class="output-0">
 <tr class="asm-output-header">
@@ -173,9 +184,9 @@ The same mechanism is now used as in <a href="2D7F.html">INT_FETCH</a> to two's 
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

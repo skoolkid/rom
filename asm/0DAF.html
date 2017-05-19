@@ -28,9 +28,6 @@
 <div class="paragraph">
 Used by the routines at <a href="0D6B.html">CLS</a>, <a href="12A2.html">MAIN_EXEC</a> and <a href="1795.html">AUTO_LIST</a>.
 </div>
-<div class="paragraph">
-This subroutine is called from <a href="0D6B.html">CLS</a>, <a href="12A2.html">MAIN_EXEC</a>, and <a href="1795.html">AUTO_LIST</a>.
-</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -62,7 +59,7 @@ This subroutine is called from <a href="0D6B.html">CLS</a>, <a href="12A2.html">
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DB5"></span>0DB5</td>
 <td class="instruction">RES 0,(IY+$30)</td>
-<td class="comment-11" rowspan="1">Signal 'the screen is clear'.</td>
+<td class="comment-11" rowspan="1">Signal 'the screen is clear' (reset bit 0 of <a href="5C6A.html">FLAGS2</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -104,7 +101,7 @@ This subroutine is called from <a href="0D6B.html">CLS</a>, <a href="12A2.html">
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DC9"></span>0DC9</td>
 <td class="instruction">LD HL,($5C51)</td>
-<td class="comment-11" rowspan="5">Ensure that the current output address is <a href="09F4.html">PRINT_OUT</a>.</td>
+<td class="comment-11" rowspan="5">Ensure that the current output address (at (<a href="5C51.html">CURCHL</a>)) is <a href="09F4.html">PRINT_OUT</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -161,9 +158,9 @@ This routine continues into <a href="0DD9.html">CL_SET</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

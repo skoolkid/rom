@@ -690,7 +690,7 @@ The initialisation routine continues with:
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1279"></span>1279</td>
 <td class="instruction">DEC (IY-$36)</td>
-<td class="comment-11" rowspan="1">Make <a href="5C00.html">KSTATE4</a> hold +FF.</td>
+<td class="comment-11" rowspan="1">Make <a href="5C00.html#5C04">KSTATE4</a> hold +FF.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -720,7 +720,7 @@ The initialisation routine continues with:
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1287"></span>1287</td>
 <td class="instruction">SET 1,(IY+$01)</td>
-<td class="comment-11" rowspan="2">Signal 'printer in use' and clear the printer buffer.</td>
+<td class="comment-11" rowspan="2">Signal 'printer in use' (set bit 1 of <a href="5C3B.html">FLAGS</a>) and clear the printer buffer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -762,7 +762,7 @@ The initialisation routine continues with:
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="129C"></span>129C</td>
 <td class="instruction">SET 5,(IY+$02)</td>
-<td class="comment-11" rowspan="1">Signal 'the lower part will required to be cleared'.</td>
+<td class="comment-11" rowspan="1">Signal 'the lower part will required to be cleared' (set bit 5 of <a href="5C3C.html">TV-FLAG</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -779,9 +779,9 @@ The initialisation routine continues with:
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

@@ -26,7 +26,7 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Initialised by the routine at <a href="11B7.html">NEW</a>, read by the routines at <a href="1615.html">CHAN_FLAG</a>, <a href="1701.html">CLOSE_2</a> and <a href="1736.html">OPEN</a>, and updated by the routine at <a href="10A8.html">KEY_INPUT</a>.
+Initialised by the routine at <a href="11B7.html">NEW</a> (from the <a href="15AF.html">initial channel information</a> table), read by the routines at <a href="1615.html">CHAN_FLAG</a>, <a href="1701.html">CLOSE_2</a> and <a href="1736.html">OPEN</a>, and updated by the routine at <a href="10A8.html">KEY_INPUT</a>. For each channel the output routine address comes before the input routine address and the channel's code.
 </div>
 </div>
 <table class="input-0">
@@ -47,79 +47,79 @@ Initialised by the routine at <a href="11B7.html">NEW</a>, read by the routines 
 <td class="asm-label-1">CHINFO</td>
 <td class="address-1"><span id="5CB6"></span>5CB6</td>
 <td class="instruction">DEFW <a href="09F4.html">PRINT_OUT</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Keyboard.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="5CB8"></span>5CB8</td>
 <td class="instruction">DEFW <a href="10A8.html">KEY_INPUT</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="5CBA"></span>5CBA</td>
 <td class="instruction">DEFB "K"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="5CBB"></span>5CBB</td>
 <td class="instruction">DEFW <a href="09F4.html">PRINT_OUT</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Screen.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="5CBD"></span>5CBD</td>
 <td class="instruction">DEFW <a href="15C4.html">REPORT_J</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="5CBF"></span>5CBF</td>
 <td class="instruction">DEFB "S"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="5CC0"></span>5CC0</td>
 <td class="instruction">DEFW <a href="0F2C.html#0F81">ADD_CHAR</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Work space.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="5CC2"></span>5CC2</td>
 <td class="instruction">DEFW <a href="15C4.html">REPORT_J</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="5CC4"></span>5CC4</td>
 <td class="instruction">DEFB "R"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="5CC5"></span>5CC5</td>
 <td class="instruction">DEFW <a href="09F4.html">PRINT_OUT</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="3">Printer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="5CC7"></span>5CC7</td>
 <td class="instruction">DEFW <a href="15C4.html">REPORT_J</a></td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="5CC9"></span>5CC9</td>
 <td class="instruction">DEFB "P"</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="5CCA"></span>5CCA</td>
 <td class="instruction">DEFB $80</td>
-<td class="comment-10" rowspan="1"></td>
+<td class="comment-11" rowspan="1">End marker.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -130,9 +130,9 @@ Initialised by the routine at <a href="11B7.html">NEW</a>, read by the routines 
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

@@ -65,7 +65,7 @@ Bit 0 of <a href="5C71.html">FLAGX</a> is set if the destination variable is a '
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2B02"></span>2B02</td>
 <td class="instruction">BIT 1,(IY+$37)</td>
-<td class="comment-11" rowspan="2">Jump if handling a variable that 'exists already'.</td>
+<td class="comment-11" rowspan="2">Jump if handling a variable that 'exists already' (bit 1 of <a href="5C71.html">FLAGX</a> reset).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -510,7 +510,7 @@ Come here if considering a variable that 'exists already'. First bit 6 of <a hre
 <td class="asm-label-1">L_EXISTS</td>
 <td class="address-2"><span id="2B66"></span>2B66</td>
 <td class="instruction">BIT 6,(IY+$01)</td>
-<td class="comment-11" rowspan="2">Jump forward if handling any kind of string variable.</td>
+<td class="comment-11" rowspan="2">Jump forward if handling any kind of string variable (bit 6 of <a href="5C3B.html">FLAGS</a> reset).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -566,13 +566,13 @@ The parameters of the string variable are fetched and complete simple strings se
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2B75"></span>2B75</td>
 <td class="instruction">LD BC,($5C72)</td>
-<td class="comment-11" rowspan="1">Fetch the 'length'.</td>
+<td class="comment-11" rowspan="1">Fetch the 'length' (<a href="5C72.html">STRLEN</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2B79"></span>2B79</td>
 <td class="instruction">BIT 0,(IY+$37)</td>
-<td class="comment-11" rowspan="2">Jump if dealing with a complete simple string; the old string will need to be 'deleted' in this case only.</td>
+<td class="comment-11" rowspan="2">Jump if dealing with a complete simple string (bit 0 of <a href="5C71.html">FLAGX</a> set); the old string will need to be 'deleted' in this case only.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1221,9 +1221,9 @@ The following subroutine is entered with the letter of the variable, suitably ma
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

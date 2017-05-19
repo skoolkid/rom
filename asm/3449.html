@@ -43,18 +43,15 @@ The coefficients of the powers of z in these polynomials may be found in the Han
 <div class="paragraph">
 In simple terms this subroutine is called with the 'last value' on the calculator stack, say Z, being a number that bears a simple relationship to the argument, say X, when the task is to evaluate, for instance, SIN X. The calling subroutine also supplies the list of constants that are to be required (six constants for SIN). The series generator then manipulates its data and returns to the calling routine a 'last value' that bears a simple relationship to the requested function, for instance, SIN X.
 </div>
-<div class="paragraph">
-This subroutine can be considered to have four major parts.
 </div>
-<div class="paragraph">
-i. The setting of the loop counter. The calling subroutine passes its parameters in the <span class="register">A</span> register for use as a counter. The calculator is entered at <a href="335B.html#335E">GEN_ENT_1</a> so that the counter can be set.
-</div>
-</div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Series parameter (+06, +08 or +0C)</td>
+</tr>
 </table>
 <table class="output-0">
 <tr class="asm-output-header">
@@ -62,6 +59,19 @@ i. The setting of the loop counter. The calling subroutine passes its parameters
 </tr>
 
 </table>
+</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="4">
+<span id="3449"></span>
+<div class="comments">
+<div class="paragraph">
+This subroutine can be considered to have four major parts.
+</div>
+<div class="paragraph">
+i. The setting of the loop counter. The calling subroutine passes its parameters in the <span class="register">A</span> register for use as a counter. The calculator is entered at <a href="335B.html#335E">GEN_ENT_1</a> so that the counter can be set.
+</div>
+</div>
 </td>
 </tr>
 <tr>
@@ -294,9 +304,9 @@ iv. The subtraction of B(N-2). The loop above leaves B(N) on the stack and the r
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

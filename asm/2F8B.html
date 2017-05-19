@@ -26,23 +26,34 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="2DE3.html">PRINT_FP</a>.
-</div>
-<div class="paragraph">
 This subroutine is called by <a href="2DE3.html">PRINT_FP</a> to multiply each byte of <span class="register">D'E'DE</span> by 10 and return the integer part of the result in the <span class="register">C</span> register. On entry, the <span class="register">A</span> register contains the byte to be multiplied by 10 and the <span class="register">C</span> register contains the carry over from the previous byte. On return, the <span class="register">A</span> register contains the resulting byte and the <span class="register">C</span> register the carry forward to the next byte.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">A</td>
+<td class="register-desc">First number (M)</td>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">Second number (N)</td>
+</tr>
 </table>
-<table class="output-0">
+<table class="output-1">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
-
+<tr>
+<td class="register">A</td>
+<td class="register-desc">LSB of 10*M+N</td>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">MSB of 10*M+N</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -145,9 +156,9 @@ This subroutine is called by <a href="2DE3.html">PRINT_FP</a> to multiply each b
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

@@ -32,11 +32,18 @@ Used by the routine at <a href="0605.html">SAVE_ETC</a>.
 The operation of saving a program or a block of data is very straightforward.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Data block start address</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">Header start address</td>
+</tr>
 </table>
 <table class="output-0">
 <tr class="asm-output-header">
@@ -86,7 +93,7 @@ The operation of saving a program or a block of data is very straightforward.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="097D"></span>097D</td>
 <td class="instruction">SET 5,(IY+$02)</td>
-<td class="comment-11" rowspan="1">Signal 'screen will require to be cleared'.</td>
+<td class="comment-11" rowspan="1">Signal 'screen will require to be cleared' (set bit 5 of <a href="5C3C.html">TV-FLAG</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -201,9 +208,9 @@ There follows a short delay before the program/data block is saved.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

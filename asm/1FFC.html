@@ -26,10 +26,7 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="1FDF.html">PRINT_2</a> and <a href="2089.html">INPUT</a>.
-</div>
-<div class="paragraph">
-This subroutine is called from the <a href="1FC9.html#1FCD">PRINT</a>, <a href="1FC9.html">LPRINT</a> and <a href="2089.html">INPUT</a> command routines.
+This subroutine is called from the <a href="1FDF.html">PRINT_2</a> and <a href="2089.html">INPUT</a> routines.
 </div>
 <div class="paragraph">
 The various types of print item are identified and printed.
@@ -275,7 +272,7 @@ The print item must now be an expression, either numeric or string.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2032"></span>2032</td>
 <td class="instruction">BIT 6,(IY+$01)</td>
-<td class="comment-11" rowspan="1">Test for the nature of the expression.</td>
+<td class="comment-11" rowspan="1">Test for the nature of the expression (bit 6 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -356,9 +353,9 @@ A loop is now set up to deal with each character in turn of the string.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

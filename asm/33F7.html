@@ -29,26 +29,36 @@
 Used by the routine at <a href="341B.html">stk_con</a>.
 </div>
 <div class="paragraph">
-This subroutine is entered with the <span class="register">HL</span> register pair holding the base address of the calculator's <a href="32C5.html">table of constants</a> and the <span class="register">A</span> register holding a parameter that shows which of the five constants is being requested.
+This subroutine is entered with the <span class="register">HL'</span> register pair holding the base address of the calculator's <a href="32C5.html">table of constants</a> and the <span class="register">A</span> register holding a parameter that shows which of the five constants is being requested.
 </div>
 <div class="paragraph">
 The subroutine performs the null operations of loading the five bytes of each unwanted constant into the locations 0000, 0001, 0002, 0003 and 0004 at the beginning of the ROM until the requested constant is reached.
 </div>
 <div class="paragraph">
-The subroutine returns with the <span class="register">HL</span> register pair holding the base address of the requested constant within the table of constants.
+The subroutine returns with the <span class="register">HL'</span> register pair holding the base address of the requested constant within the table of constants.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Index of the required constant (+00 to +04)</td>
+</tr>
+<tr>
+<td class="register">HL'</td>
+<td class="register-desc"><a href="32C5.html">CONSTANTS</a></td>
+</tr>
 </table>
-<table class="output-0">
+<table class="output-1">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
-
+<tr>
+<td class="register">HL'</td>
+<td class="register-desc">Address of the required constant</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -121,9 +131,9 @@ The subroutine returns with the <span class="register">HL</span> register pair h
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

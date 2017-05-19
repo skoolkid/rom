@@ -29,14 +29,21 @@
 Used by the routines at <a href="0605.html">SAVE_ETC</a>, <a href="0970.html">SA_CONTRL</a>, <a href="0C55.html">PO_SCR</a>, <a href="11B7.html">NEW</a> and <a href="12A2.html">MAIN_EXEC</a>.
 </div>
 <div class="paragraph">
-This subroutine is used to print messages and tokens. The <span class="register">A</span> register holds the 'entry number' of the message or token in a table. The <span class="register">DE</span> register pair holds the base address of the table.
+This subroutine is used to print messages and tokens.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Message table entry number</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Message table address (<a href="09A1.html">CASSETTE</a>, <a href="09A1.html#09C1">BLOCK_HDR</a>-1, <a href="0C55.html#0CF8">SCROLL</a>, <a href="1391.html">REPORTS</a>, <a href="1391.html#1537">COMMA_SPC</a>-1 or <a href="1539.html">COPYRIGHT</a>-1)</td>
+</tr>
 </table>
 <table class="output-0">
 <tr class="asm-output-header">
@@ -121,7 +128,7 @@ The table is searched and the correct entry printed.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0C19"></span>0C19</td>
 <td class="instruction">LD A," "</td>
-<td class="comment-11" rowspan="3">A 'space' will be printed before the message/token if required.</td>
+<td class="comment-11" rowspan="3">A 'space' will be printed before the message/token if required (bit 0 of <a href="5C3B.html">FLAGS</a> reset).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -270,9 +277,9 @@ This routine continues into <a href="0C3B.html">PO_SAVE</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

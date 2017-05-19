@@ -32,11 +32,18 @@ The address of this routine is found in the <a href="32D7.html">table of address
 This subroutine first tests whether the two numbers to be multiplied are 'small integers'. If they are, it uses <a href="2D7F.html">INT_FETCH</a> to get them from the stack, <a href="30A9.html">HL_HLxDE</a> to multiply them and <a href="2D8E.html">INT_STORE</a> to return the result to the stack. Any overflow of this 'short multiplication' (i.e. if the result is not itself a 'small integer') causes a jump to multiplication in full five byte floating-point form (see below).
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Address of the first byte of the second number</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the first byte of the first number</td>
+</tr>
 </table>
 <table class="output-0">
 <tr class="asm-output-header">
@@ -1129,9 +1136,9 @@ Report 6 - Arithmetic overflow.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

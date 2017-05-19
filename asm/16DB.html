@@ -26,20 +26,34 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-This subroutine is used on several occasions to look through tables. The entry point is at <a href="16DB.html#16DC">INDEXER</a>.
+This subroutine is used on several occasions to look through tables.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">C</td>
+<td class="register-desc">Code to look for</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Base address of the table</td>
+</tr>
 </table>
-<table class="output-0">
+<table class="output-1">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
-
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the second byte of the required table entry (if found)</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry flag is set if the code is found</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -54,7 +68,7 @@ This subroutine is used on several occasions to look through tables. The entry p
 <span id="16DC"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="1615.html">CHAN_FLAG</a>, <a href="1701.html">CLOSE_2</a>, <a href="175D.html">OPEN_2</a>, <a href="24FB.html">SCANNING</a> and <a href="26C9.html">S_LETTER</a>.
+The main entry point is here and is used by the routines at <a href="1615.html">CHAN_FLAG</a>, <a href="1701.html">CLOSE_2</a>, <a href="175D.html">OPEN_2</a>, <a href="24FB.html">SCANNING</a> and <a href="26C9.html">S_LETTER</a>.
 </div>
 </div>
 </td>
@@ -116,9 +130,9 @@ This entry point is used by the routines at <a href="1615.html">CHAN_FLAG</a>, <
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

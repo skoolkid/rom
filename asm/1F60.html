@@ -35,11 +35,14 @@ During syntax checking a DEF FN statement is checked to ensure that it has the c
 But in 'run-time' a DEF FN statement is passed by.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Code of the next character in the statement</td>
+</tr>
 </table>
 <table class="output-0">
 <tr class="asm-output-header">
@@ -87,7 +90,7 @@ First consider the variable of the function.
 <td class="asm-label-1">DEF_FN_1</td>
 <td class="address-2"><span id="1F6A"></span>1F6A</td>
 <td class="instruction">SET 6,(IY+$01)</td>
-<td class="comment-11" rowspan="1">Signal 'a numeric variable'.</td>
+<td class="comment-11" rowspan="1">Signal 'a numeric variable' (set bit 6 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -123,7 +126,7 @@ First consider the variable of the function.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F78"></span>1F78</td>
 <td class="instruction">RES 6,(IY+$01)</td>
-<td class="comment-11" rowspan="1">Change bit 6 as it is a string variable.</td>
+<td class="comment-11" rowspan="1">Reset bit 6 of <a href="5C3B.html">FLAGS</a> as it is a string variable.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -347,7 +350,7 @@ Next the definition of the function is considered.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1FB7"></span>1FB7</td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="3">Fetch the nature of the variable and check that it is of the same type as found for the definition.</td>
+<td class="comment-11" rowspan="3">Fetch the nature of the variable and check that it is of the same type as found for the definition (specified by bit 6 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -392,9 +395,9 @@ This routine continues into <a href="1FC3.html">UNSTACK_Z</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

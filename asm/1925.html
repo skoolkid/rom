@@ -28,9 +28,6 @@
 <div class="paragraph">
 All of the character/token codes in a BASIC line are printed by repeatedly calling this subroutine.
 </div>
-<div class="paragraph">
-The entry point <a href="1925.html#192A">OUT_SP_NO</a> is used when printing line numbers which may require leading spaces.
-</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -75,7 +72,7 @@ The entry point <a href="1925.html#192A">OUT_SP_NO</a> is used when printing lin
 <span id="192A"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="1A1B.html">OUT_NUM_1</a>.
+This entry point is used by the routine at <a href="1A1B.html">OUT_NUM_1</a> to print a line number that may (<span class="register">E</span>=+20) or may not (<span class="register">E</span>=+FF) require leading spaces.
 </div>
 </div>
 </td>
@@ -143,10 +140,7 @@ The <span class="register">HL</span> register pair holds the line number and the
 <span id="1937"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="1855.html">OUT_LINE</a>.
-</div>
-<div class="paragraph">
-This entry point is used for all characters, tokens and control characters.
+This entry point is used by the routine at <a href="1855.html">OUT_LINE</a> to print a character or token.
 </div>
 </div>
 </td>
@@ -179,7 +173,7 @@ This entry point is used for all characters, tokens and control characters.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1940"></span>1940</td>
 <td class="instruction">RES 2,(IY+$01)</td>
-<td class="comment-11" rowspan="1">Signal 'print in K-mode'.</td>
+<td class="comment-11" rowspan="1">Signal 'print in K-mode' (reset bit 2 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -209,7 +203,7 @@ This entry point is used for all characters, tokens and control characters.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="194C"></span>194C</td>
 <td class="instruction">BIT 5,(IY+$37)</td>
-<td class="comment-11" rowspan="2">Jump forward to print the ':' if in 'INPUT mode'.</td>
+<td class="comment-11" rowspan="2">Jump forward to print the ':' if in 'INPUT mode' (bit 5 of <a href="5C71.html">FLAGX</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -221,7 +215,7 @@ This entry point is used for all characters, tokens and control characters.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1952"></span>1952</td>
 <td class="instruction">BIT 2,(IY+$30)</td>
-<td class="comment-11" rowspan="2">Jump forward if the ':' is 'not in quotes', i.e. an inter-statement marker.</td>
+<td class="comment-11" rowspan="2">Jump forward if the ':' is 'not in quotes' (bit 2 of <a href="5C6A.html">FLAGS2</a> reset), i.e. an inter-statement marker.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -269,7 +263,7 @@ This entry point is used for all characters, tokens and control characters.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1964"></span>1964</td>
 <td class="instruction">LD ($5C6A),A</td>
-<td class="comment-11" rowspan="2">Enter the amended value and restore the character code.</td>
+<td class="comment-11" rowspan="2">Enter the amended value into <a href="5C6A.html">FLAGS2</a> and restore the character code.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -281,7 +275,7 @@ This entry point is used for all characters, tokens and control characters.
 <td class="asm-label-1">OUT_CH_2</td>
 <td class="address-2"><span id="1968"></span>1968</td>
 <td class="instruction">SET 2,(IY+$01)</td>
-<td class="comment-11" rowspan="1">Signal 'the next character is to be printed in L-mode'.</td>
+<td class="comment-11" rowspan="1">Signal 'the next character is to be printed in L-mode' (set bit 2 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1">OUT_CH_3</td>
@@ -317,9 +311,9 @@ Also note how the program does not cater for ':' in REM statements.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

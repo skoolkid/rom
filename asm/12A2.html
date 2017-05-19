@@ -50,7 +50,7 @@ The main loop controls the 'editing mode', the execution of direct commands and 
 <td class="asm-label-1">MAIN_EXEC</td>
 <td class="address-2"><span id="12A2"></span>12A2</td>
 <td class="instruction">LD (IY+$31),$02</td>
-<td class="comment-11" rowspan="1">The lower part of the screen is to be two lines in size.</td>
+<td class="comment-11" rowspan="1">The lower part of the screen is to be two lines in size (see <a href="5C6B.html">DF-SZ</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -102,7 +102,7 @@ This entry point is used by the routine at <a href="11B7.html">NEW</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="12B7"></span>12B7</td>
 <td class="instruction">BIT 7,(IY+$00)</td>
-<td class="comment-11" rowspan="2">Jump forward if the syntax is correct.</td>
+<td class="comment-11" rowspan="2">Jump forward if the syntax is correct (<a href="5C3A.html">ERR-NR</a> is +FF).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -114,7 +114,7 @@ This entry point is used by the routine at <a href="11B7.html">NEW</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="12BD"></span>12BD</td>
 <td class="instruction">BIT 4,(IY+$30)</td>
-<td class="comment-11" rowspan="2">Jump forward if other than channel 'K' is being used.</td>
+<td class="comment-11" rowspan="2">Jump forward if other than channel 'K' is being used (bit 4 of <a href="5C6A.html">FLAGS2</a> is set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -224,7 +224,7 @@ The 'edit-line' must start with a direct BASIC command so this line becomes the 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="12E2"></span>12E2</td>
 <td class="instruction">BIT 0,(IY+$30)</td>
-<td class="comment-11" rowspan="2">Clear the whole display unless the flag says it is unnecessary.</td>
+<td class="comment-11" rowspan="2">Clear the whole display unless the flag (bit 0 of <a href="5C6A.html">FLAGS2</a>) says it is unnecessary.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -242,7 +242,7 @@ The 'edit-line' must start with a direct BASIC command so this line becomes the 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="12EC"></span>12EC</td>
 <td class="instruction">LD A,$19</td>
-<td class="comment-11" rowspan="3">Set the appropriate value for the scroll counter (<a href="5C8C.html">SCR-CT</a>).</td>
+<td class="comment-11" rowspan="3">Set the appropriate value for the scroll counter (<a href="5C8C.html">SCR-CT</a>) by subtracting the second byte of <a href="5C88.html">S-POSN</a> from +19).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -260,7 +260,7 @@ The 'edit-line' must start with a direct BASIC command so this line becomes the 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="12F4"></span>12F4</td>
 <td class="instruction">SET 7,(IY+$01)</td>
-<td class="comment-11" rowspan="1">Signal 'line execution'.</td>
+<td class="comment-11" rowspan="1">Signal 'line execution' (set bit 7 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -272,7 +272,7 @@ The 'edit-line' must start with a direct BASIC command so this line becomes the 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="12FC"></span>12FC</td>
 <td class="instruction">LD (IY+$0A),$01</td>
-<td class="comment-11" rowspan="1">Deal with the first statement in the line.</td>
+<td class="comment-11" rowspan="1">Deal with the first statement in the line (set <a href="5C44.html">NSPPC</a> to +01).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -300,13 +300,13 @@ After the line has been interpreted and all the actions consequential to it have
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1304"></span>1304</td>
 <td class="instruction">RES 5,(IY+$01)</td>
-<td class="comment-11" rowspan="1">Signal 'ready for a new key'.</td>
+<td class="comment-11" rowspan="1">Signal 'ready for a new key' (reset bit 5 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1308"></span>1308</td>
 <td class="instruction">BIT 1,(IY+$30)</td>
-<td class="comment-11" rowspan="2">Empty the printer buffer if it has been used.</td>
+<td class="comment-11" rowspan="2">Empty the printer buffer if it has been used (bit 1 of <a href="5C6A.html">FLAGS2</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -318,7 +318,7 @@ After the line has been interpreted and all the actions consequential to it have
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="130F"></span>130F</td>
 <td class="instruction">LD A,($5C3A)</td>
-<td class="comment-11" rowspan="2">Fetch the error number and increment it.</td>
+<td class="comment-11" rowspan="2">Fetch the error number (<a href="5C3A.html">ERR-NR</a>) and increment it.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -370,7 +370,7 @@ This entry point is used by the routine at <a href="1555.html">REPORT_G</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1320"></span>1320</td>
 <td class="instruction">LD HL,$0001</td>
-<td class="comment-11" rowspan="2">Ensure that stream +00 points to channel 'K'.</td>
+<td class="comment-11" rowspan="2">Ensure that stream +00 points to channel 'K' (see <a href="5C10.html#5C16">STRMS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -388,7 +388,7 @@ This entry point is used by the routine at <a href="1555.html">REPORT_G</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1329"></span>1329</td>
 <td class="instruction">RES 5,(IY+$37)</td>
-<td class="comment-11" rowspan="1">Signal 'editing mode'.</td>
+<td class="comment-11" rowspan="1">Signal 'editing mode' (reset bit 5 of <a href="5C71.html">FLAGX</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -400,7 +400,7 @@ This entry point is used by the routine at <a href="1555.html">REPORT_G</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1330"></span>1330</td>
 <td class="instruction">SET 5,(IY+$02)</td>
-<td class="comment-11" rowspan="1">Signal 'the lower screen will require clearing'.</td>
+<td class="comment-11" rowspan="1">Signal 'the lower screen will require clearing' (set bit 5 of <a href="5C3C.html">TV-FLAG</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -514,7 +514,7 @@ This entry point is used by the routine at <a href="1555.html">REPORT_G</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="135A"></span>135A</td>
 <td class="instruction">LD C,(IY+$0D)</td>
-<td class="comment-11" rowspan="3">Fetch the current statement number into the <span class="register">BC</span> register pair and print it.</td>
+<td class="comment-11" rowspan="3">Fetch the current statement number (<a href="5C47.html">SUBPPC</a>) into the <span class="register">BC</span> register pair and print it.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -538,7 +538,7 @@ This entry point is used by the routine at <a href="1555.html">REPORT_G</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1365"></span>1365</td>
 <td class="instruction">LD A,($5C3A)</td>
-<td class="comment-11" rowspan="1">Fetch the error number again.</td>
+<td class="comment-11" rowspan="1">Fetch the error number (<a href="5C3A.html">ERR-NR</a>) again.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -634,7 +634,7 @@ This entry point is used by the routine at <a href="1555.html">REPORT_G</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="138A"></span>138A</td>
 <td class="instruction">RES 3,(IY+$01)</td>
-<td class="comment-11" rowspan="1">'K mode' is selected.</td>
+<td class="comment-11" rowspan="1">'K mode' is selected (reset bit 3 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -651,9 +651,9 @@ This entry point is used by the routine at <a href="1555.html">REPORT_G</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

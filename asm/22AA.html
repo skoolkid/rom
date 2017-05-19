@@ -26,23 +26,34 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="22CB.html">POINT_SUB</a> and <a href="22DC.html">PLOT</a>.
-</div>
-<div class="paragraph">
 This subroutine is called by <a href="22CB.html">POINT_SUB</a> and by <a href="22DC.html">PLOT</a>. Is is entered with the co-ordinates of a pixel in the <span class="register">BC</span> register pair and returns with <span class="register">HL</span> holding the address of the display file byte which contains that pixel and <span class="register">A</span> pointing to the position of the pixel within the byte.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">B</td>
+<td class="register-desc">Pixel y-coordinate</td>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">Pixel x-coordinate</td>
+</tr>
 </table>
-<table class="output-0">
+<table class="output-1">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
-
+<tr>
+<td class="register">A</td>
+<td class="register-desc"><span class="register">C</span> mod 8</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Display file address</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -194,7 +205,7 @@ This subroutine is called by <a href="22CB.html">POINT_SUB</a> and by <a href="2
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22C7"></span>22C7</td>
 <td class="instruction">LD A,C</td>
-<td class="comment-11" rowspan="2"><span class="register">A</span> holds x mod 8, so the pixel is bit (<span class="register">A</span>-7) within the byte.</td>
+<td class="comment-11" rowspan="2"><span class="register">A</span> holds x mod 8, so the pixel is bit (7-<span class="register">A</span>) within the byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -217,9 +228,9 @@ This subroutine is called by <a href="22CB.html">POINT_SUB</a> and by <a href="2
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

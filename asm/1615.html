@@ -35,11 +35,14 @@ The routine at <a href="1601.html">CHAN_OPEN</a> continues here.
 The appropriate flags for the different channels are set by this subroutine.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Base address of the channel (see <a href="5CB6.html">CHINFO</a>)</td>
+</tr>
 </table>
 <table class="output-0">
 <tr class="asm-output-header">
@@ -53,13 +56,13 @@ The appropriate flags for the different channels are set by this subroutine.
 <td class="asm-label-1">CHAN_FLAG</td>
 <td class="address-2"><span id="1615"></span>1615</td>
 <td class="instruction">LD ($5C51),HL</td>
-<td class="comment-11" rowspan="1">The <span class="register">HL</span> register pair holds the base address for a particular channel.</td>
+<td class="comment-11" rowspan="1">The <span class="register">HL</span> register pair holds the base address for a particular channel; set <a href="5C51.html">CURCHL</a> accordingly.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1618"></span>1618</td>
 <td class="instruction">RES 4,(IY+$30)</td>
-<td class="comment-11" rowspan="1">Signal 'using other than channel 'K''.</td>
+<td class="comment-11" rowspan="1">Signal 'using other than channel 'K'' (reset bit 4 of <a href="5C6A.html">FLAGS2</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -152,9 +155,9 @@ This entry point is used by the routine at <a href="15EF.html">OUT_CODE</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

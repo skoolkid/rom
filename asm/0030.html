@@ -29,20 +29,30 @@
 Used by the routines at <a href="0605.html">SAVE_ETC</a>, <a href="08B6.html">ME_CONTRL</a>, <a href="2089.html">INPUT</a>, <a href="2535.html">S_SCRN_S</a>, <a href="25B3.html">S_QUOTE</a>, <a href="2634.html">S_INKEY</a>, <a href="2AFF.html">LET</a>, <a href="359C.html">strs_add</a>, <a href="35C9.html">chrs</a>, <a href="35DE.html">val</a>, <a href="361F.html">str</a> and <a href="3645.html">read_in</a>.
 </div>
 <div class="paragraph">
-This routine creates free locations in the work space. The number of locations is determined by the current contents of the <span class="register">BC</span> register pair.
+This routine creates free locations in the work space.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">BC</td>
+<td class="register-desc">Number of free locations to create</td>
+</tr>
 </table>
-<table class="output-0">
+<table class="output-1">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
-
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Address of the first byte of new free space</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the last byte of new free space</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -79,9 +89,9 @@ This routine creates free locations in the work space. The number of locations i
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

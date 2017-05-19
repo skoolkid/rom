@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="../style.css" />
 
 </head>
-<body class="Asm-b">
+<body class="Asm-w">
 <table class="header">
 <tr>
 <td class="logo"><a href="../index.html">Spectrum ROM</a></td>
@@ -49,44 +49,44 @@ Initially there are seven streams - +FD to +03.
 <tr>
 <td class="asm-label-1">STRMDATA</td>
 <td class="address-1"><span id="15C6"></span>15C6</td>
-<td class="instruction">DEFB $01,$00</td>
-<td class="comment-11" rowspan="1">Leads to channel 'K' (keyboard)</td>
+<td class="instruction">DEFW $0001</td>
+<td class="comment-11" rowspan="1">+FD: Leads to channel 'K' (keyboard)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="15C8"></span>15C8</td>
-<td class="instruction">DEFB $06,$00</td>
-<td class="comment-11" rowspan="1">Leads to channel 'S' (screen)</td>
+<td class="instruction">DEFW $0006</td>
+<td class="comment-11" rowspan="1">+FE: Leads to channel 'S' (screen)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="15CA"></span>15CA</td>
-<td class="instruction">DEFB $0B,$00</td>
-<td class="comment-11" rowspan="1">Leads to channel 'R' (work space)</td>
+<td class="instruction">DEFW $000B</td>
+<td class="comment-11" rowspan="1">+FF: Leads to channel 'R' (work space)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="15CC"></span>15CC</td>
-<td class="instruction">DEFB $01,$00</td>
-<td class="comment-11" rowspan="1">Leads to channel 'K' (keyboard)</td>
+<td class="instruction">DEFW $0001</td>
+<td class="comment-11" rowspan="1">+00: Leads to channel 'K' (keyboard)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="15CE"></span>15CE</td>
-<td class="instruction">DEFB $01,$00</td>
-<td class="comment-11" rowspan="1">Leads to channel 'K' (keyboard)</td>
+<td class="instruction">DEFW $0001</td>
+<td class="comment-11" rowspan="1">+01: Leads to channel 'K' (keyboard)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="15D0"></span>15D0</td>
-<td class="instruction">DEFB $06,$00</td>
-<td class="comment-11" rowspan="1">Leads to channel 'S' (screen)</td>
+<td class="instruction">DEFW $0006</td>
+<td class="comment-11" rowspan="1">+02: Leads to channel 'S' (screen)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="15D2"></span>15D2</td>
-<td class="instruction">DEFB $10,$00</td>
-<td class="comment-11" rowspan="1">Leads to channel 'P' (printer)</td>
+<td class="instruction">DEFW $0010</td>
+<td class="comment-11" rowspan="1">+03: Leads to channel 'P' (printer)</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -97,9 +97,9 @@ Initially there are seven streams - +FD to +03.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

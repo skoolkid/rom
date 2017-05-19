@@ -32,11 +32,18 @@ Used by the routines at <a href="0EAC.html">COPY</a> and <a href="0ECD.html">COP
 The subroutine is entered with the <span class="register">HL</span> register pair holding the base address of the thirty two bytes that form the pixel-line and the <span class="register">B</span> register holding the pixel-line number.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">B</td>
+<td class="register-desc">Pixel line number (+01 to +B0)</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Display file address or printer buffer address</td>
+</tr>
 </table>
 <table class="output-0">
 <tr class="asm-output-header">
@@ -279,9 +286,9 @@ Now enter a loop to handle these bytes.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

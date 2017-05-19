@@ -32,17 +32,27 @@ The address of this routine is found in the <a href="32D7.html">table of address
 This subroutine executes a conditional jump if the 'last value' on the calculator stack, or more precisely the number addressed currently by the <span class="register">DE</span> register pair, is true.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Address of the first byte of the last value on the calculator stack</td>
+</tr>
+<tr>
+<td class="register">HL'</td>
+<td class="register-desc">Address of the jump offset</td>
+</tr>
 </table>
-<table class="output-0">
+<table class="output-1">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
-
+<tr>
+<td class="register">HL'</td>
+<td class="register-desc">Address of the next calculator literal to execute</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -121,9 +131,9 @@ This subroutine executes a conditional jump if the 'last value' on the calculato
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

@@ -32,17 +32,27 @@ The address of this routine is found in the <a href="32D7.html">table of address
 This subroutine is called using the literals E0 to E5 and the parameter derived from these literals is held in the <span class="register">A</span> register. The subroutine calls <a href="3406.html">LOC_MEM</a> to put the required source address into the <span class="register">HL</span> register pair and <a href="33C0.html">duplicate</a> to copy the five bytes involved from the calculator's memory area to the top of the calculator stack to form a new 'last value'.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Index of the required memory area (+00 to +05)</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Destination address</td>
+</tr>
 </table>
-<table class="output-0">
+<table class="output-1">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
-
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Destination address (as <span class="register">DE</span> on entry)</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -91,9 +101,9 @@ This subroutine is called using the literals E0 to E5 and the parameter derived 
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

@@ -32,11 +32,14 @@ Used by the routines at <a href="0B24.html">PO_ANY</a> and <a href="22DC.html">P
 The appropriate attribute byte is identified and fetched. The new value is formed by manipulating the old value, <a href="5C8F.html">ATTR-T</a>, <a href="5C90.html">MASK-T</a> and <a href="5C91.html">P-FLAG</a>. Finally this new value is copied to the attribute area.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Display file address</td>
+</tr>
 </table>
 <table class="output-0">
 <tr class="asm-output-header">
@@ -92,7 +95,7 @@ The appropriate attribute byte is identified and fetched. The new value is forme
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0BE4"></span>0BE4</td>
 <td class="instruction">LD DE,($5C8F)</td>
-<td class="comment-11" rowspan="1"><span class="register">D</span> holds <a href="5C8F.html">ATTR-T</a>, and <span class="register">E</span> holds <a href="5C90.html">MASK-T</a>.</td>
+<td class="comment-11" rowspan="1"><span class="register">E</span> holds <a href="5C8F.html">ATTR-T</a>, and <span class="register">D</span> holds <a href="5C90.html">MASK-T</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -122,7 +125,7 @@ The appropriate attribute byte is identified and fetched. The new value is forme
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0BEC"></span>0BEC</td>
 <td class="instruction">BIT 6,(IY+$57)</td>
-<td class="comment-11" rowspan="2">Jump forward unless dealing with PAPER 9.</td>
+<td class="comment-11" rowspan="2">Jump forward unless dealing with PAPER 9 (bit 6 of <a href="5C91.html">P-FLAG</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -158,7 +161,7 @@ The appropriate attribute byte is identified and fetched. The new value is forme
 <td class="asm-label-1">PO_ATTR_1</td>
 <td class="address-2"><span id="0BFA"></span>0BFA</td>
 <td class="instruction">BIT 4,(IY+$57)</td>
-<td class="comment-11" rowspan="2">Jump forward unless dealing with INK 9.</td>
+<td class="comment-11" rowspan="2">Jump forward unless dealing with INK 9 (bit 4 of <a href="5C91.html">P-FLAG</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -211,9 +214,9 @@ The appropriate attribute byte is identified and fetched. The new value is forme
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

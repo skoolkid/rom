@@ -42,11 +42,14 @@ There are three main parts to this routine.
 Start therefore with the loading of the data block.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">Address of the header loaded from tape</td>
+</tr>
 </table>
 <table class="output-0">
 <tr class="asm-output-header">
@@ -490,7 +493,7 @@ Enter a loop to compare the letters of the long names.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0914"></span>0914</td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-11" rowspan="3">Compare the two letters Jump forward if the match fails.</td>
+<td class="comment-11" rowspan="2">Compare the two letters.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -502,7 +505,7 @@ Enter a loop to compare the letters of the long names.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0916"></span>0916</td>
 <td class="instruction">JR NZ,<a href="08B6.html#091E">ME_OLD_V4</a></td>
-<td class="comment-01" rowspan="1"></td>
+<td class="comment-11" rowspan="1">Jump forward if the match fails.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -611,9 +614,9 @@ And here if not. (<span class="register">A</span> holds +80 - variable to be 'ad
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

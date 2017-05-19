@@ -28,6 +28,33 @@
 <div class="paragraph">
 Initialised by the routine at <a href="11B7.html">NEW</a>, and used by the routine at <a href="02BF.html">KEYBOARD</a>. KSTATE0 (5C00) and KSTATE4 (5C04) are accessed by the routine at <a href="11B7.html">NEW</a> via the <span class="register">IY</span> register at <span class="register">IY</span>-$3A and <span class="register">IY</span>-$36.
 </div>
+<div class="paragraph">
+There are two sets of four bytes here, each set corresponding to a separate keypress. The bytes in each set are used as follows:
+</div>
+<div class="paragraph">
+<table class="default">
+<tr>
+<th colspan="1" rowspan="1">Byte</th>
+<th colspan="1" rowspan="1">Contents</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">0</td>
+<td class="" colspan="1" rowspan="1">+FF if the set is unused, or a main code from the <a href="0205.html#0205">main key table</a> otherwise</td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">1</td>
+<td class="" colspan="1" rowspan="1">Call counter; initially +05, and decremented on each call to <a href="02BF.html">KEYBOARD</a></td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">2</td>
+<td class="" colspan="1" rowspan="1">Repeat delay counter; initially <a href="5C09.html">REPDEL</a>, decremented on each call to <a href="02BF.html">KEYBOARD</a>, reset to <a href="5C0A.html">REPPER</a> whenever it reaches zero</td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">3</td>
+<td class="" colspan="1" rowspan="1">Final code from the <a href="0205.html">key tables</a> (as computed by <a href="0333.html">K_DECODE</a>)</td>
+</tr>
+</table>
+</div>
 </div>
 <table class="input-0">
 <tr class="asm-input-header">
@@ -46,7 +73,13 @@ Initialised by the routine at <a href="11B7.html">NEW</a>, and used by the routi
 <tr>
 <td class="asm-label-1">KSTATE</td>
 <td class="address-1"><span id="5C00"></span>5C00</td>
-<td class="instruction">DEFB $FF,$00,$00,$00,$FF,$00,$00,$00</td>
+<td class="instruction">DEFB $FF,$00,$00,$00</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5C04"></span>5C04</td>
+<td class="instruction">DEFB $FF,$00,$00,$00</td>
 <td class="comment-10" rowspan="1"></td>
 </tr>
 </table>
@@ -58,9 +91,9 @@ Initialised by the routine at <a href="11B7.html">NEW</a>, and used by the routi
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

@@ -368,7 +368,7 @@ If the 'last value' is numeric then the parenthesised expression is a true sub-e
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2717"></span>2717</td>
 <td class="instruction">BIT 6,(IY+$01)</td>
-<td class="comment-11" rowspan="2">Jump forward if dealing with a numeric parenthesised expression.</td>
+<td class="comment-11" rowspan="2">Jump forward if dealing with a numeric parenthesised expression (bit 6 of <a href="5C3B.html">FLAGS</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -652,7 +652,7 @@ An important part of syntax checking involves the testing of the operation to en
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="275C"></span>275C</td>
 <td class="instruction">XOR (IY+$01)</td>
-<td class="comment-11" rowspan="2">This tests the nature of the 'last value' against the requirement of the operation. They are to be the same for correct syntax.</td>
+<td class="comment-11" rowspan="2">This tests the nature of the 'last value' (bit 6 of <a href="5C3B.html">FLAGS</a>) against the requirement of the operation. They are to be the same for correct syntax.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -750,7 +750,7 @@ Whenever the 'present' operation binds tighter, the 'last' and the 'present' val
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2775"></span>2775</td>
 <td class="instruction">BIT 6,(IY+$01)</td>
-<td class="comment-11" rowspan="2">Do not modify the operation code if dealing with a numeric operand.</td>
+<td class="comment-11" rowspan="2">Do not modify the operation code if dealing with a numeric operand (bit 6 of <a href="5C3B.html">FLAGS</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -851,9 +851,9 @@ Whenever the 'present' operation binds tighter, the 'last' and the 'present' val
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

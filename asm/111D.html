@@ -56,7 +56,7 @@ This subroutine is called whenever the line in the editing area or the INPUT are
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1120"></span>1120</td>
 <td class="instruction">RES 3,(IY+$02)</td>
-<td class="comment-11" rowspan="2">Signal that the 'mode is to be considered unchanged' and the 'lower screen does not need clearing'.</td>
+<td class="comment-11" rowspan="2">Signal that the 'mode is to be considered unchanged' (reset bit 3 of <a href="5C3C.html">TV-FLAG</a>) and the 'lower screen does not need clearing' (reset bit 5).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -98,7 +98,7 @@ This subroutine is called whenever the line in the editing area or the INPUT are
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1133"></span>1133</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="2">Push this address on to the machine stack to make <a href="111D.html#1167">ED_FULL</a> the entry point following an error.</td>
+<td class="comment-11" rowspan="2">Push this address on to the machine stack to make <a href="111D.html#1167">ED_FULL</a> the entry point following an error (see <a href="5C3D.html">ERR-SP</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -192,7 +192,7 @@ The remainder of any line that has been started is now completed with spaces pri
 <td class="asm-label-1">ED_BLANK</td>
 <td class="address-2"><span id="1150"></span>1150</td>
 <td class="instruction">LD A,($5C8B)</td>
-<td class="comment-11" rowspan="2">Fetch the current line number and subtract the old line number.</td>
+<td class="comment-11" rowspan="2">Fetch the current line number from <a href="5C8A.html">S-POSNL</a> and subtract the old line number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -216,7 +216,7 @@ The remainder of any line that has been started is now completed with spaces pri
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1158"></span>1158</td>
 <td class="instruction">LD A,E</td>
-<td class="comment-11" rowspan="2">Fetch the old column number and subtract the new column number.</td>
+<td class="comment-11" rowspan="2">Fetch the old column number and subtract the new column number (at <a href="5C8A.html">S-POSNL</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -274,7 +274,7 @@ New deal with any errors.
 <td class="asm-label-1">ED_FULL</td>
 <td class="address-1"><span id="1167"></span>1167</td>
 <td class="instruction">LD D,$00</td>
-<td class="comment-11" rowspan="4">Give out a 'rasp'.</td>
+<td class="comment-11" rowspan="4">Give out a 'rasp' (see <a href="5C38.html">RASP</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -407,9 +407,9 @@ But come here after an error.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

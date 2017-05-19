@@ -26,9 +26,6 @@
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="1059.html">ED_UP</a> and <a href="12A2.html">MAIN_EXEC</a>.
-</div>
-<div class="paragraph">
 The routines in this part of the 16K program are used to produce listings of the current BASIC program. Each line has to have its line number evaluated, its tokens expanded and the appropriate cursors positioned.
 </div>
 <div class="paragraph">
@@ -59,7 +56,7 @@ The entry point <a href="1795.html">AUTO_LIST</a> is used by both <a href="12A2.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1799"></span>1799</td>
 <td class="instruction">LD (IY+$02),$10</td>
-<td class="comment-11" rowspan="1">Signal 'automatic listing in the main screen'.</td>
+<td class="comment-11" rowspan="1">Signal 'automatic listing in the main screen' (set bit 4 of <a href="5C3C.html">TV-FLAG</a> and reset all other bits).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -71,13 +68,13 @@ The entry point <a href="1795.html">AUTO_LIST</a> is used by both <a href="12A2.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="17A0"></span>17A0</td>
 <td class="instruction">SET 0,(IY+$02)</td>
-<td class="comment-11" rowspan="1">Switch to the editing area.</td>
+<td class="comment-11" rowspan="1">Switch to the editing area (set bit 0 of <a href="5C3C.html">TV-FLAG</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="17A4"></span>17A4</td>
 <td class="instruction">LD B,(IY+$31)</td>
-<td class="comment-11" rowspan="2">Now clear the the lower part of the screen as well.</td>
+<td class="comment-11" rowspan="2">Now clear the the lower part of the screen as well (see <a href="5C6B.html">DF-SZ</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -89,13 +86,13 @@ The entry point <a href="1795.html">AUTO_LIST</a> is used by both <a href="12A2.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="17AA"></span>17AA</td>
 <td class="instruction">RES 0,(IY+$02)</td>
-<td class="comment-11" rowspan="1">Then switch back.</td>
+<td class="comment-11" rowspan="1">Then switch back (reset bit 0 of <a href="5C3C.html">TV-FLAG</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="17AE"></span>17AE</td>
 <td class="instruction">SET 0,(IY+$30)</td>
-<td class="comment-11" rowspan="1">Signal 'screen is clear'.</td>
+<td class="comment-11" rowspan="1">Signal 'screen is clear' (set bit 0 of <a href="5C6A.html">FLAGS2</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -293,7 +290,7 @@ Now the 'automatic' listing can be made.
 <td class="asm-label-1">AUTO_L_3</td>
 <td class="address-2"><span id="17E4"></span>17E4</td>
 <td class="instruction">LD HL,($5C6C)</td>
-<td class="comment-11" rowspan="2">Fetch the top line's number and hence its address.</td>
+<td class="comment-11" rowspan="2">Fetch the top line's number (<a href="5C6C.html">S-TOP</a>) and hence its address.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -323,7 +320,7 @@ Now the 'automatic' listing can be made.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="17F0"></span>17F0</td>
 <td class="instruction">RES 4,(IY+$02)</td>
-<td class="comment-11" rowspan="2">The return will be to here unless scrolling was needed to show the current line.</td>
+<td class="comment-11" rowspan="2">The return will be to here unless scrolling was needed to show the current line; reset bit 4 of <a href="5C3C.html">TV-FLAG</a> before returning.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -340,9 +337,9 @@ Now the 'automatic' listing can be made.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

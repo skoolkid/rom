@@ -38,11 +38,18 @@ This important subroutine returns the code of the last key to have been pressed,
 </tr>
 
 </table>
-<table class="output-0">
+<table class="output-1">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
-
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Code of the last key pressed</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry flag set if a key was pressed</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -50,7 +57,7 @@ This important subroutine returns the code of the last key to have been pressed,
 <td class="asm-label-1">KEY_INPUT</td>
 <td class="address-2"><span id="10A8"></span>10A8</td>
 <td class="instruction">BIT 3,(IY+$02)</td>
-<td class="comment-11" rowspan="2">Copy the edit-line or the INPUT-line to the screen if the mode has changed.</td>
+<td class="comment-11" rowspan="2">Copy the edit-line or the INPUT-line to the screen if the mode has changed (bit 3 of <a href="5C3C.html">TV-FLAG</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -62,7 +69,7 @@ This important subroutine returns the code of the last key to have been pressed,
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="10AF"></span>10AF</td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="3">Return with both carry and zero flags reset if no new key has been pressed.</td>
+<td class="comment-11" rowspan="3">Return with both carry and zero flags reset if no new key has been pressed (bit 5 of <a href="5C3B.html">FLAGS</a> reset).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -80,7 +87,7 @@ This important subroutine returns the code of the last key to have been pressed,
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="10B5"></span>10B5</td>
 <td class="instruction">LD A,($5C08)</td>
-<td class="comment-11" rowspan="2">Otherwise fetch the code and signal that it has been taken.</td>
+<td class="comment-11" rowspan="2">Otherwise fetch the code (<a href="5C08.html">LAST-K</a>) and signal that it has been taken (reset bit 5 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -98,7 +105,7 @@ This important subroutine returns the code of the last key to have been pressed,
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="10BD"></span>10BD</td>
 <td class="instruction">BIT 5,(IY+$02)</td>
-<td class="comment-11" rowspan="2">Clear the lower part of the display if necessary, e.g. after 'scroll?'.</td>
+<td class="comment-11" rowspan="2">Clear the lower part of the display if necessary (bit 5 of <a href="5C3C.html">TV-FLAG</a> set), e.g. after 'scroll?'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -298,7 +305,7 @@ The CAPS LOCK code and the mode codes are dealt with 'locally'.
 <td class="asm-label-1">KEY_FLAG</td>
 <td class="address-2"><span id="10F4"></span>10F4</td>
 <td class="instruction">SET 3,(IY+$02)</td>
-<td class="comment-11" rowspan="1">Signal 'the mode might have changed'.</td>
+<td class="comment-11" rowspan="1">Signal 'the mode might have changed' (set bit 3 of <a href="5C3C.html">TV-FLAG</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -378,7 +385,7 @@ The parameter is saved in <a href="5C0D.html">K-DATA</a> and the channel address
 <td class="asm-label-1">KEY_DATA</td>
 <td class="address-2"><span id="1105"></span>1105</td>
 <td class="instruction">LD (IY-$2D),C</td>
-<td class="comment-11" rowspan="1">Save the parameter.</td>
+<td class="comment-11" rowspan="1">Save the parameter at <a href="5C0D.html">K-DATA</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -491,9 +498,9 @@ Finally exit with the required code in the <span class="register">A</span> regis
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

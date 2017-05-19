@@ -28,15 +28,15 @@
 <div class="paragraph">
 The address of this routine is derived from an offset found in the <a href="0FA0.html">editing keys table</a>.
 </div>
-<div class="paragraph">
-If SYMBOL and GRAPHICS codes were used they would be handled as follows:
 </div>
-</div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Code of the last key pressed</td>
+</tr>
 </table>
 <table class="output-0">
 <tr class="asm-output-header">
@@ -47,10 +47,20 @@ If SYMBOL and GRAPHICS codes were used they would be handled as follows:
 </td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="4">
+<span id="1076"></span>
+<div class="comments">
+<div class="paragraph">
+If SYMBOL and GRAPHICS codes were used they would be handled as follows:
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label-1">ED_SYMBOL</td>
 <td class="address-2"><span id="1076"></span>1076</td>
 <td class="instruction">BIT 7,(IY+$37)</td>
-<td class="comment-11" rowspan="2">Jump back unless dealing with INPUT LINE.</td>
+<td class="comment-11" rowspan="2">Jump back unless dealing with INPUT LINE (bit 7 of <a href="5C71.html">FLAGX</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -83,9 +93,9 @@ The address of this entry point is derived from an offset found in the <a href="
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>

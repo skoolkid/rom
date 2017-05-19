@@ -32,11 +32,14 @@ Used by the routine at <a href="0605.html">SAVE_ETC</a>.
 The verification process involves the loading of a block of data, a byte at a time, but the bytes are not stored - only checked. This routine is also used to load blocks of data that have been described with 'SCREEN$' or 'CODE'.
 </div>
 </div>
-<table class="input-0">
+<table class="input-1">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
-
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Block start address</td>
+</tr>
 </table>
 <table class="output-0">
 <tr class="asm-output-header">
@@ -202,7 +205,7 @@ The verify/load flag is now considered and the actual load made.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="07F7"></span>07F7</td>
 <td class="instruction">LD A,($5C74)</td>
-<td class="comment-11" rowspan="4">Jump forward unless using the VERIFY command, with the carry flag signalling 'LOAD'.</td>
+<td class="comment-11" rowspan="4">Jump forward unless using the VERIFY command (<a href="5C74.html">T-ADDR-lo</a>=+02), with the carry flag signalling 'LOAD'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -253,9 +256,9 @@ This routine continues into <a href="0802.html">LD_BLOCK</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170114</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 5.4.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
 </footer>
 </body>
 </html>
