@@ -321,98 +321,98 @@ c$007D CP $21        ; {Return with the carry flag reset if ordinary character
 ; All the tokens used by the Spectrum are expanded by reference to this table.
 ; The last code of each token is 'inverted' by having its bit 7 set.
 @label=TOKENS
-t$0095 DEFB $BF            ; ?
- $0096 DEFM "RN",$C4       ; RND
- $0099 DEFM "INKEY",$A4    ; INKEY$
- $009F DEFM "P",$C9        ; PI
- $00A1 DEFM "F",$CE        ; FN
- $00A3 DEFM "POIN",$D4     ; POINT
- $00A8 DEFM "SCREEN",$A4   ; SCREEN$
- $00AF DEFM "ATT",$D2      ; ATTR
- $00B3 DEFM "A",$D4        ; AT
- $00B5 DEFM "TA",$C2       ; TAB
- $00B8 DEFM "VAL",$A4      ; VAL$
- $00BC DEFM "COD",$C5      ; CODE
- $00C0 DEFM "VA",$CC       ; VAL
- $00C3 DEFM "LE",$CE       ; LEN
- $00C6 DEFM "SI",$CE       ; SIN
- $00C9 DEFM "CO",$D3       ; COS
- $00CC DEFM "TA",$CE       ; TAN
- $00CF DEFM "AS",$CE       ; ASN
- $00D2 DEFM "AC",$D3       ; ACS
- $00D5 DEFM "AT",$CE       ; ATN
- $00D8 DEFM "L",$CE        ; LN
- $00DA DEFM "EX",$D0       ; EXP
- $00DD DEFM "IN",$D4       ; INT
- $00E0 DEFM "SQ",$D2       ; SQR
- $00E3 DEFM "SG",$CE       ; SGN
- $00E6 DEFM "AB",$D3       ; ABS
- $00E9 DEFM "PEE",$CB      ; PEEK
- $00ED DEFM "I",$CE        ; IN
- $00EF DEFM "US",$D2       ; USR
- $00F2 DEFM "STR",$A4      ; STR$
- $00F6 DEFM "CHR",$A4      ; CHR$
- $00FA DEFM "NO",$D4       ; NOT
- $00FD DEFM "BI",$CE       ; BIN
- $0100 DEFM "O",$D2        ; OR
- $0102 DEFM "AN",$C4       ; AND
- $0105 DEFM "<",$BD        ; <=
- $0107 DEFM ">",$BD        ; >=
- $0109 DEFM "<",$BE        ; <>
- $010B DEFM "LIN",$C5      ; LINE
- $010F DEFM "THE",$CE      ; THEN
- $0113 DEFM "T",$CF        ; TO
- $0115 DEFM "STE",$D0      ; STEP
- $0119 DEFM "DEF F",$CE    ; DEF FN
- $011F DEFM "CA",$D4       ; CAT
- $0122 DEFM "FORMA",$D4    ; FORMAT
- $0128 DEFM "MOV",$C5      ; MOVE
- $012C DEFM "ERAS",$C5     ; ERASE
- $0131 DEFM "OPEN ",$A3    ; OPEN #
- $0137 DEFM "CLOSE ",$A3   ; CLOSE #
- $013E DEFM "MERG",$C5     ; MERGE
- $0143 DEFM "VERIF",$D9    ; VERIFY
- $0149 DEFM "BEE",$D0      ; BEEP
- $014D DEFM "CIRCL",$C5    ; CIRCLE
- $0153 DEFM "IN",$CB       ; INK
- $0156 DEFM "PAPE",$D2     ; PAPER
- $015B DEFM "FLAS",$C8     ; FLASH
- $0160 DEFM "BRIGH",$D4    ; BRIGHT
- $0166 DEFM "INVERS",$C5   ; INVERSE
- $016D DEFM "OVE",$D2      ; OVER
- $0171 DEFM "OU",$D4       ; OUT
- $0174 DEFM "LPRIN",$D4    ; LPRINT
- $017A DEFM "LLIS",$D4     ; LLIST
- $017F DEFM "STO",$D0      ; STOP
- $0183 DEFM "REA",$C4      ; READ
- $0187 DEFM "DAT",$C1      ; DATA
- $018B DEFM "RESTOR",$C5   ; RESTORE
- $0192 DEFM "NE",$D7       ; NEW
- $0195 DEFM "BORDE",$D2    ; BORDER
- $019B DEFM "CONTINU",$C5  ; CONTINUE
- $01A3 DEFM "DI",$CD       ; DIM
- $01A6 DEFM "RE",$CD       ; REM
- $01A9 DEFM "FO",$D2       ; FOR
- $01AC DEFM "GO T",$CF     ; GO TO
- $01B1 DEFM "GO SU",$C2    ; GO SUB
- $01B7 DEFM "INPU",$D4     ; INPUT
- $01BC DEFM "LOA",$C4      ; LOAD
- $01C0 DEFM "LIS",$D4      ; LIST
- $01C4 DEFM "LE",$D4       ; LET
- $01C7 DEFM "PAUS",$C5     ; PAUSE
- $01CC DEFM "NEX",$D4      ; NEXT
- $01D0 DEFM "POK",$C5      ; POKE
- $01D4 DEFM "PRIN",$D4     ; PRINT
- $01D9 DEFM "PLO",$D4      ; PLOT
- $01DD DEFM "RU",$CE       ; RUN
- $01E0 DEFM "SAV",$C5      ; SAVE
- $01E4 DEFM "RANDOMIZ",$C5 ; RANDOMIZE
- $01ED DEFM "I",$C6        ; IF
- $01EF DEFM "CL",$D3       ; CLS
- $01F2 DEFM "DRA",$D7      ; DRAW
- $01F6 DEFM "CLEA",$D2     ; CLEAR
- $01FB DEFM "RETUR",$CE    ; RETURN
- $0201 DEFM "COP",$D9      ; COPY
+t$0095 DEFM "?"+$80            ; ?
+ $0096 DEFM "RN","D"+$80       ; RND
+ $0099 DEFM "INKEY","$"+$80    ; INKEY$
+ $009F DEFM "P","I"+$80        ; PI
+ $00A1 DEFM "F","N"+$80        ; FN
+ $00A3 DEFM "POIN","T"+$80     ; POINT
+ $00A8 DEFM "SCREEN","$"+$80   ; SCREEN$
+ $00AF DEFM "ATT","R"+$80      ; ATTR
+ $00B3 DEFM "A","T"+$80        ; AT
+ $00B5 DEFM "TA","B"+$80       ; TAB
+ $00B8 DEFM "VAL","$"+$80      ; VAL$
+ $00BC DEFM "COD","E"+$80      ; CODE
+ $00C0 DEFM "VA","L"+$80       ; VAL
+ $00C3 DEFM "LE","N"+$80       ; LEN
+ $00C6 DEFM "SI","N"+$80       ; SIN
+ $00C9 DEFM "CO","S"+$80       ; COS
+ $00CC DEFM "TA","N"+$80       ; TAN
+ $00CF DEFM "AS","N"+$80       ; ASN
+ $00D2 DEFM "AC","S"+$80       ; ACS
+ $00D5 DEFM "AT","N"+$80       ; ATN
+ $00D8 DEFM "L","N"+$80        ; LN
+ $00DA DEFM "EX","P"+$80       ; EXP
+ $00DD DEFM "IN","T"+$80       ; INT
+ $00E0 DEFM "SQ","R"+$80       ; SQR
+ $00E3 DEFM "SG","N"+$80       ; SGN
+ $00E6 DEFM "AB","S"+$80       ; ABS
+ $00E9 DEFM "PEE","K"+$80      ; PEEK
+ $00ED DEFM "I","N"+$80        ; IN
+ $00EF DEFM "US","R"+$80       ; USR
+ $00F2 DEFM "STR","$"+$80      ; STR$
+ $00F6 DEFM "CHR","$"+$80      ; CHR$
+ $00FA DEFM "NO","T"+$80       ; NOT
+ $00FD DEFM "BI","N"+$80       ; BIN
+ $0100 DEFM "O","R"+$80        ; OR
+ $0102 DEFM "AN","D"+$80       ; AND
+ $0105 DEFM "<","="+$80        ; <=
+ $0107 DEFM ">","="+$80        ; >=
+ $0109 DEFM "<",">"+$80        ; <>
+ $010B DEFM "LIN","E"+$80      ; LINE
+ $010F DEFM "THE","N"+$80      ; THEN
+ $0113 DEFM "T","O"+$80        ; TO
+ $0115 DEFM "STE","P"+$80      ; STEP
+ $0119 DEFM "DEF F","N"+$80    ; DEF FN
+ $011F DEFM "CA","T"+$80       ; CAT
+ $0122 DEFM "FORMA","T"+$80    ; FORMAT
+ $0128 DEFM "MOV","E"+$80      ; MOVE
+ $012C DEFM "ERAS","E"+$80     ; ERASE
+ $0131 DEFM "OPEN ","#"+$80    ; OPEN #
+ $0137 DEFM "CLOSE ","#"+$80   ; CLOSE #
+ $013E DEFM "MERG","E"+$80     ; MERGE
+ $0143 DEFM "VERIF","Y"+$80    ; VERIFY
+ $0149 DEFM "BEE","P"+$80      ; BEEP
+ $014D DEFM "CIRCL","E"+$80    ; CIRCLE
+ $0153 DEFM "IN","K"+$80       ; INK
+ $0156 DEFM "PAPE","R"+$80     ; PAPER
+ $015B DEFM "FLAS","H"+$80     ; FLASH
+ $0160 DEFM "BRIGH","T"+$80    ; BRIGHT
+ $0166 DEFM "INVERS","E"+$80   ; INVERSE
+ $016D DEFM "OVE","R"+$80      ; OVER
+ $0171 DEFM "OU","T"+$80       ; OUT
+ $0174 DEFM "LPRIN","T"+$80    ; LPRINT
+ $017A DEFM "LLIS","T"+$80     ; LLIST
+ $017F DEFM "STO","P"+$80      ; STOP
+ $0183 DEFM "REA","D"+$80      ; READ
+ $0187 DEFM "DAT","A"+$80      ; DATA
+ $018B DEFM "RESTOR","E"+$80   ; RESTORE
+ $0192 DEFM "NE","W"+$80       ; NEW
+ $0195 DEFM "BORDE","R"+$80    ; BORDER
+ $019B DEFM "CONTINU","E"+$80  ; CONTINUE
+ $01A3 DEFM "DI","M"+$80       ; DIM
+ $01A6 DEFM "RE","M"+$80       ; REM
+ $01A9 DEFM "FO","R"+$80       ; FOR
+ $01AC DEFM "GO T","O"+$80     ; GO TO
+ $01B1 DEFM "GO SU","B"+$80    ; GO SUB
+ $01B7 DEFM "INPU","T"+$80     ; INPUT
+ $01BC DEFM "LOA","D"+$80      ; LOAD
+ $01C0 DEFM "LIS","T"+$80      ; LIST
+ $01C4 DEFM "LE","T"+$80       ; LET
+ $01C7 DEFM "PAUS","E"+$80     ; PAUSE
+ $01CC DEFM "NEX","T"+$80      ; NEXT
+ $01D0 DEFM "POK","E"+$80      ; POKE
+ $01D4 DEFM "PRIN","T"+$80     ; PRINT
+ $01D9 DEFM "PLO","T"+$80      ; PLOT
+ $01DD DEFM "RU","N"+$80       ; RUN
+ $01E0 DEFM "SAV","E"+$80      ; SAVE
+ $01E4 DEFM "RANDOMIZ","E"+$80 ; RANDOMIZE
+ $01ED DEFM "I","F"+$80        ; IF
+ $01EF DEFM "CL","S"+$80       ; CLS
+ $01F2 DEFM "DRA","W"+$80      ; DRAW
+ $01F6 DEFM "CLEA","R"+$80     ; CLEAR
+ $01FB DEFM "RETUR","N"+$80    ; RETURN
+ $0201 DEFM "COP","Y"+$80      ; COPY
 
 ; THE KEY TABLES
 ;
@@ -2264,18 +2264,19 @@ c$0970 PUSH HL        ; Save the 'pointer'.
 ; .
 ; Each message is given with the last character inverted (+80 hex.).
 @label=CASSETTE
-t$09A1 DEFB $80                                  ; Initial byte is stepped
-                                                 ; over.
- $09A2 DEFM "Start tape, then press any key",$AE ; 'Start tape, then press any
-                                                 ; key.'
+t$09A1 DEFB $80                                      ; Initial byte is stepped
+                                                     ; over.
+ $09A2 DEFM "Start tape, then press any key","."+$80 ; 'Start tape, then press
+                                                     ; any key.'
 @label=BLOCK_HDR
- $09C1 DEFM $0D,"Program:",$A0                   ; Carriage return + 'Program:
-                                                 ; '
- $09CB DEFM $0D,"Number array:",$A0              ; Carriage return + 'Number
-                                                 ; array: '
- $09DA DEFM $0D,"Character array:",$A0           ; Carriage return + 'Character
-                                                 ; array: '
- $09EC DEFM $0D,"Bytes:",$A0                     ; Carriage return + 'Bytes: '
+ $09C1 DEFM $0D,"Program:"," "+$80                   ; Carriage return +
+                                                     ; 'Program: '
+ $09CB DEFM $0D,"Number array:"," "+$80              ; Carriage return +
+                                                     ; 'Number array: '
+ $09DA DEFM $0D,"Character array:"," "+$80           ; Carriage return +
+                                                     ; 'Character array: '
+ $09EC DEFM $0D,"Bytes:"," "+$80                     ; Carriage return +
+                                                     ; 'Bytes: '
 
 ; THE 'PRINT-OUT' ROUTINES
 ;
@@ -3007,7 +3008,8 @@ c$0C55 BIT 1,(IY+$01)    ; {Return immediately if the printer is being used
 ; The 'scroll?' message.
 @label=SCROLL
  $0CF8 DEFB $80          ; Initial marker - stepped over.
- $0CF9 DEFM "scroll",$BF ; The '?' is inverted.
+ $0CF9 DEFM "scroll"
+ $0CFF DEFM "?"+$80      ; The '?' is inverted.
 ; Report D - BREAK - CONT repeats.
 @label=REPORT_D
 *$0D00 RST $08           ; {Call the error handling routine.
@@ -4422,45 +4424,45 @@ c$12A2 LD (IY+$31),$02 ; The lower part of the screen is to be two lines in
 ; .
 ; Each message is given with the last character inverted (+80 hex.).
 @label=REPORTS
-t$1391 DEFB $80                       ; Initial byte is stepped over.
- $1392 DEFM "O",$CB                   ; 0 OK
- $1394 DEFM "NEXT without FO",$D2     ; 1 NEXT without FOR
- $13A4 DEFM "Variable not foun",$E4   ; 2 Variable not found
- $13B6 DEFM "Subscript wron",$E7      ; 3 Subscript wrong
- $13C5 DEFM "Out of memor",$F9        ; 4 Out of memory
- $13D2 DEFM "Out of scree",$EE        ; 5 Out of screen
- $13DF DEFM "Number too bi",$E7       ; 6 Number too big
- $13ED DEFM "RETURN without GOSU",$C2 ; 7 RETURN without GOSUB
- $1401 DEFM "End of fil",$E5          ; 8 End of file
- $140C DEFM "STOP statemen",$F4       ; 9 STOP statement
- $141A DEFM "Invalid argumen",$F4     ; A Invalid argument
- $142A DEFM "Integer out of rang",$E5 ; B Integer out of range
- $143E DEFM "Nonsense in BASI",$C3    ; C Nonsense in BASIC
- $144F DEFM "BREAK - CONT repeat",$F3 ; D BREAK - CONT repeats
- $1463 DEFM "Out of DAT",$C1          ; E Out of DATA
- $146E DEFM "Invalid file nam",$E5    ; F Invalid file name
- $147F DEFM "No room for lin",$E5     ; G No room for line
- $148F DEFM "STOP in INPU",$D4        ; H STOP in INPUT
- $149C DEFM "FOR without NEX",$D4     ; I FOR without NEXT
- $14AC DEFM "Invalid I/O devic",$E5   ; J Invalid I/O device
- $14BE DEFM "Invalid colou",$F2       ; K Invalid colour
- $14CC DEFM "BREAK into progra",$ED   ; L BREAK into program
- $14DE DEFM "RAMTOP no goo",$E4       ; M RAMTOP no good
- $14EC DEFM "Statement los",$F4       ; N Statement lost
- $14FA DEFM "Invalid strea",$ED       ; O Invalid stream
- $1508 DEFM "FN without DE",$C6       ; P FN without DEF
- $1516 DEFM "Parameter erro",$F2      ; Q Parameter error
- $1525 DEFM "Tape loading erro",$F2   ; R Tape loading error
+t$1391 DEFB $80                           ; Initial byte is stepped over.
+ $1392 DEFM "O","K"+$80                   ; 0 OK
+ $1394 DEFM "NEXT without FO","R"+$80     ; 1 NEXT without FOR
+ $13A4 DEFM "Variable not foun","d"+$80   ; 2 Variable not found
+ $13B6 DEFM "Subscript wron","g"+$80      ; 3 Subscript wrong
+ $13C5 DEFM "Out of memor","y"+$80        ; 4 Out of memory
+ $13D2 DEFM "Out of scree","n"+$80        ; 5 Out of screen
+ $13DF DEFM "Number too bi","g"+$80       ; 6 Number too big
+ $13ED DEFM "RETURN without GOSU","B"+$80 ; 7 RETURN without GOSUB
+ $1401 DEFM "End of fil","e"+$80          ; 8 End of file
+ $140C DEFM "STOP statemen","t"+$80       ; 9 STOP statement
+ $141A DEFM "Invalid argumen","t"+$80     ; A Invalid argument
+ $142A DEFM "Integer out of rang","e"+$80 ; B Integer out of range
+ $143E DEFM "Nonsense in BASI","C"+$80    ; C Nonsense in BASIC
+ $144F DEFM "BREAK - CONT repeat","s"+$80 ; D BREAK - CONT repeats
+ $1463 DEFM "Out of DAT","A"+$80          ; E Out of DATA
+ $146E DEFM "Invalid file nam","e"+$80    ; F Invalid file name
+ $147F DEFM "No room for lin","e"+$80     ; G No room for line
+ $148F DEFM "STOP in INPU","T"+$80        ; H STOP in INPUT
+ $149C DEFM "FOR without NEX","T"+$80     ; I FOR without NEXT
+ $14AC DEFM "Invalid I/O devic","e"+$80   ; J Invalid I/O device
+ $14BE DEFM "Invalid colou","r"+$80       ; K Invalid colour
+ $14CC DEFM "BREAK into progra","m"+$80   ; L BREAK into program
+ $14DE DEFM "RAMTOP no goo","d"+$80       ; M RAMTOP no good
+ $14EC DEFM "Statement los","t"+$80       ; N Statement lost
+ $14FA DEFM "Invalid strea","m"+$80       ; O Invalid stream
+ $1508 DEFM "FN without DE","F"+$80       ; P FN without DEF
+ $1516 DEFM "Parameter erro","r"+$80      ; Q Parameter error
+ $1525 DEFM "Tape loading erro","r"+$80   ; R Tape loading error
 @label=COMMA_SPC
- $1537 DEFM ",",$A0                   ; ', '
+ $1537 DEFM ","," "+$80                   ; ', '
 
 ; THE COPYRIGHT MESSAGE
 ;
 ; Used by the routine at #R$11B7.
 @label=COPYRIGHT
 @ignoreua
-t$1539 DEFM $7F," 1982 Sinclair Research Lt",$E4 ; #CHR169 1982 Sinclair
-                                                 ; Research Ltd
+t$1539 DEFM $7F," 1982 Sinclair Research Lt","d"+$80 ; #CHR169 1982 Sinclair
+                                                     ; Research Ltd
 
 ; Report G - No room for line
 ;
