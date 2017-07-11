@@ -37,8 +37,8 @@ of the cursor-left character (CHR$ 8) before the '2' - but instead the '2' is
 printed at the beginning of the second line, as if the CHR$ 8 were not there.
 However, the '3' is (correctly) printed at the right end of the second line.
 
-The reason is that the instruction at #R$0A32 is '#S/LD A/,#n$18' instead of
-'#S/LD A/,#n$19', which prevents CHR$ 8 from moving the print position up to
+The reason is that the instruction at #R$0A32 is '#S/LD A/,#o18' instead of
+'#S/LD A/,#o19', which prevents CHR$ 8 from moving the print position up to
 the top line of the display.
 
 [Bug:stepBackTooFar:A step back too far]
@@ -52,8 +52,8 @@ Here the CHR$ 8 should have no effect, but instead the '1' is printed at
 (-1,0), which the ROM calculates to be at address #N($58FF), or (7,31) in the
 attribute file.
 
-The reason, again, is that the instruction at #R$0A32 is '#S/LD A/,#n$18'
-instead of '#S/LD A/,#n$19', which allows CHR$ 8 to move the print position up
+The reason, again, is that the instruction at #R$0A32 is '#S/LD A/,#o18'
+instead of '#S/LD A/,#o19', which allows CHR$ 8 to move the print position up
 beyond the top line of the display.
 
 [Bug:savingASimpleString:Saving a simple string]
@@ -132,7 +132,7 @@ indirect jump to #N$5C1E (an address pushed onto the stack earlier at
 and disabling interrupts along the way, the Spectrum finally hangs on the
 '#S/HALT/' instruction at #R$1303.
 
-If there were an end marker (#n$00) in the close stream lookup table, the
+If there were an end marker (#o00) in the close stream lookup table, the
 '#S/JP (HL)/' at the end of the routine at #R$1701 would jump to #R$171C, the
 '#S/RET/' that follows at #N$171D would return to #R$16EB, and the stream would
 be closed successfully.
@@ -196,14 +196,14 @@ prints '-1'.
 
 The first of these problems is caused by the routine at #R$3014, which fails to
 detect an overflow when adding two small negative integers whose sum is -65536.
-Specifically, when #R$302B is reached, the carry flag is set, #REGa holds
-#n$FF (the sign byte of the second number), and #REG[(HL)] also holds #n$FF
-(the sign byte of the first number). Then:
+Specifically, when #R$302B is reached, the carry flag is set, #REGa holds #oFF
+(the sign byte of the second number), and #REG[(HL)] also holds #oFF (the sign
+byte of the first number). Then:
 
 #TABLE(asm,address-1,instruction,comment-11)
-{ #N$302B | #S/ADC A,(HL)/    | #REGa=#n$FF (#n$FF+#n$FF+carry). }
-{ #N$302C | #S/RRCA/          | #REGa=#n$FF, carry flag set. }
-{ #N$302D | #S/ADC A/,#n$00   | #REGa=#n$00. }
+{ #N$302B | #S/ADC A,(HL)/    | #REGa=#oFF (#oFF+#oFF+carry). }
+{ #N$302C | #S/RRCA/          | #REGa=#oFF, carry flag set. }
+{ #N$302D | #S/ADC A/,#o00    | #REGa=#o00. }
 { #N$302F | #S/JR NZ/,#R$303C | This jump is not made. }
 TABLE#
 

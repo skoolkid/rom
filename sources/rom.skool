@@ -5,7 +5,7 @@
 @replace=/#ix(.)\i/#REGix\1#N\2,,,1($)
 @replace=/#iy(.)\i/#REGiy\1#N\2,,,1($)
 @replace=/#BUG/#LINK:Bugs
-@replace=/#n\i/#N\1,,,1($)
+@replace=/#o([0-9A-F]{2,4})/#IF({base}==10)(#EVAL($\1),$#S|\1|)
 @replace=|#c\i|#UDG\1(char#EVAL((\1-$3C00)/8,16))
 @replace=/&([0-9A-F]{2,4})/#IF({base}==10)(#EVAL($\1),+\1)
 @set-handle-unsupported-macros=1
@@ -10719,8 +10719,8 @@ c$2AFF LD HL,($5C4D)  ; Fetch the present address in #R$5C4D(DEST).
 ; this point #REGhl always points to the location after the five locations
 ; allotted to the number.
 ; .
-; A 'RST 28' instruction is used to call the calculator and the 'last value' is
-; deleted. However this value is not overwritten.
+; A 'RST #o28' instruction is used to call the calculator and the 'last value'
+; is deleted. However this value is not overwritten.
 @label=L_NUMERIC
 *$2B59 PUSH HL        ; Save the 'destination' pointer.
  $2B5A RST $28        ; Use the calculator to move #R$5C65(STKEND) back five
@@ -11693,7 +11693,7 @@ c$2DE3 RST $28          ; Use the calculator.
  $2E25 DEFB $E2         ; #R$340F(get_mem_2): i, f
  $2E26 DEFB $38         ; #R$369B: i, f
 ; Note that the stack is now unbalanced. An extra byte 'DEFB &02, delete' is
-; needed immediately after the RST 28. Now an expression like "2"+STR$ 0.5 is
+; needed immediately after the RST #o28. Now an expression like "2"+STR$ 0.5 is
 ; evaluated incorrectly as 0.5; the zero left on the stack displaces the "2"
 ; and is treated as a null string. Similarly all the string comparisons can
 ; yield incorrect values if the second string takes the form STR$ x where x is
@@ -13041,7 +13041,7 @@ b$32C5 DEFB $00,$B0,$00         ; zero (00 00 00 00 00)
 ; This table is a look-up table of the addresses of the sixty-six operational
 ; subroutines of the calculator. The offsets used to index into the table are
 ; derived either from the operation codes used in the routine at #R$24FB (see
-; #R$2734, etc.) or from the literals that follow a 'RST 28' instruction.
+; #R$2734, etc.) or from the literals that follow a 'RST #o28' instruction.
 @label=CALCADDR
 w$32D7 DEFW $368F    ; &00
  $32D9 DEFW $343C    ; &01
@@ -13141,7 +13141,7 @@ w$32D7 DEFW $368F    ; &00
 ; LIST#
 ; .
 ; The operations to be performed are specified as a series of data-bytes, the
-; literals, that follow an RST 28 instruction that calls this subroutine. The
+; literals, that follow an RST #o28 instruction that calls this subroutine. The
 ; last literal in the list is always '&38' which leads to an end to the whole
 ; operation.
 ; .
@@ -13631,7 +13631,7 @@ c$343C LD B,$05      ; There are five bytes involved.
 ; entered at #R$335E so that the counter can be set.
 @label=series
 c$3449 LD B,A        ; Move the parameter to #REGb.
- $344A CALL $335E    ; In effect a RST 28 instruction but sets the counter.
+ $344A CALL $335E    ; In effect a RST #o28 instruction but sets the counter.
 ; ii. The handling of the 'last value', Z. The loop of the generator requires
 ; 2*Z to be placed in mem-0, zero to be placed in mem-2 and the 'last value' to
 ; be zero.
@@ -14472,7 +14472,7 @@ c$368F INC DE        ; {Point to the third byte, which is zero or one.
 ; #R$3713, #R$3783, #R$37B5, #R$37DA, #R$37E2, #R$3833, #R$3843, #R$384A and
 ; #R$3851.
 ; .
-; This subroutine ends a RST 28 operation.
+; This subroutine ends a RST #o28 operation.
 @label=end_calc
 c$369B POP AF        ; The return address to the calculator (#R$3365) is
                      ; discarded.
