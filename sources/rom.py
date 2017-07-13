@@ -17,17 +17,17 @@ from skoolkit.skoolasm import AsmWriter
 from skoolkit.skoolhtml import HtmlWriter
 from skoolkit.skoolmacro import parse_brackets
 
-def parse_s(text, index):
+def parse_s(text, index, case):
     sep = text[index]
     end, s = parse_brackets(text, index, '', sep, sep)
-    return end, '#IF({{case}}==1){0}{0}{1}{0}{2}{0}{0}'.format(sep, s.lower(), s)
+    return end, s.lower() if case == 1 else s
 
 class ROMHtmlWriter(HtmlWriter):
     def expand_s(self, text, index, cwd):
         # #S/text/
-        return parse_s(text, index)
+        return parse_s(text, index, self.case)
 
 class ROMAsmWriter(AsmWriter):
     def expand_s(self, text, index):
         # #S/text/
-        return parse_s(text, index)
+        return parse_s(text, index, self.case)
