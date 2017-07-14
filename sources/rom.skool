@@ -1662,6 +1662,7 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
  $06A9 JP Z,$1C8A      ; }
  $06AC RST $20         ; Advance #R$5C5D(CH-ADD).
  $06AD CALL $1BEE      ; Move on to the next statement if checking syntax.
+@ignoreua
  $06B0 LD (IX+$0B),$00 ; {The display area and the attribute area occupy &1B00
  $06B4 LD (IX+$0C),$1B ; locations and these locations start at &4000; these
  $06B8 LD HL,$4000     ; details are passed to the header area in the work
@@ -3276,6 +3277,7 @@ c$0DFE LD B,$17      ; The entry point after 'scroll?'
  $0E29 LDIR          ; from each of the characters is 'scrolled'.}
  $0E2B LD B,$07      ; Now prepare to increment the address to jump across a
                      ; 'third' boundary.
+@ignoreua
  $0E2D ADD HL,BC     ; Increase #REGhl by &0700.
  $0E2E AND $F8       ; {Jump back if there are any 'thirds' left to consider.
  $0E30 JR NZ,$0E0D   ; }
@@ -3330,6 +3332,7 @@ c$0E44 PUSH BC        ; The line number is saved for the duration of the
  $0E59 LD (HL),$00    ; Clear the pixel-byte of the first character.
  $0E5B INC DE         ; {Make #REGde point to the second character and then
  $0E5C LDIR           ; clear the pixel-bytes of all the other characters.}
+@ignoreua
 @keep
  $0E5E LD DE,$0701    ; {For each 'third' of the display #REGhl has to be
  $0E61 ADD HL,DE      ; increased by &0701.}
@@ -4163,6 +4166,7 @@ c$11B7 DI              ; Disable the maskable interrupt.
 ; Now the memory is checked.
  $11DA LD H,D          ; {Transfer the value in #REGde (#R$0000=&FFFF,
  $11DB LD L,E          ; #R$11B7=#R$5CB2(RAMTOP)).}
+@ignoreua
 @label=RAM_FILL
 *$11DC LD (HL),$02     ; {Enter the value of &02 into every location above
  $11DE DEC HL          ; &3FFF.
