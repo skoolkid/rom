@@ -13,11 +13,11 @@ Release=The Complete Spectrum ROM Disassembly 20170519
 LinkOperands=CALL,DEFW,DJNZ,JP,JR,RST
 TitlePrefix=The Complete
 TitleSuffix=Disassembly
-AddressAnchor={address#IF({base}==16)(:04X)}
+AddressAnchor={address#IF({base}!=10)(:04X)}
 
 [Paths]
 GameStatusBuffer=buffers/sysvars.html
-CodeFiles={address#IF({base}==16)(:04#S/X/)}.html
+CodeFiles={address#IF({base}!=10)(:04#S/X/)}.html
 
 [Titles]
 Asm-g=System variable at
@@ -27,16 +27,16 @@ GameStatusBuffer=System variables
 Asm-g=System variables
 
 [MemoryMap:MemoryMap]
-PageByteColumns=#IF({base}==16)(0,1)
+PageByteColumns=#IF({base}==10)(1,0)
 
 [MemoryMap:DataMap]
 EntryTypes=bw
-PageByteColumns=#IF({base}==16)(0,1)
+PageByteColumns=#IF({base}==10)(1,0)
 
 [MemoryMap:UnusedMap]
 EntryTypes=su
 LengthColumn=1
-PageByteColumns=#IF({base}==16)(0,1)
+PageByteColumns=#IF({base}==10)(1,0)
 
 [MemoryMap:GameStatusBuffer]
 EntryDescriptions=0
