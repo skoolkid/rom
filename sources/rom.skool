@@ -125,7 +125,7 @@ c$0008 LD HL,($5C5D) ; {The address reached by the interpreter
 c$0010 JP $15F2      ; Jump forward immediately.
 
 ; Unused
-s$0013 DEFS 5,$FF    ; Unused locations.
+s$0013 DEFS $05,$FF  ; Unused locations.
 
 ; THE 'COLLECT CHARACTER' RESTART
 ;
@@ -167,7 +167,7 @@ c$0020 CALL $0074    ; #R$5C5D(CH-ADD) needs to be incremented.
  $0023 JR $001C      ; Jump back to test the new value.
 
 ; Unused
-s$0025 DEFS 3,$FF    ; Unused locations.
+s$0025 DEFS $03,$FF  ; Unused locations.
 
 ; THE 'CALCULATOR' RESTART
 ;
@@ -182,7 +182,7 @@ s$0025 DEFS 3,$FF    ; Unused locations.
 c$0028 JP $335B      ; Jump forward immediately.
 
 ; Unused
-s$002B DEFS 5,$FF    ; Unused locations.
+s$002B DEFS $05,$FF  ; Unused locations.
 
 ; THE 'MAKE BC SPACES' RESTART
 ;
@@ -245,7 +245,7 @@ c$0053 POP HL        ; {The address on the stack points to the error code.
  $005C JP $16C5      ; pointer to #R$5C3D(ERR-SP) before exiting via #R$16C5.}
 
 ; Unused
-s$005F DEFS 7,$FF    ; Unused locations.
+s$005F DEFS $07,$FF  ; Unused locations.
 
 ; THE 'NON-MASKABLE INTERRUPT' ROUTINE
 ;
