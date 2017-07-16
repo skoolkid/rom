@@ -7,6 +7,7 @@
 @replace=/#o([0-9A-F]{2,4})/#IF({base}==10)(#EVAL($\1),$#S|\1|)
 @replace=|#c\i|#UDG\1(char#EVAL((\1-$3C00)/8,16))
 @replace=/&([0-9A-F]{2,4})/#IF({base}==10)(#EVAL($\1),+#S|\1|)
+@replace=/#h([0-9A-F]{2,4})/#IF({base}==10)(#EVAL($\1),#S|\1|)
 @set-handle-unsupported-macros=1
 
 ; 48K Spectrum ROM disassembly
@@ -4674,8 +4675,7 @@ c$15EF LD E,$30      ; {Increase the value in the #REGa register by &30.
 c$1601 ADD A,A       ; {The value in the #REGa register is doubled and then
  $1602 ADD A,$16     ; increased by &16.}
  $1604 LD L,A        ; The result is moved to #REGl.
- $1605 LD H,$5C      ; The address #R$5C16(#N$5C16) is the base address for
-                     ; stream &00.
+ $1605 LD H,$5C      ; The address #R$5C16 is the base address for stream &00.
  $1607 LD E,(HL)     ; {Fetch the first two bytes of the required stream's
  $1608 INC HL        ; data.
  $1609 LD D,(HL)     ; }
@@ -7050,7 +7050,7 @@ c$1DAB BIT 1,(IY+$37) ; {Jump to give the error report if the variable was not
 ; Otherwise collect the 'looping' line number and statement.
  $1DC8 LD HL,($5C68)  ; {Find the address of the low byte of the looping line
 @keep
- $1DCB LD DE,$000F    ; number (#R$5C68(MEM)+#N$0F).
+ $1DCB LD DE,$000F    ; number (#R$5C68(MEM)+#h0F).
  $1DCE ADD HL,DE      ; }
  $1DCF LD E,(HL)      ; {Now fetch this line number.
  $1DD0 INC HL         ;
@@ -9565,7 +9565,7 @@ c$26C9 CALL $28B2     ; Look in the existing variables for the matching entry.
  $272E LD C,(HL)      ; Get required code from the table.
 @nowarn
 @ssub=LD HL,$27B0-$C3
- $272F LD HL,$26ED    ; The pointer to the priority table (#N$26ED+#N$C3 gives
+ $272F LD HL,$26ED    ; The pointer to the priority table (#h26ED+#hC3 gives
                       ; #R$27B0 as the first address).
  $2732 ADD HL,BC      ; Index into the table.
  $2733 LD B,(HL)      ; Fetch the appropriate priority.
@@ -10113,7 +10113,7 @@ c$28B2 SET 6,(IY+$01) ; Presume a numeric variable (set bit 6 of
 ; in the variables area. If the variable is found in the DEF FN statement, then
 ; the parameters of a string variable are stacked and a signal is given that
 ; there is no need to call #R$2996. But it is left to #R$26C9 to stack the
-; value of a numerical variable at #R$26DA(#N$26DA) in the usual way.
+; value of a numerical variable at #R$26DA(#h26DA) in the usual way.
 @label=STK_F_ARG
 c$2951 LD HL,($5C0B) ; {Point to the first character in the arguments area
  $2954 LD A,(HL)     ; (#R$5C0B(DEFADD)) and put it into #REGa.}
@@ -12301,7 +12301,7 @@ c$3014 LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
 ; treating is as 'minus zero' in an illegitimate format.
 ; .
 ; One possible remedy would be to test for this number at about byte
-; #R$3032(#N$3032) and, if it is present, to make the second byte &80 and the
+; #R$3032(#h3032) and, if it is present, to make the second byte &80 and the
 ; first byte &91, so producing the full five-byte floating-point form of the
 ; number, i.e. 91 80 00 00 00, which causes no problems. See also the
 ; #R$3225(remarks in 'truncate').
@@ -12839,8 +12839,8 @@ c$3214 LD A,(HL)     ; Get the exponent byte of x into #REGa.
 ; #R$303C(already stated), the Spectrum system cannot handle this number. The
 ; result here is simply to make INT (-65536) return the value -1. This is a
 ; pity, since the number would have been perfectly all right if left alone. The
-; remedy would seem to be simply to omit the 28 bytes from #N$3223 above to
-; #N$323E inclusive from the program.
+; remedy would seem to be simply to omit the 28 bytes from #h3223 above to
+; #h323E inclusive from the program.
  $3225 INC HL        ; {#REGhl is pointed at the fourth byte of x, where the 17
  $3226 INC HL        ; bits of the integer part of x end after the first bit.
  $3227 INC HL        ; }
@@ -13267,7 +13267,7 @@ c$335B CALL $35BF    ; Presume a unary operation and therefore set #REGhl to
 ; The address of this routine is found in the #R$32D7(table of addresses). It
 ; is called via the calculator literal &3B by the routine at #R$26C9.
 ; .
-; This subroutine is only called from #R$2757(#N$2757) and is used to perform a
+; This subroutine is only called from #R$2757(#h2757) and is used to perform a
 ; single arithmetic operation. The offset that specifies which operation is to
 ; be performed is supplied to the calculator in the #REGb register and
 ; subsequently transferred to the system variable #R$5C67(BREG).
@@ -15938,8 +15938,8 @@ i$4000 DEFS $1C00
 ; KSTATE - Used in reading the keyboard
 ;
 ; Initialised by the routine at #R$11B7, and used by the routine at #R$02BF.
-; KSTATE0 (#N$5C00) and KSTATE4 (#N$5C04) are accessed by the routine at
-; #R$11B7 via the #REGiy register at #iy-$3A and #iy-$36.
+; KSTATE0 (#h5C00) and KSTATE4 (#h5C04) are accessed by the routine at #R$11B7
+; via the #REGiy register at #iy-$3A and #iy-$36.
 ; .
 ; There are two sets of four bytes here, each set corresponding to a separate
 ; keypress. The bytes in each set are used as follows:
@@ -16072,7 +16072,7 @@ g$5C39 DEFB $00
 ;
 ; Read by the routine at #R$1024, and updated by the routines at #R$0053,
 ; #R$0FF3, #R$107F, #R$111D, #R$12A2, #R$1B17 and #R$2089. The #REGiy register
-; is initialised to #N$5C3A by the routine at #R$11B7, and reinitialised by the
+; is initialised to #h5C3A by the routine at #R$11B7, and reinitialised by the
 ; routine at #R$2D2B. This system variable is accessed by some routines via the
 ; #REGiy register at #iy+$00.
 @label=ERR_NR

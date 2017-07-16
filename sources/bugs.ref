@@ -49,7 +49,7 @@ position is at the top-left of the screen. For example:
 <code>PRINT AT 0,0;CHR$ 8;12</code>
 
 Here the CHR$ 8 should have no effect, but instead the '1' is printed at
-(-1,0), which the ROM calculates to be at address #N($58FF), or (7,31) in the
+(-1,0), which the ROM calculates to be at address #h58FF, or (7,31) in the
 attribute file.
 
 The reason, again, is that the instruction at #R$0A32 is '#S/LD A/,#o18'
@@ -126,15 +126,15 @@ makes the computer hang.
 
 The root cause is that there is no end marker in the #R$1716(close stream
 lookup table). This makes the '#S/JP (HL)/' at the end of the routine at
-#R$1701 jump to #R$175B, and the '#S/RET/' that follows at #N$175C causes an
-indirect jump to #N$5C1E (an address pushed onto the stack earlier at
-#R$1701#$1701(#N$1701)). After proceeding through the RAM at #N$5C1E onwards,
-and disabling interrupts along the way, the Spectrum finally hangs on the
+#R$1701 jump to #R$175B, and the '#S/RET/' that follows at #h175C causes an
+indirect jump to #h5C1E (an address pushed onto the stack earlier at
+#R$1701#$1701). After proceeding through the RAM at #h5C1E onwards, and
+disabling interrupts along the way, the Spectrum finally hangs on the
 '#S/HALT/' instruction at #R$1303.
 
 If there were an end marker (#o00) in the close stream lookup table, the
 '#S/JP (HL)/' at the end of the routine at #R$1701 would jump to #R$171C, the
-'#S/RET/' that follows at #N$171D would return to #R$16EB, and the stream would
+'#S/RET/' that follows at #h171D would return to #R$16EB, and the stream would
 be closed successfully.
 
 [Bug:pressAlmostAnyKey:Press (almost) any key]
@@ -201,10 +201,10 @@ Specifically, when #R$302B is reached, the carry flag is set, #REGa holds #oFF
 byte of the first number). Then:
 
 #TABLE(asm,address-1,instruction,comment-11)
-{ #N$302B | #S/ADC A,(HL)/    | #REGa=#oFF (#oFF+#oFF+carry). }
-{ #N$302C | #S/RRCA/          | #REGa=#oFF, carry flag set. }
-{ #N$302D | #S/ADC A/,#o00    | #REGa=#o00. }
-{ #N$302F | #S/JR NZ/,#R$303C | This jump is not made. }
+{ #h302B | #S/ADC A,(HL)/    | #REGa=#oFF (#oFF+#oFF+carry). }
+{ #h302C | #S/RRCA/          | #REGa=#oFF, carry flag set. }
+{ #h302D | #S/ADC A/,#o00    | #REGa=#o00. }
+{ #h302F | #S/JR NZ/,#R$303C | This jump is not made. }
 TABLE#
 
 The result is then stored as 00 FF 00 00 00, which other ROM routines do not
