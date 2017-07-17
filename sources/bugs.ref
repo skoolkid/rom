@@ -100,7 +100,7 @@ Then press EDIT, and see line 10 come down to the editing area with the cursor
 in tow.
 
 The reason this happens is that the routine at #R$0FA9 decrements the line
-number at #R$5C49(E-PPC) (from 11 to 10) so as to avoid printing the cursor,
+number at #SYSVAR(E-PPC) (from 11 to 10) so as to avoid printing the cursor,
 but doesn't take into account that the number of the line that will be brought
 down for editing is one less than its current value.
 
