@@ -132,7 +132,7 @@ indirect jump to #h5C1E (an address pushed onto the stack earlier at
 disabling interrupts along the way, the Spectrum finally hangs on the
 '#S/HALT/' instruction at #R$1303.
 
-If there were an end marker (#o00) in the close stream lookup table, the
+If there were an end marker (&00) in the close stream lookup table, the
 '#S/JP (HL)/' at the end of the routine at #R$1701 would jump to #R$171C, the
 '#S/RET/' that follows at #h171D would return to #R$16EB, and the stream would
 be closed successfully.
@@ -196,14 +196,14 @@ prints '-1'.
 
 The first of these problems is caused by the routine at #R$3014, which fails to
 detect an overflow when adding two small negative integers whose sum is -65536.
-Specifically, when #R$302B is reached, the carry flag is set, #REGa holds #oFF
-(the sign byte of the second number), and #REG[(HL)] also holds #oFF (the sign
+Specifically, when #R$302B is reached, the carry flag is set, #REGa holds &FF
+(the sign byte of the second number), and #REG[(HL)] also holds &FF (the sign
 byte of the first number). Then:
 
 #TABLE(asm,address-1,instruction,comment-11)
-{ #h302B | #S/ADC A,(HL)/    | #REGa=#oFF (#oFF+#oFF+carry). }
-{ #h302C | #S/RRCA/          | #REGa=#oFF, carry flag set. }
-{ #h302D | #S/ADC A/,#o00    | #REGa=#o00. }
+{ #h302B | #S/ADC A,(HL)/    | #REGa=&FF (&FF plus &FF plus carry). }
+{ #h302C | #S/RRCA/          | #REGa=&FF, carry flag set. }
+{ #h302D | #S/ADC A/,#o00    | #REGa=&00. }
 { #h302F | #S/JR NZ/,#R$303C | This jump is not made. }
 TABLE#
 
@@ -213,6 +213,6 @@ always handle correctly.
 The second problem is caused by the routine at #R$3214. Specifically, the
 section of code at #R$3225 checks whether the argument <i>x</i> satisfies
 -65537&lt;<i>x</i>&lt;=-65536; if it does, its floating point form is
-(erroneously) modified to 00 FF 00 00 00. (-65537 in floating point form is
-91 80 00 80 00, which explains why the mask 0x80 is used when testing the
-fourth byte of <i>x</i> at #R$3230.)
+(erroneously) modified to 00 FF 00 00 00. (-65537 in floating point form is 91
+80 00 80 00, which explains why the mask &80 is used when testing the fourth
+byte of <i>x</i> at #R$3230.)
