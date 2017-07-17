@@ -21,7 +21,7 @@ else:
 sys.stderr.write("Found SkoolKit in {}\n".format(skool2html.PACKAGE_DIR))
 
 def run_skool2asm():
-    skool2asm.main(['-H'] + sys.argv[1:] + [ROM_SKOOL])
+    skool2asm.main(sys.argv[1:] + [ROM_SKOOL])
 
 def run_skool2html():
     options = '-ad {}/build/html'.format(ROM_HOME)
