@@ -175,9 +175,9 @@ they should be. For example:
 
 prints '2.3283064E-10' instead of '0', because while '1/2' is calculated
 correctly, '.5' is evaluated as '5 * 1/10', which is not calculated correctly.
-Specifically, '1/10' is represented as 7D 4C CC CC CC (0.0999999999767) in
+Specifically, '1/10' is represented as #S/7D 4C CC CC CC/ (0.0999999999767) in
 floating point form, but if the 34th bit were included, it would be rounded up
-to 7D 4C CC CC CD (0.100000000006), which is more accurate.
+to #S/7D 4C CC CC CD/ (0.100000000006), which is more accurate.
 
 The problem is caused by the jump at #R$31FF, which should be to #R$31DB
 instead of #R$31E2.
@@ -207,12 +207,12 @@ byte of the first number). Then:
 { #h302F | #S/JR NZ/,#R$303C | This jump is not made. }
 TABLE#
 
-The result is then stored as 00 FF 00 00 00, which other ROM routines do not
-always handle correctly.
+The result is then stored as 00 #S/FF/ 00 00 00, which other ROM routines do
+not always handle correctly.
 
 The second problem is caused by the routine at #R$3214. Specifically, the
 section of code at #R$3225 checks whether the argument <i>x</i> satisfies
 -65537&lt;<i>x</i>&lt;=-65536; if it does, its floating point form is
-(erroneously) modified to 00 FF 00 00 00. (-65537 in floating point form is 91
-80 00 80 00, which explains why the mask &80 is used when testing the fourth
+(erroneously) modified to 00 #S/FF/ 00 00 00. (-65537 in floating point form is
+91 80 00 80 00, which explains why the mask &80 is used when testing the fourth
 byte of <i>x</i> at #R$3230.)

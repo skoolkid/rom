@@ -11548,7 +11548,7 @@ c$2DA2 RST $28       ; Use the calculator to make #REGhl point to
 @label=LOG_2_A
 c$2DC1 LD D,A                   ; {The integer #REGa is stacked, either as 00
  $2DC2 RLA                      ; 00 #REGa 00 00 (for positive #REGa) or as 00
- $2DC3 SBC A,A                  ; FF #REGa FF 00 (for negative #REGa).}
+ $2DC3 SBC A,A                  ; #S/FF/ #REGa #S/FF/ 00 (for negative #REGa).}
  $2DC4 LD E,A                   ; {These bytes are first loaded into #REGa,
  $2DC5 LD C,A                   ; #REGe, #REGd, #REGc, #REGb and then #R$2AB6
  $2DC6 XOR A                    ; is called to put the number on the calculator
@@ -12188,7 +12188,7 @@ c$2FDD AND A         ; {If the exponent difference is zero, the subroutine
 ; incremented, and this may result in overflow.
 ;
 ; D'E'DE Mantissa of number shifted right
-; O:F Zero flag set on overflow (mantissa was FFFFFFFF)
+; O:F Zero flag set on overflow (mantissa was #S/FFFFFFFF/)
 @label=ADD_BACK
 c$3004 INC E         ; Add carry to rightmost byte.
  $3005 RET NZ        ; Return if no overflow to left.
@@ -12292,8 +12292,8 @@ c$3014 LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
  $303A POP DE        ; Restore #R$5C65(STKEND) to #REGde.
  $303B RET           ; Finished.
 @ignoreua
-; Note that the number -65536 can arise here in the form 00 FF 00 00 00 as the
-; result of the addition of two smaller negative integers, e.g. -65000 and
+; Note that the number -65536 can arise here in the form 00 #S/FF/ 00 00 00 as
+; the result of the addition of two smaller negative integers, e.g. -65000 and
 ; -536. It is simply stacked in this form. This is a mistake. The Spectrum
 ; system cannot handle this number.
 ; .
@@ -12500,10 +12500,10 @@ c$30CA LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
  $30E1 EX DE,HL      ; Store the result in #REGde.
  $30E2 POP HL        ; Restore the pointer to the first number.
  $30E3 JR C,$30EF    ; Jump on overflow to 'full' multiplication.
- $30E5 LD A,D        ; {These 5 bytes ensure that 00 FF 00 00 00 is replaced by
- $30E6 OR E          ; zero; that they should not be needed if this number were
- $30E7 JR NZ,$30EA   ; excluded from the system is noted at #R$303C.
- $30E9 LD C,A        ; }
+ $30E5 LD A,D        ; {These 5 bytes ensure that 00 #S/FF/ 00 00 00 is
+ $30E6 OR E          ; replaced by zero; that they should not be needed if this
+ $30E7 JR NZ,$30EA   ; number were excluded from the system is noted at
+ $30E9 LD C,A        ; #R$303C.}
 @label=MULT_RSLT
 *$30EA CALL $2D8E    ; Now store the result on the stack.
  $30ED POP DE        ; Restore #R$5C65(STKEND) to #REGde.
@@ -12835,12 +12835,12 @@ c$3214 LD A,(HL)     ; Get the exponent byte of x into #REGa.
  $3223 JR NZ,$323F   ; Jump if e not &91.
 @ignoreua
 ; The next 26 bytes seem designed to test whether x is in fact -65536, i.e. 91
-; 80 00 00 00, and if it is, to set it to 00 FF 00 00 00. This is a mistake. As
-; #R$303C(already stated), the Spectrum system cannot handle this number. The
-; result here is simply to make INT (-65536) return the value -1. This is a
-; pity, since the number would have been perfectly all right if left alone. The
-; remedy would seem to be simply to omit the 28 bytes from #h3223 above to
-; #h323E inclusive from the program.
+; 80 00 00 00, and if it is, to set it to 00 #S/FF/ 00 00 00. This is a
+; mistake. As #R$303C(already stated), the Spectrum system cannot handle this
+; number. The result here is simply to make INT (-65536) return the value -1.
+; This is a pity, since the number would have been perfectly all right if left
+; alone. The remedy would seem to be simply to omit the 28 bytes from #h3223
+; above to #h323E inclusive from the program.
  $3225 INC HL        ; {#REGhl is pointed at the fourth byte of x, where the 17
  $3226 INC HL        ; bits of the integer part of x end after the first bit.
  $3227 INC HL        ; }
@@ -12860,7 +12860,8 @@ c$3214 LD A,(HL)     ; Get the exponent byte of x into #REGa.
  $3238 LD (HL),$FF   ; The second byte is set to &FF.
  $323A DEC HL        ; #REGhl again points to the first byte.
  $323B LD A,$18      ; The last 24 bits are to be zero.
- $323D JR $3272      ; The jump to #R$3272 completes the number 00 FF 00 00 00.
+ $323D JR $3272      ; The jump to #R$3272 completes the number 00 #S/FF/ 00 00
+                     ; 00.
 ; If the exponent byte of x is between &81 and &90 inclusive, I(x) is a 'small
 ; integer', and will be compressed into one or two bytes. But first a test is
 ; made to see whether x is, after all, large.
@@ -13033,9 +13034,9 @@ b$32C5 DEFB $00,$B0,$00         ; zero (00 00 00 00 00)
 @label=stk_half
  $32CC DEFB $30,$00             ; a half (80 00 00 00 00)
 @label=stk_pi_2
- $32CE DEFB $F1,$49,$0F,$DA,$A2 ; a half of pi (81 49 0F DA A2)
+ $32CE DEFB $F1,$49,$0F,$DA,$A2 ; a half of pi (81 49 #S/0F DA A2/)
 @label=stk_ten
- $32D3 DEFB $40,$B0,$00,$0A     ; ten (00 00 0A 00 00)
+ $32D3 DEFB $40,$B0,$00,$0A     ; ten (00 00 #S/0A/ 00 00)
 
 ; THE TABLE OF ADDRESSES
 ;
