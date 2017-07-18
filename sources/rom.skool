@@ -18,6 +18,16 @@
 ; Copyright 1982 Amstrad
 ; Copyright 1983 Dr Ian Logan & Dr Frank O'Hara
 ; Copyright 2013-2017 Richard Dymond
+@bfix+begin
+;
+; This disassembly contains fixes for the following bugs:
+;   * No step back
+;   * A step back too far
+;   * Anything equals SCREEN$ (x,y)
+;   * The 34th bit of division
+; See http://skoolkit.ca/disassemblies/rom/reference/bugs.html for full
+; descriptions of these bugs.
+@bfix+end
 
 @equ=KSTATE=$5C00
 @equ=LAST_K=$5C08
@@ -2351,8 +2361,13 @@ c$0A23 INC C          ; Move leftwards by one column.
  $0A2D JR NZ,$0A38    ; set) jump forward.}
  $0A2F INC B          ; Go up one line.
  $0A30 LD C,$02       ; Set column value.
+@bfix-begin
  $0A32 LD A,$18       ; {Test against top line. Note: #BUG#noStepBack(this
  $0A34 CP B           ; ought to be &19).}
+@bfix+else
+ $0A32 LD A,$19       ; {Test against top line.
+ $0A34 CP B           ; }
+@bfix+end
  $0A35 JR NZ,$0A3A    ; Accept the change unless at the top of the screen.
  $0A37 DEC B          ; Unacceptable so down a line.
 @label=PO_BACK_2
@@ -9118,7 +9133,12 @@ c$2535 CALL $2307    ; x to #REGc, y to #REGb; 0<=x<=23; 0<=y<=31.
  $256C LD BC,$0001   ; One space is now needed in the work space.
  $256F RST $30       ; Make the space.
  $2570 LD (DE),A     ; Put the character into it.
+@bfix-begin
  $2571 JR $257D      ; Jump to stack the character.
+@bfix+else
+ $2571 RET
+ $2572 NOP
+@bfix+end
 @label=S_SCR_NXT
 *$2573 POP HL        ; Restore character set pointer.
 @keep
@@ -9127,6 +9147,7 @@ c$2535 CALL $2307    ; x to #REGc, y to #REGb; 0<=x<=23; 0<=y<=31.
  $2578 POP DE        ; Restore the screen pointer.
  $2579 POP BC        ; And the counter.
  $257A DJNZ $254F    ; Loop back for the 96 characters.
+@bfix-begin
  $257C LD C,B        ; Stack the empty string (length zero).
 @label=S_SCR_STO
 *$257D JP $2AB2      ; Jump to stack the matching character, or the null string
@@ -9134,6 +9155,10 @@ c$2535 CALL $2307    ; x to #REGc, y to #REGb; 0<=x<=23; 0<=y<=31.
 ; Note: this exit, via #R$2AB2, is a #BUG#anythingEqualsSCREEN$xy(mistake) as
 ; it leads to 'double storing' of the string result (see #R$25DB). The
 ; instruction line should be '#S/RET/'.
+@bfix+else
+ $257C RET
+ $257D DEFB $00,$00,$00
+@bfix+end
 
 ; THE 'SCANNING ATTRIBUTES' SUBROUTINE
 ;
@@ -12782,14 +12807,17 @@ c$31AF CALL $3293    ; Use full floating-point forms.
  $31FB JP M,$31D2    ; Loop 32 times for all bits.
  $31FE PUSH AF       ; Save any 33rd bit for extra precision (the present
                      ; carry).
+@bfix=JR Z,$31DB
  $31FF JR Z,$31E2    ; Trial subtract yet again for any 34th bit; the
                      ; '#S/PUSH AF/' above saves this bit too.
+@bfix-begin
 @ignoreua
 ; Note: this jump is made to the wrong place. No 34th bit will ever be obtained
 ; without first shifting the dividend. Hence important results like 1/10 and
 ; 1/1000 are not rounded up as they should be. Rounding up never occurs when it
 ; depends on the 34th bit. The jump should have been to #R$31DB above, i.e.
 ; byte &3200 in the ROM should read &DA instead of &E1.
+@bfix-end
  $3201 LD E,A        ; {Now move the four bytes that form the mantissa of the
  $3202 LD D,C        ; result from #REG(b'c'ca) to #REG(d'e'de).
  $3203 EXX           ;
