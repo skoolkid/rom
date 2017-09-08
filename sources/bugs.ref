@@ -116,6 +116,33 @@ prints '0.5' instead of '20.5'.
 Note that the bug is triggered only if the argument of STR$ is a non-zero
 number strictly between -1 and 1.
 
+[Bug:gotoAndlargeNumbers:GO TO and large numbers]
+Since BASIC line numbers cannot be greater than 9999, you might expect a 'GO TO
+<i>n</i>' command where <i>n</i>&gt;9999 to either do nothing or give an
+appropriate error message. But GO TO does not behave consistently when <i>n</i>
+is large.
+
+The command 'GO TO <i>n</i>' always (appropriately) does nothing when
+<i>n</i>&lt;32768, so long as there is no line number greater than or equal to
+<i>n</i> and there are no variables present.
+
+But if there are variables present, the command 'GO TO <i>n</i>' can give a 'C
+Nonsense in BASIC' error when 9999&lt;<i>n</i>&lt;=32767; for example:
+
+<code>LET a=1: GO TO 24832</code>
+
+gives the error 'C Nonsense in BASIC, H832:1'. This happens because the routine
+at #R$196E (called from #R$1B9E) finds the definition of the variable 'a' in
+the variables area, the first two bytes of which are 97 (the ASCII code for
+'a') and 0, and takes it to be line number 24832 (97*256).
+
+The command 'GO TO <i>n</i>' gives an 'N Statement lost, 0:255' error when
+32768&lt;=<i>n</i>&lt;=61439. (See the check at #R$1B83: a line number greater
+than 32767 indicates the editing area.)
+
+The command 'GO TO <i>n</i>' (appropriately) gives a 'B Integer out of range'
+error when <i>n</i>&gt;=61440. (See the check at #R$1E6E.)
+
 [Bug:dontCloseTheStreams:Don't close the streams]
 It can be dangerous to close a stream, especially if it's aleady been closed or
 was never opened. For example, on a freshly booted Spectrum:
