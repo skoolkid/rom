@@ -817,6 +817,7 @@ c$0333 LD A,E         ; Copy the 'main code'.
  $033E ADD A,$4F      ; Add the offset.
  $0340 RET            ; Return with the 'final code'.
 ; Letter keys in extended mode are considered next.
+@keep=$41
 @ssub=LD HL,$022C-$41
 @label=K_E_LET
 *$0341 LD HL,$01EB    ; The base address for #R$022C(table 'b').
@@ -861,6 +862,7 @@ c$0333 LD A,E         ; Copy the 'main code'.
  $036B JP M,$039D     ; {Jump with 'K', 'L' and 'C' modes, and also with 'G'
  $036E JR NZ,$0389    ; mode. Continue with 'E' mode.}
 @nowarn
+@keep=$30
 @ssub=LD HL,$0284-$30
  $0370 LD HL,$0254    ; The base address for #R$0284(table 'f').
  $0373 BIT 5,B        ; {Use this table for SYMBOL SHIFT and a digit key in
@@ -884,6 +886,7 @@ c$0333 LD A,E         ; Copy the 'main code'.
 ; The digit keys in graphics mode are to give the block graphic characters (&80
 ; to &8F), the GRAPHICS code (&0F) and the DELETE code (&0C).
 @nowarn
+@keep=$30
 @ssub=LD HL,$0260-$30
 @label=K_GRA_DGT
 *$0389 LD HL,$0230    ; The base address of #R$0260(table 'd').
@@ -903,6 +906,7 @@ c$0333 LD A,E         ; Copy the 'main code'.
  $039E RET Z          ; (Final codes &30 to &39.)}
  $039F BIT 5,B        ; {Use #R$0260(table 'd') if the CAPS SHIFT key is also
 @nowarn
+@keep=$30
 @ssub=LD HL,$0260-$30
  $03A1 LD HL,$0230    ; being pressed.
  $03A4 JR NZ,$034A    ; }
@@ -1812,6 +1816,7 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
  $078C JR NC,$0767     ; more'.}
 ; The appropriate message - 'Program: ', 'Number array: ', 'Character array: '
 ; or 'Bytes: ' is printed.
+@keep=$01
 @ssub=LD DE,$09C1-$01
  $078E LD DE,$09C0     ; The base address of the #R$09C1(message block).
  $0791 PUSH BC         ; {Save the #REGc register whilst the appropriate
@@ -2458,6 +2463,7 @@ c$0A69 LD A,"?"      ; The character '?'.
 @nowarn
 @label=PO_TV_2
 c$0A6D LD DE,$0A87    ; {Save the first operand in #SYSVAR(TVDATA-hi) and
+@keep=$01
 @ssub=LD ($5C0E+$01),A
  $0A70 LD ($5C0F),A   ; change the address of the 'output' routine to #R$0A87.
  $0A73 JR $0A80       ; }
@@ -3055,6 +3061,7 @@ c$0C55 BIT 1,(IY+$01)    ; {Return immediately if the printer is being used
  $0D21 LD A,B            ; #REGb register set to hold the former value and the
  $0D22 INC A             ; #REGa register the new value.
  $0D23 LD (HL),A         ; }
+@keep=$01
 @ssub=LD HL,$5C88+$01
  $0D24 LD HL,$5C89       ; This is #SYSVAR(S-POSN-hi).
  $0D27 CP (HL)           ; {The jump is taken if only the lower part of the
@@ -3881,6 +3888,7 @@ c$1059 BIT 5,(IY+$37) ; {Return if in 'INPUT mode' (bit 5 of #SYSVAR(FLAGX)
  $1061 CALL $196E     ; start address.}
  $1064 EX DE,HL       ; #REGhl now points to the previous line.
  $1065 CALL $1695     ; This line's number is fetched.
+@keep=$01
 @ssub=LD HL,$5C49+$01
  $1068 LD HL,$5C4A    ; This is #SYSVAR(E-PPC-hi).
  $106B CALL $191C     ; The line number is stored.
@@ -4067,6 +4075,7 @@ c$111D CALL $0D4D      ; Use the permanent colours.
 ; The remainder of any line that has been started is now completed with spaces
 ; printed with the 'permanent' PAPER colour.
 @label=ED_BLANK
+@keep=$01
 @ssub=LD A,($5C8A+$01)
 *$1150 LD A,($5C8B)    ; {Fetch the current line number from #SYSVAR(S-POSNL)
  $1153 SUB D           ; and subtract the old line number.}
@@ -4233,6 +4242,7 @@ c$11B7 DI              ; Disable the maskable interrupt.
 ; operations.
 @label=RAM_SET
 *$1219 LD ($5CB2),HL   ; Set #SYSVAR(RAMTOP).
+@keep=$100
 @ssub=LD HL,$3D00-$100
  $121C LD HL,$3C00     ; {Initialise the system variable #SYSVAR(CHARS).
  $121F LD ($5C36),HL   ; }
@@ -4293,6 +4303,7 @@ c$11B7 DI              ; Disable the maskable interrupt.
  $1292 CALL $0D6B      ; (#SYSVAR(DF-SZ)) and clear the whole display.}
 @ignoreua
  $1295 XOR A           ; {Now print the message '#CHR169 1982 Sinclair Research
+@keep=$01
 @ssub=LD DE,$1539-$01
  $1296 LD DE,$1538     ; Ltd' on the bottom line.
  $1299 CALL $0C0A      ; }
@@ -4399,6 +4410,7 @@ c$12A2 LD (IY+$31),$02 ; The lower part of the screen is to be two lines in
  $1343 LD DE,$1391     ; {Print the message.
  $1346 CALL $0C0A      ; }
  $1349 XOR A           ; {Follow it by a 'comma' and a 'space'.
+@keep=$01
 @ssub=LD DE,$1537-$01
  $134A LD DE,$1536     ;
  $134D CALL $0C0A      ; }
@@ -5026,7 +5038,7 @@ c$16E5 CALL $171E    ; The existing data for the stream is fetched.
  $16F1 EX DE,HL      ; }
  $16F2 ADD HL,DE     ; The carry flag will be set with streams &04 to &0F.
  $16F3 JR C,$16FC    ; {Jump forward with these streams; otherwise find the
-@keep
+@keep=$15D4,$0E
 @ssub=LD BC,$15C6+$0E
  $16F5 LD BC,$15D4   ; correct entry in the #R$15C6(initial stream data
  $16F8 ADD HL,BC     ; table).}
@@ -8696,6 +8708,7 @@ c$2382 RST $18       ; Get the current character.
  $2410 DEFB $0F      ; #R$3014: Y, X0+X
  $2411 DEFB $01      ; #R$343C: X0+X, Y
  $2412 DEFB $38      ; #R$369B
+@keep=$01
 @ssub=LD A,($5C7D+$01)
  $2413 LD A,($5C7E)  ; {Get Y0 from #SYSVAR(COORDS) into #REGa and so on to the
  $2416 CALL $2D28    ; stack.}
@@ -8770,6 +8783,7 @@ c$2382 RST $18       ; Get the current character.
  $244D DEFB $01      ; #R$343C: X0+X, Y0+Y, Xn+1, Yn+1, Un'
  $244E DEFB $E0      ; #R$340F(get_mem_0): X0+X, Y0+Y, Xn+1, Yn+1, Un', Yn+1
  $244F DEFB $38      ; #R$369B
+@keep=$01
 @ssub=LD A,($5C7D+$01)
  $2450 LD A,($5C7E)  ; {Yn', approximate like Xn', is copied from
  $2453 CALL $2D28    ; #SYSVAR(COORDS) to #REGa and hence to the stack.}
@@ -8792,6 +8806,7 @@ c$2382 RST $18       ; Get the current character.
  $246B DEFB $03      ; #R$300F: Y0+Y, X0+X-Xz'
  $246C DEFB $01      ; #R$343C: X0+X-Xz', Y0+Y
  $246D DEFB $38      ; #R$369B
+@keep=$01
 @ssub=LD A,($5C7D+$01)
  $246E LD A,($5C7E)  ; {The Y-co-ordinate is obtained from #SYSVAR(COORDS) and
  $2471 CALL $2D28    ; stacked.}
@@ -9997,6 +10012,7 @@ c$28B2 SET 6,(IY+$01) ; Presume a numeric variable (set bit 6 of
 ; being evaluated, and if in 'run-time', a search will be made of the arguments
 ; in the DEF FN statement.
 @label=V_TEST_FN
+@keep=$01
 @ssub=LD A,($5C0B+$01)
 *$28E3 LD A,($5C0C)   ; {Is #SYSVAR(DEFADD-hi) zero?
  $28E6 AND A          ; }
@@ -11805,6 +11821,7 @@ c$2DE3 RST $28          ; Use the calculator.
  $2E80 RL E             ;
  $2E82 RL D             ; }
  $2E84 EXX              ; Back to the main registers.
+@keep=$18
 @ssub=LD HL,$5C92+$18
  $2E85 LD HL,$5CAA      ; {Address of fifth byte of #R$5CA6(mem-4) to #REGhl;
  $2E88 LD C,$05         ; count of 5 bytes to #REGc.}
@@ -13268,6 +13285,7 @@ c$335B CALL $35BF    ; Presume a unary operation and therefore set #REGhl to
  $339A EX (SP),HL    ; underneath the subroutine address.
  $339B PUSH DE       ; }
  $339C EXX           ; Return to the main set of registers.
+@keep=$01
 @ssub=LD BC,($5C67-$01)
  $339D LD BC,($5C66) ; The current value of #SYSVAR(BREG) is transferred to the
                      ; #REGb register thereby returning the single operation
