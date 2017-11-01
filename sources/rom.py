@@ -89,31 +89,22 @@ SYSVARS = {
     'CHINFO': 0x5CB6
 }
 
-def parse_s(text, index, case):
-    sep = text[index]
-    end, s = parse_brackets(text, index, '', sep, sep)
-    return end, s.lower() if case == 1 else s
-
-def parse_sysvar(text, index):
-    varname = parse_brackets(text, index)[1]
-    if varname.endswith(('-lo', '-hi')):
-        varname = varname[:-3]
-    return index, '#R{}'.format(SYSVARS[varname])
-
-class ROMHtmlWriter(HtmlWriter):
-    def expand_s(self, text, index, cwd):
+class ROMWriter:
+    def expand_s(self, text, index, cwd=None):
         # #S/text/
-        return parse_s(text, index, self.case)
+        sep = text[index]
+        end, s = parse_brackets(text, index, '', sep, sep)
+        return end, s.lower() if self.case == 1 else s
 
-    def expand_sysvar(self, text, index, cwd):
+    def expand_sysvar(self, text, index, cwd=None):
         # #SYSVAR(varname)
-        return parse_sysvar(text, index)
+        varname = parse_brackets(text, index)[1]
+        if varname.endswith(('-lo', '-hi')):
+            varname = varname[:-3]
+        return index, '#R{}'.format(SYSVARS[varname])
 
-class ROMAsmWriter(AsmWriter):
-    def expand_s(self, text, index):
-        # #S/text/
-        return parse_s(text, index, self.case)
+class ROMHtmlWriter(HtmlWriter, ROMWriter):
+    pass
 
-    def expand_sysvar(self, text, index):
-        # #SYSVAR(varname)
-        return parse_sysvar(text, index)
+class ROMAsmWriter(AsmWriter, ROMWriter):
+    pass
