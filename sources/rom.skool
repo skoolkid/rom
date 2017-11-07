@@ -2,12 +2,12 @@
 @writer=:rom.ROMAsmWriter
 @replace=/#pi/#CHR(960)
 @replace=/#power/#CHR(8593)
-@replace=/#i([xy][+-])(\$..)/#REGi\1#IF({base}==10)(#EVAL(\2),#S|\2|)
+@replace=/#i([xy][+-])(\$..)/#REGi\1#N(\2,,,1,1)($)
 @replace=/#BUG/#LINK:Bugs
-@replace=/#o([0-9A-F]{2,4})/#IF({base}==10)(#EVAL($\1),$#S|\1|)
+@replace=/#o([0-9A-F]{2,4})/#N($\1,,,1,1)($)
 @replace=|#c\i|#UDG\1(char#EVAL((\1-$3C00)/8,16))
 @replace=/&([0-9A-F]{2,4})/#IF({base}==10)(#EVAL($\1),+#S|\1|)
-@replace=/#h([0-9A-F]{2,4})/#IF({base}==10)(#EVAL($\1),#S|\1|)
+@replace=/#h([0-9A-F]{2,4})/#N($\1,,,,1)
 @set-handle-unsupported-macros=1
 
 ; 48K Spectrum ROM disassembly
