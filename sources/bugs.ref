@@ -201,6 +201,27 @@ colour' error.
 This bug would be prevented if #REGde were saved before the call to #R$15D4 at
 #R$0CB3, and restored afterwards.
 
+[Bug:impatientScrollPrompt:The impatient 'scroll?' prompt]
+When the program
+
+<code>10 FOR n=1 TO 100: PRINT n: NEXT n</code>
+
+is RUN, pressing TRUE VIDEO or INV. VIDEO at the 'scroll?' prompt causes the
+screen to scroll once, prints a 'scroll?' prompt, scrolls the screen again
+without waiting for a keypress, and then prints another 'scroll?'  prompt
+indented by 7 spaces.
+
+This happens because when TRUE VIDEO or INV. VIDEO is pressed at the initial
+'scroll?' prompt, the routine at #R$10A8 interprets the keypress as an INVERSE
+control code (&04 or &05) and changes the input address for the current channel
+from #R$10A8 to #R$110D (see #R$1105). This means that after the next 'scroll?'
+prompt is printed and #R$15D4 is called, #R$110D (which picks up the parameter
+for the INVERSE control code instead of waiting for a keypress, and does not
+reset the print position for the lower part of the display in preparation for
+the next 'scroll?'  prompt) is executed instead of #R$10A8 (which would wait
+for a keypress, and then reset the print position for the lower part of the
+display).
+
 [Bug:anythingEqualsSCREEN$xy:Anything equals SCREEN$ (x,y)]
 Some care is needed when using SCREEN$, because it doesn't always work as you
 would expect. For example:
