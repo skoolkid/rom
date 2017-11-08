@@ -2979,7 +2979,8 @@ c$0C55 BIT 1,(IY+$01)    ; {Return immediately if the printer is being used
  $0CAB LD HL,$5C3B       ; This is #SYSVAR(FLAGS).
  $0CAE SET 3,(HL)        ; Signal 'L mode'.
  $0CB0 RES 5,(HL)        ; Signal 'no key yet'.
- $0CB2 EXX               ; Note: #REGde should be pushed also.
+ $0CB2 EXX               ; Note: #REGde #BUG#scrollingTokens(should be pushed
+                         ; also).
  $0CB3 CALL $15D4        ; Fetch a single key code.
  $0CB6 EXX               ; Restore the registers.
  $0CB7 CP " "            ; {There is a jump forward to #R$0D00 - 'BREAK - CONT

@@ -174,6 +174,33 @@ This is because the routine at #R$10A8, which is used (via #R$15D4) to decode a
 keypress, copies the edit line to the lower part of the screen when the mode
 changes (from 'L').
 
+[Bug:scrollingTokens:The scrolling tokens]
+When the program
+
+<code>10 PRINT "a": GO TO 10</code>
+
+is RUN, pressing CAPS LOCK (or GRAPHICS, or CAPS SHIFT and SYMBOL SHIFT
+together) at the 'scroll?' prompt places 'RUN' in the edit area, and then
+pressing ENTER fills the screen with BASIC tokens. Pressing ENTER at the next
+'scroll?' prompt leads to more BASIC tokens and other characters being printed,
+and then the program stops with a 'K Invalid colour' error.
+
+This happens because the #REGde register pair - which is used by the section of
+code at #R$203C to hold the address of the next character to be printed - is
+corrupted during the call to #R$0010 (made by the '#S/RST/ #o10' instruction at
+#R$2042) and ends up pointing at #R$00B8 after CAPS LOCK and ENTER are pressed
+at the 'scroll?' prompt. #REGde is then incremented through the #R$0095(token
+table) until it reaches #h01F4 and the 'scroll?'  prompt is printed again.
+After ENTER is pressed at this prompt, #REGde is incremented through the
+remainder of the token table, and then through the #R$0205(key tables), and
+then into the routine at #R$028E, until it reaches #h0290, where it finds the
+control character &11 (PAPER) followed by &FF (the first two bytes of the
+'#S/LD DE/,#oFFFF' instruction at #R$0290), which produces the 'K Invalid
+colour' error.
+
+This bug would be prevented if #REGde were saved before the call to #R$15D4 at
+#R$0CB3, and restored afterwards.
+
 [Bug:anythingEqualsSCREEN$xy:Anything equals SCREEN$ (x,y)]
 Some care is needed when using SCREEN$, because it doesn't always work as you
 would expect. For example:
