@@ -9,7 +9,7 @@
 <body class="Asm-c">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Routines</td>
 </tr>
 </table>
@@ -149,7 +149,7 @@ Before the actual test the <span class="register">B</span> register is set to ho
 <span id="26E6"></span>
 <div class="comments">
 <div class="paragraph">
-Next the character is tested against the code for 'VAL$', with priority 16 decimal and operation code 18 hex.
+Next the character is tested against the code for 'VAL$', with priority +10 and operation code +18.
 </div>
 </div>
 </td>
@@ -158,7 +158,7 @@ Next the character is tested against the code for 'VAL$', with priority 16 decim
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="26E6"></span>26E6</td>
 <td class="instruction">LD BC,$1018</td>
-<td class="comment-11" rowspan="1">Priority 16 dec, operation code +18 hex.</td>
+<td class="comment-11" rowspan="1">Priority +10, operation code +18.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -186,7 +186,7 @@ The present character must now represent one of the functions CODE to NOT, with 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="26ED"></span>26ED</td>
 <td class="instruction">SUB $AF</td>
-<td class="comment-11" rowspan="1">The range of the functions is changed from +AF to +C3 to range +00 to +14 hex.</td>
+<td class="comment-11" rowspan="1">The range of the functions is changed from +AF to +C3 to range +00 to +14.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -233,7 +233,7 @@ The function 'NOT' is identified and dealt with separately from the others.
 <span id="26FC"></span>
 <div class="comments">
 <div class="paragraph">
-The remaining functions have priority 16 decimal. The operation codes for these functions are now calculated. Functions that operate on strings need bit 6 reset and functions that give string results need bit 7 reset in their operation codes.
+The remaining functions have priority +10. The operation codes for these functions are now calculated. Functions that operate on strings need bit 6 reset and functions that give string results need bit 7 reset in their operation codes.
 </div>
 </div>
 </td>
@@ -242,7 +242,7 @@ The remaining functions have priority 16 decimal. The operation codes for these 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="26FC"></span>26FC</td>
 <td class="instruction">LD B,$10</td>
-<td class="comment-11" rowspan="1">Priority 16 decimal.</td>
+<td class="comment-11" rowspan="1">Priority +10.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -399,7 +399,7 @@ If the 'last value' is numeric then the parenthesised expression is a true sub-e
 <span id="2723"></span>
 <div class="comments">
 <div class="paragraph">
-If the present character is indeed a binary operator it will be given an operation code in the range +C3 to +CF hex, and the appropriate priority code.
+If the present character is indeed a binary operator it will be given an operation code in the range +C3 to +CF, and the appropriate priority code.
 </div>
 </div>
 </td>
@@ -570,7 +570,7 @@ Before the 'last' operation is performed, the 'USR' function is separated into '
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="274A"></span>274A</td>
 <td class="instruction">LD E,$99</td>
-<td class="comment-11" rowspan="1">Modify the 'last' operation code: 'offset' 19, +80 for string input and numerical result ('USR string').</td>
+<td class="comment-11" rowspan="1">Modify the 'last' operation code: 'offset' +19, plus +80 for string input and numerical result ('USR string').</td>
 </tr>
 <tr>
 <td class="asm-label-1">S_STK_LST</td>
@@ -768,7 +768,7 @@ Whenever the 'present' operation binds tighter, the 'last' and the 'present' val
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="277D"></span>277D</td>
 <td class="instruction">ADD A,$08</td>
-<td class="comment-11" rowspan="1">Increase the code by +08 hex.</td>
+<td class="comment-11" rowspan="1">Increase the code by +08.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -851,9 +851,9 @@ Whenever the 'present' operation binds tighter, the 'last' and the 'present' val
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

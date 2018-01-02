@@ -9,7 +9,7 @@
 <body class="Bugs">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Bugs</td>
 </tr>
 </table>
@@ -21,8 +21,11 @@
 <li><a href="#neverendingRestore">The neverending RESTORE</a></li>
 <li><a href="#curseTheCursor">Curse the cursor</a></li>
 <li><a href="#str$AndSmallNumbers">STR$ and small numbers</a></li>
+<li><a href="#gotoAndlargeNumbers">GO TO and large numbers</a></li>
 <li><a href="#dontCloseTheStreams">Don't close the streams</a></li>
 <li><a href="#pressAlmostAnyKey">Press (almost) any key</a></li>
+<li><a href="#scrollingTokens">The scrolling tokens</a></li>
+<li><a href="#impatientScrollPrompt">The impatient 'scroll?' prompt</a></li>
 <li><a href="#anythingEqualsSCREEN$xy">Anything equals SCREEN$ (x,y)</a></li>
 <li><a href="#34thBitOfDivision">The 34th bit of division</a></li>
 <li><a href="#troubleWith-65536">The trouble with -65536</a></li>
@@ -198,8 +201,45 @@ Note that the bug is triggered only if the argument of STR$ is a non-zero
 number strictly between -1 and 1.
 </div>
 </div>
-<div><span id="dontCloseTheStreams"></span></div>
+<div><span id="gotoAndlargeNumbers"></span></div>
 <div class="box box-2">
+<div class="box-title">GO TO and large numbers</div>
+<div class="paragraph">
+Since BASIC line numbers cannot be greater than 9999, you might expect a 'GO TO
+<i>n</i>' command where <i>n</i>&gt;9999 to either do nothing or give an
+appropriate error message. But GO TO does not behave consistently when <i>n</i>
+is large.
+</div>
+<div class="paragraph">
+The command 'GO TO <i>n</i>' always (appropriately) does nothing when
+<i>n</i>&lt;32768, so long as there is no line number greater than or equal to
+<i>n</i> and there are no variables present.
+</div>
+<div class="paragraph">
+But if there are variables present, the command 'GO TO <i>n</i>' can give a 'C
+Nonsense in BASIC' error when 9999&lt;<i>n</i>&lt;=32767; for example:
+</div>
+<div class="paragraph">
+<code>LET a=1: GO TO 24832</code>
+</div>
+<div class="paragraph">
+gives the error 'C Nonsense in BASIC, H832:1'. This happens because the routine
+at <a href="../asm/196E.html">LINE_ADDR</a> (called from <a href="../asm/1B9E.html">LINE_NEW</a>) finds the definition of the variable 'a' in
+the variables area, the first two bytes of which are 97 (the ASCII code for
+'a') and 0, and takes it to be line number 24832 (97*256).
+</div>
+<div class="paragraph">
+The command 'GO TO <i>n</i>' gives an 'N Statement lost, 0:255' error when
+32768&lt;=<i>n</i>&lt;=61439. (See the check at <a href="../asm/1B76.html#1B83">1B83</a>: a line number greater
+than 32767 indicates the editing area.)
+</div>
+<div class="paragraph">
+The command 'GO TO <i>n</i>' (appropriately) gives a 'B Integer out of range'
+error when <i>n</i>&gt;=61440. (See the check at <a href="../asm/1E67.html#1E6E">1E6E</a>.)
+</div>
+</div>
+<div><span id="dontCloseTheStreams"></span></div>
+<div class="box box-1">
 <div class="box-title">Don't close the streams</div>
 <div class="paragraph">
 It can be dangerous to close a stream, especially if it's aleady been closed or
@@ -216,19 +256,19 @@ The root cause is that there is no end marker in the <a href="../asm/1716.html">
 lookup table</a>. This makes the 'JP (HL)' at the end of the routine at
 <a href="../asm/1701.html">CLOSE_2</a> jump to <a href="../asm/1736.html#175B">175B</a>, and the 'RET' that follows at 175C causes an
 indirect jump to 5C1E (an address pushed onto the stack earlier at
-<a href="../asm/1701.html#1701">1701</a>). After proceeding through the RAM at 5C1E onwards,
-and disabling interrupts along the way, the Spectrum finally hangs on the
+<a href="../asm/1701.html#1701">CLOSE_2</a>). After proceeding through the RAM at 5C1E onwards, and
+disabling interrupts along the way, the Spectrum finally hangs on the
 'HALT' instruction at <a href="../asm/12A2.html#1303">MAIN_4</a>.
 </div>
 <div class="paragraph">
-If there were an end marker ($00) in the close stream lookup table, the
+If there were an end marker (+00) in the close stream lookup table, the
 'JP (HL)' at the end of the routine at <a href="../asm/1701.html">CLOSE_2</a> would jump to <a href="../asm/171C.html">CLOSE_STR</a>, the
 'RET' that follows at 171D would return to <a href="../asm/16E5.html#16EB">16EB</a>, and the stream would
 be closed successfully.
 </div>
 </div>
 <div><span id="pressAlmostAnyKey"></span></div>
-<div class="box box-1">
+<div class="box box-2">
 <div class="box-title">Press (almost) any key</div>
 <div class="paragraph">
 Not every key besides 'n', 'N', BREAK and STOP will work at the 'scroll?' and
@@ -242,8 +282,71 @@ keypress, copies the edit line to the lower part of the screen when the mode
 changes (from 'L').
 </div>
 </div>
-<div><span id="anythingEqualsSCREEN$xy"></span></div>
+<div><span id="scrollingTokens"></span></div>
+<div class="box box-1">
+<div class="box-title">The scrolling tokens</div>
+<div class="paragraph">
+When the program
+</div>
+<div class="paragraph">
+<code>10 PRINT "a": GO TO 10</code>
+</div>
+<div class="paragraph">
+is RUN, pressing CAPS LOCK (or GRAPHICS, or CAPS SHIFT and SYMBOL SHIFT
+together) at the 'scroll?' prompt places 'RUN' in the edit area, and then
+pressing ENTER fills the screen with BASIC tokens. Pressing ENTER at the next
+'scroll?' prompt leads to more BASIC tokens and other characters being printed,
+and then the program stops with a 'K Invalid colour' error.
+</div>
+<div class="paragraph">
+This happens because the <span class="register">DE</span> register pair - which is used by the section of
+code at <a href="../asm/1FFC.html#203C">PR_STRING</a> to hold the address of the next character to be printed - is
+corrupted during the call to <a href="../asm/0010.html">PRINT_A_1</a> (made by the 'RST $10' instruction at
+<a href="../asm/1FFC.html#2042">2042</a>) and ends up pointing at <a href="../asm/0095.html#00B8">00B8</a> after CAPS LOCK and ENTER are pressed
+at the 'scroll?' prompt. <span class="register">DE</span> is then incremented through the <a href="../asm/0095.html">token
+table</a> until it reaches 01F4 and the 'scroll?'  prompt is printed again.
+After ENTER is pressed at this prompt, <span class="register">DE</span> is incremented through the
+remainder of the token table, and then through the <a href="../asm/0205.html">key tables</a>, and
+then into the routine at <a href="../asm/028E.html">KEY_SCAN</a>, until it reaches 0290, where it finds the
+control character +11 (PAPER) followed by +FF (the first two bytes of the
+'LD DE,$FFFF' instruction at <a href="../asm/028E.html#0290">0290</a>), which produces the 'K Invalid
+colour' error.
+</div>
+<div class="paragraph">
+This bug would be prevented if <span class="register">DE</span> were saved before the call to <a href="../asm/15D4.html">WAIT_KEY</a> at
+<a href="../asm/0C55.html#0CB3">0CB3</a>, and restored afterwards.
+</div>
+</div>
+<div><span id="impatientScrollPrompt"></span></div>
 <div class="box box-2">
+<div class="box-title">The impatient 'scroll?' prompt</div>
+<div class="paragraph">
+When the program
+</div>
+<div class="paragraph">
+<code>10 FOR n=1 TO 100: PRINT n: NEXT n</code>
+</div>
+<div class="paragraph">
+is RUN, pressing TRUE VIDEO or INV. VIDEO at the 'scroll?' prompt causes the
+screen to scroll once, prints a 'scroll?' prompt, scrolls the screen again
+without waiting for a keypress, and then prints another 'scroll?'  prompt
+indented by 7 spaces.
+</div>
+<div class="paragraph">
+This happens because when TRUE VIDEO or INV. VIDEO is pressed at the initial
+'scroll?' prompt, the routine at <a href="../asm/10A8.html">KEY_INPUT</a> interprets the keypress as an INVERSE
+control code (+04 or +05) and changes the input address for the current channel
+from <a href="../asm/10A8.html">KEY_INPUT</a> to <a href="../asm/10A8.html#110D">KEY_NEXT</a> (see <a href="../asm/10A8.html#1105">KEY_DATA</a>). This means that after the next 'scroll?'
+prompt is printed and <a href="../asm/15D4.html">WAIT_KEY</a> is called, <a href="../asm/10A8.html#110D">KEY_NEXT</a> (which picks up the parameter
+for the INVERSE control code instead of waiting for a keypress, and does not
+reset the print position for the lower part of the display in preparation for
+the next 'scroll?'  prompt) is executed instead of <a href="../asm/10A8.html">KEY_INPUT</a> (which would wait
+for a keypress, and then reset the print position for the lower part of the
+display).
+</div>
+</div>
+<div><span id="anythingEqualsSCREEN$xy"></span></div>
+<div class="box box-1">
 <div class="box-title">Anything equals SCREEN$ (x,y)</div>
 <div class="paragraph">
 Some care is needed when using SCREEN$, because it doesn't always work as you
@@ -270,7 +373,7 @@ that contains SCREEN$, and will not affect any other statements.
 </div>
 </div>
 <div><span id="34thBitOfDivision"></span></div>
-<div class="box box-1">
+<div class="box box-2">
 <div class="box-title">The 34th bit of division</div>
 <div class="paragraph">
 In the division loop at <a href="../asm/31AF.html#31D2">DIV_LOOP</a>, the 34th bit of the quotient is always set to
@@ -293,7 +396,7 @@ instead of <a href="../asm/31AF.html#31E2">DIV_START</a>.
 </div>
 </div>
 <div><span id="troubleWith-65536"></span></div>
-<div class="box box-2">
+<div class="box box-1">
 <div class="box-title">The trouble with -65536</div>
 <div class="paragraph">
 In some circumstances, the number -65536 is stored in short form instead of
@@ -314,26 +417,26 @@ prints '-1'.
 <div class="paragraph">
 The first of these problems is caused by the routine at <a href="../asm/3014.html">addition</a>, which fails to
 detect an overflow when adding two small negative integers whose sum is -65536.
-Specifically, when <a href="../asm/3014.html#302B">302B</a> is reached, the carry flag is set, <span class="register">A</span> holds
-$FF (the sign byte of the second number), and <span class="register">(HL)</span> also holds $FF
-(the sign byte of the first number). Then:
+Specifically, when <a href="../asm/3014.html#302B">302B</a> is reached, the carry flag is set, <span class="register">A</span> holds +FF
+(the sign byte of the second number), and <span class="register">(HL)</span> also holds +FF (the sign
+byte of the first number). Then:
 </div>
 <div class="paragraph">
 <table class="asm">
 <tr>
 <td class="address-1" colspan="1" rowspan="1">302B</td>
 <td class="instruction" colspan="1" rowspan="1">ADC A,(HL)</td>
-<td class="comment-11" colspan="1" rowspan="1"><span class="register">A</span>=$FF ($FF+$FF+carry).</td>
+<td class="comment-11" colspan="1" rowspan="1"><span class="register">A</span>=+FF (+FF plus +FF plus carry).</td>
 </tr>
 <tr>
 <td class="address-1" colspan="1" rowspan="1">302C</td>
 <td class="instruction" colspan="1" rowspan="1">RRCA</td>
-<td class="comment-11" colspan="1" rowspan="1"><span class="register">A</span>=$FF, carry flag set.</td>
+<td class="comment-11" colspan="1" rowspan="1"><span class="register">A</span>=+FF, carry flag set.</td>
 </tr>
 <tr>
 <td class="address-1" colspan="1" rowspan="1">302D</td>
 <td class="instruction" colspan="1" rowspan="1">ADC A,$00</td>
-<td class="comment-11" colspan="1" rowspan="1"><span class="register">A</span>=$00.</td>
+<td class="comment-11" colspan="1" rowspan="1"><span class="register">A</span>=+00.</td>
 </tr>
 <tr>
 <td class="address-1" colspan="1" rowspan="1">302F</td>
@@ -343,22 +446,22 @@ $FF (the sign byte of the second number), and <span class="register">(HL)</span>
 </table>
 </div>
 <div class="paragraph">
-The result is then stored as 00 FF 00 00 00, which other ROM routines do not
-always handle correctly.
+The result is then stored as 00 FF 00 00 00, which other ROM routines do
+not always handle correctly.
 </div>
 <div class="paragraph">
 The second problem is caused by the routine at <a href="../asm/3214.html">truncate</a>. Specifically, the
 section of code at <a href="../asm/3214.html#3225">3225</a> checks whether the argument <i>x</i> satisfies
 -65537&lt;<i>x</i>&lt;=-65536; if it does, its floating point form is
 (erroneously) modified to 00 FF 00 00 00. (-65537 in floating point form is
-91 80 00 80 00, which explains why the mask 0x80 is used when testing the
-fourth byte of <i>x</i> at <a href="../asm/3214.html#3230">3230</a>.)
+91 80 00 80 00, which explains why the mask +80 is used when testing the fourth
+byte of <i>x</i> at <a href="../asm/3214.html#3230">3230</a>.)
 </div>
 </div>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

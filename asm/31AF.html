@@ -9,7 +9,7 @@
 <body class="Asm-c">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Routines</td>
 </tr>
 </table>
@@ -20,13 +20,13 @@
 <td class="next"><span class="next-1">Next: <a href="3214.html">3214</a></span></td>
 </tr>
 </table>
-<div class="description">31AF: THE 'DIVISION' OPERATION (offset 05)</div>
+<div class="description">31AF: THE 'DIVISION' OPERATION (offset +05)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 05 by the routines at <a href="03F8.html">BEEP</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2D4F.html">e_to_fp</a>, <a href="36A0.html">n_mod_m</a>, <a href="37DA.html">tan</a>, <a href="37E2.html">atn</a>, <a href="3833.html">asn</a> and <a href="3851.html">to_power</a>. It is also called indirectly via <a href="33A2.html">fp_calc_2</a>.
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal +05 by the routines at <a href="03F8.html">BEEP</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2D4F.html">e_to_fp</a>, <a href="36A0.html">n_mod_m</a>, <a href="37DA.html">tan</a>, <a href="37E2.html">atn</a>, <a href="3833.html">asn</a> and <a href="3851.html">to_power</a>. It is also called indirectly via <a href="33A2.html">fp_calc_2</a>.
 </div>
 <div class="paragraph">
 This subroutine first prepares the divisor by calling <a href="30C0.html">PREP_M_D</a>, reporting arithmetic overflow if it is zero; then it prepares the dividend again calling <a href="30C0.html">PREP_M_D</a>, returning if it is zero. Next it fetches the two numbers from the calculator stack and divides their mantissa by means of the usual restoring division, trial subtracting the divisor from the dividend and restoring if there is carry, otherwise adding 1 to the quotient. The maximum precision is obtained for a 4-byte division, and after subtracting the exponents the subroutine exits by joining the later part of <a href="30CA.html">multiply</a>.
@@ -404,7 +404,7 @@ Now enter the division loop.
 <span id="3201"></span>
 <div class="comments">
 <div class="paragraph">
-Note: this jump is made to the wrong place. No 34th bit will ever be obtained without first shifting the dividend. Hence important results like 1/10 and 1/1000 are not rounded up as they should be. Rounding up never occurs when it depends on the 34th bit. The jump should have been to <a href="31AF.html#31DB">DIV_34TH</a> above, i.e. byte 3200 hex in the ROM should read DA hex (128 decimal) instead of E1 hex (225 decimal).
+Note: this jump is made to the wrong place. No 34th bit will ever be obtained without first shifting the dividend. Hence important results like 1/10 and 1/1000 are not rounded up as they should be. Rounding up never occurs when it depends on the 34th bit. The jump should have been to <a href="31AF.html#31DB">DIV_34TH</a> above, i.e. byte +3200 in the ROM should read +DA instead of +E1.
 </div>
 </div>
 </td>
@@ -508,9 +508,9 @@ Note: this jump is made to the wrong place. No 34th bit will ever be obtained wi
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

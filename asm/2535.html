@@ -9,7 +9,7 @@
 <body class="Asm-c">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Routines</td>
 </tr>
 </table>
@@ -53,13 +53,13 @@ Note: this is normally the characters +20 (space) to +7F (&#169;) although the u
 <td class="asm-label-1">S_SCRN_S</td>
 <td class="address-2"><span id="2535"></span>2535</td>
 <td class="instruction">CALL <a href="2307.html">STK_TO_BC</a></td>
-<td class="comment-11" rowspan="1">x to <span class="register">C</span>, y to <span class="register">B</span>; 0&lt;=x&lt;=23 decimal; 0&lt;=y&lt;=31 decimal.</td>
+<td class="comment-11" rowspan="1">x to <span class="register">C</span>, y to <span class="register">B</span>; 0&lt;=x&lt;=23; 0&lt;=y&lt;=31.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2538"></span>2538</td>
 <td class="instruction">LD HL,($5C36)</td>
-<td class="comment-11" rowspan="3"><a href="5C36.html">CHARS</a> plus 256 decimal gives <span class="register">HL</span> pointing to the character set.</td>
+<td class="comment-11" rowspan="3"><a href="5C36.html">CHARS</a> plus +0100 gives <span class="register">HL</span> pointing to the character set.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -215,7 +215,7 @@ Note: this is normally the characters +20 (space) to +7F (&#169;) although the u
 <td class="asm-label-1">S_SC_ROWS</td>
 <td class="address-2"><span id="255D"></span>255D</td>
 <td class="instruction">INC D</td>
-<td class="comment-11" rowspan="1">Move <span class="register">DE</span> to next row (add 256 dec.).</td>
+<td class="comment-11" rowspan="1">Move <span class="register">DE</span> to next row (add +0100).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -374,9 +374,9 @@ Note: this exit, via <a href="2AB1.html#2AB2">STK_STO</a>, is a <a href="../refe
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

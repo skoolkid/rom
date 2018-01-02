@@ -9,7 +9,7 @@
 <body class="Asm-c">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Routines</td>
 </tr>
 </table>
@@ -20,7 +20,7 @@
 <td class="next"><span class="next-1">Next: <a href="3713.html">3713</a></span></td>
 </tr>
 </table>
-<div class="description">36C4: THE 'EXPONENTIAL' FUNCTION (offset 26)</div>
+<div class="description">36C4: THE 'EXPONENTIAL' FUNCTION (offset +26)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
@@ -273,7 +273,7 @@ Perform step vi.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36F9"></span>36F9</td>
 <td class="instruction">CALL <a href="2DD5.html">FP_TO_A</a></td>
-<td class="comment-11" rowspan="1">The absolute value of N mod 256 decimal is put into the <span class="register">A</span> register.</td>
+<td class="comment-11" rowspan="1">The absolute value of N mod 256 is put into the <span class="register">A</span> register.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -285,7 +285,7 @@ Perform step vi.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36FE"></span>36FE</td>
 <td class="instruction">JR C,<a href="36C4.html#3703">REPORT_6_2</a></td>
-<td class="comment-11" rowspan="1">Error if ABS N&gt;255 dec.</td>
+<td class="comment-11" rowspan="1">Error if ABS N&gt;+FF.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -297,7 +297,7 @@ Perform step vi.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3701"></span>3701</td>
 <td class="instruction">JR NC,<a href="36C4.html#370C">RESULT_OK</a></td>
-<td class="comment-11" rowspan="1">Jump unless e&gt;255 dec.</td>
+<td class="comment-11" rowspan="1">Jump unless e&gt;+FF.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
@@ -325,7 +325,7 @@ Report 6 - Number too big.
 <td class="asm-label-1">N_NEGTV</td>
 <td class="address-2"><span id="3705"></span>3705</td>
 <td class="instruction">JR C,<a href="36C4.html#370E">RSLT_ZERO</a></td>
-<td class="comment-11" rowspan="1">The result is to be zero if N&lt;-255 decimal.</td>
+<td class="comment-11" rowspan="1">The result is to be zero if N&lt;-255.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -396,9 +396,9 @@ Report 6 - Number too big.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

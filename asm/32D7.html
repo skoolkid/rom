@@ -9,7 +9,7 @@
 <body class="Asm-w">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Data</td>
 </tr>
 </table>
@@ -29,7 +29,7 @@
 Used by the routine at <a href="335B.html">CALCULATE</a>.
 </div>
 <div class="paragraph">
-This table is a look-up table of the addresses of the sixty-six operational subroutines of the calculator. The offsets used to index into the table are derived either from the operation codes used in the routine at <a href="24FB.html">SCANNING</a> (see <a href="26C9.html#2734">S_LOOP</a>, etc.) or from the literals that follow a 'RST 28' instruction.
+This table is a look-up table of the addresses of the sixty-six operational subroutines of the calculator. The offsets used to index into the table are derived either from the operation codes used in the routine at <a href="24FB.html">SCANNING</a> (see <a href="26C9.html#2734">S_LOOP</a>, etc.) or from the literals that follow a 'RST $28' instruction.
 </div>
 </div>
 <table class="input-0">
@@ -50,397 +50,397 @@ This table is a look-up table of the addresses of the sixty-six operational subr
 <td class="asm-label-1">CALCADDR</td>
 <td class="address-1"><span id="32D7"></span>32D7</td>
 <td class="instruction">DEFW <a href="368F.html">jump_true</a></td>
-<td class="comment-11" rowspan="1">00</td>
+<td class="comment-11" rowspan="1">+00</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32D9"></span>32D9</td>
 <td class="instruction">DEFW <a href="343C.html">exchange</a></td>
-<td class="comment-11" rowspan="1">01</td>
+<td class="comment-11" rowspan="1">+01</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32DB"></span>32DB</td>
 <td class="instruction">DEFW <a href="335B.html#33A1">delete</a></td>
-<td class="comment-11" rowspan="1">02</td>
+<td class="comment-11" rowspan="1">+02</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32DD"></span>32DD</td>
 <td class="instruction">DEFW <a href="300F.html">subtract</a></td>
-<td class="comment-11" rowspan="1">03</td>
+<td class="comment-11" rowspan="1">+03</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32DF"></span>32DF</td>
 <td class="instruction">DEFW <a href="30CA.html">multiply</a></td>
-<td class="comment-11" rowspan="1">04</td>
+<td class="comment-11" rowspan="1">+04</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32E1"></span>32E1</td>
 <td class="instruction">DEFW <a href="31AF.html">division</a></td>
-<td class="comment-11" rowspan="1">05</td>
+<td class="comment-11" rowspan="1">+05</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32E3"></span>32E3</td>
 <td class="instruction">DEFW <a href="3851.html">to_power</a></td>
-<td class="comment-11" rowspan="1">06</td>
+<td class="comment-11" rowspan="1">+06</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32E5"></span>32E5</td>
 <td class="instruction">DEFW <a href="351B.html">no_or_no</a></td>
-<td class="comment-11" rowspan="1">07</td>
+<td class="comment-11" rowspan="1">+07</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32E7"></span>32E7</td>
 <td class="instruction">DEFW <a href="3524.html">no_and_no</a></td>
-<td class="comment-11" rowspan="1">08</td>
+<td class="comment-11" rowspan="1">+08</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32E9"></span>32E9</td>
 <td class="instruction">DEFW <a href="353B.html">compare</a></td>
-<td class="comment-11" rowspan="1">09: &lt;= (numbers)</td>
+<td class="comment-11" rowspan="1">+09: &lt;= (numbers)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32EB"></span>32EB</td>
 <td class="instruction">DEFW <a href="353B.html">compare</a></td>
-<td class="comment-11" rowspan="1">0A: &gt;= (numbers)</td>
+<td class="comment-11" rowspan="1">+0A: &gt;= (numbers)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32ED"></span>32ED</td>
 <td class="instruction">DEFW <a href="353B.html">compare</a></td>
-<td class="comment-11" rowspan="1">0B: &lt;&gt; (numbers)</td>
+<td class="comment-11" rowspan="1">+0B: &lt;&gt; (numbers)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32EF"></span>32EF</td>
 <td class="instruction">DEFW <a href="353B.html">compare</a></td>
-<td class="comment-11" rowspan="1">0C: &gt; (numbers)</td>
+<td class="comment-11" rowspan="1">+0C: &gt; (numbers)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32F1"></span>32F1</td>
 <td class="instruction">DEFW <a href="353B.html">compare</a></td>
-<td class="comment-11" rowspan="1">0D: &lt; (numbers)</td>
+<td class="comment-11" rowspan="1">+0D: &lt; (numbers)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32F3"></span>32F3</td>
 <td class="instruction">DEFW <a href="353B.html">compare</a></td>
-<td class="comment-11" rowspan="1">0E: = (numbers)</td>
+<td class="comment-11" rowspan="1">+0E: = (numbers)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32F5"></span>32F5</td>
 <td class="instruction">DEFW <a href="3014.html">addition</a></td>
-<td class="comment-11" rowspan="1">0F</td>
+<td class="comment-11" rowspan="1">+0F</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32F7"></span>32F7</td>
 <td class="instruction">DEFW <a href="352D.html">str_no</a></td>
-<td class="comment-11" rowspan="1">10</td>
+<td class="comment-11" rowspan="1">+10</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32F9"></span>32F9</td>
 <td class="instruction">DEFW <a href="353B.html">compare</a></td>
-<td class="comment-11" rowspan="1">11: &lt;= (strings)</td>
+<td class="comment-11" rowspan="1">+11: &lt;= (strings)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32FB"></span>32FB</td>
 <td class="instruction">DEFW <a href="353B.html">compare</a></td>
-<td class="comment-11" rowspan="1">12: &gt;= (strings)</td>
+<td class="comment-11" rowspan="1">+12: &gt;= (strings)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32FD"></span>32FD</td>
 <td class="instruction">DEFW <a href="353B.html">compare</a></td>
-<td class="comment-11" rowspan="1">13: &lt;&gt; (strings)</td>
+<td class="comment-11" rowspan="1">+13: &lt;&gt; (strings)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="32FF"></span>32FF</td>
 <td class="instruction">DEFW <a href="353B.html">compare</a></td>
-<td class="comment-11" rowspan="1">14: &gt; (strings)</td>
+<td class="comment-11" rowspan="1">+14: &gt; (strings)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3301"></span>3301</td>
 <td class="instruction">DEFW <a href="353B.html">compare</a></td>
-<td class="comment-11" rowspan="1">15: &lt; (strings)</td>
+<td class="comment-11" rowspan="1">+15: &lt; (strings)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3303"></span>3303</td>
 <td class="instruction">DEFW <a href="353B.html">compare</a></td>
-<td class="comment-11" rowspan="1">16: = (strings)</td>
+<td class="comment-11" rowspan="1">+16: = (strings)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3305"></span>3305</td>
 <td class="instruction">DEFW <a href="359C.html">strs_add</a></td>
-<td class="comment-11" rowspan="1">17</td>
+<td class="comment-11" rowspan="1">+17</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3307"></span>3307</td>
 <td class="instruction">DEFW <a href="35DE.html">val</a></td>
-<td class="comment-11" rowspan="1">18 (VAL$)</td>
+<td class="comment-11" rowspan="1">+18 (VAL$)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3309"></span>3309</td>
 <td class="instruction">DEFW <a href="34BC.html">usr</a></td>
-<td class="comment-11" rowspan="1">19</td>
+<td class="comment-11" rowspan="1">+19</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="330B"></span>330B</td>
 <td class="instruction">DEFW <a href="3645.html">read_in</a></td>
-<td class="comment-11" rowspan="1">1A</td>
+<td class="comment-11" rowspan="1">+1A</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="330D"></span>330D</td>
 <td class="instruction">DEFW <a href="346E.html">negate</a></td>
-<td class="comment-11" rowspan="1">1B</td>
+<td class="comment-11" rowspan="1">+1B</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="330F"></span>330F</td>
 <td class="instruction">DEFW <a href="3669.html">code</a></td>
-<td class="comment-11" rowspan="1">1C</td>
+<td class="comment-11" rowspan="1">+1C</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3311"></span>3311</td>
 <td class="instruction">DEFW <a href="35DE.html">val</a></td>
-<td class="comment-11" rowspan="1">1D (VAL)</td>
+<td class="comment-11" rowspan="1">+1D (VAL)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3313"></span>3313</td>
 <td class="instruction">DEFW <a href="3674.html">len</a></td>
-<td class="comment-11" rowspan="1">1E</td>
+<td class="comment-11" rowspan="1">+1E</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3315"></span>3315</td>
 <td class="instruction">DEFW <a href="37B5.html">sin</a></td>
-<td class="comment-11" rowspan="1">1F</td>
+<td class="comment-11" rowspan="1">+1F</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3317"></span>3317</td>
 <td class="instruction">DEFW <a href="37AA.html">cos</a></td>
-<td class="comment-11" rowspan="1">20</td>
+<td class="comment-11" rowspan="1">+20</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3319"></span>3319</td>
 <td class="instruction">DEFW <a href="37DA.html">tan</a></td>
-<td class="comment-11" rowspan="1">21</td>
+<td class="comment-11" rowspan="1">+21</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="331B"></span>331B</td>
 <td class="instruction">DEFW <a href="3833.html">asn</a></td>
-<td class="comment-11" rowspan="1">22</td>
+<td class="comment-11" rowspan="1">+22</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="331D"></span>331D</td>
 <td class="instruction">DEFW <a href="3843.html">acs</a></td>
-<td class="comment-11" rowspan="1">23</td>
+<td class="comment-11" rowspan="1">+23</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="331F"></span>331F</td>
 <td class="instruction">DEFW <a href="37E2.html">atn</a></td>
-<td class="comment-11" rowspan="1">24</td>
+<td class="comment-11" rowspan="1">+24</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3321"></span>3321</td>
 <td class="instruction">DEFW <a href="3713.html">ln</a></td>
-<td class="comment-11" rowspan="1">25</td>
+<td class="comment-11" rowspan="1">+25</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3323"></span>3323</td>
 <td class="instruction">DEFW <a href="36C4.html">exp</a></td>
-<td class="comment-11" rowspan="1">26</td>
+<td class="comment-11" rowspan="1">+26</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3325"></span>3325</td>
 <td class="instruction">DEFW <a href="36AF.html">int</a></td>
-<td class="comment-11" rowspan="1">27</td>
+<td class="comment-11" rowspan="1">+27</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3327"></span>3327</td>
 <td class="instruction">DEFW <a href="384A.html">sqr</a></td>
-<td class="comment-11" rowspan="1">28</td>
+<td class="comment-11" rowspan="1">+28</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3329"></span>3329</td>
 <td class="instruction">DEFW <a href="3492.html">sgn</a></td>
-<td class="comment-11" rowspan="1">29</td>
+<td class="comment-11" rowspan="1">+29</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="332B"></span>332B</td>
 <td class="instruction">DEFW <a href="346A.html">abs</a></td>
-<td class="comment-11" rowspan="1">2A</td>
+<td class="comment-11" rowspan="1">+2A</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="332D"></span>332D</td>
 <td class="instruction">DEFW <a href="34AC.html">peek</a></td>
-<td class="comment-11" rowspan="1">2B</td>
+<td class="comment-11" rowspan="1">+2B</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="332F"></span>332F</td>
 <td class="instruction">DEFW <a href="34A5.html">f_in</a></td>
-<td class="comment-11" rowspan="1">2C</td>
+<td class="comment-11" rowspan="1">+2C</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3331"></span>3331</td>
 <td class="instruction">DEFW <a href="34B3.html">usr_no</a></td>
-<td class="comment-11" rowspan="1">2D</td>
+<td class="comment-11" rowspan="1">+2D</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3333"></span>3333</td>
 <td class="instruction">DEFW <a href="361F.html">str</a></td>
-<td class="comment-11" rowspan="1">2E</td>
+<td class="comment-11" rowspan="1">+2E</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3335"></span>3335</td>
 <td class="instruction">DEFW <a href="35C9.html">chrs</a></td>
-<td class="comment-11" rowspan="1">2F</td>
+<td class="comment-11" rowspan="1">+2F</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3337"></span>3337</td>
 <td class="instruction">DEFW <a href="3501.html">f_not</a></td>
-<td class="comment-11" rowspan="1">30</td>
+<td class="comment-11" rowspan="1">+30</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3339"></span>3339</td>
 <td class="instruction">DEFW <a href="33C0.html">duplicate</a></td>
-<td class="comment-11" rowspan="1">31</td>
+<td class="comment-11" rowspan="1">+31</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="333B"></span>333B</td>
 <td class="instruction">DEFW <a href="36A0.html">n_mod_m</a></td>
-<td class="comment-11" rowspan="1">32</td>
+<td class="comment-11" rowspan="1">+32</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="333D"></span>333D</td>
 <td class="instruction">DEFW <a href="3686.html">jump</a></td>
-<td class="comment-11" rowspan="1">33</td>
+<td class="comment-11" rowspan="1">+33</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="333F"></span>333F</td>
 <td class="instruction">DEFW <a href="33C6.html">stk_data</a></td>
-<td class="comment-11" rowspan="1">34</td>
+<td class="comment-11" rowspan="1">+34</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3341"></span>3341</td>
 <td class="instruction">DEFW <a href="367A.html">dec_jr_nz</a></td>
-<td class="comment-11" rowspan="1">35</td>
+<td class="comment-11" rowspan="1">+35</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3343"></span>3343</td>
 <td class="instruction">DEFW <a href="3506.html">less_0</a></td>
-<td class="comment-11" rowspan="1">36</td>
+<td class="comment-11" rowspan="1">+36</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3345"></span>3345</td>
 <td class="instruction">DEFW <a href="34F9.html">greater_0</a></td>
-<td class="comment-11" rowspan="1">37</td>
+<td class="comment-11" rowspan="1">+37</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3347"></span>3347</td>
 <td class="instruction">DEFW <a href="369B.html">end_calc</a></td>
-<td class="comment-11" rowspan="1">38</td>
+<td class="comment-11" rowspan="1">+38</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3349"></span>3349</td>
 <td class="instruction">DEFW <a href="3783.html">get_argt</a></td>
-<td class="comment-11" rowspan="1">39</td>
+<td class="comment-11" rowspan="1">+39</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="334B"></span>334B</td>
 <td class="instruction">DEFW <a href="3214.html">truncate</a></td>
-<td class="comment-11" rowspan="1">3A</td>
+<td class="comment-11" rowspan="1">+3A</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="334D"></span>334D</td>
 <td class="instruction">DEFW <a href="33A2.html">fp_calc_2</a></td>
-<td class="comment-11" rowspan="1">3B</td>
+<td class="comment-11" rowspan="1">+3B</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="334F"></span>334F</td>
 <td class="instruction">DEFW <a href="2D4F.html">e_to_fp</a></td>
-<td class="comment-11" rowspan="1">3C</td>
+<td class="comment-11" rowspan="1">+3C</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3351"></span>3351</td>
 <td class="instruction">DEFW <a href="3297.html">re_stack</a></td>
-<td class="comment-11" rowspan="1">3D</td>
+<td class="comment-11" rowspan="1">+3D</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3353"></span>3353</td>
 <td class="instruction">DEFW <a href="3449.html">series</a></td>
-<td class="comment-11" rowspan="1">3E</td>
+<td class="comment-11" rowspan="1">+3E</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3355"></span>3355</td>
 <td class="instruction">DEFW <a href="341B.html">stk_con</a></td>
-<td class="comment-11" rowspan="1">3F</td>
+<td class="comment-11" rowspan="1">+3F</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3357"></span>3357</td>
 <td class="instruction">DEFW <a href="342D.html">st_mem</a></td>
-<td class="comment-11" rowspan="1">40</td>
+<td class="comment-11" rowspan="1">+40</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3359"></span>3359</td>
 <td class="instruction">DEFW <a href="340F.html">get_mem</a></td>
-<td class="comment-11" rowspan="1">41</td>
+<td class="comment-11" rowspan="1">+41</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
@@ -451,10 +451,10 @@ Note: the last four subroutines are multi-purpose subroutines and are entered wi
 </div>
 <div class="paragraph">
 <ul class="">
-<li>Offset 3E: series-06, series-08 and series-0C; literals 86, 88 and 8C.</li>
-<li>Offset 3F: stk-zero, stk-one, stk-half, stk-pi/2 and stk-ten; literals A0 to A4.</li>
-<li>Offset 40: st-mem-0, st-mem-1, st-mem-2, st-mem-3, st-mem-4 and st-mem-5; literals C0 to C5.</li>
-<li>Offset 41: get-mem-0, get-mem-1, get-mem-2, get-mem-3, get-mem-4 and get-mem-5; literals E0 to E5.</li>
+<li>Offset +3E: series-06, series-08 and series-0C; literals +86, +88 and +8C.</li>
+<li>Offset +3F: stk-zero, stk-one, stk-half, stk-pi/2 and stk-ten; literals +A0 to +A4.</li>
+<li>Offset +40: st-mem-0, st-mem-1, st-mem-2, st-mem-3, st-mem-4 and st-mem-5; literals +C0 to +C5.</li>
+<li>Offset +41: get-mem-0, get-mem-1, get-mem-2, get-mem-3, get-mem-4 and get-mem-5; literals +E0 to +E5.</li>
 </ul>
 </div>
 </div>
@@ -469,9 +469,9 @@ Note: the last four subroutines are multi-purpose subroutines and are entered wi
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

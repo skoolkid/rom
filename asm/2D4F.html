@@ -9,7 +9,7 @@
 <body class="Asm-c">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Routines</td>
 </tr>
 </table>
@@ -20,7 +20,7 @@
 <td class="next"><span class="next-1">Next: <a href="2D7F.html">2D7F</a></span></td>
 </tr>
 </table>
-<div class="description">2D4F: THE 'E-FORMAT TO FLOATING-POINT' SUBROUTINE (offset 3C)</div>
+<div class="description">2D4F: THE 'E-FORMAT TO FLOATING-POINT' SUBROUTINE (offset +3C)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
@@ -38,7 +38,7 @@ This subroutine gives a 'last value' on the top of the calculator stack that is 
 The method used is to find the absolute value of m, say p, and to multiply or divide x by 10&#8593;p according to whether m is positive or negative.
 </div>
 <div class="paragraph">
-To achieve this, p is shifted right until it is zero, and x is multiplied or divided by 10&#8593;(2&#8593;n) for each set bit b(n) of p. Since p is never much more than decimal 39, bits 6 and 7 of p will not normally be set.
+To achieve this, p is shifted right until it is zero, and x is multiplied or divided by 10&#8593;(2&#8593;n) for each set bit b(n) of p. Since p is never much more than 39, bits 6 and 7 of p will not normally be set.
 </div>
 </div>
 <table class="input-1">
@@ -116,7 +116,7 @@ To achieve this, p is shifted right until it is zero, and x is multiplied or div
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D5D"></span>2D5D</td>
 <td class="instruction">DEFB $A4</td>
-<td class="comment-11" rowspan="1"><a href="341B.html">stk_ten</a>: x, 10 (decimal)</td>
+<td class="comment-11" rowspan="1"><a href="341B.html">stk_ten</a>: x, 10</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -301,9 +301,9 @@ To achieve this, p is shifted right until it is zero, and x is multiplied or div
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

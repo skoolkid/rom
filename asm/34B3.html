@@ -9,7 +9,7 @@
 <body class="Asm-c">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Routines</td>
 </tr>
 </table>
@@ -20,7 +20,7 @@
 <td class="next"><span class="next-1">Next: <a href="34BC.html">34BC</a></span></td>
 </tr>
 </table>
-<div class="description">34B3: THE 'USR' FUNCTION (offset 2D)</div>
+<div class="description">34B3: THE 'USR' FUNCTION (offset +2D)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
@@ -81,7 +81,7 @@ This subroutine ('USR number' as distinct from 'USR string') handles the functio
 
 <div class="comments">
 <div class="paragraph">
-Note: it is interesting that the <span class="register">IY</span> register pair is re-initialised when the return to <a href="2D2B.html">STACK_BC</a> has been made, but the important <span class="register">HL'</span> that holds the next literal pointer is not restored should it have been disturbed. For a successful return to BASIC, <span class="register">HL'</span> must on exit from the machine code contain the address of the 'end-calc' instruction at <a href="26C9.html#2758">2758</a> hex (10072 decimal).
+Note: it is interesting that the <span class="register">IY</span> register pair is re-initialised when the return to <a href="2D2B.html">STACK_BC</a> has been made, but the important <span class="register">HL'</span> that holds the next literal pointer is not restored should it have been disturbed. For a successful return to BASIC, <span class="register">HL'</span> must on exit from the machine code contain the address of the 'end-calc' instruction at <a href="26C9.html#2758">+2758</a>.
 </div>
 </div>
 </td>
@@ -95,9 +95,9 @@ Note: it is interesting that the <span class="register">IY</span> register pair 
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

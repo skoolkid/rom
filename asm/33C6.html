@@ -9,7 +9,7 @@
 <body class="Asm-c">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Routines</td>
 </tr>
 </table>
@@ -20,7 +20,7 @@
 <td class="next"><span class="next-1">Next: <a href="33F7.html">33F7</a></span></td>
 </tr>
 </table>
-<div class="description">33C6: THE 'STACK LITERALS' SUBROUTINE (offset 34)</div>
+<div class="description">33C6: THE 'STACK LITERALS' SUBROUTINE (offset +34)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
@@ -29,13 +29,13 @@
 Used by the routine at <a href="3449.html">series</a>.
 </div>
 <div class="paragraph">
-The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 34 by the routines at <a href="03F8.html">BEEP</a>, <a href="247D.html">CD_PRMS1</a>, <a href="25F8.html">S_RND</a>, <a href="2DC1.html">LOG_2_A</a>, <a href="36C4.html">exp</a>, <a href="3713.html">ln</a> and <a href="3783.html">get_argt</a>.
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal +34 by the routines at <a href="03F8.html">BEEP</a>, <a href="247D.html">CD_PRMS1</a>, <a href="25F8.html">S_RND</a>, <a href="2DC1.html">LOG_2_A</a>, <a href="36C4.html">exp</a>, <a href="3713.html">ln</a> and <a href="3783.html">get_argt</a>.
 </div>
 <div class="paragraph">
 This subroutine places on the calculator stack, as a 'last value', the floating-point number supplied to it as 2, 3, 4 or 5 literals.
 </div>
 <div class="paragraph">
-When called by using offset '34' the literals follow the '34' in the list of literals; when called by the <a href="3449.html">series generator</a>, the literals are supplied by the subroutine that called for a series to be generated; and when called by <a href="33F7.html">SKIP_CONS</a> and <a href="341B.html">stk_con</a> the literals are obtained from the calculator's <a href="32C5.html">table of constants</a>.
+When called by using offset '+34' the literals follow the '+34' in the list of literals; when called by the <a href="3449.html">series generator</a>, the literals are supplied by the subroutine that called for a series to be generated; and when called by <a href="33F7.html">SKIP_CONS</a> and <a href="341B.html">stk_con</a> the literals are obtained from the calculator's <a href="32C5.html">table of constants</a>.
 </div>
 <div class="paragraph">
 In each case, the first literal supplied is divided by +40, and the integer quotient plus 1 determines whether 1, 2, 3 or 4 further literals will be taken from the source to form the mantissa of the number. Any unfilled bytes of the five bytes that go to form a 5-byte floating-point number are set to zero. The first literal is also used to determine the exponent, after reducing mod +40, unless the remainder is zero, in which case the second literal is used, as it stands, without reducing mod +40. In either case, +50 is added to the literal, giving the augmented exponent byte, e (the true exponent e' plus +80). The rest of the 5 bytes are stacked, including any zeros needed, and the subroutine returns.
@@ -315,9 +315,9 @@ This entry point is used by the routines at <a href="33F7.html">SKIP_CONS</a> an
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

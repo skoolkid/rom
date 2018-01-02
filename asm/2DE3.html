@@ -9,7 +9,7 @@
 <body class="Asm-c">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Routines</td>
 </tr>
 </table>
@@ -414,7 +414,7 @@ iii. Pure fractions are multiplied by 10&#8593;n, where n is the approximate num
 <span id="2E27"></span>
 <div class="comments">
 <div class="paragraph">
-Note that the stack is now unbalanced. An extra byte 'DEFB +02, delete' is needed immediately after the RST 28. Now an expression like "2"+STR$ 0.5 is evaluated incorrectly as 0.5; the zero left on the stack displaces the "2" and is treated as a null string. Similarly all the string comparisons can yield incorrect values if the second string takes the form STR$ x where x is numerically less than 1; e.g. the expression "50"&lt;STR$ 0.1 yields the logical value "true"; once again "" is used instead of "50".
+Note that the stack is now unbalanced. An extra byte 'DEFB +02, delete' is needed immediately after the RST $28. Now an expression like "2"+STR$ 0.5 is evaluated incorrectly as 0.5; the zero left on the stack displaces the "2" and is treated as a null string. Similarly all the string comparisons can yield incorrect values if the second string takes the form STR$ x where x is numerically less than 1; e.g. the expression "50"&lt;STR$ 0.1 yields the logical value "true"; once again "" is used instead of "50".
 </div>
 </div>
 </td>
@@ -429,7 +429,7 @@ Note that the stack is now unbalanced. An extra byte 'DEFB +02, delete' is neede
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2E28"></span>2E28</td>
 <td class="instruction">SUB $7E</td>
-<td class="comment-11" rowspan="1"><span class="register">A</span> becomes e-126 dec i.e. e'+2, where e' is the true exponent of f.</td>
+<td class="comment-11" rowspan="1"><span class="register">A</span> becomes e minus +7E, i.e. e'+2, where e' is the true exponent of f.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -613,13 +613,13 @@ iv. Numbers greater than 2&#8593;27 are similarly multiplied by 2&#8593;(-n+7), 
 <td class="asm-label-1">PF_LARGE</td>
 <td class="address-2"><span id="2E56"></span>2E56</td>
 <td class="instruction">SUB $80</td>
-<td class="comment-11" rowspan="1">e-80 hex is e', the true exponent of i.</td>
+<td class="comment-11" rowspan="1">e minus +80 is e', the true exponent of i.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2E58"></span>2E58</td>
 <td class="instruction">CP $1C</td>
-<td class="comment-11" rowspan="1">Is e' less than 28 decimal?</td>
+<td class="comment-11" rowspan="1">Is e' less than 28?</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -737,7 +737,7 @@ v. The integer part of x is now stored in the print buffer in mem-3 and mem-4.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2E78"></span>2E78</td>
 <td class="instruction">SUB $80</td>
-<td class="comment-11" rowspan="1">True exponent e'=e-80 hex to <span class="register">A</span>.</td>
+<td class="comment-11" rowspan="1">True exponent e'=e minus +80 to <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -895,7 +895,7 @@ Decimal adjusting each byte of mem-4 gave 2 decimal digits per byte, there being
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2E9F"></span>2E9F</td>
 <td class="instruction">LD C,$FF</td>
-<td class="comment-11" rowspan="1">FF in <span class="register">C</span> will signal a leading zero, 00 will signal a non-leading zero.</td>
+<td class="comment-11" rowspan="1">+FF in <span class="register">C</span> will signal a leading zero, +00 will signal a non-leading zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1">PF_DIGITS</td>
@@ -1079,7 +1079,7 @@ vi. The fractional part of x is now stored in the print buffer.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2ED4"></span>2ED4</td>
 <td class="instruction">LD A,$80</td>
-<td class="comment-11" rowspan="3">The exponent of f is reduced to zero, by shifting the bits of f 80 hex minus e places right, where <span class="register">L'</span> contained e.</td>
+<td class="comment-11" rowspan="3">The exponent of f is reduced to zero, by shifting the bits of f +80 minus e places right, where <span class="register">L'</span> contained e.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1762,9 +1762,9 @@ The next entry point is also used to print the digits needed for E-format printi
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

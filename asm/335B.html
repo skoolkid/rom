@@ -9,7 +9,7 @@
 <body class="Asm-c">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Routines</td>
 </tr>
 </table>
@@ -39,10 +39,10 @@ This subroutine is used to perform floating-point calculations. These can be con
 </ul>
 </div>
 <div class="paragraph">
-The operations to be performed are specified as a series of data-bytes, the literals, that follow an RST 28 instruction that calls this subroutine. The last literal in the list is always '38' which leads to an end to the whole operation.
+The operations to be performed are specified as a series of data-bytes, the literals, that follow an RST $28 instruction that calls this subroutine. The last literal in the list is always '+38' which leads to an end to the whole operation.
 </div>
 <div class="paragraph">
-In the case of a single operation needing to be performed, the operation offset can be passed to the calculator in the <span class="register">B</span> register, and operation '3B', the <a href="33A2.html">single calculation operation</a>, performed.
+In the case of a single operation needing to be performed, the operation offset can be passed to the calculator in the <span class="register">B</span> register, and operation '+3B', the <a href="33A2.html">single calculation operation</a>, performed.
 </div>
 <div class="paragraph">
 It is also possible to call this subroutine recursively, i.e. from within itself, and in such a case it is possible to use the system variable <a href="5C67.html">BREG</a> as a counter that controls how many operations are performed before returning.
@@ -183,7 +183,7 @@ This entry point is used by the routine at <a href="33A2.html">fp_calc_2</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="336E"></span>336E</td>
 <td class="instruction">JP P,<a href="335B.html#3380">FIRST_3D</a></td>
-<td class="comment-11" rowspan="1">Separate the simple literals from the multi-purpose literals. Jump with literals 00 to 3D.</td>
+<td class="comment-11" rowspan="1">Separate the simple literals from the multi-purpose literals. Jump with literals +00 to +3D.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -225,7 +225,7 @@ This entry point is used by the routine at <a href="33A2.html">fp_calc_2</a>.
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3378"></span>3378</td>
 <td class="instruction">ADD A,$7C</td>
-<td class="comment-11" rowspan="2">The offsets required are 3E to 41, and <span class="register">L</span> will now hold double the required offset.</td>
+<td class="comment-11" rowspan="2">The offsets required are +3E to +41, and <span class="register">L</span> will now hold double the required offset.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -382,7 +382,7 @@ This entry point is used by the routine at <a href="33A2.html">fp_calc_2</a>.
 <span id="33A1"></span>
 <div class="comments">
 <div class="paragraph">
-The address of this entry point is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 02 by the routines at <a href="03F8.html">BEEP</a>, <a href="1CF0.html">IF_CMD</a>, <a href="1D03.html">FOR</a>, <a href="1DAB.html">NEXT</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="25F8.html">S_RND</a>, <a href="2AFF.html">LET</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2D4F.html">e_to_fp</a>, <a href="2DA2.html">FP_TO_BC</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="3449.html">series</a>, <a href="36A0.html">n_mod_m</a>, <a href="36C4.html">exp</a>, <a href="3713.html">ln</a>, <a href="3783.html">get_argt</a> and <a href="3851.html">to_power</a>.
+The address of this entry point is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal +02 by the routines at <a href="03F8.html">BEEP</a>, <a href="1CF0.html">IF_CMD</a>, <a href="1D03.html">FOR</a>, <a href="1DAB.html">NEXT</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="25F8.html">S_RND</a>, <a href="2AFF.html">LET</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2D4F.html">e_to_fp</a>, <a href="2DA2.html">FP_TO_BC</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="3449.html">series</a>, <a href="36A0.html">n_mod_m</a>, <a href="36C4.html">exp</a>, <a href="3713.html">ln</a>, <a href="3783.html">get_argt</a> and <a href="3851.html">to_power</a>.
 </div>
 </div>
 </td>
@@ -398,7 +398,7 @@ The address of this entry point is found in the <a href="32D7.html">table of add
 
 <div class="comments">
 <div class="paragraph">
-The <a href="335B.html#33A1">delete</a> subroutine contains only the single 'RET' instruction above. The literal '02' results in this subroutine being considered as a binary operation that is to be entered with a first number addressed by the <span class="register">HL</span> register pair and a second number addressed by the <span class="register">DE</span> register pair, and the result produced again addressed by the <span class="register">HL</span> register pair.
+The <a href="335B.html#33A1">delete</a> subroutine contains only the single 'RET' instruction above. The literal '+02' results in this subroutine being considered as a binary operation that is to be entered with a first number addressed by the <span class="register">HL</span> register pair and a second number addressed by the <span class="register">DE</span> register pair, and the result produced again addressed by the <span class="register">HL</span> register pair.
 </div>
 <div class="paragraph">
 The single 'RET' instruction thereby leads to the first number being considered as the resulting 'last value' and the second number considered as being deleted. Of course the number has not been deleted from the memory but remains inactive and will probably soon be overwritten.
@@ -415,9 +415,9 @@ The single 'RET' instruction thereby leads to the first number being considered 
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

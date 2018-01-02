@@ -9,7 +9,7 @@
 <body class="Asm-t">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Messages</td>
 </tr>
 </table>
@@ -29,7 +29,7 @@
 Used by the routine at <a href="12A2.html">MAIN_EXEC</a>.
 </div>
 <div class="paragraph">
-Each message is given with the last character inverted (+80 hex.).
+Each message is given with the last character inverted (plus +80).
 </div>
 </div>
 <table class="input-0">
@@ -55,175 +55,175 @@ Each message is given with the last character inverted (+80 hex.).
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1392"></span>1392</td>
-<td class="instruction">DEFM "O",$CB</td>
+<td class="instruction">DEFM "O","K"+$80</td>
 <td class="comment-11" rowspan="1">0 OK</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1394"></span>1394</td>
-<td class="instruction">DEFM "NEXT without FO",$D2</td>
+<td class="instruction">DEFM "NEXT without FO","R"+$80</td>
 <td class="comment-11" rowspan="1">1 NEXT without FOR</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="13A4"></span>13A4</td>
-<td class="instruction">DEFM "Variable not foun",$E4</td>
+<td class="instruction">DEFM "Variable not foun","d"+$80</td>
 <td class="comment-11" rowspan="1">2 Variable not found</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="13B6"></span>13B6</td>
-<td class="instruction">DEFM "Subscript wron",$E7</td>
+<td class="instruction">DEFM "Subscript wron","g"+$80</td>
 <td class="comment-11" rowspan="1">3 Subscript wrong</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="13C5"></span>13C5</td>
-<td class="instruction">DEFM "Out of memor",$F9</td>
+<td class="instruction">DEFM "Out of memor","y"+$80</td>
 <td class="comment-11" rowspan="1">4 Out of memory</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="13D2"></span>13D2</td>
-<td class="instruction">DEFM "Out of scree",$EE</td>
+<td class="instruction">DEFM "Out of scree","n"+$80</td>
 <td class="comment-11" rowspan="1">5 Out of screen</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="13DF"></span>13DF</td>
-<td class="instruction">DEFM "Number too bi",$E7</td>
+<td class="instruction">DEFM "Number too bi","g"+$80</td>
 <td class="comment-11" rowspan="1">6 Number too big</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="13ED"></span>13ED</td>
-<td class="instruction">DEFM "RETURN without GOSU",$C2</td>
+<td class="instruction">DEFM "RETURN without GOSU","B"+$80</td>
 <td class="comment-11" rowspan="1">7 RETURN without GOSUB</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1401"></span>1401</td>
-<td class="instruction">DEFM "End of fil",$E5</td>
+<td class="instruction">DEFM "End of fil","e"+$80</td>
 <td class="comment-11" rowspan="1">8 End of file</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="140C"></span>140C</td>
-<td class="instruction">DEFM "STOP statemen",$F4</td>
+<td class="instruction">DEFM "STOP statemen","t"+$80</td>
 <td class="comment-11" rowspan="1">9 STOP statement</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="141A"></span>141A</td>
-<td class="instruction">DEFM "Invalid argumen",$F4</td>
+<td class="instruction">DEFM "Invalid argumen","t"+$80</td>
 <td class="comment-11" rowspan="1">A Invalid argument</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="142A"></span>142A</td>
-<td class="instruction">DEFM "Integer out of rang",$E5</td>
+<td class="instruction">DEFM "Integer out of rang","e"+$80</td>
 <td class="comment-11" rowspan="1">B Integer out of range</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="143E"></span>143E</td>
-<td class="instruction">DEFM "Nonsense in BASI",$C3</td>
+<td class="instruction">DEFM "Nonsense in BASI","C"+$80</td>
 <td class="comment-11" rowspan="1">C Nonsense in BASIC</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="144F"></span>144F</td>
-<td class="instruction">DEFM "BREAK - CONT repeat",$F3</td>
+<td class="instruction">DEFM "BREAK - CONT repeat","s"+$80</td>
 <td class="comment-11" rowspan="1">D BREAK - CONT repeats</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1463"></span>1463</td>
-<td class="instruction">DEFM "Out of DAT",$C1</td>
+<td class="instruction">DEFM "Out of DAT","A"+$80</td>
 <td class="comment-11" rowspan="1">E Out of DATA</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="146E"></span>146E</td>
-<td class="instruction">DEFM "Invalid file nam",$E5</td>
+<td class="instruction">DEFM "Invalid file nam","e"+$80</td>
 <td class="comment-11" rowspan="1">F Invalid file name</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="147F"></span>147F</td>
-<td class="instruction">DEFM "No room for lin",$E5</td>
+<td class="instruction">DEFM "No room for lin","e"+$80</td>
 <td class="comment-11" rowspan="1">G No room for line</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="148F"></span>148F</td>
-<td class="instruction">DEFM "STOP in INPU",$D4</td>
+<td class="instruction">DEFM "STOP in INPU","T"+$80</td>
 <td class="comment-11" rowspan="1">H STOP in INPUT</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="149C"></span>149C</td>
-<td class="instruction">DEFM "FOR without NEX",$D4</td>
+<td class="instruction">DEFM "FOR without NEX","T"+$80</td>
 <td class="comment-11" rowspan="1">I FOR without NEXT</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="14AC"></span>14AC</td>
-<td class="instruction">DEFM "Invalid I/O devic",$E5</td>
+<td class="instruction">DEFM "Invalid I/O devic","e"+$80</td>
 <td class="comment-11" rowspan="1">J Invalid I/O device</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="14BE"></span>14BE</td>
-<td class="instruction">DEFM "Invalid colou",$F2</td>
+<td class="instruction">DEFM "Invalid colou","r"+$80</td>
 <td class="comment-11" rowspan="1">K Invalid colour</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="14CC"></span>14CC</td>
-<td class="instruction">DEFM "BREAK into progra",$ED</td>
+<td class="instruction">DEFM "BREAK into progra","m"+$80</td>
 <td class="comment-11" rowspan="1">L BREAK into program</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="14DE"></span>14DE</td>
-<td class="instruction">DEFM "RAMTOP no goo",$E4</td>
+<td class="instruction">DEFM "RAMTOP no goo","d"+$80</td>
 <td class="comment-11" rowspan="1">M RAMTOP no good</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="14EC"></span>14EC</td>
-<td class="instruction">DEFM "Statement los",$F4</td>
+<td class="instruction">DEFM "Statement los","t"+$80</td>
 <td class="comment-11" rowspan="1">N Statement lost</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="14FA"></span>14FA</td>
-<td class="instruction">DEFM "Invalid strea",$ED</td>
+<td class="instruction">DEFM "Invalid strea","m"+$80</td>
 <td class="comment-11" rowspan="1">O Invalid stream</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1508"></span>1508</td>
-<td class="instruction">DEFM "FN without DE",$C6</td>
+<td class="instruction">DEFM "FN without DE","F"+$80</td>
 <td class="comment-11" rowspan="1">P FN without DEF</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1516"></span>1516</td>
-<td class="instruction">DEFM "Parameter erro",$F2</td>
+<td class="instruction">DEFM "Parameter erro","r"+$80</td>
 <td class="comment-11" rowspan="1">Q Parameter error</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1525"></span>1525</td>
-<td class="instruction">DEFM "Tape loading erro",$F2</td>
+<td class="instruction">DEFM "Tape loading erro","r"+$80</td>
 <td class="comment-11" rowspan="1">R Tape loading error</td>
 </tr>
 <tr>
 <td class="asm-label-1">COMMA_SPC</td>
 <td class="address-1"><span id="1537"></span>1537</td>
-<td class="instruction">DEFM ",",$A0</td>
+<td class="instruction">DEFM ","," "+$80</td>
 <td class="comment-11" rowspan="1">', '</td>
 </tr>
 </table>
@@ -235,9 +235,9 @@ Each message is given with the last character inverted (+80 hex.).
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

@@ -9,7 +9,7 @@
 <body class="Asm-c">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Routines</td>
 </tr>
 </table>
@@ -20,16 +20,16 @@
 <td class="next"><span class="next-1">Next: <a href="341B.html">341B</a></span></td>
 </tr>
 </table>
-<div class="description">340F: THE 'GET FROM MEMORY AREA' SUBROUTINE (offset 41)</div>
+<div class="description">340F: THE 'GET FROM MEMORY AREA' SUBROUTINE (offset +41)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via a calculator literal (E0-E5) by the routines at <a href="03F8.html">BEEP</a>, <a href="1D03.html">FOR</a>, <a href="1DAB.html">NEXT</a>, <a href="1DDA.html">NEXT_LOOP</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2D4F.html">e_to_fp</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="3449.html">series</a>, <a href="36A0.html">n_mod_m</a>, <a href="36AF.html">int</a>, <a href="36C4.html">exp</a> and <a href="37AA.html">cos</a>.
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via a calculator literal (+E0 to +E5) by the routines at <a href="03F8.html">BEEP</a>, <a href="1D03.html">FOR</a>, <a href="1DAB.html">NEXT</a>, <a href="1DDA.html">NEXT_LOOP</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2D4F.html">e_to_fp</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="3449.html">series</a>, <a href="36A0.html">n_mod_m</a>, <a href="36AF.html">int</a>, <a href="36C4.html">exp</a> and <a href="37AA.html">cos</a>.
 </div>
 <div class="paragraph">
-This subroutine is called using the literals E0 to E5 and the parameter derived from these literals is held in the <span class="register">A</span> register. The subroutine calls <a href="3406.html">LOC_MEM</a> to put the required source address into the <span class="register">HL</span> register pair and <a href="33C0.html">duplicate</a> to copy the five bytes involved from the calculator's memory area to the top of the calculator stack to form a new 'last value'.
+This subroutine is called using the literals +E0 to +E5 and the parameter derived from these literals is held in the <span class="register">A</span> register. The subroutine calls <a href="3406.html">LOC_MEM</a> to put the required source address into the <span class="register">HL</span> register pair and <a href="33C0.html">duplicate</a> to copy the five bytes involved from the calculator's memory area to the top of the calculator stack to form a new 'last value'.
 </div>
 </div>
 <table class="input-1">
@@ -101,9 +101,9 @@ This subroutine is called using the literals E0 to E5 and the parameter derived 
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

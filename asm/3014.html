@@ -9,7 +9,7 @@
 <body class="Asm-c">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Routines</td>
 </tr>
 </table>
@@ -20,13 +20,13 @@
 <td class="next"><span class="next-1">Next: <a href="30A9.html">30A9</a></span></td>
 </tr>
 </table>
-<div class="description">3014: THE 'ADDITION' OPERATION (offset 0F)</div>
+<div class="description">3014: THE 'ADDITION' OPERATION (offset +0F)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 0F by the routines at <a href="03F8.html">BEEP</a>, <a href="1DAB.html">NEXT</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="25F8.html">S_RND</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2D3B.html">INT_TO_FP</a>, <a href="2DA2.html">FP_TO_BC</a>, <a href="3449.html">series</a>, <a href="36C4.html">exp</a>, <a href="3713.html">ln</a>, <a href="3783.html">get_argt</a>, <a href="37B5.html">sin</a>, <a href="37E2.html">atn</a> and <a href="3833.html">asn</a>. It is also called indirectly via <a href="33A2.html">fp_calc_2</a>, and the routine at <a href="300F.html">subtract</a> continues here.
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal +0F by the routines at <a href="03F8.html">BEEP</a>, <a href="1DAB.html">NEXT</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="25F8.html">S_RND</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2D3B.html">INT_TO_FP</a>, <a href="2DA2.html">FP_TO_BC</a>, <a href="3449.html">series</a>, <a href="36C4.html">exp</a>, <a href="3713.html">ln</a>, <a href="3783.html">get_argt</a>, <a href="37B5.html">sin</a>, <a href="37E2.html">atn</a> and <a href="3833.html">asn</a>. It is also called indirectly via <a href="33A2.html">fp_calc_2</a>, and the routine at <a href="300F.html">subtract</a> continues here.
 </div>
 <div class="paragraph">
 The first of three major arithmetical subroutines, this subroutine carries out the floating-point addition of two numbers, each with a 4-byte mantissa and a 1-byte exponent. In these three subroutines, the two numbers at the top of the calculator stack are added/multiplied/divided to give one number at the top of the calculator stack, a 'last value'.
@@ -286,13 +286,13 @@ But the addition subroutine first tests whether the 2 numbers to be added are 's
 <span id="303C"></span>
 <div class="comments">
 <div class="paragraph">
-Note that the number -65536 decimal can arise here in the form 00 FF 00 00 00 as the result of the addition of two smaller negative integers, e.g. -65000 and -536. It is simply stacked in this form. This is a mistake. The Spectrum system cannot handle this number.
+Note that the number -65536 can arise here in the form 00 FF 00 00 00 as the result of the addition of two smaller negative integers, e.g. -65000 and -536. It is simply stacked in this form. This is a mistake. The Spectrum system cannot handle this number.
 </div>
 <div class="paragraph">
 Most functions treat it as zero, and it is printed as -1E-38, obtained by treating is as 'minus zero' in an illegitimate format.
 </div>
 <div class="paragraph">
-One possible remedy would be to test for this number at about byte <a href="3014.html#3032">3032</a> and, if it is present, to make the second byte 80 hex and the first byte 91 hex, so producing the full five-byte floating-point form of the number, i.e. 91 80 00 00 00, which causes no problems. See also the <a href="3214.html#3225">remarks in 'truncate'</a>.
+One possible remedy would be to test for this number at about byte <a href="3014.html#3032">3032</a> and, if it is present, to make the second byte +80 and the first byte +91, so producing the full five-byte floating-point form of the number, i.e. 91 80 00 00 00, which causes no problems. See also the <a href="3214.html#3225">remarks in 'truncate'</a>.
 </div>
 </div>
 </td>
@@ -802,9 +802,9 @@ The full addition subroutine first calls <a href="2F9B.html">PREP_ADD</a> for ea
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

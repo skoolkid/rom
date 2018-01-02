@@ -9,7 +9,7 @@
 <body class="Asm-c">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Routines</td>
 </tr>
 </table>
@@ -20,16 +20,16 @@
 <td class="next"><span class="next-1">Next: <a href="3293.html">3293</a></span></td>
 </tr>
 </table>
-<div class="description">3214: THE 'INTEGER TRUNCATION TOWARDS ZERO' SUBROUTINE (offset 3A)</div>
+<div class="description">3214: THE 'INTEGER TRUNCATION TOWARDS ZERO' SUBROUTINE (offset +3A)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 3A by the routine at <a href="36AF.html">int</a>.
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal +3A by the routine at <a href="36AF.html">int</a>.
 </div>
 <div class="paragraph">
-This subroutine (say I(x)) returns the result of integer truncation of x, the 'last value', towards zero. Thus I(2.4) is 2 and I(-2.4) is -2. The subroutine returns at once if x is in the form of a 'short integer'. It returns zero if the exponent byte of x is less than 81 hex (ABS x is less than 1). If I(x) is a 'short integer' the subroutine returns it in that form. It returns x if the exponent byte is A0 hex or greater (x has no significant non-integral part). Otherwise the correct number of bytes of x are set to zero and, if needed, one more byte is split with a mask.
+This subroutine (say I(x)) returns the result of integer truncation of x, the 'last value', towards zero. Thus I(2.4) is 2 and I(-2.4) is -2. The subroutine returns at once if x is in the form of a 'short integer'. It returns zero if the exponent byte of x is less than +81 (ABS x is less than 1). If I(x) is a 'short integer' the subroutine returns it in that form. It returns x if the exponent byte is +A0 or greater (x has no significant non-integral part). Otherwise the correct number of bytes of x are set to zero and, if needed, one more byte is split with a mask.
 </div>
 </div>
 <table class="input-1">
@@ -71,19 +71,19 @@ This subroutine (say I(x)) returns the result of integer truncation of x, the 'l
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3217"></span>3217</td>
 <td class="instruction">CP $81</td>
-<td class="comment-11" rowspan="1">Compare e, the exponent, to 81 hex.</td>
+<td class="comment-11" rowspan="1">Compare e, the exponent, to +81.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3219"></span>3219</td>
 <td class="instruction">JR NC,<a href="3214.html#3221">T_GR_ZERO</a></td>
-<td class="comment-11" rowspan="1">Jump if e is greater than 80 hex.</td>
+<td class="comment-11" rowspan="1">Jump if e is greater than +80.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="321B"></span>321B</td>
 <td class="instruction">LD (HL),$00</td>
-<td class="comment-11" rowspan="3">Else, set the exponent to zero; enter 32 decimal (20 hex) into <span class="register">A</span> and jump forward to <a href="3214.html#3272">NIL_BYTES</a> to make all the bits of x be zero.</td>
+<td class="comment-11" rowspan="3">Else, set the exponent to zero; enter +20 into <span class="register">A</span> and jump forward to <a href="3214.html#3272">NIL_BYTES</a> to make all the bits of x be zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -101,20 +101,20 @@ This subroutine (say I(x)) returns the result of integer truncation of x, the 'l
 <td class="asm-label-1">T_GR_ZERO</td>
 <td class="address-2"><span id="3221"></span>3221</td>
 <td class="instruction">CP $91</td>
-<td class="comment-11" rowspan="1">Compare e to 91 hex, 145 decimal.</td>
+<td class="comment-11" rowspan="1">Compare e to +91.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3223"></span>3223</td>
 <td class="instruction">JR NZ,<a href="3214.html#323F">T_SMALL</a></td>
-<td class="comment-11" rowspan="1">Jump if e not 91 hex.</td>
+<td class="comment-11" rowspan="1">Jump if e not +91.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
 <span id="3225"></span>
 <div class="comments">
 <div class="paragraph">
-The next 26 bytes seem designed to test whether x is in fact -65536 decimal, i.e. 91 80 00 00 00, and if it is, to set it to 00 FF 00 00 00. This is a mistake. As <a href="3014.html#303C">already stated</a>, the Spectrum system cannot handle this number. The result here is simply to make INT (-65536) return the value -1. This is a pity, since the number would have been perfectly all right if left alone. The remedy would seem to be simply to omit the 28 bytes from 3223 above to 323E inclusive from the program.
+The next 26 bytes seem designed to test whether x is in fact -65536, i.e. 91 80 00 00 00, and if it is, to set it to 00 FF 00 00 00. This is a mistake. As <a href="3014.html#303C">already stated</a>, the Spectrum system cannot handle this number. The result here is simply to make INT (-65536) return the value -1. This is a pity, since the number would have been perfectly all right if left alone. The remedy would seem to be simply to omit the 28 bytes from 3223 above to 323E inclusive from the program.
 </div>
 </div>
 </td>
@@ -141,7 +141,7 @@ The next 26 bytes seem designed to test whether x is in fact -65536 decimal, i.e
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3228"></span>3228</td>
 <td class="instruction">LD A,$80</td>
-<td class="comment-11" rowspan="2">The first bit is obtained in <span class="register">A</span>, using 80 hex as a mask.</td>
+<td class="comment-11" rowspan="2">The first bit is obtained in <span class="register">A</span>, using +80 as a mask.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -213,7 +213,7 @@ The next 26 bytes seem designed to test whether x is in fact -65536 decimal, i.e
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3238"></span>3238</td>
 <td class="instruction">LD (HL),$FF</td>
-<td class="comment-11" rowspan="1">The second byte is set to FF.</td>
+<td class="comment-11" rowspan="1">The second byte is set to +FF.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -238,7 +238,7 @@ The next 26 bytes seem designed to test whether x is in fact -65536 decimal, i.e
 <span id="323F"></span>
 <div class="comments">
 <div class="paragraph">
-If the exponent byte of x is between 81 and 90 hex (129 and 144 decimal) inclusive, I(x) is a 'small integer', and will be compressed into one or two bytes. But first a test is made to see whether x is, after all, large.
+If the exponent byte of x is between +81 and +90 inclusive, I(x) is a 'small integer', and will be compressed into one or two bytes. But first a test is made to see whether x is, after all, large.
 </div>
 </div>
 </td>
@@ -247,7 +247,7 @@ If the exponent byte of x is between 81 and 90 hex (129 and 144 decimal) inclusi
 <td class="asm-label-1">T_SMALL</td>
 <td class="address-2"><span id="323F"></span>323F</td>
 <td class="instruction">JR NC,<a href="3214.html#326D">X_LARGE</a></td>
-<td class="comment-11" rowspan="1">Jump with exponent byte 92 or more (it would be better to jump with 91 too).</td>
+<td class="comment-11" rowspan="1">Jump with exponent byte +92 or more (it would be better to jump with +91 too).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -443,7 +443,7 @@ Large values of x remain to be considered.
 <td class="asm-label-1">X_LARGE</td>
 <td class="address-2"><span id="326D"></span>326D</td>
 <td class="instruction">SUB $A0</td>
-<td class="comment-11" rowspan="1">Subtract 160 decimal, A0 hex, from e.</td>
+<td class="comment-11" rowspan="1">Subtract +A0 from e.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -608,9 +608,9 @@ Now the bits of the mantissa can be cleared.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

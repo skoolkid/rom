@@ -9,7 +9,7 @@
 <body class="Asm-c">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Routines</td>
 </tr>
 </table>
@@ -29,7 +29,7 @@
 Used by the routines at <a href="03F8.html">BEEP</a>, <a href="0F2C.html">EDITOR</a>, <a href="107F.html">ED_ERROR</a> and <a href="111D.html">ED_COPY</a>.
 </div>
 <div class="paragraph">
-The loudspeaker is activated by having D4 low during an 'OUT' instruction that is using port '254'. When D4 is high in a similar situation the loudspeaker is deactivated. A 'beep' can therefore be produced by regularly changing the level of D4.
+The loudspeaker is activated by having D4 low during an 'OUT' instruction that is using port +FE. When D4 is high in a similar situation the loudspeaker is deactivated. A 'beep' can therefore be produced by regularly changing the level of D4.
 </div>
 <div class="paragraph">
 Consider now the note 'middle C' which has the frequency 261.63 Hz. In order to get this note the loudspeaker will have to be alternately activated and deactivated every 1/523.26th of a second. In the Spectrum the system clock is set to run at 3.5 MHz. and the note of 'middle C' will require that the requisite 'OUT' instruction be executed as close as possible to every 6689 T states. This last value, when reduced slightly for unavoidable overheads, represents the 'length of the timing loop' in this subroutine.
@@ -385,9 +385,9 @@ Upon completion of the 'beep' the maskable interrupt has to be enabled.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

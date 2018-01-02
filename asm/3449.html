@@ -9,7 +9,7 @@
 <body class="Asm-c">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Routines</td>
 </tr>
 </table>
@@ -20,13 +20,13 @@
 <td class="next"><span class="next-1">Next: <a href="346A.html">346A</a></span></td>
 </tr>
 </table>
-<div class="description">3449: THE 'SERIES GENERATOR' SUBROUTINE (offset 3E)</div>
+<div class="description">3449: THE 'SERIES GENERATOR' SUBROUTINE (offset +3E)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via a calculator literal (86, 88 or 8C) by the routines at <a href="36C4.html">exp</a>, <a href="3713.html">ln</a>, <a href="37B5.html">sin</a> and <a href="37E2.html">atn</a>.
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via a calculator literal (+86, +88 or +8C) by the routines at <a href="36C4.html">exp</a>, <a href="3713.html">ln</a>, <a href="37B5.html">sin</a> and <a href="37E2.html">atn</a>.
 </div>
 <div class="paragraph">
 This important subroutine generates the series of Chebyshev polynomials which are used to approximate to SIN, ATN, LN and EXP and hence to derive the other arithmetic functions which depend on these (COS, TAN, ASN, ACS, ** and SQR).
@@ -35,7 +35,7 @@ This important subroutine generates the series of Chebyshev polynomials which ar
 The polynomials are generated, for n=1, 2, etc. by the recurrence relation T<sub>n+1</sub>(z)=2zT<sub>n</sub>(z)-T<sub>n-1</sub>(z), where T<sub>n</sub>(z) is the nth Chebyshev polynomial in z.
 </div>
 <div class="paragraph">
-The series in fact generates T<sub>0</sub>, 2T<sub>1</sub>, 2T<sub>2</sub>, ..., 2T<sub>n-1</sub>, where n is 6 for SIN, 8 for EXP, and 12 decimal for LN and ATN.
+The series in fact generates T<sub>0</sub>, 2T<sub>1</sub>, 2T<sub>2</sub>, ..., 2T<sub>n-1</sub>, where n is 6 for SIN, 8 for EXP, and 12 for LN and ATN.
 </div>
 <div class="paragraph">
 The coefficients of the powers of z in these polynomials may be found in the Handbook of Mathematical Functions by M. Abramowitz and I. A. Stegun (Dover 1965), page 795.
@@ -84,7 +84,7 @@ i. The setting of the loop counter. The calling subroutine passes its parameters
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="344A"></span>344A</td>
 <td class="instruction">CALL <a href="335B.html#335E">GEN_ENT_1</a></td>
-<td class="comment-11" rowspan="1">In effect a RST 28 instruction but sets the counter.</td>
+<td class="comment-11" rowspan="1">In effect a RST $28 instruction but sets the counter.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="4">
@@ -304,9 +304,9 @@ iv. The subtraction of B(N-2). The loop above leaves B(N) on the stack and the r
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>

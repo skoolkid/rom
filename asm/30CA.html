@@ -9,7 +9,7 @@
 <body class="Asm-c">
 <table class="header">
 <tr>
-<td class="logo"><a href="../index.html">Spectrum ROM</a></td>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo.png" /></a></td>
 <td class="page-header">Routines</td>
 </tr>
 </table>
@@ -20,13 +20,13 @@
 <td class="next"><span class="next-1">Next: <a href="31AF.html">31AF</a></span></td>
 </tr>
 </table>
-<div class="description">30CA: THE 'MULTIPLICATION' OPERATION (offset 04)</div>
+<div class="description">30CA: THE 'MULTIPLICATION' OPERATION (offset +04)</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="4">
 <div class="details">
 <div class="paragraph">
-The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal 04 by the routines at <a href="03F8.html">BEEP</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="25F8.html">S_RND</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2D3B.html">INT_TO_FP</a>, <a href="2D4F.html">e_to_fp</a>, <a href="2DC1.html">LOG_2_A</a>, <a href="3449.html">series</a>, <a href="36A0.html">n_mod_m</a>, <a href="36C4.html">exp</a>, <a href="3713.html">ln</a>, <a href="3783.html">get_argt</a>, <a href="37B5.html">sin</a>, <a href="37E2.html">atn</a>, <a href="3833.html">asn</a> and <a href="3851.html">to_power</a>. It is also called indirectly via <a href="33A2.html">fp_calc_2</a>.
+The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal +04 by the routines at <a href="03F8.html">BEEP</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="25F8.html">S_RND</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2D3B.html">INT_TO_FP</a>, <a href="2D4F.html">e_to_fp</a>, <a href="2DC1.html">LOG_2_A</a>, <a href="3449.html">series</a>, <a href="36A0.html">n_mod_m</a>, <a href="36C4.html">exp</a>, <a href="3713.html">ln</a>, <a href="3783.html">get_argt</a>, <a href="37B5.html">sin</a>, <a href="37E2.html">atn</a>, <a href="3833.html">asn</a> and <a href="3851.html">to_power</a>. It is also called indirectly via <a href="33A2.html">fp_calc_2</a>.
 </div>
 <div class="paragraph">
 This subroutine first tests whether the two numbers to be multiplied are 'small integers'. If they are, it uses <a href="2D7F.html">INT_FETCH</a> to get them from the stack, <a href="30A9.html">HL_HLxDE</a> to multiply them and <a href="2D8E.html">INT_STORE</a> to return the result to the stack. Any overflow of this 'short multiplication' (i.e. if the result is not itself a 'small integer') causes a jump to multiplication in full five byte floating-point form (see below).
@@ -123,7 +123,7 @@ This subroutine first tests whether the two numbers to be multiplied are 'small 
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30DA"></span>30DA</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-11" rowspan="2">Form sign of result in <span class="register">A</span>: like signs give plus (00), unlike give minus (FF).</td>
+<td class="comment-11" rowspan="2">Form sign of result in <span class="register">A</span>: like signs give plus (+00), unlike give minus (+FF).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
@@ -1136,9 +1136,9 @@ Report 6 - Arithmetic overflow.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20170519</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2017 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.0.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20180102</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
+<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 6.2.</div>
 </footer>
 </body>
 </html>
