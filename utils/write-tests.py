@@ -14,14 +14,14 @@ from testwriter import write_tests
 
 SNAPSHOT = 'build/rom+sysvars.bin'
 
-SKOOL = 'sources/rom.skool'
+SKOOL = 'rom.skool'
 
 OUTPUT = """Using skool file: {skoolfile}
-Using ref files: {reffile}, sources/bugs.ref, sources/changelog.ref
+Using ref files: {reffile}, bugs.ref, changelog.ref
 Parsing {skoolfile}
 Creating directory {odir}/rom
 Copying {SKOOLKIT_HOME}/skoolkit/resources/skoolkit.css to {odir}/rom/skoolkit.css
-Copying sources/rom.css to {odir}/rom/rom.css
+Copying rom.css to {odir}/rom/rom.css
   Writing disassembly files in rom/asm
   Writing rom/maps/all.html
   Writing rom/maps/routines.html
@@ -33,8 +33,4 @@ Copying sources/rom.css to {odir}/rom/rom.css
   Writing rom/reference/changelog.html
   Writing rom/index.html"""
 
-HTML_WRITER = 'sources:rom.ROMHtmlWriter'
-
-ASM_WRITER = 'sources:rom.ROMAsmWriter'
-
-write_tests(SKOOL, SNAPSHOT, OUTPUT, HTML_WRITER, ASM_WRITER, '-Ho 0')
+write_tests(SKOOL, SNAPSHOT, OUTPUT, '-Ho 0')
