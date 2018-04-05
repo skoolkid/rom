@@ -17,7 +17,7 @@
 ;
 ; Copyright 1982 Amstrad
 ; Copyright 1983 Dr Ian Logan & Dr Frank O'Hara
-; Copyright 2013-2017 Richard Dymond
+; Copyright 2013-2018 Richard Dymond
 @bfix+begin
 ;
 ; This disassembly contains fixes for the following bugs:
@@ -2366,13 +2366,10 @@ c$0A23 INC C          ; Move leftwards by one column.
  $0A2D JR NZ,$0A38    ; set) jump forward.}
  $0A2F INC B          ; Go up one line.
  $0A30 LD C,$02       ; Set column value.
-@bfix-begin
+@bfix=LD A,$19        ; {Test against top line.
  $0A32 LD A,$18       ; {Test against top line. Note: #BUG#noStepBack(this
+@bfix=CP B            ; }
  $0A34 CP B           ; ought to be &19).}
-@bfix+else
- $0A32 LD A,$19       ; {Test against top line.
- $0A34 CP B           ; }
-@bfix+end
  $0A35 JR NZ,$0A3A    ; Accept the change unless at the top of the screen.
  $0A37 DEC B          ; Unacceptable so down a line.
 @label=PO_BACK_2
