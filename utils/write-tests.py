@@ -16,21 +16,20 @@ SNAPSHOT = 'build/rom+sysvars.bin'
 
 SKOOL = 'rom.skool'
 
-OUTPUT = """Using skool file: {skoolfile}
-Using ref files: {reffile}, bugs.ref, changelog.ref
+OUTPUT = """Using ref files: {reffile}, bugs.ref, changelog.ref
 Parsing {skoolfile}
-Creating directory {odir}/rom
-Copying {SKOOLKIT_HOME}/skoolkit/resources/skoolkit.css to {odir}/rom/skoolkit.css
-Copying rom.css to {odir}/rom/rom.css
-  Writing disassembly files in rom/asm
-  Writing rom/maps/all.html
-  Writing rom/maps/routines.html
-  Writing rom/maps/data.html
-  Writing rom/maps/messages.html
-  Writing rom/maps/unused.html
-  Writing rom/buffers/sysvars.html
-  Writing rom/reference/bugs.html
-  Writing rom/reference/changelog.html
-  Writing rom/index.html"""
+Output directory: {odir}/rom
+Copying {SKOOLKIT_HOME}/skoolkit/resources/skoolkit.css to skoolkit.css
+Copying rom.css to rom.css
+Writing disassembly files in asm
+Writing maps/all.html
+Writing maps/routines.html
+Writing maps/data.html
+Writing maps/messages.html
+Writing maps/unused.html
+Writing buffers/sysvars.html
+Writing reference/bugs.html
+Writing reference/changelog.html
+Writing index.html"""
 
 write_tests(SKOOL, SNAPSHOT, OUTPUT, '-Ho 0')
