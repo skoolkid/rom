@@ -9154,12 +9154,9 @@ c$2535 CALL $2307    ; x to #REGc, y to #REGb; 0<=x<=23; 0<=y<=31.
  $256C LD BC,$0001   ; One space is now needed in the work space.
  $256F RST $30       ; Make the space.
  $2570 LD (DE),A     ; Put the character into it.
-@bfix-begin
+@bfix=|RET           ;
+@bfix=|NOP
  $2571 JR $257D      ; Jump to stack the character.
-@bfix+else
- $2571 RET
- $2572 NOP
-@bfix+end
 @label=S_SCR_NXT
 *$2573 POP HL        ; Restore character set pointer.
 @keep
@@ -9168,18 +9165,15 @@ c$2535 CALL $2307    ; x to #REGc, y to #REGb; 0<=x<=23; 0<=y<=31.
  $2578 POP DE        ; Restore the screen pointer.
  $2579 POP BC        ; And the counter.
  $257A DJNZ $254F    ; Loop back for the 96 characters.
-@bfix-begin
+@bfix=RET            ;
  $257C LD C,B        ; Stack the empty string (length zero).
 @label=S_SCR_STO
+@bfix=/:DEFB $00,$00,$00 ;
 *$257D JP $2AB2      ; Jump to stack the matching character, or the null string
                      ; if no match is found.
-; Note: this exit, via #R$2AB2, is a #BUG#anythingEqualsSCREEN$xy(mistake) as
-; it leads to 'double storing' of the string result (see #R$25DB). The
-; instruction line should be '#S/RET/'.
-@bfix+else
- $257C RET
- $257D DEFB $00,$00,$00
-@bfix+end
+; #IF({fix}<2)||Note: this exit, via #R$2AB2, is a
+; #BUG#anythingEqualsSCREEN$xy(mistake) as it leads to 'double storing' of the
+; string result (see #R$25DB). The instruction line should be '#S/RET/'.||
 
 ; THE 'SCANNING ATTRIBUTES' SUBROUTINE
 ;
@@ -12833,14 +12827,12 @@ c$31AF CALL $3293    ; Use full floating-point forms.
 @bfix=JR Z,$31DB
  $31FF JR Z,$31E2    ; Trial subtract yet again for any 34th bit; the
                      ; '#S/PUSH AF/' above saves this bit too.
-@bfix-begin
 @ignoreua
-; Note: this jump is made to the wrong place. No 34th bit will ever be obtained
-; without first shifting the dividend. Hence important results like 1/10 and
-; 1/1000 are not rounded up as they should be. Rounding up never occurs when it
-; depends on the 34th bit. The jump should have been to #R$31DB above, i.e.
-; byte &3200 in the ROM should read &DA instead of &E1.
-@bfix-end
+; #IF({fix}<2)!!Note: this jump is made to the wrong place. No 34th bit will
+; ever be obtained without first shifting the dividend. Hence important results
+; like 1/10 and 1/1000 are not rounded up as they should be. Rounding up never
+; occurs when it depends on the 34th bit. The jump should have been to #R$31DB
+; above, i.e. byte &3200 in the ROM should read &DA instead of &E1.!!
  $3201 LD E,A        ; {Now move the four bytes that form the mantissa of the
  $3202 LD D,C        ; result from #REG(b'c'ca) to #REG(d'e'de).
  $3203 EXX           ;
