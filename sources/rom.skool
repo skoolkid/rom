@@ -708,13 +708,13 @@ c$02BF CALL $028E     ; {Fetch a key value in the #REGde register pair but
 ; A key stroke that is being repeated (held down) is now separated from a new
 ; key stroke.
  $02DC LD HL,$5C00    ; Look first at #R$5C00(KSTATE0).
- $02DF CP (HL)        ; {Jump forward if the codes match - indicating a
- $02E0 JR Z,$0310     ; repeat.}
+ $02DF CP (HL)        ; {Jump forward if the codes match - indicating a repeat.
+ $02E0 JR Z,$0310     ; }
  $02E2 EX DE,HL       ; Save the address of #R$5C00(KSTATE0).
 @ssub=LD HL,$5C00+$04
  $02E3 LD HL,$5C04    ; Now look at #R$5C04(KSTATE4).
- $02E6 CP (HL)        ; {Jump forward if the codes match - indicating a
- $02E7 JR Z,$0310     ; repeat.}
+ $02E6 CP (HL)        ; {Jump forward if the codes match - indicating a repeat.
+ $02E7 JR Z,$0310     ; }
 ; But a new key will not be accepted unless one of the sets of #SYSVAR(KSTATE)
 ; system variables is 'free'.
  $02E9 BIT 7,(HL)     ; Consider the second set.
@@ -1428,8 +1428,8 @@ c$0556 INC D         ; This resets the zero flag. (#REGd cannot hold &FF.)
  $059E RET NC        ; (Return carry flag reset.)}
 ; The bytes of the header or the program/data block can now be loaded or
 ; verified. But the first byte is the type flag.
- $059F LD A,C        ; {The border colours from now on will be blue and
- $05A0 XOR $03       ; yellow.
+ $059F LD A,C        ; {The border colours from now on will be blue and yellow.
+ $05A0 XOR $03       ;
  $05A2 LD C,A        ; }
  $05A3 LD H,$00      ; Initialise the 'parity matching' byte to zero.
  $05A5 LD B,$B0      ; Set the timing constant for the flag byte.
@@ -1625,8 +1625,8 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
 *$0652 RST $18         ; {Is the present code the token 'DATA'?
  $0653 CP $E4          ; }
  $0655 JR NZ,$06A0     ; Jump if not.
- $0657 LD A,($5C74)    ; {However it is not possible to have 'MERGE name
- $065A CP $03          ; DATA' (#SYSVAR(T-ADDR-lo)=&03).
+ $0657 LD A,($5C74)    ; {However it is not possible to have 'MERGE name DATA'
+ $065A CP $03          ; (#SYSVAR(T-ADDR-lo)=&03).
  $065C JP Z,$1C8A      ; }
  $065F RST $20         ; Advance #SYSVAR(CH-ADD).
  $0660 CALL $28B2      ; Look in the variables area for the array.
@@ -1695,8 +1695,8 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
 @label=SA_CODE
 *$06C3 CP $AF          ; Is the present code the token 'CODE'?
  $06C5 JR NZ,$0716     ; Jump if not.
- $06C7 LD A,($5C74)    ; {However it is not possible to have 'MERGE name
- $06CA CP $03          ; CODE' (#SYSVAR(T-ADDR-lo)=&03).
+ $06C7 LD A,($5C74)    ; {However it is not possible to have 'MERGE name CODE'
+ $06CA CP $03          ; (#SYSVAR(T-ADDR-lo)=&03).
  $06CC JP Z,$1C8A      ; }
  $06CF RST $20         ; Advance #SYSVAR(CH-ADD).
  $06D0 CALL $2048      ; {Jump forward if the statement has not finished.
@@ -1820,8 +1820,8 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
  $0786 JR NZ,$078A     ; Jump if the 'types' do not match.
  $0788 LD C,$F6        ; But if they do, signal 'ten characters are to match'.
 @label=LD_TYPE
-*$078A CP $04          ; {Clearly the 'header' is nonsense if 'type 4 or
- $078C JR NC,$0767     ; more'.}
+*$078A CP $04          ; {Clearly the 'header' is nonsense if 'type 4 or more'.
+ $078C JR NC,$0767     ; }
 ; The appropriate message - 'Program: ', 'Number array: ', 'Character array: '
 ; or 'Bytes: ' is printed.
 @keep=$01
@@ -1855,8 +1855,8 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
 @label=LD_CH_PR
 *$07AD RST $10         ; Print the 'new' character.
  $07AE DJNZ $07A6      ; Loop for ten characters.
- $07B0 BIT 7,C         ; {Accept the name only if the counter has reached
- $07B2 JR NZ,$0767     ; zero.}
+ $07B0 BIT 7,C         ; {Accept the name only if the counter has reached zero.
+ $07B2 JR NZ,$0767     ; }
  $07B4 LD A,$0D        ; {Follow the 'new name' with a 'carriage return'.
  $07B6 RST $10         ; }
 ; The correct header has been found and the time has come to consider the three
@@ -2124,8 +2124,8 @@ c$08B6 LD C,(IX+$0B) ; {Fetch the 'length' of the data block.
  $08E8 POP HL        ; }
  $08E9 JR $08D7      ; Go round the loop for each of the 'old lines'.
 @label=ME_NEW_L2
-*$08EB CALL $092C    ; {Enter the 'new line' and go round the outer loop
- $08EE JR $08D2      ; again.}
+*$08EB CALL $092C    ; {Enter the 'new line' and go round the outer loop again.
+ $08EE JR $08D2      ; }
 ; In a similar manner the variables of the new program are merged with the
 ; variables of the old program.
 @label=ME_VAR_LP
@@ -2279,8 +2279,8 @@ c$0970 PUSH HL        ; Save the 'pointer'.
  $0994 LD E,(IX+$0B)  ; {Fetch the length of the data block that is to be
  $0997 LD D,(IX+$0C)  ; saved.}
  $099A LD A,$FF       ; Signal 'data block'.
- $099C POP IX         ; {Fetch the 'start of block pointer' and save the
- $099E JP $04C2       ; block.}
+ $099C POP IX         ; {Fetch the 'start of block pointer' and save the block.
+ $099E JP $04C2       ; }
 
 ; THE CASSETTE MESSAGES
 ;
@@ -2318,8 +2318,8 @@ t$09A1 DEFB $80                                      ; Initial byte is stepped
 ; A Character code
 @label=PRINT_OUT
 c$09F4 CALL $0B03    ; The current print position.
- $09F7 CP " "        ; {If the code represents a printable character then
- $09F9 JP NC,$0AD9   ; jump.}
+ $09F7 CP " "        ; {If the code represents a printable character then jump.
+ $09F9 JP NC,$0AD9   ; }
  $09FC CP $06        ; {Print a question mark for codes in the range &00 to
  $09FE JR C,$0A69    ; &05.}
  $0A00 CP $18        ; {And also for codes &18 to &1F.
@@ -2579,8 +2579,8 @@ c$0AD9 CALL $0B24    ; Print the character(s) and continue into #R$0ADC.
 @label=PO_STORE
 c$0ADC BIT 1,(IY+$01) ; {Jump forward if handling the printer (bit 1 of
  $0AE0 JR NZ,$0AFC    ; #SYSVAR(FLAGS) set).}
- $0AE2 BIT 0,(IY+$02) ; {Jump forward if handling the lower part of the
- $0AE6 JR NZ,$0AF0    ; screen (bit 0 of #SYSVAR(TV-FLAG) set).}
+ $0AE2 BIT 0,(IY+$02) ; {Jump forward if handling the lower part of the screen
+ $0AE6 JR NZ,$0AF0    ; (bit 0 of #SYSVAR(TV-FLAG) set).}
  $0AE8 LD ($5C88),BC  ; {Save the values that relate to the main part of the
  $0AEC LD ($5C84),HL  ; screen at #SYSVAR(S-POSN) and #SYSVAR(DF-CC).}
  $0AEF RET            ; Then return.
@@ -2648,13 +2648,13 @@ c$0B24 CP $80         ; {Jump forward with ordinary character codes.
 *$0B38 LD HL,$5C92    ; This is #SYSVAR(MEMBOT).
  $0B3B CALL $0B3E     ; In effect call the following subroutine twice.
 @label=PO_GR_2
-*$0B3E RR B           ; {Determine bit 0 (and later bit 2) of the graphic
- $0B40 SBC A,A        ; code.}
+*$0B3E RR B           ; {Determine bit 0 (and later bit 2) of the graphic code.
+ $0B40 SBC A,A        ; }
  $0B41 AND $0F        ; The #REGa register will hold &00 or &0F depending on
                       ; the value of the bit in the code.
  $0B43 LD C,A         ; Save the result in #REGc.
- $0B44 RR B           ; {Determine bit 1 (and later bit 3) of the graphic
- $0B46 SBC A,A        ; code.}
+ $0B44 RR B           ; {Determine bit 1 (and later bit 3) of the graphic code.
+ $0B46 SBC A,A        ; }
  $0B47 AND $F0        ; The #REGa register will hold &00 or &F0.
  $0B49 OR C           ; The two results are combined.
  $0B4A LD C,$04       ; {The #REGa register holds half the character form and
@@ -2866,8 +2866,8 @@ c$0C0A PUSH HL        ; {The high byte of the last entry on the machine stack
                       ; &00 to &5A.
  $0C2E CP $48         ; {Jump forward if the last character was a '$'.
  $0C30 JR Z,$0C35     ; }
- $0C32 CP $82         ; {Return if the last character was any other before
- $0C34 RET C          ; 'A'.}
+ $0C32 CP $82         ; {Return if the last character was any other before 'A'.
+ $0C34 RET C          ; }
 @label=PO_TR_SP
 *$0C35 LD A,D         ; {Examine the value in #REGd and return if it indicates
  $0C36 CP $03         ; a message, RND, INKEY$ or PI.
@@ -3190,8 +3190,8 @@ c$0D6B CALL $0DAF      ; The whole of the display is 'cleared'.
 ; Used by the routines at #R$0D6B, #R$12A2 and #R$1795.
 @label=CL_ALL
 @keep
-c$0DAF LD HL,$0000     ; {The system variable #SYSVAR(COORDS) is reset to
- $0DB2 LD ($5C7D),HL   ; zero.}
+c$0DAF LD HL,$0000     ; {The system variable #SYSVAR(COORDS) is reset to zero.
+ $0DB2 LD ($5C7D),HL   ; }
  $0DB5 RES 0,(IY+$30)  ; Signal 'the screen is clear' (reset bit 0 of
                        ; #R$5C6A(FLAGS2)).
  $0DB9 CALL $0D94      ; Perform the 'house keeping' tasks.
@@ -3200,9 +3200,9 @@ c$0DAF LD HL,$0000     ; {The system variable #SYSVAR(COORDS) is reset to
  $0DC1 CALL $0D4D      ; Use the 'permanent' values.
  $0DC4 LD B,$18        ; {Now 'clear' the 24 lines of the display.
  $0DC6 CALL $0E44      ; }
- $0DC9 LD HL,($5C51)   ; {Ensure that the current output address
+ $0DC9 LD HL,($5C51)   ; {Ensure that the current output address (at
 @nowarn
- $0DCC LD DE,$09F4     ; (at (#SYSVAR(CURCHL))) is #R$09F4.
+ $0DCC LD DE,$09F4     ; (#SYSVAR(CURCHL))) is #R$09F4.
  $0DCF LD (HL),E       ;
  $0DD0 INC HL          ;
  $0DD1 LD (HL),D       ; }
@@ -3232,8 +3232,8 @@ c$0DD9 LD HL,$5B00    ; The start of the printer buffer.
  $0DDC BIT 1,(IY+$01) ; {Jump forward if handling the printer buffer (bit 1 of
  $0DE0 JR NZ,$0DF4    ; #SYSVAR(FLAGS) set).}
  $0DE2 LD A,B         ; Transfer the line number.
- $0DE3 BIT 0,(IY+$02) ; {Jump forward if handling the main part of the
- $0DE7 JR Z,$0DEE     ; display (bit 0 of #SYSVAR(TV-FLAG) reset).}
+ $0DE3 BIT 0,(IY+$02) ; {Jump forward if handling the main part of the display
+ $0DE7 JR Z,$0DEE     ; (bit 0 of #SYSVAR(TV-FLAG) reset).}
  $0DE9 ADD A,(IY+$31) ; {The top line of the lower part of the display is
  $0DEC SUB $18        ; called 'line &18' and this has to be converted (see
                       ; #SYSVAR(DF-SZ)).}
@@ -3863,8 +3863,8 @@ c$1031 SCF           ; {#REGde will hold either #SYSVAR(E-LINE) (for editing)
  $103F LD L,E        ; that addressed by #REGde.
  $1040 INC HL        ; }
  $1041 LD A,(DE)     ; Fetch a character code.
- $1042 AND $F0       ; {Jump forward if the code does not represent INK to
- $1044 CP $10        ; TAB.
+ $1042 AND $F0       ; {Jump forward if the code does not represent INK to TAB.
+ $1044 CP $10        ;
  $1046 JR NZ,$1051   ; }
  $1048 INC HL        ; Allow for one parameter.
  $1049 LD A,(DE)     ; Fetch the code anew.
@@ -3976,8 +3976,8 @@ c$10A8 BIT 3,(IY+$02) ; {Copy the edit-line or the INPUT-line to the screen if
  $10C4 POP AF         ; Fetch the code.
  $10C5 CP " "         ; {Accept all characters and token codes.
  $10C7 JR NC,$111B    ; }
- $10C9 CP $10         ; {Jump forward with most of the control character
- $10CB JR NC,$10FA    ; codes.}
+ $10C9 CP $10         ; {Jump forward with most of the control character codes.
+ $10CB JR NC,$10FA    ; }
  $10CD CP $06         ; {Jump forward with the 'mode' codes and the CAPS LOCK
  $10CF JR NC,$10DB    ; code.}
 ; Now deal with the FLASH, BRIGHT and INVERSE codes.
@@ -4339,8 +4339,8 @@ c$12A2 LD (IY+$31),$02 ; The lower part of the screen is to be two lines in
  $12B4 CALL $1B17      ; The current line is scanned for correct syntax.
  $12B7 BIT 7,(IY+$00)  ; {Jump forward if the syntax is correct
  $12BB JR NZ,$12CF     ; (#SYSVAR(ERR-NR) is &FF).}
- $12BD BIT 4,(IY+$30)  ; {Jump forward if other than channel 'K' is being
- $12C1 JR Z,$1303      ; used (bit 4 of #R$5C6A(FLAGS2) is set).}
+ $12BD BIT 4,(IY+$30)  ; {Jump forward if other than channel 'K' is being used
+ $12C1 JR Z,$1303      ; (bit 4 of #R$5C6A(FLAGS2) is set).}
  $12C3 LD HL,($5C59)   ; Point to the start of the line with the error
                        ; (#SYSVAR(E-LINE)).
  $12C6 CALL $11A7      ; Remove the floating-point forms from this line.
@@ -4554,8 +4554,8 @@ c$155D LD ($5C49),BC ; Make the new line number the 'current line'
  $1589 LD DE,($5C53) ; {Save the current value of #SYSVAR(PROG) to avoid
  $158D PUSH DE       ; corruption when adding a first line.}
  $158E CALL $1655    ; Space for the new line is created.
- $1591 POP HL        ; {The old value of #SYSVAR(PROG) is fetched and
- $1592 LD ($5C53),HL ; restored.}
+ $1591 POP HL        ; {The old value of #SYSVAR(PROG) is fetched and restored.
+ $1592 LD ($5C53),HL ; }
  $1595 POP BC        ; {A copy of the line length (without parameters) is
  $1596 PUSH BC       ; taken.}
  $1597 INC DE        ; {Make #REGde point to the end location of the new area
@@ -4947,8 +4947,8 @@ c$168F DEFB $00,$00  ; Line number zero.
 ; O:HL Address of the last byte of the new space
 @label=RESERVE
 c$169E LD HL,($5C63) ; {Fetch the current value of #SYSVAR(STKBOT) and
- $16A1 DEC HL        ; decrement it to get the last location of the work
-                     ; space.}
+ $16A1 DEC HL        ; decrement it to get the last location of the work space.
+                     ; }
  $16A2 CALL $1655    ; Now make '#REGbc spaces'.
  $16A5 INC HL        ; {Point to the first new space and then the second.
  $16A6 INC HL        ; }
@@ -5046,8 +5046,8 @@ c$16E5 CALL $171E    ; The existing data for the stream is fetched.
  $16F3 JR C,$16FC    ; {Jump forward with these streams; otherwise find the
 @keep=$15D4,$0E
 @ssub=LD BC,$15C6+$0E
- $16F5 LD BC,$15D4   ; correct entry in the #R$15C6(initial stream data
- $16F8 ADD HL,BC     ; table).}
+ $16F5 LD BC,$15D4   ; correct entry in the #R$15C6(initial stream data table).
+ $16F8 ADD HL,BC     ; }
  $16F9 LD C,(HL)     ; {Fetch the initial data for streams &00 to &03.
  $16FA INC HL        ;
  $16FB LD B,(HL)     ; }
@@ -5117,8 +5117,8 @@ c$171C POP HL        ; {Fetch the channel information pointer and return.
 @label=STR_DATA
 c$171E CALL $1E94    ; The given stream number is taken off the calculator
                      ; stack.
- $1721 CP $10        ; {Give an error if the stream number is greater than
- $1723 JR C,$1727    ; &0F.}
+ $1721 CP $10        ; {Give an error if the stream number is greater than &0F.
+ $1723 JR C,$1727    ; }
 ; This entry point is used by the routines at #R$1736 and #R$1793.
 ; .
 ; Report O - Invalid stream.
@@ -5315,8 +5315,8 @@ c$1795 LD ($5C3F),SP   ; The stack pointer is saved at #SYSVAR(LIST-SP)
  $17CF CALL $19B8      ; Find the address of the start of the line after the
                        ; present 'automatic' line (in #REGde).
  $17D2 POP BC          ; Restore the 'result'.
- $17D3 ADD HL,BC       ; {Perform the computation and jump forward if
- $17D4 JR C,$17E4      ; finished.}
+ $17D3 ADD HL,BC       ; {Perform the computation and jump forward if finished.
+ $17D4 JR C,$17E4      ; }
  $17D6 EX DE,HL        ; {Move the next line's address to the #REGhl register
  $17D7 LD D,(HL)       ; pair and collect its line number.
  $17D8 INC HL          ;
@@ -5653,8 +5653,8 @@ c$1925 LD A,E         ; The #REGa register will hold &20 for a space or &FF for
  $194C BIT 5,(IY+$37) ; {Jump forward to print the ':' if in 'INPUT mode' (bit
  $1950 JR NZ,$1968    ; 5 of #SYSVAR(FLAGX) set).}
  $1952 BIT 2,(IY+$30) ; {Jump forward if the ':' is 'not in quotes' (bit 2 of
- $1956 JR Z,$196C     ; #R$5C6A(FLAGS2) reset), i.e. an inter-statement
-                      ; marker.}
+ $1956 JR Z,$196C     ; #R$5C6A(FLAGS2) reset), i.e. an inter-statement marker.
+                      ; }
  $1958 JR $1968       ; The ':' is inside quotes and can now be printed.
 @label=OUT_CH_1
 *$195A CP "\""        ; {Accept for printing all characters except '"'.
@@ -7967,8 +7967,8 @@ c$2089 CALL $2530      ; {Jump forward if syntax is being checked.
 @label=IN_VAR_2
 *$2148 LD HL,($5C61)   ; {Set #REGhl to the start of the INPUT line
  $214B CALL $11A7      ; (#SYSVAR(WORKSP)) and remove any floating-point forms.
-                       ; (There will not be any except perhaps after an
-                       ; error.)}
+                       ; (There will not be any except perhaps after an error.)
+                       ; }
  $214E LD (IY+$00),$FF ; Signal 'no error yet' by resetting #SYSVAR(ERR-NR).
  $2152 CALL $0F2C      ; {Now get the INPUT and with the syntax/run flag (bit 7
  $2155 RES 7,(IY+$01)  ; of #SYSVAR(FLAGS)) indicating syntax, check the INPUT
@@ -9671,8 +9671,8 @@ c$26C9 CALL $28B2     ; Look in the existing variables for the matching entry.
 *$2764 POP DE         ; Get the 'last' operation code.
  $2765 LD HL,$5C3B    ; This is #SYSVAR(FLAGS).
  $2768 SET 6,(HL)     ; Assume result to be numeric.
- $276A BIT 7,E        ; {Jump forward if the nature of 'last value' is
- $276C JR NZ,$2770    ; numeric.}
+ $276A BIT 7,E        ; {Jump forward if the nature of 'last value' is numeric.
+ $276C JR NZ,$2770    ; }
  $276E RES 6,(HL)     ; It is a string.
 @label=S_LOOPEND
 *$2770 POP BC         ; Get the 'present' values into #REGbc.
@@ -9853,8 +9853,8 @@ c$27BD CALL $2530    ; {Unless syntax is being checked, a jump is made to
 ; point along the DEF FN statement (calling #R$28AB as needed) while
 ; #SYSVAR(CH-ADD) points along the FN statement (calling #R$0020 as needed).
 @label=SF_VALUES
-*$2831 AND A         ; {If #REGhl is now pointing to a '$', move on to the
- $2832 CALL Z,$28AB  ; '('.}
+*$2831 AND A         ; {If #REGhl is now pointing to a '$', move on to the '('.
+ $2832 CALL Z,$28AB  ; }
  $2835 POP DE        ; Discard the pointer to 'DEF FN'.
  $2836 POP DE        ; {Get the pointer to the first argument of FN, and copy
  $2837 LD ($5C5D),DE ; it to #SYSVAR(CH-ADD).}
@@ -10696,8 +10696,8 @@ c$2AFF LD HL,($5C4D)  ; Fetch the present address in #SYSVAR(DEST).
 @label=L_NO_SP
 *$2B0C INC HL         ; Move along the variable's name.
  $2B0D LD A,(HL)      ; Fetch the 'present code'.
- $2B0E CP " "         ; {Jump back if it is a 'space'; thereby Ignoring
- $2B10 JR Z,$2B0C     ; spaces.}
+ $2B0E CP " "         ; {Jump back if it is a 'space', thereby ignoring spaces.
+ $2B10 JR Z,$2B0C     ; }
  $2B12 JR NC,$2B1F    ; Jump forward if the code is &21 to &FF.
  $2B14 CP $10         ; {Accept, as a final code, those in the range &00 to
  $2B16 JR C,$2B29     ; &0F.}
@@ -10738,15 +10738,15 @@ c$2AFF LD HL,($5C4D)  ; Fetch the present address in #SYSVAR(DEST).
 @label=L_CHAR
 *$2B3E INC HL         ; Point to each 'extra' code.
  $2B3F LD A,(HL)      ; Fetch the code.
- $2B40 CP $21         ; {Accept codes from &21 to &FF; ignore codes &00 to
- $2B42 JR C,$2B3E     ; &20.}
+ $2B40 CP $21         ; {Accept codes from &21 to &FF; ignore codes &00 to &20.
+ $2B42 JR C,$2B3E     ; }
  $2B44 OR $20         ; Set bit 5, as for lower case letters.
  $2B46 INC DE         ; {Transfer the codes in turn to the 2nd 'new' byte
  $2B47 LD (DE),A      ; onwards.}
  $2B48 DJNZ $2B3E     ; Go round the loop for all the 'extra' codes.
 ; The last code of a 'long' name has to be #S/OR/ed with &80.
- $2B4A OR $80         ; {Mark the code as required and overwrite the last
- $2B4C LD (DE),A      ; code.}
+ $2B4A OR $80         ; {Mark the code as required and overwrite the last code.
+ $2B4C LD (DE),A      ; }
 ; The first letter of the name of the variable being handled is now considered.
  $2B4D LD A,$C0       ; Prepare to mark the letter of a 'long' name.
 @label=L_SINGLE
@@ -11406,8 +11406,8 @@ c$2D4F RLCA          ; {Test the sign of m by rotating bit 7 of #REGa into the
  $2D5F POP AF        ; Restore m in #REGa.
 @label=E_LOOP
 *$2D60 SRL A         ; {In the loop, shift out the next bit of m, modifying the
- $2D62 JR NC,$2D71   ; carry and zero flags appropriately; jump if carry
-                     ; reset.}
+ $2D62 JR NC,$2D71   ; carry and zero flags appropriately; jump if carry reset.
+                     ; }
  $2D64 PUSH AF       ; Save the rest of m and the flags.
  $2D65 RST $28       ; The stack holds x' and 10#power(2#powern), where x' is
                      ; an interim stage in the multiplication of x by
@@ -11596,8 +11596,8 @@ c$2DC1 LD D,A                   ; {The integer #REGa is stacked, either as 00
  $2DC7 LD B,A                   ; stack.
  $2DC8 CALL $2AB6               ; }
  $2DCB RST $28                  ; The calculator is used.
- $2DCC DEFB $34                 ; {#R$33C6: log 2 to the base 10 is now
- $2DCD DEFB $EF,$1A,$20,$9A,$85 ; stacked}
+ $2DCC DEFB $34                 ; {#R$33C6: log 2 to the base 10 is now stacked
+ $2DCD DEFB $EF,$1A,$20,$9A,$85 ; }
  $2DD2 DEFB $04                 ; #R$30CA: #REGa*log 2 i.e. log (2#power#REGa)
  $2DD3 DEFB $27                 ; #R$36AF: INT log (2#power#REGa)
  $2DD4 DEFB $38                 ; #R$369B
@@ -11870,8 +11870,8 @@ c$2DE3 RST $28          ; Use the calculator.
  $2EBD SUB $09          ; were there 9 digits excluding leading zeros?}
  $2EBF JR C,$2ECB       ; If not, jump to get more digits.
  $2EC1 DEC (IY+$71)     ; Prepare to round: reduce count to 8.
- $2EC4 LD A,$04         ; {Compare 9th digit, byte 4 of #R$5CA6(mem-4),
- $2EC6 CP (IY+$6F)      ; with 4 to set carry for rounding up.}
+ $2EC4 LD A,$04         ; {Compare 9th digit, byte 4 of #R$5CA6(mem-4), with 4
+ $2EC6 CP (IY+$6F)      ; to set carry for rounding up.}
  $2EC9 JR $2F0C         ; Jump forward to round up.
 @label=PF_MORE
 *$2ECB RST $28          ; Use the calculator again.
@@ -11896,8 +11896,8 @@ c$2DE3 RST $28          ; Use the calculator.
  $2EE4 JR C,$2EEC       ; If not, jump forward.
  $2EE6 EXX              ; {If 8 digits, just use f to round i up, rotating
  $2EE7 RL D             ; #REGd' left to set the carry.}
- $2EE9 EXX              ; {Restore main registers and jump forward to round
- $2EEA JR $2F0C         ; up.}
+ $2EE9 EXX              ; {Restore main registers and jump forward to round up.
+ $2EEA JR $2F0C         ; }
 @keep
 @label=PF_FR_DGT
 *$2EEC LD BC,$0200      ; Initial zero to #REGc, count of 2 to #REGb.
@@ -12825,8 +12825,8 @@ c$31AF CALL $3293    ; Use full floating-point forms.
  $31FE PUSH AF       ; Save any 33rd bit for extra precision (the present
                      ; carry).
 @bfix=JR Z,$31DB
- $31FF JR Z,$31E2    ; Trial subtract yet again for any 34th bit; the
-                     ; '#S/PUSH AF/' above saves this bit too.
+ $31FF JR Z,$31E2    ; Trial subtract yet again for any 34th bit; the '#S/PUSH
+                     ; AF/' above saves this bit too.
 @ignoreua
 ; #IF({fix}<2)!!Note: this jump is made to the wrong place. No 34th bit will
 ; ever be obtained without first shifting the dividend. Hence important results
