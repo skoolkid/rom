@@ -2934,162 +2934,161 @@ c$0C41 PUSH AF       ; Save the 'entry number'.
 ;
 ; B Current line number
 @label=PO_SCR
-c$0C55 BIT 1,(IY+$01)    ; {Return immediately if the printer is being used
- $0C59 RET NZ            ; (bit 1 of #SYSVAR(FLAGS) set).}
+c$0C55 BIT 1,(IY+$01) ; {Return immediately if the printer is being used (bit 1
+ $0C59 RET NZ         ; of #SYSVAR(FLAGS) set).}
 @nowarn
- $0C5A LD DE,$0DD9       ; {Pre-load the machine stack with the address of
- $0C5D PUSH DE           ; #R$0DD9.}
- $0C5E LD A,B            ; Transfer the line number.
- $0C5F BIT 0,(IY+$02)    ; {Jump forward if considering 'INPUT ... AT ...' (bit
- $0C63 JP NZ,$0D02       ; 0 of #SYSVAR(TV-FLAG) set).}
- $0C66 CP (IY+$31)       ; {Return, via #R$0DD9, if the line number is greater
- $0C69 JR C,$0C86        ; than the value of #SYSVAR(DF-SZ); give report 5 if
- $0C6B RET NZ            ; it is less; otherwise continue.}
- $0C6C BIT 4,(IY+$02)    ; {Jump forward unless dealing with an 'automatic
- $0C70 JR Z,$0C88        ; listing' (bit 4 of #SYSVAR(TV-FLAG) set).}
- $0C72 LD E,(IY+$2D)     ; Fetch the line counter from #SYSVAR(BREG).
- $0C75 DEC E             ; Decrease this counter.
- $0C76 JR Z,$0CD2        ; Jump forward if the listing is to be scrolled.
- $0C78 LD A,$00          ; {Otherwise open channel 'K', restore the stack
- $0C7A CALL $1601        ; pointer, flag that the automatic listing has
- $0C7D LD SP,($5C3F)     ; finished (reset bit 4 of #SYSVAR(TV-FLAG)) and
- $0C81 RES 4,(IY+$02)    ; return via #R$0DD9.
- $0C85 RET               ; }
+ $0C5A LD DE,$0DD9    ; {Pre-load the machine stack with the address of
+ $0C5D PUSH DE        ; #R$0DD9.}
+ $0C5E LD A,B         ; Transfer the line number.
+ $0C5F BIT 0,(IY+$02) ; {Jump forward if considering 'INPUT ... AT ...' (bit 0
+ $0C63 JP NZ,$0D02    ; of #SYSVAR(TV-FLAG) set).}
+ $0C66 CP (IY+$31)    ; {Return, via #R$0DD9, if the line number is greater
+ $0C69 JR C,$0C86     ; than the value of #SYSVAR(DF-SZ); give report 5 if it
+ $0C6B RET NZ         ; is less; otherwise continue.}
+ $0C6C BIT 4,(IY+$02) ; {Jump forward unless dealing with an 'automatic
+ $0C70 JR Z,$0C88     ; listing' (bit 4 of #SYSVAR(TV-FLAG) set).}
+ $0C72 LD E,(IY+$2D)  ; Fetch the line counter from #SYSVAR(BREG).
+ $0C75 DEC E          ; Decrease this counter.
+ $0C76 JR Z,$0CD2     ; Jump forward if the listing is to be scrolled.
+ $0C78 LD A,$00       ; {Otherwise open channel 'K', restore the stack pointer,
+ $0C7A CALL $1601     ; flag that the automatic listing has finished (reset bit
+ $0C7D LD SP,($5C3F)  ; 4 of #SYSVAR(TV-FLAG)) and return via #R$0DD9.
+ $0C81 RES 4,(IY+$02) ;
+ $0C85 RET            ; }
 ; This entry point is used by the routine at #R$0A6D.
 ; .
 ; Report 5 - Out of screen.
 @label=REPORT_5
-*$0C86 RST $08           ; {Call the error handling routine.
- $0C87 DEFB $04          ; }
+*$0C86 RST $08        ; {Call the error handling routine.
+ $0C87 DEFB $04       ; }
 ; Now consider if the prompt 'scroll?' is required.
 @label=PO_SCR_2
-*$0C88 DEC (IY+$52)      ; {Decrease the scroll counter (#SYSVAR(SCR-CT)) and
- $0C8B JR NZ,$0CD2       ; proceed to give the prompt only if it becomes zero.}
+*$0C88 DEC (IY+$52)   ; {Decrease the scroll counter (#SYSVAR(SCR-CT)) and
+ $0C8B JR NZ,$0CD2    ; proceed to give the prompt only if it becomes zero.}
 ; Proceed to give the prompt message.
- $0C8D LD A,$18          ; {The scroll counter (#SYSVAR(SCR-CT)) is reset.
- $0C8F SUB B             ;
- $0C90 LD ($5C8C),A      ; }
- $0C93 LD HL,($5C8F)     ; {The current values of #SYSVAR(ATTR-T) and
- $0C96 PUSH HL           ; #SYSVAR(MASK-T) are saved.}
- $0C97 LD A,($5C91)      ; {The current value of #SYSVAR(P-FLAG) is saved.
- $0C9A PUSH AF           ; }
- $0C9B LD A,$FD          ; {Channel 'K' is opened.
- $0C9D CALL $1601        ; }
- $0CA0 XOR A             ; {The message 'scroll?' is message '0'. This message
+ $0C8D LD A,$18       ; {The scroll counter (#SYSVAR(SCR-CT)) is reset.
+ $0C8F SUB B          ;
+ $0C90 LD ($5C8C),A   ; }
+ $0C93 LD HL,($5C8F)  ; {The current values of #SYSVAR(ATTR-T) and
+ $0C96 PUSH HL        ; #SYSVAR(MASK-T) are saved.}
+ $0C97 LD A,($5C91)   ; {The current value of #SYSVAR(P-FLAG) is saved.
+ $0C9A PUSH AF        ; }
+ $0C9B LD A,$FD       ; {Channel 'K' is opened.
+ $0C9D CALL $1601     ; }
+ $0CA0 XOR A          ; {The message 'scroll?' is message '0'. This message is
 @nowarn
- $0CA1 LD DE,$0CF8       ; is now printed.
- $0CA4 CALL $0C0A        ; }
- $0CA7 SET 5,(IY+$02)    ; Signal 'clear the lower screen after a keystroke'
-                         ; (set bit 5 of #SYSVAR(TV-FLAG)).
- $0CAB LD HL,$5C3B       ; This is #SYSVAR(FLAGS).
- $0CAE SET 3,(HL)        ; Signal 'L mode'.
- $0CB0 RES 5,(HL)        ; Signal 'no key yet'.
- $0CB2 EXX               ; Note: #REGde #BUG#scrollingTokens(should be pushed
-                         ; also).
- $0CB3 CALL $15D4        ; Fetch a single key code.
- $0CB6 EXX               ; Restore the registers.
- $0CB7 CP " "            ; {There is a jump forward to #R$0D00 - 'BREAK - CONT
- $0CB9 JR Z,$0D00        ; repeats' - if the keystroke was 'BREAK', 'STOP', 'N'
- $0CBB CP $E2            ; or 'n'; otherwise accept the keystroke as indicating
- $0CBD JR Z,$0D00        ; the need to scroll the display.
- $0CBF OR $20            ;
- $0CC1 CP "n"            ;
- $0CC3 JR Z,$0D00        ; }
- $0CC5 LD A,$FE          ; {Open channel 'S'.
- $0CC7 CALL $1601        ; }
- $0CCA POP AF            ; {Restore the value of #SYSVAR(P-FLAG).
- $0CCB LD ($5C91),A      ; }
- $0CCE POP HL            ; {Restore the values of #SYSVAR(ATTR-T) and
- $0CCF LD ($5C8F),HL     ; #SYSVAR(MASK-T).}
+ $0CA1 LD DE,$0CF8    ; now printed.
+ $0CA4 CALL $0C0A     ; }
+ $0CA7 SET 5,(IY+$02) ; Signal 'clear the lower screen after a keystroke' (set
+                      ; bit 5 of #SYSVAR(TV-FLAG)).
+ $0CAB LD HL,$5C3B    ; This is #SYSVAR(FLAGS).
+ $0CAE SET 3,(HL)     ; Signal 'L mode'.
+ $0CB0 RES 5,(HL)     ; Signal 'no key yet'.
+ $0CB2 EXX            ; Note: #REGde #BUG#scrollingTokens(should be pushed
+                      ; also).
+ $0CB3 CALL $15D4     ; Fetch a single key code.
+ $0CB6 EXX            ; Restore the registers.
+ $0CB7 CP " "         ; {There is a jump forward to #R$0D00 - 'BREAK - CONT
+ $0CB9 JR Z,$0D00     ; repeats' - if the keystroke was 'BREAK', 'STOP', 'N' or
+ $0CBB CP $E2         ; 'n'; otherwise accept the keystroke as indicating the
+ $0CBD JR Z,$0D00     ; need to scroll the display.
+ $0CBF OR $20         ;
+ $0CC1 CP "n"         ;
+ $0CC3 JR Z,$0D00     ; }
+ $0CC5 LD A,$FE       ; {Open channel 'S'.
+ $0CC7 CALL $1601     ; }
+ $0CCA POP AF         ; {Restore the value of #SYSVAR(P-FLAG).
+ $0CCB LD ($5C91),A   ; }
+ $0CCE POP HL         ; {Restore the values of #SYSVAR(ATTR-T) and
+ $0CCF LD ($5C8F),HL  ; #SYSVAR(MASK-T).}
 ; The display is now scrolled.
 @label=PO_SCR_3
-*$0CD2 CALL $0DFE        ; The whole display is scrolled.
- $0CD5 LD B,(IY+$31)     ; {The line (#SYSVAR(DF-SZ)) and column numbers for
- $0CD8 INC B             ; the start of the line above the lower part of the
- $0CD9 LD C,$21          ; display are found and saved.
- $0CDB PUSH BC           ; }
- $0CDC CALL $0E9B        ; {The corresponding attribute byte for this character
- $0CDF LD A,H            ; area is then found. The #REGhl register pair holds
- $0CE0 RRCA              ; the address of the byte.
- $0CE1 RRCA              ;
- $0CE2 RRCA              ;
- $0CE3 AND $03           ;
- $0CE5 OR $58            ;
- $0CE7 LD H,A            ; }
+*$0CD2 CALL $0DFE     ; The whole display is scrolled.
+ $0CD5 LD B,(IY+$31)  ; {The line (#SYSVAR(DF-SZ)) and column numbers for the
+ $0CD8 INC B          ; start of the line above the lower part of the display
+ $0CD9 LD C,$21       ; are found and saved.
+ $0CDB PUSH BC        ; }
+ $0CDC CALL $0E9B     ; {The corresponding attribute byte for this character
+ $0CDF LD A,H         ; area is then found. The #REGhl register pair holds the
+ $0CE0 RRCA           ; address of the byte.
+ $0CE1 RRCA           ;
+ $0CE2 RRCA           ;
+ $0CE3 AND $03        ;
+ $0CE5 OR $58         ;
+ $0CE7 LD H,A         ; }
 ; The line in question will have 'lower part' attribute values and the new line
 ; at the bottom of the display may have '#SYSVAR(ATTR-P)' values so the
 ; attribute values are exchanged.
- $0CE8 LD DE,$5AE0       ; #REGde points to the first attribute byte of the
-                         ; bottom line.
- $0CEB LD A,(DE)         ; The value is fetched.
- $0CEC LD C,(HL)         ; The 'lower part' value.
- $0CED LD B,$20          ; There are thirty two bytes.
- $0CEF EX DE,HL          ; Exchange the pointers.
+ $0CE8 LD DE,$5AE0    ; #REGde points to the first attribute byte of the bottom
+                      ; line.
+ $0CEB LD A,(DE)      ; The value is fetched.
+ $0CEC LD C,(HL)      ; The 'lower part' value.
+ $0CED LD B,$20       ; There are thirty two bytes.
+ $0CEF EX DE,HL       ; Exchange the pointers.
 @label=PO_SCR_3A
-*$0CF0 LD (DE),A         ; {Make the first exchange and then proceed to use the
- $0CF1 LD (HL),C         ; same values for the thirty two attribute bytes of
- $0CF2 INC DE            ; the two lines being handled.
- $0CF3 INC HL            ;
- $0CF4 DJNZ $0CF0        ; }
- $0CF6 POP BC            ; {The line and column numbers of the bottom line of
- $0CF7 RET               ; the 'upper part' are fetched before returning.}
+*$0CF0 LD (DE),A      ; {Make the first exchange and then proceed to use the
+ $0CF1 LD (HL),C      ; same values for the thirty two attribute bytes of the
+ $0CF2 INC DE         ; two lines being handled.
+ $0CF3 INC HL         ;
+ $0CF4 DJNZ $0CF0     ; }
+ $0CF6 POP BC         ; {The line and column numbers of the bottom line of the
+ $0CF7 RET            ; 'upper part' are fetched before returning.}
 ; The 'scroll?' message.
 @label=SCROLL
- $0CF8 DEFB $80          ; Initial marker - stepped over.
- $0CF9 DEFM "scroll"
- $0CFF DEFM "?"+$80      ; The '?' is inverted.
+ $0CF8 DEFB $80       ; Initial marker - stepped over.
+ $0CF9 DEFM "scroll"  ;
+ $0CFF DEFM "?"+$80   ; The '?' is inverted.
 ; Report D - BREAK - CONT repeats.
 @label=REPORT_D
-*$0D00 RST $08           ; {Call the error handling routine.
- $0D01 DEFB $0C          ; }
+*$0D00 RST $08        ; {Call the error handling routine.
+ $0D01 DEFB $0C       ; }
 ; The lower part of the display is handled as follows:
 @label=PO_SCR_4
-*$0D02 CP $02            ; {The 'out of screen' error is given if the lower
- $0D04 JR C,$0C86        ; part is going to be 'too large' (see #SYSVAR(DF-SZ))
- $0D06 ADD A,(IY+$31)    ; and a return made if scrolling is unnecessary.
- $0D09 SUB $19           ;
- $0D0B RET NC            ; }
- $0D0C NEG               ; The #REGa register will now hold 'the number of
-                         ; scrolls to be made'.
- $0D0E PUSH BC           ; The line and column numbers are now saved.
- $0D0F LD B,A            ; {The 'scroll number', #SYSVAR(ATTR-T),
- $0D10 LD HL,($5C8F)     ; #SYSVAR(MASK-T) and #SYSVAR(P-FLAG) are all saved.
- $0D13 PUSH HL           ;
- $0D14 LD HL,($5C91)     ;
- $0D17 PUSH HL           ; }
- $0D18 CALL $0D4D        ; The 'permanent' colour items are to be used.
- $0D1B LD A,B            ; The 'scroll number' is fetched.
+*$0D02 CP $02         ; {The 'out of screen' error is given if the lower part
+ $0D04 JR C,$0C86     ; is going to be 'too large' (see #SYSVAR(DF-SZ)) and a
+ $0D06 ADD A,(IY+$31) ; return made if scrolling is unnecessary.
+ $0D09 SUB $19        ;
+ $0D0B RET NC         ; }
+ $0D0C NEG            ; The #REGa register will now hold 'the number of scrolls
+                      ; to be made'.
+ $0D0E PUSH BC        ; The line and column numbers are now saved.
+ $0D0F LD B,A         ; {The 'scroll number', #SYSVAR(ATTR-T), #SYSVAR(MASK-T)
+ $0D10 LD HL,($5C8F)  ; and #SYSVAR(P-FLAG) are all saved.
+ $0D13 PUSH HL        ;
+ $0D14 LD HL,($5C91)  ;
+ $0D17 PUSH HL        ; }
+ $0D18 CALL $0D4D     ; The 'permanent' colour items are to be used.
+ $0D1B LD A,B         ; The 'scroll number' is fetched.
 ; The lower part of the screen is now scrolled #REGa number of times.
 @label=PO_SCR_4A
-*$0D1C PUSH AF           ; Save the 'number'.
- $0D1D LD HL,$5C6B       ; This is #SYSVAR(DF-SZ).
- $0D20 LD B,(HL)         ; {The value in #SYSVAR(DF-SZ) is incremented; the
- $0D21 LD A,B            ; #REGb register set to hold the former value and the
- $0D22 INC A             ; #REGa register the new value.
- $0D23 LD (HL),A         ; }
+*$0D1C PUSH AF        ; Save the 'number'.
+ $0D1D LD HL,$5C6B    ; This is #SYSVAR(DF-SZ).
+ $0D20 LD B,(HL)      ; {The value in #SYSVAR(DF-SZ) is incremented; the #REGb
+ $0D21 LD A,B         ; register set to hold the former value and the #REGa
+ $0D22 INC A          ; register the new value.
+ $0D23 LD (HL),A      ; }
 @keep=$01
 @ssub=LD HL,$5C88+$01
- $0D24 LD HL,$5C89       ; This is #SYSVAR(S-POSN-hi).
- $0D27 CP (HL)           ; {The jump is taken if only the lower part of the
- $0D28 JR C,$0D2D        ; display is to be scrolled (#REGb=old
-                         ; #SYSVAR(DF-SZ)).}
- $0D2A INC (HL)          ; {Otherwise #SYSVAR(S-POSN-hi) is incremented and the
- $0D2B LD B,$18          ; whole display scrolled (#REGb=&18).}
+ $0D24 LD HL,$5C89    ; This is #SYSVAR(S-POSN-hi).
+ $0D27 CP (HL)        ; {The jump is taken if only the lower part of the
+ $0D28 JR C,$0D2D     ; display is to be scrolled (#REGb=old #SYSVAR(DF-SZ)).}
+ $0D2A INC (HL)       ; {Otherwise #SYSVAR(S-POSN-hi) is incremented and the
+ $0D2B LD B,$18       ; whole display scrolled (#REGb=&18).}
 @label=PO_SCR_4B
-*$0D2D CALL $0E00        ; Scroll #REGb lines.
- $0D30 POP AF            ; {Fetch and decrement the 'scroll number'.
- $0D31 DEC A             ; }
- $0D32 JR NZ,$0D1C       ; Jump back until finished.
- $0D34 POP HL            ; {Restore the value of #SYSVAR(P-FLAG).
- $0D35 LD (IY+$57),L     ; }
- $0D38 POP HL            ; {Restore the values of #SYSVAR(ATTR-T) and
- $0D39 LD ($5C8F),HL     ; #SYSVAR(MASK-T).}
- $0D3C LD BC,($5C88)     ; {In case #SYSVAR(S-POSN) has been changed #R$0DD9 is
- $0D40 RES 0,(IY+$02)    ; called to give a matching value to #SYSVAR(DF-CC)
- $0D44 CALL $0DD9        ; (after resetting bit 0 of #SYSVAR(TV-FLAG)).}
- $0D47 SET 0,(IY+$02)    ; {Set bit 0 of #SYSVAR(TV-FLAG) to indicate that the
- $0D4B POP BC            ; lower screen is being handled, fetch the line and
- $0D4C RET               ; column numbers, and then return.}
+*$0D2D CALL $0E00     ; Scroll #REGb lines.
+ $0D30 POP AF         ; {Fetch and decrement the 'scroll number'.
+ $0D31 DEC A          ; }
+ $0D32 JR NZ,$0D1C    ; Jump back until finished.
+ $0D34 POP HL         ; {Restore the value of #SYSVAR(P-FLAG).
+ $0D35 LD (IY+$57),L  ; }
+ $0D38 POP HL         ; {Restore the values of #SYSVAR(ATTR-T) and
+ $0D39 LD ($5C8F),HL  ; #SYSVAR(MASK-T).}
+ $0D3C LD BC,($5C88)  ; {In case #SYSVAR(S-POSN) has been changed #R$0DD9 is
+ $0D40 RES 0,(IY+$02) ; called to give a matching value to #SYSVAR(DF-CC)
+ $0D44 CALL $0DD9     ; (after resetting bit 0 of #SYSVAR(TV-FLAG)).}
+ $0D47 SET 0,(IY+$02) ; {Set bit 0 of #SYSVAR(TV-FLAG) to indicate that the
+ $0D4B POP BC         ; lower screen is being handled, fetch the line and
+ $0D4C RET            ; column numbers, and then return.}
 
 ; THE 'TEMPORARY COLOUR ITEMS' SUBROUTINE
 ;
