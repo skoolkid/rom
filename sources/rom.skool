@@ -2367,8 +2367,8 @@ b$0A11 DEFB $4E      ; &06: PRINT comma (#R$0A5F)
 ; C Current column number
 @label=PO_BACK_1
 c$0A23 INC C          ; Move leftwards by one column.
- $0A24 LD A,$22       ; {Accept the change unless up against the lefthand
- $0A26 CP C           ; side.
+ $0A24 LD A,$22       ; {Accept the change unless up against the lefthand side.
+ $0A26 CP C           ;
  $0A27 JR NZ,$0A3A    ; }
  $0A29 BIT 1,(IY+$01) ; {If dealing with the printer (bit 1 of #SYSVAR(FLAGS)
  $0A2D JR NZ,$0A38    ; set) jump forward.}
