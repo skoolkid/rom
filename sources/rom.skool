@@ -3359,8 +3359,8 @@ c$0E44 PUSH BC        ; The line number is saved for the duration of the
  $0E59 LD (HL),$00    ; Clear the pixel-byte of the first character.
  $0E5B INC DE         ; {Make #REGde point to the second character and then
  $0E5C LDIR           ; clear the pixel-bytes of all the other characters.}
-@ignoreua
 @keep
+@ignoreua
  $0E5E LD DE,$0701    ; {For each 'third' of the display #REGhl has to be
  $0E61 ADD HL,DE      ; increased by &0701.}
  $0E62 DEC A          ; Now decrease the line number.
@@ -4195,8 +4195,8 @@ c$11B7 DI              ; Disable the maskable interrupt.
 ; Now the memory is checked.
  $11DA LD H,D          ; {Transfer the value in #REGde (#R$0000=&FFFF,
  $11DB LD L,E          ; #R$11B7=#SYSVAR(RAMTOP)).}
-@ignoreua
 @label=RAM_FILL
+@ignoreua
 *$11DC LD (HL),$02     ; {Enter the value of &02 into every location above
  $11DE DEC HL          ; &3FFF.
  $11DF CP H            ;
@@ -13160,8 +13160,8 @@ w$32D7 DEFW $368F    ; &00
 ; literal. The full set follows:
 ; .
 ; #LIST
-; { Offset &3E: series-06, series-08 and series-0C; literals &86, &88 and
-; &8C. }
+; { Offset &3E: series-06, series-08 and series-0C; literals &86, &88 and &8C.
+; }
 ; { Offset &3F: stk-zero, stk-one, stk-half, stk-pi/2 and stk-ten; literals &A0
 ; to &A4. }
 ; { Offset &40: st-mem-0, st-mem-1, st-mem-2, st-mem-3, st-mem-4 and st-mem-5;
@@ -15128,7 +15128,7 @@ c$3843 RST $28       ; X
 ; is called via the calculator literal &28 by the routines at #R$247D and
 ; #R$3833. It is also called indirectly via #R$33A2.
 ; .
-;  This subroutine handles the function SQR X and returns the positive square
+; This subroutine handles the function SQR X and returns the positive square
 ; root of the real number X if X is positive, and zero if X is zero. A negative
 ; value of X gives rise to report A - invalid argument (via #R$3851).
 ; .
@@ -15975,8 +15975,8 @@ b$3D00 DEFB %00000000 ; {#c$3D00
  $3FFD DEFB %10011001 ;
  $3FFE DEFB %01000010 ;
  $3FFF DEFB %00111100 ; }
-@end
 
+@end
 @assemble=0
 i$4000 DEFS $1C00
 
@@ -15992,10 +15992,10 @@ i$4000 DEFS $1C00
 ; #TABLE(default,centre,:w)
 ; { =h Byte | =h Contents }
 ; { 0 | &FF if the set is unused, or a main code from the #R$0205#$0205(main
-;       key table) otherwise }
+; key table) otherwise }
 ; { 1 | Call counter; initially &05, and decremented on each call to #R$02BF }
 ; { 2 | Repeat delay counter; initially #SYSVAR(REPDEL), decremented on each
-;       call to #R$02BF, reset to #SYSVAR(REPPER) whenever it reaches zero }
+; call to #R$02BF, reset to #SYSVAR(REPPER) whenever it reaches zero }
 ; { 3 | Final code from the #R$0205(key tables) (as computed by #R$0333) }
 ; TABLE#
 @label=KSTATE
@@ -16052,43 +16052,43 @@ g$5C0E DEFB $00,$00
 ; table (#SYSVAR(CHINFO)).
 @label=STRMS
 @keep
-g$5C10 DEFW $0001 ; Stream &FD (keyboard).
+g$5C10 DEFW $0001    ; Stream &FD (keyboard).
 @keep
- $5C12 DEFW $0006 ; Stream &FE (screen).
+ $5C12 DEFW $0006    ; Stream &FE (screen).
 @keep
- $5C14 DEFW $000B ; Stream &FF (work space).
+ $5C14 DEFW $000B    ; Stream &FF (work space).
 @keep
- $5C16 DEFW $0001 ; Stream &00 (keyboard).
+ $5C16 DEFW $0001    ; Stream &00 (keyboard).
 @keep
- $5C18 DEFW $0001 ; Stream &01 (keyboard).
+ $5C18 DEFW $0001    ; Stream &01 (keyboard).
 @keep
- $5C1A DEFW $0006 ; Stream &02 (screen).
+ $5C1A DEFW $0006    ; Stream &02 (screen).
 @keep
- $5C1C DEFW $0010 ; Stream &03 (printer).
+ $5C1C DEFW $0010    ; Stream &03 (printer).
 @keep
- $5C1E DEFW $0000 ; Stream &04.
+ $5C1E DEFW $0000    ; Stream &04.
 @keep
- $5C20 DEFW $0000 ; Stream &05.
+ $5C20 DEFW $0000    ; Stream &05.
 @keep
- $5C22 DEFW $0000 ; Stream &06.
+ $5C22 DEFW $0000    ; Stream &06.
 @keep
- $5C24 DEFW $0000 ; Stream &07.
+ $5C24 DEFW $0000    ; Stream &07.
 @keep
- $5C26 DEFW $0000 ; Stream &08.
+ $5C26 DEFW $0000    ; Stream &08.
 @keep
- $5C28 DEFW $0000 ; Stream &09.
+ $5C28 DEFW $0000    ; Stream &09.
 @keep
- $5C2A DEFW $0000 ; Stream &0A.
+ $5C2A DEFW $0000    ; Stream &0A.
 @keep
- $5C2C DEFW $0000 ; Stream &0B.
+ $5C2C DEFW $0000    ; Stream &0B.
 @keep
- $5C2E DEFW $0000 ; Stream &0C.
+ $5C2E DEFW $0000    ; Stream &0C.
 @keep
- $5C30 DEFW $0000 ; Stream &0D.
+ $5C30 DEFW $0000    ; Stream &0D.
 @keep
- $5C32 DEFW $0000 ; Stream &0E.
+ $5C32 DEFW $0000    ; Stream &0E.
 @keep
- $5C34 DEFW $0000 ; Stream &0F.
+ $5C34 DEFW $0000    ; Stream &0F.
 
 ; CHARS - 256 less than address of character set
 ;
@@ -16511,8 +16511,8 @@ g$5C7B DEFW $FF58
 ; Read by the routines at #R$2382 and #R$24B7, and updated by the routines at
 ; #R$0DAF, #R$22DC and #R$2320.
 @label=COORDS
-g$5C7D DEFB $00 ; x-coordinate
- $5C7E DEFB $00 ; y-coordinate
+g$5C7D DEFB $00      ; x-coordinate
+ $5C7E DEFB $00      ; y-coordinate
 
 ; P-POSN - Column number of printer position
 ;
@@ -16585,7 +16585,7 @@ g$5C8C DEFB $00
 ; attribute byte that is used for the main part of the display when the screen
 ; is cleared.
 @label=ATTR_P
-g$5C8D DEFB $38 ; FLASH 0: BRIGHT 0: PAPER 7: INK 0
+g$5C8D DEFB $38      ; FLASH 0: BRIGHT 0: PAPER 7: INK 0
 
 ; MASK-P - Used for transparent colours
 ;
@@ -16603,7 +16603,7 @@ g$5C8E DEFB $00
 ; of the display, which will be the same as #SYSVAR(ATTR-P) unless temporary
 ; colours have been specified.
 @label=ATTR_T
-g$5C8F DEFB $38 ; FLASH 0: BRIGHT 0: PAPER 7: INK 0
+g$5C8F DEFB $38      ; FLASH 0: BRIGHT 0: PAPER 7: INK 0
 
 ; MASK-T - Temporary transparent colours
 ;
@@ -16678,16 +16678,16 @@ g$5CB4 DEFW $FFFF
 ; and updated by the routine at #R$10A8. For each channel the output routine
 ; address comes before the input routine address and the channel's code.
 @label=CHINFO
-g$5CB6 DEFW $09F4 ; {Keyboard.
- $5CB8 DEFW $10A8 ;
- $5CBA DEFB "K"   ; }
- $5CBB DEFW $09F4 ; {Screen.
- $5CBD DEFW $15C4 ;
- $5CBF DEFB "S"   ; }
- $5CC0 DEFW $0F81 ; {Work space.
- $5CC2 DEFW $15C4 ;
- $5CC4 DEFB "R"   ; }
- $5CC5 DEFW $09F4 ; {Printer.
- $5CC7 DEFW $15C4 ;
- $5CC9 DEFB "P"   ; }
- $5CCA DEFB $80   ; End marker.
+g$5CB6 DEFW $09F4    ; {Keyboard.
+ $5CB8 DEFW $10A8    ;
+ $5CBA DEFB "K"      ; }
+ $5CBB DEFW $09F4    ; {Screen.
+ $5CBD DEFW $15C4    ;
+ $5CBF DEFB "S"      ; }
+ $5CC0 DEFW $0F81    ; {Work space.
+ $5CC2 DEFW $15C4    ;
+ $5CC4 DEFB "R"      ; }
+ $5CC5 DEFW $09F4    ; {Printer.
+ $5CC7 DEFW $15C4    ;
+ $5CC9 DEFB "P"      ; }
+ $5CCA DEFB $80      ; End marker.
