@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 D_VERSIONS=(
+  20181017
   20180102
   20170519
   20170114
@@ -102,10 +103,10 @@ else
   binfile=$ROM
 fi
 
-REF=rom.ref
+SKOOL=rom.skool
 if [[ -f 48.rom.ctl ]]; then
-  ./sna2skool.py -o 0 -H -c 48.rom.ctl $binfile > 48.rom.skool
-  REF=48.rom.ref
+  SKOOL=48.rom.skool
+  ./sna2skool.py -o 0 -H -c 48.rom.ctl $binfile > $SKOOL
 fi
 
-./skool2html.py -t -d .. $HTML_OPTS $REF
+./skool2html.py -t -d .. $HTML_OPTS $SKOOL
