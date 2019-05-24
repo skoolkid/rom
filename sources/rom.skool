@@ -15078,11 +15078,11 @@ c$37E2 CALL $3297               ; Use the full floating-point form of X.
 ; is called via the calculator literal &22 by the routine at #R$3843. It is
 ; also called indirectly via #R$33A2.
 ; .
-; This subroutine handles the function ASN X and returns a real real number
-; from -#pi/2 to #pi/2 inclusive which is equal to the value in radians of the
-; angle whose sine is X. Thereby if Y=ASN X then X=SIN Y.
+; This subroutine handles the function ASN X and returns a real number from
+; -#pi/2 to #pi/2 inclusive which is equal to the value in radians of the angle
+; whose sine is X. Thereby if Y=ASN X then X=SIN Y.
 ; .
-; This subroutine uses the trigonometric identity TAN (Y/2)=SIN Y/1(1+COS Y) to
+; This subroutine uses the trigonometric identity TAN (Y/2)=SIN Y/(1+COS Y) to
 ; obtain TAN (Y/2) and hence (using ATN) Y/2 and finally Y.
 @label=asn
 c$3833 RST $28       ; X
