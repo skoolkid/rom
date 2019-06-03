@@ -23,7 +23,7 @@
 <div class="description">04C2: THE 'SA-BYTES' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routine at <a href="0970.html">SA_CONTRL</a>.
@@ -60,77 +60,89 @@ This subroutine is called to save the header information and later the actual pr
 <tr>
 <td class="asm-label-1">SA_BYTES</td>
 <td class="address-2"><span id="04C2"></span>04C2</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$053F</td>
 <td class="comment-11" rowspan="2">Pre-load the machine stack with the address <a href="053F.html">SA_LD_RET</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04C5"></span>04C5</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04C6"></span>04C6</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$1F80</td>
 <td class="comment-11" rowspan="1">This constant will give a leader of about 5 seconds for a 'header'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04C9"></span>04C9</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 7,A</td>
 <td class="comment-11" rowspan="2">Jump forward if saving a header.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04CB"></span>04CB</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="04C2.html#04D0">SA_FLAG</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04CD"></span>04CD</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$0C98</td>
 <td class="comment-11" rowspan="1">This constant will give a leader of about 2 seconds for a program/data block.</td>
 </tr>
 <tr>
 <td class="asm-label-1">SA_FLAG</td>
 <td class="address-2"><span id="04D0"></span>04D0</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX AF,AF'</td>
 <td class="comment-11" rowspan="1">The flag is saved.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04D1"></span>04D1</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC DE</td>
 <td class="comment-11" rowspan="2">The 'length' is incremented and the 'base address' reduced to allow for the flag.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04D2"></span>04D2</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC IX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04D4"></span>04D4</td>
+<td class="bytes-0"></td>
 <td class="instruction">DI</td>
 <td class="comment-11" rowspan="1">The maskable interrupt is disabled during the save.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04D5"></span>04D5</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$02</td>
 <td class="comment-11" rowspan="1">Signal 'MIC on' and border to be red.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04D7"></span>04D7</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
 <td class="comment-11" rowspan="1">Give a value to <span class="register">B</span>.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="04D8"></span>
 <div class="comments">
 <div class="paragraph">
@@ -145,59 +157,68 @@ Note: an 'edge' will be a transition either from 'on' to 'off', or from 'off' to
 <tr>
 <td class="asm-label-1">SA_LEADER</td>
 <td class="address-2"><span id="04D8"></span>04D8</td>
+<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="04C2.html#04D8">SA_LEADER</a></td>
 <td class="comment-11" rowspan="1">The main timing period.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04DA"></span>04DA</td>
+<td class="bytes-0"></td>
 <td class="instruction">OUT ($FE),A</td>
 <td class="comment-11" rowspan="2">MIC on/off, border red/cyan, on each pass.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04DC"></span>04DC</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR $0F</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04DE"></span>04DE</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$A4</td>
 <td class="comment-11" rowspan="1">The main timing constant.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04E0"></span>04E0</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC L</td>
 <td class="comment-11" rowspan="1">Decrease the low counter.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04E1"></span>04E1</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="04C2.html#04D8">SA_LEADER</a></td>
 <td class="comment-11" rowspan="1">Jump back for another pulse.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04E3"></span>04E3</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC B</td>
 <td class="comment-11" rowspan="1">Allow for the longer path (reduce by 13 T states).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04E4"></span>04E4</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC H</td>
 <td class="comment-11" rowspan="1">Decrease the high counter.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04E5"></span>04E5</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP P,<a href="04C2.html#04D8">SA_LEADER</a></td>
 <td class="comment-11" rowspan="1">Jump back for another pulse until completion of the leader.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="04E8"></span>
 <div class="comments">
 <div class="paragraph">
@@ -209,47 +230,54 @@ A sync pulse is now sent.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04E8"></span>04E8</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$2F</td>
 <td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">SA_SYNC_1</td>
 <td class="address-2"><span id="04EA"></span>04EA</td>
+<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="04C2.html#04EA">SA_SYNC_1</a></td>
 <td class="comment-11" rowspan="1">MIC off for 667 T states from 'OUT to OUT'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04EC"></span>04EC</td>
+<td class="bytes-0"></td>
 <td class="instruction">OUT ($FE),A</td>
 <td class="comment-11" rowspan="1">MIC on and red.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04EE"></span>04EE</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$0D</td>
 <td class="comment-11" rowspan="1">Signal 'MIC off and cyan'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04F0"></span>04F0</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$37</td>
 <td class="comment-11" rowspan="2">MIC on for 735 T States from 'OUT to OUT'.</td>
 </tr>
 <tr>
 <td class="asm-label-1">SA_SYNC_2</td>
 <td class="address-2"><span id="04F2"></span>04F2</td>
+<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="04C2.html#04F2">SA_SYNC_2</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04F4"></span>04F4</td>
+<td class="bytes-0"></td>
 <td class="instruction">OUT ($FE),A</td>
 <td class="comment-11" rowspan="1">Now MIC off and border cyan.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="04F6"></span>
 <div class="comments">
 <div class="paragraph">
@@ -261,29 +289,33 @@ The header v. program/data flag will be the first byte to be saved.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04F6"></span>04F6</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD BC,$3B0E</td>
 <td class="comment-11" rowspan="1">+3B is a timing constant; +0E signals 'MIC off and yellow'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04F9"></span>04F9</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX AF,AF'</td>
 <td class="comment-11" rowspan="2">Fetch the flag and pass it to the <span class="register">L</span> register for 'sending'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04FA"></span>04FA</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD L,A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04FB"></span>04FB</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="04C2.html#0507">SA_START</a></td>
 <td class="comment-11" rowspan="1">Jump forward into the saving loop.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="04FE"></span>
 <div class="comments">
 <div class="paragraph">
@@ -295,65 +327,75 @@ The byte saving loop is now entered. The first byte to be saved is the flag; thi
 <tr>
 <td class="asm-label-1">SA_LOOP</td>
 <td class="address-2"><span id="04FE"></span>04FE</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
 <td class="comment-11" rowspan="3">The 'length' counter is tested and the jump taken when it has reached zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="04FF"></span>04FF</td>
+<td class="bytes-0"></td>
 <td class="instruction">OR E</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0500"></span>0500</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="04C2.html#050E">SA_PARITY</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0502"></span>0502</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD L,(IX+$00)</td>
 <td class="comment-11" rowspan="1">Fetch the next byte that is to be saved.</td>
 </tr>
 <tr>
 <td class="asm-label-1">SA_LOOP_P</td>
 <td class="address-2"><span id="0505"></span>0505</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,H</td>
 <td class="comment-11" rowspan="1">Fetch the current 'parity'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0506"></span>0506</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR L</td>
 <td class="comment-11" rowspan="1">Include the present byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1">SA_START</td>
 <td class="address-2"><span id="0507"></span>0507</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD H,A</td>
 <td class="comment-11" rowspan="1">Restore the 'parity'. Note that on entry here the 'flag' value initialises 'parity'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0508"></span>0508</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$01</td>
 <td class="comment-11" rowspan="1">Signal 'MIC on and blue'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="050A"></span>050A</td>
+<td class="bytes-0"></td>
 <td class="instruction">SCF</td>
 <td class="comment-11" rowspan="1">Set the carry flag. This will act as a 'marker' for the 8 bits of a byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="050B"></span>050B</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="04C2.html#0525">SA_8_BITS</a></td>
 <td class="comment-11" rowspan="1">Jump forward.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="050E"></span>
 <div class="comments">
 <div class="paragraph">
@@ -365,17 +407,19 @@ When it is time to send the 'parity' byte then it is transferred to the <span cl
 <tr>
 <td class="asm-label-1">SA_PARITY</td>
 <td class="address-2"><span id="050E"></span>050E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD L,H</td>
 <td class="comment-11" rowspan="1">Get final 'parity' value.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="050F"></span>050F</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="04C2.html#0505">SA_LOOP_P</a></td>
 <td class="comment-11" rowspan="1">Jump back.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0511"></span>
 <div class="comments">
 <div class="paragraph">
@@ -387,77 +431,89 @@ The following inner loop produces the actual pulses. The loop is entered at <a h
 <tr>
 <td class="asm-label-1">SA_BIT_2</td>
 <td class="address-2"><span id="0511"></span>0511</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
 <td class="comment-11" rowspan="1">Come here on the second pass and fetch 'MIC off and yellow'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0512"></span>0512</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 7,B</td>
 <td class="comment-11" rowspan="1">Set the zero flag to show 'second pass'.</td>
 </tr>
 <tr>
 <td class="asm-label-1">SA_BIT_1</td>
 <td class="address-2"><span id="0514"></span>0514</td>
+<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="04C2.html#0514">SA_BIT_1</a></td>
 <td class="comment-11" rowspan="1">The main timing loop; always 801 T states on a second pass.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0516"></span>0516</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="04C2.html#051C">SA_OUT</a></td>
 <td class="comment-11" rowspan="1">Jump, taking the shorter path, if saving a '0'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0518"></span>0518</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$42</td>
 <td class="comment-11" rowspan="2">However if saving a '1' then add 855 T states.</td>
 </tr>
 <tr>
 <td class="asm-label-1">SA_SET</td>
 <td class="address-2"><span id="051A"></span>051A</td>
+<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="04C2.html#051A">SA_SET</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">SA_OUT</td>
 <td class="address-2"><span id="051C"></span>051C</td>
+<td class="bytes-0"></td>
 <td class="instruction">OUT ($FE),A</td>
 <td class="comment-11" rowspan="1">On the first pass 'MIC on and blue' and on the second pass 'MIC off and yellow'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="051E"></span>051E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$3E</td>
 <td class="comment-11" rowspan="1">Set the timing constant for the second pass.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0520"></span>0520</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="04C2.html#0511">SA_BIT_2</a></td>
 <td class="comment-11" rowspan="2">Jump back at the end of the first pass; otherwise reclaim 13 T states.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0522"></span>0522</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0523"></span>0523</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
 <td class="comment-11" rowspan="2">Clear the carry flag and set <span class="register">A</span> to hold +01 (MIC on and blue) before continuing into the '8 bit loop'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0524"></span>0524</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0525"></span>
 <div class="comments">
 <div class="paragraph">
@@ -469,95 +525,110 @@ The '8 bit loop' is entered initially with the whole byte in the <span class="re
 <tr>
 <td class="asm-label-1">SA_8_BITS</td>
 <td class="address-2"><span id="0525"></span>0525</td>
+<td class="bytes-0"></td>
 <td class="instruction">RL L</td>
 <td class="comment-11" rowspan="1">Move bit 7 to the carry and the 'marker' leftwards.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0527"></span>0527</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP NZ,<a href="04C2.html#0514">SA_BIT_1</a></td>
 <td class="comment-11" rowspan="1">Save the bit unless finished with the byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="052A"></span>052A</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC DE</td>
 <td class="comment-11" rowspan="1">Decrease the 'counter'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="052B"></span>052B</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC IX</td>
 <td class="comment-11" rowspan="1">Advance the 'base address'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="052D"></span>052D</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$31</td>
 <td class="comment-11" rowspan="1">Set the timing constant for the first bit of the next byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="052F"></span>052F</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$7F</td>
 <td class="comment-11" rowspan="4">Return (to <a href="053F.html">SA_LD_RET</a>) if the BREAK key is being pressed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0531"></span>0531</td>
+<td class="bytes-0"></td>
 <td class="instruction">IN A,($FE)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0533"></span>0533</td>
+<td class="bytes-0"></td>
 <td class="instruction">RRA</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0534"></span>0534</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0535"></span>0535</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
 <td class="comment-11" rowspan="3">Otherwise test the 'counter' and jump back even if it has reached zero (so as to send the 'parity' byte).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0536"></span>0536</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0537"></span>0537</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP NZ,<a href="04C2.html#04FE">SA_LOOP</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="053A"></span>053A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$3B</td>
 <td class="comment-11" rowspan="3">Exit when the 'counter' reaches +FFFF. But first give a short delay.</td>
 </tr>
 <tr>
 <td class="asm-label-1">SA_DELAY</td>
 <td class="address-2"><span id="053C"></span>053C</td>
+<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="04C2.html#053C">SA_DELAY</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="053E"></span>053E</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 
 <div class="comments">
 <div class="paragraph">
@@ -575,10 +646,10 @@ Note: a reset bit will give a 'MIC off' pulse of 855 T states followed by a 'MIC
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/1218.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/1218.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

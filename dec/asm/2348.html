@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 02348</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="2230.html">02230</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#2348">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="2416.html">02416</a></span></td>
+</tr>
+</table>
+<div class="description">02348: THE 'MERGE A LINE OR A VARIABLE' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="2230.html">ME_CONTRL</a>.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Destination address of the new line/variable</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the new line/variable to MERGE</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry flag: MERGE a BASIC line (reset) or a variable (set)</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Zero flag: add (reset) or replace (set) the line/variable</td>
+</tr>
+</table>
+<table class="output-1">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Address of the next line/variable in the existing program</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the next new line/variable to MERGE</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">ME_ENTER</td>
+<td class="address-2"><span id="2348"></span>02348</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="2348.html#2366">ME_ENT_1</a></td>
+<td class="comment-11" rowspan="1">Jump if handling an 'addition'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2350"></span>02350</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX AF,AF'</td>
+<td class="comment-11" rowspan="1">Save the flags.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2351"></span>02351</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23647),HL</td>
+<td class="comment-11" rowspan="6">Save the 'new' pointer (in <a href="23647.html">X-PTR</a>) whilst the 'old' line or variable is reclaimed.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2354"></span>02354</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2355"></span>02355</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6584.html">NEXT_ONE</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2358"></span>02358</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6629.html#6632">RECLAIM_2</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2361"></span>02361</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2362"></span>02362</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23647)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2365"></span>02365</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX AF,AF'</td>
+<td class="comment-11" rowspan="1">Restore the flags.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="2366"></span>
+<div class="comments">
+<div class="paragraph">
+The new entry can now be made.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">ME_ENT_1</td>
+<td class="address-2"><span id="2366"></span>02366</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX AF,AF'</td>
+<td class="comment-11" rowspan="1">Save the flags.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2367"></span>02367</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-11" rowspan="1">Make a copy of the 'destination' pointer.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2368"></span>02368</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6584.html">NEXT_ONE</a></td>
+<td class="comment-11" rowspan="1">Find the length of the 'new' variable/line.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2371"></span>02371</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23647),HL</td>
+<td class="comment-11" rowspan="1">Save the pointer to the 'new' variable/line (in <a href="23647.html">X-PTR</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2374"></span>02374</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23635)</td>
+<td class="comment-11" rowspan="1">Fetch <a href="23635.html">PROG</a> - to avoid corruption.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2377"></span>02377</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX (SP),HL</td>
+<td class="comment-11" rowspan="1">Save <a href="23635.html">PROG</a> on the stack and fetch the 'new' pointer.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2378"></span>02378</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-11" rowspan="1">Save the length.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2379"></span>02379</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX AF,AF'</td>
+<td class="comment-11" rowspan="1">Retrieve the flags.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2380"></span>02380</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR C,<a href="2348.html#2389">ME_ENT_2</a></td>
+<td class="comment-11" rowspan="1">Jump forward if adding a new variable.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2382"></span>02382</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC HL</td>
+<td class="comment-11" rowspan="1">A new line is added before the 'destination' location.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2383"></span>02383</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="5714.html#5717">MAKE_ROOM</a></td>
+<td class="comment-11" rowspan="1">Make the room for the new line.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2386"></span>02386</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2387"></span>02387</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="2348.html#2392">ME_ENT_3</a></td>
+<td class="comment-11" rowspan="1">Jump forward.</td>
+</tr>
+<tr>
+<td class="asm-label-1">ME_ENT_2</td>
+<td class="address-2"><span id="2389"></span>02389</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="5714.html#5717">MAKE_ROOM</a></td>
+<td class="comment-11" rowspan="1">Make the room for the new variable.</td>
+</tr>
+<tr>
+<td class="asm-label-1">ME_ENT_3</td>
+<td class="address-2"><span id="2392"></span>02392</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="1">Point to the first new location.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2393"></span>02393</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP BC</td>
+<td class="comment-11" rowspan="1">Retrieve the length.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2394"></span>02394</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP DE</td>
+<td class="comment-11" rowspan="2">Retrieve <a href="23635.html">PROG</a> and store it in its correct place.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2395"></span>02395</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23635),DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2399"></span>02399</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD DE,(23647)</td>
+<td class="comment-11" rowspan="1">Also fetch the 'new' pointer (from <a href="23647.html">X-PTR</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2403"></span>02403</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-11" rowspan="2">Again save the length and the 'new' pointer.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2404"></span>02404</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2405"></span>02405</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="2">Switch the pointers and copy the 'new' variable/line into the room made for it.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2406"></span>02406</td>
+<td class="bytes-0"></td>
+<td class="instruction">LDIR</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="2408"></span>
+<div class="comments">
+<div class="paragraph">
+The 'new' variable/line has now to be removed from the work space.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2408"></span>02408</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP HL</td>
+<td class="comment-11" rowspan="1">Fetch the 'new' pointer.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2409"></span>02409</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP BC</td>
+<td class="comment-11" rowspan="1">Fetch the length.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2410"></span>02410</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-11" rowspan="1">Save the 'old' pointer. (Points to the location after the 'added' variable/line.)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2411"></span>02411</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6629.html#6632">RECLAIM_2</a></td>
+<td class="comment-11" rowspan="1">Remove the variable/line from the work space.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2414"></span>02414</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP DE</td>
+<td class="comment-11" rowspan="2">Return with the 'old' pointer in the <span class="register">DE</span> register pair.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2415"></span>02415</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="2230.html">02230</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#2348">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="2416.html">02416</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/092C.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

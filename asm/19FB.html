@@ -23,7 +23,7 @@
 <div class="description">19FB: THE 'E-LINE-NO' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="12A2.html">MAIN_EXEC</a> and <a href="1B17.html">LINE_SCAN</a>.
@@ -52,78 +52,91 @@ This subroutine is used to read the line number of the line in the editing area.
 <tr>
 <td class="asm-label-1">E_LINE_NO</td>
 <td class="address-2"><span id="19FB"></span>19FB</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C59)</td>
 <td class="comment-11" rowspan="1">Pick up the pointer to the edit-line (<a href="5C59.html">E-LINE</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="19FE"></span>19FE</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
 <td class="comment-11" rowspan="2">Set <a href="5C5D.html">CH-ADD</a> to point to the location before any number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="19FF"></span>19FF</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C5D),HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1A02"></span>1A02</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
 <td class="comment-11" rowspan="1">Pass the first code to the <span class="register">A</span> register.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1A03"></span>1A03</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$5C92</td>
 <td class="comment-11" rowspan="2">However before considering the code make the calculator's memory area a temporary calculator stack area (by setting <a href="5C65.html">STKEND</a> equal to <a href="5C92.html">MEMBOT</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1A06"></span>1A06</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C65),HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1A09"></span>1A09</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2D3B.html">INT_TO_FP</a></td>
 <td class="comment-11" rowspan="1">Now read the digits of the line number. Return zero if no number exists.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1A0C"></span>1A0C</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2DA2.html">FP_TO_BC</a></td>
 <td class="comment-11" rowspan="1">Compress the line number into the <span class="register">BC</span> register pair.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1A0F"></span>1A0F</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="19FB.html#1A15">E_L_1</a></td>
 <td class="comment-11" rowspan="1">Jump forward if the number exceeds 65,536.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1A11"></span>1A11</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$D8F0</td>
 <td class="comment-11" rowspan="2">Otherwise test it against 10,000.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1A14"></span>1A14</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">E_L_1</td>
 <td class="address-2"><span id="1A15"></span>1A15</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP C,<a href="1C79.html#1C8A">REPORT_C</a></td>
 <td class="comment-11" rowspan="1">Give report C if over 9,999.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1A18"></span>1A18</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="16B0.html#16C5">SET_STK</a></td>
 <td class="comment-11" rowspan="1">Return via <a href="16B0.html#16C5">SET_STK</a> that restores the calculator stack to its rightful place.</td>
 </tr>
@@ -136,10 +149,10 @@ This subroutine is used to read the line number of the line in the editing area.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/6651.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/6651.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

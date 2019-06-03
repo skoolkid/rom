@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 06415</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="6369.html">06369</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#6415">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="6437.html">06437</a></span></td>
+</tr>
+</table>
+<div class="description">06415: THE 'LN-FETCH' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="4083.html">ED_DOWN</a> and <a href="6137.html">LIST</a>.
+</div>
+<div class="paragraph">
+This subroutine is entered with the <span class="register">HL</span> register pair addressing a system variable - <a href="23660.html">S-TOP</a> or <a href="23625.html">E-PPC</a>.
+</div>
+<div class="paragraph">
+The subroutine returns with the system variable holding the line number of the following line.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc"><a href="23660.html">S-TOP</a> or <a href="23625.html">E-PPC</a></td>
+</tr>
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LN_FETCH</td>
+<td class="address-2"><span id="6415"></span>06415</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-11" rowspan="3">The line number held by the system variable is collected.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6416"></span>06416</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6417"></span>06417</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6418"></span>06418</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-11" rowspan="1">The pointer is saved.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6419"></span>06419</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="2">The line number is moved to the <span class="register">HL</span> register pair and incremented.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6420"></span>06420</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6421"></span>06421</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6510.html">LINE_ADDR</a></td>
+<td class="comment-11" rowspan="1">The address of the start of this line is found, or the next line if the actual line number is not being used.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6424"></span>06424</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="5775.html#5781">LINE_NO</a></td>
+<td class="comment-11" rowspan="1">The number of that line is fetched.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6427"></span>06427</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP HL</td>
+<td class="comment-11" rowspan="1">The pointer to the system variable is restored.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="6428"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="4185.html">ED_UP</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LN_STORE</td>
+<td class="address-2"><span id="6428"></span>06428</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 5,(IY+55)</td>
+<td class="comment-11" rowspan="2">Return if in 'INPUT mode' (bit 5 of <a href="23665.html">FLAGX</a> set).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6432"></span>06432</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET NZ</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6433"></span>06433</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),D</td>
+<td class="comment-11" rowspan="3">Otherwise proceed to enter the line number into the two locations of the system variable.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6434"></span>06434</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6435"></span>06435</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),E</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6436"></span>06436</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Return when it has been done.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="6369.html">06369</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#6415">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="6437.html">06437</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/190F.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

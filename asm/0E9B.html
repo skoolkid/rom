@@ -23,7 +23,7 @@
 <div class="description">0E9B: THE 'CL-ADDR' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="0C55.html">PO_SCR</a>, <a href="0DD9.html">CL_SET</a>, <a href="0DFE.html">CL_SC_ALL</a> and <a href="0E44.html">CL_LINE</a>.
@@ -55,78 +55,91 @@ For a given line number, in the <span class="register">B</span> register, the ap
 <tr>
 <td class="asm-label-1">CL_ADDR</td>
 <td class="address-2"><span id="0E9B"></span>0E9B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$18</td>
 <td class="comment-11" rowspan="2">The line number has to be reversed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0E9D"></span>0E9D</td>
+<td class="bytes-0"></td>
 <td class="instruction">SUB B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0E9E"></span>0E9E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,A</td>
 <td class="comment-11" rowspan="1">The result is saved in <span class="register">D</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0E9F"></span>0E9F</td>
+<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
 <td class="comment-11" rowspan="4">In effect '(<span class="register">A</span> mod 8)*32'. In a 'third' of the display the low byte for the first line is +00, for the second line +20, etc.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EA0"></span>0EA0</td>
+<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EA1"></span>0EA1</td>
+<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EA2"></span>0EA2</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND $E0</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EA4"></span>0EA4</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD L,A</td>
 <td class="comment-11" rowspan="1">The low byte goes into <span class="register">L</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EA5"></span>0EA5</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
 <td class="comment-11" rowspan="1">The true line number is fetched.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EA6"></span>0EA6</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND $18</td>
 <td class="comment-11" rowspan="2">In effect '64+8*INT (<span class="register">A</span>/8)'. For the upper 'third' of the display the high byte is +40, for the middle 'third' +48, and for the lower 'third' +50.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EA8"></span>0EA8</td>
+<td class="bytes-0"></td>
 <td class="instruction">OR $40</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EAA"></span>0EAA</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD H,A</td>
 <td class="comment-11" rowspan="1">The high byte goes to <span class="register">H</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EAB"></span>0EAB</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Finished.</td>
 </tr>
@@ -139,10 +152,10 @@ For a given line number, in the <span class="register">B</span> register, the ap
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/3739.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/3739.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

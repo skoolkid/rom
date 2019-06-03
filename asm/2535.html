@@ -23,7 +23,7 @@
 <div class="description">2535: THE 'SCANNING SCREEN$' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routine at <a href="2668.html">S_SCREEN</a>.
@@ -52,311 +52,362 @@ Note: this is normally the characters +20 (space) to +7F (&#169;) although the u
 <tr>
 <td class="asm-label-1">S_SCRN_S</td>
 <td class="address-2"><span id="2535"></span>2535</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2307.html">STK_TO_BC</a></td>
 <td class="comment-11" rowspan="1">x to <span class="register">C</span>, y to <span class="register">B</span>; 0&lt;=x&lt;=23; 0&lt;=y&lt;=31.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2538"></span>2538</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C36)</td>
 <td class="comment-11" rowspan="3"><a href="5C36.html">CHARS</a> plus +0100 gives <span class="register">HL</span> pointing to the character set.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="253B"></span>253B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD DE,$0100</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="253E"></span>253E</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="253F"></span>253F</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
 <td class="comment-11" rowspan="1">x is copied to <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2540"></span>2540</td>
+<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
 <td class="comment-11" rowspan="6">The number 32*(x mod 8)+y is formed in <span class="register">A</span> and copied to <span class="register">E</span>. This is the low byte of the required screen address.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2541"></span>2541</td>
+<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2542"></span>2542</td>
+<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2543"></span>2543</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND $E0</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2545"></span>2545</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2546"></span>2546</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD E,A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2547"></span>2547</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
 <td class="comment-11" rowspan="1">x is copied to <span class="register">A</span> again.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2548"></span>2548</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND $18</td>
 <td class="comment-11" rowspan="3">Now the number 64+8*INT (x/8) is inserted into <span class="register">D</span>. <span class="register">DE</span> now holds the screen address.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="254A"></span>254A</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR $40</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="254C"></span>254C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="254D"></span>254D</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$60</td>
 <td class="comment-11" rowspan="1"><span class="register">B</span> counts the 96 characters.</td>
 </tr>
 <tr>
 <td class="asm-label-1">S_SCRN_LP</td>
 <td class="address-2"><span id="254F"></span>254F</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-11" rowspan="1">Save the count.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2550"></span>2550</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-11" rowspan="1">And the screen pointer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2551"></span>2551</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="1">And the character set pointer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2552"></span>2552</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-11" rowspan="1">Get first row of screen character.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2553"></span>2553</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR (HL)</td>
 <td class="comment-11" rowspan="1">Match with row from character set.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2554"></span>2554</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2535.html#255A">S_SC_MTCH</a></td>
 <td class="comment-11" rowspan="1">Jump if direct match found.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2556"></span>2556</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC A</td>
 <td class="comment-11" rowspan="1">Now test for match with inverse character (get +00 in <span class="register">A</span> from +FF).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2557"></span>2557</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2535.html#2573">S_SCR_NXT</a></td>
 <td class="comment-11" rowspan="1">Jump if neither match found.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2559"></span>2559</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC A</td>
 <td class="comment-11" rowspan="1">Restore +FF to <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1">S_SC_MTCH</td>
 <td class="address-2"><span id="255A"></span>255A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
 <td class="comment-11" rowspan="1">Inverse status (+00 or +FF) to <span class="register">C</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="255B"></span>255B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$07</td>
 <td class="comment-11" rowspan="1"><span class="register">B</span> counts through the other 7 rows.</td>
 </tr>
 <tr>
 <td class="asm-label-1">S_SC_ROWS</td>
 <td class="address-2"><span id="255D"></span>255D</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC D</td>
 <td class="comment-11" rowspan="1">Move <span class="register">DE</span> to next row (add +0100).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="255E"></span>255E</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Move <span class="register">HL</span> to next row (i.e. next byte).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="255F"></span>255F</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-11" rowspan="1">Get the screen row.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2560"></span>2560</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR (HL)</td>
 <td class="comment-11" rowspan="1">Match with row from the ROM.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2561"></span>2561</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR C</td>
 <td class="comment-11" rowspan="1">Include the inverse status.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2562"></span>2562</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2535.html#2573">S_SCR_NXT</a></td>
 <td class="comment-11" rowspan="1">Jump if row fails to match.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2564"></span>2564</td>
+<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="2535.html#255D">S_SC_ROWS</a></td>
 <td class="comment-11" rowspan="1">Jump back till all rows done.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2566"></span>2566</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">Discard character set pointer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2567"></span>2567</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">And screen pointer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2568"></span>2568</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">Final count to <span class="register">BC</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2569"></span>2569</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$80</td>
 <td class="comment-11" rowspan="1">Last character code in set plus one.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="256B"></span>256B</td>
+<td class="bytes-0"></td>
 <td class="instruction">SUB B</td>
 <td class="comment-11" rowspan="1"><span class="register">A</span> now holds required code.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="256C"></span>256C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD BC,$0001</td>
 <td class="comment-11" rowspan="1">One space is now needed in the work space.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="256F"></span>256F</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0030.html">$30</a></td>
 <td class="comment-11" rowspan="1">Make the space.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2570"></span>2570</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (DE),A</td>
 <td class="comment-11" rowspan="1">Put the character into it.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2571"></span>2571</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="2535.html#257D">S_SCR_STO</a></td>
 <td class="comment-11" rowspan="1">Jump to stack the character.</td>
 </tr>
 <tr>
 <td class="asm-label-1">S_SCR_NXT</td>
 <td class="address-2"><span id="2573"></span>2573</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-11" rowspan="1">Restore character set pointer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2574"></span>2574</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD DE,$0008</td>
 <td class="comment-11" rowspan="2">Move it on 8 bytes, to the next character in the set.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2577"></span>2577</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2578"></span>2578</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
 <td class="comment-11" rowspan="1">Restore the screen pointer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2579"></span>2579</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">And the counter.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="257A"></span>257A</td>
+<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="2535.html#254F">S_SCRN_LP</a></td>
 <td class="comment-11" rowspan="1">Loop back for the 96 characters.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="257C"></span>257C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,B</td>
 <td class="comment-11" rowspan="1">Stack the empty string (length zero).</td>
 </tr>
 <tr>
 <td class="asm-label-1">S_SCR_STO</td>
 <td class="address-2"><span id="257D"></span>257D</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="2AB1.html#2AB2">STK_STO</a></td>
 <td class="comment-11" rowspan="1">Jump to stack the matching character, or the null string if no match is found.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 
 <div class="comments">
 <div class="paragraph">
@@ -374,10 +425,10 @@ Note: this exit, via <a href="2AB1.html#2AB2">STK_STO</a>, is a <a href="../refe
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/9525.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/9525.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

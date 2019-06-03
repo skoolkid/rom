@@ -23,7 +23,7 @@
 <div class="description">0C41: THE 'TABLE SEARCH' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routine at <a href="0C0A.html">PO_MSG</a>.
@@ -60,90 +60,105 @@ Used by the routine at <a href="0C0A.html">PO_MSG</a>.
 <tr>
 <td class="asm-label-1">PO_SEARCH</td>
 <td class="address-2"><span id="0C41"></span>0C41</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
 <td class="comment-11" rowspan="1">Save the 'entry number'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0C42"></span>0C42</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1"><span class="register">HL</span> now holds the base address.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0C43"></span>0C43</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC A</td>
 <td class="comment-11" rowspan="1">Compensate for the 'DEC A' below.</td>
 </tr>
 <tr>
 <td class="asm-label-1">PO_STEP</td>
 <td class="address-2"><span id="0C44"></span>0C44</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 7,(HL)</td>
 <td class="comment-11" rowspan="3">Wait for an 'inverted character'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0C46"></span>0C46</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0C47"></span>0C47</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="0C41.html#0C44">PO_STEP</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0C49"></span>0C49</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC A</td>
 <td class="comment-11" rowspan="2">Count through the entries until the correct one is found.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0C4A"></span>0C4A</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="0C41.html#0C44">PO_STEP</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0C4C"></span>0C4C</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1"><span class="register">DE</span> points to the initial character.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0C4D"></span>0C4D</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
 <td class="comment-11" rowspan="3">Fetch the 'entry number' and return with carry set for the first thirty two entries.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0C4E"></span>0C4E</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $20</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0C50"></span>0C50</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0C51"></span>0C51</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-11" rowspan="3">However if the initial character is a letter then a leading space may be needed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0C52"></span>0C52</td>
+<td class="bytes-0"></td>
 <td class="instruction">SUB "A"</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0C54"></span>0C54</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -156,10 +171,10 @@ Used by the routine at <a href="0C0A.html">PO_MSG</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/3137.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/3137.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

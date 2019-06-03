@@ -23,7 +23,7 @@
 <div class="description">2522: THE 'SCANNING TWO CO-ORDINATES' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 This subroutine is called by <a href="2668.html">S_SCREEN</a>, <a href="2672.html">S_ATTR</a> and <a href="267B.html">S_POINT</a> to make sure the required two co-ordinates are given in their proper form.
@@ -49,47 +49,54 @@ This subroutine is called by <a href="2668.html">S_SCREEN</a>, <a href="2672.htm
 <tr>
 <td class="asm-label-1">S_2_COORD</td>
 <td class="address-2"><span id="2522"></span>2522</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
 <td class="comment-11" rowspan="1">Fetch the next character.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2523"></span>2523</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP "("</td>
 <td class="comment-11" rowspan="1">Is it a '('?</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2525"></span>2525</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2522.html#252D">S_RPORT_C</a></td>
 <td class="comment-11" rowspan="1">Report the error if it is not.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2527"></span>2527</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1C79.html">NEXT_2NUM</a></td>
 <td class="comment-11" rowspan="1">Co-ordinates to calculator stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="252A"></span>252A</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
 <td class="comment-11" rowspan="1">Fetch the current character.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="252B"></span>252B</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
 <td class="comment-11" rowspan="1">Is it a ')'?</td>
 </tr>
 <tr>
 <td class="asm-label-1">S_RPORT_C</td>
 <td class="address-2"><span id="252D"></span>252D</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP NZ,<a href="1C79.html#1C8A">REPORT_C</a></td>
 <td class="comment-11" rowspan="1">Report the error if it is not.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 
 <div class="comments">
 <div class="paragraph">
@@ -107,10 +114,10 @@ This routine continues into <a href="2530.html">SYNTAX_Z</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/9506.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/9506.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

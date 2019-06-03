@@ -23,7 +23,7 @@
 <div class="description">361F: THE 'STR$' FUNCTION (offset +2E)</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called indirectly via <a href="33A2.html">fp_calc_2</a>.
@@ -49,125 +49,145 @@ This subroutine handles the function STR$ X and returns a 'last value' which is 
 <tr>
 <td class="asm-label-1">str</td>
 <td class="address-2"><span id="361F"></span>361F</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD BC,$0001</td>
 <td class="comment-11" rowspan="3">One space is made in the work space and its address is copied to <a href="5C5B.html">K-CUR</a>, the address of the cursor.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3622"></span>3622</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0030.html">$30</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3623"></span>3623</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C5B),HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3626"></span>3626</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="1">This address is saved on the stack too.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3627"></span>3627</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C51)</td>
 <td class="comment-11" rowspan="2">The current channel address (<a href="5C51.html">CURCHL</a>) is saved on the machine stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="362A"></span>362A</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="362B"></span>362B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$FF</td>
 <td class="comment-11" rowspan="2">Channel 'R' is opened, allowing the string to be 'printed' out into the work space.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="362D"></span>362D</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1601.html">CHAN_OPEN</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3630"></span>3630</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2DE3.html">PRINT_FP</a></td>
 <td class="comment-11" rowspan="1">The 'last value', X, is now printed out in the work space and the work space is expanded with each character.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3633"></span>3633</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-11" rowspan="2">Restore <a href="5C51.html">CURCHL</a> to <span class="register">HL</span> and restore the flags that are appropriate to it.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3634"></span>3634</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1615.html">CHAN_FLAG</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3637"></span>3637</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
 <td class="comment-11" rowspan="1">Restore the start address of the string.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3638"></span>3638</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C5B)</td>
 <td class="comment-11" rowspan="3">Now the cursor address is one past the end of the string and hence the difference is the length.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="363B"></span>363B</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="363C"></span>363C</td>
+<td class="bytes-0"></td>
 <td class="instruction">SBC HL,DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="363E"></span>363E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,H</td>
 <td class="comment-11" rowspan="2">Transfer the length to <span class="register">BC</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="363F"></span>363F</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,L</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3640"></span>3640</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2AB1.html#2AB2">STK_STO</a></td>
 <td class="comment-11" rowspan="1">Pass the parameters of the new string to the calculator stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3643"></span>3643</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Reset the pointers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3644"></span>3644</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 
 <div class="comments">
 <div class="paragraph">
@@ -185,10 +205,10 @@ Note: see <a href="2DE3.html">PRINT_FP</a> for an explanation of the 'PRINT "A"+
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/13855.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/13855.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

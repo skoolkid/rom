@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 00949</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="819.html">00819</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#949">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="1016.html">01016</a></span></td>
+</tr>
+</table>
+<div class="description">00949: THE 'BEEPER' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="1016.html">BEEP</a>, <a href="3884.html">EDITOR</a>, <a href="4223.html">ED_ERROR</a> and <a href="4381.html">ED_COPY</a>.
+</div>
+<div class="paragraph">
+The loudspeaker is activated by having D4 low during an 'OUT' instruction that is using port 254. When D4 is high in a similar situation the loudspeaker is deactivated. A 'beep' can therefore be produced by regularly changing the level of D4.
+</div>
+<div class="paragraph">
+Consider now the note 'middle C' which has the frequency 261.63 Hz. In order to get this note the loudspeaker will have to be alternately activated and deactivated every 1/523.26th of a second. In the Spectrum the system clock is set to run at 3.5 MHz. and the note of 'middle C' will require that the requisite 'OUT' instruction be executed as close as possible to every 6689 T states. This last value, when reduced slightly for unavoidable overheads, represents the 'length of the timing loop' in this subroutine.
+</div>
+<div class="paragraph">
+This subroutine is entered with the <span class="register">DE</span> register pair holding the value 'f*t', where a note of given frequency 'f' is to have a duration of 't' seconds, and the <span class="register">HL</span> register pair holding a value equal to the number of T states in the 'timing loop' divided by 4, i.e. for the note 'middle C' to be produced for one second <span class="register">DE</span> holds 261 (INT(261.3*1)) and <span class="register">HL</span> holds 1642 (derived from 6689/4-30.125).
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Number of passes to make through the sound generation loop</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Loop delay parameter</td>
+</tr>
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">BEEPER</td>
+<td class="address-2"><span id="949"></span>00949</td>
+<td class="bytes-0"></td>
+<td class="instruction">DI</td>
+<td class="comment-11" rowspan="1">Disable the interrupt for the duration of a 'beep'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="950"></span>00950</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,L</td>
+<td class="comment-11" rowspan="1">Save <span class="register">L</span> temporarily.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="951"></span>00951</td>
+<td class="bytes-0"></td>
+<td class="instruction">SRL L</td>
+<td class="comment-11" rowspan="2">Each '1' in the <span class="register">L</span> register is to count 4 T states, but take INT (<span class="register">L</span>/4) and count 16 T states instead.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="953"></span>00953</td>
+<td class="bytes-0"></td>
+<td class="instruction">SRL L</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="955"></span>00955</td>
+<td class="bytes-0"></td>
+<td class="instruction">CPL</td>
+<td class="comment-11" rowspan="4">Go back to the original value in <span class="register">L</span> and find how many were lost by taking 3-(<span class="register">A</span> mod 4).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="956"></span>00956</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND 3</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="958"></span>00958</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="959"></span>00959</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,0</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="961"></span>00961</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD IX,977</td>
+<td class="comment-11" rowspan="1">The base address of the timing loop.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="965"></span>00965</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD IX,BC</td>
+<td class="comment-11" rowspan="1">Alter the length of the timing loop. Use an earlier starting point for each '1' lost by taking INT (<span class="register">L</span>/4).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="967"></span>00967</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23624)</td>
+<td class="comment-11" rowspan="5">Fetch the present border colour from <a href="23624.html">BORDCR</a> and move it to bits 2, 1 and 0 of the <span class="register">A</span> register.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="970"></span>00970</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND 56</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="972"></span>00972</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="973"></span>00973</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="974"></span>00974</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="975"></span>00975</td>
+<td class="bytes-0"></td>
+<td class="instruction">OR 8</td>
+<td class="comment-11" rowspan="1">Ensure the MIC output is 'off'.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="977"></span>
+<div class="comments">
+<div class="paragraph">
+Now enter the sound generation loop. <span class="register">DE</span> complete passes are made, i.e. a pass for each cycle of the note.
+</div>
+<div class="paragraph">
+The <span class="register">HL</span> register holds the 'length of the timing loop' with 16 T states being used for each '1' in the <span class="register">L</span> register and 1024 T states for each '1' in the <span class="register">H</span> register.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="977"></span>00977</td>
+<td class="bytes-0"></td>
+<td class="instruction">NOP</td>
+<td class="comment-11" rowspan="3">Add 4 T states for each earlier entry point that is used.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="978"></span>00978</td>
+<td class="bytes-0"></td>
+<td class="instruction">NOP</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="979"></span>00979</td>
+<td class="bytes-0"></td>
+<td class="instruction">NOP</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="980"></span>00980</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC B</td>
+<td class="comment-11" rowspan="2">The values in the <span class="register">B</span> and <span class="register">C</span> registers will come from the <span class="register">H</span> and <span class="register">L</span> registers - see below.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="981"></span>00981</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">BE_H_L_LP</td>
+<td class="address-2"><span id="982"></span>00982</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC C</td>
+<td class="comment-11" rowspan="5">The 'timing loop', i.e. <span class="register">BC</span>*4 T states. (But note that at the half-cycle point, <span class="register">C</span> will be equal to <span class="register">L</span>+1.)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="983"></span>00983</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="949.html#982">BE_H_L_LP</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="985"></span>00985</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,63</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="987"></span>00987</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC B</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="988"></span>00988</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP NZ,<a href="949.html#982">BE_H_L_LP</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="991"></span>
+<div class="comments">
+<div class="paragraph">
+The loudspeaker is now alternately activated and deactivated.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="991"></span>00991</td>
+<td class="bytes-0"></td>
+<td class="instruction">XOR 16</td>
+<td class="comment-11" rowspan="1">Flip bit 4.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="993"></span>00993</td>
+<td class="bytes-0"></td>
+<td class="instruction">OUT (254),A</td>
+<td class="comment-11" rowspan="1">Perform the 'OUT' operation, leaving the border unchanged.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="995"></span>00995</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,H</td>
+<td class="comment-11" rowspan="1">Reset the <span class="register">B</span> register.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="996"></span>00996</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,A</td>
+<td class="comment-11" rowspan="1">Save the <span class="register">A</span> register.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="997"></span>00997</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 4,A</td>
+<td class="comment-11" rowspan="2">Jump if at the half-cycle point.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="999"></span>00999</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="949.html#1010">BE_AGAIN</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1001"></span>
+<div class="comments">
+<div class="paragraph">
+After a full cycle the <span class="register">DE</span> register pair is tested.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1001"></span>01001</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,D</td>
+<td class="comment-11" rowspan="3">Jump forward if the last complete pass has been made already.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1002"></span>01002</td>
+<td class="bytes-0"></td>
+<td class="instruction">OR E</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1003"></span>01003</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="949.html#1014">BE_END</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1005"></span>01005</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,C</td>
+<td class="comment-11" rowspan="1">Fetch the saved value.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1006"></span>01006</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,L</td>
+<td class="comment-11" rowspan="1">Reset the <span class="register">C</span> register.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1007"></span>01007</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC DE</td>
+<td class="comment-11" rowspan="1">Decrease the pass counter.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1008"></span>01008</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP (IX)</td>
+<td class="comment-11" rowspan="1">Jump back to the required starting location of the loop.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1010"></span>
+<div class="comments">
+<div class="paragraph">
+The parameters for the second half-cycle are set up.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">BE_AGAIN</td>
+<td class="address-2"><span id="1010"></span>01010</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,L</td>
+<td class="comment-11" rowspan="1">Reset the <span class="register">C</span> register.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1011"></span>01011</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC C</td>
+<td class="comment-11" rowspan="1">Add 16 T states as this path is shorter.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1012"></span>01012</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP (IX)</td>
+<td class="comment-11" rowspan="1">Jump back.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1014"></span>
+<div class="comments">
+<div class="paragraph">
+Upon completion of the 'beep' the maskable interrupt has to be enabled.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">BE_END</td>
+<td class="address-2"><span id="1014"></span>01014</td>
+<td class="bytes-0"></td>
+<td class="instruction">EI</td>
+<td class="comment-11" rowspan="1">Enable interrupt.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1015"></span>01015</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finally return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="819.html">00819</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#949">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="1016.html">01016</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/03B5.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

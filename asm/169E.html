@@ -23,7 +23,7 @@
 <div class="description">169E: THE 'RESERVE' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routine at <a href="0030.html">BC_SPACES</a>.
@@ -62,71 +62,82 @@ This subroutine always makes 'room' between the existing work space and the calc
 <tr>
 <td class="asm-label-1">RESERVE</td>
 <td class="address-2"><span id="169E"></span>169E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C63)</td>
 <td class="comment-11" rowspan="2">Fetch the current value of <a href="5C63.html">STKBOT</a> and decrement it to get the last location of the work space.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16A1"></span>16A1</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16A2"></span>16A2</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1652.html#1655">MAKE_ROOM</a></td>
 <td class="comment-11" rowspan="1">Now make '<span class="register">BC</span> spaces'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16A5"></span>16A5</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="2">Point to the first new space and then the second.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16A6"></span>16A6</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16A7"></span>16A7</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="2">Fetch the old value of <a href="5C61.html">WORKSP</a> and restore it.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16A8"></span>16A8</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C61),BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16AC"></span>16AC</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">Restore <span class="register">BC</span> - number of spaces.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16AD"></span>16AD</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Switch the pointers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16AE"></span>16AE</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Make <span class="register">HL</span> point to the first of the displaced bytes.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16AF"></span>16AF</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Now return.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 
 <div class="comments">
 <div class="paragraph">
@@ -144,10 +155,10 @@ Note: it can also be considered that the subroutine returns with the <span class
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/5790.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/5790.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

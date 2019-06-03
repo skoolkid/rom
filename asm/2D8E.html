@@ -23,7 +23,7 @@
 <div class="description">2D8E: THE 'INT-STORE' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="30CA.html">multiply</a>, <a href="3214.html">truncate</a>, <a href="346E.html">negate</a> and <a href="3492.html">sgn</a>.
@@ -60,29 +60,33 @@ This subroutine stores a small integer n (-65535&lt;=n&lt;=65535) in the locatio
 <tr>
 <td class="asm-label-1">INT_STORE</td>
 <td class="address-2"><span id="2D8E"></span>2D8E</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="1">The pointer to the first location is saved.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D8F"></span>2D8F</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),$00</td>
 <td class="comment-11" rowspan="1">The first byte is set to zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D91"></span>2D91</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Point to the second location.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D92"></span>2D92</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),C</td>
 <td class="comment-11" rowspan="1">Enter the second byte.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2D93"></span>
 <div class="comments">
 <div class="paragraph">
@@ -94,84 +98,98 @@ The same mechanism is now used as in <a href="2D7F.html">INT_FETCH</a> to two's 
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D93"></span>2D93</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Point to the third location.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D94"></span>2D94</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,E</td>
 <td class="comment-11" rowspan="1">Collect the less significant byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D95"></span>2D95</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR C</td>
 <td class="comment-11" rowspan="2">Two's complement it if the number is negative.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D96"></span>2D96</td>
+<td class="bytes-0"></td>
 <td class="instruction">SUB C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D97"></span>2D97</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-11" rowspan="1">Store the byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D98"></span>2D98</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Point to the fourth location.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D99"></span>2D99</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
 <td class="comment-11" rowspan="1">Collect the more significant byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D9A"></span>2D9A</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADC A,C</td>
 <td class="comment-11" rowspan="2">Two's complement it if the number is negative.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D9B"></span>2D9B</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D9C"></span>2D9C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-11" rowspan="1">Store the byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D9D"></span>2D9D</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Point to the fifth location.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D9E"></span>2D9E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),$00</td>
 <td class="comment-11" rowspan="1">The fifth byte is set to zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2DA0"></span>2DA0</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-11" rowspan="2">Return with <span class="register">HL</span> pointing to the first byte of n on the stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2DA1"></span>2DA1</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -184,10 +202,10 @@ The same mechanism is now used as in <a href="2D7F.html">INT_FETCH</a> to two's 
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/11662.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/11662.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

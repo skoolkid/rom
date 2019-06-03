@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 11405</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="11400.html">11400</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#11405">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="11419.html">11419</a></span></td>
+</tr>
+</table>
+<div class="description">11405: THE 'ALPHA' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="8032.html">DEF_FN</a>, <a href="8329.html">INPUT</a>, <a href="10173.html">S_FN_SBRN</a>, <a href="10418.html">LOOK_VARS</a> and <a href="13500.html">usr</a>.
+</div>
+<div class="paragraph">
+The routine at <a href="11400.html">ALPHANUM</a> continues here.
+</div>
+<div class="paragraph">
+This subroutine returns with the carry flag set if the present value of the <span class="register">A</span> register denotes a valid letter of the alphabet.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Character code</td>
+</tr>
+</table>
+<table class="output-1">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry flag set if the character is a letter (A-Z, a-z)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">ALPHA</td>
+<td class="address-2"><span id="11405"></span>11405</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP "A"</td>
+<td class="comment-11" rowspan="1">Test against 65, the code for 'A'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11407"></span>11407</td>
+<td class="bytes-0"></td>
+<td class="instruction">CCF</td>
+<td class="comment-11" rowspan="1">Complement the carry flag.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11408"></span>11408</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET NC</td>
+<td class="comment-11" rowspan="1">Return if not a valid character code.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11409"></span>11409</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 91</td>
+<td class="comment-11" rowspan="1">Test against 91, 1 more than the code for 'Z'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11411"></span>11411</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET C</td>
+<td class="comment-11" rowspan="1">Return if an upper case letter.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11412"></span>11412</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP "a"</td>
+<td class="comment-11" rowspan="1">Test against 97, the code for 'a'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11414"></span>11414</td>
+<td class="bytes-0"></td>
+<td class="instruction">CCF</td>
+<td class="comment-11" rowspan="1">Complement the carry flag.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11415"></span>11415</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET NC</td>
+<td class="comment-11" rowspan="1">Return if not a valid character code.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11416"></span>11416</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 123</td>
+<td class="comment-11" rowspan="1">Test against 123, 1 more than the code for 'z'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11418"></span>11418</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="11400.html">11400</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#11405">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="11419.html">11419</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/2C8D.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

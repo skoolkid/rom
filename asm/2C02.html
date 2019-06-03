@@ -23,7 +23,7 @@
 <div class="description">2C02: THE 'DIM' COMMAND ROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="1A48.html#1AA2">parameter table</a>.
@@ -52,47 +52,54 @@ A new array will have all its elements set to zero if it is a numeric array, or 
 <tr>
 <td class="asm-label-1">DIM</td>
 <td class="address-2"><span id="2C02"></span>2C02</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="28B2.html">LOOK_VARS</a></td>
 <td class="comment-11" rowspan="1">Search the variables area.</td>
 </tr>
 <tr>
 <td class="asm-label-1">D_RPORT_C</td>
 <td class="address-2"><span id="2C05"></span>2C05</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP NZ,<a href="1C79.html#1C8A">REPORT_C</a></td>
 <td class="comment-11" rowspan="1">Give report C as there has been an error.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C08"></span>2C08</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
 <td class="comment-11" rowspan="2">Jump forward if in 'run time'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C0B"></span>2C0B</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2C02.html#2C15">D_RUN</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C0D"></span>2C0D</td>
+<td class="bytes-0"></td>
 <td class="instruction">RES 6,C</td>
 <td class="comment-11" rowspan="1">Test the syntax for string arrays as if they were numeric.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C0F"></span>2C0F</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2996.html">STK_VAR</a></td>
 <td class="comment-11" rowspan="1">Check the syntax of the parenthesised expression.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C12"></span>2C12</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1BEE.html">CHECK_END</a></td>
 <td class="comment-11" rowspan="1">Move on to consider the next statement as the syntax was satisfactory.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2C15"></span>
 <div class="comments">
 <div class="paragraph">
@@ -104,35 +111,40 @@ An 'existing array' is reclaimed.
 <tr>
 <td class="asm-label-1">D_RUN</td>
 <td class="address-2"><span id="2C15"></span>2C15</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="2C02.html#2C1F">D_LETTER</a></td>
 <td class="comment-11" rowspan="1">Jump forward if there is no 'existing array'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C17"></span>2C17</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-11" rowspan="1">Save the discriminator byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C18"></span>2C18</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="19B8.html">NEXT_ONE</a></td>
 <td class="comment-11" rowspan="1">Find the start of the next variable.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C1B"></span>2C1B</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="19E5.html#19E8">RECLAIM_2</a></td>
 <td class="comment-11" rowspan="1">Reclaim the 'existing array'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C1E"></span>2C1E</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">Restore the discriminator byte.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2C1F"></span>
 <div class="comments">
 <div class="paragraph">
@@ -144,53 +156,61 @@ The initial parameters of the new array are found.
 <tr>
 <td class="asm-label-1">D_LETTER</td>
 <td class="address-2"><span id="2C1F"></span>2C1F</td>
+<td class="bytes-0"></td>
 <td class="instruction">SET 7,C</td>
 <td class="comment-11" rowspan="1">Set bit 7 in the discriminator byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C21"></span>2C21</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$00</td>
 <td class="comment-11" rowspan="1">Make the dimension counter zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C23"></span>2C23</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-11" rowspan="1">Save the counter and the discriminator byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C24"></span>2C24</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$0001</td>
 <td class="comment-11" rowspan="4">The <span class="register">HL</span> register pair is to hold the size of the elements in the array: '1' for a string array, '5' for a numeric array.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C27"></span>2C27</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 6,C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C29"></span>2C29</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2C02.html#2C2D">D_SIZE</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C2B"></span>2C2B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD L,$05</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">D_SIZE</td>
 <td class="address-2"><span id="2C2D"></span>2C2D</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Element size to <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2C2E"></span>
 <div class="comments">
 <div class="paragraph">
@@ -202,95 +222,110 @@ The following loop is accessed for each dimension that is specified in the paren
 <tr>
 <td class="asm-label-1">D_NO_LOOP</td>
 <td class="address-2"><span id="2C2E"></span>2C2E</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
 <td class="comment-11" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a> on each pass.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C2F"></span>2C2F</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD H,$FF</td>
 <td class="comment-11" rowspan="1">Set a 'limit value'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C31"></span>2C31</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2ACC.html">INT_EXP1</a></td>
 <td class="comment-11" rowspan="1">Evaluate a parameter.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C34"></span>2C34</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP C,<a href="2996.html#2A20">REPORT_3</a></td>
 <td class="comment-11" rowspan="1">Give an error if 'out of range'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C37"></span>2C37</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-11" rowspan="1">Fetch the dimension counter and the discriminator byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C38"></span>2C38</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-11" rowspan="1">Save the parameter on each pass through the loop.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C39"></span>2C39</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC H</td>
 <td class="comment-11" rowspan="1">Increase the dimension counter on each pass also.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C3A"></span>2C3A</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="1">Restack the dimension counter and the discriminator byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C3B"></span>2C3B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD H,B</td>
 <td class="comment-11" rowspan="2">The parameter is moved to the <span class="register">HL</span> register pair.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C3C"></span>2C3C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD L,C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C3D"></span>2C3D</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2AF4.html">GET_HLxDE</a></td>
 <td class="comment-11" rowspan="2">The byte total is built up in <span class="register">HL</span> and then transferred to <span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C40"></span>2C40</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C41"></span>2C41</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
 <td class="comment-11" rowspan="3">Get the present character and go around the loop again if there is another dimension.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C42"></span>2C42</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP ","</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C44"></span>2C44</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2C02.html#2C2E">D_NO_LOOP</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2C46"></span>
 <div class="comments">
 <div class="paragraph">
@@ -305,23 +340,26 @@ Now check that there is indeed a closing bracket to the parenthesised expression
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C46"></span>2C46</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
 <td class="comment-11" rowspan="1">Is it a ')'?</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C48"></span>2C48</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2C02.html#2C05">D_RPORT_C</a></td>
 <td class="comment-11" rowspan="1">Jump back if not so.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C4A"></span>2C4A</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
 <td class="comment-11" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a> past it.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2C4B"></span>
 <div class="comments">
 <div class="paragraph">
@@ -333,89 +371,103 @@ Allowance is now made for the dimension sizes.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C4B"></span>2C4B</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">Fetch the dimension counter and the discriminator byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C4C"></span>2C4C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
 <td class="comment-11" rowspan="1">Pass the discriminator byte to the <span class="register">A</span> register for later.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C4D"></span>2C4D</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD L,B</td>
 <td class="comment-11" rowspan="1">Move the counter to <span class="register">L</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C4E"></span>2C4E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD H,$00</td>
 <td class="comment-11" rowspan="1">Clear the <span class="register">H</span> register.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C50"></span>2C50</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="4">Increase the dimension counter by two and double the result and form the correct overall length for the variable by adding the element byte total.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C51"></span>2C51</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C52"></span>2C52</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C53"></span>2C53</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C54"></span>2C54</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP C,<a href="1F05.html#1F15">REPORT_4</a></td>
 <td class="comment-11" rowspan="1">Give the report 'Out of memory' if required.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C57"></span>2C57</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-11" rowspan="1">Save the element byte total.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C58"></span>2C58</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-11" rowspan="1">Save the dimension counter and the discriminator byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C59"></span>2C59</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="1">Save the overall length also.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C5A"></span>2C5A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,H</td>
 <td class="comment-11" rowspan="2">Move the overall length to <span class="register">BC</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C5B"></span>2C5B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,L</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2C5C"></span>
 <div class="comments">
 <div class="paragraph">
@@ -427,29 +479,33 @@ The required amount of room is made available for the new array at the end of th
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C5C"></span>2C5C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C59)</td>
 <td class="comment-11" rowspan="2">Make the <span class="register">HL</span> register pair point to the '+80-byte' (<a href="5C59.html">E-LINE</a>-1).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C5F"></span>2C5F</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C60"></span>2C60</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1652.html#1655">MAKE_ROOM</a></td>
 <td class="comment-11" rowspan="1">The room is made available.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C63"></span>2C63</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1"><span class="register">HL</span> is made to point to the first new location.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2C64"></span>
 <div class="comments">
 <div class="paragraph">
@@ -461,83 +517,96 @@ The parameters are now entered.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C64"></span>2C64</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-11" rowspan="1">The letter, suitably marked, is entered first.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C65"></span>2C65</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="4">The overall length is fetched and decreased by '3'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C66"></span>2C66</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C67"></span>2C67</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C68"></span>2C68</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C69"></span>2C69</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Advance <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C6A"></span>2C6A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),C</td>
 <td class="comment-11" rowspan="1">Enter the low length.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C6B"></span>2C6B</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Advance <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C6C"></span>2C6C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),B</td>
 <td class="comment-11" rowspan="1">Enter the high length.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C6D"></span>2C6D</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">Fetch the dimension counter.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C6E"></span>2C6E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
 <td class="comment-11" rowspan="1">Move it to the <span class="register">A</span> register.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C6F"></span>2C6F</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Advance <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C70"></span>2C70</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-11" rowspan="1">Enter the dimension count.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2C71"></span>
 <div class="comments">
 <div class="paragraph">
@@ -549,59 +618,68 @@ The elements of the new array are now 'cleared'.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C71"></span>2C71</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD H,D</td>
 <td class="comment-11" rowspan="3"><span class="register">HL</span> is made to point to the last location of the array and <span class="register">DE</span> to the location before that one.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C72"></span>2C72</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD L,E</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C73"></span>2C73</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C74"></span>2C74</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),$00</td>
 <td class="comment-11" rowspan="4">Enter a zero into the last location but overwrite it with 'space' if dealing with an array of strings.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C76"></span>2C76</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 6,C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C78"></span>2C78</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2C02.html#2C7C">DIM_CLEAR</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C7A"></span>2C7A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL)," "</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">DIM_CLEAR</td>
 <td class="address-2"><span id="2C7C"></span>2C7C</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">Fetch the element byte total.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C7D"></span>2C7D</td>
+<td class="bytes-0"></td>
 <td class="instruction">LDDR</td>
 <td class="comment-11" rowspan="1">Clear the array + one extra location.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2C7F"></span>
 <div class="comments">
 <div class="paragraph">
@@ -613,48 +691,56 @@ The 'dimension sizes' are now entered.
 <tr>
 <td class="asm-label-1">DIM_SIZES</td>
 <td class="address-2"><span id="2C7F"></span>2C7F</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">Get a dimension size.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C80"></span>2C80</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),B</td>
 <td class="comment-11" rowspan="1">Enter the high byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C81"></span>2C81</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
 <td class="comment-11" rowspan="1">Back one.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C82"></span>2C82</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),C</td>
 <td class="comment-11" rowspan="1">Enter the low byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C83"></span>2C83</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
 <td class="comment-11" rowspan="1">Back one.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C84"></span>2C84</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC A</td>
 <td class="comment-11" rowspan="1">Decrease the dimension counter.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C85"></span>2C85</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2C02.html#2C7F">DIM_SIZES</a></td>
 <td class="comment-11" rowspan="2">Repeat the operation until all the dimensions have been considered; then return.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C87"></span>2C87</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -667,10 +753,10 @@ The 'dimension sizes' are now entered.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/11266.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/11266.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

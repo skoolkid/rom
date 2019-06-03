@@ -23,7 +23,7 @@
 <div class="description">1925: THE 'PRINTING CHARACTERS IN A BASIC LINE' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 All of the character/token codes in a BASIC line are printed by repeatedly calling this subroutine.
@@ -46,29 +46,33 @@ All of the character/token codes in a BASIC line are printed by repeatedly calli
 <tr>
 <td class="asm-label-1">OUT_SP_2</td>
 <td class="address-2"><span id="1925"></span>1925</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,E</td>
 <td class="comment-11" rowspan="1">The <span class="register">A</span> register will hold +20 for a space or +FF for no-space.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1926"></span>1926</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
 <td class="comment-11" rowspan="2">Test the value and return if there is not to be a space.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1927"></span>1927</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET M</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1928"></span>1928</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="1925.html#1937">OUT_CHAR</a></td>
 <td class="comment-11" rowspan="1">Jump forward to print a space.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="192A"></span>
 <div class="comments">
 <div class="paragraph">
@@ -80,11 +84,12 @@ This entry point is used by the routine at <a href="1A1B.html">OUT_NUM_1</a> to 
 <tr>
 <td class="asm-label-1">OUT_SP_NO</td>
 <td class="address-2"><span id="192A"></span>192A</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
 <td class="comment-11" rowspan="1">Clear the <span class="register">A</span> register.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="192B"></span>
 <div class="comments">
 <div class="paragraph">
@@ -96,47 +101,54 @@ The <span class="register">HL</span> register pair holds the line number and the
 <tr>
 <td class="asm-label-1">OUT_SP_1</td>
 <td class="address-2"><span id="192B"></span>192B</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-11" rowspan="1">The 'trial subtraction'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="192C"></span>192C</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC A</td>
 <td class="comment-11" rowspan="1">Count each 'trial'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="192D"></span>192D</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="1925.html#192B">OUT_SP_1</a></td>
 <td class="comment-11" rowspan="1">Jump back until exhausted.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="192F"></span>192F</td>
+<td class="bytes-0"></td>
 <td class="instruction">SBC HL,BC</td>
 <td class="comment-11" rowspan="2">Restore last 'subtraction' and discount it.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1931"></span>1931</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1932"></span>1932</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1925.html#1925">OUT_SP_2</a></td>
 <td class="comment-11" rowspan="1">If no 'subtractions' were possible jump back to see if a space is to be printed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1934"></span>1934</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="15EF.html">OUT_CODE</a></td>
 <td class="comment-11" rowspan="1">Otherwise print the digit.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1937"></span>
 <div class="comments">
 <div class="paragraph">
@@ -148,149 +160,173 @@ This entry point is used by the routine at <a href="1855.html">OUT_LINE</a> to p
 <tr>
 <td class="asm-label-1">OUT_CHAR</td>
 <td class="address-2"><span id="1937"></span>1937</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2D1B.html">NUMERIC</a></td>
 <td class="comment-11" rowspan="1">Return carry reset if handling a digit code.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="193A"></span>193A</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="1925.html#196C">OUT_CH_3</a></td>
 <td class="comment-11" rowspan="1">Jump forward to print the digit.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="193C"></span>193C</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $21</td>
 <td class="comment-11" rowspan="2">Also print the control characters and 'space'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="193E"></span>193E</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="1925.html#196C">OUT_CH_3</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1940"></span>1940</td>
+<td class="bytes-0"></td>
 <td class="instruction">RES 2,(IY+$01)</td>
 <td class="comment-11" rowspan="1">Signal 'print in K-mode' (reset bit 2 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1944"></span>1944</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $CB</td>
 <td class="comment-11" rowspan="2">Jump forward if dealing with the token 'THEN'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1946"></span>1946</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1925.html#196C">OUT_CH_3</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1948"></span>1948</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP ":"</td>
 <td class="comment-11" rowspan="2">Jump forward unless dealing with ':'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="194A"></span>194A</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1925.html#195A">OUT_CH_1</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="194C"></span>194C</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 5,(IY+$37)</td>
 <td class="comment-11" rowspan="2">Jump forward to print the ':' if in 'INPUT mode' (bit 5 of <a href="5C71.html">FLAGX</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1950"></span>1950</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1925.html#1968">OUT_CH_2</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1952"></span>1952</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 2,(IY+$30)</td>
 <td class="comment-11" rowspan="2">Jump forward if the ':' is 'not in quotes' (bit 2 of <a href="5C6A.html">FLAGS2</a> reset), i.e. an inter-statement marker.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1956"></span>1956</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1925.html#196C">OUT_CH_3</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1958"></span>1958</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="1925.html#1968">OUT_CH_2</a></td>
 <td class="comment-11" rowspan="1">The ':' is inside quotes and can now be printed.</td>
 </tr>
 <tr>
 <td class="asm-label-1">OUT_CH_1</td>
 <td class="address-2"><span id="195A"></span>195A</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP "\""</td>
 <td class="comment-11" rowspan="2">Accept for printing all characters except '"'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="195C"></span>195C</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1925.html#1968">OUT_CH_2</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="195E"></span>195E</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
 <td class="comment-11" rowspan="1">Save the character code whilst changing the 'quote mode'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="195F"></span>195F</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,($5C6A)</td>
 <td class="comment-11" rowspan="2">Fetch <a href="5C6A.html">FLAGS2</a> and flip bit 2.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1962"></span>1962</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR $04</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1964"></span>1964</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C6A),A</td>
 <td class="comment-11" rowspan="2">Enter the amended value into <a href="5C6A.html">FLAGS2</a> and restore the character code.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1967"></span>1967</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">OUT_CH_2</td>
 <td class="address-2"><span id="1968"></span>1968</td>
+<td class="bytes-0"></td>
 <td class="instruction">SET 2,(IY+$01)</td>
 <td class="comment-11" rowspan="1">Signal 'the next character is to be printed in L-mode' (set bit 2 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1">OUT_CH_3</td>
 <td class="address-2"><span id="196C"></span>196C</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0010.html">$10</a></td>
 <td class="comment-11" rowspan="2">The present character is printed before returning.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="196D"></span>196D</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 
 <div class="comments">
 <div class="paragraph">
@@ -311,10 +347,10 @@ Also note how the program does not cater for ':' in REM statements.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/6437.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/6437.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

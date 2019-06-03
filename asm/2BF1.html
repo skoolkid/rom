@@ -23,7 +23,7 @@
 <div class="description">2BF1: THE 'STK-FETCH' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="04AA.html">PROGNAME</a>, <a href="0605.html">SAVE_ETC</a>, <a href="175D.html">OPEN_2</a>, <a href="1C22.html">VAR_A_1</a>, <a href="1FFC.html">PR_ITEM_1</a>, <a href="2A52.html">SLICING</a>, <a href="2AFF.html">LET</a>, <a href="34BC.html">usr</a>, <a href="353B.html">compare</a>, <a href="359C.html">strs_add</a>, <a href="35DE.html">val</a>, <a href="3669.html">code</a> and <a href="3674.html">len</a>.
@@ -68,78 +68,91 @@ This important subroutine collects the 'last value' from the calculator stack. T
 <tr>
 <td class="asm-label-1">STK_FETCH</td>
 <td class="address-2"><span id="2BF1"></span>2BF1</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C65)</td>
 <td class="comment-11" rowspan="1">Get <a href="5C65.html">STKEND</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BF4"></span>2BF4</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
 <td class="comment-11" rowspan="1">Back one.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BF5"></span>2BF5</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,(HL)</td>
 <td class="comment-11" rowspan="1">The fifth value.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BF6"></span>2BF6</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
 <td class="comment-11" rowspan="1">Back one.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BF7"></span>2BF7</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,(HL)</td>
 <td class="comment-11" rowspan="1">The fourth value.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BF8"></span>2BF8</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
 <td class="comment-11" rowspan="1">Back one.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BF9"></span>2BF9</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,(HL)</td>
 <td class="comment-11" rowspan="1">The third value.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BFA"></span>2BFA</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
 <td class="comment-11" rowspan="1">Back one.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BFB"></span>2BFB</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD E,(HL)</td>
 <td class="comment-11" rowspan="1">The second value.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BFC"></span>2BFC</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
 <td class="comment-11" rowspan="1">Back one.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BFD"></span>2BFD</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-11" rowspan="1">The first value.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2BFE"></span>2BFE</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C65),HL</td>
 <td class="comment-11" rowspan="1">Reset <a href="5C65.html">STKEND</a> to its new position.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2C01"></span>2C01</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Finished.</td>
 </tr>
@@ -152,10 +165,10 @@ This important subroutine collects the 'last value' from the calculator stack. T
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/11249.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/11249.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

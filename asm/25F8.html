@@ -23,7 +23,7 @@
 <div class="description">25F8: THE 'SCANNING RND' ROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is derived from an offset found in the <a href="2596.html">scanning function table</a>.
@@ -46,156 +46,182 @@ The address of this routine is derived from an offset found in the <a href="2596
 <tr>
 <td class="asm-label-1">S_RND</td>
 <td class="address-2"><span id="25F8"></span>25F8</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
 <td class="comment-11" rowspan="2">Unless syntax is being checked, jump to calculate a random number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25FB"></span>25FB</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="25F8.html#2625">S_RND_END</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25FD"></span>25FD</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD BC,($5C76)</td>
 <td class="comment-11" rowspan="1">Fetch the current value of <a href="5C76.html">SEED</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2601"></span>2601</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2D2B.html">STACK_BC</a></td>
 <td class="comment-11" rowspan="1">Put it on the calculator stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2604"></span>2604</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
 <td class="comment-11" rowspan="1">Now use the calculator.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2605"></span>2605</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $A1</td>
 <td class="comment-11" rowspan="1"><a href="341B.html">stk_one</a></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2606"></span>2606</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $0F</td>
 <td class="comment-11" rowspan="1"><a href="3014.html">addition</a>: The 'last value' is now <a href="5C76.html">SEED</a>+1.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2607"></span>2607</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $34</td>
 <td class="comment-11" rowspan="2"><a href="33C6.html">stk_data</a>: Put the number 75 on the calculator stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2608"></span>2608</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $37,$16</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="260A"></span>260A</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $04</td>
 <td class="comment-11" rowspan="1"><a href="30CA.html">multiply</a>: 'last value' (<a href="5C76.html">SEED</a>+1)*75.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="260B"></span>260B</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $34</td>
 <td class="comment-11" rowspan="2"><a href="33C6.html">stk_data</a>: Put the number 65537 on the calculator stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="260C"></span>260C</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $80,$41,$00,$00,$80</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2611"></span>2611</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $32</td>
 <td class="comment-11" rowspan="1"><a href="36A0.html">n_mod_m</a>: Divide (<a href="5C76.html">SEED</a>+1)*75 by 65537 to give a 'remainder' and an 'answer'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2612"></span>2612</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $02</td>
 <td class="comment-11" rowspan="1"><a href="335B.html#33A1">delete</a>: Discard the 'answer'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2613"></span>2613</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $A1</td>
 <td class="comment-11" rowspan="1"><a href="341B.html">stk_one</a></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2614"></span>2614</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $03</td>
 <td class="comment-11" rowspan="1"><a href="300F.html">subtract</a>: The 'last value' is now 'remainder' - 1.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2615"></span>2615</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $31</td>
 <td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: Make a copy of the 'last value'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2616"></span>2616</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $38</td>
 <td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a>: The calculation is finished.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2617"></span>2617</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2DA2.html">FP_TO_BC</a></td>
 <td class="comment-11" rowspan="2">Use the 'last value' to give the new value for <a href="5C76.html">SEED</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="261A"></span>261A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C76),BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="261E"></span>261E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-11" rowspan="1">Fetch the exponent of 'last value'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="261F"></span>261F</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
 <td class="comment-11" rowspan="2">Jump forward if the exponent is zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2620"></span>2620</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="25F8.html#2625">S_RND_END</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2622"></span>2622</td>
+<td class="bytes-0"></td>
 <td class="instruction">SUB $10</td>
 <td class="comment-11" rowspan="2">Reduce the exponent, i.e. divide 'last value' by 65536 to give the required 'last value'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2624"></span>2624</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">S_RND_END</td>
 <td class="address-2"><span id="2625"></span>2625</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="2627.html#2630">S_PI_END</a></td>
 <td class="comment-11" rowspan="1">Jump past the <a href="2627.html">S_PI</a> routine.</td>
 </tr>
@@ -208,10 +234,10 @@ The address of this routine is derived from an offset found in the <a href="2596
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/9720.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/9720.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

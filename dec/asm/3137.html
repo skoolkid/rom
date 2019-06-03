@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 03137</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="3131.html">03131</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#3137">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="3157.html">03157</a></span></td>
+</tr>
+</table>
+<div class="description">03137: THE 'TABLE SEARCH' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="3082.html">PO_MSG</a>.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Message table entry number</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Message table start address</td>
+</tr>
+</table>
+<table class="output-1">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Address of the first character of message number <span class="register">A</span></td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry flag: suppress (set) or allow (reset) a leading space</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">PO_SEARCH</td>
+<td class="address-2"><span id="3137"></span>03137</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-11" rowspan="1">Save the 'entry number'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3138"></span>03138</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="1"><span class="register">HL</span> now holds the base address.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3139"></span>03139</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC A</td>
+<td class="comment-11" rowspan="1">Compensate for the 'DEC A' below.</td>
+</tr>
+<tr>
+<td class="asm-label-1">PO_STEP</td>
+<td class="address-2"><span id="3140"></span>03140</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 7,(HL)</td>
+<td class="comment-11" rowspan="3">Wait for an 'inverted character'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3142"></span>03142</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3143"></span>03143</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="3137.html#3140">PO_STEP</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3145"></span>03145</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC A</td>
+<td class="comment-11" rowspan="2">Count through the entries until the correct one is found.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3146"></span>03146</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="3137.html#3140">PO_STEP</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3148"></span>03148</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="1"><span class="register">DE</span> points to the initial character.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3149"></span>03149</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP AF</td>
+<td class="comment-11" rowspan="3">Fetch the 'entry number' and return with carry set for the first thirty two entries.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3150"></span>03150</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 32</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3152"></span>03152</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3153"></span>03153</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(DE)</td>
+<td class="comment-11" rowspan="3">However if the initial character is a letter then a leading space may be needed.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3154"></span>03154</td>
+<td class="bytes-0"></td>
+<td class="instruction">SUB "A"</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3156"></span>03156</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="3131.html">03131</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#3137">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="3157.html">03157</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/0C41.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 13999</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="13984.html">13984</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#13999">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="14020.html">14020</a></span></td>
+</tr>
+</table>
+<div class="description">13999: THE 'INT' FUNCTION (offset 39)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="13015.html">table of addresses</a>. It is called via the calculator literal 39 by the routines at <a href="1016.html">BEEP</a>, <a href="11682.html">FP_TO_BC</a>, <a href="11713.html">LOG_2_A</a>, <a href="11747.html">PRINT_FP</a>, <a href="13984.html">n_mod_m</a>, <a href="14020.html">exp</a> and <a href="14211.html">get_argt</a>. It is also called indirectly via <a href="13218.html">fp_calc_2</a>.
+</div>
+<div class="paragraph">
+This subroutine handles the function INT X and returns a 'last value' that is the 'integer part' of the value supplied. Thus INT 2.4 gives 2 but as the subroutine always rounds the result down INT -2.4 gives -3.
+</div>
+<div class="paragraph">
+The subroutine uses <a href="12820.html">truncate</a> to produce I(X) such that I(2.4)=2 and I(-2.4)=-2. Thus, INT X is given by I(X) when X&gt;=0, and by I(X)-1 for negative values of X that are not already integers, when the result is, of course, I(X).
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">int</td>
+<td class="address-2"><span id="13999"></span>13999</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1">X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14000"></span>14000</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: X, X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14001"></span>14001</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 54</td>
+<td class="comment-11" rowspan="1"><a href="13574.html">less_0</a>: X, (1/0)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14002"></span>14002</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 0</td>
+<td class="comment-11" rowspan="2"><a href="13967.html">jump_true</a> to <a href="13999.html#14007">X_NEG</a>: X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14003"></span>14003</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="14004"></span>
+<div class="comments">
+<div class="paragraph">
+For values of X that have been shown to be greater than or equal to zero there is no jump and I(X) is readily found.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14004"></span>14004</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 58</td>
+<td class="comment-11" rowspan="1"><a href="12820.html">truncate</a>: I(X)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14005"></span>14005</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14006"></span>14006</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="14007"></span>
+<div class="comments">
+<div class="paragraph">
+When X is a negative integer I(X) is returned, otherwise I(X)-1 is returned.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">X_NEG</td>
+<td class="address-1"><span id="14007"></span>14007</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: X, X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14008"></span>14008</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 58</td>
+<td class="comment-11" rowspan="1"><a href="12820.html">truncate</a>: X, I(X)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14009"></span>14009</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 192</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_0</a>: X, I(X) (mem-0 holds I(X))</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14010"></span>14010</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: X-I(X)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14011"></span>14011</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 224</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_0</a>: X-I(X), I(X)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14012"></span>14012</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: I(X), X-I(X)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14013"></span>14013</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 48</td>
+<td class="comment-11" rowspan="1"><a href="13569.html">f_not</a>: I(X), (1/0)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14014"></span>14014</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 0</td>
+<td class="comment-11" rowspan="2"><a href="13967.html">jump_true</a> to <a href="13999.html#14018">EXIT</a>: I(X)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14015"></span>14015</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="14016"></span>
+<div class="comments">
+<div class="paragraph">
+The jump is made for values of X that are negative integers, otherwise there is no jump and I(X)-1 is calculated.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14016"></span>14016</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 161</td>
+<td class="comment-11" rowspan="1"><a href="13339.html">stk_one</a>: I(X), 1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14017"></span>14017</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: I(X)-1</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="14018"></span>
+<div class="comments">
+<div class="paragraph">
+In either case the subroutine finishes with:
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">EXIT</td>
+<td class="address-1"><span id="14018"></span>14018</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: I(X) or I(X)-1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14019"></span>14019</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="13984.html">13984</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#13999">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="14020.html">14020</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/36AF.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

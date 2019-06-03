@@ -23,7 +23,7 @@
 <div class="description">2D3B: THE 'INTEGER TO FLOATING-POINT' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="19FB.html">E_LINE_NO</a> and <a href="2C9B.html">DEC_TO_FP</a>.
@@ -58,35 +58,40 @@ Repeated calls to <a href="0074.html">CH_ADD_1</a> fetch each digit of the integ
 <tr>
 <td class="asm-label-1">INT_TO_FP</td>
 <td class="address-2"><span id="2D3B"></span>2D3B</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
 <td class="comment-11" rowspan="1">Save the first digit - in <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D3C"></span>2D3C</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
 <td class="comment-11" rowspan="1">Use the calculator.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D3D"></span>2D3D</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $A0</td>
 <td class="comment-11" rowspan="1"><a href="341B.html">stk_zero</a>: (the 'last value' is now zero)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D3E"></span>2D3E</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $38</td>
 <td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D3F"></span>2D3F</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
 <td class="comment-11" rowspan="1">Restore the first digit.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2D40"></span>
 <div class="comments">
 <div class="paragraph">
@@ -98,60 +103,70 @@ Now a loop is set up. As long as the code represents a digit then the floating-p
 <tr>
 <td class="asm-label-1">NXT_DGT_2</td>
 <td class="address-2"><span id="2D40"></span>2D40</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2D22.html">STK_DIGIT</a></td>
 <td class="comment-11" rowspan="2">If the code represents a digit (D) then stack the floating-point form; otherwise return.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D43"></span>2D43</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D44"></span>2D44</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
 <td class="comment-11" rowspan="1">Use the calculator.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D45"></span>2D45</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $01</td>
 <td class="comment-11" rowspan="1"><a href="343C.html">exchange</a>: D, V</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D46"></span>2D46</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $A4</td>
 <td class="comment-11" rowspan="1"><a href="341B.html">stk_ten</a>: D, V, 10</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D47"></span>2D47</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $04</td>
 <td class="comment-11" rowspan="1"><a href="30CA.html">multiply</a>: D, 10*V</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D48"></span>2D48</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $0F</td>
 <td class="comment-11" rowspan="1"><a href="3014.html">addition</a>: D+10*V</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D49"></span>2D49</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $38</td>
 <td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a>: D+10*V (this is 'V' for the next pass through the loop)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D4A"></span>2D4A</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="0074.html">CH_ADD_1</a></td>
 <td class="comment-11" rowspan="1">The next code goes into <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D4D"></span>2D4D</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="2D3B.html#2D40">NXT_DGT_2</a></td>
 <td class="comment-11" rowspan="1">Loop back with this code.</td>
 </tr>
@@ -164,10 +179,10 @@ Now a loop is set up. As long as the code represents a digit then the floating-p
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/11579.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/11579.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

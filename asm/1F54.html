@@ -23,7 +23,7 @@
 <div class="description">1F54: THE 'BREAK-KEY' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="0EF4.html">COPY_LINE</a> and <a href="1B76.html">STMT_RET</a>.
@@ -49,48 +49,56 @@ This subroutine is called in several instances to read the BREAK key. The carry 
 <tr>
 <td class="asm-label-1">BREAK_KEY</td>
 <td class="address-2"><span id="1F54"></span>1F54</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$7F</td>
 <td class="comment-11" rowspan="2">Form the port address +7FFE and read in a byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F56"></span>1F56</td>
+<td class="bytes-0"></td>
 <td class="instruction">IN A,($FE)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F58"></span>1F58</td>
+<td class="bytes-0"></td>
 <td class="instruction">RRA</td>
 <td class="comment-11" rowspan="1">Examine only bit 0 by shifting it into the carry position.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F59"></span>1F59</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET C</td>
 <td class="comment-11" rowspan="1">Return if the BREAK key is not being pressed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F5A"></span>1F5A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$FE</td>
 <td class="comment-11" rowspan="2">Form the port address +FEFE and read in a byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F5C"></span>1F5C</td>
+<td class="bytes-0"></td>
 <td class="instruction">IN A,($FE)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F5E"></span>1F5E</td>
+<td class="bytes-0"></td>
 <td class="instruction">RRA</td>
 <td class="comment-11" rowspan="1">Again examine bit 0.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F5F"></span>1F5F</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Return with carry reset if both keys are being pressed.</td>
 </tr>
@@ -103,10 +111,10 @@ This subroutine is called in several instances to read the BREAK key. The carry 
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/8020.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/8020.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

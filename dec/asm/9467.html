@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 09467</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="9399.html">09399</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#9467">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="9487.html">09487</a></span></td>
+</tr>
+</table>
+<div class="description">09467: THE 'SCANNING' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="1194.html">PROGNAME</a>, <a href="7254.html">VAL_FET_1</a>, <a href="7289.html">NEXT_2NUM</a>, <a href="7719.html">DATA</a>, <a href="8032.html">DEF_FN</a>, <a href="8188.html">PR_ITEM_1</a>, <a href="9704.html">S_BRACKET</a>, <a href="10173.html">S_FN_SBRN</a> and <a href="13790.html">val</a>.
+</div>
+<div class="paragraph">
+This subroutine is used to produce an evaluation result of the 'next expression'.
+</div>
+<div class="paragraph">
+The result is returned as the 'last value' on the calculator stack. For a numerical result, the last value will be the actual floating point number. However, for a string result the last value will consist of a set of parameters. The first of the five bytes is unspecified, the second and third bytes hold the address of the start of the string and the fourth and fifth bytes hold the length of the string.
+</div>
+<div class="paragraph">
+Bit 6 of <a href="23611.html">FLAGS</a> is set for a numeric result and reset for a string result.
+</div>
+<div class="paragraph">
+When a next expression consists of only a single operand (e.g. 'A', 'RND', 'A$(4,3 TO 7)'), then the last value is simply the value that is obtained from evaluating the operand.
+</div>
+<div class="paragraph">
+However when the next expression contains a function and an operand (e.g. 'CHR$ A', 'NOT A', 'SIN 1'), the operation code of the function is stored on the machine stack until the last value of the operand has been calculated. This last value is then subjected to the appropriate operation to give a new last value.
+</div>
+<div class="paragraph">
+In the case of there being an arithmetic or logical operation to be performed (e.g. 'A+B', 'A*B', 'A=B'), then both the last value of the first argument and the operation code have to be kept until the last value of the second argument has been found. Indeed the calculation of the last value of the second argument may also involve the storing of last values and operation codes whilst the calculation is being performed.
+</div>
+<div class="paragraph">
+It can therefore be shown that as a complex expression is evaluated (e.g. 'CHR$ (T+A-26*INT ((T+A)/26)+65)'), a hierarchy of operations yet to be performed is built up until the point is reached from which it must be dismantled to produce the final last value.
+</div>
+<div class="paragraph">
+Each operation code has associated with it an appropriate priority code and operations of higher priority are always performed before those of lower priority.
+</div>
+<div class="paragraph">
+The subroutine begins with the <span class="register">A</span> register being set to hold the first character of the expression and a starting priority marker - zero - being put on the machine stack.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SCANNING</td>
+<td class="address-2"><span id="9467"></span>09467</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="24.html">24</a></td>
+<td class="comment-11" rowspan="1">The first character is fetched.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9468"></span>09468</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,0</td>
+<td class="comment-11" rowspan="1">The starting priority marker.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9470"></span>09470</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-11" rowspan="1">It is stacked.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="9471"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="9647.html">S_U_PLUS</a> and <a href="9929.html">S_LETTER</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">S_LOOP_1</td>
+<td class="address-2"><span id="9471"></span>09471</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,A</td>
+<td class="comment-11" rowspan="1">The main re-entry point.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9472"></span>09472</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,9622</td>
+<td class="comment-11" rowspan="2">Index into the <a href="9622.html">scanning function table</a> with the code in <span class="register">C</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9475"></span>09475</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="5851.html#5852">INDEXER</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9478"></span>09478</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,C</td>
+<td class="comment-11" rowspan="1">Restore the code to <span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9479"></span>09479</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP NC,<a href="9860.html">S_ALPHNUM</a></td>
+<td class="comment-11" rowspan="1">Jump if code not found in table.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9482"></span>09482</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,0</td>
+<td class="comment-11" rowspan="4">Use the entry found in the table to build up the required address in <span class="register">HL</span>, and jump to it.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9484"></span>09484</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,(HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9485"></span>09485</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9486"></span>09486</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP (HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="9399.html">09399</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#9467">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="9487.html">09487</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/24FB.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

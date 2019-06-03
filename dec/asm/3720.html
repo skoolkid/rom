@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 03720</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="3652.html">03652</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#3720">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="3739.html">03739</a></span></td>
+</tr>
+</table>
+<div class="description">03720: THE 'CL-ATTR' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="3582.html">CL_SC_ALL</a> and <a href="3652.html">CL_LINE</a>.
+</div>
+<div class="paragraph">
+This subroutine has two separate functions.
+</div>
+<div class="paragraph">
+<ul class="">
+<li>For a given display area address the appropriate attribute address is returned in the <span class="register">DE</span> register pair. Note that the value on entry points to the 'ninth' line of a character.</li>
+<li>For a given line number, in the <span class="register">B</span> register, the number of character areas in the display from the start of that line onwards is returned in the <span class="register">BC</span> register pair.</li>
+</ul>
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">Line number</td>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">0</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Display file address</td>
+</tr>
+</table>
+<table class="output-1">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">BC</td>
+<td class="register-desc">Number of spaces from the given line number (<span class="register">B</span>) downwards</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Corresponding attribute file address</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CL_ATTR</td>
+<td class="address-2"><span id="3720"></span>03720</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,H</td>
+<td class="comment-11" rowspan="1">Fetch the high byte.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3721"></span>03721</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-11" rowspan="3">Multiply this value by thirty two.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3722"></span>03722</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3723"></span>03723</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3724"></span>03724</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC A</td>
+<td class="comment-11" rowspan="1">Go back to the 'eight' line.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3725"></span>03725</td>
+<td class="bytes-0"></td>
+<td class="instruction">OR 80</td>
+<td class="comment-11" rowspan="1">Address the attribute area.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3727"></span>03727</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD H,A</td>
+<td class="comment-11" rowspan="2">Restore to the high byte and transfer the address to <span class="register">DE</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3728"></span>03728</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3729"></span>03729</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD H,C</td>
+<td class="comment-11" rowspan="1">This is always zero.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3730"></span>03730</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD L,B</td>
+<td class="comment-11" rowspan="1">The line number.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3731"></span>03731</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-11" rowspan="5">Multiply by thirty two.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3732"></span>03732</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3733"></span>03733</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3734"></span>03734</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3735"></span>03735</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3736"></span>03736</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,H</td>
+<td class="comment-11" rowspan="3">Move the result to the <span class="register">BC</span> register pair before returning.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3737"></span>03737</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,L</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3738"></span>03738</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="3652.html">03652</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#3720">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="3739.html">03739</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/0E88.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

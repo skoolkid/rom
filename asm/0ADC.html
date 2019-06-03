@@ -23,7 +23,7 @@
 <div class="description">0ADC: THE 'POSITION STORE' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routine at <a href="0DD9.html">CL_SET</a>.
@@ -63,84 +63,98 @@ The new position's 'line and column' values and the 'pixel' address are stored i
 <tr>
 <td class="asm-label-1">PO_STORE</td>
 <td class="address-2"><span id="0ADC"></span>0ADC</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 1,(IY+$01)</td>
 <td class="comment-11" rowspan="2">Jump forward if handling the printer (bit 1 of <a href="5C3B.html">FLAGS</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AE0"></span>0AE0</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="0ADC.html#0AFC">PO_ST_PR</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AE2"></span>0AE2</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 0,(IY+$02)</td>
 <td class="comment-11" rowspan="2">Jump forward if handling the lower part of the screen (bit 0 of <a href="5C3C.html">TV-FLAG</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AE6"></span>0AE6</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="0ADC.html#0AF0">PO_ST_E</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AE8"></span>0AE8</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C88),BC</td>
 <td class="comment-11" rowspan="2">Save the values that relate to the main part of the screen at <a href="5C88.html">S-POSN</a> and <a href="5C84.html">DF-CC</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AEC"></span>0AEC</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C84),HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AEF"></span>0AEF</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Then return.</td>
 </tr>
 <tr>
 <td class="asm-label-1">PO_ST_E</td>
 <td class="address-2"><span id="0AF0"></span>0AF0</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C8A),BC</td>
 <td class="comment-11" rowspan="3">Save the values that relate to the lower part of the screen at <a href="5C8A.html">S-POSNL</a>, <a href="5C82.html">ECHO-E</a> and <a href="5C86.html">DF-CCL</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AF4"></span>0AF4</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C82),BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AF8"></span>0AF8</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C86),HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AFB"></span>0AFB</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Then return.</td>
 </tr>
 <tr>
 <td class="asm-label-1">PO_ST_PR</td>
 <td class="address-2"><span id="0AFC"></span>0AFC</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (IY+$45),C</td>
 <td class="comment-11" rowspan="2">Save the values that relate to the printer buffer at <a href="5C7F.html">P-POSN</a> and <a href="5C80.html">PR-CC</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AFF"></span>0AFF</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C80),HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0B02"></span>0B02</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Then return.</td>
 </tr>
@@ -153,10 +167,10 @@ The new position's 'line and column' values and the 'pixel' address are stored i
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/2780.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/2780.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

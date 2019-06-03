@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 03082</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="3035.html">03035</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#3082">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="3131.html">03131</a></span></td>
+</tr>
+</table>
+<div class="description">03082: THE 'MESSAGE PRINTING' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="1541.html">SAVE_ETC</a>, <a href="2416.html">SA_CONTRL</a>, <a href="3157.html">PO_SCR</a>, <a href="4535.html">NEW</a> and <a href="4770.html">MAIN_EXEC</a>.
+</div>
+<div class="paragraph">
+This subroutine is used to print messages and tokens.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Message table entry number</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Message table address (<a href="2465.html">CASSETTE</a>, <a href="2465.html#2497">BLOCK_HDR</a>-1, <a href="3157.html#3320">SCROLL</a>, <a href="5009.html">REPORTS</a>, <a href="5009.html#5431">COMMA_SPC</a>-1 or <a href="5433.html">COPYRIGHT</a>-1)</td>
+</tr>
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">PO_MSG</td>
+<td class="address-2"><span id="3082"></span>03082</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-11" rowspan="3">The high byte of the last entry on the machine stack is made zero so as to suppress trailing spaces (see below).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3083"></span>03083</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD H,0</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3085"></span>03085</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX (SP),HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3086"></span>03086</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="3082.html#3092">PO_TABLE</a></td>
+<td class="comment-11" rowspan="1">Jump forward.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="3088"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="2852.html">PO_ANY</a>.
+</div>
+<div class="paragraph">
+Enter here when expanding token codes.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">PO_TOKENS</td>
+<td class="address-2"><span id="3088"></span>03088</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD DE,149</td>
+<td class="comment-11" rowspan="1">The base address of the <a href="149.html">token table</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3091"></span>03091</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-11" rowspan="1">Save the code on the stack. (Range 0 to 90, RND to COPY).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="3092"></span>
+<div class="comments">
+<div class="paragraph">
+The table is searched and the correct entry printed.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">PO_TABLE</td>
+<td class="address-2"><span id="3092"></span>03092</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="3137.html">PO_SEARCH</a></td>
+<td class="comment-11" rowspan="1">Locate the required entry.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3095"></span>03095</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR C,<a href="3082.html#3106">PO_EACH</a></td>
+<td class="comment-11" rowspan="1">Print the message/token.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3097"></span>03097</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A," "</td>
+<td class="comment-11" rowspan="3">A 'space' will be printed before the message/token if required (bit 0 of <a href="23611.html">FLAGS</a> reset).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3099"></span>03099</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 0,(IY+1)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3103"></span>03103</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL Z,<a href="3131.html">PO_SAVE</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="3106"></span>
+<div class="comments">
+<div class="paragraph">
+The characters of the message/token are printed in turn.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">PO_EACH</td>
+<td class="address-2"><span id="3106"></span>03106</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(DE)</td>
+<td class="comment-11" rowspan="1">Collect a code.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3107"></span>03107</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND 127</td>
+<td class="comment-11" rowspan="1">Cancel any 'inverted bit'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3109"></span>03109</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="3131.html">PO_SAVE</a></td>
+<td class="comment-11" rowspan="1">Print the character.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3112"></span>03112</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(DE)</td>
+<td class="comment-11" rowspan="1">Collect the code again.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3113"></span>03113</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC DE</td>
+<td class="comment-11" rowspan="1">Advance the pointer.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3114"></span>03114</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD A,A</td>
+<td class="comment-11" rowspan="2">The 'inverted bit' goes to the carry flag and signals the end of the message/token; otherwise jump back.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3115"></span>03115</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NC,<a href="3082.html#3106">PO_EACH</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="3117"></span>
+<div class="comments">
+<div class="paragraph">
+Now consider whether a 'trailing space' is required.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3117"></span>03117</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP DE</td>
+<td class="comment-11" rowspan="1">For messages, <span class="register">D</span> holds 0; for tokens, <span class="register">D</span> holds 0 to 90.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3118"></span>03118</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 72</td>
+<td class="comment-11" rowspan="2">Jump forward if the last character was a '$'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3120"></span>03120</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="3082.html#3125">PO_TR_SP</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3122"></span>03122</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 130</td>
+<td class="comment-11" rowspan="2">Return if the last character was any other before 'A'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3124"></span>03124</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">PO_TR_SP</td>
+<td class="address-2"><span id="3125"></span>03125</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,D</td>
+<td class="comment-11" rowspan="3">Examine the value in <span class="register">D</span> and return if it indicates a message, RND, INKEY$ or PI.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3126"></span>03126</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 3</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3128"></span>03128</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3129"></span>03129</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A," "</td>
+<td class="comment-11" rowspan="1">All other cases will require a 'trailing space'.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+
+<div class="comments">
+<div class="paragraph">
+This routine continues into <a href="3131.html">PO_SAVE</a>.
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="3035.html">03035</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#3082">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="3131.html">03131</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/0C0A.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

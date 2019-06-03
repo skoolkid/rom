@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 04264</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="4247.html">04247</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#4264">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="4381.html">04381</a></span></td>
+</tr>
+</table>
+<div class="description">04264: THE 'KEYBOARD INPUT' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="5551.html">initial channel information table</a>.
+</div>
+<div class="paragraph">
+This important subroutine returns the code of the last key to have been pressed, but note that CAPS LOCK, the changing of the mode and the colour control parameters are handled within the subroutine.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-1">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Code of the last key pressed</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry flag set if a key was pressed</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">KEY_INPUT</td>
+<td class="address-2"><span id="4264"></span>04264</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 3,(IY+2)</td>
+<td class="comment-11" rowspan="2">Copy the edit-line or the INPUT-line to the screen if the mode has changed (bit 3 of <a href="23612.html">TV-FLAG</a> set).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4268"></span>04268</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL NZ,<a href="4381.html">ED_COPY</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4271"></span>04271</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND A</td>
+<td class="comment-11" rowspan="3">Return with both carry and zero flags reset if no new key has been pressed (bit 5 of <a href="23611.html">FLAGS</a> reset).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4272"></span>04272</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 5,(IY+1)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4276"></span>04276</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET Z</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4277"></span>04277</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23560)</td>
+<td class="comment-11" rowspan="2">Otherwise fetch the code (<a href="23560.html">LAST-K</a>) and signal that it has been taken (reset bit 5 of <a href="23611.html">FLAGS</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4280"></span>04280</td>
+<td class="bytes-0"></td>
+<td class="instruction">RES 5,(IY+1)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4284"></span>04284</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-11" rowspan="1">Save the code temporarily.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4285"></span>04285</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 5,(IY+2)</td>
+<td class="comment-11" rowspan="2">Clear the lower part of the display if necessary (bit 5 of <a href="23612.html">TV-FLAG</a> set), e.g. after 'scroll?'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4289"></span>04289</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL NZ,<a href="3435.html#3438">CLS_LOWER</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4292"></span>04292</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP AF</td>
+<td class="comment-11" rowspan="1">Fetch the code.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4293"></span>04293</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP " "</td>
+<td class="comment-11" rowspan="2">Accept all characters and token codes.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4295"></span>04295</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NC,<a href="4264.html#4379">KEY_DONE_2</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4297"></span>04297</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 16</td>
+<td class="comment-11" rowspan="2">Jump forward with most of the control character codes.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4299"></span>04299</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NC,<a href="4264.html#4346">KEY_CONTR</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4301"></span>04301</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 6</td>
+<td class="comment-11" rowspan="2">Jump forward with the 'mode' codes and the CAPS LOCK code.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4303"></span>04303</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NC,<a href="4264.html#4315">KEY_M_CL</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="4305"></span>
+<div class="comments">
+<div class="paragraph">
+Now deal with the FLASH, BRIGHT and INVERSE codes.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4305"></span>04305</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,A</td>
+<td class="comment-11" rowspan="1">Save the code.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4306"></span>04306</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND 1</td>
+<td class="comment-11" rowspan="1">Keep only bit 0.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4308"></span>04308</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,A</td>
+<td class="comment-11" rowspan="1"><span class="register">C</span> holds 0 (=OFF) or 1 (=ON).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4309"></span>04309</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,B</td>
+<td class="comment-11" rowspan="1">Fetch the code.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4310"></span>04310</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRA</td>
+<td class="comment-11" rowspan="1">Rotate it once (losing bit 0).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4311"></span>04311</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD A,18</td>
+<td class="comment-11" rowspan="2">Increase it by 18 giving 18 for FLASH, 19 for BRIGHT, and 20 for INVERSE.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4313"></span>04313</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="4264.html#4357">KEY_DATA</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="4315"></span>
+<div class="comments">
+<div class="paragraph">
+The CAPS LOCK code and the mode codes are dealt with 'locally'.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">KEY_M_CL</td>
+<td class="address-2"><span id="4315"></span>04315</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="4264.html#4326">KEY_MODE</a></td>
+<td class="comment-11" rowspan="1">Jump forward with 'mode' codes.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4317"></span>04317</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,23658</td>
+<td class="comment-11" rowspan="1">This is <a href="23658.html">FLAGS2</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4320"></span>04320</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,8</td>
+<td class="comment-11" rowspan="3">Flip bit 3 of <a href="23658.html">FLAGS2</a>. This is the CAPS LOCK flag.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4322"></span>04322</td>
+<td class="bytes-0"></td>
+<td class="instruction">XOR (HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4323"></span>04323</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4324"></span>04324</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="4264.html#4340">KEY_FLAG</a></td>
+<td class="comment-11" rowspan="1">Jump forward.</td>
+</tr>
+<tr>
+<td class="asm-label-1">KEY_MODE</td>
+<td class="address-2"><span id="4326"></span>04326</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 14</td>
+<td class="comment-11" rowspan="2">Check the lower limit.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4328"></span>04328</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4329"></span>04329</td>
+<td class="bytes-0"></td>
+<td class="instruction">SUB 13</td>
+<td class="comment-11" rowspan="1">Reduce the range.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4331"></span>04331</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,23617</td>
+<td class="comment-11" rowspan="1">This is <a href="23617.html">MODE</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4334"></span>04334</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-11" rowspan="1">Has it been changed?</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4335"></span>04335</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-11" rowspan="1">Enter the new 'mode' code.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4336"></span>04336</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="4264.html#4340">KEY_FLAG</a></td>
+<td class="comment-11" rowspan="2">Jump if it has changed; otherwise make it 'L mode'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4338"></span>04338</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),0</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">KEY_FLAG</td>
+<td class="address-2"><span id="4340"></span>04340</td>
+<td class="bytes-0"></td>
+<td class="instruction">SET 3,(IY+2)</td>
+<td class="comment-11" rowspan="1">Signal 'the mode might have changed' (set bit 3 of <a href="23612.html">TV-FLAG</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4344"></span>04344</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP A</td>
+<td class="comment-11" rowspan="2">Reset the carry flag and return.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4345"></span>04345</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="4346"></span>
+<div class="comments">
+<div class="paragraph">
+The control key codes (apart from FLASH, BRIGHT and INVERSE) are manipulated.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">KEY_CONTR</td>
+<td class="address-2"><span id="4346"></span>04346</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,A</td>
+<td class="comment-11" rowspan="1">Save the code.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4347"></span>04347</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND 7</td>
+<td class="comment-11" rowspan="2">Make the <span class="register">C</span> register hold the parameter (0 to 7).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4349"></span>04349</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4350"></span>04350</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,16</td>
+<td class="comment-11" rowspan="1"><span class="register">A</span> now holds the INK code.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4352"></span>04352</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 3,B</td>
+<td class="comment-11" rowspan="3">But if the code was an 'unshifted' code then make <span class="register">A</span> hold the PAPER code.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4354"></span>04354</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="4264.html#4357">KEY_DATA</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4356"></span>04356</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="4357"></span>
+<div class="comments">
+<div class="paragraph">
+The parameter is saved in <a href="23565.html">K-DATA</a> and the channel address changed from <a href="4264.html">KEY_INPUT</a> to <a href="4264.html#4365">KEY_NEXT</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">KEY_DATA</td>
+<td class="address-2"><span id="4357"></span>04357</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IY-45),C</td>
+<td class="comment-11" rowspan="1">Save the parameter at <a href="23565.html">K-DATA</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4360"></span>04360</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD DE,4365</td>
+<td class="comment-11" rowspan="1">This is <a href="4264.html#4365">KEY_NEXT</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4363"></span>04363</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="4264.html#4371">KEY_CHAN</a></td>
+<td class="comment-11" rowspan="1">Jump forward.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="4365"></span>
+<div class="comments">
+<div class="paragraph">
+Note: on the first pass entering at <a href="4264.html">KEY_INPUT</a> the <span class="register">A</span> register is returned holding a 'control code' and then on the next pass, entering at <a href="4264.html#4365">KEY_NEXT</a>, it is the parameter that is returned.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">KEY_NEXT</td>
+<td class="address-1"><span id="4365"></span>04365</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23565)</td>
+<td class="comment-11" rowspan="1">Fetch the parameter (<a href="23565.html">K-DATA</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4368"></span>04368</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD DE,4264</td>
+<td class="comment-11" rowspan="1">This is <a href="4264.html">KEY_INPUT</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="4371"></span>
+<div class="comments">
+<div class="paragraph">
+Now set the input address in the first channel area.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">KEY_CHAN</td>
+<td class="address-2"><span id="4371"></span>04371</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23631)</td>
+<td class="comment-11" rowspan="3">Fetch the channel address (<a href="23631.html">CHANS</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4374"></span>04374</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4375"></span>04375</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4376"></span>04376</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),E</td>
+<td class="comment-11" rowspan="3">Now set the input address.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4377"></span>04377</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4378"></span>04378</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),D</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="4379"></span>
+<div class="comments">
+<div class="paragraph">
+Finally exit with the required code in the <span class="register">A</span> register.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">KEY_DONE_2</td>
+<td class="address-2"><span id="4379"></span>04379</td>
+<td class="bytes-0"></td>
+<td class="instruction">SCF</td>
+<td class="comment-11" rowspan="2">Show a code has been found and return.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="4380"></span>04380</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="4247.html">04247</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#4264">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="4381.html">04381</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/10A8.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

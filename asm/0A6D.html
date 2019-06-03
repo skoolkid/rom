@@ -23,7 +23,7 @@
 <div class="description">0A6D: THE 'CONTROL CHARACTERS WITH OPERANDS' ROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The control characters from INK to OVER require a single operand whereas the control characters AT and TAB are required to be followed by two operands.
@@ -52,23 +52,26 @@ The present routine leads to the control character code being saved in <a href="
 <tr>
 <td class="asm-label-1">PO_TV_2</td>
 <td class="address-2"><span id="0A6D"></span>0A6D</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD DE,$0A87</td>
 <td class="comment-11" rowspan="3">Save the first operand in <a href="5C0E.html">TVDATA-hi</a> and change the address of the 'output' routine to <a href="0A6D.html#0A87">PO_CONT</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A70"></span>0A70</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C0F),A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A73"></span>0A73</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="0A6D.html#0A80">PO_CHANGE</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0A75"></span>
 <div class="comments">
 <div class="paragraph">
@@ -83,17 +86,19 @@ Enter here when handling the characters AT and TAB.
 <tr>
 <td class="asm-label-1">PO_2_OPER</td>
 <td class="address-1"><span id="0A75"></span>0A75</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD DE,$0A6D</td>
 <td class="comment-11" rowspan="2">The character code will be saved in <a href="5C0E.html">TVDATA-lo</a> and the address of the 'output' routine changed to <a href="0A6D.html">PO_TV_2</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A78"></span>0A78</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="0A6D.html#0A7D">PO_TV_1</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0A7A"></span>
 <div class="comments">
 <div class="paragraph">
@@ -108,17 +113,19 @@ Enter here when handling the colour items - INK to OVER.
 <tr>
 <td class="asm-label-1">PO_1_OPER</td>
 <td class="address-1"><span id="0A7A"></span>0A7A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD DE,$0A87</td>
 <td class="comment-11" rowspan="1">The 'output' routine is to be changed to <a href="0A6D.html#0A87">PO_CONT</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1">PO_TV_1</td>
 <td class="address-2"><span id="0A7D"></span>0A7D</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C0E),A</td>
 <td class="comment-11" rowspan="1">Save the control character code in <a href="5C0E.html">TVDATA-hi</a>.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0A80"></span>
 <div class="comments">
 <div class="paragraph">
@@ -130,35 +137,40 @@ The current 'output' routine address is changed temporarily.
 <tr>
 <td class="asm-label-1">PO_CHANGE</td>
 <td class="address-2"><span id="0A80"></span>0A80</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C51)</td>
 <td class="comment-11" rowspan="1"><span class="register">HL</span> will point to the 'output' routine address (<a href="5C51.html">CURCHL</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A83"></span>0A83</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),E</td>
 <td class="comment-11" rowspan="4">Enter the new 'output' routine address and thereby force the next character code to be considered as an operand.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A84"></span>0A84</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A85"></span>0A85</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),D</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A86"></span>0A86</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0A87"></span>
 <div class="comments">
 <div class="paragraph">
@@ -170,53 +182,61 @@ Once the operands have been collected the routine continues.
 <tr>
 <td class="asm-label-1">PO_CONT</td>
 <td class="address-1"><span id="0A87"></span>0A87</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD DE,$09F4</td>
 <td class="comment-11" rowspan="2">Restore the original address for <a href="09F4.html">PRINT_OUT</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A8A"></span>0A8A</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="0A6D.html#0A80">PO_CHANGE</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A8D"></span>0A8D</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C0E)</td>
 <td class="comment-11" rowspan="1">Fetch the control code and the first operand from <a href="5C0E.html">TVDATA</a> if there are indeed two operands.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A90"></span>0A90</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,A</td>
 <td class="comment-11" rowspan="2">The 'last' operand and the control code are moved.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A91"></span>0A91</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,L</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A92"></span>0A92</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $16</td>
 <td class="comment-11" rowspan="2">Jump forward if handling INK to OVER.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A94"></span>0A94</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP C,<a href="21E1.html#2211">CO_TEMP_5</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A97"></span>0A97</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="0A6D.html#0AC2">PO_TAB</a></td>
 <td class="comment-11" rowspan="1">Jump forward if handling TAB.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0A99"></span>
 <div class="comments">
 <div class="paragraph">
@@ -228,125 +248,145 @@ Now deal with the AT control character.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A99"></span>0A99</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,H</td>
 <td class="comment-11" rowspan="1">The line number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A9A"></span>0A9A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,D</td>
 <td class="comment-11" rowspan="1">The column number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A9B"></span>0A9B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$1F</td>
 <td class="comment-11" rowspan="2">Reverse the column number, i.e. +00 to +1F becomes +1F to +00.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A9D"></span>0A9D</td>
+<td class="bytes-0"></td>
 <td class="instruction">SUB C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0A9E"></span>0A9E</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="0A6D.html#0AAC">PO_AT_ERR</a></td>
 <td class="comment-11" rowspan="1">Must be in range.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AA0"></span>0AA0</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD A,$02</td>
 <td class="comment-11" rowspan="2">Add in the offset to give <span class="register">C</span> holding +21 to +02.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AA2"></span>0AA2</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AA3"></span>0AA3</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 1,(IY+$01)</td>
 <td class="comment-11" rowspan="2">Jump forward if handling the printer (bit 1 of <a href="5C3B.html">FLAGS</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AA7"></span>0AA7</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="0A6D.html#0ABF">PO_AT_SET</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AA9"></span>0AA9</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$16</td>
 <td class="comment-11" rowspan="2">Reverse the line number, i.e. +00 to +15 becomes +16 to +01.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AAB"></span>0AAB</td>
+<td class="bytes-0"></td>
 <td class="instruction">SUB B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">PO_AT_ERR</td>
 <td class="address-2"><span id="0AAC"></span>0AAC</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP C,<a href="1E94.html#1E9F">REPORT_B_2</a></td>
 <td class="comment-11" rowspan="1">If appropriate jump forward.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AAF"></span>0AAF</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC A</td>
 <td class="comment-11" rowspan="2">The range +16 to +01 becomes +17 to +02.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AB0"></span>0AB0</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AB1"></span>0AB1</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC B</td>
 <td class="comment-11" rowspan="1">And now +18 to +03.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AB2"></span>0AB2</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 0,(IY+$02)</td>
 <td class="comment-11" rowspan="2">If printing in the lower part of the screen (bit 0 of <a href="5C3C.html">TV-FLAG</a> set) then consider whether scrolling is needed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AB6"></span>0AB6</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP NZ,<a href="0C55.html">PO_SCR</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AB9"></span>0AB9</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP (IY+$31)</td>
 <td class="comment-11" rowspan="2">Give report 5 - Out of screen, if required (<a href="5C6B.html">DF-SZ</a>&gt;<span class="register">A</span>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0ABC"></span>0ABC</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP C,<a href="0C55.html#0C86">REPORT_5</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">PO_AT_SET</td>
 <td class="address-2"><span id="0ABF"></span>0ABF</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="0DD9.html">CL_SET</a></td>
 <td class="comment-11" rowspan="1">Return via <a href="0DD9.html">CL_SET</a> and <a href="0ADC.html">PO_STORE</a>.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0AC2"></span>
 <div class="comments">
 <div class="paragraph">
@@ -358,11 +398,12 @@ And the TAB control character.
 <tr>
 <td class="asm-label-1">PO_TAB</td>
 <td class="address-2"><span id="0AC2"></span>0AC2</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,H</td>
 <td class="comment-11" rowspan="1">Fetch the first operand.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0AC3"></span>
 <div class="comments">
 <div class="paragraph">
@@ -374,72 +415,84 @@ This entry point is used by the routine at <a href="0A5F.html">PO_COMMA</a>.
 <tr>
 <td class="asm-label-1">PO_FILL</td>
 <td class="address-2"><span id="0AC3"></span>0AC3</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="0B03.html">PO_FETCH</a></td>
 <td class="comment-11" rowspan="1">The current print position.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AC6"></span>0AC6</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD A,C</td>
 <td class="comment-11" rowspan="1">Add the current column value.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AC7"></span>0AC7</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC A</td>
 <td class="comment-11" rowspan="3">Find how many spaces, modulo 32, are required and return if the result is zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AC8"></span>0AC8</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND $1F</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0ACA"></span>0ACA</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0ACB"></span>0ACB</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,A</td>
 <td class="comment-11" rowspan="1">Use <span class="register">D</span> as the counter.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0ACC"></span>0ACC</td>
+<td class="bytes-0"></td>
 <td class="instruction">SET 0,(IY+$01)</td>
 <td class="comment-11" rowspan="1">Suppress 'leading space' (set bit 0 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1">PO_SPACE</td>
 <td class="address-2"><span id="0AD0"></span>0AD0</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A," "</td>
 <td class="comment-11" rowspan="4">Print <span class="register">D</span> number of spaces.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AD2"></span>0AD2</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="0C3B.html">PO_SAVE</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AD5"></span>0AD5</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC D</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AD6"></span>0AD6</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="0A6D.html#0AD0">PO_SPACE</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0AD8"></span>0AD8</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Now finished.</td>
 </tr>
@@ -452,10 +505,10 @@ This entry point is used by the routine at <a href="0A5F.html">PO_COMMA</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/2669.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/2669.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

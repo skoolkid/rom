@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 08924</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="8907.html">08907</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#8924">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="8967.html">08967</a></span></td>
+</tr>
+</table>
+<div class="description">08924: THE 'PLOT' COMMAND ROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="6728.html#6849">parameter table</a>.
+</div>
+<div class="paragraph">
+This routine consists of a main subroutine plus one line to call it and one line to exit from it. The main routine is used twice by <a href="8992.html">CIRCLE</a> and the subroutine is called by <a href="9399.html">DRAW_LINE</a>. The routine is entered with the coordinates of a pixel on the calculator stack. It finds the address of that pixel and plots it, taking account of the status of INVERSE and OVER held in the <a href="23697.html">P-FLAG</a>.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">PLOT</td>
+<td class="address-2"><span id="8924"></span>08924</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8967.html">STK_TO_BC</a></td>
+<td class="comment-11" rowspan="1">y-coordinate to <span class="register">B</span>, x to <span class="register">C</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8927"></span>08927</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8924.html#8933">PLOT_SUB</a></td>
+<td class="comment-11" rowspan="1">The subroutine is called.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8930"></span>08930</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP <a href="3405.html">TEMPS</a></td>
+<td class="comment-11" rowspan="1">Exit, setting temporary colours.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8933"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="9399.html">DRAW_LINE</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">PLOT_SUB</td>
+<td class="address-2"><span id="8933"></span>08933</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23677),BC</td>
+<td class="comment-11" rowspan="1">The system variable <a href="23677.html">COORDS</a> is set.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8937"></span>08937</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8874.html">PIXEL_ADD</a></td>
+<td class="comment-11" rowspan="1">Pixel address to <span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8940"></span>08940</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,A</td>
+<td class="comment-11" rowspan="2"><span class="register">B</span> will count <span class="register">A</span>+1 loops to get a zero to the correct place in <span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8941"></span>08941</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC B</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8942"></span>08942</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,254</td>
+<td class="comment-11" rowspan="1">The zero is entered.</td>
+</tr>
+<tr>
+<td class="asm-label-1">PLOT_LOOP</td>
+<td class="address-2"><span id="8944"></span>08944</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-11" rowspan="2">Then lined up with the pixel bit position in the byte.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8945"></span>08945</td>
+<td class="bytes-0"></td>
+<td class="instruction">DJNZ <a href="8924.html#8944">PLOT_LOOP</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8947"></span>08947</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,A</td>
+<td class="comment-11" rowspan="1">Then copied to <span class="register">B</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8948"></span>08948</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-11" rowspan="1">The pixel-byte is obtained in <span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8949"></span>08949</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,(IY+87)</td>
+<td class="comment-11" rowspan="2"><a href="23697.html">P-FLAG</a> is obtained and first tested for OVER.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8952"></span>08952</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 0,C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8954"></span>08954</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="8924.html#8957">PL_TST_IN</a></td>
+<td class="comment-11" rowspan="1">Jump if OVER 1.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8956"></span>08956</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND B</td>
+<td class="comment-11" rowspan="1">OVER 0 first makes the pixel zero.</td>
+</tr>
+<tr>
+<td class="asm-label-1">PL_TST_IN</td>
+<td class="address-2"><span id="8957"></span>08957</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 2,C</td>
+<td class="comment-11" rowspan="1">Test for INVERSE.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8959"></span>08959</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="8924.html#8963">PLOT_END</a></td>
+<td class="comment-11" rowspan="1">INVERSE 1 just leaves the pixel as it was (OVER 1) or zero (OVER 0).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8961"></span>08961</td>
+<td class="bytes-0"></td>
+<td class="instruction">XOR B</td>
+<td class="comment-11" rowspan="2">INVERSE 0 leaves the pixel complemented (OVER 1) or 1 (OVER 0).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8962"></span>08962</td>
+<td class="bytes-0"></td>
+<td class="instruction">CPL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">PLOT_END</td>
+<td class="address-2"><span id="8963"></span>08963</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-11" rowspan="1">The byte is entered. Its other bits are unchanged in every case.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8964"></span>08964</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP <a href="3035.html">PO_ATTR</a></td>
+<td class="comment-11" rowspan="1">Exit, setting attribute byte.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="8907.html">08907</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#8924">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="8967.html">08967</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/22DC.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

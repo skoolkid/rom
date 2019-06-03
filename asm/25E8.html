@@ -23,7 +23,7 @@
 <div class="description">25E8: THE 'SCANNING BRACKET' ROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is derived from an offset found in the <a href="2596.html">scanning function table</a>.
@@ -46,36 +46,42 @@ The address of this routine is derived from an offset found in the <a href="2596
 <tr>
 <td class="asm-label-1">S_BRACKET</td>
 <td class="address-2"><span id="25E8"></span>25E8</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
 <td class="comment-11" rowspan="2">This routine simply gets the character and calls <a href="24FB.html">SCANNING</a> recursively.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25E9"></span>25E9</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="24FB.html">SCANNING</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25EC"></span>25EC</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
 <td class="comment-11" rowspan="2">Report the error if no matching bracket.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25EE"></span>25EE</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP NZ,<a href="1C79.html#1C8A">REPORT_C</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25F1"></span>25F1</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
 <td class="comment-11" rowspan="2">Continue scanning.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25F2"></span>25F2</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="26C9.html#2712">S_CONT_2</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -88,10 +94,10 @@ The address of this routine is derived from an offset found in the <a href="2596
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/9704.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/9704.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

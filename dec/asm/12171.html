@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 12171</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="11747.html">11747</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#12171">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="12187.html">12187</a></span></td>
+</tr>
+</table>
+<div class="description">12171: THE 'CA=10*A+C' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+This subroutine is called by <a href="11747.html">PRINT_FP</a> to multiply each byte of <span class="register">D'E'DE</span> by 10 and return the integer part of the result in the <span class="register">C</span> register. On entry, the <span class="register">A</span> register contains the byte to be multiplied by 10 and the <span class="register">C</span> register contains the carry over from the previous byte. On return, the <span class="register">A</span> register contains the resulting byte and the <span class="register">C</span> register the carry forward to the next byte.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">First number (M)</td>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">Second number (N)</td>
+</tr>
+</table>
+<table class="output-1">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">LSB of 10*M+N</td>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">MSB of 10*M+N</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CA_10A_C</td>
+<td class="address-2"><span id="12171"></span>12171</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-11" rowspan="1">Save whichever <span class="register">DE</span> pair is in use.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="12172"></span>12172</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD L,A</td>
+<td class="comment-11" rowspan="2">Copy the multiplicand from <span class="register">A</span> to <span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="12173"></span>12173</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD H,0</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="12175"></span>12175</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD E,L</td>
+<td class="comment-11" rowspan="2">Copy it to <span class="register">DE</span> too.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="12176"></span>12176</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD D,H</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="12177"></span>12177</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-11" rowspan="1">Double <span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="12178"></span>12178</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-11" rowspan="1">Double it again.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="12179"></span>12179</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-11" rowspan="1">Add in <span class="register">DE</span> to give <span class="register">HL</span>=5*<span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="12180"></span>12180</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-11" rowspan="1">Double again: now <span class="register">HL</span>=10*<span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="12181"></span>12181</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD E,C</td>
+<td class="comment-11" rowspan="1">Copy <span class="register">C</span> to <span class="register">DE</span> (<span class="register">D</span> is zero) for addition.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="12182"></span>12182</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-11" rowspan="1">Now <span class="register">HL</span>=10*<span class="register">A</span>+<span class="register">C</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="12183"></span>12183</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,H</td>
+<td class="comment-11" rowspan="1"><span class="register">H</span> is copied to <span class="register">C</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="12184"></span>12184</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,L</td>
+<td class="comment-11" rowspan="1"><span class="register">L</span> is copied to <span class="register">A</span>, completing the task.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="12185"></span>12185</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP DE</td>
+<td class="comment-11" rowspan="1">The <span class="register">DE</span> register pair is restored.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="12186"></span>12186</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="11747.html">11747</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#12171">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="12187.html">12187</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/2F8B.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

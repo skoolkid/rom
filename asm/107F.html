@@ -23,7 +23,7 @@
 <div class="description">107F: THE 'ED-ERROR' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routine at <a href="0F2C.html">EDITOR</a>.
@@ -49,48 +49,56 @@ Come here when there has been some kind of error.
 <tr>
 <td class="asm-label-1">ED_ERROR</td>
 <td class="address-2"><span id="107F"></span>107F</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 4,(IY+$30)</td>
 <td class="comment-11" rowspan="2">Jump back if using other than channel 'K' (bit 4 of <a href="5C6A.html">FLAGS2</a> reset).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1083"></span>1083</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1024.html#1026">ED_END</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1085"></span>1085</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (IY+$00),$FF</td>
 <td class="comment-11" rowspan="6">Cancel the error number (<a href="5C3A.html">ERR-NR</a>) and give a 'rasp' (see <a href="5C38.html">RASP</a>) before going around the editor again.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1089"></span>1089</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,$00</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="108B"></span>108B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD E,(IY-$02)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="108E"></span>108E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$1A90</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1091"></span>1091</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="03B5.html">BEEPER</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1094"></span>1094</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="0F2C.html#0F30">ED_AGAIN</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -103,10 +111,10 @@ Come here when there has been some kind of error.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/4223.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/4223.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

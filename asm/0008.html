@@ -23,7 +23,7 @@
 <div class="description">0008: THE 'ERROR' RESTART</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="03F8.html">BEEP</a>, <a href="053F.html">SA_LD_RET</a>, <a href="0605.html">SAVE_ETC</a>, <a href="0802.html">LD_BLOCK</a>, <a href="0C55.html">PO_SCR</a>, <a href="0EF4.html">COPY_LINE</a>, <a href="15C4.html">REPORT_J</a>, <a href="15D4.html">WAIT_KEY</a>, <a href="1601.html">CHAN_OPEN</a>, <a href="171E.html">STR_DATA</a>, <a href="175D.html">OPEN_2</a>, <a href="1B76.html">STMT_RET</a>, <a href="1B9E.html">LINE_NEW</a>, <a href="1BD1.html">NEXT_LINE</a>, <a href="1C22.html">VAR_A_1</a>, <a href="1C79.html">NEXT_2NUM</a>, <a href="1CEE.html">STOP</a>, <a href="1D03.html">FOR</a>, <a href="1DAB.html">NEXT</a>, <a href="1DEC.html">READ_3</a>, <a href="1E94.html">FIND_INT1</a>, <a href="1EAC.html">CLEAR</a>, <a href="1F23.html">RETURN</a>, <a href="21B9.html">IN_ASSIGN</a>, <a href="21E1.html">CO_TEMP_1</a>, <a href="24B7.html">DRAW_LINE</a>, <a href="27BD.html">S_FN_SBRN</a>, <a href="2996.html">STK_VAR</a>, <a href="30CA.html">multiply</a>, <a href="34BC.html">usr</a>, <a href="35C9.html">chrs</a>, <a href="36C4.html">exp</a> and <a href="3713.html">ln</a>.
@@ -49,18 +49,21 @@ The error pointer is made to point to the position of the error.
 <tr>
 <td class="asm-label-1">ERROR_1</td>
 <td class="address-2"><span id="0008"></span>0008</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C5D)</td>
 <td class="comment-11" rowspan="3">The address reached by the interpreter (<a href="5C5D.html">CH-ADD</a>) is copied to the error pointer (<a href="5C5F.html">X-PTR</a>) before proceeding.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="000B"></span>000B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C5F),HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="000E"></span>000E</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="0053.html">ERROR_2</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -73,10 +76,10 @@ The error pointer is made to point to the position of the error.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/8.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/8.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

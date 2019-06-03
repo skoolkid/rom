@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 14417</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="14410.html">14410</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#14417">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="14446.html">14446</a></span></td>
+</tr>
+</table>
+<div class="description">14417: THE 'EXPONENTIATION' OPERATION (offset 6)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="13015.html">table of addresses</a>. It is called indirectly via <a href="13218.html">fp_calc_2</a>, and the routine at <a href="14410.html">sqr</a> continues here.
+</div>
+<div class="paragraph">
+This subroutine performs the binary operation of raising the first number, X, to the power of the second number, Y.
+</div>
+<div class="paragraph">
+The subroutine treats the result X**Y as being equivalent to EXP (Y*LN X). It returns this value unless X is zero, in which case it returns 1 if Y is also zero (0**0=1), returns zero if Y is positive, and reports arithmetic overflow if Y is negative.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">to_power</td>
+<td class="address-2"><span id="14417"></span>14417</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1">X, Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14418"></span>14418</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: Y, X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14419"></span>14419</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: Y, X, X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14420"></span>14420</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 48</td>
+<td class="comment-11" rowspan="1"><a href="13569.html">f_not</a>: Y, X, (1/0)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14421"></span>14421</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 0</td>
+<td class="comment-11" rowspan="2"><a href="13967.html">jump_true</a> to <a href="14417.html#14429">XIS0</a>: Y, X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14422"></span>14422</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 7</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="14423"></span>
+<div class="comments">
+<div class="paragraph">
+The jump is made if X=0, otherwise EXP (Y*LN X) is formed.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14423"></span>14423</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 37</td>
+<td class="comment-11" rowspan="1"><a href="14099.html">ln</a>: Y, LN X</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="14424"></span>
+<div class="comments">
+<div class="paragraph">
+Giving report A if X is negative.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14424"></span>14424</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: Y*LN X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14425"></span>14425</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14426"></span>14426</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP <a href="14020.html">exp</a></td>
+<td class="comment-11" rowspan="1">Exit via <a href="14020.html">exp</a> to form EXP (Y*LN X).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="14429"></span>
+<div class="comments">
+<div class="paragraph">
+The value of X is zero so consider the three possible cases involved.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">XIS0</td>
+<td class="address-1"><span id="14429"></span>14429</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14430"></span>14430</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: Y, Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14431"></span>14431</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 48</td>
+<td class="comment-11" rowspan="1"><a href="13569.html">f_not</a>: Y, (1/0)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14432"></span>14432</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 0</td>
+<td class="comment-11" rowspan="2"><a href="13967.html">jump_true</a> to <a href="14417.html#14442">ONE</a>: Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14433"></span>14433</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 9</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="14434"></span>
+<div class="comments">
+<div class="paragraph">
+The jump is made if X=0 and Y=0, otherwise proceed.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14434"></span>14434</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 160</td>
+<td class="comment-11" rowspan="1"><a href="13339.html">stk_zero</a>: Y, 0</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14435"></span>14435</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: 0, Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14436"></span>14436</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 55</td>
+<td class="comment-11" rowspan="1"><a href="13561.html">greater_0</a>: 0, (1/0)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14437"></span>14437</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 0</td>
+<td class="comment-11" rowspan="2"><a href="13967.html">jump_true</a> to <a href="14417.html#14444">LAST</a>: 0</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14438"></span>14438</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 6</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="14439"></span>
+<div class="comments">
+<div class="paragraph">
+The jump is made if X=0 and Y is positive, otherwise proceed.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14439"></span>14439</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 161</td>
+<td class="comment-11" rowspan="1"><a href="13339.html">stk_one</a>: 0, 1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14440"></span>14440</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: 1, 0</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14441"></span>14441</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 5</td>
+<td class="comment-11" rowspan="1"><a href="12719.html">division</a>: Exit via <a href="12719.html">division</a> as dividing by zero gives 'arithmetic overflow'.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="14442"></span>
+<div class="comments">
+<div class="paragraph">
+The result is to be 1 for the operation.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">ONE</td>
+<td class="address-1"><span id="14442"></span>14442</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: -</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14443"></span>14443</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 161</td>
+<td class="comment-11" rowspan="1"><a href="13339.html">stk_one</a>: 1</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="14444"></span>
+<div class="comments">
+<div class="paragraph">
+Now return with the 'last value' on the stack being 0**Y.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LAST</td>
+<td class="address-1"><span id="14444"></span>14444</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: (1/0)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14445"></span>14445</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished: 'last value' is 0 or 1.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="14410.html">14410</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#14417">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="14446.html">14446</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/3851.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

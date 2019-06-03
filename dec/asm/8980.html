@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 08980</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="8967.html">08967</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#8980">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="8992.html">08992</a></span></td>
+</tr>
+</table>
+<div class="description">08980: THE 'STK-TO-A' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="8967.html">STK_TO_BC</a>.
+</div>
+<div class="paragraph">
+This subroutine loads the <span class="register">A</span> register with the floating point number held at the top of the calculator stack. The number must be in the range 0 to 255.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-1">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Number from the calculator stack</td>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">Sign of the number (1 or 255)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">STK_TO_A</td>
+<td class="address-2"><span id="8980"></span>08980</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="11733.html">FP_TO_A</a></td>
+<td class="comment-11" rowspan="2">Modulus of rounded last value to <span class="register">A</span> if possible; else, report error.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8983"></span>08983</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP C,<a href="9399.html#9465">REPORT_B_3</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8986"></span>08986</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,1</td>
+<td class="comment-11" rowspan="1">One to <span class="register">C</span> for positive last value.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8988"></span>08988</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET Z</td>
+<td class="comment-11" rowspan="1">Return if value was positive.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8989"></span>08989</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,255</td>
+<td class="comment-11" rowspan="1">Else change <span class="register">C</span> to 255 (i.e. minus one).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8991"></span>08991</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="8967.html">08967</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#8980">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="8992.html">08992</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/2314.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

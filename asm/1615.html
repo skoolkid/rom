@@ -23,7 +23,7 @@
 <div class="description">1615: THE 'CHAN-FLAG' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="0FA9.html">ED_EDIT</a>, <a href="361F.html">str</a> and <a href="3645.html">read_in</a>.
@@ -55,83 +55,96 @@ The appropriate flags for the different channels are set by this subroutine.
 <tr>
 <td class="asm-label-1">CHAN_FLAG</td>
 <td class="address-2"><span id="1615"></span>1615</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C51),HL</td>
 <td class="comment-11" rowspan="1">The <span class="register">HL</span> register pair holds the base address for a particular channel; set <a href="5C51.html">CURCHL</a> accordingly.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1618"></span>1618</td>
+<td class="bytes-0"></td>
 <td class="instruction">RES 4,(IY+$30)</td>
 <td class="comment-11" rowspan="1">Signal 'using other than channel 'K'' (reset bit 4 of <a href="5C6A.html">FLAGS2</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="161C"></span>161C</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="4">Step past the output and the input addresses and make <span class="register">HL</span> point to the channel code.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="161D"></span>161D</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="161E"></span>161E</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="161F"></span>161F</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1620"></span>1620</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,(HL)</td>
 <td class="comment-11" rowspan="1">Fetch the code.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1621"></span>1621</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$162D</td>
 <td class="comment-11" rowspan="1">The base address of the <a href="162D.html">channel code look-up table</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1624"></span>1624</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="16DB.html#16DC">INDEXER</a></td>
 <td class="comment-11" rowspan="2">Index into this table and locate the required offset, but return if there is not a matching channel code.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1627"></span>1627</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1628"></span>1628</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,$00</td>
 <td class="comment-11" rowspan="2">Pass the offset to the <span class="register">DE</span> register pair.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="162A"></span>162A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD E,(HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="162B"></span>162B</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-11" rowspan="1">Point <span class="register">HL</span> at the appropriate flag setting routine.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="162C"></span>
 <div class="comments">
 <div class="paragraph">
@@ -143,6 +156,7 @@ This entry point is used by the routine at <a href="15EF.html">OUT_CODE</a>.
 <tr>
 <td class="asm-label-1">CALL_JUMP</td>
 <td class="address-2"><span id="162C"></span>162C</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP (HL)</td>
 <td class="comment-11" rowspan="1">Jump to the routine.</td>
 </tr>
@@ -155,10 +169,10 @@ This entry point is used by the routine at <a href="15EF.html">OUT_CODE</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/5653.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/5653.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

@@ -23,7 +23,7 @@
 <div class="description">1F23: THE 'RETURN' COMMAND ROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="1A48.html#1A8D">parameter table</a>.
@@ -49,77 +49,89 @@ The line number and the statement number that are to be made the object of a 're
 <tr>
 <td class="asm-label-1">RETURN</td>
 <td class="address-2"><span id="1F23"></span>1F23</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">Fetch the address - <a href="1B76.html">STMT_RET</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F24"></span>1F24</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-11" rowspan="1">Fetch the 'error address'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F25"></span>1F25</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
 <td class="comment-11" rowspan="1">Fetch the last entry on the GO SUB stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F26"></span>1F26</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
 <td class="comment-11" rowspan="2">The entry is tested to see if it is the GO SUB stack end marker.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F27"></span>1F27</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $3E</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F29"></span>1F29</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1F23.html#1F36">REPORT_7</a></td>
 <td class="comment-11" rowspan="1">Jump if it is.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F2B"></span>1F2B</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC SP</td>
 <td class="comment-11" rowspan="1">The full entry uses three locations only.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F2C"></span>1F2C</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX (SP),HL</td>
 <td class="comment-11" rowspan="1">Exchange the statement number with the 'error address'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F2D"></span>1F2D</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Move the statement number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F2E"></span>1F2E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C3D),SP</td>
 <td class="comment-11" rowspan="1">Reset the error pointer (<a href="5C3D.html">ERR-SP</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F32"></span>1F32</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-11" rowspan="1">Replace the address <a href="1B76.html">STMT_RET</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F33"></span>1F33</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="1E67.html#1E73">GO_TO_2</a></td>
 <td class="comment-11" rowspan="1">Jump back to change <a href="5C42.html">NEWPPC</a> and <a href="5C44.html">NSPPC</a>.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1F36"></span>
 <div class="comments">
 <div class="paragraph">
@@ -131,24 +143,28 @@ Report 7 - RETURN without GOSUB.
 <tr>
 <td class="asm-label-1">REPORT_7</td>
 <td class="address-2"><span id="1F36"></span>1F36</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-11" rowspan="2">Replace the end marker and the 'error address'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F37"></span>1F37</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F38"></span>1F38</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
 <td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F39"></span>1F39</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $06</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -161,10 +177,10 @@ Report 7 - RETURN without GOSUB.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/7971.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/7971.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

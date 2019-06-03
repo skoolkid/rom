@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 07091</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="7090.html">07090</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#7091">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="7103.html">07103</a></span></td>
+</tr>
+</table>
+<div class="description">07091: THE 'LINE-END' ROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="6952.html">STMT_LOOP</a>, <a href="7156.html">STMT_NEXT</a> and <a href="7408.html">IF_CMD</a>.
+</div>
+<div class="paragraph">
+The routine at <a href="7090.html">REM</a> continues here.
+</div>
+<div class="paragraph">
+If checking syntax a simple return is made but when 'running' the address held by <a href="23637.html">NXTLIN</a> has to be checked before it can be used.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LINE_END</td>
+<td class="address-2"><span id="7091"></span>07091</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="9520.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="3">Return if syntax is being checked; otherwise fetch the address in <a href="23637.html">NXTLIN</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7094"></span>07094</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET Z</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7095"></span>07095</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23637)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7098"></span>07098</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,192</td>
+<td class="comment-11" rowspan="3">Return also if the address is after the end of the program - the 'run' is finished.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7100"></span>07100</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND (HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7101"></span>07101</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET NZ</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7102"></span>07102</td>
+<td class="bytes-0"></td>
+<td class="instruction">XOR A</td>
+<td class="comment-11" rowspan="1">Signal 'statement zero' before proceeding.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+
+<div class="comments">
+<div class="paragraph">
+This routine continues into <a href="7103.html">LINE_USE</a>.
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="7090.html">07090</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#7091">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="7103.html">07103</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/1BB3.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

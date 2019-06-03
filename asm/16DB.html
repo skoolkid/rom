@@ -23,7 +23,7 @@
 <div class="description">16DB: THE 'INDEXER' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 This subroutine is used on several occasions to look through tables.
@@ -60,11 +60,12 @@ This subroutine is used on several occasions to look through tables.
 <tr>
 <td class="asm-label-1">INDEXER_1</td>
 <td class="address-2"><span id="16DB"></span>16DB</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Move on to consider the next pair of entries.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="16DC"></span>
 <div class="comments">
 <div class="paragraph">
@@ -76,48 +77,56 @@ The main entry point is here and is used by the routines at <a href="1615.html">
 <tr>
 <td class="asm-label-1">INDEXER</td>
 <td class="address-2"><span id="16DC"></span>16DC</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-11" rowspan="3">Fetch the first of a pair of entries but return if it is zero - the end marker.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16DD"></span>16DD</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16DE"></span>16DE</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16DF"></span>16DF</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP C</td>
 <td class="comment-11" rowspan="1">Compare it to the supplied code.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16E0"></span>16E0</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Point to the second entry.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16E1"></span>16E1</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="16DB.html#16DB">INDEXER_1</a></td>
 <td class="comment-11" rowspan="1">Jump back if the correct entry has not been found.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16E3"></span>16E3</td>
+<td class="bytes-0"></td>
 <td class="instruction">SCF</td>
 <td class="comment-11" rowspan="1">The carry flag is set upon a successful search.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="16E4"></span>16E4</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1"></td>
 </tr>
@@ -130,10 +139,10 @@ The main entry point is here and is used by the routines at <a href="1615.html">
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/5851.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/5851.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

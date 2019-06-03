@@ -23,7 +23,7 @@
 <div class="description">1855: THE 'PRINT A WHOLE BASIC LINE' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="0FA9.html">ED_EDIT</a> and <a href="17F9.html">LIST</a>.
@@ -55,131 +55,152 @@ Before the line number is printed it is tested to determine whether it comes bef
 <tr>
 <td class="asm-label-1">OUT_LINE</td>
 <td class="address-2"><span id="1855"></span>1855</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD BC,($5C49)</td>
 <td class="comment-11" rowspan="2">Fetch the 'current' line number from <a href="5C49.html">E-PPC</a> and compare it.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1859"></span>1859</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1980.html">CP_LINES</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="185C"></span>185C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,"&gt;"</td>
 <td class="comment-11" rowspan="1">Pre-load the <span class="register">D</span> register with the current line cursor.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="185E"></span>185E</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1855.html#1865">OUT_LINE1</a></td>
 <td class="comment-11" rowspan="1">Jump forward if printing the 'current' line.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1860"></span>1860</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD DE,$0000</td>
 <td class="comment-11" rowspan="2">Load the <span class="register">D</span> register with zero (it is not the cursor) and set <span class="register">E</span> to hold +01 if the line is before the 'current' line and +00 if after. (The carry flag comes from <a href="1980.html">CP_LINES</a>.)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1863"></span>1863</td>
+<td class="bytes-0"></td>
 <td class="instruction">RL E</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">OUT_LINE1</td>
 <td class="address-2"><span id="1865"></span>1865</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (IY+$2D),E</td>
 <td class="comment-11" rowspan="1">Save the line marker in <a href="5C67.html">BREG</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1868"></span>1868</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-11" rowspan="4">Fetch the high byte of the line number and make a full return if the listing has been finished.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1869"></span>1869</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $40</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="186B"></span>186B</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="186C"></span>186C</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="186D"></span>186D</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="186E"></span>186E</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1A1B.html#1A28">OUT_NUM_2</a></td>
 <td class="comment-11" rowspan="1">The line number can now be printed - with leading spaces.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1871"></span>1871</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="3">Move the pointer on to address the first command code in the line.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1872"></span>1872</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1873"></span>1873</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1874"></span>1874</td>
+<td class="bytes-0"></td>
 <td class="instruction">RES 0,(IY+$01)</td>
 <td class="comment-11" rowspan="1">Signal 'leading space allowed' (reset bit 0 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1878"></span>1878</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
 <td class="comment-11" rowspan="3">Fetch the cursor code and jump forward unless the cursor is to be printed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1879"></span>1879</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="187A"></span>187A</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1855.html#1881">OUT_LINE3</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="187C"></span>187C</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0010.html">$10</a></td>
 <td class="comment-11" rowspan="1">So print the cursor now.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="187D"></span>
 <div class="comments">
 <div class="paragraph">
@@ -191,59 +212,68 @@ This entry point is used by the routine at <a href="111D.html">ED_COPY</a>.
 <tr>
 <td class="asm-label-1">OUT_LINE2</td>
 <td class="address-2"><span id="187D"></span>187D</td>
+<td class="bytes-0"></td>
 <td class="instruction">SET 0,(IY+$01)</td>
 <td class="comment-11" rowspan="1">Signal 'no leading space now' (set bit 0 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1">OUT_LINE3</td>
 <td class="address-2"><span id="1881"></span>1881</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-11" rowspan="1">Save the registers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1882"></span>1882</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Move the pointer to <span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1883"></span>1883</td>
+<td class="bytes-0"></td>
 <td class="instruction">RES 2,(IY+$30)</td>
 <td class="comment-11" rowspan="1">Signal 'not in quotes' (reset bit 2 of <a href="5C6A.html">FLAGS2</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1887"></span>1887</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$5C3B</td>
 <td class="comment-11" rowspan="1">This is <a href="5C3B.html">FLAGS</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="188A"></span>188A</td>
+<td class="bytes-0"></td>
 <td class="instruction">RES 2,(HL)</td>
 <td class="comment-11" rowspan="1">Signal 'print in K-mode'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="188C"></span>188C</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 5,(IY+$37)</td>
 <td class="comment-11" rowspan="2">Jump forward unless in INPUT mode (bit 5 of <a href="5C71.html">FLAGX</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1890"></span>1890</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1855.html#1894">OUT_LINE4</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1892"></span>1892</td>
+<td class="bytes-0"></td>
 <td class="instruction">SET 2,(HL)</td>
 <td class="comment-11" rowspan="1">Signal 'print in L-mode'.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1894"></span>
 <div class="comments">
 <div class="paragraph">
@@ -255,101 +285,117 @@ Now enter a loop to print all the codes in the rest of the BASIC line - jumping 
 <tr>
 <td class="asm-label-1">OUT_LINE4</td>
 <td class="address-2"><span id="1894"></span>1894</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C5F)</td>
 <td class="comment-11" rowspan="4">Fetch the syntax error pointer (<a href="5C5F.html">X-PTR</a>) and jump forward unless it is time to print the error marker.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1897"></span>1897</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1898"></span>1898</td>
+<td class="bytes-0"></td>
 <td class="instruction">SBC HL,DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="189A"></span>189A</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1855.html#18A1">OUT_LINE5</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="189C"></span>189C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,"?"</td>
 <td class="comment-11" rowspan="2">Print the error marker now. It is a flashing '?'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="189E"></span>189E</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="18C1.html">OUT_FLASH</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">OUT_LINE5</td>
 <td class="address-2"><span id="18A1"></span>18A1</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="18E1.html">OUT_CURS</a></td>
 <td class="comment-11" rowspan="1">Consider whether to print the cursor.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="18A4"></span>18A4</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Move the pointer to <span class="register">HL</span> now.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="18A5"></span>18A5</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-11" rowspan="1">Fetch each character in turn.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="18A6"></span>18A6</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="18B6.html">NUMBER</a></td>
 <td class="comment-11" rowspan="1">If the character is a 'number marker' then the hidden floating-point form is not to be printed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="18A9"></span>18A9</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Update the pointer for the next pass.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="18AA"></span>18AA</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $0D</td>
 <td class="comment-11" rowspan="1">Is the character a 'carriage return'?</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="18AC"></span>18AC</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1855.html#18B4">OUT_LINE6</a></td>
 <td class="comment-11" rowspan="1">Jump if it is.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="18AE"></span>18AE</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Switch the pointer to <span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="18AF"></span>18AF</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1925.html#1937">OUT_CHAR</a></td>
 <td class="comment-11" rowspan="1">Print the character.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="18B2"></span>18B2</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="1855.html#1894">OUT_LINE4</a></td>
 <td class="comment-11" rowspan="1">Go around the loop for at least one further pass.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="18B4"></span>
 <div class="comments">
 <div class="paragraph">
@@ -361,12 +407,14 @@ The line has now been printed.
 <tr>
 <td class="asm-label-1">OUT_LINE6</td>
 <td class="address-2"><span id="18B4"></span>18B4</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
 <td class="comment-11" rowspan="2">Restore the <span class="register">DE</span> register pair and return.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="18B5"></span>18B5</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -379,10 +427,10 @@ The line has now been printed.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/6229.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/6229.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

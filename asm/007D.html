@@ -23,7 +23,7 @@
 <div class="description">007D: THE 'SKIP-OVER' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routine at <a href="0018.html">GET_CHAR</a>.
@@ -52,96 +52,112 @@ The value brought to the subroutine in the <span class="register">A</span> regis
 <tr>
 <td class="asm-label-1">SKIP_OVER</td>
 <td class="address-2"><span id="007D"></span>007D</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $21</td>
 <td class="comment-11" rowspan="2">Return with the carry flag reset if ordinary character code.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="007F"></span>007F</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0080"></span>0080</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $0D</td>
 <td class="comment-11" rowspan="2">Return if the end of the line has been reached.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0082"></span>0082</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0083"></span>0083</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $10</td>
 <td class="comment-11" rowspan="2">Return with codes +00 to +0F but with carry set.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0085"></span>0085</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0086"></span>0086</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $18</td>
 <td class="comment-11" rowspan="3">Return with codes +18 to +20 again with carry set.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0088"></span>0088</td>
+<td class="bytes-0"></td>
 <td class="instruction">CCF</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0089"></span>0089</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="008A"></span>008A</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Skip over once.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="008B"></span>008B</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $16</td>
 <td class="comment-11" rowspan="2">Jump forward with codes +10 to +15 (INK to OVER).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="008D"></span>008D</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="007D.html#0090">SKIPS</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="008F"></span>008F</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Skip over once more (AT and TAB).</td>
 </tr>
 <tr>
 <td class="asm-label-1">SKIPS</td>
 <td class="address-2"><span id="0090"></span>0090</td>
+<td class="bytes-0"></td>
 <td class="instruction">SCF</td>
 <td class="comment-11" rowspan="3">Return with the carry flag set and <a href="5C5D.html">CH-ADD</a> holding the appropriate address.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0091"></span>0091</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C5D),HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0094"></span>0094</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -154,10 +170,10 @@ The value brought to the subroutine in the <span class="register">A</span> regis
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/125.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/125.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

@@ -23,7 +23,7 @@
 <div class="description">171E: THE 'STREAM DATA' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="16E5.html">CLOSE</a> and <a href="1736.html">OPEN</a>.
@@ -56,23 +56,26 @@ This subroutine returns in the <span class="register">BC</span> register pair th
 <tr>
 <td class="asm-label-1">STR_DATA</td>
 <td class="address-2"><span id="171E"></span>171E</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1E94.html">FIND_INT1</a></td>
 <td class="comment-11" rowspan="1">The given stream number is taken off the calculator stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1721"></span>1721</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $10</td>
 <td class="comment-11" rowspan="2">Give an error if the stream number is greater than +0F.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1723"></span>1723</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="171E.html#1727">STR_DATA1</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1725"></span>
 <div class="comments">
 <div class="paragraph">
@@ -87,17 +90,19 @@ Report O - Invalid stream.
 <tr>
 <td class="asm-label-1">REPORT_O_2</td>
 <td class="address-2"><span id="1725"></span>1725</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
 <td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1726"></span>1726</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $17</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1727"></span>
 <div class="comments">
 <div class="paragraph">
@@ -109,66 +114,77 @@ Continue with valid stream numbers.
 <tr>
 <td class="asm-label-1">STR_DATA1</td>
 <td class="address-2"><span id="1727"></span>1727</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD A,$03</td>
 <td class="comment-11" rowspan="1">Range now +03 to +12.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1729"></span>1729</td>
+<td class="bytes-0"></td>
 <td class="instruction">RLCA</td>
 <td class="comment-11" rowspan="1">And now +06 to +24.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="172A"></span>172A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$5C10</td>
 <td class="comment-11" rowspan="1">The base address of the <a href="5C10.html">stream data area</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="172D"></span>172D</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
 <td class="comment-11" rowspan="2">Move the stream code to the <span class="register">BC</span> register pair.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="172E"></span>172E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$00</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1730"></span>1730</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-11" rowspan="4">Index into the data area and fetch the the two data bytes into the <span class="register">BC</span> register pair.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1731"></span>1731</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,(HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1732"></span>1732</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1733"></span>1733</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,(HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1734"></span>1734</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
 <td class="comment-11" rowspan="2">Make the pointer address the first of the data bytes before returning.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1735"></span>1735</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -181,10 +197,10 @@ Continue with valid stream numbers.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/5918.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/5918.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 02056</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="2050.html">02050</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#2056">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="2230.html">02230</a></span></td>
+</tr>
+</table>
+<div class="description">02056: THE 'LOAD' CONTROL ROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="1541.html">SAVE_ETC</a>.
+</div>
+<div class="paragraph">
+This routine controls the LOADing of a BASIC program, and its variables, or an array.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Destination address (<a href="23635.html">PROG</a>, or the address of the array, or 0 for a new array)</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">Address of the header loaded from tape</td>
+</tr>
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LD_CONTRL</td>
+<td class="address-2"><span id="2056"></span>02056</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD E,(IX+11)</td>
+<td class="comment-11" rowspan="2">Fetch the 'number of bytes' as given in the 'new header'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2059"></span>02059</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD D,(IX+12)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2062"></span>02062</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-11" rowspan="1">Save the 'destination pointer'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2063"></span>02063</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,H</td>
+<td class="comment-11" rowspan="3">Jump forward unless trying to LOAD a previously undeclared array.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2064"></span>02064</td>
+<td class="bytes-0"></td>
+<td class="instruction">OR L</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2065"></span>02065</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="2056.html#2073">LD_CONT_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2067"></span>02067</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC DE</td>
+<td class="comment-11" rowspan="4">Add three bytes to the length - for the name, the low length and the high length of a new variable.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2068"></span>02068</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2069"></span>02069</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2070"></span>02070</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2071"></span>02071</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="2056.html#2085">LD_CONT_2</a></td>
+<td class="comment-11" rowspan="1">Jump forward.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="2073"></span>
+<div class="comments">
+<div class="paragraph">
+Consider now if there is enough room in memory for the new data block.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LD_CONT_1</td>
+<td class="address-2"><span id="2073"></span>02073</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD L,(IX-6)</td>
+<td class="comment-11" rowspan="3">Fetch the size of the existing 'program+variables or array'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2076"></span>02076</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD H,(IX-5)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2079"></span>02079</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2080"></span>02080</td>
+<td class="bytes-0"></td>
+<td class="instruction">SCF</td>
+<td class="comment-11" rowspan="3">Jump forward if no extra room will be required (taking into account the reclaiming of the presently used memory).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2081"></span>02081</td>
+<td class="bytes-0"></td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2083"></span>02083</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR C,<a href="2056.html#2094">LD_DATA</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="2085"></span>
+<div class="comments">
+<div class="paragraph">
+Make the actual test for room.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LD_CONT_2</td>
+<td class="address-2"><span id="2085"></span>02085</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD DE,5</td>
+<td class="comment-11" rowspan="2">Allow an overhead of five bytes.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2088"></span>02088</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2089"></span>02089</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,H</td>
+<td class="comment-11" rowspan="3">Move the result to the <span class="register">BC</span> register pair and make the test.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2090"></span>02090</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,L</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2091"></span>02091</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7941.html">TEST_ROOM</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="2094"></span>
+<div class="comments">
+<div class="paragraph">
+Now deal with the LOADing of arrays.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LD_DATA</td>
+<td class="address-2"><span id="2094"></span>02094</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP HL</td>
+<td class="comment-11" rowspan="1">Fetch the 'pointer' anew.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2095"></span>02095</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(IX+0)</td>
+<td class="comment-11" rowspan="3">Jump forward if LOADing a BASIC program.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2098"></span>02098</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2099"></span>02099</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="2056.html#2163">LD_PROG</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2101"></span>02101</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,H</td>
+<td class="comment-11" rowspan="3">Jump forward if LOADing a new array.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2102"></span>02102</td>
+<td class="bytes-0"></td>
+<td class="instruction">OR L</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2103"></span>02103</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="2056.html#2124">LD_DATA_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2105"></span>02105</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC HL</td>
+<td class="comment-11" rowspan="4">Fetch the 'length' of the existing array by collecting the length bytes from the variables area.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2106"></span>02106</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,(HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2107"></span>02107</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2108"></span>02108</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,(HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2109"></span>02109</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC HL</td>
+<td class="comment-11" rowspan="1">Point to its old name.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2110"></span>02110</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC BC</td>
+<td class="comment-11" rowspan="3">Add three bytes to the length - one for the name and two for the 'length'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2111"></span>02111</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC BC</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2112"></span>02112</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC BC</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2113"></span>02113</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23647),IX</td>
+<td class="comment-11" rowspan="3">Save the <span class="register">IX</span> register pair temporarily (in <a href="23647.html">X-PTR</a>) whilst the old array is reclaimed.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2117"></span>02117</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6629.html#6632">RECLAIM_2</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2120"></span>02120</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD IX,(23647)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="2124"></span>
+<div class="comments">
+<div class="paragraph">
+Space is now made available for the new array - at the end of the present variables area.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LD_DATA_1</td>
+<td class="address-2"><span id="2124"></span>02124</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23641)</td>
+<td class="comment-11" rowspan="2">Find the pointer to the end-marker of the variables area - the '128-byte' (<a href="23641.html">E-LINE</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2127"></span>02127</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2128"></span>02128</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,(IX+11)</td>
+<td class="comment-11" rowspan="2">Fetch the 'length' of the new array.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2131"></span>02131</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,(IX+12)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2134"></span>02134</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-11" rowspan="1">Save this 'length'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2135"></span>02135</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC BC</td>
+<td class="comment-11" rowspan="3">Add three bytes - one for the name and two for the 'length'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2136"></span>02136</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC BC</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2137"></span>02137</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC BC</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2138"></span>02138</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(IX-3)</td>
+<td class="comment-11" rowspan="1">'<span class="register">IX</span>+0E' of the old header gives the name of the array.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2141"></span>02141</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-11" rowspan="4">The name is saved whilst the appropriate amount of room is made available. In effect <span class="register">BC</span> spaces before the 'new 128-byte'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2142"></span>02142</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="5714.html#5717">MAKE_ROOM</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2145"></span>02145</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2146"></span>02146</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP AF</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2147"></span>02147</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-11" rowspan="1">The name is entered.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2148"></span>02148</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP DE</td>
+<td class="comment-11" rowspan="5">The 'length' is fetched and its two bytes are also entered.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2149"></span>02149</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2150"></span>02150</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),E</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2151"></span>02151</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2152"></span>02152</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),D</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2153"></span>02153</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="1"><span class="register">HL</span> now points to the first location that is to be filled with data from the tape.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2154"></span>02154</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-11" rowspan="5">This address is moved to the <span class="register">IX</span> register pair; the carry flag set; 'data block' is signalled; and the block LOADed.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2155"></span>02155</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP IX</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2157"></span>02157</td>
+<td class="bytes-0"></td>
+<td class="instruction">SCF</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2158"></span>02158</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,255</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2160"></span>02160</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP <a href="2050.html">LD_BLOCK</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="2163"></span>
+<div class="comments">
+<div class="paragraph">
+Now deal with the LOADing of a BASIC program and its variables.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LD_PROG</td>
+<td class="address-2"><span id="2163"></span>02163</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="1">Save the 'destination pointer'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2164"></span>02164</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23641)</td>
+<td class="comment-11" rowspan="2">Find the address of the end marker of the current variables area - the '128-byte' (<a href="23641.html">E-LINE</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2167"></span>02167</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2168"></span>02168</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23647),IX</td>
+<td class="comment-11" rowspan="1">Save <span class="register">IX</span> temporarily (in <a href="23647.html">X-PTR</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2172"></span>02172</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,(IX+11)</td>
+<td class="comment-11" rowspan="2">Fetch the 'length' of the new data block.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2175"></span>02175</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,(IX+12)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2178"></span>02178</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-11" rowspan="3">Keep a copy of the 'length' whilst the present program and variables areas are reclaimed.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2179"></span>02179</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6629.html">RECLAIM_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2182"></span>02182</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP BC</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2183"></span>02183</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-11" rowspan="2">Save the pointer to the program area and the length of the new data block.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2184"></span>02184</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2185"></span>02185</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="5714.html#5717">MAKE_ROOM</a></td>
+<td class="comment-11" rowspan="1">Make sufficient room available for the new program and its variables.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2188"></span>02188</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD IX,(23647)</td>
+<td class="comment-11" rowspan="1">Restore the <span class="register">IX</span> register pair from <a href="23647.html">X-PTR</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2192"></span>02192</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="5">The system variable <a href="23627.html">VARS</a> has also to be set for the new program.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2193"></span>02193</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,(IX+15)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2196"></span>02196</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,(IX+16)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2199"></span>02199</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2200"></span>02200</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23627),HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2203"></span>02203</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD H,(IX+14)</td>
+<td class="comment-11" rowspan="3">If a line number was specified then it too has to be considered.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2206"></span>02206</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,H</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2207"></span>02207</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND 192</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2209"></span>02209</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="2056.html#2221">LD_PROG_1</a></td>
+<td class="comment-11" rowspan="4">Jump if 'no number'; otherwise set <a href="23618.html">NEWPPC</a> and <a href="23620.html">NSPPC</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2211"></span>02211</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD L,(IX+13)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2214"></span>02214</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23618),HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2217"></span>02217</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IY+10),0</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="2221"></span>
+<div class="comments">
+<div class="paragraph">
+The data block can now be LOADed.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LD_PROG_1</td>
+<td class="address-2"><span id="2221"></span>02221</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP DE</td>
+<td class="comment-11" rowspan="1">Fetch the 'length'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2222"></span>02222</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP IX</td>
+<td class="comment-11" rowspan="1">Fetch the 'start'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2224"></span>02224</td>
+<td class="bytes-0"></td>
+<td class="instruction">SCF</td>
+<td class="comment-11" rowspan="1">Signal 'LOAD'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2225"></span>02225</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,255</td>
+<td class="comment-11" rowspan="1">Signal 'data block' only.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2227"></span>02227</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP <a href="2050.html">LD_BLOCK</a></td>
+<td class="comment-11" rowspan="1">Now LOAD it.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="2050.html">02050</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#2056">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="2230.html">02230</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/0808.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

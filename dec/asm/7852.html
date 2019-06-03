@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 07852</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="7841.html">07841</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#7852">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="7917.html">07917</a></span></td>
+</tr>
+</table>
+<div class="description">07852: THE 'CLEAR' COMMAND ROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="6728.html#6843">parameter table</a>.
+</div>
+<div class="paragraph">
+This routine allows for the variables area to be cleared, the display area cleared and <a href="23730.html">RAMTOP</a> moved. In consequence of the last operation the machine stack is rebuilt thereby having the effect of also clearing the GO SUB stack.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CLEAR</td>
+<td class="address-2"><span id="7852"></span>07852</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7828.html#7833">FIND_INT2</a></td>
+<td class="comment-11" rowspan="1">Fetch the operand - using zero by default.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="7855"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="7841.html">RUN</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CLEAR_RUN</td>
+<td class="address-2"><span id="7855"></span>07855</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,B</td>
+<td class="comment-11" rowspan="3">Jump forward if the operand is other than zero. When called from <a href="7841.html">RUN</a> there is no jump.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7856"></span>07856</td>
+<td class="bytes-0"></td>
+<td class="instruction">OR C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7857"></span>07857</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="7852.html#7863">CLEAR_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7859"></span>07859</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD BC,(23730)</td>
+<td class="comment-11" rowspan="1">If zero use the existing value in <a href="23730.html">RAMTOP</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1">CLEAR_1</td>
+<td class="address-2"><span id="7863"></span>07863</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-11" rowspan="1">Save the value.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7864"></span>07864</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD DE,(23627)</td>
+<td class="comment-11" rowspan="4">Next reclaim all the bytes of the present variables area (<a href="23627.html">VARS</a> to <a href="23641.html">E-LINE</a>-1).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7868"></span>07868</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23641)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7871"></span>07871</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7872"></span>07872</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6629.html">RECLAIM_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7875"></span>07875</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="3435.html">CLS</a></td>
+<td class="comment-11" rowspan="1">Clear the display area.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="7878"></span>
+<div class="comments">
+<div class="paragraph">
+The value in the <span class="register">BC</span> register pair which will be used as <a href="23730.html">RAMTOP</a> is tested to ensure it is neither too low nor too high.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7878"></span>07878</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23653)</td>
+<td class="comment-11" rowspan="5">The current value of <a href="23653.html">STKEND</a> is increased by 50 before being tested. This forms the lower limit.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7881"></span>07881</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD DE,50</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7884"></span>07884</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7885"></span>07885</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7886"></span>07886</td>
+<td class="bytes-0"></td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7888"></span>07888</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NC,<a href="7852.html#7898">REPORT_M</a></td>
+<td class="comment-11" rowspan="1"><a href="23730.html">RAMTOP</a> will be too low.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7890"></span>07890</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23732)</td>
+<td class="comment-11" rowspan="3">For the upper test the value for <a href="23730.html">RAMTOP</a> is tested against <a href="23732.html">P-RAMT</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7893"></span>07893</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7894"></span>07894</td>
+<td class="bytes-0"></td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7896"></span>07896</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NC,<a href="7852.html#7900">CLEAR_2</a></td>
+<td class="comment-11" rowspan="1">Jump forward if acceptable.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="7898"></span>
+<div class="comments">
+<div class="paragraph">
+Report M - RAMTOP no good.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">REPORT_M</td>
+<td class="address-2"><span id="7898"></span>07898</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="8.html">8</a></td>
+<td class="comment-11" rowspan="2">Call the error handling routine.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7899"></span>07899</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 21</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="7900"></span>
+<div class="comments">
+<div class="paragraph">
+Continue with the CLEAR operation.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CLEAR_2</td>
+<td class="address-2"><span id="7900"></span>07900</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="2">Now the value can actually be passed to <a href="23730.html">RAMTOP</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7901"></span>07901</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23730),HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7904"></span>07904</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP DE</td>
+<td class="comment-11" rowspan="1">Fetch the address of <a href="7030.html">STMT_RET</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7905"></span>07905</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP BC</td>
+<td class="comment-11" rowspan="1">Fetch the 'error address'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7906"></span>07906</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),62</td>
+<td class="comment-11" rowspan="1">Enter a GO SUB stack end marker.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7908"></span>07908</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC HL</td>
+<td class="comment-11" rowspan="1">Leave one location.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7909"></span>07909</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD SP,HL</td>
+<td class="comment-11" rowspan="1">Make the stack pointer point to an empty GO SUB stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7910"></span>07910</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-11" rowspan="2">Next pass the 'error address' to the stack and save its address in <a href="23613.html">ERR-SP</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7911"></span>07911</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23613),SP</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7915"></span>07915</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="2">An indirect return is now made to <a href="7030.html">STMT_RET</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7916"></span>07916</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP (HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+
+<div class="comments">
+<div class="paragraph">
+Note: when the routine is called from <a href="7841.html">RUN</a> the values of <a href="23618.html">NEWPPC</a> and <a href="23620.html">NSPPC</a> will have been affected and no statements coming after RUN can ever be found before the jump is taken.
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="7841.html">07841</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#7852">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="7917.html">07917</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/1EAC.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

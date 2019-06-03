@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 05615</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="5606.html">05606</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#5615">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="5633.html">05633</a></span></td>
+</tr>
+</table>
+<div class="description">05615: THE 'MAIN PRINTING' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="4770.html">MAIN_EXEC</a>, <a href="6437.html">OUT_SP_2</a>, <a href="6683.html">OUT_NUM_1</a> and <a href="11747.html">PRINT_FP</a>.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Value from 0 to 9 (for digits) or 17 to 34 (for the letters A-R)</td>
+</tr>
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">OUT_CODE</td>
+<td class="address-2"><span id="5615"></span>05615</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD E,48</td>
+<td class="comment-11" rowspan="2">Increase the value in the <span class="register">A</span> register by 48.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5617"></span>05617</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD A,E</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="5618"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="16.html">PRINT_A_1</a> with <span class="register">A</span> holding the code of the character to be printed.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">PRINT_A_2</td>
+<td class="address-2"><span id="5618"></span>05618</td>
+<td class="bytes-0"></td>
+<td class="instruction">EXX</td>
+<td class="comment-11" rowspan="2">Save the registers.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5619"></span>05619</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5620"></span>05620</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23633)</td>
+<td class="comment-11" rowspan="1">Fetch the base address for the current channel (<a href="23633.html">CURCHL</a>). This will point to an output address.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="5623"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="5606.html">INPUT_AD</a> with <span class="register">A</span> holding the code of the character to be printed.
+</div>
+<div class="paragraph">
+Now call the actual subroutine. <span class="register">HL</span> points to the output or the input address as directed.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CALL_SUB</td>
+<td class="address-2"><span id="5623"></span>05623</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-11" rowspan="1">Fetch the low byte.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5624"></span>05624</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="2">Fetch the high byte.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5625"></span>05625</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5626"></span>05626</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="1">Move the address to the <span class="register">HL</span> register pair.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5627"></span>05627</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="5653.html#5676">CALL_JUMP</a></td>
+<td class="comment-11" rowspan="1">Call the actual subroutine.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5630"></span>05630</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP HL</td>
+<td class="comment-11" rowspan="2">Restore the registers.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5631"></span>05631</td>
+<td class="bytes-0"></td>
+<td class="instruction">EXX</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5632"></span>05632</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Return will be from here unless an error occurred.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="5606.html">05606</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#5615">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="5633.html">05633</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/15EF.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

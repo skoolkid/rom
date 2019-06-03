@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 03582</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="3545.html">03545</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#3582">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="3652.html">03652</a></span></td>
+</tr>
+</table>
+<div class="description">03582: THE 'SCROLLING' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="3157.html">PO_SCR</a>.
+</div>
+<div class="paragraph">
+The number of lines of the display that are to be scrolled has to be held on entry to the main subroutine in the <span class="register">B</span> register.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CL_SC_ALL</td>
+<td class="address-2"><span id="3582"></span>03582</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,23</td>
+<td class="comment-11" rowspan="1">The entry point after 'scroll?'</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="3584"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="3157.html">PO_SCR</a>.
+</div>
+<div class="paragraph">
+The main entry point - from above and when scrolling for INPUT...AT.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CL_SCROLL</td>
+<td class="address-2"><span id="3584"></span>03584</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="3739.html">CL_ADDR</a></td>
+<td class="comment-11" rowspan="1">Find the starting address of the line.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3587"></span>03587</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,8</td>
+<td class="comment-11" rowspan="1">There are eight pixel lines to a complete line.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="3589"></span>
+<div class="comments">
+<div class="paragraph">
+Now enter the main scrolling loop. The <span class="register">B</span> register holds the number of the top line to be scrolled, the <span class="register">HL</span> register pair the starting address in the display area of this line and the <span class="register">C</span> register the pixel line counter.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CL_SCR_1</td>
+<td class="address-2"><span id="3589"></span>03589</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-11" rowspan="1">Save both counters.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3590"></span>03590</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-11" rowspan="1">Save the starting address.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3591"></span>03591</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,B</td>
+<td class="comment-11" rowspan="4">Jump forward unless dealing at the present moment with a 'third' of the display.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3592"></span>03592</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND 7</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3594"></span>03594</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,B</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3595"></span>03595</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="3582.html#3609">CL_SCR_3</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="3597"></span>
+<div class="comments">
+<div class="paragraph">
+The pixel lines of the top lines of the 'thirds' of the display have to be moved across the 2K boundaries. (Each 'third' is 2K.)
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CL_SCR_2</td>
+<td class="address-2"><span id="3597"></span>03597</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="4">The result of this manipulation is to leave <span class="register">HL</span> unchanged and <span class="register">DE</span> pointing to the required destination.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3598"></span>03598</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,63712</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3601"></span>03601</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3602"></span>03602</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3603"></span>03603</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD BC,32</td>
+<td class="comment-11" rowspan="1">There are 32 characters.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3606"></span>03606</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC A</td>
+<td class="comment-11" rowspan="1">Decrease the counter as one line is being dealt with.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3607"></span>03607</td>
+<td class="bytes-0"></td>
+<td class="instruction">LDIR</td>
+<td class="comment-11" rowspan="1">Now move the thirty two bytes.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="3609"></span>
+<div class="comments">
+<div class="paragraph">
+The pixel lines within the 'thirds' can now be scrolled. The <span class="register">A</span> register holds, on the first pass, 1 to 7, 9 to 15, or 17 to 23.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CL_SCR_3</td>
+<td class="address-2"><span id="3609"></span>03609</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="4">Again <span class="register">DE</span> is made to point to the required destination, this time only thirty two locations away.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3610"></span>03610</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,65504</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3613"></span>03613</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3614"></span>03614</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3615"></span>03615</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,A</td>
+<td class="comment-11" rowspan="1">Save the line number in <span class="register">B</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3616"></span>03616</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND 7</td>
+<td class="comment-11" rowspan="4">Now find how many characters there are remaining in the 'third'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3618"></span>03618</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3619"></span>03619</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3620"></span>03620</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3621"></span>03621</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,A</td>
+<td class="comment-11" rowspan="1">Pass the 'character total' to the <span class="register">C</span> register.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3622"></span>03622</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,B</td>
+<td class="comment-11" rowspan="1">Fetch the line number.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3623"></span>03623</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,0</td>
+<td class="comment-11" rowspan="2"><span class="register">BC</span> holds the 'character total' and a pixel line from each of the characters is 'scrolled'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3625"></span>03625</td>
+<td class="bytes-0"></td>
+<td class="instruction">LDIR</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3627"></span>03627</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,7</td>
+<td class="comment-11" rowspan="1">Now prepare to increment the address to jump across a 'third' boundary.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3629"></span>03629</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-11" rowspan="1">Increase <span class="register">HL</span> by 1792.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3630"></span>03630</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND 248</td>
+<td class="comment-11" rowspan="2">Jump back if there are any 'thirds' left to consider.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3632"></span>03632</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="3582.html#3597">CL_SCR_2</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="3634"></span>
+<div class="comments">
+<div class="paragraph">
+Now find if the loop has been used eight times - once for each pixel line.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3634"></span>03634</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP HL</td>
+<td class="comment-11" rowspan="1">Fetch the original address.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3635"></span>03635</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC H</td>
+<td class="comment-11" rowspan="1">Address the next pixel line.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3636"></span>03636</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP BC</td>
+<td class="comment-11" rowspan="1">Fetch the counters.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3637"></span>03637</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC C</td>
+<td class="comment-11" rowspan="2">Decrease the pixel line counter and jump back unless eight lines have been moved.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3638"></span>03638</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="3582.html#3589">CL_SCR_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="3640"></span>
+<div class="comments">
+<div class="paragraph">
+Next the attribute bytes are scrolled. Note that the <span class="register">B</span> register still holds the number of lines to be scrolled and the <span class="register">C</span> register holds zero.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3640"></span>03640</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="3720.html">CL_ATTR</a></td>
+<td class="comment-11" rowspan="1">The required address in the attribute area and the number of characters in <span class="register">B</span> lines are found.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3643"></span>03643</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,65504</td>
+<td class="comment-11" rowspan="3">The displacement for all the attribute bytes is thirty two locations away.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3646"></span>03646</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3647"></span>03647</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3648"></span>03648</td>
+<td class="bytes-0"></td>
+<td class="instruction">LDIR</td>
+<td class="comment-11" rowspan="1">The attribute bytes are 'scrolled'.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="3650"></span>
+<div class="comments">
+<div class="paragraph">
+It remains now to clear the bottom line of the display.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3650"></span>03650</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,1</td>
+<td class="comment-11" rowspan="1">The <span class="register">B</span> register is loaded with 1 and <a href="3652.html">CL_LINE</a> is entered.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="3545.html">03545</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#3582">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="3652.html">03652</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/0DFE.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

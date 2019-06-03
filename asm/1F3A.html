@@ -23,7 +23,7 @@
 <div class="description">1F3A: THE 'PAUSE' COMMAND ROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="1A48.html#1AC5">parameter table</a>.
@@ -52,83 +52,96 @@ A pause is finished either after the appropriate number of interrupts or by the 
 <tr>
 <td class="asm-label-1">PAUSE</td>
 <td class="address-2"><span id="1F3A"></span>1F3A</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1E94.html#1E99">FIND_INT2</a></td>
 <td class="comment-11" rowspan="1">Fetch the operand.</td>
 </tr>
 <tr>
 <td class="asm-label-1">PAUSE_1</td>
 <td class="address-2"><span id="1F3D"></span>1F3D</td>
+<td class="bytes-0"></td>
 <td class="instruction">HALT</td>
 <td class="comment-11" rowspan="1">Wait for a maskable interrupt.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F3E"></span>1F3E</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC BC</td>
 <td class="comment-11" rowspan="1">Decrease the counter.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F3F"></span>1F3F</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
 <td class="comment-11" rowspan="3">If the counter is thereby reduced to zero the pause has come to an end.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F40"></span>1F40</td>
+<td class="bytes-0"></td>
 <td class="instruction">OR C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F41"></span>1F41</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1F3A.html#1F4F">PAUSE_END</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F43"></span>1F43</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
 <td class="comment-11" rowspan="5">If the operand was zero <span class="register">BC</span> will now hold +FFFF and this value will be returned to zero. Jump with all other operand values.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F44"></span>1F44</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F45"></span>1F45</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F46"></span>1F46</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1F3A.html#1F49">PAUSE_2</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F48"></span>1F48</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">PAUSE_2</td>
 <td class="address-2"><span id="1F49"></span>1F49</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 5,(IY+$01)</td>
 <td class="comment-11" rowspan="2">Jump back unless a key has been pressed (bit 5 of <a href="5C3B.html">FLAGS</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F4D"></span>1F4D</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1F3A.html#1F3D">PAUSE_1</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1F4F"></span>
 <div class="comments">
 <div class="paragraph">
@@ -140,12 +153,14 @@ The period of the pause has now finished.
 <tr>
 <td class="asm-label-1">PAUSE_END</td>
 <td class="address-2"><span id="1F4F"></span>1F4F</td>
+<td class="bytes-0"></td>
 <td class="instruction">RES 5,(IY+$01)</td>
 <td class="comment-11" rowspan="1">Signal 'no key pressed' (reset bit 5 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F53"></span>1F53</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Now return - to <a href="1B76.html">STMT_RET</a>.</td>
 </tr>
@@ -158,10 +173,10 @@ The period of the pause has now finished.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/7994.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/7994.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

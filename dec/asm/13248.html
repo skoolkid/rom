@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 13248</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="13236.html">13236</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#13248">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="13254.html">13254</a></span></td>
+</tr>
+</table>
+<div class="description">13248: THE 'MOVE A FLOATING-POINT NUMBER' SUBROUTINE (offset 49)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="10577.html">STK_F_ARG</a>, <a href="13236.html">STACK_NUM</a>, <a href="13327.html">get_mem</a> and <a href="13357.html">st_mem</a>.
+</div>
+<div class="paragraph">
+The address of this routine is found in the <a href="13015.html">table of addresses</a>. It is called via the calculator literal 49 by the routines at <a href="1016.html">BEEP</a>, <a href="8992.html">CIRCLE</a>, <a href="9090.html">DRAW</a>, <a href="9341.html">CD_PRMS1</a>, <a href="9720.html">S_RND</a>, <a href="11599.html">e_to_fp</a>, <a href="11747.html">PRINT_FP</a>, <a href="13385.html">series</a>, <a href="13984.html">n_mod_m</a>, <a href="13999.html">int</a>, <a href="14020.html">exp</a>, <a href="14099.html">ln</a>, <a href="14211.html">get_argt</a>, <a href="14261.html">sin</a>, <a href="14298.html">tan</a>, <a href="14306.html">atn</a>, <a href="14387.html">asn</a>, <a href="14410.html">sqr</a> and <a href="14417.html">to_power</a>.
+</div>
+<div class="paragraph">
+This subroutine moves a floating-point number to the top of the calculator stack (3 cases) or from the top of the stack to the calculator's memory area (1 case). It is also called through the calculator when it simply duplicates the number at the top of the calculator stack, the 'last value', thereby extending the stack by five bytes.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Destination address</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the first byte of the number to move</td>
+</tr>
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">duplicate</td>
+<td class="address-2"><span id="13248"></span>13248</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="13225.html">TEST_5_SP</a></td>
+<td class="comment-11" rowspan="1">A test is made for room.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13251"></span>13251</td>
+<td class="bytes-0"></td>
+<td class="instruction">LDIR</td>
+<td class="comment-11" rowspan="1">Move the five bytes involved.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13253"></span>13253</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="13236.html">13236</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#13248">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="13254.html">13254</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/33C0.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

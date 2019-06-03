@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 14403</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="14387.html">14387</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#14403">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="14410.html">14410</a></span></td>
+</tr>
+</table>
+<div class="description">14403: THE 'ARCCOS' FUNCTION (offset 35)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="13015.html">table of addresses</a>. It is called indirectly via <a href="13218.html">fp_calc_2</a>.
+</div>
+<div class="paragraph">
+This subroutine handles the function ACS X and returns a real number from 0 to &#960; inclusive which is equal to the value in radians of the angle whose cosine is X.
+</div>
+<div class="paragraph">
+This subroutine uses the relation ACS X=&#960;/2-ASN X.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">acs</td>
+<td class="address-2"><span id="14403"></span>14403</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1">X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14404"></span>14404</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 34</td>
+<td class="comment-11" rowspan="1"><a href="14387.html">asn</a>: ASN X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14405"></span>14405</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 163</td>
+<td class="comment-11" rowspan="1"><a href="13339.html">stk_pi_2</a>: ASN X, &#960;/2</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14406"></span>14406</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: ASN X-&#960;/2</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14407"></span>14407</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 27</td>
+<td class="comment-11" rowspan="1"><a href="13422.html">negate</a>: &#960;/2-ASN X=ACS X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14408"></span>14408</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14409"></span>14409</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished: 'last value'=ACS X.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="14387.html">14387</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#14403">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="14410.html">14410</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/3843.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

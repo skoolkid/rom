@@ -23,7 +23,7 @@
 <div class="description">3524: THE 'NUMBER AND NUMBER' OPERATION (offset +08)</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called indirectly via <a href="33A2.html">fp_calc_2</a>.
@@ -56,36 +56,42 @@ This subroutine performs the binary operation 'X AND Y' and returns X if Y is no
 <tr>
 <td class="asm-label-1">no_and_no</td>
 <td class="address-2"><span id="3524"></span>3524</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Point <span class="register">HL</span> at Y, <span class="register">DE</span> at X.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3525"></span>3525</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="34E9.html">TEST_ZERO</a></td>
 <td class="comment-11" rowspan="1">Test whether Y is zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3528"></span>3528</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Swap the pointers back.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3529"></span>3529</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
 <td class="comment-11" rowspan="1">Return with X as the 'last value' if Y was non-zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="352A"></span>352A</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
 <td class="comment-11" rowspan="2">Reset the carry flag and jump back to set the 'last value' to zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="352B"></span>352B</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="350B.html">FP_0_1</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -98,10 +104,10 @@ This subroutine performs the binary operation 'X AND Y' and returns X if Y is no
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/13604.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/13604.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

@@ -23,7 +23,7 @@
 <div class="description">0038: THE 'MASKABLE INTERRUPT' ROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The real time clock is incremented and the keyboard scanned whenever a maskable interrupt occurs.
@@ -46,108 +46,126 @@ The real time clock is incremented and the keyboard scanned whenever a maskable 
 <tr>
 <td class="asm-label-1">MASK_INT</td>
 <td class="address-2"><span id="0038"></span>0038</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
 <td class="comment-11" rowspan="2">Save the current values held in these registers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0039"></span>0039</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="003A"></span>003A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C78)</td>
 <td class="comment-11" rowspan="7">The lower two bytes of the frame counter (<a href="5C78.html">FRAMES</a>) are incremented every 20 ms. (U.K.) The highest byte of the frame counter is only incremented when the value of the lower two bytes is zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="003D"></span>003D</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="003E"></span>003E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C78),HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0041"></span>0041</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,H</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0042"></span>0042</td>
+<td class="bytes-0"></td>
 <td class="instruction">OR L</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0043"></span>0043</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="0038.html#0048">KEY_INT</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0045"></span>0045</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC (IY+$40)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">KEY_INT</td>
 <td class="address-2"><span id="0048"></span>0048</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-11" rowspan="2">Save the current values held in these registers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0049"></span>0049</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="004A"></span>004A</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="02BF.html">KEYBOARD</a></td>
 <td class="comment-11" rowspan="1">Now scan the keyboard.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="004D"></span>004D</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
 <td class="comment-11" rowspan="4">Restore the values.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="004E"></span>004E</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="004F"></span>004F</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0050"></span>0050</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0051"></span>0051</td>
+<td class="bytes-0"></td>
 <td class="instruction">EI</td>
 <td class="comment-11" rowspan="2">The maskable interrupt is enabled before returning.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0052"></span>0052</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -160,10 +178,10 @@ The real time clock is incremented and the keyboard scanned whenever a maskable 
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/56.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/56.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

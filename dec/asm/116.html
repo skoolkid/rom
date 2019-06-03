@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 00116</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="102.html">00102</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#116">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="125.html">00125</a></span></td>
+</tr>
+</table>
+<div class="description">00116: THE 'CH-ADD+1' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="32.html">NEXT_CHAR</a>, <a href="9487.html">S_QUOTE_S</a> and <a href="11579.html">INT_TO_FP</a>.
+</div>
+<div class="paragraph">
+The address held in <a href="23645.html">CH-ADD</a> is fetched, incremented and restored. The contents of the location now addressed by <a href="23645.html">CH-ADD</a> are fetched. The entry points of <a href="116.html#119">TEMP_PTR1</a> and <a href="116.html#120">TEMP_PTR2</a> are used to set <a href="23645.html">CH-ADD</a> for a temporary period.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-1">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Code of the character at <a href="23645.html">CH-ADD</a>+1</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CH_ADD_1</td>
+<td class="address-2"><span id="116"></span>00116</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23645)</td>
+<td class="comment-11" rowspan="1">Fetch the address from <a href="23645.html">CH-ADD</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="119"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="7660.html">READ_3</a> and <a href="9869.html">S_DECIMAL</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">TEMP_PTR1</td>
+<td class="address-2"><span id="119"></span>00119</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="1">Increment the pointer.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="120"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="7660.html">READ_3</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">TEMP_PTR2</td>
+<td class="address-2"><span id="120"></span>00120</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23645),HL</td>
+<td class="comment-11" rowspan="1">Set <a href="23645.html">CH-ADD</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="123"></span>00123</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-11" rowspan="2">Fetch the addressed value and then return.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="124"></span>00124</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="102.html">00102</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#116">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="125.html">00125</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/0074.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

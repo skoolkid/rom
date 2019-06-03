@@ -23,7 +23,7 @@
 <div class="description">34AC: THE 'PEEK' FUNCTION (offset +2B)</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called indirectly via <a href="33A2.html">fp_calc_2</a>.
@@ -49,17 +49,19 @@ This subroutine handles the function PEEK X. The 'last value' is unstacked by ca
 <tr>
 <td class="asm-label-1">peek</td>
 <td class="address-2"><span id="34AC"></span>34AC</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1E94.html#1E99">FIND_INT2</a></td>
 <td class="comment-11" rowspan="1">Evaluate the 'last value', rounded to the nearest integer; test that it is in range and return it in <span class="register">BC</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34AF"></span>34AF</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(BC)</td>
 <td class="comment-11" rowspan="1">Fetch the required byte.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="34B0"></span>
 <div class="comments">
 <div class="paragraph">
@@ -71,6 +73,7 @@ This entry point is used by the routine at <a href="34A5.html">f_in</a>.
 <tr>
 <td class="asm-label-1">IN_PK_STK</td>
 <td class="address-2"><span id="34B0"></span>34B0</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="2D28.html">STACK_A</a></td>
 <td class="comment-11" rowspan="1">Exit by jumping to <a href="2D28.html">STACK_A</a>.</td>
 </tr>
@@ -83,10 +86,10 @@ This entry point is used by the routine at <a href="34A5.html">f_in</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/13484.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/13484.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

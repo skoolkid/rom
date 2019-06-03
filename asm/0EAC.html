@@ -23,7 +23,7 @@
 <div class="description">0EAC: THE 'COPY' COMMAND ROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="1A48.html#1AD6">parameter table</a>.
@@ -49,23 +49,26 @@ The one hundred and seventy six pixel lines of the display are dealt with one by
 <tr>
 <td class="asm-label-1">COPY</td>
 <td class="address-2"><span id="0EAC"></span>0EAC</td>
+<td class="bytes-0"></td>
 <td class="instruction">DI</td>
 <td class="comment-11" rowspan="1">The maskable interrupt is disabled during COPY.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EAD"></span>0EAD</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$B0</td>
 <td class="comment-11" rowspan="1">The 176 lines.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EAF"></span>0EAF</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$4000</td>
 <td class="comment-11" rowspan="1">The base address of the display.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0EB2"></span>
 <div class="comments">
 <div class="paragraph">
@@ -77,59 +80,68 @@ The following loop is now entered.
 <tr>
 <td class="asm-label-1">COPY_1</td>
 <td class="address-2"><span id="0EB2"></span>0EB2</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="2">Save the base address and the number of the line.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EB3"></span>0EB3</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EB4"></span>0EB4</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="0EF4.html">COPY_LINE</a></td>
 <td class="comment-11" rowspan="1">It is called 176 times.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EB7"></span>0EB7</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="2">Fetch the line number and the base address.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EB8"></span>0EB8</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EB9"></span>0EB9</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC H</td>
 <td class="comment-11" rowspan="1">The base address is updated by 256 locations for each line of pixels.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EBA"></span>0EBA</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,H</td>
 <td class="comment-11" rowspan="3">Jump forward and hence round the loop again directly for the eight pixel lines of a character line.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EBB"></span>0EBB</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND $07</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EBD"></span>0EBD</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="0EAC.html#0EC9">COPY_2</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0EBF"></span>
 <div class="comments">
 <div class="paragraph">
@@ -141,60 +153,70 @@ For each new line of characters the base address has to be updated.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EBF"></span>0EBF</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,L</td>
 <td class="comment-11" rowspan="1">Fetch the low byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EC0"></span>0EC0</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD A,$20</td>
 <td class="comment-11" rowspan="1">Update it by +20 bytes.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EC2"></span>0EC2</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD L,A</td>
 <td class="comment-11" rowspan="1">The carry flag will be reset when 'within thirds' of the display.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EC3"></span>0EC3</td>
+<td class="bytes-0"></td>
 <td class="instruction">CCF</td>
 <td class="comment-11" rowspan="1">Change the carry flag.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EC4"></span>0EC4</td>
+<td class="bytes-0"></td>
 <td class="instruction">SBC A,A</td>
 <td class="comment-11" rowspan="2">The <span class="register">A</span> register will hold +F8 when within a 'third' but +00 when a new 'third' is reached.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EC5"></span>0EC5</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND $F8</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EC7"></span>0EC7</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD A,H</td>
 <td class="comment-11" rowspan="2">The high byte of the address is now updated.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0EC8"></span>0EC8</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD H,A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">COPY_2</td>
 <td class="address-2"><span id="0EC9"></span>0EC9</td>
+<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="0EAC.html#0EB2">COPY_1</a></td>
 <td class="comment-11" rowspan="1">Jump back until 176 lines have been printed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0ECB"></span>0ECB</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="0ECD.html#0EDA">COPY_END</a></td>
 <td class="comment-11" rowspan="1">Jump forward to the end routine.</td>
 </tr>
@@ -207,10 +229,10 @@ For each new line of characters the base address has to be updated.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/3756.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/3756.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

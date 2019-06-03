@@ -23,7 +23,7 @@
 <div class="description">1C56: THE 'FETCH A VALUE' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="1C4E.html">CLASS_02</a> and <a href="1DEC.html">READ_3</a>.
@@ -52,11 +52,12 @@ The main entry point is used by LET and READ and considers <a href="5C3B.html">F
 <tr>
 <td class="asm-label-1">VAL_FET_1</td>
 <td class="address-2"><span id="1C56"></span>1C56</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,($5C3B)</td>
 <td class="comment-11" rowspan="1">Use <a href="5C3B.html">FLAGS</a>.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1C59"></span>
 <div class="comments">
 <div class="paragraph">
@@ -68,60 +69,70 @@ This entry point is used by the routine at <a href="21B9.html">IN_ASSIGN</a> wit
 <tr>
 <td class="asm-label-1">VAL_FET_2</td>
 <td class="address-2"><span id="1C59"></span>1C59</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
 <td class="comment-11" rowspan="1">Save <a href="5C3B.html">FLAGS</a> or <a href="5C71.html">FLAGX</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C5A"></span>1C5A</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="24FB.html">SCANNING</a></td>
 <td class="comment-11" rowspan="1">Evaluate the next expression.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C5D"></span>1C5D</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
 <td class="comment-11" rowspan="1">Fetch the old <a href="5C3B.html">FLAGS</a> or <a href="5C71.html">FLAGX</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C5E"></span>1C5E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,(IY+$01)</td>
 <td class="comment-11" rowspan="1">Fetch the new <a href="5C3B.html">FLAGS</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C61"></span>1C61</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR D</td>
 <td class="comment-11" rowspan="2">The nature - numeric or string - of the variable and the expression must match.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C62"></span>1C62</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND $40</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C64"></span>1C64</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1C79.html#1C8A">REPORT_C</a></td>
 <td class="comment-11" rowspan="1">Give report C if they do not.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C66"></span>1C66</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 7,D</td>
 <td class="comment-11" rowspan="3">Jump forward to make the actual assignment unless checking syntax (in which case simply return).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C68"></span>1C68</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP NZ,<a href="2AFF.html">LET</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C6B"></span>1C6B</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -134,10 +145,10 @@ This entry point is used by the routine at <a href="21B9.html">IN_ASSIGN</a> wit
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/7254.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/7254.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

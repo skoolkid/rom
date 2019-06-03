@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 14387</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="14306.html">14306</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#14387">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="14403.html">14403</a></span></td>
+</tr>
+</table>
+<div class="description">14387: THE 'ARCSIN' FUNCTION (offset 34)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="13015.html">table of addresses</a>. It is called via the calculator literal 34 by the routine at <a href="14403.html">acs</a>. It is also called indirectly via <a href="13218.html">fp_calc_2</a>.
+</div>
+<div class="paragraph">
+This subroutine handles the function ASN X and returns a real number from -&#960;/2 to &#960;/2 inclusive which is equal to the value in radians of the angle whose sine is X. Thereby if Y=ASN X then X=SIN Y.
+</div>
+<div class="paragraph">
+This subroutine uses the trigonometric identity TAN (Y/2)=SIN Y/(1+COS Y) to obtain TAN (Y/2) and hence (using ATN) Y/2 and finally Y.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">asn</td>
+<td class="address-2"><span id="14387"></span>14387</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1">X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14388"></span>14388</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: X, X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14389"></span>14389</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: X, X, X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14390"></span>14390</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: X, X*X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14391"></span>14391</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 161</td>
+<td class="comment-11" rowspan="1"><a href="13339.html">stk_one</a>: X, X*X, 1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14392"></span>14392</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: X, X*X-1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14393"></span>14393</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 27</td>
+<td class="comment-11" rowspan="1"><a href="13422.html">negate</a>: X, 1-X*X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14394"></span>14394</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 40</td>
+<td class="comment-11" rowspan="1"><a href="14410.html">sqr</a>: X, SQR (1-X*X)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14395"></span>14395</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 161</td>
+<td class="comment-11" rowspan="1"><a href="13339.html">stk_one</a>: X, SQR (1-X*X), 1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14396"></span>14396</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 15</td>
+<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: X, 1+SQR (1-X*X)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14397"></span>14397</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 5</td>
+<td class="comment-11" rowspan="1"><a href="12719.html">division</a>: X/(1+SQR (1-X*X))=TAN (Y/2)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14398"></span>14398</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 36</td>
+<td class="comment-11" rowspan="1"><a href="14306.html">atn</a>: Y/2</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14399"></span>14399</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: Y/2, Y/2</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14400"></span>14400</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 15</td>
+<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: Y=ASN X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14401"></span>14401</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14402"></span>14402</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished: 'last value'=ASN X.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="14306.html">14306</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#14387">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="14403.html">14403</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/3833.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

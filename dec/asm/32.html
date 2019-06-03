@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 00032</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="24.html">00024</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#32">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="37.html">00037</a></span></td>
+</tr>
+</table>
+<div class="description">00032: THE 'COLLECT NEXT CHARACTER' RESTART</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="1541.html">SAVE_ETC</a>, <a href="6137.html">LIST</a>, <a href="6539.html">EACH_STMT</a>, <a href="6651.html">E_LINE_NO</a>, <a href="6952.html">STMT_LOOP</a>, <a href="7023.html">SEPARATOR</a>, <a href="7289.html">NEXT_2NUM</a>, <a href="7427.html">FOR</a>, <a href="7660.html">READ_3</a>, <a href="7719.html">DATA</a>, <a href="8032.html">DEF_FN</a>, <a href="8188.html">PR_ITEM_1</a>, <a href="8270.html">PR_POSN_1</a>, <a href="8304.html">STR_ALTER</a>, <a href="8329.html">INPUT</a>, <a href="8673.html">CO_TEMP_1</a>, <a href="8992.html">CIRCLE</a>, <a href="9090.html">DRAW</a>, <a href="9506.html">S_2_COORD</a>, <a href="9647.html">S_U_PLUS</a>, <a href="9704.html">S_BRACKET</a>, <a href="9767.html">S_PI</a>, <a href="9780.html">S_INKEY</a>, <a href="9832.html">S_SCREEN</a>, <a href="9842.html">S_ATTR</a>, <a href="9851.html">S_POINT</a>, <a href="9929.html">S_LETTER</a>, <a href="10173.html">S_FN_SBRN</a>, <a href="10418.html">LOOK_VARS</a>, <a href="10646.html">STK_VAR</a>, <a href="10834.html">SLICING</a>, <a href="11266.html">DIM</a> and <a href="11419.html">DEC_TO_FP</a>.
+</div>
+<div class="paragraph">
+The routine at <a href="24.html">GET_CHAR</a> continues here.
+</div>
+<div class="paragraph">
+As a BASIC line is interpreted, this routine is called repeatedly to step along the line.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-1">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Code of the next character</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">NEXT_CHAR</td>
+<td class="address-2"><span id="32"></span>00032</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="116.html">CH_ADD_1</a></td>
+<td class="comment-11" rowspan="1"><a href="23645.html">CH-ADD</a> needs to be incremented.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="35"></span>00035</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="24.html#28">TEST_CHAR</a></td>
+<td class="comment-11" rowspan="1">Jump back to test the new value.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="24.html">00024</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#32">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="37.html">00037</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/0020.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

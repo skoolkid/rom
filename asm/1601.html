@@ -23,7 +23,7 @@
 <div class="description">1601: THE 'CHAN-OPEN' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="0605.html">SAVE_ETC</a>, <a href="0970.html">SA_CONTRL</a>, <a href="0C55.html">PO_SCR</a>, <a href="0D6B.html">CLS</a>, <a href="0DAF.html">CL_ALL</a>, <a href="0FA9.html">ED_EDIT</a>, <a href="1059.html">ED_UP</a>, <a href="12A2.html">MAIN_EXEC</a>, <a href="17F9.html">LIST</a>, <a href="1FC9.html">LPRINT</a>, <a href="2070.html">STR_ALTER</a>, <a href="2089.html">INPUT</a>, <a href="361F.html">str</a> and <a href="3645.html">read_in</a>.
@@ -52,65 +52,75 @@ This subroutine is called with the <span class="register">A</span> register hold
 <tr>
 <td class="asm-label-1">CHAN_OPEN</td>
 <td class="address-2"><span id="1601"></span>1601</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD A,A</td>
 <td class="comment-11" rowspan="2">The value in the <span class="register">A</span> register is doubled and then increased by +16.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1602"></span>1602</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD A,$16</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1604"></span>1604</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD L,A</td>
 <td class="comment-11" rowspan="1">The result is moved to <span class="register">L</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1605"></span>1605</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD H,$5C</td>
 <td class="comment-11" rowspan="1">The address <a href="5C10.html#5C16">5C16</a> is the base address for stream +00.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1607"></span>1607</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD E,(HL)</td>
 <td class="comment-11" rowspan="3">Fetch the first two bytes of the required stream's data.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1608"></span>1608</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1609"></span>1609</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,(HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="160A"></span>160A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
 <td class="comment-11" rowspan="3">Give an error if both bytes are zero; otherwise jump forward.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="160B"></span>160B</td>
+<td class="bytes-0"></td>
 <td class="instruction">OR E</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="160C"></span>160C</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1601.html#1610">CHAN_OP_1</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="160E"></span>
 <div class="comments">
 <div class="paragraph">
@@ -125,17 +135,19 @@ Report O - Invalid stream.
 <tr>
 <td class="asm-label-1">REPORT_O</td>
 <td class="address-2"><span id="160E"></span>160E</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
 <td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="160F"></span>160F</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $17</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1610"></span>
 <div class="comments">
 <div class="paragraph">
@@ -147,23 +159,26 @@ Using the stream data now find the base address of the channel information assoc
 <tr>
 <td class="asm-label-1">CHAN_OP_1</td>
 <td class="address-2"><span id="1610"></span>1610</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC DE</td>
 <td class="comment-11" rowspan="1">Reduce the stream data.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1611"></span>1611</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C4F)</td>
 <td class="comment-11" rowspan="1">The base address of the whole channel information area (<a href="5C4F.html">CHANS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1614"></span>1614</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-11" rowspan="1">Form the required address in this area.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 
 <div class="comments">
 <div class="paragraph">
@@ -181,10 +196,10 @@ This routine continues into <a href="1615.html">CHAN_FLAG</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/5633.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/5633.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

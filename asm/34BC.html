@@ -23,7 +23,7 @@
 <div class="description">34BC: THE 'USR STRING' FUNCTION (offset +19)</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called indirectly via <a href="33A2.html">fp_calc_2</a>.
@@ -49,155 +49,180 @@ This subroutine handles the function USR X$, where X$ is a string. The subroutin
 <tr>
 <td class="asm-label-1">usr</td>
 <td class="address-2"><span id="34BC"></span>34BC</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2BF1.html">STK_FETCH</a></td>
 <td class="comment-11" rowspan="1">Fetch the parameters of the string X$.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34BF"></span>34BF</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC BC</td>
 <td class="comment-11" rowspan="1">Decrease the length by 1 to test it.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34C0"></span>34C0</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
 <td class="comment-11" rowspan="3">If the length was not 1, then jump to give error report A.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34C1"></span>34C1</td>
+<td class="bytes-0"></td>
 <td class="instruction">OR C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34C2"></span>34C2</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="34BC.html#34E7">REPORT_A</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34C4"></span>34C4</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-11" rowspan="1">Fetch the single code of the string.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34C5"></span>34C5</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2C8D.html">ALPHA</a></td>
 <td class="comment-11" rowspan="1">Does it denote a letter?</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34C8"></span>34C8</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="34BC.html#34D3">USR_RANGE</a></td>
 <td class="comment-11" rowspan="1">If so, jump to gets its address.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34CA"></span>34CA</td>
+<td class="bytes-0"></td>
 <td class="instruction">SUB $90</td>
 <td class="comment-11" rowspan="1">Reduce range for actual user-defined graphics to 0-20.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34CC"></span>34CC</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="34BC.html#34E7">REPORT_A</a></td>
 <td class="comment-11" rowspan="1">Give report A if out of range.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34CE"></span>34CE</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $15</td>
 <td class="comment-11" rowspan="1">Test the range again.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34D0"></span>34D0</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="34BC.html#34E7">REPORT_A</a></td>
 <td class="comment-11" rowspan="1">Give report A if out of range.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34D2"></span>34D2</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC A</td>
 <td class="comment-11" rowspan="1">Make range of user-defined graphics 1 to 21, as for 'a' to 'u'.</td>
 </tr>
 <tr>
 <td class="asm-label-1">USR_RANGE</td>
 <td class="address-2"><span id="34D3"></span>34D3</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC A</td>
 <td class="comment-11" rowspan="1">Now make the range 0 to 20 in each case.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34D4"></span>34D4</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD A,A</td>
 <td class="comment-11" rowspan="3">Multiply by 8 to get an offset for the address.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34D5"></span>34D5</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD A,A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34D6"></span>34D6</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD A,A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34D7"></span>34D7</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $A8</td>
 <td class="comment-11" rowspan="1">Test the range of the offset.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34D9"></span>34D9</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="34BC.html#34E7">REPORT_A</a></td>
 <td class="comment-11" rowspan="1">Give report A if out of range.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34DB"></span>34DB</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD BC,($5C7B)</td>
 <td class="comment-11" rowspan="1">Fetch the address of the first user-defined graphic (<a href="5C7B.html">UDG</a>) in <span class="register">BC</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34DF"></span>34DF</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD A,C</td>
 <td class="comment-11" rowspan="1">Add <span class="register">C</span> to the offset.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34E0"></span>34E0</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
 <td class="comment-11" rowspan="1">Store the result back in <span class="register">C</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34E1"></span>34E1</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="34BC.html#34E4">USR_STACK</a></td>
 <td class="comment-11" rowspan="1">Jump if there is no carry.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34E3"></span>34E3</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC B</td>
 <td class="comment-11" rowspan="1">Increment <span class="register">B</span> to complete the address.</td>
 </tr>
 <tr>
 <td class="asm-label-1">USR_STACK</td>
 <td class="address-2"><span id="34E4"></span>34E4</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="2D2B.html">STACK_BC</a></td>
 <td class="comment-11" rowspan="1">Jump to stack the address.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="34E7"></span>
 <div class="comments">
 <div class="paragraph">
@@ -209,12 +234,14 @@ Report A - Invalid argument.
 <tr>
 <td class="asm-label-1">REPORT_A</td>
 <td class="address-2"><span id="34E7"></span>34E7</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
 <td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="34E8"></span>34E8</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $09</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -227,10 +254,10 @@ Report A - Invalid argument.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/13500.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/13500.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

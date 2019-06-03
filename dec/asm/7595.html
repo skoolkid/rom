@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 07595</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="7558.html">07558</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#7595">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="7642.html">07642</a></span></td>
+</tr>
+</table>
+<div class="description">07595: THE 'NEXT' COMMAND ROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="6728.html#6808">parameter table</a>.
+</div>
+<div class="paragraph">
+The 'variable in assignment' has already been determined (see <a href="7276.html">CLASS_04</a>), and it remains to change the VALUE as required.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">NEXT</td>
+<td class="address-2"><span id="7595"></span>07595</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 1,(IY+55)</td>
+<td class="comment-11" rowspan="2">Jump to give the error report if the variable was not found (bit 1 of <a href="23665.html">FLAGX</a> set).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7599"></span>07599</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP NZ,<a href="7202.html#7214">REPORT_2</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7602"></span>07602</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23629)</td>
+<td class="comment-11" rowspan="3">The address of the variable is fetched from <a href="23629.html">DEST</a> and the name tested further.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7605"></span>07605</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 7,(HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7607"></span>07607</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="7595.html#7640">REPORT_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="7609"></span>
+<div class="comments">
+<div class="paragraph">
+Next the variable's VALUE (v) and STEP (s) are manipulated by the calculator.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7609"></span>07609</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="1">Step past the name.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7610"></span>07610</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23656),HL</td>
+<td class="comment-11" rowspan="1">Make the variable a temporary 'memory area' by setting <a href="23656.html">MEM</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7613"></span>07613</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1">-</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7614"></span>07614</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 224</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_0</a>: v</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7615"></span>07615</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 226</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_2</a>: v, s</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7616"></span>07616</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 15</td>
+<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: v+s</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7617"></span>07617</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 192</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_0</a>: v+s (v is replaced by v+s in mem-0)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7618"></span>07618</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: -</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7619"></span>07619</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: -</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="7620"></span>
+<div class="comments">
+<div class="paragraph">
+The result of adding the VALUE and the STEP is now tested against the LIMIT by calling <a href="7642.html">NEXT_LOOP</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7620"></span>07620</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7642.html">NEXT_LOOP</a></td>
+<td class="comment-11" rowspan="1">Test the new VALUE against the LIMIT.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7623"></span>07623</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET C</td>
+<td class="comment-11" rowspan="1">Return now if the FOR-NEXT loop has been completed.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="7624"></span>
+<div class="comments">
+<div class="paragraph">
+Otherwise collect the 'looping' line number and statement.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7624"></span>07624</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23656)</td>
+<td class="comment-11" rowspan="3">Find the address of the low byte of the looping line number (<a href="23656.html">MEM</a>+15).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7627"></span>07627</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD DE,15</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7630"></span>07630</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7631"></span>07631</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-11" rowspan="4">Now fetch this line number.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7632"></span>07632</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7633"></span>07633</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7634"></span>07634</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7635"></span>07635</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD H,(HL)</td>
+<td class="comment-11" rowspan="1">Followed by the statement number.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7636"></span>07636</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="2">Exchange the numbers before jumping forward to treat them as the destination line of a GO TO command.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7637"></span>07637</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP <a href="7783.html#7795">GO_TO_2</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="7640"></span>
+<div class="comments">
+<div class="paragraph">
+Report 1 - NEXT without FOR.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">REPORT_1</td>
+<td class="address-2"><span id="7640"></span>07640</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="8.html">8</a></td>
+<td class="comment-11" rowspan="2">Call the error handling routine.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="7641"></span>07641</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 0</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="7558.html">07558</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#7595">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="7642.html">07642</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/1DAB.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

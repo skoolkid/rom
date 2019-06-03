@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 08673</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="8662.html">08662</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#8673">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="8852.html">08852</a></span></td>
+</tr>
+</table>
+<div class="description">08673: THE 'COLOUR ITEM' ROUTINES</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+This set of routines can be readily divided into two parts:
+</div>
+<div class="paragraph">
+<ul class="">
+<li>i. The embedded colour item' handler.</li>
+<li>ii. The 'colour system variable' handler.</li>
+</ul>
+</div>
+<div class="paragraph">
+i. Embedded colour items are handled by calling <a href="16.html">PRINT_A_1</a> as required.
+</div>
+<div class="paragraph">
+A loop is entered to handle each item in turn. The entry point is at <a href="8673.html#8674">CO_TEMP_2</a>.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CO_TEMP_1</td>
+<td class="address-2"><span id="8673"></span>08673</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="32.html">32</a></td>
+<td class="comment-11" rowspan="1">Consider the next character in the BASIC statement.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8674"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="7358.html">CLASS_09</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CO_TEMP_2</td>
+<td class="address-2"><span id="8674"></span>08674</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8673.html#8690">CO_TEMP_3</a></td>
+<td class="comment-11" rowspan="2">Jump forward to see if the present code represents an embedded 'temporary' colour item. Return carry set if not a colour item.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8677"></span>08677</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8678"></span>08678</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="24.html">24</a></td>
+<td class="comment-11" rowspan="1">Fetch the present character.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8679"></span>08679</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP ","</td>
+<td class="comment-11" rowspan="4">Jump back if it is either a ',' or a ';'; otherwise there has been an error.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8681"></span>08681</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="8673.html#8673">CO_TEMP_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8683"></span>08683</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP ";"</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8685"></span>08685</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="8673.html#8673">CO_TEMP_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8687"></span>08687</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP <a href="7289.html#7306">REPORT_C</a></td>
+<td class="comment-11" rowspan="1">Exit via 'report C'.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8690"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="8188.html">PR_ITEM_1</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CO_TEMP_3</td>
+<td class="address-2"><span id="8690"></span>08690</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 217</td>
+<td class="comment-11" rowspan="5">Return with the carry flag set if the code is not in the range 217 to 222 (INK to OVER).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8692"></span>08692</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8693"></span>08693</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 223</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8695"></span>08695</td>
+<td class="bytes-0"></td>
+<td class="instruction">CCF</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8696"></span>08696</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8697"></span>08697</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-11" rowspan="3">The colour item code is preserved whilst <a href="23645.html">CH-ADD</a> is advanced to address the parameter that follows it.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8698"></span>08698</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="32.html">32</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8699"></span>08699</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP AF</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8700"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="7318.html">CLASS_07</a>.
+</div>
+<div class="paragraph">
+The colour item code and the parameter are now 'printed' by calling <a href="16.html">PRINT_A_1</a> on two occasions.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CO_TEMP_4</td>
+<td class="address-2"><span id="8700"></span>08700</td>
+<td class="bytes-0"></td>
+<td class="instruction">SUB 201</td>
+<td class="comment-11" rowspan="1">The token range (217 to 222) is reduced to the control character range (16 to 21).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8702"></span>08702</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-11" rowspan="3">The control character code is preserved whilst the parameter is moved to the calculator stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8703"></span>08703</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7289.html#7298">CLASS_06</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8706"></span>08706</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP AF</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8707"></span>08707</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND A</td>
+<td class="comment-11" rowspan="2">A return is made at this point if syntax is being checked.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8708"></span>08708</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8131.html">UNSTACK_Z</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8711"></span>08711</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-11" rowspan="4">The control character code is preserved whilst the parameter is moved to the <span class="register">D</span> register.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8712"></span>08712</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7828.html">FIND_INT1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8715"></span>08715</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD D,A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8716"></span>08716</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP AF</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8717"></span>08717</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="16.html">16</a></td>
+<td class="comment-11" rowspan="1">The control character is sent out.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8718"></span>08718</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,D</td>
+<td class="comment-11" rowspan="3">Then the parameter is fetched and sent out before returning.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8719"></span>08719</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="16.html">16</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8720"></span>08720</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8721"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="2669.html">PO_TV_2</a>.
+</div>
+<div class="paragraph">
+ii. The colour system variables - <a href="23695.html">ATTR-T</a>, <a href="23696.html">MASK-T</a> and <a href="23697.html">P-FLAG</a> - are altered as required. On entry the control character code is in the <span class="register">A</span> register and the parameter is in the <span class="register">D</span> register.
+</div>
+<div class="paragraph">
+Note that all changes are to the 'temporary' system variables.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CO_TEMP_5</td>
+<td class="address-2"><span id="8721"></span>08721</td>
+<td class="bytes-0"></td>
+<td class="instruction">SUB 17</td>
+<td class="comment-11" rowspan="3">Reduce the range and jump forward with INK and PAPER.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8723"></span>08723</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADC A,0</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8725"></span>08725</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="8673.html#8756">CO_TEMP_7</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8727"></span>08727</td>
+<td class="bytes-0"></td>
+<td class="instruction">SUB 2</td>
+<td class="comment-11" rowspan="3">Reduce the range once again and jump forward with FLASH and BRIGHT.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8729"></span>08729</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADC A,0</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8731"></span>08731</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="8673.html#8819">CO_TEMP_C</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8733"></span>
+<div class="comments">
+<div class="paragraph">
+The colour control code will now be 1 for INVERSE and 2 for OVER and the system variable <a href="23697.html">P-FLAG</a> is altered accordingly.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8733"></span>08733</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 1</td>
+<td class="comment-11" rowspan="1">Prepare to jump with OVER.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8735"></span>08735</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,D</td>
+<td class="comment-11" rowspan="1">Fetch the parameter.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8736"></span>08736</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,1</td>
+<td class="comment-11" rowspan="1">Prepare the mask for OVER.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8738"></span>08738</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="8673.html#8744">CO_TEMP_6</a></td>
+<td class="comment-11" rowspan="1">Now jump.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8740"></span>08740</td>
+<td class="bytes-0"></td>
+<td class="instruction">RLCA</td>
+<td class="comment-11" rowspan="3">Bit 2 of the <span class="register">A</span> register is to be reset for INVERSE 0 and set for INVERSE 1; the mask is to have bit 2 set.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8741"></span>08741</td>
+<td class="bytes-0"></td>
+<td class="instruction">RLCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8742"></span>08742</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,4</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">CO_TEMP_6</td>
+<td class="address-2"><span id="8744"></span>08744</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,A</td>
+<td class="comment-11" rowspan="1">Save the <span class="register">A</span> register whilst the range is tested.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8745"></span>08745</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,D</td>
+<td class="comment-11" rowspan="3">The correct range for INVERSE and OVER is only '0-1'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8746"></span>08746</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 2</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8748"></span>08748</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NC,<a href="8673.html#8772">REPORT_K</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8750"></span>08750</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,C</td>
+<td class="comment-11" rowspan="1">Restore the <span class="register">A</span> register.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8751"></span>08751</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,23697</td>
+<td class="comment-11" rowspan="1">It is <a href="23697.html">P-FLAG</a> that is to be changed.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8754"></span>08754</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="8673.html#8812">CO_CHANGE</a></td>
+<td class="comment-11" rowspan="1">Exit via <a href="8673.html#8812">CO_CHANGE</a> and alter <a href="23697.html">P-FLAG</a> using <span class="register">B</span> as a mask, i.e. bit 0 for OVER and bit 2 for INVERSE.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8756"></span>
+<div class="comments">
+<div class="paragraph">
+PAPER and INK are dealt with by the following routine. On entry the carry flag is set for INK.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CO_TEMP_7</td>
+<td class="address-2"><span id="8756"></span>08756</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,D</td>
+<td class="comment-11" rowspan="1">Fetch the parameter.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8757"></span>08757</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,7</td>
+<td class="comment-11" rowspan="1">Prepare the mask for INK.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8759"></span>08759</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR C,<a href="8673.html#8766">CO_TEMP_8</a></td>
+<td class="comment-11" rowspan="1">Jump forward with INK.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8761"></span>08761</td>
+<td class="bytes-0"></td>
+<td class="instruction">RLCA</td>
+<td class="comment-11" rowspan="3">Multiply the parameter for PAPER by eight.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8762"></span>08762</td>
+<td class="bytes-0"></td>
+<td class="instruction">RLCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8763"></span>08763</td>
+<td class="bytes-0"></td>
+<td class="instruction">RLCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8764"></span>08764</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,56</td>
+<td class="comment-11" rowspan="1">Prepare the mask for PAPER.</td>
+</tr>
+<tr>
+<td class="asm-label-1">CO_TEMP_8</td>
+<td class="address-2"><span id="8766"></span>08766</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,A</td>
+<td class="comment-11" rowspan="1">Save the parameter in the <span class="register">C</span> register whilst the range of the parameter is tested.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8767"></span>08767</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,D</td>
+<td class="comment-11" rowspan="1">Fetch the original value.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8768"></span>08768</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 10</td>
+<td class="comment-11" rowspan="2">Only allow PAPER/INK a range of '0' to '9'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8770"></span>08770</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR C,<a href="8673.html#8774">CO_TEMP_9</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8772"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="8852.html">BORDER</a>.
+</div>
+<div class="paragraph">
+Report K - Invalid colour.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">REPORT_K</td>
+<td class="address-2"><span id="8772"></span>08772</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="8.html">8</a></td>
+<td class="comment-11" rowspan="2">Call the error handling routine.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8773"></span>08773</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 19</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8774"></span>
+<div class="comments">
+<div class="paragraph">
+Continue to handle PAPER and INK.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CO_TEMP_9</td>
+<td class="address-2"><span id="8774"></span>08774</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,23695</td>
+<td class="comment-11" rowspan="1">Prepare to alter <a href="23695.html">ATTR-T</a>, <a href="23696.html">MASK-T</a> and <a href="23697.html">P-FLAG</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8777"></span>08777</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 8</td>
+<td class="comment-11" rowspan="2">Jump forward with PAPER/INK '0' to '7'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8779"></span>08779</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR C,<a href="8673.html#8792">CO_TEMP_B</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8781"></span>08781</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-11" rowspan="2">Fetch the current value of <a href="23695.html">ATTR-T</a> and use it unchanged, by jumping forward, with PAPER/INK '8'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8782"></span>08782</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="8673.html#8791">CO_TEMP_A</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8784"></span>08784</td>
+<td class="bytes-0"></td>
+<td class="instruction">OR B</td>
+<td class="comment-11" rowspan="3">But for PAPER/INK '9' the PAPER and INK colours have to be black and white.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8785"></span>08785</td>
+<td class="bytes-0"></td>
+<td class="instruction">CPL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8786"></span>08786</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND 36</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8788"></span>08788</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="8673.html#8791">CO_TEMP_A</a></td>
+<td class="comment-11" rowspan="2">Jump for black INK/PAPER, but continue for white INK/PAPER.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8790"></span>08790</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,B</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">CO_TEMP_A</td>
+<td class="address-2"><span id="8791"></span>08791</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,A</td>
+<td class="comment-11" rowspan="1">Move the value to the <span class="register">C</span> register.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8792"></span>
+<div class="comments">
+<div class="paragraph">
+The mask (<span class="register">B</span>) and the value (<span class="register">C</span>) are now used to change <a href="23695.html">ATTR-T</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CO_TEMP_B</td>
+<td class="address-2"><span id="8792"></span>08792</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,C</td>
+<td class="comment-11" rowspan="1">Move the value.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8793"></span>08793</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8673.html#8812">CO_CHANGE</a></td>
+<td class="comment-11" rowspan="1">Now change <a href="23695.html">ATTR-T</a> as needed.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8796"></span>
+<div class="comments">
+<div class="paragraph">
+Next <a href="23696.html">MASK-T</a> is considered.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8796"></span>08796</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,7</td>
+<td class="comment-11" rowspan="3">The bits of <a href="23696.html">MASK-T</a> are set only when using PAPER/INK '8' or '9'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8798"></span>08798</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP D</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8799"></span>08799</td>
+<td class="bytes-0"></td>
+<td class="instruction">SBC A,A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8800"></span>08800</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8673.html#8812">CO_CHANGE</a></td>
+<td class="comment-11" rowspan="1">Now change <a href="23696.html">MASK-T</a> as needed.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8803"></span>
+<div class="comments">
+<div class="paragraph">
+Next <a href="23697.html">P-FLAG</a> is considered.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8803"></span>08803</td>
+<td class="bytes-0"></td>
+<td class="instruction">RLCA</td>
+<td class="comment-11" rowspan="4">The appropriate mask is built up in the <span class="register">B</span> register in order to change bits 4 and 6 as necessary.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8804"></span>08804</td>
+<td class="bytes-0"></td>
+<td class="instruction">RLCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8805"></span>08805</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND 80</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8807"></span>08807</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8808"></span>08808</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,8</td>
+<td class="comment-11" rowspan="3">The bits of <a href="23697.html">P-FLAG</a> are set only when using PAPER/INK '9'. Continue into <a href="8673.html#8812">CO_CHANGE</a> to manipulate <a href="23697.html">P-FLAG</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8810"></span>08810</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP D</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8811"></span>08811</td>
+<td class="bytes-0"></td>
+<td class="instruction">SBC A,A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8812"></span>
+<div class="comments">
+<div class="paragraph">
+The following subroutine is used to 'impress' upon a system variable the 'nature' of the bits in the <span class="register">A</span> register. The <span class="register">B</span> register holds a mask that shows which bits are to be 'copied over' from <span class="register">A</span> to (<span class="register">HL</span>).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CO_CHANGE</td>
+<td class="address-2"><span id="8812"></span>08812</td>
+<td class="bytes-0"></td>
+<td class="instruction">XOR (HL)</td>
+<td class="comment-11" rowspan="4">The bits, specified by the mask in the <span class="register">B</span> register, are changed in the value and the result goes to form the system variable.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8813"></span>08813</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND B</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8814"></span>08814</td>
+<td class="bytes-0"></td>
+<td class="instruction">XOR (HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8815"></span>08815</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8816"></span>08816</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="1">Move on to address the next system variable.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8817"></span>08817</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,B</td>
+<td class="comment-11" rowspan="2">Return with the mask in the <span class="register">A</span> register.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8818"></span>08818</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8819"></span>
+<div class="comments">
+<div class="paragraph">
+FLASH and BRIGHT are handled by the following routine.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CO_TEMP_C</td>
+<td class="address-2"><span id="8819"></span>08819</td>
+<td class="bytes-0"></td>
+<td class="instruction">SBC A,A</td>
+<td class="comment-11" rowspan="1">The zero flag will be set for BRIGHT.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8820"></span>08820</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,D</td>
+<td class="comment-11" rowspan="2">The parameter is fetched and rotated.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8821"></span>08821</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8822"></span>08822</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,128</td>
+<td class="comment-11" rowspan="1">Prepare the mask for FLASH.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8824"></span>08824</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="8673.html#8829">CO_TEMP_D</a></td>
+<td class="comment-11" rowspan="1">Jump forward with FLASH.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8826"></span>08826</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-11" rowspan="2">Rotate an extra time and prepare the mask for BRIGHT.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8827"></span>08827</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,64</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">CO_TEMP_D</td>
+<td class="address-2"><span id="8829"></span>08829</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,A</td>
+<td class="comment-11" rowspan="1">Save the value in the <span class="register">C</span> register.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8830"></span>08830</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,D</td>
+<td class="comment-11" rowspan="5">Fetch the parameter and test its range; only '0', '1' and '8' are allowable.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8831"></span>08831</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 8</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8833"></span>08833</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="8673.html#8839">CO_TEMP_E</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8835"></span>08835</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 2</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8837"></span>08837</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NC,<a href="8673.html#8772">REPORT_K</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8839"></span>
+<div class="comments">
+<div class="paragraph">
+The system variable <a href="23695.html">ATTR-T</a> can now be altered.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CO_TEMP_E</td>
+<td class="address-2"><span id="8839"></span>08839</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,C</td>
+<td class="comment-11" rowspan="1">Fetch the value.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8840"></span>08840</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,23695</td>
+<td class="comment-11" rowspan="1">This is <a href="23695.html">ATTR-T</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8843"></span>08843</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8673.html#8812">CO_CHANGE</a></td>
+<td class="comment-11" rowspan="1">Now change the system variable.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8846"></span>
+<div class="comments">
+<div class="paragraph">
+The value in <a href="23696.html">MASK-T</a> is now considered.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8846"></span>08846</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,C</td>
+<td class="comment-11" rowspan="1">The value is fetched anew.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8847"></span>08847</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-11" rowspan="3">The set bit of FLASH/BRIGHT '8' (bit 3) is moved to bit 7 (for FLASH) or bit 6 (for BRIGHT).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8848"></span>08848</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8849"></span>08849</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8850"></span>08850</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="8673.html#8812">CO_CHANGE</a></td>
+<td class="comment-11" rowspan="1">Exit via <a href="8673.html#8812">CO_CHANGE</a>.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="8662.html">08662</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#8673">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="8852.html">08852</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/21E1.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

@@ -23,7 +23,7 @@
 <div class="description">342D: THE 'STORE IN MEMORY AREA' SUBROUTINE (offset +40)</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via a calculator literal (+C0 to +C5) by the routines at <a href="03F8.html">BEEP</a>, <a href="1D03.html">FOR</a>, <a href="1DAB.html">NEXT</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2D4F.html">e_to_fp</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="3449.html">series</a>, <a href="36A0.html">n_mod_m</a>, <a href="36AF.html">int</a>, <a href="36C4.html">exp</a> and <a href="3783.html">get_argt</a>.
@@ -56,59 +56,68 @@ This subroutine is called using the literals +C0 to +C5 and the parameter derive
 <tr>
 <td class="asm-label-1">st_mem</td>
 <td class="address-2"><span id="342D"></span>342D</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="1">Save the result pointer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="342E"></span>342E</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Source to <span class="register">DE</span> briefly.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="342F"></span>342F</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C68)</td>
 <td class="comment-11" rowspan="1">Fetch the pointer to the current memory area (<a href="5C68.html">MEM</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3432"></span>3432</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="3406.html">LOC_MEM</a></td>
 <td class="comment-11" rowspan="1">The base address is found.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3435"></span>3435</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Exchange source and destination pointers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3436"></span>3436</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="33C0.html">duplicate</a></td>
 <td class="comment-11" rowspan="1">The five bytes are moved.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3439"></span>3439</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">'Last value'+5, i.e. <a href="5C65.html">STKEND</a>, to <span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="343A"></span>343A</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-11" rowspan="1">Result pointer to <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="343B"></span>343B</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 
 <div class="comments">
 <div class="paragraph">
@@ -126,10 +135,10 @@ Note that the pointers <span class="register">HL</span> and <span class="registe
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/13357.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/13357.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

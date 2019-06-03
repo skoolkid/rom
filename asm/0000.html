@@ -23,7 +23,7 @@
 <div class="description">0000: THE 'START'</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 It all starts here when the Spectrum is powered on.
@@ -49,24 +49,28 @@ The maskable interrupt is disabled and the <span class="register">DE</span> regi
 <tr>
 <td class="asm-label-1">START</td>
 <td class="address-2"><span id="0000"></span>0000</td>
+<td class="bytes-0"></td>
 <td class="instruction">DI</td>
 <td class="comment-11" rowspan="1">Disable the 'keyboard interrupt'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0001"></span>0001</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
 <td class="comment-11" rowspan="1">+00 for start (but +FF for 'NEW').</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0002"></span>0002</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD DE,$FFFF</td>
 <td class="comment-11" rowspan="1">Top of possible RAM.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0005"></span>0005</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="11B7.html#11CB">START_NEW</a></td>
 <td class="comment-11" rowspan="1">Jump forward.</td>
 </tr>
@@ -79,10 +83,10 @@ The maskable interrupt is disabled and the <span class="register">DE</span> regi
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/0.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/0.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

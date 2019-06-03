@@ -23,7 +23,7 @@
 <div class="description">3506: THE 'LESS THAN ZERO' OPERATION (offset +36)</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal +36 by the routines at <a href="1DDA.html">NEXT_LOOP</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="36AF.html">int</a>, <a href="3783.html">get_argt</a> and <a href="37E2.html">atn</a>.
@@ -52,11 +52,12 @@ This subroutine returns a 'last value' of one if the present 'last value' is les
 <tr>
 <td class="asm-label-1">less_0</td>
 <td class="address-2"><span id="3506"></span>3506</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
 <td class="comment-11" rowspan="1">Clear the <span class="register">A</span> register.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="3507"></span>
 <div class="comments">
 <div class="paragraph">
@@ -68,29 +69,33 @@ This entry point is used by the routine at <a href="34F9.html">greater_0</a> wit
 <tr>
 <td class="asm-label-1">SIGN_TO_C</td>
 <td class="address-2"><span id="3507"></span>3507</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Point to the sign byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3508"></span>3508</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR (HL)</td>
 <td class="comment-11" rowspan="3">The carry is reset for a positive number and set for a negative number; when entered from <a href="34F9.html">greater_0</a> the opposite sign goes to the carry.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3509"></span>3509</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="350A"></span>350A</td>
+<td class="bytes-0"></td>
 <td class="instruction">RLCA</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 
 <div class="comments">
 <div class="paragraph">
@@ -108,10 +113,10 @@ This routine continues into <a href="350B.html">FP_0_1</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/13574.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/13574.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

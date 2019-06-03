@@ -23,7 +23,7 @@
 <div class="description">1C96: THE 'SET PERMANENT COLOURS' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is derived from an offset found in the <a href="1C01.html">command class table</a>.
@@ -49,77 +49,89 @@ This subroutine allows for the current temporary colours to be made permanent. A
 <tr>
 <td class="asm-label-1">CLASS_07</td>
 <td class="address-2"><span id="1C96"></span>1C96</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 7,(IY+$01)</td>
 <td class="comment-11" rowspan="1">The syntax/run flag (bit 7 of <a href="5C3B.html">FLAGS</a>) is read.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C9A"></span>1C9A</td>
+<td class="bytes-0"></td>
 <td class="instruction">RES 0,(IY+$02)</td>
 <td class="comment-11" rowspan="1">Signal 'main screen' (reset bit 0 of <a href="5C3C.html">TV-FLAG</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C9E"></span>1C9E</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL NZ,<a href="0D4D.html">TEMPS</a></td>
 <td class="comment-11" rowspan="1">Only during a 'run' call <a href="0D4D.html">TEMPS</a> to ensure the temporary colours are the main screen colours.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1CA1"></span>1CA1</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
 <td class="comment-11" rowspan="1">Drop the return address <a href="1B28.html#1B52">SCAN_LOOP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1CA2"></span>1CA2</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,($5C74)</td>
 <td class="comment-11" rowspan="2">Fetch the low byte of <a href="5C74.html">T-ADDR</a> and subtract +13 to give the range +D9 to +DE which are the token codes for INK to OVER.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1CA5"></span>1CA5</td>
+<td class="bytes-0"></td>
 <td class="instruction">SUB $13</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1CA7"></span>1CA7</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="21E1.html#21FC">CO_TEMP_4</a></td>
 <td class="comment-11" rowspan="1">Change the temporary colours as directed by the BASIC statement.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1CAA"></span>1CAA</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1BEE.html">CHECK_END</a></td>
 <td class="comment-11" rowspan="1">Move on to the next statement if checking syntax.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1CAD"></span>1CAD</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C8F)</td>
 <td class="comment-11" rowspan="2">Now the temporary colour values (<a href="5C8F.html">ATTR-T</a> and <a href="5C90.html">MASK-T</a>) are made permanent (<a href="5C8D.html">ATTR-P</a> and <a href="5C8E.html">MASK-P</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1CB0"></span>1CB0</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C8D),HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1CB3"></span>1CB3</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$5C91</td>
 <td class="comment-11" rowspan="2">This is <a href="5C91.html">P-FLAG</a>, and that too has to be considered.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1CB6"></span>1CB6</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1CB7"></span>
 <div class="comments">
 <div class="paragraph">
@@ -131,36 +143,42 @@ The following instructions cleverly copy the even bits of the supplied byte to t
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1CB7"></span>1CB7</td>
+<td class="bytes-0"></td>
 <td class="instruction">RLCA</td>
 <td class="comment-11" rowspan="1">Move the mask leftwards.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1CB8"></span>1CB8</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR (HL)</td>
 <td class="comment-11" rowspan="3">Impress onto the mask only the even bits of the other byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1CB9"></span>1CB9</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND %10101010</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1CBB"></span>1CBB</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR (HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1CBC"></span>1CBC</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-11" rowspan="1">Restore the result.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1CBD"></span>1CBD</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1"></td>
 </tr>
@@ -173,10 +191,10 @@ The following instructions cleverly copy the even bits of the supplied byte to t
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/7318.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/7318.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

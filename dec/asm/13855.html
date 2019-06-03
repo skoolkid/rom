@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 13855</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="13790.html">13790</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#13855">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="13893.html">13893</a></span></td>
+</tr>
+</table>
+<div class="description">13855: THE 'STR$' FUNCTION (offset 46)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="13015.html">table of addresses</a>. It is called indirectly via <a href="13218.html">fp_calc_2</a>.
+</div>
+<div class="paragraph">
+This subroutine handles the function STR$ X and returns a 'last value' which is a set of parameters that define a string containing what would appear on the screen if X were displayed by a PRINT command.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">str</td>
+<td class="address-2"><span id="13855"></span>13855</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD BC,1</td>
+<td class="comment-11" rowspan="3">One space is made in the work space and its address is copied to <a href="23643.html">K-CUR</a>, the address of the cursor.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13858"></span>13858</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="48.html">48</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13859"></span>13859</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23643),HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13862"></span>13862</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-11" rowspan="1">This address is saved on the stack too.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13863"></span>13863</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23633)</td>
+<td class="comment-11" rowspan="2">The current channel address (<a href="23633.html">CURCHL</a>) is saved on the machine stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13866"></span>13866</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13867"></span>13867</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,255</td>
+<td class="comment-11" rowspan="2">Channel 'R' is opened, allowing the string to be 'printed' out into the work space.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13869"></span>13869</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="5633.html">CHAN_OPEN</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13872"></span>13872</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="11747.html">PRINT_FP</a></td>
+<td class="comment-11" rowspan="1">The 'last value', X, is now printed out in the work space and the work space is expanded with each character.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13875"></span>13875</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP HL</td>
+<td class="comment-11" rowspan="2">Restore <a href="23633.html">CURCHL</a> to <span class="register">HL</span> and restore the flags that are appropriate to it.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13876"></span>13876</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="5653.html">CHAN_FLAG</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13879"></span>13879</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP DE</td>
+<td class="comment-11" rowspan="1">Restore the start address of the string.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13880"></span>13880</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23643)</td>
+<td class="comment-11" rowspan="3">Now the cursor address is one past the end of the string and hence the difference is the length.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13883"></span>13883</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13884"></span>13884</td>
+<td class="bytes-0"></td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13886"></span>13886</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,H</td>
+<td class="comment-11" rowspan="2">Transfer the length to <span class="register">BC</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13887"></span>13887</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,L</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13888"></span>13888</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="10929.html#10930">STK_STO</a></td>
+<td class="comment-11" rowspan="1">Pass the parameters of the new string to the calculator stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13891"></span>13891</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="1">Reset the pointers.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13892"></span>13892</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+
+<div class="comments">
+<div class="paragraph">
+Note: see <a href="11747.html">PRINT_FP</a> for an explanation of the 'PRINT "A"+STR$ 0.1' error.
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="13790.html">13790</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#13855">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="13893.html">13893</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/361F.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

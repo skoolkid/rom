@@ -23,7 +23,7 @@
 <div class="description">33A2: THE 'SINGLE OPERATION' SUBROUTINE (offset +3B)</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal +3B by the routine at <a href="26C9.html">S_LETTER</a>.
@@ -52,24 +52,28 @@ The effect of calling this subroutine is essentially to make a jump to the appro
 <tr>
 <td class="asm-label-1">fp_calc_2</td>
 <td class="address-2"><span id="33A2"></span>33A2</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
 <td class="comment-11" rowspan="1">Discard the <a href="335B.html#3365">RE_ENTRY</a> address.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33A3"></span>33A3</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,($5C67)</td>
 <td class="comment-11" rowspan="1">Transfer the offset from <a href="5C67.html">BREG</a> to <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33A6"></span>33A6</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="1">Enter the alternate register set.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33A7"></span>33A7</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="335B.html#336C">SCAN_ENT</a></td>
 <td class="comment-11" rowspan="1">Jump back to find the required address; stack the <a href="335B.html#3365">RE_ENTRY</a> address and jump to the subroutine for the operation.</td>
 </tr>
@@ -82,10 +86,10 @@ The effect of calling this subroutine is essentially to make a jump to the appro
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/13218.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/13218.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

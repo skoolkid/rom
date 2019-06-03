@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 09704</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="9651.html">09651</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#9704">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="9717.html">09717</a></span></td>
+</tr>
+</table>
+<div class="description">09704: THE 'SCANNING BRACKET' ROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is derived from an offset found in the <a href="9622.html">scanning function table</a>.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">S_BRACKET</td>
+<td class="address-2"><span id="9704"></span>09704</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="32.html">32</a></td>
+<td class="comment-11" rowspan="2">This routine simply gets the character and calls <a href="9467.html">SCANNING</a> recursively.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9705"></span>09705</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="9467.html">SCANNING</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9708"></span>09708</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP ")"</td>
+<td class="comment-11" rowspan="2">Report the error if no matching bracket.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9710"></span>09710</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP NZ,<a href="7289.html#7306">REPORT_C</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9713"></span>09713</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="32.html">32</a></td>
+<td class="comment-11" rowspan="2">Continue scanning.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9714"></span>09714</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP <a href="9929.html#10002">S_CONT_2</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="9651.html">09651</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#9704">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="9717.html">09717</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/25E8.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

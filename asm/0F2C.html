@@ -23,7 +23,7 @@
 <div class="description">0F2C: THE 'EDITOR' ROUTINES</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="12A2.html">MAIN_EXEC</a> and <a href="2089.html">INPUT</a>.
@@ -58,17 +58,19 @@ First the 'error stack pointer' is saved and an alternative address provided.
 <tr>
 <td class="asm-label-1">EDITOR</td>
 <td class="address-2"><span id="0F2C"></span>0F2C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C3D)</td>
 <td class="comment-11" rowspan="2">The current value of <a href="5C3D.html">ERR-SP</a> is saved on the machine stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F2F"></span>0F2F</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0F30"></span>
 <div class="comments">
 <div class="paragraph">
@@ -80,23 +82,26 @@ This entry point is used by the routine at <a href="107F.html">ED_ERROR</a>.
 <tr>
 <td class="asm-label-1">ED_AGAIN</td>
 <td class="address-2"><span id="0F30"></span>0F30</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$107F</td>
 <td class="comment-11" rowspan="1">This is <a href="107F.html">ED_ERROR</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F33"></span>0F33</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="2">Any event that leads to the error handling routine (see <a href="5C3D.html">ERR-SP</a>) being used will come back to <a href="107F.html">ED_ERROR</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F34"></span>0F34</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C3D),SP</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0F38"></span>
 <div class="comments">
 <div class="paragraph">
@@ -108,59 +113,68 @@ A loop is now entered to handle each keystroke.
 <tr>
 <td class="asm-label-1">ED_LOOP</td>
 <td class="address-1"><span id="0F38"></span>0F38</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="15D4.html">WAIT_KEY</a></td>
 <td class="comment-11" rowspan="1">Return once a key has been pressed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F3B"></span>0F3B</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
 <td class="comment-11" rowspan="1">Save the code temporarily.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F3C"></span>0F3C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,$00</td>
 <td class="comment-11" rowspan="2">Fetch the duration of the keyboard click (<a href="5C39.html">PIP</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F3E"></span>0F3E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD E,(IY-$01)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F41"></span>0F41</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$00C8</td>
 <td class="comment-11" rowspan="1">And the pitch.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F44"></span>0F44</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="03B5.html">BEEPER</a></td>
 <td class="comment-11" rowspan="1">Now make the 'pip'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F47"></span>0F47</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
 <td class="comment-11" rowspan="1">Restore the code.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F48"></span>0F48</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$0F38</td>
 <td class="comment-11" rowspan="2">Pre-load the machine stack with the address of <a href="0F2C.html#0F38">ED_LOOP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F4B"></span>0F4B</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0F4C"></span>
 <div class="comments">
 <div class="paragraph">
@@ -172,41 +186,47 @@ Now analyse the code obtained.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F4C"></span>0F4C</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $18</td>
 <td class="comment-11" rowspan="2">Accept all character codes, graphic codes and tokens.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F4E"></span>0F4E</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="0F2C.html#0F81">ADD_CHAR</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F50"></span>0F50</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $07</td>
 <td class="comment-11" rowspan="2">Also accept ','.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F52"></span>0F52</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="0F2C.html#0F81">ADD_CHAR</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F54"></span>0F54</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $10</td>
 <td class="comment-11" rowspan="2">Jump forward if the code represents an editing key.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F56"></span>0F56</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="0F2C.html#0F92">ED_KEYS</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0F58"></span>
 <div class="comments">
 <div class="paragraph">
@@ -218,29 +238,33 @@ The control keys - INK to TAB - are now considered.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F58"></span>0F58</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD BC,$0002</td>
 <td class="comment-11" rowspan="1">INK and PAPER will require two locations.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F5B"></span>0F5B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,A</td>
 <td class="comment-11" rowspan="1">Copy the code to <span class="register">D</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F5C"></span>0F5C</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $16</td>
 <td class="comment-11" rowspan="2">Jump forward with INK and PAPER.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F5E"></span>0F5E</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="0F2C.html#0F6C">ED_CONTR</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0F60"></span>
 <div class="comments">
 <div class="paragraph">
@@ -252,35 +276,40 @@ AT and TAB would be handled as follows:
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F60"></span>0F60</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
 <td class="comment-11" rowspan="1">Three locations required.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F61"></span>0F61</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 7,(IY+$37)</td>
 <td class="comment-11" rowspan="2">Jump forward unless dealing with 'INPUT LINE...' (bit 7 of <a href="5C71.html">FLAGX</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F65"></span>0F65</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP Z,<a href="101E.html">ED_IGNORE</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F68"></span>0F68</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="15D4.html">WAIT_KEY</a></td>
 <td class="comment-11" rowspan="2">Get the second code and put it in <span class="register">E</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F6B"></span>0F6B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD E,A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0F6C"></span>
 <div class="comments">
 <div class="paragraph">
@@ -292,71 +321,82 @@ The other bytes for the control characters are now fetched.
 <tr>
 <td class="asm-label-1">ED_CONTR</td>
 <td class="address-2"><span id="0F6C"></span>0F6C</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="15D4.html">WAIT_KEY</a></td>
 <td class="comment-11" rowspan="1">Get another code.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F6F"></span>0F6F</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-11" rowspan="1">Save the previous codes.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F70"></span>0F70</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C5B)</td>
 <td class="comment-11" rowspan="1">Fetch <a href="5C5B.html">K-CUR</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F73"></span>0F73</td>
+<td class="bytes-0"></td>
 <td class="instruction">RES 0,(IY+$07)</td>
 <td class="comment-11" rowspan="1">Signal 'K mode' (reset bit 0 of <a href="5C41.html">MODE</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F77"></span>0F77</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1652.html#1655">MAKE_ROOM</a></td>
 <td class="comment-11" rowspan="1">Make two or three spaces.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F7A"></span>0F7A</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">Restore the previous codes.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F7B"></span>0F7B</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Point to the first location.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F7C"></span>0F7C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),B</td>
 <td class="comment-11" rowspan="1">Enter first code.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F7D"></span>0F7D</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="2">Then enter the second code which will be overwritten if there are only two codes - i.e. with INK and PAPER.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F7E"></span>0F7E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F7F"></span>0F7F</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="0F2C.html#0F8B">ADD_CH_1</a></td>
 <td class="comment-11" rowspan="1">Jump forward.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0F81"></span>
 <div class="comments">
 <div class="paragraph">
@@ -374,47 +414,54 @@ The following subroutine actually adds a code to the current EDIT or INPUT line.
 <tr>
 <td class="asm-label-1">ADD_CHAR</td>
 <td class="address-2"><span id="0F81"></span>0F81</td>
+<td class="bytes-0"></td>
 <td class="instruction">RES 0,(IY+$07)</td>
 <td class="comment-11" rowspan="1">Signal 'K mode' (reset bit 0 of <a href="5C41.html">MODE</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F85"></span>0F85</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C5B)</td>
 <td class="comment-11" rowspan="1">Fetch the cursor position (<a href="5C5B.html">K-CUR</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F88"></span>0F88</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1652.html">ONE_SPACE</a></td>
 <td class="comment-11" rowspan="1">Make a single space.</td>
 </tr>
 <tr>
 <td class="asm-label-1">ADD_CH_1</td>
 <td class="address-2"><span id="0F8B"></span>0F8B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (DE),A</td>
 <td class="comment-11" rowspan="4">Enter the code into the space and set <a href="5C5B.html">K-CUR</a> to signal that the cursor is to occur at the location after. Then return indirectly to <a href="0F2C.html#0F38">ED_LOOP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F8C"></span>0F8C</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F8D"></span>0F8D</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C5B),DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F91"></span>0F91</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="0F92"></span>
 <div class="comments">
 <div class="paragraph">
@@ -426,54 +473,63 @@ The editing keys are dealt with as follows:
 <tr>
 <td class="asm-label-1">ED_KEYS</td>
 <td class="address-2"><span id="0F92"></span>0F92</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD E,A</td>
 <td class="comment-11" rowspan="2">The code is transferred to the <span class="register">DE</span> register pair.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F93"></span>0F93</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,$00</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F95"></span>0F95</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$0F99</td>
 <td class="comment-11" rowspan="1">The base address of the <a href="0FA0.html">editing keys table</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F98"></span>0F98</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-11" rowspan="2">The entry is addressed and then fetched into <span class="register">E</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F99"></span>0F99</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD E,(HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F9A"></span>0F9A</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-11" rowspan="2">The address of the handling routine is saved on the machine stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F9B"></span>0F9B</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F9C"></span>0F9C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C5B)</td>
 <td class="comment-11" rowspan="2">The <span class="register">HL</span> register pair is set to <a href="5C5B.html">K-CUR</a> and an indirect jump made to the required routine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0F9F"></span>0F9F</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -486,10 +542,10 @@ The editing keys are dealt with as follows:
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/3884.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/3884.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

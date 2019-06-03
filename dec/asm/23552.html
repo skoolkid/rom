@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: System variable at 23552</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-g">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">System variables</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="15616.html">15616</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#23552">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="23560.html">23560</a></span></td>
+</tr>
+</table>
+<div class="description">23552: KSTATE - Used in reading the keyboard</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Initialised by the routine at <a href="4535.html">NEW</a>, and used by the routine at <a href="703.html">KEYBOARD</a>. KSTATE0 (23552) and KSTATE4 (23556) are accessed by the routine at <a href="4535.html">NEW</a> via the <span class="register">IY</span> register at <span class="register">IY</span>-58 and <span class="register">IY</span>-54.
+</div>
+<div class="paragraph">
+There are two sets of four bytes here, each set corresponding to a separate keypress. The bytes in each set are used as follows:
+</div>
+<div class="paragraph">
+<table class="default">
+<tr>
+<th colspan="1" rowspan="1">Byte</th>
+<th colspan="1" rowspan="1">Contents</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">0</td>
+<td class="" colspan="1" rowspan="1">255 if the set is unused, or a main code from the <a href="517.html#517">main key table</a> otherwise</td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">1</td>
+<td class="" colspan="1" rowspan="1">Call counter; initially 5, and decremented on each call to <a href="703.html">KEYBOARD</a></td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">2</td>
+<td class="" colspan="1" rowspan="1">Repeat delay counter; initially <a href="23561.html">REPDEL</a>, decremented on each call to <a href="703.html">KEYBOARD</a>, reset to <a href="23562.html">REPPER</a> whenever it reaches zero</td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">3</td>
+<td class="" colspan="1" rowspan="1">Final code from the <a href="517.html">key tables</a> (as computed by <a href="819.html">K_DECODE</a>)</td>
+</tr>
+</table>
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">KSTATE</td>
+<td class="address-1"><span id="23552"></span>23552</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 255,0,0,0</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="23556"></span>23556</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 255,0,0,0</td>
+<td class="comment-10" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="15616.html">15616</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#23552">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="23560.html">23560</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/5C00.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

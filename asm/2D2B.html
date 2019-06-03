@@ -23,7 +23,7 @@
 <div class="description">2D2B: THE 'STACK-BC' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="25F8.html">S_RND</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="34BC.html">usr</a> and <a href="3674.html">len</a>.
@@ -58,66 +58,77 @@ The form used in this and hence in the two previous subroutines as well is the o
 <tr>
 <td class="asm-label-1">STACK_BC</td>
 <td class="address-2"><span id="2D2B"></span>2D2B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD IY,$5C3A</td>
 <td class="comment-11" rowspan="1">Re-initialise <span class="register">IY</span> to <a href="5C3A.html">ERR-NR</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D2F"></span>2D2F</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
 <td class="comment-11" rowspan="1">Clear the <span class="register">A</span> register.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D30"></span>2D30</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD E,A</td>
 <td class="comment-11" rowspan="1">And the <span class="register">E</span> register, to indicate '+'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D31"></span>2D31</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,C</td>
 <td class="comment-11" rowspan="1">Copy the less significant byte to <span class="register">D</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D32"></span>2D32</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,B</td>
 <td class="comment-11" rowspan="1">And the more significant byte to <span class="register">C</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D33"></span>2D33</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
 <td class="comment-11" rowspan="1">Clear the <span class="register">B</span> register.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D34"></span>2D34</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2AB1.html#2AB6">STK_STORE</a></td>
 <td class="comment-11" rowspan="1">Now stack the number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D37"></span>2D37</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
 <td class="comment-11" rowspan="1">Use the calculator to make <span class="register">HL</span> point to <a href="5C65.html">STKEND</a>-5.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D38"></span>2D38</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $38</td>
 <td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D39"></span>2D39</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
 <td class="comment-11" rowspan="1">Clear the carry flag.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D3A"></span>2D3A</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Finished.</td>
 </tr>
@@ -130,10 +141,10 @@ The form used in this and hence in the two previous subroutines as well is the o
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/11563.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/11563.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

@@ -23,7 +23,7 @@
 <div class="description">33C6: THE 'STACK LITERALS' SUBROUTINE (offset +34)</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routine at <a href="3449.html">series</a>.
@@ -65,17 +65,19 @@ In each case, the first literal supplied is divided by +40, and the integer quot
 <tr>
 <td class="asm-label-1">stk_data</td>
 <td class="address-2"><span id="33C6"></span>33C6</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD H,D</td>
 <td class="comment-11" rowspan="2">This subroutine performs the manipulatory operation of adding a 'last value' to the calculator stack; hence <span class="register">HL</span> is set to point one past the present 'last value' and hence point to the result.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33C7"></span>33C7</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD L,E</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="33C8"></span>
 <div class="comments">
 <div class="paragraph">
@@ -87,222 +89,259 @@ This entry point is used by the routines at <a href="33F7.html">SKIP_CONS</a> an
 <tr>
 <td class="asm-label-1">STK_CONST</td>
 <td class="address-2"><span id="33C8"></span>33C8</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="33A9.html">TEST_5_SP</a></td>
 <td class="comment-11" rowspan="1">Now test that there is indeed room.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33CB"></span>33CB</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="3">Go to the alternate register set and stack the pointer to the next literal.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33CC"></span>33CC</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33CD"></span>33CD</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33CE"></span>33CE</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX (SP),HL</td>
 <td class="comment-11" rowspan="1">Switch over the result pointer and the next literal pointer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33CF"></span>33CF</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-11" rowspan="1">Save <span class="register">BC</span> briefly.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33D0"></span>33D0</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-11" rowspan="4">The first literal is put into <span class="register">A</span> and divided by +40 to give the integer values 0, 1, 2 or 3.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33D1"></span>33D1</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND $C0</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33D3"></span>33D3</td>
+<td class="bytes-0"></td>
 <td class="instruction">RLCA</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33D4"></span>33D4</td>
+<td class="bytes-0"></td>
 <td class="instruction">RLCA</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33D5"></span>33D5</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
 <td class="comment-11" rowspan="2">The integer value is transferred to <span class="register">C</span> and incremented, thereby giving the range 1, 2, 3 or 4 for the number of literals that will be needed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33D6"></span>33D6</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33D7"></span>33D7</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-11" rowspan="5">The literal is fetched anew, reduced mod +40 and discarded as inappropriate if the remainder if zero; in which case the next literal is fetched and used unreduced.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33D8"></span>33D8</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND $3F</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33DA"></span>33DA</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="33C6.html#33DE">FORM_EXP</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33DC"></span>33DC</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33DD"></span>33DD</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">FORM_EXP</td>
 <td class="address-2"><span id="33DE"></span>33DE</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD A,$50</td>
 <td class="comment-11" rowspan="2">The exponent, e, is formed by the addition of +50 and passed to the calculator stack as the first of the five bytes of the result.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33E0"></span>33E0</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (DE),A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33E1"></span>33E1</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$05</td>
 <td class="comment-11" rowspan="6">The number of literals specified in <span class="register">C</span> are taken from the source and entered into the bytes of the result.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33E3"></span>33E3</td>
+<td class="bytes-0"></td>
 <td class="instruction">SUB C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33E4"></span>33E4</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33E5"></span>33E5</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33E6"></span>33E6</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$00</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33E8"></span>33E8</td>
+<td class="bytes-0"></td>
 <td class="instruction">LDIR</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33EA"></span>33EA</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">Restore <span class="register">BC</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33EB"></span>33EB</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX (SP),HL</td>
 <td class="comment-11" rowspan="4">Return the result pointer to <span class="register">HL</span> and the next literal pointer to its usual position in <span class="register">HL'</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33EC"></span>33EC</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33ED"></span>33ED</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33EE"></span>33EE</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33EF"></span>33EF</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
 <td class="comment-11" rowspan="7">The number of zero bytes required at this stage is given by 5-<span class="register">C</span>-1, and this number of zeros is added to the result to make up the required five bytes.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33F0"></span>33F0</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">STK_ZEROS</td>
 <td class="address-2"><span id="33F1"></span>33F1</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33F2"></span>33F2</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33F3"></span>33F3</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (DE),A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33F4"></span>33F4</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33F5"></span>33F5</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="33C6.html#33F1">STK_ZEROS</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -315,10 +354,10 @@ This entry point is used by the routines at <a href="33F7.html">SKIP_CONS</a> an
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/13254.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/13254.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

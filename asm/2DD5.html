@@ -23,7 +23,7 @@
 <div class="description">2DD5: THE 'FLOATING-POINT TO A' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="1E85.html">TWO_PARAM</a>, <a href="1E94.html">FIND_INT1</a>, <a href="2314.html">STK_TO_A</a>, <a href="247D.html">CD_PRMS1</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="35C9.html">chrs</a> and <a href="36C4.html">exp</a>.
@@ -63,66 +63,77 @@ This short but vital subroutine is called at least 8 times for various purposes.
 <tr>
 <td class="asm-label-1">FP_TO_A</td>
 <td class="address-2"><span id="2DD5"></span>2DD5</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2DA2.html">FP_TO_BC</a></td>
 <td class="comment-11" rowspan="1">Compress the 'last value' into <span class="register">BC</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2DD8"></span>2DD8</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET C</td>
 <td class="comment-11" rowspan="1">Return if out of range already.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2DD9"></span>2DD9</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
 <td class="comment-11" rowspan="1">Save the result and the flags.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2DDA"></span>2DDA</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC B</td>
 <td class="comment-11" rowspan="2">Again it will be out of range if the <span class="register">B</span> register does not hold zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2DDB"></span>2DDB</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2DDC"></span>2DDC</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2DD5.html#2DE1">FP_A_END</a></td>
 <td class="comment-11" rowspan="1">Jump if in range.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2DDE"></span>2DDE</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
 <td class="comment-11" rowspan="1">Fetch the result and the flags.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2DDF"></span>2DDF</td>
+<td class="bytes-0"></td>
 <td class="instruction">SCF</td>
 <td class="comment-11" rowspan="1">Signal the result is out of range.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2DE0"></span>2DE0</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Finished - unsuccessful.</td>
 </tr>
 <tr>
 <td class="asm-label-1">FP_A_END</td>
 <td class="address-2"><span id="2DE1"></span>2DE1</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
 <td class="comment-11" rowspan="1">Fetch the result and the flags.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2DE2"></span>2DE2</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Finished - successful.</td>
 </tr>
@@ -135,10 +146,10 @@ This short but vital subroutine is called at least 8 times for various purposes.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/11733.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/11733.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

@@ -23,7 +23,7 @@
 <div class="description">0066: THE 'NON-MASKABLE INTERRUPT' ROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 This routine is not used in the standard Spectrum but the code allows for a system reset to occur following activation of the NMI line. The system variable at 5CB0, named here <a href="5CB0.html">NMIADD</a>, has to have the value zero for the reset to occur.
@@ -46,60 +46,70 @@ This routine is not used in the standard Spectrum but the code allows for a syst
 <tr>
 <td class="asm-label-1">RESET</td>
 <td class="address-1"><span id="0066"></span>0066</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
 <td class="comment-11" rowspan="2">Save the current values held in these registers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0067"></span>0067</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0068"></span>0068</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5CB0)</td>
 <td class="comment-11" rowspan="3">The two bytes of <a href="5CB0.html">NMIADD</a> must both be zero for the reset to occur.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="006B"></span>006B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,H</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="006C"></span>006C</td>
+<td class="bytes-0"></td>
 <td class="instruction">OR L</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="006D"></span>006D</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,$0070</td>
 <td class="comment-11" rowspan="1">Note: this should have been 'JR Z'!</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="006F"></span>006F</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP (HL)</td>
 <td class="comment-11" rowspan="1">Jump to <a href="0000.html">START</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1">NO_RESET</td>
 <td class="address-2"><span id="0070"></span>0070</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-11" rowspan="3">Restore the current values to these registers and return.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0071"></span>0071</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0072"></span>0072</td>
+<td class="bytes-0"></td>
 <td class="instruction">RETN</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -112,10 +122,10 @@ This routine is not used in the standard Spectrum but the code allows for a syst
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/102.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/102.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

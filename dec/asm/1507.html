@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 01507</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="1366.html">01366</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#1507">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="1541.html">01541</a></span></td>
+</tr>
+</table>
+<div class="description">01507: THE 'LD-EDGE-2' AND 'LD-EDGE-1' SUBROUTINES</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="1366.html">LD_BYTES</a>.
+</div>
+<div class="paragraph">
+These two subroutines form the most important part of the LOAD/VERIFY operation.
+</div>
+<div class="paragraph">
+The subroutines are entered with a timing constant in the <span class="register">B</span> register, and the previous border colour and 'edge-type' in the <span class="register">C</span> register.
+</div>
+<div class="paragraph">
+The subroutines return with the carry flag set if the required number of 'edges' have been found in the time allowed, and the change to the value in the <span class="register">B</span> register shows just how long it took to find the 'edge(s)'.
+</div>
+<div class="paragraph">
+The carry flag will be reset if there is an error. The zero flag then signals 'BREAK pressed' by being reset, or 'time-up' by being set.
+</div>
+<div class="paragraph">
+The entry point <a href="1507.html">LD_EDGE_2</a> is used when the length of a complete pulse is required and <a href="1507.html#1511">LD_EDGE_1</a> is used to find the time before the next 'edge'.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">Timing constant</td>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">Border colour (bits 0-2) and previous edge-type (bit 5)</td>
+</tr>
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LD_EDGE_2</td>
+<td class="address-2"><span id="1507"></span>01507</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="1507.html#1511">LD_EDGE_1</a></td>
+<td class="comment-11" rowspan="2">In effect call <a href="1507.html#1511">LD_EDGE_1</a> twice, returning in between if there is an error.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1510"></span>01510</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET NC</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1511"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="1366.html">LD_BYTES</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LD_EDGE_1</td>
+<td class="address-2"><span id="1511"></span>01511</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,22</td>
+<td class="comment-11" rowspan="4">Wait 358 T states before entering the sampling loop.</td>
+</tr>
+<tr>
+<td class="asm-label-1">LD_DELAY</td>
+<td class="address-2"><span id="1513"></span>01513</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1514"></span>01514</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="1507.html#1513">LD_DELAY</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1516"></span>01516</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1517"></span>
+<div class="comments">
+<div class="paragraph">
+The sampling loop is now entered. The value in the <span class="register">B</span> register is incremented for each pass; 'time-up' is given when <span class="register">B</span> reaches zero.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LD_SAMPLE</td>
+<td class="address-2"><span id="1517"></span>01517</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC B</td>
+<td class="comment-11" rowspan="1">Count each pass.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1518"></span>01518</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET Z</td>
+<td class="comment-11" rowspan="1">Return carry reset and zero set if 'time-up'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1519"></span>01519</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,127</td>
+<td class="comment-11" rowspan="2">Read from port 32766, i.e. BREAK and EAR.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1521"></span>01521</td>
+<td class="bytes-0"></td>
+<td class="instruction">IN A,(254)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1523"></span>01523</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRA</td>
+<td class="comment-11" rowspan="1">Shift the byte.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1524"></span>01524</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET NC</td>
+<td class="comment-11" rowspan="1">Return carry reset and zero reset if BREAK was pressed.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1525"></span>01525</td>
+<td class="bytes-0"></td>
+<td class="instruction">XOR C</td>
+<td class="comment-11" rowspan="3">Now test the byte against the 'last edge-type'; jump back unless it has changed.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1526"></span>01526</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND 32</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1528"></span>01528</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="1507.html#1517">LD_SAMPLE</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1530"></span>
+<div class="comments">
+<div class="paragraph">
+A new 'edge' has been found within the time period allowed for the search. So change the border colour and set the carry flag.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1530"></span>01530</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,C</td>
+<td class="comment-11" rowspan="3">Change the 'last edge-type' and border colour.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1531"></span>01531</td>
+<td class="bytes-0"></td>
+<td class="instruction">CPL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1532"></span>01532</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1533"></span>01533</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND 7</td>
+<td class="comment-11" rowspan="1">Keep only the border colour.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1535"></span>01535</td>
+<td class="bytes-0"></td>
+<td class="instruction">OR 8</td>
+<td class="comment-11" rowspan="1">Signal 'MIC off'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1537"></span>01537</td>
+<td class="bytes-0"></td>
+<td class="instruction">OUT (254),A</td>
+<td class="comment-11" rowspan="1">Change the border colour (red/cyan or blue/yellow).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1539"></span>01539</td>
+<td class="bytes-0"></td>
+<td class="instruction">SCF</td>
+<td class="comment-11" rowspan="2">Signal the successful search before returning.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1540"></span>01540</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+
+<div class="comments">
+<div class="paragraph">
+Note: the <a href="1507.html#1511">LD_EDGE_1</a> subroutine takes 465 T states, plus an additional 58 T states for each unsuccessful pass around the sampling loop.
+</div>
+<div class="paragraph">
+For example, therefore, when awaiting the sync pulse (see <a href="1366.html#1423">LD_SYNC</a>) allowance is made for ten additional passes through the sampling loop. The search is thereby for the next edge to be found within, roughly, 1100 T states (465+10*58+overhead). This will prove successful for the sync 'off' pulse that comes after the long 'leader pulses'.
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="1366.html">01366</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#1507">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="1541.html">01541</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/05E3.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

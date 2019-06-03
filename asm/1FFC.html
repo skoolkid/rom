@@ -23,7 +23,7 @@
 <div class="description">1FFC: THE 'PRINT ITEMS' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 This subroutine is called from the <a href="1FDF.html">PRINT_2</a> and <a href="2089.html">INPUT</a> routines.
@@ -49,23 +49,26 @@ The various types of print item are identified and printed.
 <tr>
 <td class="asm-label-1">PR_ITEM_1</td>
 <td class="address-2"><span id="1FFC"></span>1FFC</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
 <td class="comment-11" rowspan="1">The first character is fetched.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1FFD"></span>1FFD</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $AC</td>
 <td class="comment-11" rowspan="2">Jump forward unless it is an 'AT'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1FFF"></span>1FFF</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1FFC.html#200E">PR_ITEM_2</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2001"></span>
 <div class="comments">
 <div class="paragraph">
@@ -77,35 +80,40 @@ Now deal with an 'AT'.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2001"></span>2001</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1C79.html">NEXT_2NUM</a></td>
 <td class="comment-11" rowspan="1">The two parameters are transferred to the calculator stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2004"></span>2004</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1FC3.html">UNSTACK_Z</a></td>
 <td class="comment-11" rowspan="1">Return now if checking syntax.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2007"></span>2007</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2307.html">STK_TO_BC</a></td>
 <td class="comment-11" rowspan="1">The parameters are compressed into the <span class="register">BC</span> register pair.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="200A"></span>200A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$16</td>
 <td class="comment-11" rowspan="2">The <span class="register">A</span> register is loaded with the AT control character before the jump is taken.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="200C"></span>200C</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="1FFC.html#201E">PR_AT_TAB</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="200E"></span>
 <div class="comments">
 <div class="paragraph">
@@ -117,17 +125,19 @@ Next look for a 'TAB'.
 <tr>
 <td class="asm-label-1">PR_ITEM_2</td>
 <td class="address-2"><span id="200E"></span>200E</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $AD</td>
 <td class="comment-11" rowspan="2">Jump forward unless it is a 'TAB'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2010"></span>2010</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1FFC.html#2024">PR_ITEM_3</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2012"></span>
 <div class="comments">
 <div class="paragraph">
@@ -139,35 +149,40 @@ Now deal with a 'TAB'.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2012"></span>2012</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
 <td class="comment-11" rowspan="1">Get the next character.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2013"></span>2013</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1C79.html#1C82">CLASS_06</a></td>
 <td class="comment-11" rowspan="1">Transfer one parameter to the calculator stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2016"></span>2016</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1FC3.html">UNSTACK_Z</a></td>
 <td class="comment-11" rowspan="1">Return now if checking syntax.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2019"></span>2019</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1E94.html#1E99">FIND_INT2</a></td>
 <td class="comment-11" rowspan="1">The value is compressed into the <span class="register">BC</span> register pair.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="201C"></span>201C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$17</td>
 <td class="comment-11" rowspan="1">The <span class="register">A</span> register is loaded with the TAB control character.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="201E"></span>
 <div class="comments">
 <div class="paragraph">
@@ -179,41 +194,47 @@ The 'AT' and the 'TAB' print items are printed by making three calls to <a href=
 <tr>
 <td class="asm-label-1">PR_AT_TAB</td>
 <td class="address-2"><span id="201E"></span>201E</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0010.html">$10</a></td>
 <td class="comment-11" rowspan="1">Print the control character.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="201F"></span>201F</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
 <td class="comment-11" rowspan="2">Follow it with the first value.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2020"></span>2020</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0010.html">$10</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2021"></span>2021</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
 <td class="comment-11" rowspan="3">Finally print the second value, then return.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2022"></span>2022</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0010.html">$10</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2023"></span>2023</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2024"></span>
 <div class="comments">
 <div class="paragraph">
@@ -225,29 +246,33 @@ Next consider embedded colour items.
 <tr>
 <td class="asm-label-1">PR_ITEM_3</td>
 <td class="address-2"><span id="2024"></span>2024</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="21E1.html#21F2">CO_TEMP_3</a></td>
 <td class="comment-11" rowspan="2">Return with carry reset if colour items were found. Continue if none were found.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2027"></span>2027</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2028"></span>2028</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2070.html">STR_ALTER</a></td>
 <td class="comment-11" rowspan="1">Next consider if the stream is to be changed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="202B"></span>202B</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
 <td class="comment-11" rowspan="1">Continue unless it was altered.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="202C"></span>
 <div class="comments">
 <div class="paragraph">
@@ -259,35 +284,40 @@ The print item must now be an expression, either numeric or string.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="202C"></span>202C</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="24FB.html">SCANNING</a></td>
 <td class="comment-11" rowspan="2">Evaluate the expression but return now if checking syntax.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="202F"></span>202F</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1FC3.html">UNSTACK_Z</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2032"></span>2032</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 6,(IY+$01)</td>
 <td class="comment-11" rowspan="1">Test for the nature of the expression (bit 6 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2036"></span>2036</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL Z,<a href="2BF1.html">STK_FETCH</a></td>
 <td class="comment-11" rowspan="2">If it is a string then fetch the necessary parameters; but if it is numeric then exit via <a href="2DE3.html">PRINT_FP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2039"></span>2039</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP NZ,<a href="2DE3.html">PRINT_FP</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="203C"></span>
 <div class="comments">
 <div class="paragraph">
@@ -299,48 +329,56 @@ A loop is now set up to deal with each character in turn of the string.
 <tr>
 <td class="asm-label-1">PR_STRING</td>
 <td class="address-2"><span id="203C"></span>203C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
 <td class="comment-11" rowspan="4">Return now if there are no characters remaining in the string; otherwise decrease the counter.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="203D"></span>203D</td>
+<td class="bytes-0"></td>
 <td class="instruction">OR C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="203E"></span>203E</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="203F"></span>203F</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2040"></span>2040</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-11" rowspan="2">Fetch the code and increment the pointer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2041"></span>2041</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2042"></span>2042</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0010.html">$10</a></td>
 <td class="comment-11" rowspan="2">The code is printed and a jump taken to consider any further characters.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2043"></span>2043</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="1FFC.html#203C">PR_STRING</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -353,10 +391,10 @@ A loop is now set up to deal with each character in turn of the string.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/8188.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/8188.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

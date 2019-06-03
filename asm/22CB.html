@@ -23,7 +23,7 @@
 <div class="description">22CB: THE 'POINT' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 This subroutine is called from <a href="267B.html">S_POINT</a>. It is entered with the coordinates of a pixel on the calculator stack, and returns a last value of 1 if that pixel is ink colour, and 0 if it is paper colour.
@@ -46,54 +46,63 @@ This subroutine is called from <a href="267B.html">S_POINT</a>. It is entered wi
 <tr>
 <td class="asm-label-1">POINT_SUB</td>
 <td class="address-2"><span id="22CB"></span>22CB</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2307.html">STK_TO_BC</a></td>
 <td class="comment-11" rowspan="1">y-coordinate to <span class="register">B</span>, x to <span class="register">C</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22CE"></span>22CE</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="22AA.html">PIXEL_ADD</a></td>
 <td class="comment-11" rowspan="1">Pixel address to <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22D1"></span>22D1</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
 <td class="comment-11" rowspan="3"><span class="register">B</span> will count <span class="register">A</span>+1 loops to get the wanted bit of (<span class="register">HL</span>) to location 0.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22D2"></span>22D2</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22D3"></span>22D3</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">POINT_LP</td>
 <td class="address-2"><span id="22D4"></span>22D4</td>
+<td class="bytes-0"></td>
 <td class="instruction">RLCA</td>
 <td class="comment-11" rowspan="2">The shifts.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22D5"></span>22D5</td>
+<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="22CB.html#22D4">POINT_LP</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22D7"></span>22D7</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND $01</td>
 <td class="comment-11" rowspan="1">The bit is 1 for ink, 0 for paper.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22D9"></span>22D9</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="2D28.html">STACK_A</a></td>
 <td class="comment-11" rowspan="1">It is put on the calculator stack.</td>
 </tr>
@@ -106,10 +115,10 @@ This subroutine is called from <a href="267B.html">S_POINT</a>. It is entered wi
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/8907.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/8907.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

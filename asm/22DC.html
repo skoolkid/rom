@@ -23,7 +23,7 @@
 <div class="description">22DC: THE 'PLOT' COMMAND ROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="1A48.html#1AC1">parameter table</a>.
@@ -49,23 +49,26 @@ This routine consists of a main subroutine plus one line to call it and one line
 <tr>
 <td class="asm-label-1">PLOT</td>
 <td class="address-2"><span id="22DC"></span>22DC</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2307.html">STK_TO_BC</a></td>
 <td class="comment-11" rowspan="1">y-coordinate to <span class="register">B</span>, x to <span class="register">C</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22DF"></span>22DF</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="22DC.html#22E5">PLOT_SUB</a></td>
 <td class="comment-11" rowspan="1">The subroutine is called.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22E2"></span>22E2</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="0D4D.html">TEMPS</a></td>
 <td class="comment-11" rowspan="1">Exit, setting temporary colours.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="22E5"></span>
 <div class="comments">
 <div class="paragraph">
@@ -77,114 +80,133 @@ This entry point is used by the routine at <a href="24B7.html">DRAW_LINE</a>.
 <tr>
 <td class="asm-label-1">PLOT_SUB</td>
 <td class="address-2"><span id="22E5"></span>22E5</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C7D),BC</td>
 <td class="comment-11" rowspan="1">The system variable <a href="5C7D.html">COORDS</a> is set.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22E9"></span>22E9</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="22AA.html">PIXEL_ADD</a></td>
 <td class="comment-11" rowspan="1">Pixel address to <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22EC"></span>22EC</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
 <td class="comment-11" rowspan="2"><span class="register">B</span> will count <span class="register">A</span>+1 loops to get a zero to the correct place in <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22ED"></span>22ED</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22EE"></span>22EE</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$FE</td>
 <td class="comment-11" rowspan="1">The zero is entered.</td>
 </tr>
 <tr>
 <td class="asm-label-1">PLOT_LOOP</td>
 <td class="address-2"><span id="22F0"></span>22F0</td>
+<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
 <td class="comment-11" rowspan="2">Then lined up with the pixel bit position in the byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22F1"></span>22F1</td>
+<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="22DC.html#22F0">PLOT_LOOP</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22F3"></span>22F3</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
 <td class="comment-11" rowspan="1">Then copied to <span class="register">B</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22F4"></span>22F4</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-11" rowspan="1">The pixel-byte is obtained in <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22F5"></span>22F5</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,(IY+$57)</td>
 <td class="comment-11" rowspan="2"><a href="5C91.html">P-FLAG</a> is obtained and first tested for OVER.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22F8"></span>22F8</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 0,C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22FA"></span>22FA</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="22DC.html#22FD">PL_TST_IN</a></td>
 <td class="comment-11" rowspan="1">Jump if OVER 1.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22FC"></span>22FC</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND B</td>
 <td class="comment-11" rowspan="1">OVER 0 first makes the pixel zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1">PL_TST_IN</td>
 <td class="address-2"><span id="22FD"></span>22FD</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 2,C</td>
 <td class="comment-11" rowspan="1">Test for INVERSE.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="22FF"></span>22FF</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="22DC.html#2303">PLOT_END</a></td>
 <td class="comment-11" rowspan="1">INVERSE 1 just leaves the pixel as it was (OVER 1) or zero (OVER 0).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2301"></span>2301</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR B</td>
 <td class="comment-11" rowspan="2">INVERSE 0 leaves the pixel complemented (OVER 1) or 1 (OVER 0).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2302"></span>2302</td>
+<td class="bytes-0"></td>
 <td class="instruction">CPL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">PLOT_END</td>
 <td class="address-2"><span id="2303"></span>2303</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-11" rowspan="1">The byte is entered. Its other bits are unchanged in every case.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2304"></span>2304</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="0BDB.html">PO_ATTR</a></td>
 <td class="comment-11" rowspan="1">Exit, setting attribute byte.</td>
 </tr>
@@ -197,10 +219,10 @@ This entry point is used by the routine at <a href="24B7.html">DRAW_LINE</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/8924.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/8924.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

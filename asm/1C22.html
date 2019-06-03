@@ -23,7 +23,7 @@
 <div class="description">1C22: THE 'VARIABLE IN ASSIGNMENT' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routine at <a href="1C6C.html">CLASS_04</a>.
@@ -75,29 +75,33 @@ This subroutine develops the appropriate values for the system variables <a href
 <tr>
 <td class="asm-label-1">VAR_A_1</td>
 <td class="address-2"><span id="1C22"></span>1C22</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (IY+$37),$00</td>
 <td class="comment-11" rowspan="1">Initialise <a href="5C71.html">FLAGX</a> to +00.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C26"></span>1C26</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="1C22.html#1C30">VAR_A_2</a></td>
 <td class="comment-11" rowspan="1">Jump forward if the variable has been used before.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C28"></span>1C28</td>
+<td class="bytes-0"></td>
 <td class="instruction">SET 1,(IY+$37)</td>
 <td class="comment-11" rowspan="1">Signal 'a new variable' (set bit 1 of <a href="5C71.html">FLAGX</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C2C"></span>1C2C</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1C22.html#1C46">VAR_A_3</a></td>
 <td class="comment-11" rowspan="1">Give an error if trying to use an 'undimensioned array'.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1C2E"></span>
 <div class="comments">
 <div class="paragraph">
@@ -112,17 +116,19 @@ Report 2 - Variable not found.
 <tr>
 <td class="asm-label-1">REPORT_2</td>
 <td class="address-2"><span id="1C2E"></span>1C2E</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
 <td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C2F"></span>1C2F</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $01</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1C30"></span>
 <div class="comments">
 <div class="paragraph">
@@ -134,65 +140,75 @@ Continue with the handling of existing variables.
 <tr>
 <td class="asm-label-1">VAR_A_2</td>
 <td class="address-2"><span id="1C30"></span>1C30</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL Z,<a href="2996.html">STK_VAR</a></td>
 <td class="comment-11" rowspan="1">The parameters of simple string variables and all array variables are passed to the calculator stack. (<a href="2996.html">STK_VAR</a> will 'slice' a string if required.)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C33"></span>1C33</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 6,(IY+$01)</td>
 <td class="comment-11" rowspan="2">Jump forward if handling a numeric variable (bit 6 of <a href="5C3B.html">FLAGS</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C37"></span>1C37</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1C22.html#1C46">VAR_A_3</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C39"></span>1C39</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
 <td class="comment-11" rowspan="1">Clear the <span class="register">A</span> register.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C3A"></span>1C3A</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
 <td class="comment-11" rowspan="2">The parameters of the string or string array variable are fetched unless syntax is being checked.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C3D"></span>1C3D</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL NZ,<a href="2BF1.html">STK_FETCH</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C40"></span>1C40</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$5C71</td>
 <td class="comment-11" rowspan="1">This is <a href="5C71.html">FLAGX</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C43"></span>1C43</td>
+<td class="bytes-0"></td>
 <td class="instruction">OR (HL)</td>
 <td class="comment-11" rowspan="2">Bit 0 is set only when handling complete 'simple strings' thereby signalling 'old copy to be deleted'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C44"></span>1C44</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C45"></span>1C45</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1"><span class="register">HL</span> now points to the string or the element of the array.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1C46"></span>
 <div class="comments">
 <div class="paragraph">
@@ -204,11 +220,12 @@ The pathways now come together to set <a href="5C72.html">STRLEN</a> and <a href
 <tr>
 <td class="asm-label-1">VAR_A_3</td>
 <td class="address-2"><span id="1C46"></span>1C46</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C72),BC</td>
 <td class="comment-11" rowspan="1">Set <a href="5C72.html">STRLEN</a> as required.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1C4A"></span>
 <div class="comments">
 <div class="paragraph">
@@ -220,12 +237,14 @@ The pathways now come together to set <a href="5C72.html">STRLEN</a> and <a href
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C4A"></span>1C4A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C4D),HL</td>
 <td class="comment-11" rowspan="2">Set <a href="5C4D.html">DEST</a> as required and return.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C4D"></span>1C4D</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -238,10 +257,10 @@ The pathways now come together to set <a href="5C72.html">STRLEN</a> and <a href
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/7202.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/7202.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

@@ -23,7 +23,7 @@
 <div class="description">3669: THE 'CODE' FUNCTION (offset +1C)</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called indirectly via <a href="33A2.html">fp_calc_2</a>.
@@ -49,36 +49,42 @@ This subroutine handles the function CODE A$ and returns the Spectrum code of th
 <tr>
 <td class="asm-label-1">code</td>
 <td class="address-2"><span id="3669"></span>3669</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2BF1.html">STK_FETCH</a></td>
 <td class="comment-11" rowspan="1">The parameters of the string are fetched.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="366C"></span>366C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
 <td class="comment-11" rowspan="3">The length is tested and the <span class="register">A</span> register holding zero is carried forward if A$ is a null string.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="366D"></span>366D</td>
+<td class="bytes-0"></td>
 <td class="instruction">OR C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="366E"></span>366E</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="3669.html#3671">STK_CODE</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3670"></span>3670</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-11" rowspan="1">The code of the first character is put into <span class="register">A</span> otherwise.</td>
 </tr>
 <tr>
 <td class="asm-label-1">STK_CODE</td>
 <td class="address-2"><span id="3671"></span>3671</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="2D28.html">STACK_A</a></td>
 <td class="comment-11" rowspan="1">The subroutine exits via <a href="2D28.html">STACK_A</a> which gives the correct 'last value'.</td>
 </tr>
@@ -91,10 +97,10 @@ This subroutine handles the function CODE A$ and returns the Spectrum code of th
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/13929.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/13929.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

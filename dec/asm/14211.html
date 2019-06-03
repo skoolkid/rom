@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 14211</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="14099.html">14099</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#14211">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="14250.html">14250</a></span></td>
+</tr>
+</table>
+<div class="description">14211: THE 'REDUCE ARGUMENT' SUBROUTINE (offset 57)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="13015.html">table of addresses</a>. It is called via the calculator literal 57 by the routines at <a href="14250.html">cos</a> and <a href="14261.html">sin</a>.
+</div>
+<div class="paragraph">
+This subroutine transforms the argument X of SIN X or COS X into a value V.
+</div>
+<div class="paragraph">
+The subroutine first finds the value Y=X/2&#960;-INT(X/2&#960;+0.5), where -0.5&lt;=Y&lt;0.5.
+</div>
+<div class="paragraph">
+The subroutine returns with:
+</div>
+<div class="paragraph">
+<ul class="">
+<li>V=4*Y if -1&lt;=4*Y&lt;=1 (case i)</li>
+<li>or V=2-4*Y if 1&lt;4*Y&lt;2 (case ii)</li>
+<li>or V=-4*Y-2 if -2&lt;=4*Y&lt;-1 (case iii)</li>
+</ul>
+</div>
+<div class="paragraph">
+In each case, -1&lt;=V&lt;=1 and SIN (&#960;V/2)=SIN X.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">get_argt</td>
+<td class="address-2"><span id="14211"></span>14211</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1">X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14212"></span>14212</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 61</td>
+<td class="comment-11" rowspan="1"><a href="12951.html">re_stack</a>: X (in full floating-point form)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14213"></span>14213</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 52</td>
+<td class="comment-11" rowspan="2"><a href="13254.html">stk_data</a>: X, 1/2&#960;</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14214"></span>14214</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 238,34,249,131,110</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14219"></span>14219</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: X/2&#960;</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14220"></span>14220</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: X/2&#960;, X/2&#960;</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14221"></span>14221</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 162</td>
+<td class="comment-11" rowspan="1"><a href="13339.html">stk_half</a>: X/2&#960;, X/2&#960;, 0.5</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14222"></span>14222</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 15</td>
+<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: X/2&#960;, X/2&#960;+0.5</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14223"></span>14223</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 39</td>
+<td class="comment-11" rowspan="1"><a href="13999.html">int</a>: X/2&#960;, INT (X/2&#960;+0.5)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14224"></span>14224</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: X/2&#960;-INT (X/2&#960;+0.5)=Y</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="14225"></span>
+<div class="comments">
+<div class="paragraph">
+Note: adding 0.5 and taking INT rounds the result to the nearest integer.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14225"></span>14225</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: Y, Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14226"></span>14226</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 15</td>
+<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: 2*Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14227"></span>14227</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: 2*Y, 2*Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14228"></span>14228</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 15</td>
+<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: 4*Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14229"></span>14229</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: 4*Y, 4*Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14230"></span>14230</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 42</td>
+<td class="comment-11" rowspan="1"><a href="13418.html">abs</a>: 4*Y, ABS (4*Y)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14231"></span>14231</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 161</td>
+<td class="comment-11" rowspan="1"><a href="13339.html">stk_one</a>: 4*Y, ABS (4*Y), 1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14232"></span>14232</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: 4*Y, ABS (4*Y)-1=Z</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14233"></span>14233</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: 4*Y, Z, Z</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14234"></span>14234</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 55</td>
+<td class="comment-11" rowspan="1"><a href="13561.html">greater_0</a>: 4*Y, Z, (1/0)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14235"></span>14235</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 192</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_0</a>: (mem-0 holds the result of the test)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14236"></span>14236</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 0</td>
+<td class="comment-11" rowspan="2"><a href="13967.html">jump_true</a> to <a href="14211.html#14241">ZPLUS</a>: 4*Y, Z</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14237"></span>14237</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14238"></span>14238</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: 4*Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14239"></span>14239</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: 4*Y=V (case i)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14240"></span>14240</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="14241"></span>
+<div class="comments">
+<div class="paragraph">
+If the jump was made then continue.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">ZPLUS</td>
+<td class="address-1"><span id="14241"></span>14241</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 161</td>
+<td class="comment-11" rowspan="1"><a href="13339.html">stk_one</a>: 4*Y, Z, 1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14242"></span>14242</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: 4*Y, Z-1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14243"></span>14243</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: Z-1, 4*Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14244"></span>14244</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 54</td>
+<td class="comment-11" rowspan="1"><a href="13574.html">less_0</a>: Z-1, (1/0)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14245"></span>14245</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 0</td>
+<td class="comment-11" rowspan="2"><a href="13967.html">jump_true</a> to <a href="14211.html#14248">YNEG</a>: Z-1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14246"></span>14246</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14247"></span>14247</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 27</td>
+<td class="comment-11" rowspan="1"><a href="13422.html">negate</a>: 1-Z</td>
+</tr>
+<tr>
+<td class="asm-label-1">YNEG</td>
+<td class="address-1"><span id="14248"></span>14248</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: 1-Z=V (case ii) or Z-1=V (case iii)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="14249"></span>14249</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="14099.html">14099</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#14211">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="14250.html">14250</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/3783.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

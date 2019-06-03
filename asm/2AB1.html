@@ -23,7 +23,7 @@
 <div class="description">2AB1: THE 'STK-STORE' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routine at <a href="2996.html">STK_VAR</a>.
@@ -80,11 +80,12 @@ Note that when storing the parameters of a string the first value stored (coming
 <tr>
 <td class="asm-label-1">STK_ST_0</td>
 <td class="address-2"><span id="2AB1"></span>2AB1</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
 <td class="comment-11" rowspan="1">Signal - a string from an array of strings or a 'sliced' string.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2AB2"></span>
 <div class="comments">
 <div class="paragraph">
@@ -96,11 +97,12 @@ This entry point is used by the routines at <a href="2089.html">INPUT</a>, <a hr
 <tr>
 <td class="asm-label-1">STK_STO</td>
 <td class="address-2"><span id="2AB2"></span>2AB2</td>
+<td class="bytes-0"></td>
 <td class="instruction">RES 6,(IY+$01)</td>
 <td class="comment-11" rowspan="1">Ensure the flag indicates a string result (reset bit 6 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2AB6"></span>
 <div class="comments">
 <div class="paragraph">
@@ -112,96 +114,112 @@ This entry point is used by the routines at <a href="2D2B.html">STACK_BC</a> and
 <tr>
 <td class="asm-label-1">STK_STORE</td>
 <td class="address-2"><span id="2AB6"></span>2AB6</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-11" rowspan="1">Save <span class="register">B</span> and <span class="register">C</span> briefly.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2AB7"></span>2AB7</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="33A9.html">TEST_5_SP</a></td>
 <td class="comment-11" rowspan="1">Is there room for 5 bytes? Do not return here unless there is room available.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2ABA"></span>2ABA</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">Restore <span class="register">B</span> and <span class="register">C</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2ABB"></span>2ABB</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C65)</td>
 <td class="comment-11" rowspan="1">Fetch the address of the first location above the present stack (<a href="5C65.html">STKEND</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2ABE"></span>2ABE</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-11" rowspan="1">Transfer the first byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2ABF"></span>2ABF</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Step on.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2AC0"></span>2AC0</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),E</td>
 <td class="comment-11" rowspan="3">Transfer the second and third bytes; for a string these will be the 'start'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2AC1"></span>2AC1</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2AC2"></span>2AC2</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),D</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2AC3"></span>2AC3</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Step on.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2AC4"></span>2AC4</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),C</td>
 <td class="comment-11" rowspan="3">Transfer the fourth and fifth bytes; for a string these will be the 'length'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2AC5"></span>2AC5</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2AC6"></span>2AC6</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2AC7"></span>2AC7</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Step on so as to point to the location above the stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2AC8"></span>2AC8</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C65),HL</td>
 <td class="comment-11" rowspan="2">Save this address in <a href="5C65.html">STKEND</a> and return.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2ACB"></span>2ACB</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -214,10 +232,10 @@ This entry point is used by the routines at <a href="2D2B.html">STACK_BC</a> and
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/10929.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/10929.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

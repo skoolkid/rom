@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 03807</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="3789.html">03789</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#3807">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="3828.html">03828</a></span></td>
+</tr>
+</table>
+<div class="description">03807: THE 'CLEAR PRINTER BUFFER' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="3828.html">COPY_LINE</a> and <a href="4535.html">NEW</a>.
+</div>
+<div class="paragraph">
+The printer buffer is cleared by calling this subroutine.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CLEAR_PRB</td>
+<td class="address-2"><span id="3807"></span>03807</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,23296</td>
+<td class="comment-11" rowspan="1">The base address of the printer buffer.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3810"></span>03810</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IY+70),L</td>
+<td class="comment-11" rowspan="1">Reset the printer 'column' at <a href="23680.html">PR-CC</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3813"></span>03813</td>
+<td class="bytes-0"></td>
+<td class="instruction">XOR A</td>
+<td class="comment-11" rowspan="1">Clear the <span class="register">A</span> register.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3814"></span>03814</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,A</td>
+<td class="comment-11" rowspan="1">Also clear the <span class="register">B</span> register (in effect <span class="register">B</span> holds 256).</td>
+</tr>
+<tr>
+<td class="asm-label-1">PRB_BYTES</td>
+<td class="address-2"><span id="3815"></span>03815</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-11" rowspan="3">The 256 bytes of the printer buffer are all cleared in turn.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3816"></span>03816</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3817"></span>03817</td>
+<td class="bytes-0"></td>
+<td class="instruction">DJNZ <a href="3807.html#3815">PRB_BYTES</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3819"></span>03819</td>
+<td class="bytes-0"></td>
+<td class="instruction">RES 1,(IY+48)</td>
+<td class="comment-11" rowspan="1">Signal 'the buffer is empty' (reset bit 1 of <a href="23658.html">FLAGS2</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3823"></span>03823</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,33</td>
+<td class="comment-11" rowspan="2">Set the printer position and return via <a href="3545.html">CL_SET</a> and <a href="2780.html">PO_STORE</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="3825"></span>03825</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP <a href="3545.html">CL_SET</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="3789.html">03789</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#3807">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="3828.html">03828</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/0EDF.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

@@ -23,7 +23,7 @@
 <div class="description">198B: THE 'FIND EACH STATEMENT' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="1BD1.html">NEXT_LINE</a>, <a href="1D86.html">LOOK_PROG</a>, <a href="1E39.html">PASS_BY</a> and <a href="27BD.html">S_FN_SBRN</a>.
@@ -77,17 +77,19 @@ This subroutine has two distinct functions.
 <tr>
 <td class="asm-label-1">EACH_STMT</td>
 <td class="address-2"><span id="198B"></span>198B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C5D),HL</td>
 <td class="comment-11" rowspan="1">Set <a href="5C5D.html">CH-ADD</a> to the current byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="198E"></span>198E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,$00</td>
 <td class="comment-11" rowspan="1">Set a 'quotes off' flag.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1990"></span>
 <div class="comments">
 <div class="paragraph">
@@ -99,47 +101,54 @@ Enter a loop to handle each statement in the BASIC line.
 <tr>
 <td class="asm-label-1">EACH_S_1</td>
 <td class="address-2"><span id="1990"></span>1990</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC D</td>
 <td class="comment-11" rowspan="2">Decrease <span class="register">D</span> and return if the required statement has been found.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1991"></span>1991</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1992"></span>1992</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
 <td class="comment-11" rowspan="3">Fetch the next character code and jump if it does not match the given token code.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1993"></span>1993</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP E</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1994"></span>1994</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="198B.html#199A">EACH_S_3</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1996"></span>1996</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
 <td class="comment-11" rowspan="2">But should it match then return with the carry and the zero flags both reset.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1997"></span>1997</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1998"></span>
 <div class="comments">
 <div class="paragraph">
@@ -151,108 +160,126 @@ Now enter another loop to consider the individual characters in the line to find
 <tr>
 <td class="asm-label-1">EACH_S_2</td>
 <td class="address-2"><span id="1998"></span>1998</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="2">Update the pointer and fetch the new code.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1999"></span>1999</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">EACH_S_3</td>
 <td class="address-2"><span id="199A"></span>199A</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="18B6.html">NUMBER</a></td>
 <td class="comment-11" rowspan="1">Step over any number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="199D"></span>199D</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C5D),HL</td>
 <td class="comment-11" rowspan="1">Update <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="19A0"></span>19A0</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP "\""</td>
 <td class="comment-11" rowspan="2">Jump forward if the character is not a '"'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="19A2"></span>19A2</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="198B.html#19A5">EACH_S_4</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="19A4"></span>19A4</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC C</td>
 <td class="comment-11" rowspan="1">Otherwise set the 'quotes flag'.</td>
 </tr>
 <tr>
 <td class="asm-label-1">EACH_S_4</td>
 <td class="address-2"><span id="19A5"></span>19A5</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP ":"</td>
 <td class="comment-11" rowspan="2">Jump forward if the character is a ':'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="19A7"></span>19A7</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="198B.html#19AD">EACH_S_5</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="19A9"></span>19A9</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $CB</td>
 <td class="comment-11" rowspan="2">Jump forward unless the code is the token 'THEN'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="19AB"></span>19AB</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="198B.html#19B1">EACH_S_6</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">EACH_S_5</td>
 <td class="address-2"><span id="19AD"></span>19AD</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 0,C</td>
 <td class="comment-11" rowspan="2">Read the 'quotes flag' and jump back at the end of each statement (including after 'THEN').</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="19AF"></span>19AF</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="198B.html#1990">EACH_S_1</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">EACH_S_6</td>
 <td class="address-2"><span id="19B1"></span>19B1</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $0D</td>
 <td class="comment-11" rowspan="2">Jump back unless at the end of a BASIC line.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="19B3"></span>19B3</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="198B.html#1998">EACH_S_2</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="19B5"></span>19B5</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC D</td>
 <td class="comment-11" rowspan="3">Decrease the statement counter and set the carry flag before returning.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="19B6"></span>19B6</td>
+<td class="bytes-0"></td>
 <td class="instruction">SCF</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="19B7"></span>19B7</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -265,10 +292,10 @@ Now enter another loop to consider the individual characters in the line to find
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/6539.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/6539.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

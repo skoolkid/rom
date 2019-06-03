@@ -23,7 +23,7 @@
 <div class="description">1F05: THE 'TEST-ROOM' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="0808.html">LD_CONTRL</a>, <a href="0FA9.html">ED_EDIT</a>, <a href="1652.html">ONE_SPACE</a>, <a href="1F1A.html">FREE_MEM</a> and <a href="33A9.html">TEST_5_SP</a>.
@@ -58,59 +58,68 @@ A series of tests is performed to ensure that there is sufficient free memory av
 <tr>
 <td class="asm-label-1">TEST_ROOM</td>
 <td class="address-2"><span id="1F05"></span>1F05</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C65)</td>
 <td class="comment-11" rowspan="2">Increase the value taken from <a href="5C65.html">STKEND</a> by the value carried into the routine by the <span class="register">BC</span> register pair.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F08"></span>1F08</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F09"></span>1F09</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="1F05.html#1F15">REPORT_4</a></td>
 <td class="comment-11" rowspan="1">Jump forward if the result is over +FFFF.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F0B"></span>1F0B</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="4">Try it again allowing for a further eighty bytes.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F0C"></span>1F0C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$0050</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F0F"></span>1F0F</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F10"></span>1F10</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="1F05.html#1F15">REPORT_4</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F12"></span>1F12</td>
+<td class="bytes-0"></td>
 <td class="instruction">SBC HL,SP</td>
 <td class="comment-11" rowspan="1">Finally test the value against the address of the machine stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F14"></span>1F14</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET C</td>
 <td class="comment-11" rowspan="1">Return if satisfactory.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1F15"></span>
 <div class="comments">
 <div class="paragraph">
@@ -125,12 +134,14 @@ Report 4 - Out of memory.
 <tr>
 <td class="asm-label-1">REPORT_4</td>
 <td class="address-2"><span id="1F15"></span>1F15</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD L,$03</td>
 <td class="comment-11" rowspan="2">This is a 'run-time' error and the error marker is not to be used.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1F17"></span>1F17</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="0053.html#0055">ERROR_3</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -143,10 +154,10 @@ Report 4 - Out of memory.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/7941.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/7941.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

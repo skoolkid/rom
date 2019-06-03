@@ -23,7 +23,7 @@
 <div class="description">1B17: THE 'MAIN PARSER' OF THE BASIC INTERPRETER</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routine at <a href="12A2.html">MAIN_EXEC</a>.
@@ -52,42 +52,49 @@ Each statement is considered in turn and the system variable <a href="5C5D.html"
 <tr>
 <td class="asm-label-1">LINE_SCAN</td>
 <td class="address-2"><span id="1B17"></span>1B17</td>
+<td class="bytes-0"></td>
 <td class="instruction">RES 7,(IY+$01)</td>
 <td class="comment-11" rowspan="1">Signal 'syntax checking' (reset bit 7 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B1B"></span>1B1B</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="19FB.html">E_LINE_NO</a></td>
 <td class="comment-11" rowspan="1"><a href="5C5D.html">CH-ADD</a> is made to point to the first code after any line number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B1E"></span>1B1E</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
 <td class="comment-11" rowspan="4">The system variable <a href="5C47.html">SUBPPC</a> is initialised to +00 and <a href="5C3A.html">ERR-NR</a> to +FF.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B1F"></span>1B1F</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C47),A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B22"></span>1B22</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B23"></span>1B23</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C3A),A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B26"></span>1B26</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="1B28.html#1B29">STMT_L_1</a></td>
 <td class="comment-11" rowspan="1">Jump forward to consider the first statement of the line.</td>
 </tr>
@@ -100,10 +107,10 @@ Each statement is considered in turn and the system variable <a href="5C5D.html"
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/6935.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/6935.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

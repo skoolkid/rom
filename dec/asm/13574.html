@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 13574</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="13569.html">13569</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#13574">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="13579.html">13579</a></span></td>
+</tr>
+</table>
+<div class="description">13574: THE 'LESS THAN ZERO' OPERATION (offset 54)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="13015.html">table of addresses</a>. It is called via the calculator literal 54 by the routines at <a href="7642.html">NEXT_LOOP</a>, <a href="11747.html">PRINT_FP</a>, <a href="13999.html">int</a>, <a href="14211.html">get_argt</a> and <a href="14306.html">atn</a>.
+</div>
+<div class="paragraph">
+This subroutine returns a 'last value' of one if the present 'last value' is less than zero and zero otherwise. It is also used by other subroutines to 'jump on minus'.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the first byte of the number</td>
+</tr>
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">less_0</td>
+<td class="address-2"><span id="13574"></span>13574</td>
+<td class="bytes-0"></td>
+<td class="instruction">XOR A</td>
+<td class="comment-11" rowspan="1">Clear the <span class="register">A</span> register.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="13575"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="13561.html">greater_0</a> with <span class="register">A</span>=255.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SIGN_TO_C</td>
+<td class="address-2"><span id="13575"></span>13575</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="1">Point to the sign byte.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13576"></span>13576</td>
+<td class="bytes-0"></td>
+<td class="instruction">XOR (HL)</td>
+<td class="comment-11" rowspan="3">The carry is reset for a positive number and set for a negative number; when entered from <a href="13561.html">greater_0</a> the opposite sign goes to the carry.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13577"></span>13577</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13578"></span>13578</td>
+<td class="bytes-0"></td>
+<td class="instruction">RLCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+
+<div class="comments">
+<div class="paragraph">
+This routine continues into <a href="13579.html">FP_0_1</a>.
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="13569.html">13569</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#13574">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="13579.html">13579</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/3506.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

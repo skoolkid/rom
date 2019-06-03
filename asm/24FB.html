@@ -23,7 +23,7 @@
 <div class="description">24FB: THE 'SCANNING' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="04AA.html">PROGNAME</a>, <a href="1C56.html">VAL_FET_1</a>, <a href="1C79.html">NEXT_2NUM</a>, <a href="1E27.html">DATA</a>, <a href="1F60.html">DEF_FN</a>, <a href="1FFC.html">PR_ITEM_1</a>, <a href="25E8.html">S_BRACKET</a>, <a href="27BD.html">S_FN_SBRN</a> and <a href="35DE.html">val</a>.
@@ -73,23 +73,26 @@ The subroutine begins with the <span class="register">A</span> register being se
 <tr>
 <td class="asm-label-1">SCANNING</td>
 <td class="address-2"><span id="24FB"></span>24FB</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
 <td class="comment-11" rowspan="1">The first character is fetched.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="24FC"></span>24FC</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$00</td>
 <td class="comment-11" rowspan="1">The starting priority marker.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="24FE"></span>24FE</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-11" rowspan="1">It is stacked.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="24FF"></span>
 <div class="comments">
 <div class="paragraph">
@@ -101,54 +104,63 @@ This entry point is used by the routines at <a href="25AF.html">S_U_PLUS</a> and
 <tr>
 <td class="asm-label-1">S_LOOP_1</td>
 <td class="address-2"><span id="24FF"></span>24FF</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
 <td class="comment-11" rowspan="1">The main re-entry point.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2500"></span>2500</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$2596</td>
 <td class="comment-11" rowspan="2">Index into the <a href="2596.html">scanning function table</a> with the code in <span class="register">C</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2503"></span>2503</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="16DB.html#16DC">INDEXER</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2506"></span>2506</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
 <td class="comment-11" rowspan="1">Restore the code to <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2507"></span>2507</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP NC,<a href="2684.html">S_ALPHNUM</a></td>
 <td class="comment-11" rowspan="1">Jump if code not found in table.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="250A"></span>250A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$00</td>
 <td class="comment-11" rowspan="4">Use the entry found in the table to build up the required address in <span class="register">HL</span>, and jump to it.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="250C"></span>250C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,(HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="250D"></span>250D</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="250E"></span>250E</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP (HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -161,10 +173,10 @@ This entry point is used by the routines at <a href="25AF.html">S_U_PLUS</a> and
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/9467.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/9467.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

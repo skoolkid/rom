@@ -23,7 +23,7 @@
 <div class="description">031E: THE 'K-TEST' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="02BF.html">KEYBOARD</a> and <a href="2634.html">S_INKEY</a>.
@@ -63,59 +63,68 @@ The key value is tested and a return made if 'no-key' or 'shift-only'; otherwise
 <tr>
 <td class="asm-label-1">K_TEST</td>
 <td class="address-2"><span id="031E"></span>031E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,D</td>
 <td class="comment-11" rowspan="1">Copy the shift byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="031F"></span>031F</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,$00</td>
 <td class="comment-11" rowspan="1">Clear the <span class="register">D</span> register for later.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0321"></span>0321</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,E</td>
 <td class="comment-11" rowspan="1">Move the key number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0322"></span>0322</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $27</td>
 <td class="comment-11" rowspan="2">Return now if the key was 'CAPS SHIFT' only or 'no-key'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0324"></span>0324</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0325"></span>0325</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $18</td>
 <td class="comment-11" rowspan="2">Jump forward unless the <span class="register">E</span> key was SYMBOL SHIFT.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0327"></span>0327</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="031E.html#032C">K_MAIN</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0329"></span>0329</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 7,B</td>
 <td class="comment-11" rowspan="2">However accept SYMBOL SHIFT and another key; return with SYMBOL SHIFT only.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="032B"></span>032B</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET NZ</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="032C"></span>
 <div class="comments">
 <div class="paragraph">
@@ -127,30 +136,35 @@ The 'main code' is found by indexing into the main key table.
 <tr>
 <td class="asm-label-1">K_MAIN</td>
 <td class="address-2"><span id="032C"></span>032C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$0205</td>
 <td class="comment-11" rowspan="1">The base address of the <a href="0205.html#0205">main key table</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="032F"></span>032F</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-11" rowspan="2">Index into the table and fetch the 'main code'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0330"></span>0330</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0331"></span>0331</td>
+<td class="bytes-0"></td>
 <td class="instruction">SCF</td>
 <td class="comment-11" rowspan="2">Signal 'valid keystroke' before returning.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0332"></span>0332</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -163,10 +177,10 @@ The 'main code' is found by indexing into the main key table.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/798.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/798.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

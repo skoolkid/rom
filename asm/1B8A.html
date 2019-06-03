@@ -23,7 +23,7 @@
 <div class="description">1B8A: THE 'LINE-RUN' ENTRY POINT</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routine at <a href="12A2.html">MAIN_EXEC</a>.
@@ -55,48 +55,56 @@ The entry point is also used in the syntax checking of a line in the editing are
 <tr>
 <td class="asm-label-1">LINE_RUN</td>
 <td class="address-2"><span id="1B8A"></span>1B8A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$FFFE</td>
 <td class="comment-11" rowspan="2">A line in the editing area is considered as line '-2'; set <a href="5C45.html">PPC</a> accordingly</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B8D"></span>1B8D</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C45),HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B90"></span>1B90</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C61)</td>
 <td class="comment-11" rowspan="4">Make <span class="register">HL</span> point to the end marker of the editing area (<a href="5C61.html">WORKSP</a>-1) and <span class="register">DE</span> to the location before the start of that area (<a href="5C59.html">E-LINE</a>-1).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B93"></span>1B93</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B94"></span>1B94</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD DE,($5C59)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B98"></span>1B98</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B99"></span>1B99</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,($5C44)</td>
 <td class="comment-11" rowspan="2">Fetch the number of the next statement to be handled (<a href="5C44.html">NSPPC</a>) before jumping forward.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B9C"></span>1B9C</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="1BD1.html">NEXT_LINE</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -109,10 +117,10 @@ The entry point is also used in the syntax checking of a line in the editing are
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/7050.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/7050.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

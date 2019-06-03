@@ -1,0 +1,1833 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 01541</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="1507.html">01507</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#1541">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="1995.html">01995</a></span></td>
+</tr>
+</table>
+<div class="description">01541: THE 'SAVE, LOAD, VERIFY and MERGE' COMMAND ROUTINES</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="7387.html">CLASS_0B</a>.
+</div>
+<div class="paragraph">
+This entry point is used for all four commands. The value held in <a href="23668.html">T-ADDR</a>, however, distinguishes between the four commands. The first part of the following routine is concerned with the construction of the 'header information' in the work space.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SAVE_ETC</td>
+<td class="address-2"><span id="1541"></span>01541</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP AF</td>
+<td class="comment-11" rowspan="1">Drop the address - <a href="6952.html#6994">SCAN_LOOP</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1542"></span>01542</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23668)</td>
+<td class="comment-11" rowspan="3">Reduce <a href="23668.html">T-ADDR-lo</a> by 224, giving 0 for SAVE, 1 for LOAD, 2 for VERIFY and 3 for MERGE.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1545"></span>01545</td>
+<td class="bytes-0"></td>
+<td class="instruction">SUB 224</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1547"></span>01547</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23668),A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1550"></span>01550</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7289.html#7308">CLASS_0A</a></td>
+<td class="comment-11" rowspan="1">Pass the parameters of the 'name' to the calculator stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1553"></span>01553</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="9520.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="2">Jump forward if checking syntax.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1556"></span>01556</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="1541.html#1618">SA_DATA</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1558"></span>01558</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD BC,17</td>
+<td class="comment-11" rowspan="5">Allow seventeen locations for the header of a SAVE (<a href="23668.html">T-ADDR-lo</a>=0) but thirty four for the other commands.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1561"></span>01561</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23668)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1564"></span>01564</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1565"></span>01565</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="1541.html#1569">SA_SPACE</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1567"></span>01567</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,34</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_SPACE</td>
+<td class="address-2"><span id="1569"></span>01569</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="48.html">48</a></td>
+<td class="comment-11" rowspan="1">The required amount of space is made in the work space.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1570"></span>01570</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-11" rowspan="2">Copy the start address to the <span class="register">IX</span> register pair.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1571"></span>01571</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP IX</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1573"></span>01573</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,11</td>
+<td class="comment-11" rowspan="5">A program name can have up to ten characters but first enter eleven space characters into the prepared area.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1575"></span>01575</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A," "</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_BLANK</td>
+<td class="address-2"><span id="1577"></span>01577</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (DE),A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1578"></span>01578</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1579"></span>01579</td>
+<td class="bytes-0"></td>
+<td class="instruction">DJNZ <a href="1541.html#1577">SA_BLANK</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1581"></span>01581</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+1),255</td>
+<td class="comment-11" rowspan="1">A null name is 255 only.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1585"></span>01585</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="11249.html">STK_FETCH</a></td>
+<td class="comment-11" rowspan="1">The parameters of the name are fetched and its length is tested.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1588"></span>01588</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,65526</td>
+<td class="comment-11" rowspan="1">This is '-10'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1591"></span>01591</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC BC</td>
+<td class="comment-11" rowspan="4">In effect jump forward if the length of the name is not too long (i.e. no more than ten characters).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1592"></span>01592</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1593"></span>01593</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC BC</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1594"></span>01594</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NC,<a href="1541.html#1611">SA_NAME</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1596"></span>01596</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23668)</td>
+<td class="comment-11" rowspan="3">But allow for the LOADing, VERIFYing and MERGEing of programs (<a href="23668.html">T-ADDR-lo</a>&gt;0) with 'null' names or extra long names.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1599"></span>01599</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1600"></span>01600</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="1541.html#1604">SA_NULL</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1602"></span>
+<div class="comments">
+<div class="paragraph">
+Report F - Invalid file name.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1602"></span>01602</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="8.html">8</a></td>
+<td class="comment-11" rowspan="2">Call the error handling routine.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1603"></span>01603</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 14</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1604"></span>
+<div class="comments">
+<div class="paragraph">
+Continue to handle the name of the program.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_NULL</td>
+<td class="address-2"><span id="1604"></span>01604</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,B</td>
+<td class="comment-11" rowspan="3">Jump forward if the name has a 'null' length.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1605"></span>01605</td>
+<td class="bytes-0"></td>
+<td class="instruction">OR C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1606"></span>01606</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="1541.html#1618">SA_DATA</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1608"></span>01608</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD BC,10</td>
+<td class="comment-11" rowspan="1">But truncate longer names.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1611"></span>
+<div class="comments">
+<div class="paragraph">
+The name is now transferred to the work space (second location onwards).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_NAME</td>
+<td class="address-2"><span id="1611"></span>01611</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-11" rowspan="2">Copy the start address to the <span class="register">HL</span> register pair.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1613"></span>01613</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1614"></span>01614</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="1">Step to the second location.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1615"></span>01615</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="2">Switch the pointers over and copy the name.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1616"></span>01616</td>
+<td class="bytes-0"></td>
+<td class="instruction">LDIR</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1618"></span>
+<div class="comments">
+<div class="paragraph">
+The many different parameters, if any, that follow the command are now considered. Start by handling 'xxx "name" DATA'.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_DATA</td>
+<td class="address-2"><span id="1618"></span>01618</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="24.html">24</a></td>
+<td class="comment-11" rowspan="2">Is the present code the token 'DATA'?</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1619"></span>01619</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 228</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1621"></span>01621</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="1541.html#1696">SA_SCR</a></td>
+<td class="comment-11" rowspan="1">Jump if not.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1623"></span>01623</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23668)</td>
+<td class="comment-11" rowspan="3">However it is not possible to have 'MERGE name DATA' (<a href="23668.html">T-ADDR-lo</a>=3).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1626"></span>01626</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 3</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1628"></span>01628</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP Z,<a href="7289.html#7306">REPORT_C</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1631"></span>01631</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="32.html">32</a></td>
+<td class="comment-11" rowspan="1">Advance <a href="23645.html">CH-ADD</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1632"></span>01632</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="10418.html">LOOK_VARS</a></td>
+<td class="comment-11" rowspan="1">Look in the variables area for the array.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1635"></span>01635</td>
+<td class="bytes-0"></td>
+<td class="instruction">SET 7,C</td>
+<td class="comment-11" rowspan="1">Set bit 7 of the array's name.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1637"></span>01637</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NC,<a href="1541.html#1650">SA_V_OLD</a></td>
+<td class="comment-11" rowspan="1">Jump if handling an existing array.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1639"></span>01639</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,0</td>
+<td class="comment-11" rowspan="1">Signal 'using a new array'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1642"></span>01642</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23668)</td>
+<td class="comment-11" rowspan="3">Consider the value in <a href="23668.html">T-ADDR-lo</a> and give an error if trying to SAVE or VERIFY a new array.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1645"></span>01645</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1646"></span>01646</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="1541.html#1669">SA_V_NEW</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1648"></span>
+<div class="comments">
+<div class="paragraph">
+Report 2 - Variable not found.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1648"></span>01648</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="8.html">8</a></td>
+<td class="comment-11" rowspan="2">Call the error handling routine.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1649"></span>01649</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1650"></span>
+<div class="comments">
+<div class="paragraph">
+Continue with the handling of an existing array.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_V_OLD</td>
+<td class="address-2"><span id="1650"></span>01650</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP NZ,<a href="7289.html#7306">REPORT_C</a></td>
+<td class="comment-11" rowspan="1">Note: <a href="../reference/bugs.html#savingASimpleString">this fails to exclude simple strings</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1653"></span>01653</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="9520.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="2">Jump forward if checking syntax.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1656"></span>01656</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="1541.html#1682">SA_DATA_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1658"></span>01658</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="1">Point to the 'low length' of the variable.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1659"></span>01659</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-11" rowspan="5">The low length byte goes into the work space, followed by the high length byte.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1660"></span>01660</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+11),A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1663"></span>01663</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1664"></span>01664</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1665"></span>01665</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+12),A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1668"></span>01668</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="1">Step past the length bytes.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1669"></span>
+<div class="comments">
+<div class="paragraph">
+The next part is common to both 'old' and 'new' arrays. Note: syntax path error.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_V_NEW</td>
+<td class="address-2"><span id="1669"></span>01669</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+14),C</td>
+<td class="comment-11" rowspan="1">Copy the array's name.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1672"></span>01672</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,1</td>
+<td class="comment-11" rowspan="1">Assume an array of numbers.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1674"></span>01674</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 6,C</td>
+<td class="comment-11" rowspan="2">Jump if it is so.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1676"></span>01676</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="1541.html#1679">SA_V_TYPE</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1678"></span>01678</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC A</td>
+<td class="comment-11" rowspan="1">It is an array of characters.</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_V_TYPE</td>
+<td class="address-2"><span id="1679"></span>01679</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+0),A</td>
+<td class="comment-11" rowspan="1">Save the 'type' in the first location of the header area.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1682"></span>
+<div class="comments">
+<div class="paragraph">
+The last part of the statement is examined before joining the other pathways.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_DATA_1</td>
+<td class="address-2"><span id="1682"></span>01682</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="1">Save the pointer in <span class="register">DE</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1683"></span>01683</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="32.html">32</a></td>
+<td class="comment-11" rowspan="2">Is the next character a ')'?</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1684"></span>01684</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP ")"</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1686"></span>01686</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="1541.html#1650">SA_V_OLD</a></td>
+<td class="comment-11" rowspan="1">Give report C if it is not.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1688"></span>01688</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="32.html">32</a></td>
+<td class="comment-11" rowspan="1">Advance <a href="23645.html">CH-ADD</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1689"></span>01689</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7150.html">CHECK_END</a></td>
+<td class="comment-11" rowspan="1">Move on to the next statement if checking syntax.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1692"></span>01692</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="2">Return the pointer to the <span class="register">HL</span> register pair before jumping forward. (The pointer indicates the start of an existing array's contents.)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1693"></span>01693</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP <a href="1541.html#1882">SA_ALL</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1696"></span>
+<div class="comments">
+<div class="paragraph">
+Now consider 'SCREEN$'.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_SCR</td>
+<td class="address-2"><span id="1696"></span>01696</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 170</td>
+<td class="comment-11" rowspan="1">Is the present code the token SCREEN$?</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1698"></span>01698</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="1541.html#1731">SA_CODE</a></td>
+<td class="comment-11" rowspan="1">Jump if not.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1700"></span>01700</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23668)</td>
+<td class="comment-11" rowspan="3">However it is not possible to have 'MERGE name SCREEN$' (<a href="23668.html">T-ADDR-lo</a>=3).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1703"></span>01703</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 3</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1705"></span>01705</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP Z,<a href="7289.html#7306">REPORT_C</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1708"></span>01708</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="32.html">32</a></td>
+<td class="comment-11" rowspan="1">Advance <a href="23645.html">CH-ADD</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1709"></span>01709</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7150.html">CHECK_END</a></td>
+<td class="comment-11" rowspan="1">Move on to the next statement if checking syntax.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1712"></span>01712</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+11),0</td>
+<td class="comment-11" rowspan="5">The display area and the attribute area occupy 6912 locations and these locations start at 16384; these details are passed to the header area in the work space.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1716"></span>01716</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+12),27</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1720"></span>01720</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,16384</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1723"></span>01723</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+13),L</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1726"></span>01726</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+14),H</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1729"></span>01729</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="1541.html#1808">SA_TYPE_3</a></td>
+<td class="comment-11" rowspan="1">Jump forward.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1731"></span>
+<div class="comments">
+<div class="paragraph">
+Now consider 'CODE'.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_CODE</td>
+<td class="address-2"><span id="1731"></span>01731</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 175</td>
+<td class="comment-11" rowspan="1">Is the present code the token 'CODE'?</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1733"></span>01733</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="1541.html#1814">SA_LINE</a></td>
+<td class="comment-11" rowspan="1">Jump if not.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1735"></span>01735</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23668)</td>
+<td class="comment-11" rowspan="3">However it is not possible to have 'MERGE name CODE' (<a href="23668.html">T-ADDR-lo</a>=3).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1738"></span>01738</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 3</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1740"></span>01740</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP Z,<a href="7289.html#7306">REPORT_C</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1743"></span>01743</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="32.html">32</a></td>
+<td class="comment-11" rowspan="1">Advance <a href="23645.html">CH-ADD</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1744"></span>01744</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8261.html#8264">PR_ST_END</a></td>
+<td class="comment-11" rowspan="2">Jump forward if the statement has not finished.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1747"></span>01747</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="1541.html#1761">SA_CODE_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1749"></span>01749</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23668)</td>
+<td class="comment-11" rowspan="3">However it is not possible to have 'SAVE name CODE' (<a href="23668.html">T-ADDR-lo</a>=0) by itself.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1752"></span>01752</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1753"></span>01753</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP Z,<a href="7289.html#7306">REPORT_C</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1756"></span>01756</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7390.html#7398">USE_ZERO</a></td>
+<td class="comment-11" rowspan="1">Put a zero on the calculator stack - for the 'start'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1759"></span>01759</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="1541.html#1776">SA_CODE_2</a></td>
+<td class="comment-11" rowspan="1">Jump forward.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1761"></span>
+<div class="comments">
+<div class="paragraph">
+Look for a 'starting address'.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_CODE_1</td>
+<td class="address-2"><span id="1761"></span>01761</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7289.html#7298">CLASS_06</a></td>
+<td class="comment-11" rowspan="1">Fetch the first number.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1764"></span>01764</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="24.html">24</a></td>
+<td class="comment-11" rowspan="2">Is the present character a comma?</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1765"></span>01765</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP ","</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1767"></span>01767</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="1541.html#1781">SA_CODE_3</a></td>
+<td class="comment-11" rowspan="1">Jump if it is - the number was a 'starting address'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1769"></span>01769</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23668)</td>
+<td class="comment-11" rowspan="3">However refuse 'SAVE name CODE' that does not have a 'start' and a 'length' (<a href="23668.html">T-ADDR-lo</a>=0).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1772"></span>01772</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1773"></span>01773</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP Z,<a href="7289.html#7306">REPORT_C</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_CODE_2</td>
+<td class="address-2"><span id="1776"></span>01776</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7390.html#7398">USE_ZERO</a></td>
+<td class="comment-11" rowspan="1">Put a zero on the calculator stack - for the 'length'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1779"></span>01779</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="1541.html#1785">SA_CODE_4</a></td>
+<td class="comment-11" rowspan="1">Jump forward.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1781"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the 'length' as it was specified.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_CODE_3</td>
+<td class="address-2"><span id="1781"></span>01781</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="32.html">32</a></td>
+<td class="comment-11" rowspan="1">Advance <a href="23645.html">CH-ADD</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1782"></span>01782</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7289.html#7298">CLASS_06</a></td>
+<td class="comment-11" rowspan="1">Fetch the 'length'.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1785"></span>
+<div class="comments">
+<div class="paragraph">
+The parameters are now stored in the header area of the work space.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_CODE_4</td>
+<td class="address-2"><span id="1785"></span>01785</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7150.html">CHECK_END</a></td>
+<td class="comment-11" rowspan="1">But move on to the next statement now if checking syntax.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1788"></span>01788</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7828.html#7833">FIND_INT2</a></td>
+<td class="comment-11" rowspan="3">Compress the 'length' into the <span class="register">BC</span> register pair and store it.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1791"></span>01791</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+11),C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1794"></span>01794</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+12),B</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1797"></span>01797</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7828.html#7833">FIND_INT2</a></td>
+<td class="comment-11" rowspan="3">Compress the 'starting address' into the <span class="register">BC</span> register pair and store it.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1800"></span>01800</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+13),C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1803"></span>01803</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+14),B</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1806"></span>01806</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD H,B</td>
+<td class="comment-11" rowspan="2">Transfer the 'pointer' to the <span class="register">HL</span> register pair as usual.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1807"></span>01807</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD L,C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1808"></span>
+<div class="comments">
+<div class="paragraph">
+'SCREEN$' and 'CODE' are both of type 3.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_TYPE_3</td>
+<td class="address-2"><span id="1808"></span>01808</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+0),3</td>
+<td class="comment-11" rowspan="1">Enter the 'type' number.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1812"></span>01812</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="1541.html#1882">SA_ALL</a></td>
+<td class="comment-11" rowspan="1">Rejoin the other pathways.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1814"></span>
+<div class="comments">
+<div class="paragraph">
+Now consider 'LINE' and 'no further parameters'.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_LINE</td>
+<td class="address-2"><span id="1814"></span>01814</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 202</td>
+<td class="comment-11" rowspan="1">Is the present code the token 'LINE'?</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1816"></span>01816</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="1541.html#1827">SA_LINE_1</a></td>
+<td class="comment-11" rowspan="1">Jump if it is.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1818"></span>01818</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7150.html">CHECK_END</a></td>
+<td class="comment-11" rowspan="1">Move on to the next statement if checking syntax.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1821"></span>01821</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+14),128</td>
+<td class="comment-11" rowspan="1">When there are no further parameters, 128 is entered.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1825"></span>01825</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="1541.html#1850">SA_TYPE_0</a></td>
+<td class="comment-11" rowspan="1">Jump forward.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1827"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the 'line number' that must follow 'LINE'.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_LINE_1</td>
+<td class="address-2"><span id="1827"></span>01827</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23668)</td>
+<td class="comment-11" rowspan="3">However only allow 'SAVE name LINE number' (<a href="23668.html">T-ADDR-lo</a>=0).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1830"></span>01830</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1831"></span>01831</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP NZ,<a href="7289.html#7306">REPORT_C</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1834"></span>01834</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="32.html">32</a></td>
+<td class="comment-11" rowspan="1">Advance <a href="23645.html">CH-ADD</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1835"></span>01835</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7289.html#7298">CLASS_06</a></td>
+<td class="comment-11" rowspan="1">Pass the number to the calculator stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1838"></span>01838</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7150.html">CHECK_END</a></td>
+<td class="comment-11" rowspan="1">Move on to the next statement if checking syntax.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1841"></span>01841</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7828.html#7833">FIND_INT2</a></td>
+<td class="comment-11" rowspan="3">Compress the 'line number' into the <span class="register">BC</span> register pair and store it.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1844"></span>01844</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+13),C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1847"></span>01847</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+14),B</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1850"></span>
+<div class="comments">
+<div class="paragraph">
+'LINE' and 'no further parameters' are both of type 0.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_TYPE_0</td>
+<td class="address-2"><span id="1850"></span>01850</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+0),0</td>
+<td class="comment-11" rowspan="1">Enter the 'type' number.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1854"></span>
+<div class="comments">
+<div class="paragraph">
+The parameters that describe the program, and its variables, are found and stored in the header area of the work space.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1854"></span>01854</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23641)</td>
+<td class="comment-11" rowspan="1">The pointer to the end of the variables area (<a href="23641.html">E-LINE</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1857"></span>01857</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD DE,(23635)</td>
+<td class="comment-11" rowspan="1">The pointer to the start of the BASIC program (<a href="23635.html">PROG</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1861"></span>01861</td>
+<td class="bytes-0"></td>
+<td class="instruction">SCF</td>
+<td class="comment-11" rowspan="4">Now perform the subtraction to find the length of the 'program + variables'; store the result.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1862"></span>01862</td>
+<td class="bytes-0"></td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1864"></span>01864</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+11),L</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1867"></span>01867</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+12),H</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1870"></span>01870</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23627)</td>
+<td class="comment-11" rowspan="4">Repeat the operation but this time storing the length of the 'program' only (<a href="23627.html">VARS</a>-<a href="23635.html">PROG</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1873"></span>01873</td>
+<td class="bytes-0"></td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1875"></span>01875</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+15),L</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1878"></span>01878</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IX+16),H</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1881"></span>01881</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="1">Transfer the 'pointer' to the <span class="register">HL</span> register pair as usual.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1882"></span>
+<div class="comments">
+<div class="paragraph">
+In all cases the header information has now been prepared.
+</div>
+<div class="paragraph">
+<ul class="">
+<li>The location '<span class="register">IX</span>+0' holds the type number.</li>
+<li>Locations '<span class="register">IX</span>+1 to <span class="register">IX</span>+10' hold the name (255 in '<span class="register">IX</span>+1' if null).</li>
+<li>Locations '<span class="register">IX</span>+11 and <span class="register">IX</span>+12' hold the number of bytes that are to be found in the 'data block'.</li>
+<li>Locations '<span class="register">IX</span>+13 to <span class="register">IX</span>+16' hold a variety of parameters whose exact interpretation depends on the 'type'.</li>
+</ul>
+</div>
+<div class="paragraph">
+The routine continues with the first task being to separate SAVE from LOAD, VERIFY and MERGE.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">SA_ALL</td>
+<td class="address-2"><span id="1882"></span>01882</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23668)</td>
+<td class="comment-11" rowspan="3">Jump forward when handling a SAVE command (<a href="23668.html">T-ADDR-lo</a>=0).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1885"></span>01885</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1886"></span>01886</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP Z,<a href="2416.html">SA_CONTRL</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1889"></span>
+<div class="comments">
+<div class="paragraph">
+In the case of a LOAD, VERIFY or MERGE command the first seventeen bytes of the 'header area' in the work space hold the prepared information, as detailed above; and it is now time to fetch a 'header' from the tape.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1889"></span>01889</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-11" rowspan="1">Save the 'destination' pointer.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1890"></span>01890</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD BC,17</td>
+<td class="comment-11" rowspan="2">Form in the <span class="register">IX</span> register pair the base address of the 'second header area'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1893"></span>01893</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD IX,BC</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1895"></span>
+<div class="comments">
+<div class="paragraph">
+Now enter a loop, leaving it only when a 'header' has been LOADed.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LD_LOOK_H</td>
+<td class="address-2"><span id="1895"></span>01895</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-11" rowspan="1">Make a copy of the base address.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1897"></span>01897</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD DE,17</td>
+<td class="comment-11" rowspan="1">LOAD seventeen bytes.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1900"></span>01900</td>
+<td class="bytes-0"></td>
+<td class="instruction">XOR A</td>
+<td class="comment-11" rowspan="1">Signal 'header'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1901"></span>01901</td>
+<td class="bytes-0"></td>
+<td class="instruction">SCF</td>
+<td class="comment-11" rowspan="1">Signal 'LOAD'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1902"></span>01902</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="1366.html">LD_BYTES</a></td>
+<td class="comment-11" rowspan="1">Now look for a header.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1905"></span>01905</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP IX</td>
+<td class="comment-11" rowspan="1">Retrieve the base address.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1907"></span>01907</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NC,<a href="1541.html#1895">LD_LOOK_H</a></td>
+<td class="comment-11" rowspan="1">Go round the loop until successful.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1909"></span>
+<div class="comments">
+<div class="paragraph">
+The new 'header' is now displayed on the screen but the routine will only proceed if the 'new' header matches the 'old' header.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1909"></span>01909</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,254</td>
+<td class="comment-11" rowspan="2">Ensure that channel 'S' is open.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1911"></span>01911</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="5633.html">CHAN_OPEN</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1914"></span>01914</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IY+82),3</td>
+<td class="comment-11" rowspan="1">Set the scroll counter (<a href="23692.html">SCR-CT</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1918"></span>01918</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,128</td>
+<td class="comment-11" rowspan="1">Signal 'names do not match'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1920"></span>01920</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(IX+0)</td>
+<td class="comment-11" rowspan="2">Compare the 'new' type against the 'old' type.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1923"></span>01923</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP (IX-17)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1926"></span>01926</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="1541.html#1930">LD_TYPE</a></td>
+<td class="comment-11" rowspan="1">Jump if the 'types' do not match.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1928"></span>01928</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,246</td>
+<td class="comment-11" rowspan="1">But if they do, signal 'ten characters are to match'.</td>
+</tr>
+<tr>
+<td class="asm-label-1">LD_TYPE</td>
+<td class="address-2"><span id="1930"></span>01930</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 4</td>
+<td class="comment-11" rowspan="2">Clearly the 'header' is nonsense if 'type 4 or more'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1932"></span>01932</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NC,<a href="1541.html#1895">LD_LOOK_H</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1934"></span>
+<div class="comments">
+<div class="paragraph">
+The appropriate message - 'Program: ', 'Number array: ', 'Character array: ' or 'Bytes: ' is printed.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1934"></span>01934</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD DE,2496</td>
+<td class="comment-11" rowspan="1">The base address of the <a href="2465.html#2497">message block</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1937"></span>01937</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-11" rowspan="3">Save the <span class="register">C</span> register whilst the appropriate message is printed.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1938"></span>01938</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="3082.html">PO_MSG</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1941"></span>01941</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP BC</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1942"></span>
+<div class="comments">
+<div class="paragraph">
+The 'new name' is printed and as this is done the 'old' and the 'new' names are compared.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1942"></span>01942</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-11" rowspan="4">Make the <span class="register">DE</span> register pair point to the 'new name' and the <span class="register">HL</span> register pair to the 'old name'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1944"></span>01944</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1945"></span>01945</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,65520</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1948"></span>01948</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1949"></span>01949</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,10</td>
+<td class="comment-11" rowspan="1">Ten characters are to be considered.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1951"></span>01951</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-11" rowspan="3">Jump forward if the match is to be against an actual name.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1952"></span>01952</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1953"></span>01953</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="1541.html#1958">LD_NAME</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1955"></span>01955</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,C</td>
+<td class="comment-11" rowspan="3">But if the 'old name' is 'null' then signal 'ten characters already match'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1956"></span>01956</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD A,B</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1957"></span>01957</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1958"></span>
+<div class="comments">
+<div class="paragraph">
+A loop is entered to print the characters of the 'new name'. The name will be accepted if the 'counter' reaches zero, at least.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LD_NAME</td>
+<td class="address-2"><span id="1958"></span>01958</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC DE</td>
+<td class="comment-11" rowspan="2">Consider each character of the 'new name' in turn.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1959"></span>01959</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(DE)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1960"></span>01960</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-11" rowspan="2">Match it against the appropriate character of the 'old name'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1961"></span>01961</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1962"></span>01962</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="1541.html#1965">LD_CH_PR</a></td>
+<td class="comment-11" rowspan="2">Do not count it if it does not does not match.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1964"></span>01964</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">LD_CH_PR</td>
+<td class="address-2"><span id="1965"></span>01965</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="16.html">16</a></td>
+<td class="comment-11" rowspan="1">Print the 'new' character.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1966"></span>01966</td>
+<td class="bytes-0"></td>
+<td class="instruction">DJNZ <a href="1541.html#1958">LD_NAME</a></td>
+<td class="comment-11" rowspan="1">Loop for ten characters.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1968"></span>01968</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 7,C</td>
+<td class="comment-11" rowspan="2">Accept the name only if the counter has reached zero.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1970"></span>01970</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="1541.html#1895">LD_LOOK_H</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1972"></span>01972</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,13</td>
+<td class="comment-11" rowspan="2">Follow the 'new name' with a 'carriage return'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1974"></span>01974</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="16.html">16</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="1975"></span>
+<div class="comments">
+<div class="paragraph">
+The correct header has been found and the time has come to consider the three commands LOAD, VERIFY, and MERGE separately.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1975"></span>01975</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP HL</td>
+<td class="comment-11" rowspan="1">Fetch the pointer.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1976"></span>01976</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(IX+0)</td>
+<td class="comment-11" rowspan="3">'SCREEN$' and 'CODE' are handled with VERIFY.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1979"></span>01979</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 3</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1981"></span>01981</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="1995.html">VR_CONTRL</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1983"></span>01983</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23668)</td>
+<td class="comment-11" rowspan="3">Jump forward if using a LOAD command (<a href="23668.html">T-ADDR-lo</a>=1).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1986"></span>01986</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1987"></span>01987</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP Z,<a href="2056.html">LD_CONTRL</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1990"></span>01990</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 2</td>
+<td class="comment-11" rowspan="2">Jump forward if using a MERGE command; continue into <a href="1995.html">VR_CONTRL</a> with a VERIFY command.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="1992"></span>01992</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP Z,<a href="2230.html">ME_CONTRL</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="1507.html">01507</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#1541">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="1995.html">01995</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/0605.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

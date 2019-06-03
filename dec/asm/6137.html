@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 06137</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="6133.html">06133</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#6137">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="6229.html">06229</a></span></td>
+</tr>
+</table>
+<div class="description">06137: THE 'LIST' ENTRY POINT</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="6728.html#6830">parameter table</a>.
+</div>
+<div class="paragraph">
+The 'main screen' channel will need to be opened.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LIST</td>
+<td class="address-2"><span id="6137"></span>06137</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,2</td>
+<td class="comment-11" rowspan="1">Use stream 2.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="6139"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="6133.html">LLIST</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LIST_1</td>
+<td class="address-2"><span id="6139"></span>06139</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IY+2),0</td>
+<td class="comment-11" rowspan="1">Signal 'an ordinary listing in the main part of the screen' (reset bit 4 of <a href="23612.html">TV-FLAG</a> and all other bits).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6143"></span>06143</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="9520.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="2">Open the channel unless checking syntax.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6146"></span>06146</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL NZ,<a href="5633.html">CHAN_OPEN</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6149"></span>06149</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="24.html">24</a></td>
+<td class="comment-11" rowspan="2">With the present character in the <span class="register">A</span> register see if the stream is to be changed.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6150"></span>06150</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8304.html">STR_ALTER</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6153"></span>06153</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR C,<a href="6137.html#6175">LIST_4</a></td>
+<td class="comment-11" rowspan="1">Jump forward if unchanged.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6155"></span>06155</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="24.html">24</a></td>
+<td class="comment-11" rowspan="2">Is the present character a ';'?</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6156"></span>06156</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP ";"</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6158"></span>06158</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="6137.html#6164">LIST_2</a></td>
+<td class="comment-11" rowspan="1">Jump if it is.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6160"></span>06160</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP ","</td>
+<td class="comment-11" rowspan="1">Is it a ','?</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6162"></span>06162</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="6137.html#6170">LIST_3</a></td>
+<td class="comment-11" rowspan="1">Jump if it is not.</td>
+</tr>
+<tr>
+<td class="asm-label-1">LIST_2</td>
+<td class="address-2"><span id="6164"></span>06164</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="32.html">32</a></td>
+<td class="comment-11" rowspan="2">A numeric expression must follow, e.g. LIST #5,20.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6165"></span>06165</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7289.html#7298">CLASS_06</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6168"></span>06168</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="6137.html#6178">LIST_5</a></td>
+<td class="comment-11" rowspan="1">Jump forward with it.</td>
+</tr>
+<tr>
+<td class="asm-label-1">LIST_3</td>
+<td class="address-2"><span id="6170"></span>06170</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7390.html#7398">USE_ZERO</a></td>
+<td class="comment-11" rowspan="2">Otherwise use zero and also jump forward.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6173"></span>06173</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="6137.html#6178">LIST_5</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="6175"></span>
+<div class="comments">
+<div class="paragraph">
+Come here if the stream was unaltered.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LIST_4</td>
+<td class="address-2"><span id="6175"></span>06175</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7390.html">FETCH_NUM</a></td>
+<td class="comment-11" rowspan="1">Fetch any line or use zero if none supplied.</td>
+</tr>
+<tr>
+<td class="asm-label-1">LIST_5</td>
+<td class="address-2"><span id="6178"></span>06178</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7150.html">CHECK_END</a></td>
+<td class="comment-11" rowspan="1">If checking the syntax of the edit-line move on to the next statement.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6181"></span>06181</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7828.html#7833">FIND_INT2</a></td>
+<td class="comment-11" rowspan="1">Line number to <span class="register">BC</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6184"></span>06184</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,B</td>
+<td class="comment-11" rowspan="1">High byte to <span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6185"></span>06185</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND 63</td>
+<td class="comment-11" rowspan="3">Limit the high byte to the correct range and pass the whole line number to <span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6187"></span>06187</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD H,A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6188"></span>06188</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD L,C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6189"></span>06189</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23625),HL</td>
+<td class="comment-11" rowspan="2">Set <a href="23625.html">E-PPC</a> and find the address of the start of this line or the first line after it if the actual line does not exist.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6192"></span>06192</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6510.html">LINE_ADDR</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="6195"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="6037.html">AUTO_LIST</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LIST_ALL</td>
+<td class="address-2"><span id="6195"></span>06195</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD E,1</td>
+<td class="comment-11" rowspan="1">Flag 'before the current line'.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="6197"></span>
+<div class="comments">
+<div class="paragraph">
+Now the controlling loop for printing a series of lines is entered.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">LIST_ALL_1</td>
+<td class="address-2"><span id="6197"></span>06197</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6229.html">OUT_LINE</a></td>
+<td class="comment-11" rowspan="1">Print the whole of a BASIC line.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6200"></span>06200</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="16.html">16</a></td>
+<td class="comment-11" rowspan="1">This will be a 'carriage return'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6201"></span>06201</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 4,(IY+2)</td>
+<td class="comment-11" rowspan="2">Jump back unless dealing with an automatic listing (bit 4 of <a href="23612.html">TV-FLAG</a> set).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6205"></span>06205</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="6137.html#6197">LIST_ALL_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6207"></span>06207</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23659)</td>
+<td class="comment-11" rowspan="3">Also jump back if there is still part of the main screen that can be used (<a href="23659.html">DF-SZ</a> &lt;&gt; <a href="23688.html">S-POSN-hi</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6210"></span>06210</td>
+<td class="bytes-0"></td>
+<td class="instruction">SUB (IY+79)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6213"></span>06213</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="6137.html#6197">LIST_ALL_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6215"></span>06215</td>
+<td class="bytes-0"></td>
+<td class="instruction">XOR E</td>
+<td class="comment-11" rowspan="2">A return can be made at this point if the screen is full and the current line has been printed (<span class="register">E</span>=0).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6216"></span>06216</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET Z</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6217"></span>06217</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-11" rowspan="7">However if the current line is missing from the listing then <a href="23660.html">S-TOP</a> has to be updated and a further line printed (using scrolling).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6218"></span>06218</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6219"></span>06219</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,23660</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6222"></span>06222</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6415.html">LN_FETCH</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6225"></span>06225</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6226"></span>06226</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6227"></span>06227</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="6137.html#6197">LIST_ALL_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="6133.html">06133</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#6137">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="6229.html">06229</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/17F9.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

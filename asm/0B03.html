@@ -23,7 +23,7 @@
 <div class="description">0B03: THE 'POSITION FETCH' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="09F4.html">PRINT_OUT</a>, <a href="0A5F.html">PO_COMMA</a>, <a href="0A6D.html">PO_TV_2</a> and <a href="0B24.html">PO_ANY</a>.
@@ -60,72 +60,84 @@ The current position's parameters are fetched from the appropriate system variab
 <tr>
 <td class="asm-label-1">PO_FETCH</td>
 <td class="address-2"><span id="0B03"></span>0B03</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 1,(IY+$01)</td>
 <td class="comment-11" rowspan="2">Jump forward if handling the printer (bit 1 of <a href="5C3B.html">FLAGS</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0B07"></span>0B07</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="0B03.html#0B1D">PO_F_PR</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0B09"></span>0B09</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD BC,($5C88)</td>
 <td class="comment-11" rowspan="4">Fetch the values relating to the main part of the screen from <a href="5C88.html">S-POSN</a> and <a href="5C84.html">DF-CC</a> and return if this was the intention (bit 0 of <a href="5C3C.html">TV-FLAG</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0B0D"></span>0B0D</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C84)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0B10"></span>0B10</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 0,(IY+$02)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0B14"></span>0B14</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0B15"></span>0B15</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD BC,($5C8A)</td>
 <td class="comment-11" rowspan="2">Otherwise fetch the values relating to the lower part of the screen from <a href="5C8A.html">S-POSNL</a> and <a href="5C86.html">DF-CCL</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0B19"></span>0B19</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C86)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0B1C"></span>0B1C</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">PO_F_PR</td>
 <td class="address-2"><span id="0B1D"></span>0B1D</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,(IY+$45)</td>
 <td class="comment-11" rowspan="2">Fetch the values relating to the printer buffer from <a href="5C7F.html">P-POSN</a> and <a href="5C80.html">PR-CC</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0B20"></span>0B20</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C80)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0B23"></span>0B23</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1"></td>
 </tr>
@@ -138,10 +150,10 @@ The current position's parameters are fetched from the appropriate system variab
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/2819.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/2819.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

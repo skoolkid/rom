@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Bugs</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Bugs">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Bugs</td>
+</tr>
+</table>
+<ul class="contents">
+<li><a href="#noStepForward">No step forward</a></li>
+<li><a href="#noStepBack">No step back</a></li>
+<li><a href="#stepBackTooFar">A step back too far</a></li>
+<li><a href="#savingASimpleString">Saving a simple string</a></li>
+<li><a href="#neverendingRestore">The neverending RESTORE</a></li>
+<li><a href="#curseTheCursor">Curse the cursor</a></li>
+<li><a href="#str$AndSmallNumbers">STR$ and small numbers</a></li>
+<li><a href="#gotoAndlargeNumbers">GO TO and large numbers</a></li>
+<li><a href="#dontCloseTheStreams">Don't close the streams</a></li>
+<li><a href="#pressAlmostAnyKey">Press (almost) any key</a></li>
+<li><a href="#scrollingTokens">The scrolling tokens</a></li>
+<li><a href="#impatientScrollPrompt">The impatient 'scroll?' prompt</a></li>
+<li><a href="#anythingEqualsSCREEN$xy">Anything equals SCREEN$ (x,y)</a></li>
+<li><a href="#34thBitOfDivision">The 34th bit of division</a></li>
+<li><a href="#troubleWith-65536">The trouble with -65536</a></li>
+</ul>
+<div><span id="noStepForward"></span></div>
+<div class="box box-1">
+<div class="box-title">No step forward</div>
+<div class="paragraph">
+Consider this PRINT command:
+</div>
+<div class="paragraph">
+<code>PRINT 12;CHR$ 9;34</code>
+</div>
+<div class="paragraph">
+You might, because of the cursor-right control character (CHR$ 9) between '12'
+and '34', expect it to print:
+</div>
+<div class="paragraph">
+<code>12 34</code>
+</div>
+<div class="paragraph">
+But in fact it prints:
+</div>
+<div class="paragraph">
+<code>1234</code>
+</div>
+<div class="paragraph">
+The reason is that the routine at <a href="../asm/2621.html">PO_RIGHT</a>, which is responsible for handling
+CHR$ 9, does not update the print position after overprinting a space to the
+right of the '2', and so effectively prints nothing at all.
+</div>
+<div class="paragraph">
+Note, however, that even if the print position were updated, CHR$ 9 would still
+not be a true cursor-right control character, because it overprints a space
+using the current colours rather than leaving the colours as they are. The
+following PRINT command demonstrates this bug:
+</div>
+<div class="paragraph">
+<code>PRINT AT 0,0;1; INK 2;AT 0,0;CHR$ 9</code>
+</div>
+</div>
+<div><span id="noStepBack"></span></div>
+<div class="box box-2">
+<div class="box-title">No step back</div>
+<div class="paragraph">
+Consider the following PRINT commands:
+</div>
+<div class="paragraph">
+<div><code>PRINT 1</code></div>
+<div><code>PRINT CHR$ 8;2</code></div>
+<div><code>PRINT CHR$ 8;3</code></div>
+</div>
+<div class="paragraph">
+They should print '2' at the right end of the top line of the display - because
+of the cursor-left character (CHR$ 8) before the '2' - but instead the '2' is
+printed at the beginning of the second line, as if the CHR$ 8 were not there.
+However, the '3' is (correctly) printed at the right end of the second line.
+</div>
+<div class="paragraph">
+The reason is that the instruction at <a href="../asm/2595.html#2610">2610</a> is 'LD A,24' instead of
+'LD A,25', which prevents CHR$ 8 from moving the print position up to
+the top line of the display.
+</div>
+</div>
+<div><span id="stepBackTooFar"></span></div>
+<div class="box box-1">
+<div class="box-title">A step back too far</div>
+<div class="paragraph">
+In addition to sometimes not working when it should, the cursor-left character
+(CHR$ 8) also sometimes works when it shouldn't - specifically, when the print
+position is at the top-left of the screen. For example:
+</div>
+<div class="paragraph">
+<code>PRINT AT 0,0;CHR$ 8;12</code>
+</div>
+<div class="paragraph">
+Here the CHR$ 8 should have no effect, but instead the '1' is printed at
+(-1,0), which the ROM calculates to be at address 22783, or (7,31) in the
+attribute file.
+</div>
+<div class="paragraph">
+The reason, again, is that the instruction at <a href="../asm/2595.html#2610">2610</a> is 'LD A,24'
+instead of 'LD A,25', which allows CHR$ 8 to move the print position up
+beyond the top line of the display.
+</div>
+</div>
+<div><span id="savingASimpleString"></span></div>
+<div class="box box-2">
+<div class="box-title">Saving a simple string</div>
+<div class="paragraph">
+It is possible to save a simple string (as opposed to an array) to tape, but it
+cannot be restored. For example:
+</div>
+<div class="paragraph">
+<div><code>LET a$="12"</code></div>
+<div><code>SAVE "a" DATA a$()</code></div>
+</div>
+<div class="paragraph">
+saves the simple string variable a$ to tape without giving an error. When the
+same variable is loaded from tape:
+</div>
+<div class="paragraph">
+<code>LOAD "" DATA a$()</code>
+</div>
+<div class="paragraph">
+no error is given until a$ is accessed - both <code>PRINT a$</code> and
+<code>PRINT a$(1)</code> result in a '3 Subscript wrong' error.
+</div>
+<div class="paragraph">
+The reason it's possible to save a simple string to tape is that the routine at
+<a href="../asm/1541.html">SAVE_ETC</a>, when it finds the string variable to be saved, does not check whether
+it is an array.
+</div>
+</div>
+<div><span id="neverendingRestore"></span></div>
+<div class="box box-1">
+<div class="box-title">The neverending RESTORE</div>
+<div class="paragraph">
+When the following program is run, the Spectrum will enter an infinite loop:
+</div>
+<div class="paragraph">
+<code>10 RESTORE 60000</code>
+</div>
+<div class="paragraph">
+The reason is that the routine at <a href="../asm/6584.html">NEXT_ONE</a> - which is called from <a href="../asm/6510.html">LINE_ADDR</a> to
+find the next line in the BASIC program - does not stop at the end of the BASIC
+program (if there even is one), but keeps going through the variables area and
+the rest of the RAM. Depending on the contents of the RAM, the routine can end
+up examining the same memory area over and over again, never finding anything
+that looks like a BASIC line with a suitably high number.
+</div>
+</div>
+<div><span id="curseTheCursor"></span></div>
+<div class="box box-2">
+<div class="box-title">Curse the cursor</div>
+<div class="paragraph">
+In some circumstances, pressing EDIT can bring the current line cursor down to
+the editing area along with the current line, and the cursor must be removed
+before the line is re-entered. For example, type in the following program,
+pressing ENTER where shown:
+</div>
+<div class="paragraph">
+<div><code>10 PRINT&lt;ENTER&gt;</code></div>
+<div><code>11&lt;ENTER&gt;</code></div>
+</div>
+<div class="paragraph">
+Then press EDIT, and see line 10 come down to the editing area with the cursor
+in tow.
+</div>
+<div class="paragraph">
+The reason this happens is that the routine at <a href="../asm/4009.html">ED_EDIT</a> decrements the line
+number at <a href="../asm/23625.html">E-PPC</a> (from 11 to 10) so as to avoid printing the cursor,
+but doesn't take into account that the number of the line that will be brought
+down for editing is one less than its current value.
+</div>
+</div>
+<div><span id="str$AndSmallNumbers"></span></div>
+<div class="box box-1">
+<div class="box-title">STR$ and small numbers</div>
+<div class="paragraph">
+Because of a bug in the handling of the calculator stack at <a href="../asm/11747.html#11812">PF_SMALL</a>, a binary
+expression with STR$ on the right hand side is evaluated as if its left hand
+side is empty. For example:
+</div>
+<div class="paragraph">
+<code>PRINT "2"+STR$ 0.5</code>
+</div>
+<div class="paragraph">
+prints '0.5' instead of '20.5'.
+</div>
+<div class="paragraph">
+Note that the bug is triggered only if the argument of STR$ is a non-zero
+number strictly between -1 and 1.
+</div>
+</div>
+<div><span id="gotoAndlargeNumbers"></span></div>
+<div class="box box-2">
+<div class="box-title">GO TO and large numbers</div>
+<div class="paragraph">
+Since BASIC line numbers cannot be greater than 9999, you might expect a 'GO TO
+<i>n</i>' command where <i>n</i>&gt;9999 to either do nothing or give an
+appropriate error message. But GO TO does not behave consistently when <i>n</i>
+is large.
+</div>
+<div class="paragraph">
+The command 'GO TO <i>n</i>' always (appropriately) does nothing when
+<i>n</i>&lt;32768, so long as there is no line number greater than or equal to
+<i>n</i> and there are no variables present.
+</div>
+<div class="paragraph">
+But if there are variables present, the command 'GO TO <i>n</i>' can give a 'C
+Nonsense in BASIC' error when 9999&lt;<i>n</i>&lt;=32767; for example:
+</div>
+<div class="paragraph">
+<code>LET a=1: GO TO 24832</code>
+</div>
+<div class="paragraph">
+gives the error 'C Nonsense in BASIC, H832:1'. This happens because the routine
+at <a href="../asm/6510.html">LINE_ADDR</a> (called from <a href="../asm/7070.html">LINE_NEW</a>) finds the definition of the variable 'a' in
+the variables area, the first two bytes of which are 97 (the ASCII code for
+'a') and 0, and takes it to be line number 24832 (97*256).
+</div>
+<div class="paragraph">
+The command 'GO TO <i>n</i>' gives an 'N Statement lost, 0:255' error when
+32768&lt;=<i>n</i>&lt;=61439. (See the check at <a href="../asm/7030.html#7043">7043</a>: a line number greater
+than 32767 indicates the editing area.)
+</div>
+<div class="paragraph">
+The command 'GO TO <i>n</i>' (appropriately) gives a 'B Integer out of range'
+error when <i>n</i>&gt;=61440. (See the check at <a href="../asm/7783.html#7790">7790</a>.)
+</div>
+</div>
+<div><span id="dontCloseTheStreams"></span></div>
+<div class="box box-1">
+<div class="box-title">Don't close the streams</div>
+<div class="paragraph">
+It can be dangerous to close a stream, especially if it's aleady been closed or
+was never opened. For example, on a freshly booted Spectrum:
+</div>
+<div class="paragraph">
+<code>CLOSE #4</code>
+</div>
+<div class="paragraph">
+makes the computer hang.
+</div>
+<div class="paragraph">
+The root cause is that there is no end marker in the <a href="../asm/5910.html">close stream
+lookup table</a>. This makes the 'JP (HL)' at the end of the routine at
+<a href="../asm/5889.html">CLOSE_2</a> jump to <a href="../asm/5942.html#5979">5979</a>, and the 'RET' that follows at 5980 causes an
+indirect jump to 23582 (an address pushed onto the stack earlier at
+<a href="../asm/5889.html#5889">CLOSE_2</a>). After proceeding through the RAM at 23582 onwards, and
+disabling interrupts along the way, the Spectrum finally hangs on the
+'HALT' instruction at <a href="../asm/4770.html#4867">MAIN_4</a>.
+</div>
+<div class="paragraph">
+If there were an end marker (0) in the close stream lookup table, the
+'JP (HL)' at the end of the routine at <a href="../asm/5889.html">CLOSE_2</a> would jump to <a href="../asm/5916.html">CLOSE_STR</a>, the
+'RET' that follows at 5917 would return to <a href="../asm/5861.html#5867">5867</a>, and the stream would
+be closed successfully.
+</div>
+</div>
+<div><span id="pressAlmostAnyKey"></span></div>
+<div class="box box-2">
+<div class="box-title">Press (almost) any key</div>
+<div class="paragraph">
+Not every key besides 'n', 'N', BREAK and STOP will work at the 'scroll?' and
+'Start tape then press any key.' prompts: pressing CAPS LOCK, or GRAPHICS, or
+CAPS SHIFT and SYMBOL SHIFT together at these prompts causes the previous edit
+line to appear at the bottom of the screen instead.
+</div>
+<div class="paragraph">
+This is because the routine at <a href="../asm/4264.html">KEY_INPUT</a>, which is used (via <a href="../asm/5588.html">WAIT_KEY</a>) to decode a
+keypress, copies the edit line to the lower part of the screen when the mode
+changes (from 'L').
+</div>
+</div>
+<div><span id="scrollingTokens"></span></div>
+<div class="box box-1">
+<div class="box-title">The scrolling tokens</div>
+<div class="paragraph">
+When the program
+</div>
+<div class="paragraph">
+<code>10 PRINT "a": GO TO 10</code>
+</div>
+<div class="paragraph">
+is RUN, pressing CAPS LOCK (or GRAPHICS, or CAPS SHIFT and SYMBOL SHIFT
+together) at the 'scroll?' prompt places 'RUN' in the edit area, and then
+pressing ENTER fills the screen with BASIC tokens. Pressing ENTER at the next
+'scroll?' prompt leads to more BASIC tokens and other characters being printed,
+and then the program stops with a 'K Invalid colour' error.
+</div>
+<div class="paragraph">
+This happens because the <span class="register">DE</span> register pair - which is used by the section of
+code at <a href="../asm/8188.html#8252">PR_STRING</a> to hold the address of the next character to be printed - is
+corrupted during the call to <a href="../asm/16.html">PRINT_A_1</a> (made by the 'RST 16' instruction at
+<a href="../asm/8188.html#8258">8258</a>) and ends up pointing at <a href="../asm/149.html#184">184</a> after CAPS LOCK and ENTER are pressed
+at the 'scroll?' prompt. <span class="register">DE</span> is then incremented through the <a href="../asm/149.html">token
+table</a> until it reaches 500 and the 'scroll?'  prompt is printed again.
+After ENTER is pressed at this prompt, <span class="register">DE</span> is incremented through the
+remainder of the token table, and then through the <a href="../asm/517.html">key tables</a>, and
+then into the routine at <a href="../asm/654.html">KEY_SCAN</a>, until it reaches 656, where it finds the
+control character 17 (PAPER) followed by 255 (the first two bytes of the
+'LD DE,65535' instruction at <a href="../asm/654.html#656">656</a>), which produces the 'K Invalid
+colour' error.
+</div>
+<div class="paragraph">
+This bug would be prevented if <span class="register">DE</span> were saved before the call to <a href="../asm/5588.html">WAIT_KEY</a> at
+<a href="../asm/3157.html#3251">3251</a>, and restored afterwards.
+</div>
+</div>
+<div><span id="impatientScrollPrompt"></span></div>
+<div class="box box-2">
+<div class="box-title">The impatient 'scroll?' prompt</div>
+<div class="paragraph">
+When the program
+</div>
+<div class="paragraph">
+<code>10 FOR n=1 TO 100: PRINT n: NEXT n</code>
+</div>
+<div class="paragraph">
+is RUN, pressing TRUE VIDEO or INV. VIDEO at the 'scroll?' prompt causes the
+screen to scroll once, prints a 'scroll?' prompt, scrolls the screen again
+without waiting for a keypress, and then prints another 'scroll?'  prompt
+indented by 7 spaces.
+</div>
+<div class="paragraph">
+This happens because when TRUE VIDEO or INV. VIDEO is pressed at the initial
+'scroll?' prompt, the routine at <a href="../asm/4264.html">KEY_INPUT</a> interprets the keypress as an INVERSE
+control code (4 or 5) and changes the input address for the current channel
+from <a href="../asm/4264.html">KEY_INPUT</a> to <a href="../asm/4264.html#4365">KEY_NEXT</a> (see <a href="../asm/4264.html#4357">KEY_DATA</a>). This means that after the next 'scroll?'
+prompt is printed and <a href="../asm/5588.html">WAIT_KEY</a> is called, <a href="../asm/4264.html#4365">KEY_NEXT</a> (which picks up the parameter
+for the INVERSE control code instead of waiting for a keypress, and does not
+reset the print position for the lower part of the display in preparation for
+the next 'scroll?'  prompt) is executed instead of <a href="../asm/4264.html">KEY_INPUT</a> (which would wait
+for a keypress, and then reset the print position for the lower part of the
+display).
+</div>
+</div>
+<div><span id="anythingEqualsSCREEN$xy"></span></div>
+<div class="box box-1">
+<div class="box-title">Anything equals SCREEN$ (x,y)</div>
+<div class="paragraph">
+Some care is needed when using SCREEN$, because it doesn't always work as you
+would expect. For example:
+</div>
+<div class="paragraph">
+<code>IF ""=SCREEN$ (0,0) THEN PRINT "?"</code>
+</div>
+<div class="paragraph">
+will print "?" no matter what is on the screen at (0,0) at the time.
+</div>
+<div class="paragraph">
+The reason is that the routine at <a href="../asm/9525.html">S_SCRN_S</a> exits via <a href="../asm/10929.html#10930">STK_STO</a>, which results in
+the character found at (0,0) being stored on the calculator stack twice instead
+of just once. So when the '=' operation above is performed, the last two items
+on the stack - the two copies of SCREEN$ (0,0) - are equal, and the result of
+the operation is always true, regardless of what's on the left hand side of the
+equation.
+</div>
+<div class="paragraph">
+Note that the calculator stack is cleared before each statement of a BASIC
+program (or the edit line) is executed, so the bug is confined to the statement
+that contains SCREEN$, and will not affect any other statements.
+</div>
+</div>
+<div><span id="34thBitOfDivision"></span></div>
+<div class="box box-2">
+<div class="box-title">The 34th bit of division</div>
+<div class="paragraph">
+In the division loop at <a href="../asm/12719.html#12754">DIV_LOOP</a>, the 34th bit of the quotient is always set to
+0, meaning that some results - such as 1/10 and 1/1000 - are not rounded up as
+they should be. For example:
+</div>
+<div class="paragraph">
+<code>PRINT 1/2-.5</code>
+</div>
+<div class="paragraph">
+prints '2.3283064E-10' instead of '0', because while '1/2' is calculated
+correctly, '.5' is evaluated as '5 * 1/10', which is not calculated correctly.
+Specifically, '1/10' is represented as 7D 4C CC CC CC (0.0999999999767) in
+floating point form, but if the 34th bit were included, it would be rounded up
+to 7D 4C CC CC CD (0.100000000006), which is more accurate.
+</div>
+<div class="paragraph">
+The problem is caused by the jump at <a href="../asm/12719.html#12799">12799</a>, which should be to <a href="../asm/12719.html#12763">DIV_34TH</a>
+instead of <a href="../asm/12719.html#12770">DIV_START</a>.
+</div>
+</div>
+<div><span id="troubleWith-65536"></span></div>
+<div class="box box-1">
+<div class="box-title">The trouble with -65536</div>
+<div class="paragraph">
+In some circumstances, the number -65536 is stored in short form instead of
+full floating point form, which causes problems. For example:
+</div>
+<div class="paragraph">
+<code>PRINT -65535-1</code>
+</div>
+<div class="paragraph">
+prints '-1E-38', and:
+</div>
+<div class="paragraph">
+<code>PRINT INT -65536</code>
+</div>
+<div class="paragraph">
+prints '-1'.
+</div>
+<div class="paragraph">
+The first of these problems is caused by the routine at <a href="../asm/12308.html">addition</a>, which fails to
+detect an overflow when adding two small negative integers whose sum is -65536.
+Specifically, when <a href="../asm/12308.html#12331">12331</a> is reached, the carry flag is set, <span class="register">A</span> holds 255
+(the sign byte of the second number), and <span class="register">(HL)</span> also holds 255 (the sign
+byte of the first number). Then:
+</div>
+<div class="paragraph">
+<table class="asm">
+<tr>
+<td class="address-1" colspan="1" rowspan="1">12331</td>
+<td class="instruction" colspan="1" rowspan="1">ADC A,(HL)</td>
+<td class="comment-11" colspan="1" rowspan="1"><span class="register">A</span>=255 (255 plus 255 plus carry).</td>
+</tr>
+<tr>
+<td class="address-1" colspan="1" rowspan="1">12332</td>
+<td class="instruction" colspan="1" rowspan="1">RRCA</td>
+<td class="comment-11" colspan="1" rowspan="1"><span class="register">A</span>=255, carry flag set.</td>
+</tr>
+<tr>
+<td class="address-1" colspan="1" rowspan="1">12333</td>
+<td class="instruction" colspan="1" rowspan="1">ADC A,0</td>
+<td class="comment-11" colspan="1" rowspan="1"><span class="register">A</span>=0.</td>
+</tr>
+<tr>
+<td class="address-1" colspan="1" rowspan="1">12335</td>
+<td class="instruction" colspan="1" rowspan="1">JR NZ,<a href="../asm/12308.html#12348">ADDN_OFLW</a></td>
+<td class="comment-11" colspan="1" rowspan="1">This jump is not made.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+The result is then stored as 00 FF 00 00 00, which other ROM routines do
+not always handle correctly.
+</div>
+<div class="paragraph">
+The second problem is caused by the routine at <a href="../asm/12820.html">truncate</a>. Specifically, the
+section of code at <a href="../asm/12820.html#12837">12837</a> checks whether the argument <i>x</i> satisfies
+-65537&lt;<i>x</i>&lt;=-65536; if it does, its floating point form is
+(erroneously) modified to 00 FF 00 00 00. (-65537 in floating point form is
+91 80 00 80 00, which explains why the mask 128 is used when testing the fourth
+byte of <i>x</i> at <a href="../asm/12820.html#12848">12848</a>.)
+</div>
+</div>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../reference/bugs.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

@@ -23,7 +23,7 @@
 <div class="description">0DD9: THE 'CL-SET' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="0A23.html">PO_BACK_1</a>, <a href="0A4F.html">PO_ENTER</a>, <a href="0A6D.html">PO_TV_2</a>, <a href="0C55.html">PO_SCR</a>, <a href="0D6B.html">CLS</a>, <a href="0EDF.html">CLEAR_PRB</a>, <a href="111D.html">ED_COPY</a> and <a href="2089.html">INPUT</a>.
@@ -59,108 +59,126 @@ This subroutine is entered with the <span class="register">BC</span> register pa
 <tr>
 <td class="asm-label-1">CL_SET</td>
 <td class="address-2"><span id="0DD9"></span>0DD9</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$5B00</td>
 <td class="comment-11" rowspan="1">The start of the printer buffer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DDC"></span>0DDC</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 1,(IY+$01)</td>
 <td class="comment-11" rowspan="2">Jump forward if handling the printer buffer (bit 1 of <a href="5C3B.html">FLAGS</a> set).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DE0"></span>0DE0</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="0DD9.html#0DF4">CL_SET_2</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DE2"></span>0DE2</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
 <td class="comment-11" rowspan="1">Transfer the line number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DE3"></span>0DE3</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 0,(IY+$02)</td>
 <td class="comment-11" rowspan="2">Jump forward if handling the main part of the display (bit 0 of <a href="5C3C.html">TV-FLAG</a> reset).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DE7"></span>0DE7</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="0DD9.html#0DEE">CL_SET_1</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DE9"></span>0DE9</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD A,(IY+$31)</td>
 <td class="comment-11" rowspan="2">The top line of the lower part of the display is called 'line +18' and this has to be converted (see <a href="5C6B.html">DF-SZ</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DEC"></span>0DEC</td>
+<td class="bytes-0"></td>
 <td class="instruction">SUB $18</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">CL_SET_1</td>
 <td class="address-2"><span id="0DEE"></span>0DEE</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-11" rowspan="1">The line and column numbers are saved.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DEF"></span>0DEF</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
 <td class="comment-11" rowspan="1">The line number is moved.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DF0"></span>0DF0</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="0E9B.html">CL_ADDR</a></td>
 <td class="comment-11" rowspan="1">The address for the start of the line is formed in <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DF3"></span>0DF3</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">The line and column numbers are fetched back.</td>
 </tr>
 <tr>
 <td class="asm-label-1">CL_SET_2</td>
 <td class="address-2"><span id="0DF4"></span>0DF4</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$21</td>
 <td class="comment-11" rowspan="4">The column number is now reversed and transferred to the <span class="register">DE</span> register pair.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DF6"></span>0DF6</td>
+<td class="bytes-0"></td>
 <td class="instruction">SUB C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DF7"></span>0DF7</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD E,A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DF8"></span>0DF8</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,$00</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DFA"></span>0DFA</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-11" rowspan="2">The required address is now formed, and the address and the line and column numbers are stored by jumping to <a href="0ADC.html">PO_STORE</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="0DFB"></span>0DFB</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="0ADC.html">PO_STORE</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -173,10 +191,10 @@ This subroutine is entered with the <span class="register">BC</span> register pa
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/3545.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/3545.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

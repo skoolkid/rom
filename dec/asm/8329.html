@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 08329</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="8304.html">08304</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#8329">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="8633.html">08633</a></span></td>
+</tr>
+</table>
+<div class="description">08329: THE 'INPUT' COMMAND ROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="6728.html#6815">parameter table</a>.
+</div>
+<div class="paragraph">
+This routine allows for values entered from the keyboard to be assigned to variables. It is also possible to have print items embedded in the INPUT statement and these items are printed in the lower part of the display.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">INPUT</td>
+<td class="address-2"><span id="8329"></span>08329</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="9520.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="2">Jump forward if syntax is being checked.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8332"></span>08332</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="8329.html#8342">INPUT_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8334"></span>08334</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,1</td>
+<td class="comment-11" rowspan="2">Open channel 'K'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8336"></span>08336</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="5633.html">CHAN_OPEN</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8339"></span>08339</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="3435.html#3438">CLS_LOWER</a></td>
+<td class="comment-11" rowspan="1">The lower part of the display is cleared.</td>
+</tr>
+<tr>
+<td class="asm-label-1">INPUT_1</td>
+<td class="address-2"><span id="8342"></span>08342</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IY+2),1</td>
+<td class="comment-11" rowspan="1">Signal that the lower screen is being handled (set bit 0 of <a href="23612.html">TV-FLAG</a> and reset all other bits).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8346"></span>08346</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8329.html#8385">IN_ITEM_1</a></td>
+<td class="comment-11" rowspan="1">Call the subroutine to deal with the INPUT items.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8349"></span>08349</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7150.html">CHECK_END</a></td>
+<td class="comment-11" rowspan="1">Move on to the next statement if checking syntax.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8352"></span>08352</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD BC,(23688)</td>
+<td class="comment-11" rowspan="1">Fetch the current print position (<a href="23688.html">S-POSN</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8356"></span>08356</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23659)</td>
+<td class="comment-11" rowspan="3">Jump forward if the current position is above the lower screen (see <a href="23659.html">DF-SZ</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8359"></span>08359</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP B</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8360"></span>08360</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR C,<a href="8329.html#8365">INPUT_2</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8362"></span>08362</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,33</td>
+<td class="comment-11" rowspan="2">Otherwise set the print position to the top of the lower screen.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8364"></span>08364</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">INPUT_2</td>
+<td class="address-2"><span id="8365"></span>08365</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23688),BC</td>
+<td class="comment-11" rowspan="1">Reset <a href="23688.html">S-POSN</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8369"></span>08369</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,25</td>
+<td class="comment-11" rowspan="3">Now set the scroll counter (<a href="23692.html">SCR-CT</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8371"></span>08371</td>
+<td class="bytes-0"></td>
+<td class="instruction">SUB B</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8372"></span>08372</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23692),A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8375"></span>08375</td>
+<td class="bytes-0"></td>
+<td class="instruction">RES 0,(IY+2)</td>
+<td class="comment-11" rowspan="1">Signal 'main screen' (reset bit 0 of <a href="23612.html">TV-FLAG</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8379"></span>08379</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="3545.html">CL_SET</a></td>
+<td class="comment-11" rowspan="2">Set the system variables and exit via <a href="3435.html#3438">CLS_LOWER</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8382"></span>08382</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP <a href="3435.html#3438">CLS_LOWER</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8385"></span>
+<div class="comments">
+<div class="paragraph">
+The INPUT items and embedded PRINT items are dealt with in turn by the following loop.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_ITEM_1</td>
+<td class="address-2"><span id="8385"></span>08385</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8270.html">PR_POSN_1</a></td>
+<td class="comment-11" rowspan="2">Consider first any position control characters.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8388"></span>08388</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="8329.html#8385">IN_ITEM_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8390"></span>08390</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP "("</td>
+<td class="comment-11" rowspan="2">Jump forward if the present character is not a '('.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8392"></span>08392</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="8329.html#8408">IN_ITEM_2</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8394"></span>08394</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="32.html">32</a></td>
+<td class="comment-11" rowspan="1">Fetch the next character.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8395"></span>08395</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8159.html">PRINT_2</a></td>
+<td class="comment-11" rowspan="1">Now call the PRINT command routine to handle the items inside the brackets.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8398"></span>08398</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="24.html">24</a></td>
+<td class="comment-11" rowspan="1">Fetch the present character.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8399"></span>08399</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP ")"</td>
+<td class="comment-11" rowspan="2">Give report C unless the character is a ')'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8401"></span>08401</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP NZ,<a href="7289.html#7306">REPORT_C</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8404"></span>08404</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="32.html">32</a></td>
+<td class="comment-11" rowspan="2">Fetch the next character and jump forward to see if there are any further INPUT items.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8405"></span>08405</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP <a href="8329.html#8626">IN_NEXT_2</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8408"></span>
+<div class="comments">
+<div class="paragraph">
+Now consider whether INPUT LINE is being used.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_ITEM_2</td>
+<td class="address-2"><span id="8408"></span>08408</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 202</td>
+<td class="comment-11" rowspan="2">Jump forward if it is not 'LINE'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8410"></span>08410</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="8329.html#8429">IN_ITEM_3</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8412"></span>08412</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="32.html">32</a></td>
+<td class="comment-11" rowspan="1">Advance <a href="23645.html">CH-ADD</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8413"></span>08413</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7199.html">CLASS_01</a></td>
+<td class="comment-11" rowspan="1">Determine the destination address for the variable.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8416"></span>08416</td>
+<td class="bytes-0"></td>
+<td class="instruction">SET 7,(IY+55)</td>
+<td class="comment-11" rowspan="1">Signal 'using INPUT LINE' (set bit 7 of <a href="23665.html">FLAGX</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8420"></span>08420</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 6,(IY+1)</td>
+<td class="comment-11" rowspan="2">Give report C unless using a string variable (bit 6 of <a href="23611.html">FLAGS</a> reset).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8424"></span>08424</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP NZ,<a href="7289.html#7306">REPORT_C</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8427"></span>08427</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="8329.html#8442">IN_PROMPT</a></td>
+<td class="comment-11" rowspan="1">Jump forward to issue the prompt message.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8429"></span>
+<div class="comments">
+<div class="paragraph">
+Proceed to handle simple INPUT variables.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_ITEM_3</td>
+<td class="address-2"><span id="8429"></span>08429</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="11405.html">ALPHA</a></td>
+<td class="comment-11" rowspan="2">Jump to consider going round the loop again if the present character is not a letter.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8432"></span>08432</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP NC,<a href="8329.html#8623">IN_NEXT_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8435"></span>08435</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7199.html">CLASS_01</a></td>
+<td class="comment-11" rowspan="1">Determine the destination address for the variable.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8438"></span>08438</td>
+<td class="bytes-0"></td>
+<td class="instruction">RES 7,(IY+55)</td>
+<td class="comment-11" rowspan="1">Signal 'not INPUT LINE' (reset bit 7 of <a href="23665.html">FLAGX</a>).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8442"></span>
+<div class="comments">
+<div class="paragraph">
+The prompt message is now built up in the work space.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_PROMPT</td>
+<td class="address-2"><span id="8442"></span>08442</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="9520.html">SYNTAX_Z</a></td>
+<td class="comment-11" rowspan="2">Jump forward if only checking syntax.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8445"></span>08445</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP Z,<a href="8329.html#8626">IN_NEXT_2</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8448"></span>08448</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="5808.html#5823">SET_WORK</a></td>
+<td class="comment-11" rowspan="1">The work space is set to null.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8451"></span>08451</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,23665</td>
+<td class="comment-11" rowspan="1">This is <a href="23665.html">FLAGX</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8454"></span>08454</td>
+<td class="bytes-0"></td>
+<td class="instruction">RES 6,(HL)</td>
+<td class="comment-11" rowspan="1">Signal 'string result'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8456"></span>08456</td>
+<td class="bytes-0"></td>
+<td class="instruction">SET 5,(HL)</td>
+<td class="comment-11" rowspan="1">Signal 'INPUT mode'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8458"></span>08458</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD BC,1</td>
+<td class="comment-11" rowspan="1">Allow the prompt message only a single location.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8461"></span>08461</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 7,(HL)</td>
+<td class="comment-11" rowspan="2">Jump forward if using 'LINE'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8463"></span>08463</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="8329.html#8476">IN_PR_2</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8465"></span>08465</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23611)</td>
+<td class="comment-11" rowspan="3">Jump forward if awaiting a numeric entry (bit 6 of <a href="23611.html">FLAGS</a> set).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8468"></span>08468</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND 64</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8470"></span>08470</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="8329.html#8474">IN_PR_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8472"></span>08472</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,3</td>
+<td class="comment-11" rowspan="1">A string entry will need three locations.</td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_PR_1</td>
+<td class="address-2"><span id="8474"></span>08474</td>
+<td class="bytes-0"></td>
+<td class="instruction">OR (HL)</td>
+<td class="comment-11" rowspan="2">Bit 6 of <a href="23665.html">FLAGX</a> will become set for a numeric entry.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8475"></span>08475</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_PR_2</td>
+<td class="address-2"><span id="8476"></span>08476</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="48.html">48</a></td>
+<td class="comment-11" rowspan="1">The required number of locations is made available.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8477"></span>08477</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),13</td>
+<td class="comment-11" rowspan="1">A 'carriage return' goes into the last location.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8479"></span>08479</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,C</td>
+<td class="comment-11" rowspan="4">Test bit 6 of the <span class="register">C</span> register and jump forward if only one location was required.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8480"></span>08480</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8481"></span>08481</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8482"></span>08482</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NC,<a href="8329.html#8489">IN_PR_3</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8484"></span>08484</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,"\""</td>
+<td class="comment-11" rowspan="4">A 'double quotes' character goes into the first and second locations.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8486"></span>08486</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (DE),A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8487"></span>08487</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8488"></span>08488</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_PR_3</td>
+<td class="address-2"><span id="8489"></span>08489</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23643),HL</td>
+<td class="comment-11" rowspan="1">The position of the cursor (<a href="23643.html">K-CUR</a>) can now be saved.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8492"></span>
+<div class="comments">
+<div class="paragraph">
+In the case of INPUT LINE the EDITOR can be called without further preparation but for other types of INPUT the error stack has to be changed so as to trap errors.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8492"></span>08492</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 7,(IY+55)</td>
+<td class="comment-11" rowspan="2">Jump forward with 'INPUT LINE' (bit 7 of <a href="23665.html">FLAGX</a> set).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8496"></span>08496</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="8329.html#8542">IN_VAR_3</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8498"></span>08498</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23645)</td>
+<td class="comment-11" rowspan="4">Save the current values of <a href="23645.html">CH-ADD</a> and <a href="23613.html">ERR-SP</a> on the machine stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8501"></span>08501</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8502"></span>08502</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23613)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8505"></span>08505</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_VAR_1</td>
+<td class="address-1"><span id="8506"></span>08506</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,8506</td>
+<td class="comment-11" rowspan="2">This will be the 'return point' in case of errors.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8509"></span>08509</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8510"></span>08510</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 4,(IY+48)</td>
+<td class="comment-11" rowspan="3">Only change the error stack pointer (<a href="23613.html">ERR-SP</a>) if using channel 'K' (bit 4 of <a href="23658.html">FLAGS2</a> set).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8514"></span>08514</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="8329.html#8520">IN_VAR_2</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8516"></span>08516</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23613),SP</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_VAR_2</td>
+<td class="address-2"><span id="8520"></span>08520</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23649)</td>
+<td class="comment-11" rowspan="2">Set <span class="register">HL</span> to the start of the INPUT line (<a href="23649.html">WORKSP</a>) and remove any floating-point forms. (There will not be any except perhaps after an error.)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8523"></span>08523</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="4519.html">REMOVE_FP</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8526"></span>08526</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IY+0),255</td>
+<td class="comment-11" rowspan="1">Signal 'no error yet' by resetting <a href="23610.html">ERR-NR</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8530"></span>08530</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="3884.html">EDITOR</a></td>
+<td class="comment-11" rowspan="4">Now get the INPUT and with the syntax/run flag (bit 7 of <a href="23611.html">FLAGS</a>) indicating syntax, check the INPUT for errors; jump if in order; return to <a href="8329.html#8506">IN_VAR_1</a> if not.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8533"></span>08533</td>
+<td class="bytes-0"></td>
+<td class="instruction">RES 7,(IY+1)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8537"></span>08537</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8633.html">IN_ASSIGN</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8540"></span>08540</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="8329.html#8545">IN_VAR_4</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_VAR_3</td>
+<td class="address-2"><span id="8542"></span>08542</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="3884.html">EDITOR</a></td>
+<td class="comment-11" rowspan="1">Get a 'LINE'.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8545"></span>
+<div class="comments">
+<div class="paragraph">
+All the system variables have to be reset before the actual assignment of a value can be made.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_VAR_4</td>
+<td class="address-2"><span id="8545"></span>08545</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IY+34),0</td>
+<td class="comment-11" rowspan="1">The cursor address (<a href="23643.html">K-CUR</a>) is reset.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8549"></span>08549</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8662.html">IN_CHAN_K</a></td>
+<td class="comment-11" rowspan="2">The jump is taken if using other than channel 'K'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8552"></span>08552</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="8329.html#8564">IN_VAR_5</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8554"></span>08554</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="4381.html">ED_COPY</a></td>
+<td class="comment-11" rowspan="3">The input-line is copied to the display and the position in <a href="23682.html">ECHO-E</a> made the current position in the lower screen.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8557"></span>08557</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD BC,(23682)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8561"></span>08561</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="3545.html">CL_SET</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_VAR_5</td>
+<td class="address-2"><span id="8564"></span>08564</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,23665</td>
+<td class="comment-11" rowspan="1">This is <a href="23665.html">FLAGX</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8567"></span>08567</td>
+<td class="bytes-0"></td>
+<td class="instruction">RES 5,(HL)</td>
+<td class="comment-11" rowspan="1">Signal 'edit mode'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8569"></span>08569</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 7,(HL)</td>
+<td class="comment-11" rowspan="3">Jump forward if handling an INPUT LINE.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8571"></span>08571</td>
+<td class="bytes-0"></td>
+<td class="instruction">RES 7,(HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8573"></span>08573</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="8329.html#8603">IN_VAR_6</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8575"></span>08575</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP HL</td>
+<td class="comment-11" rowspan="1">Drop the address IN-VAR-1.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8576"></span>08576</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP HL</td>
+<td class="comment-11" rowspan="2">Reset the <a href="23613.html">ERR-SP</a> to its original address.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8577"></span>08577</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23613),HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8580"></span>08580</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP HL</td>
+<td class="comment-11" rowspan="2">Save the original <a href="23645.html">CH-ADD</a> address in <a href="23647.html">X-PTR</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8581"></span>08581</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23647),HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8584"></span>08584</td>
+<td class="bytes-0"></td>
+<td class="instruction">SET 7,(IY+1)</td>
+<td class="comment-11" rowspan="2">Now with the syntax/run flag (bit 7 of <a href="23611.html">FLAGS</a>) indicating 'run' make the assignment.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8588"></span>08588</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8633.html">IN_ASSIGN</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8591"></span>08591</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23647)</td>
+<td class="comment-11" rowspan="3">Restore the original address to <a href="23645.html">CH-ADD</a> and clear <a href="23647.html">X-PTR</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8594"></span>08594</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IY+38),0</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8598"></span>08598</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23645),HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8601"></span>08601</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="8329.html#8626">IN_NEXT_2</a></td>
+<td class="comment-11" rowspan="1">Jump forward to see if there are further INPUT items.</td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_VAR_6</td>
+<td class="address-2"><span id="8603"></span>08603</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23651)</td>
+<td class="comment-11" rowspan="4">The length of the 'LINE' in the work space is found (<a href="23651.html">STKBOT</a>-<a href="23649.html">WORKSP</a>-1).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8606"></span>08606</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD DE,(23649)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8610"></span>08610</td>
+<td class="bytes-0"></td>
+<td class="instruction">SCF</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8611"></span>08611</td>
+<td class="bytes-0"></td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8613"></span>08613</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,H</td>
+<td class="comment-11" rowspan="2"><span class="register">DE</span> points to the start and <span class="register">BC</span> holds the length.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8614"></span>08614</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,L</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8615"></span>08615</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="10929.html#10930">STK_STO</a></td>
+<td class="comment-11" rowspan="2">These parameters are stacked and the actual assignment made.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8618"></span>08618</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="11007.html">LET</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8621"></span>08621</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="8329.html#8626">IN_NEXT_2</a></td>
+<td class="comment-11" rowspan="1">Also jump forward to consider further items.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8623"></span>
+<div class="comments">
+<div class="paragraph">
+Further items in the INPUT statement are considered.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_NEXT_1</td>
+<td class="address-2"><span id="8623"></span>08623</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8188.html">PR_ITEM_1</a></td>
+<td class="comment-11" rowspan="1">Handle any print items.</td>
+</tr>
+<tr>
+<td class="asm-label-1">IN_NEXT_2</td>
+<td class="address-2"><span id="8626"></span>08626</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="8270.html">PR_POSN_1</a></td>
+<td class="comment-11" rowspan="1">Handle any position controllers.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8629"></span>08629</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP Z,<a href="8329.html#8385">IN_ITEM_1</a></td>
+<td class="comment-11" rowspan="2">Go around the loop again if there are further items; otherwise return.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="8632"></span>08632</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="8304.html">08304</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#8329">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="8633.html">08633</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/2089.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 10411</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="10173.html">10173</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#10411">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="10418.html">10418</a></span></td>
+</tr>
+</table>
+<div class="description">10411: THE 'FUNCTION SKIPOVER' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+This subroutine is used by <a href="10173.html">S_FN_SBRN</a> and by <a href="10577.html">STK_F_ARG</a> to move <span class="register">HL</span> along the DEF FN statement while leaving <a href="23645.html">CH-ADD</a> undisturbed, as it points along the FN statement.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the current character</td>
+</tr>
+</table>
+<table class="output-1">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Code of next non-control, non-space character</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of that character</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">FN_SKPOVR</td>
+<td class="address-2"><span id="10411"></span>10411</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="1">Point to the next code in the statement.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="10412"></span>10412</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-11" rowspan="1">Copy the code to <span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="10413"></span>10413</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 33</td>
+<td class="comment-11" rowspan="2">Jump back to skip over it if it is a control code or a space.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="10415"></span>10415</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR C,<a href="10411.html#10411">FN_SKPOVR</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="10417"></span>10417</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="10173.html">10173</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#10411">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="10418.html">10418</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/28AB.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

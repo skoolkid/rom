@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 13967</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="13958.html">13958</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#13967">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="13979.html">13979</a></span></td>
+</tr>
+</table>
+<div class="description">13967: THE 'JUMP ON TRUE' SUBROUTINE (offset 0)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="13015.html">table of addresses</a>. It is called via the calculator literal 0 by the routines at <a href="7642.html">NEXT_LOOP</a>, <a href="9090.html">DRAW</a>, <a href="11599.html">e_to_fp</a>, <a href="11747.html">PRINT_FP</a>, <a href="13999.html">int</a>, <a href="14099.html">ln</a>, <a href="14211.html">get_argt</a>, <a href="14250.html">cos</a>, <a href="14306.html">atn</a>, <a href="14410.html">sqr</a> and <a href="14417.html">to_power</a>.
+</div>
+<div class="paragraph">
+This subroutine executes a conditional jump if the 'last value' on the calculator stack, or more precisely the number addressed currently by the <span class="register">DE</span> register pair, is true.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Address of the first byte of the last value on the calculator stack</td>
+</tr>
+<tr>
+<td class="register">HL'</td>
+<td class="register-desc">Address of the jump offset</td>
+</tr>
+</table>
+<table class="output-1">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">HL'</td>
+<td class="register-desc">Address of the next calculator literal to execute</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">jump_true</td>
+<td class="address-2"><span id="13967"></span>13967</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC DE</td>
+<td class="comment-11" rowspan="2">Point to the third byte, which is zero or one.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13968"></span>13968</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13969"></span>13969</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(DE)</td>
+<td class="comment-11" rowspan="1">Collect this byte in the <span class="register">A</span> register.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13970"></span>13970</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC DE</td>
+<td class="comment-11" rowspan="2">Point to the first byte once again.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13971"></span>13971</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13972"></span>13972</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND A</td>
+<td class="comment-11" rowspan="1">Test the third byte: is it zero?</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13973"></span>13973</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="13958.html">jump</a></td>
+<td class="comment-11" rowspan="1">Make the jump if the byte is non-zero, i.e. if the number is not-false.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13975"></span>13975</td>
+<td class="bytes-0"></td>
+<td class="instruction">EXX</td>
+<td class="comment-11" rowspan="1">Go to the alternate register set.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13976"></span>13976</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="1">Pass over the jump length.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13977"></span>13977</td>
+<td class="bytes-0"></td>
+<td class="instruction">EXX</td>
+<td class="comment-11" rowspan="1">Back to the main set of registers.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13978"></span>13978</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="13958.html">13958</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#13967">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="13979.html">13979</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/368F.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

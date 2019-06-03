@@ -23,7 +23,7 @@
 <div class="description">33B4: THE 'STACK NUMBER' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="03F8.html">BEEP</a>, <a href="268D.html">S_DECIMAL</a> and <a href="26C9.html">S_LETTER</a>.
@@ -52,24 +52,28 @@ This subroutine is called by <a href="03F8.html">BEEP</a>, <a href="25AF.html">S
 <tr>
 <td class="asm-label-1">STACK_NUM</td>
 <td class="address-2"><span id="33B4"></span>33B4</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD DE,($5C65)</td>
 <td class="comment-11" rowspan="1">Copy <a href="5C65.html">STKEND</a> to <span class="register">DE</span> as destination address.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33B8"></span>33B8</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="33C0.html">duplicate</a></td>
 <td class="comment-11" rowspan="1">Move the number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33BB"></span>33BB</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C65),DE</td>
 <td class="comment-11" rowspan="1">Reset <a href="5C65.html">STKEND</a> from <span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33BF"></span>33BF</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Finished.</td>
 </tr>
@@ -82,10 +86,10 @@ This subroutine is called by <a href="03F8.html">BEEP</a>, <a href="25AF.html">S
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/13236.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/13236.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

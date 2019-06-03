@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 09090</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="8992.html">08992</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#9090">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="9341.html">09341</a></span></td>
+</tr>
+</table>
+<div class="description">09090: THE 'DRAW' COMMAND ROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="6728.html#6866">parameter table</a>.
+</div>
+<div class="paragraph">
+This routine is entered with the co-ordinates of a point X0, Y0, say, in <a href="23677.html">COORDS</a>. If only two parameters X, Y are given with the DRAW command, it draws an approximation to a straight line from the point X0, Y0 to X0+X, Y0+Y. If a third parameter G is given, it draws an approximation to a circular arc from X0, Y0 to X0+X, Y0+Y turning anti-clockwise through an angle G radians.
+</div>
+<div class="paragraph">
+The routine has four parts:
+</div>
+<div class="paragraph">
+<ul class="">
+<li>i. Just draws a line if only 2 parameters are given or if the diameter of the implied circle is less than 1.</li>
+<li>ii. Calls <a href="9341.html">CD_PRMS1</a> to set the first parameters.</li>
+<li>iii. Sets up the remaining parameters, including the initial displacements for the first arc.</li>
+<li>iv. Enters the arc-drawing loop and draws the arc as a series of smaller arcs approximated by straight lines, calling the line-drawing subroutine at <a href="9399.html">DRAW_LINE</a> as necessary.</li>
+</ul>
+</div>
+<div class="paragraph">
+Two subroutines, <a href="9341.html">CD_PRMS1</a> and <a href="9399.html">DRAW_LINE</a>, follow the main routine. The above 4 parts of the main routine will now be treated in turn.
+</div>
+<div class="paragraph">
+i. If there are only 2 parameters, a jump is made to <a href="9090.html#9335">LINE_DRAW</a>. A line is also drawn if the quantity Z=(ABS X+ABS Y)/ABS SIN(G/2) is less than 1. Z lies between 1 and 1.5 times the diameter of the implied circle. In this section mem-0 is set to SIN (G/2), mem-1 to Y, and mem-5 to G.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">DRAW</td>
+<td class="address-2"><span id="9090"></span>09090</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="24.html">24</a></td>
+<td class="comment-11" rowspan="1">Get the current character.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9091"></span>09091</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP ","</td>
+<td class="comment-11" rowspan="2">If it is a comma, then jump.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9093"></span>09093</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="9090.html#9101">DR_3_PRMS</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9095"></span>09095</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7150.html">CHECK_END</a></td>
+<td class="comment-11" rowspan="1">Move on to next statement if checking syntax.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9098"></span>09098</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP <a href="9090.html#9335">LINE_DRAW</a></td>
+<td class="comment-11" rowspan="1">Jump to just draw the line.</td>
+</tr>
+<tr>
+<td class="asm-label-1">DR_3_PRMS</td>
+<td class="address-2"><span id="9101"></span>09101</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="32.html">32</a></td>
+<td class="comment-11" rowspan="1">Get next character (the angle).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9102"></span>09102</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7289.html#7298">CLASS_06</a></td>
+<td class="comment-11" rowspan="1">Angle to calculator stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9105"></span>09105</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="7150.html">CHECK_END</a></td>
+<td class="comment-11" rowspan="1">Move on to next statement if checking syntax.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9108"></span>09108</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1">X, Y, G are on the stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9109"></span>09109</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 197</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_5</a>: (G is copied to mem-5)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9110"></span>09110</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 162</td>
+<td class="comment-11" rowspan="1"><a href="13339.html">stk_half</a>: X, Y, G, 0.5</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9111"></span>09111</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: X, Y, G/2</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9112"></span>09112</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 31</td>
+<td class="comment-11" rowspan="1"><a href="14261.html">sin</a>: X, Y, SIN (G/2)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9113"></span>09113</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: X, Y, SIN (G/2), SIN (G/2)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9114"></span>09114</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 48</td>
+<td class="comment-11" rowspan="1"><a href="13569.html">f_not</a>: X, Y, SIN (G/2), (0/1)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9115"></span>09115</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 48</td>
+<td class="comment-11" rowspan="1"><a href="13569.html">f_not</a>: X, Y, SIN (G/2), (1/0)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9116"></span>09116</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 0</td>
+<td class="comment-11" rowspan="1"><a href="13967.html">jump_true</a>: X, Y, SIN (G/2)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9117"></span>09117</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 6</td>
+<td class="comment-11" rowspan="1">to <a href="9090.html#9123">DR_SIN_NZ</a> (if SIN (G/2)=0 i.e. G=2&#960;N just draw a straight line).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9118"></span>09118</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: X, Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9119"></span>09119</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9120"></span>09120</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP <a href="9090.html#9335">LINE_DRAW</a></td>
+<td class="comment-11" rowspan="1">Line X0, Y0 to X0+X, Y0+Y.</td>
+</tr>
+<tr>
+<td class="asm-label-1">DR_SIN_NZ</td>
+<td class="address-1"><span id="9123"></span>09123</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 192</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_0</a>: (SIN (G/2) is copied to mem-0)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9124"></span>09124</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: X, Y are now on the stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9125"></span>09125</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 193</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_1</a>: (Y is copied to mem-1).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9126"></span>09126</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9127"></span>09127</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: X, X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9128"></span>09128</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 42</td>
+<td class="comment-11" rowspan="1"><a href="13418.html">abs</a>: X, X' (X'=ABS X)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9129"></span>09129</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 225</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_1</a>: X, X', Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9130"></span>09130</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: X, Y, X'</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9131"></span>09131</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 225</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_1</a>: X, Y, X', Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9132"></span>09132</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 42</td>
+<td class="comment-11" rowspan="1"><a href="13418.html">abs</a>: X, Y, X', Y' (Y'=ABS Y)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9133"></span>09133</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 15</td>
+<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: X, Y, X'+Y'</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9134"></span>09134</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 224</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_0</a>: X, Y, X'+Y', SIN (G/2)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9135"></span>09135</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 5</td>
+<td class="comment-11" rowspan="1"><a href="12719.html">division</a>: X, Y, (X'+Y')/SIN (G/2)=Z', say</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9136"></span>09136</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 42</td>
+<td class="comment-11" rowspan="1"><a href="13418.html">abs</a>: X, Y, Z (Z=ABS Z')</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9137"></span>09137</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 224</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_0</a>: X, Y, Z, SIN (G/2)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9138"></span>09138</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: X, Y, SIN (G/2), Z</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9139"></span>09139</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 61</td>
+<td class="comment-11" rowspan="1"><a href="12951.html">re_stack</a>: (Z is re-stacked to make sure that its exponent is available).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9140"></span>09140</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9141"></span>09141</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-11" rowspan="1">Get exponent of Z.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9142"></span>09142</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 129</td>
+<td class="comment-11" rowspan="2">If Z is greater than or equal to 1, jump.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9144"></span>09144</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NC,<a href="9090.html#9153">DR_PRMS</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9146"></span>09146</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1">X, Y, SIN (G/2), Z</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9147"></span>09147</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: X, Y, SIN (G/2)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9148"></span>09148</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: X, Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9149"></span>09149</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9150"></span>09150</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP <a href="9090.html#9335">LINE_DRAW</a></td>
+<td class="comment-11" rowspan="1">Just draw the line from X0, Y0 to X0+X, Y0+Y.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="9153"></span>
+<div class="comments">
+<div class="paragraph">
+ii. Just calls <a href="9341.html">CD_PRMS1</a>. This subroutine saves in the <span class="register">B</span> register the number of shorter arcs required for the complete arc, viz. A=4*INT (G'*SQR Z/8)+4 (where G'=ABS G), or 252 if this expression exceeds 252 (as can happen with a large chord and a small angle). So A is a multiple of 4 from 4 to 252. The subroutine also stores in mem-0 to mem-4 the quantities G/A, SIN (G/2*A), 0, COS (G/A), SIN (G/A).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">DR_PRMS</td>
+<td class="address-2"><span id="9153"></span>09153</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="9341.html">CD_PRMS1</a></td>
+<td class="comment-11" rowspan="1">The subroutine is called.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="9156"></span>
+<div class="comments">
+<div class="paragraph">
+iii. Sets up the rest of the parameters as follow. The stack will hold these 4 items, reading up to the top: X0+X and Y0+Y as end of last arc; then X0 and Y0 as beginning of first arc. Mem-0 will hold X0 and mem-5 Y0. Mem-1 and mem-2 will hold the initial displacements for the first arc, U and V; and mem-3 and mem-4 will hold COS (G/A) and SIN (G/A) for use in the arc-drawing loop.
+</div>
+<div class="paragraph">
+The formulae for U and V can be explained as follows. Instead of stepping along the final chord, of length L, say, with displacements X and Y, we want to step along an initial chord (which may be longer) of length L*W, where W=SIN (G/2*A)/SIN (G/2), with displacements X*W and Y*W, but turned through an angle (G/2-G/2*A), hence with true displacements:
+</div>
+<div class="paragraph">
+<ul class="">
+<li>U=Y*W*SIN (G/2-G/2*A)+X*W*COS (G/2-G/2*A)</li>
+<li>Y=Y*W*COS (G/2-G/2*A)-X*W*SIN (G/2-G/2*A)</li>
+</ul>
+</div>
+<div class="paragraph">
+These formulae can be checked from a diagram, using the normal expansion of COS (P-Q) and SIN (P-Q), where Q=G/2-G/2*A.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9156"></span>09156</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-11" rowspan="1">Save the arc-counter in <span class="register">B</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9157"></span>09157</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1">X, Y, SIN(G/2), Z</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9158"></span>09158</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: X, Y, SIN(G/2)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9159"></span>09159</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 225</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_1</a>: X, Y, SIN(G/2), SIN(G/2*A)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9160"></span>09160</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: X, Y, SIN(G/2*A), SIN(G/2)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9161"></span>09161</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 5</td>
+<td class="comment-11" rowspan="1"><a href="12719.html">division</a>: X, Y, SIN(G/2*A)/SIN(G/2)=W</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9162"></span>09162</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 193</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_1</a>: (W is copied to mem-1).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9163"></span>09163</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: X, Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9164"></span>09164</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: Y, X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9165"></span>09165</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: Y, X, X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9166"></span>09166</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 225</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_1</a>: Y, X, X, W</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9167"></span>09167</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: Y, X, X*W</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9168"></span>09168</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 194</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_2</a>: (X*W is copied to mem-2).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9169"></span>09169</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: Y, X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9170"></span>09170</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: X, Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9171"></span>09171</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: X, Y, Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9172"></span>09172</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 225</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_1</a>: X, Y, Y, W</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9173"></span>09173</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: X, Y, Y*W</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9174"></span>09174</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 226</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_2</a>: X, Y, Y*W, X*W</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9175"></span>09175</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 229</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_5</a>: X, Y, Y*W, X*W,G</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9176"></span>09176</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 224</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_0</a>: X, Y, Y*W, X*W, G, G/A</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9177"></span>09177</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: X, Y, Y*W, X*W, G-G/A</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9178"></span>09178</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 162</td>
+<td class="comment-11" rowspan="1"><a href="13339.html">stk_half</a>: X, Y, Y*W, X*W, G-G/A, 1/2</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9179"></span>09179</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: X, Y, Y*W, X*W, G/2-G/2*A=F</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9180"></span>09180</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: X, Y, Y*W, X*W, F, F</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9181"></span>09181</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 31</td>
+<td class="comment-11" rowspan="1"><a href="14261.html">sin</a>: X, Y, Y*W, X*W, F, SIN F</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9182"></span>09182</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 197</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_5</a>: (SIN F is copied to mem-5).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9183"></span>09183</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: X, Y, Y*W, X*W,F</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9184"></span>09184</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 32</td>
+<td class="comment-11" rowspan="1"><a href="14250.html">cos</a>: X, Y, Y*W, X*W, COS F</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9185"></span>09185</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 192</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_0</a>: (COS F is copied to mem-0).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9186"></span>09186</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: X, Y, Y*W, X*W</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9187"></span>09187</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 194</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_2</a>: (X*W is copied to mem-2).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9188"></span>09188</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: X, Y, Y*W</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9189"></span>09189</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 193</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_1</a>: (Y*W is copied to mem-1).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9190"></span>09190</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 229</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_5</a>: X, Y, Y*W, SIN F</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9191"></span>09191</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: X, Y, Y*W*SIN F</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9192"></span>09192</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 224</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_0</a>: X, Y, Y*W*SIN F, X*W</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9193"></span>09193</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 226</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_2</a>: X, Y, Y*W*SIN F, X*W, COS F</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9194"></span>09194</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: X, Y, Y*W*SIN F, X*W*COS F</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9195"></span>09195</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 15</td>
+<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: X, Y, Y*W*SIN F+X*W*COS F=U</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9196"></span>09196</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 225</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_1</a>: X, Y, U, Y*W</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9197"></span>09197</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: X, Y, Y*W, U</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9198"></span>09198</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 193</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_1</a>: (U is copied to mem-1)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9199"></span>09199</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: X, Y, Y*W</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9200"></span>09200</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 224</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_0</a>: X, Y, Y*W, COS F</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9201"></span>09201</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: X, Y, Y*W*COS F</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9202"></span>09202</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 226</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_2</a>: X, Y, Y*W*COS F, X*W</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9203"></span>09203</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 229</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_5</a>: X, Y, Y*W*COS F, X*W, SIN F</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9204"></span>09204</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: X, Y, Y*W*COS F, X*W*SIN F</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9205"></span>09205</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: X, Y, Y*W*COS F-X*W*SIN F=V</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9206"></span>09206</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 194</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_2</a>: (V is copied to mem-2).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9207"></span>09207</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 42</td>
+<td class="comment-11" rowspan="1"><a href="13418.html">abs</a>: X, Y, V' (V'=ABS V)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9208"></span>09208</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 225</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_1</a>: X, Y, V', U</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9209"></span>09209</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 42</td>
+<td class="comment-11" rowspan="1"><a href="13418.html">abs</a>: X, Y, V', U' (U'=ABS U)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9210"></span>09210</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 15</td>
+<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: X, Y, U'+V'</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9211"></span>09211</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: X, Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9212"></span>09212</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: (<span class="register">DE</span> now points to U'+V').</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9213"></span>09213</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(DE)</td>
+<td class="comment-11" rowspan="1">Get exponent of U'+V'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9214"></span>09214</td>
+<td class="bytes-0"></td>
+<td class="instruction">CP 129</td>
+<td class="comment-11" rowspan="3">If U'+V' is less than 1, just tidy the stack and draw the line from X0, Y0 to X0+X, Y0+Y.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9216"></span>09216</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP BC</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9217"></span>09217</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP C,<a href="9090.html#9335">LINE_DRAW</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9220"></span>09220</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-11" rowspan="2">Otherwise, continue with the parameters: X, Y, on the stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9221"></span>09221</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9222"></span>09222</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: Y, X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9223"></span>09223</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9224"></span>09224</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23677)</td>
+<td class="comment-11" rowspan="2">Get X0 from <a href="23677.html">COORDS</a> into <span class="register">A</span> and so on to the stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9227"></span>09227</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="11560.html">STACK_A</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9230"></span>09230</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1">Y, X, X0</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9231"></span>09231</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 192</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_0</a>: (X0 is copied to mem-0).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9232"></span>09232</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 15</td>
+<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: Y, X0+X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9233"></span>09233</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: X0+X, Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9234"></span>09234</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9235"></span>09235</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23678)</td>
+<td class="comment-11" rowspan="2">Get Y0 from <a href="23677.html">COORDS</a> into <span class="register">A</span> and so on to the stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9238"></span>09238</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="11560.html">STACK_A</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9241"></span>09241</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1">X0+X, Y, Y0</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9242"></span>09242</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 197</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_5</a>: (Y0 is copied to mem-5).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9243"></span>09243</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 15</td>
+<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: X0+X, Y0+Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9244"></span>09244</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 224</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_0</a>: X0+X, Y0+Y, X0</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9245"></span>09245</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 229</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_5</a>: X0+X, Y0+Y, X0, Y0</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9246"></span>09246</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9247"></span>09247</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP BC</td>
+<td class="comment-11" rowspan="1">Restore the arc-counter in <span class="register">B</span>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="9248"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="8992.html">CIRCLE</a>.
+</div>
+<div class="paragraph">
+iv. The arc-drawing loop. This is entered at <a href="9090.html#9273">ARC_START</a> with the co-ordinates of the starting point on top of the stack, and the initial displacements for the first arc in mem-1 and mem-2. It uses simple trigonometry to ensure that all subsequent arcs will be drawn to points that lie on the same circle as the first two, subtending the same angle at the centre. It can be shown that if 2 points X1, Y1 and X2, Y2 lie on a circle and subtend an angle N at the centre, which is also the origin of co-ordinates, then X2=X1*COS N-Y1*SIN N, and Y2=X1*SIN N+Y1*COS N. But because the origin is here at the increments, say Un=Xn+1-Xn and Vn=Yn+1-Yn, thus achieving the desired result. The stack is shown below on the (n+1)th pass through the loop, as Xn and Yn are incremented by Un and Vn, after these are obtained from Un-1 and Vn-1. The 4 values on the top of the stack at <a href="9090.html#9253">ARC_LOOP</a> are, in DRAW, reading upwards, X0+X, Y0+Y, Xn and Yn but to save space these are not shown until <a href="9090.html#9273">ARC_START</a>. For the initial values in CIRCLE, see the end of CIRCLE, above. In CIRCLE too, the angle G must be taken to be 2&#960;.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">DRW_STEPS</td>
+<td class="address-2"><span id="9248"></span>09248</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC B</td>
+<td class="comment-11" rowspan="1"><span class="register">B</span> counts the passes through the loop.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9249"></span>09249</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="9090.html#9311">ARC_END</a></td>
+<td class="comment-11" rowspan="1">Jump when <span class="register">B</span> has reached zero.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9251"></span>09251</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="9090.html#9273">ARC_START</a></td>
+<td class="comment-11" rowspan="1">Jump into the loop to start.</td>
+</tr>
+<tr>
+<td class="asm-label-1">ARC_LOOP</td>
+<td class="address-2"><span id="9253"></span>09253</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1">(See text above for the stack).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9254"></span>09254</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 225</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_1</a>: Un-1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9255"></span>09255</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: Un-1, Un-1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9256"></span>09256</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 227</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_3</a>: Un-1, Un-1, COS(G/A)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9257"></span>09257</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: Un-1, Un-1*COS(G/A)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9258"></span>09258</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 226</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_2</a>: Un-1, Un-1*COS(G/A), Vn-1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9259"></span>09259</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 228</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_4</a>: Un-1, Un-1*COS(G/A), Vn-1, SIN(G/A)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9260"></span>09260</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: Un-1, Un-1*COS(G/A), Vn-1*SIN(G/A)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9261"></span>09261</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: Un-1, Un-1*COS(G/A)-Vn-1*SIN(G/A)=Un</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9262"></span>09262</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 193</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_1</a>: (Un is copied to mem-1).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9263"></span>09263</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: Un-1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9264"></span>09264</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 228</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_4</a>: Un-1, SIN(G/A)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9265"></span>09265</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: Un-1*SIN(G/A)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9266"></span>09266</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 226</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_2</a>: Un-1*SIN(G/A), Vn-1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9267"></span>09267</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 227</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_3</a>: Un-1*SIN(G/A), Vn-1, COS(G/A)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9268"></span>09268</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: Un-1*SIN(G/A), Vn-1*COS(G/A)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9269"></span>09269</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 15</td>
+<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: Un-1*SIN(G/A)+Vn-1*COS(G/A)=Vn</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9270"></span>09270</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 194</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_2</a>: (Vn is copied to mem-2).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9271"></span>09271</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: (As noted in the text, the stack in fact holds X0+X, Y0+Y, Xn and Yn).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9272"></span>09272</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1">ARC_START</td>
+<td class="address-2"><span id="9273"></span>09273</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-11" rowspan="1">Save the arc-counter.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9274"></span>09274</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1">X0+X, Y0+y, Xn, Yn</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9275"></span>09275</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 192</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_0</a>: (Yn is copied to mem-0).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9276"></span>09276</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: X0+X, Y0+Y, Xn</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9277"></span>09277</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 225</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_1</a>: X0+X, Y0+Y, Xn, Un</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9278"></span>09278</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 15</td>
+<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: X0+X, Y0+Y, Xn+Un=Xn+1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9279"></span>09279</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: X0+X, Y0+Y, Xn+1, Xn+1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9280"></span>09280</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9281"></span>09281</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23677)</td>
+<td class="comment-11" rowspan="2">Next Xn', the approximate value of Xn reached by the line-drawing subroutine is copied from <a href="23677.html">COORDS</a> to <span class="register">A</span> and hence to the stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9284"></span>09284</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="11560.html">STACK_A</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9287"></span>09287</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1">X0+X, Y0+Y, Xn+1, Xn'</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9288"></span>09288</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: X0+X, Y0+Y, Xn+1, Xn+1, Xn'-Xn'=Un'</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9289"></span>09289</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 224</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_0</a>: X0+X, Y0+Y, Xn+1, Un', Yn</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9290"></span>09290</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 226</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_2</a>: X0+X, Y0+Y, Xn+1, Un', Yn, Vn</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9291"></span>09291</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 15</td>
+<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: X0+X, Y0+Y, Xn+1, Un', Yn+Vn=Yn+1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9292"></span>09292</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 192</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_0</a>: (Yn+1 is copied to mem-0).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9293"></span>09293</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: X0+X, Y0+Y, Xn+1, Yn+1, Un'</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9294"></span>09294</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 224</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_0</a>: X0+X, Y0+Y, Xn+1, Yn+1, Un', Yn+1</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9295"></span>09295</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9296"></span>09296</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23678)</td>
+<td class="comment-11" rowspan="2">Yn', approximate like Xn', is copied from <a href="23677.html">COORDS</a> to <span class="register">A</span> and hence to the stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9299"></span>09299</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="11560.html">STACK_A</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9302"></span>09302</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1">X0+X, Y0+Y, Xn+1, Yn+1, Un', Yn+1, Yn'</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9303"></span>09303</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: X0+X, Y0+Y, Xn+1, Yn+1, Un', Vn'</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9304"></span>09304</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9305"></span>09305</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="9399.html">DRAW_LINE</a></td>
+<td class="comment-11" rowspan="1">The next 'arc' is drawn.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9308"></span>09308</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP BC</td>
+<td class="comment-11" rowspan="1">The arc-counter is restored.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9309"></span>09309</td>
+<td class="bytes-0"></td>
+<td class="instruction">DJNZ <a href="9090.html#9253">ARC_LOOP</a></td>
+<td class="comment-11" rowspan="2">Jump if more arcs to draw.</td>
+</tr>
+<tr>
+<td class="asm-label-1">ARC_END</td>
+<td class="address-2"><span id="9311"></span>09311</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9312"></span>09312</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="2"><a href="13147.html#13217">delete</a>: The co-ordinates of the end of the last arc that was drawn are now deleted from the stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9313"></span>09313</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9314"></span>09314</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: Y0+Y, X0+X</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9315"></span>09315</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9316"></span>09316</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23677)</td>
+<td class="comment-11" rowspan="2">The X-co-ordinate of the end of the last arc that was drawn, say Xz', is copied from <a href="23677.html">COORDS</a> to the stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9319"></span>09319</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="11560.html">STACK_A</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9322"></span>09322</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9323"></span>09323</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: Y0+Y, X0+X-Xz'</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9324"></span>09324</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: X0+X-Xz', Y0+Y</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9325"></span>09325</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9326"></span>09326</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23678)</td>
+<td class="comment-11" rowspan="2">The Y-co-ordinate is obtained from <a href="23677.html">COORDS</a> and stacked.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9329"></span>09329</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="11560.html">STACK_A</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9332"></span>09332</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-11" rowspan="1">X0+X-Xz', Y0+Y, Yz'</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9333"></span>09333</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: X0+X-Xz', Y0+Y-Yz'</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9334"></span>09334</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1">LINE_DRAW</td>
+<td class="address-2"><span id="9335"></span>09335</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="9399.html">DRAW_LINE</a></td>
+<td class="comment-11" rowspan="1">The final arc is drawn to reach X0+X, Y0+Y (or close the circle).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="9338"></span>09338</td>
+<td class="bytes-0"></td>
+<td class="instruction">JP <a href="3405.html">TEMPS</a></td>
+<td class="comment-11" rowspan="1">Exit, setting temporary colours.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="8992.html">08992</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#9090">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="9341.html">09341</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/2382.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

@@ -23,7 +23,7 @@
 <div class="description">1E94: THE 'FIND INTEGERS' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="03F8.html">BEEP</a>, <a href="171E.html">STR_DATA</a>, <a href="2070.html">STR_ALTER</a>, <a href="21E1.html">CO_TEMP_1</a>, <a href="2294.html">BORDER</a>, <a href="2320.html">CIRCLE</a> and <a href="3645.html">read_in</a>.
@@ -49,17 +49,19 @@ The 'last value' on the calculator stack is fetched and compressed into a single
 <tr>
 <td class="asm-label-1">FIND_INT1</td>
 <td class="address-2"><span id="1E94"></span>1E94</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2DD5.html">FP_TO_A</a></td>
 <td class="comment-11" rowspan="1">Fetch the 'last value'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1E97"></span>1E97</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="1E94.html#1E9C">FIND_I_1</a></td>
 <td class="comment-11" rowspan="1">Jump forward.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1E99"></span>
 <div class="comments">
 <div class="paragraph">
@@ -71,23 +73,26 @@ This entry point is used by the routines at <a href="03F8.html">BEEP</a>, <a hre
 <tr>
 <td class="asm-label-1">FIND_INT2</td>
 <td class="address-2"><span id="1E99"></span>1E99</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2DA2.html">FP_TO_BC</a></td>
 <td class="comment-11" rowspan="1">Fetch the 'last value'.</td>
 </tr>
 <tr>
 <td class="asm-label-1">FIND_I_1</td>
 <td class="address-2"><span id="1E9C"></span>1E9C</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="1E94.html#1E9F">REPORT_B_2</a></td>
 <td class="comment-11" rowspan="1">In both cases overflow is indicated by a set carry flag.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1E9E"></span>1E9E</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
 <td class="comment-11" rowspan="1">Return with all positive numbers that are in range.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1E9F"></span>
 <div class="comments">
 <div class="paragraph">
@@ -102,12 +107,14 @@ Report B - Integer out of range.
 <tr>
 <td class="asm-label-1">REPORT_B_2</td>
 <td class="address-2"><span id="1E9F"></span>1E9F</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
 <td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1EA0"></span>1EA0</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $0A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -120,10 +127,10 @@ Report B - Integer out of range.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/7828.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/7828.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

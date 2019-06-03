@@ -23,7 +23,7 @@
 <div class="description">1B28: THE STATEMENT LOOP</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="1BD1.html">NEXT_LINE</a> and <a href="1BF4.html">STMT_NEXT</a>.
@@ -49,11 +49,12 @@ Each statement is considered in turn until the end of the line is reached.
 <tr>
 <td class="asm-label-1">STMT_LOOP</td>
 <td class="address-2"><span id="1B28"></span>1B28</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
 <td class="comment-11" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a> along the line.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1B29"></span>
 <div class="comments">
 <div class="paragraph">
@@ -65,59 +66,68 @@ This entry point is used by the routines at <a href="1B17.html">LINE_SCAN</a> an
 <tr>
 <td class="asm-label-1">STMT_L_1</td>
 <td class="address-2"><span id="1B29"></span>1B29</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="16B0.html#16BF">SET_WORK</a></td>
 <td class="comment-11" rowspan="1">The work space is cleared.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B2C"></span>1B2C</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC (IY+$0D)</td>
 <td class="comment-11" rowspan="1">Increase <a href="5C47.html">SUBPPC</a> on each passage around the loop.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B2F"></span>1B2F</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP M,<a href="1C79.html#1C8A">REPORT_C</a></td>
 <td class="comment-11" rowspan="1">But only '127' statements are allowed in a single line.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B32"></span>1B32</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
 <td class="comment-11" rowspan="1">Fetch a character.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B33"></span>1B33</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$00</td>
 <td class="comment-11" rowspan="1">Clear the <span class="register">B</span> register for later.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B35"></span>1B35</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $0D</td>
 <td class="comment-11" rowspan="1">Is the character a 'carriage return'?</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B37"></span>1B37</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1BB3.html">LINE_END</a></td>
 <td class="comment-11" rowspan="1">Jump if it is.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B39"></span>1B39</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP ":"</td>
 <td class="comment-11" rowspan="2">Go around the loop again if it is a ':'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B3B"></span>1B3B</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1B28.html#1B28">STMT_LOOP</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1B3D"></span>
 <div class="comments">
 <div class="paragraph">
@@ -129,83 +139,96 @@ A statement has been identified so, first, its initial command is considered.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B3D"></span>1B3D</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$1B76</td>
 <td class="comment-11" rowspan="2">Pre-load the machine stack with the return address <a href="1B76.html">STMT_RET</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B40"></span>1B40</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B41"></span>1B41</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
 <td class="comment-11" rowspan="3">Save the command temporarily in the <span class="register">C</span> register whilst <a href="5C5D.html">CH-ADD</a> is advanced again.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B42"></span>1B42</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B43"></span>1B43</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B44"></span>1B44</td>
+<td class="bytes-0"></td>
 <td class="instruction">SUB $CE</td>
 <td class="comment-11" rowspan="1">Reduce the command's code by +CE, giving the range +00 to +31 for the fifty commands.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B46"></span>1B46</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP C,<a href="1C79.html#1C8A">REPORT_C</a></td>
 <td class="comment-11" rowspan="1">Give the appropriate error if not a command code.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B49"></span>1B49</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
 <td class="comment-11" rowspan="1">Move the command code to the <span class="register">BC</span> register pair (<span class="register">B</span> holds +00).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B4A"></span>1B4A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$1A48</td>
 <td class="comment-11" rowspan="1">The base address of the <a href="1A48.html">syntax offset table</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B4D"></span>1B4D</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-11" rowspan="3">The required offset is passed to the <span class="register">C</span> register and used to compute the base address for the command's entries in the <a href="1A48.html#1A7A">parameter table</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B4E"></span>1B4E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,(HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B4F"></span>1B4F</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B50"></span>1B50</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="1B28.html#1B55">GET_PARAM</a></td>
 <td class="comment-11" rowspan="1">Jump forward into the scanning loop with this address.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1B52"></span>
 <div class="comments">
 <div class="paragraph">
@@ -217,108 +240,126 @@ Each of the command class routines applicable to the present command is executed
 <tr>
 <td class="asm-label-1">SCAN_LOOP</td>
 <td class="address-1"><span id="1B52"></span>1B52</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C74)</td>
 <td class="comment-11" rowspan="1">The temporary pointer to the entries in the <a href="1A48.html#1A7A">parameter table</a> (<a href="5C74.html">T-ADDR</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1">GET_PARAM</td>
 <td class="address-2"><span id="1B55"></span>1B55</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-11" rowspan="1">Fetch each entry in turn.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B56"></span>1B56</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="2">Update the pointer to the entries (<a href="5C74.html">T-ADDR</a>) for the next pass.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B57"></span>1B57</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C74),HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B5A"></span>1B5A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD BC,$1B52</td>
 <td class="comment-11" rowspan="2">Pre-load the machine stack with the return address <a href="1B28.html#1B52">SCAN_LOOP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B5D"></span>1B5D</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B5E"></span>1B5E</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
 <td class="comment-11" rowspan="1">Copy the entry to the <span class="register">C</span> register for later.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B5F"></span>1B5F</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $20</td>
 <td class="comment-11" rowspan="2">Jump forward if the entry is a 'separator'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B61"></span>1B61</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="1B6F.html">SEPARATOR</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B63"></span>1B63</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$1C01</td>
 <td class="comment-11" rowspan="1">The base address of the <a href="1C01.html">command class table</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B66"></span>1B66</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$00</td>
 <td class="comment-11" rowspan="2">Clear the <span class="register">B</span> register and index into the table.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B68"></span>1B68</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B69"></span>1B69</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,(HL)</td>
 <td class="comment-11" rowspan="2">Fetch the offset and compute the starting address of the required command class routine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B6A"></span>1B6A</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B6B"></span>1B6B</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="1">Push the address on to the machine stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B6C"></span>1B6C</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
 <td class="comment-11" rowspan="3">Before making an indirect jump to the command class routine pass the command code to the <span class="register">A</span> register and set the <span class="register">B</span> register to +FF.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B6D"></span>1B6D</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1B6E"></span>1B6E</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -331,10 +372,10 @@ Each of the command class routines applicable to the present command is executed
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/6952.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/6952.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

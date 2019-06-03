@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 02621</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="2595.html">02595</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#2621">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="2639.html">02639</a></span></td>
+</tr>
+</table>
+<div class="description">02621: THE 'CURSOR RIGHT' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is derived from an offset found in the <a href="2577.html">control character table</a>.
+</div>
+<div class="paragraph">
+This subroutine performs an operation identical to the BASIC statement 'PRINT OVER 1;CHR$ 32;'.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">Current line number</td>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">Current column number</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Display file address or printer buffer address</td>
+</tr>
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">PO_RIGHT</td>
+<td class="address-2"><span id="2621"></span>02621</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(23697)</td>
+<td class="comment-11" rowspan="2">Fetch <a href="23697.html">P-FLAG</a> and save it on the machine stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2624"></span>02624</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2625"></span>02625</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IY+87),1</td>
+<td class="comment-11" rowspan="1">Set <a href="23697.html">P-FLAG</a> to OVER 1.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2629"></span>02629</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A," "</td>
+<td class="comment-11" rowspan="1">A 'space'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2631"></span>02631</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="2852.html#2917">PO_CHAR</a></td>
+<td class="comment-11" rowspan="1">Print the character.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2634"></span>02634</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP AF</td>
+<td class="comment-11" rowspan="2">Fetch the old value of <a href="23697.html">P-FLAG</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2635"></span>02635</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23697),A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="2638"></span>02638</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished. Note: the programmer has forgotten to exit via <a href="2780.html">PO_STORE</a>, which is a <a href="../reference/bugs.html#noStepForward">bug</a>.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="2595.html">02595</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#2621">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="2639.html">02639</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/0A3D.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

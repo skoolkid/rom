@@ -23,7 +23,7 @@
 <div class="description">33F7: THE 'SKIP CONSTANTS' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routine at <a href="341B.html">stk_con</a>.
@@ -65,60 +65,70 @@ The subroutine returns with the <span class="register">HL'</span> register pair 
 <tr>
 <td class="asm-label-1">SKIP_CONS</td>
 <td class="address-2"><span id="33F7"></span>33F7</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
 <td class="comment-11" rowspan="2">The subroutine returns if the parameter is zero, or when the requested constant has been reached.</td>
 </tr>
 <tr>
 <td class="asm-label-1">SKIP_NEXT</td>
 <td class="address-2"><span id="33F8"></span>33F8</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33F9"></span>33F9</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
 <td class="comment-11" rowspan="1">Save the parameter.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33FA"></span>33FA</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-11" rowspan="1">Save the result pointer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33FB"></span>33FB</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD DE,$0000</td>
 <td class="comment-11" rowspan="1">The dummy address.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="33FE"></span>33FE</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="33C6.html#33C8">STK_CONST</a></td>
 <td class="comment-11" rowspan="1">Perform imaginary stacking of an expanded constant.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3401"></span>3401</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
 <td class="comment-11" rowspan="1">Restore the result pointer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3402"></span>3402</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
 <td class="comment-11" rowspan="1">Restore the parameter.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3403"></span>3403</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC A</td>
 <td class="comment-11" rowspan="1">Count the loops.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3404"></span>3404</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="33F7.html#33F8">SKIP_NEXT</a></td>
 <td class="comment-11" rowspan="1">Jump back to consider the value of the counter.</td>
 </tr>
@@ -131,10 +141,10 @@ The subroutine returns with the <span class="register">HL'</span> register pair 
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/13303.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/13303.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 11647</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="11599.html">11599</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#11647">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="11660.html">11660</a></span></td>
+</tr>
+</table>
+<div class="description">11647: THE 'INT-FETCH' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="11682.html">FP_TO_BC</a>, <a href="11747.html">PRINT_FP</a>, <a href="12490.html">multiply</a>, <a href="12951.html">re_stack</a> and <a href="13422.html">negate</a>.
+</div>
+<div class="paragraph">
+This subroutine collects in <span class="register">DE</span> a small integer n (-65535&lt;=n&lt;=65535) from the location addressed by <span class="register">HL</span>, i.e. n is normally the first (or second) number at the top of the calculator stack; but <span class="register">HL</span> can also access (by exchange with <span class="register">DE</span>) a number which has been deleted from the stack.
+</div>
+<div class="paragraph">
+The subroutine does not itself delete the number from the stack or from memory; it returns <span class="register">HL</span> pointing to the fourth byte of the number in its original position.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the first byte of the value on the calculator stack</td>
+</tr>
+</table>
+<table class="output-1">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">Sign byte</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">The value</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the fourth byte of the value</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">INT_FETCH</td>
+<td class="address-2"><span id="11647"></span>11647</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="1">Point to the sign byte of the number.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11648"></span>11648</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,(HL)</td>
+<td class="comment-11" rowspan="1">Copy the sign byte to <span class="register">C</span>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="11649"></span>
+<div class="comments">
+<div class="paragraph">
+The following mechanism will two's complement the number if it is negative (<span class="register">C</span> is 255) but leave it unaltered if it is positive (<span class="register">C</span> is 0).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11649"></span>11649</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="1">Point to the less significant byte.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11650"></span>11650</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-11" rowspan="1">Collect the byte in <span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11651"></span>11651</td>
+<td class="bytes-0"></td>
+<td class="instruction">XOR C</td>
+<td class="comment-11" rowspan="1">One's complement it if negative.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11652"></span>11652</td>
+<td class="bytes-0"></td>
+<td class="instruction">SUB C</td>
+<td class="comment-11" rowspan="1">This adds 1 for negative numbers; it sets the carry unless the byte was 0.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11653"></span>11653</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD E,A</td>
+<td class="comment-11" rowspan="1">Less significant byte to <span class="register">E</span> now.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11654"></span>11654</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-11" rowspan="1">Point to the more significant byte.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11655"></span>11655</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-11" rowspan="1">Collect it in <span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11656"></span>11656</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADC A,C</td>
+<td class="comment-11" rowspan="2">Finish two's complementing in the case of a negative number; note that the carry is always left reset.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11657"></span>11657</td>
+<td class="bytes-0"></td>
+<td class="instruction">XOR C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11658"></span>11658</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD D,A</td>
+<td class="comment-11" rowspan="1">More significant byte to <span class="register">D</span> now.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="11659"></span>11659</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="11599.html">11599</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#11647">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="11660.html">11660</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/2D7F.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

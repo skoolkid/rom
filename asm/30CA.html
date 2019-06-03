@@ -23,7 +23,7 @@
 <div class="description">30CA: THE 'MULTIPLICATION' OPERATION (offset +04)</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal +04 by the routines at <a href="03F8.html">BEEP</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="25F8.html">S_RND</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2D3B.html">INT_TO_FP</a>, <a href="2D4F.html">e_to_fp</a>, <a href="2DC1.html">LOG_2_A</a>, <a href="3449.html">series</a>, <a href="36A0.html">n_mod_m</a>, <a href="36C4.html">exp</a>, <a href="3713.html">ln</a>, <a href="3783.html">get_argt</a>, <a href="37B5.html">sin</a>, <a href="37E2.html">atn</a>, <a href="3833.html">asn</a> and <a href="3851.html">to_power</a>. It is also called indirectly via <a href="33A2.html">fp_calc_2</a>.
@@ -56,173 +56,201 @@ This subroutine first tests whether the two numbers to be multiplied are 'small 
 <tr>
 <td class="asm-label-1">multiply</td>
 <td class="address-2"><span id="30CA"></span>30CA</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-11" rowspan="2">Test whether the first bytes of both numbers are zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30CB"></span>30CB</td>
+<td class="bytes-0"></td>
 <td class="instruction">OR (HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30CC"></span>30CC</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="30CA.html#30F0">MULT_LONG</a></td>
 <td class="comment-11" rowspan="1">If not, jump for 'long' multiplication.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30CE"></span>30CE</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-11" rowspan="1">Save the pointers to the second number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30CF"></span>30CF</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="1">And to the first number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30D0"></span>30D0</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-11" rowspan="1">And to the second number yet again.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30D1"></span>30D1</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2D7F.html">INT_FETCH</a></td>
 <td class="comment-11" rowspan="1">Fetch sign in <span class="register">C</span>, number in <span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30D4"></span>30D4</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Number to <span class="register">HL</span> now.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30D5"></span>30D5</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX (SP),HL</td>
 <td class="comment-11" rowspan="1">Number to stack, second pointer to <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30D6"></span>30D6</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,C</td>
 <td class="comment-11" rowspan="1">Save first sign in <span class="register">B</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30D7"></span>30D7</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2D7F.html">INT_FETCH</a></td>
 <td class="comment-11" rowspan="1">Fetch second sign in <span class="register">C</span>, number in <span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30DA"></span>30DA</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
 <td class="comment-11" rowspan="2">Form sign of result in <span class="register">A</span>: like signs give plus (+00), unlike give minus (+FF).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30DB"></span>30DB</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30DC"></span>30DC</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
 <td class="comment-11" rowspan="1">Store sign of result in <span class="register">C</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30DD"></span>30DD</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-11" rowspan="1">Restore the first number to <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30DE"></span>30DE</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="30A9.html">HL_HLxDE</a></td>
 <td class="comment-11" rowspan="1">Perform the actual multiplication.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30E1"></span>30E1</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Store the result in <span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30E2"></span>30E2</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-11" rowspan="1">Restore the pointer to the first number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30E3"></span>30E3</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="30CA.html#30EF">MULT_OFLW</a></td>
 <td class="comment-11" rowspan="1">Jump on overflow to 'full' multiplication.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30E5"></span>30E5</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
 <td class="comment-11" rowspan="4">These 5 bytes ensure that 00 FF 00 00 00 is replaced by zero; that they should not be needed if this number were excluded from the system is noted at <a href="3014.html#303C">ADDN_OFLW</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30E6"></span>30E6</td>
+<td class="bytes-0"></td>
 <td class="instruction">OR E</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30E7"></span>30E7</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="30CA.html#30EA">MULT_RSLT</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30E9"></span>30E9</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">MULT_RSLT</td>
 <td class="address-2"><span id="30EA"></span>30EA</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2D8E.html">INT_STORE</a></td>
 <td class="comment-11" rowspan="1">Now store the result on the stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30ED"></span>30ED</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
 <td class="comment-11" rowspan="1">Restore <a href="5C65.html">STKEND</a> to <span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30EE"></span>30EE</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 <tr>
 <td class="asm-label-1">MULT_OFLW</td>
 <td class="address-2"><span id="30EF"></span>30EF</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
 <td class="comment-11" rowspan="1">Restore the pointer to the second number.</td>
 </tr>
 <tr>
 <td class="asm-label-1">MULT_LONG</td>
 <td class="address-2"><span id="30F0"></span>30F0</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="3293.html">RE_ST_TWO</a></td>
 <td class="comment-11" rowspan="1">Re-stack both numbers in full five byte floating-point form.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="30F3"></span>
 <div class="comments">
 <div class="paragraph">
@@ -234,137 +262,159 @@ The full multiplication subroutine prepares the first number for multiplication 
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30F3"></span>30F3</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
 <td class="comment-11" rowspan="1"><span class="register">A</span> is set to zero so that the sign of the first number will go into <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30F4"></span>30F4</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="30C0.html">PREP_M_D</a></td>
 <td class="comment-11" rowspan="2">Prepare the first number, and return if zero. (Result already zero.)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30F7"></span>30F7</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30F8"></span>30F8</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="1">Exchange the registers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30F9"></span>30F9</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="1">Save the next literal address.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30FA"></span>30FA</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="1">Exchange the registers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30FB"></span>30FB</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-11" rowspan="1">Save the pointer to the multiplicand.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30FC"></span>30FC</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Exchange the pointers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="30FD"></span>30FD</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="30C0.html">PREP_M_D</a></td>
 <td class="comment-11" rowspan="1">Prepare the 2nd number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3100"></span>3100</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Exchange the pointers again.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3101"></span>3101</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="30CA.html#315D">ZERO_RSLT</a></td>
 <td class="comment-11" rowspan="1">Jump forward if 2nd number is zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3103"></span>3103</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="1">Save the pointer to the result.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3104"></span>3104</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2FBA.html">FETCH_TWO</a></td>
 <td class="comment-11" rowspan="1">Get the two numbers from the stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3107"></span>3107</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
 <td class="comment-11" rowspan="1">M5 to <span class="register">A</span> (see <a href="2FBA.html">FETCH_TWO</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3108"></span>3108</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
 <td class="comment-11" rowspan="1">Prepare for a subtraction.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3109"></span>3109</td>
+<td class="bytes-0"></td>
 <td class="instruction">SBC HL,HL</td>
 <td class="comment-11" rowspan="1">Initialise <span class="register">HL</span> to zero for the result.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="310B"></span>310B</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="1">Exchange the registers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="310C"></span>310C</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="1">Save M1 and N1 (see <a href="2FBA.html">FETCH_TWO</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="310D"></span>310D</td>
+<td class="bytes-0"></td>
 <td class="instruction">SBC HL,HL</td>
 <td class="comment-11" rowspan="1">Also initialise <span class="register">HL'</span> for the result.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="310F"></span>310F</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="1">Exchange the registers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3110"></span>3110</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$21</td>
 <td class="comment-11" rowspan="1"><span class="register">B</span> counts thirty three shifts.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3112"></span>3112</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="30CA.html#3125">STRT_MLT</a></td>
 <td class="comment-11" rowspan="1">Jump forward into the loop.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="3114"></span>
 <div class="comments">
 <div class="paragraph">
@@ -376,137 +426,159 @@ Now enter the multiplier loop.
 <tr>
 <td class="asm-label-1">MLT_LOOP</td>
 <td class="address-2"><span id="3114"></span>3114</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="30CA.html#311B">NO_ADD</a></td>
 <td class="comment-11" rowspan="1">Jump forward to <a href="30CA.html#311B">NO_ADD</a> if no carry, i.e. the multiplier bit was reset.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3116"></span>3116</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-11" rowspan="4">Else, add the multiplicand in <span class="register">D'E'DE</span> (see <a href="2FBA.html">FETCH_TWO</a>) into the result being built up in <span class="register">H'L'HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3117"></span>3117</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3118"></span>3118</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADC HL,DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="311A"></span>311A</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">NO_ADD</td>
 <td class="address-2"><span id="311B"></span>311B</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="6">Whether multiplicand was added or not, shift result right in <span class="register">H'L'HL</span>; the shift is done by rotating each byte with carry, so that any bit that drops into the carry is picked up by the next byte, and the shift continued into <span class="register">B'C'CA</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="311C"></span>311C</td>
+<td class="bytes-0"></td>
 <td class="instruction">RR H</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="311E"></span>311E</td>
+<td class="bytes-0"></td>
 <td class="instruction">RR L</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3120"></span>3120</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3121"></span>3121</td>
+<td class="bytes-0"></td>
 <td class="instruction">RR H</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3123"></span>3123</td>
+<td class="bytes-0"></td>
 <td class="instruction">RR L</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">STRT_MLT</td>
 <td class="address-2"><span id="3125"></span>3125</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="6">Shift right the multiplier in <span class="register">B'C'CA</span> (see <a href="2FBA.html">FETCH_TWO</a> and above). A final bit dropping into the carry will trigger another add of the multiplicand to the result.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3126"></span>3126</td>
+<td class="bytes-0"></td>
 <td class="instruction">RR B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3128"></span>3128</td>
+<td class="bytes-0"></td>
 <td class="instruction">RR C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="312A"></span>312A</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="312B"></span>312B</td>
+<td class="bytes-0"></td>
 <td class="instruction">RR C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="312D"></span>312D</td>
+<td class="bytes-0"></td>
 <td class="instruction">RRA</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="312E"></span>312E</td>
+<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="30CA.html#3114">MLT_LOOP</a></td>
 <td class="comment-11" rowspan="1">Loop 33 times to get all the bits.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3130"></span>3130</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="4">Move the result from <span class="register">H'L'HL</span> to <span class="register">D'E'DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3131"></span>3131</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3132"></span>3132</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3133"></span>3133</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="3134"></span>
 <div class="comments">
 <div class="paragraph">
@@ -518,53 +590,61 @@ Now add the exponents together.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3134"></span>3134</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">Restore the exponents - M1 and N1.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3135"></span>3135</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-11" rowspan="1">Restore the pointer to the exponent byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3136"></span>3136</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
 <td class="comment-11" rowspan="2">Get the sum of the two exponent bytes in <span class="register">A</span>, and the correct carry.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3137"></span>3137</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD A,C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3138"></span>3138</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="30CA.html#313B">MAKE_EXPT</a></td>
 <td class="comment-11" rowspan="2">If the sum equals zero then clear the carry; else leave it unchanged.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="313A"></span>313A</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">MAKE_EXPT</td>
 <td class="address-2"><span id="313B"></span>313B</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC A</td>
 <td class="comment-11" rowspan="2">Prepare to increase the exponent by +80.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="313C"></span>313C</td>
+<td class="bytes-0"></td>
 <td class="instruction">CCF</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="313D"></span>
 <div class="comments">
 <div class="paragraph">
@@ -576,107 +656,124 @@ This entry point is used by the routine at <a href="31AF.html">division</a>.
 <tr>
 <td class="asm-label-1">DIVN_EXPT</td>
 <td class="address-2"><span id="313D"></span>313D</td>
+<td class="bytes-0"></td>
 <td class="instruction">RLA</td>
 <td class="comment-11" rowspan="3">These few bytes very cleverly make the correct exponent byte. Rotating left then right gets the exponent byte (true exponent plus +80) into <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="313E"></span>313E</td>
+<td class="bytes-0"></td>
 <td class="instruction">CCF</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="313F"></span>313F</td>
+<td class="bytes-0"></td>
 <td class="instruction">RRA</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3140"></span>3140</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP P,<a href="30CA.html#3146">OFLW1_CLR</a></td>
 <td class="comment-11" rowspan="1">If the sign flag is reset, no report of arithmetic overflow needed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3143"></span>3143</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="30CA.html#31AD">REPORT_6</a></td>
 <td class="comment-11" rowspan="1">Report the overflow if carry reset.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3145"></span>3145</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
 <td class="comment-11" rowspan="1">Clear the carry now.</td>
 </tr>
 <tr>
 <td class="asm-label-1">OFLW1_CLR</td>
 <td class="address-2"><span id="3146"></span>3146</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC A</td>
 <td class="comment-11" rowspan="3">The exponent byte is now complete; but if <span class="register">A</span> is zero a further check for overflow is needed.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3147"></span>3147</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="30CA.html#3151">OFLW2_CLR</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3149"></span>3149</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="30CA.html#3151">OFLW2_CLR</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="314B"></span>314B</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="4">If there is no carry set and the result is already in normal form (bit 7 of <span class="register">D'</span> set) then there is overflow to report; but if bit 7 of <span class="register">D'</span> is reset, the result in just in range, i.e. just under 2**127.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="314C"></span>314C</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 7,D</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="314E"></span>314E</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="314F"></span>314F</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="30CA.html#31AD">REPORT_6</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">OFLW2_CLR</td>
 <td class="address-2"><span id="3151"></span>3151</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-11" rowspan="1">Store the exponent byte, at last.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3152"></span>3152</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="3">Pass the fifth result byte to <span class="register">A</span> for the normalisation sequence, i.e. the overflow from <span class="register">L</span> into <span class="register">B'</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3153"></span>3153</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3154"></span>3154</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="3155"></span>
 <div class="comments">
 <div class="paragraph">
@@ -691,101 +788,117 @@ The remainder of the subroutine deals with normalisation and is common to all th
 <tr>
 <td class="asm-label-1">TEST_NORM</td>
 <td class="address-2"><span id="3155"></span>3155</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="30CA.html#316C">NORMALISE</a></td>
 <td class="comment-11" rowspan="1">If no carry then normalise now.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3157"></span>3157</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-11" rowspan="9">Else, deal with underflow (zero result) or near underflow (result 2**-128): return exponent to <span class="register">A</span>, test if <span class="register">A</span> is zero (case 2**-128) and if so produce 2**-128 if number is normal; otherwise produce zero. The exponent must then be set to zero (for zero) or 1 (for 2**-128).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3158"></span>3158</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">NEAR_ZERO</td>
 <td class="address-2"><span id="3159"></span>3159</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,$80</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="315B"></span>315B</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="30CA.html#315E">SKIP_ZERO</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">ZERO_RSLT</td>
 <td class="address-2"><span id="315D"></span>315D</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">SKIP_ZERO</td>
 <td class="address-2"><span id="315E"></span>315E</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="315F"></span>315F</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND D</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3160"></span>3160</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2FDD.html#2FFB">ZEROS_4_5</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3163"></span>3163</td>
+<td class="bytes-0"></td>
 <td class="instruction">RLCA</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3164"></span>3164</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-11" rowspan="1">Restore the exponent byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3165"></span>3165</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="30CA.html#3195">OFLOW_CLR</a></td>
 <td class="comment-11" rowspan="1">Jump if case 2**-128.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3167"></span>3167</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="3">Otherwise, put zero into second byte of result on the calculator stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3168"></span>3168</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3169"></span>3169</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="316A"></span>316A</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="30CA.html#3195">OFLOW_CLR</a></td>
 <td class="comment-11" rowspan="1">Jump forward to transfer the result.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="316C"></span>
 <div class="comments">
 <div class="paragraph">
@@ -797,101 +910,117 @@ The actual normalisation operation.
 <tr>
 <td class="asm-label-1">NORMALISE</td>
 <td class="address-2"><span id="316C"></span>316C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$20</td>
 <td class="comment-11" rowspan="12">Normalise the result by up to 32 shifts left of <span class="register">D'E'DE</span> (with <span class="register">A</span> adjoined) until bit 7 of <span class="register">D'</span> is set. <span class="register">A</span> holds zero after addition so no precision is gained or lost; <span class="register">A</span> holds the fifth byte from <span class="register">B'</span> after multiplication or division; but as only about 32 bits can be correct, no precision is lost. Note that <span class="register">A</span> is rotated circularly, with branch at carry...eventually a random process.</td>
 </tr>
 <tr>
 <td class="asm-label-1">SHIFT_ONE</td>
 <td class="address-2"><span id="316E"></span>316E</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="316F"></span>316F</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 7,D</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3171"></span>3171</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3172"></span>3172</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="30CA.html#3186">NORML_NOW</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3174"></span>3174</td>
+<td class="bytes-0"></td>
 <td class="instruction">RLCA</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3175"></span>3175</td>
+<td class="bytes-0"></td>
 <td class="instruction">RL E</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3177"></span>3177</td>
+<td class="bytes-0"></td>
 <td class="instruction">RL D</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3179"></span>3179</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="317A"></span>317A</td>
+<td class="bytes-0"></td>
 <td class="instruction">RL E</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="317C"></span>317C</td>
+<td class="bytes-0"></td>
 <td class="instruction">RL D</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="317E"></span>317E</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="317F"></span>317F</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC (HL)</td>
 <td class="comment-11" rowspan="1">The exponent is decremented on each shift.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3180"></span>3180</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="30CA.html#3159">NEAR_ZERO</a></td>
 <td class="comment-11" rowspan="1">If the exponent becomes zero, then numbers from 2**-129 are rounded up to 2**-128.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3182"></span>3182</td>
+<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="30CA.html#316E">SHIFT_ONE</a></td>
 <td class="comment-11" rowspan="1">Loop back, up to 32 times.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3184"></span>3184</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="30CA.html#315D">ZERO_RSLT</a></td>
 <td class="comment-11" rowspan="1">If bit 7 never became 1 then the whole result is to be zero.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="3186"></span>
 <div class="comments">
 <div class="paragraph">
@@ -903,59 +1032,68 @@ Finish the normalisation by considering the 'carry'.
 <tr>
 <td class="asm-label-1">NORML_NOW</td>
 <td class="address-2"><span id="3186"></span>3186</td>
+<td class="bytes-0"></td>
 <td class="instruction">RLA</td>
 <td class="comment-11" rowspan="4">After normalisation add back any final carry that went into <span class="register">A</span>. Jump forward if the carry does not ripple right back.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3187"></span>3187</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="30CA.html#3195">OFLOW_CLR</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3189"></span>3189</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="3004.html">ADD_BACK</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="318C"></span>318C</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="30CA.html#3195">OFLOW_CLR</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="318E"></span>318E</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="5">If it should ripple right back then set mantissa to 0.5 and increment the exponent. This action may lead to arithmetic overflow (final case).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="318F"></span>318F</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,$80</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3191"></span>3191</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3192"></span>3192</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC (HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3193"></span>3193</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="30CA.html#31AD">REPORT_6</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="3195"></span>
 <div class="comments">
 <div class="paragraph">
@@ -967,143 +1105,166 @@ The final part of the subroutine involves passing the result to the bytes reserv
 <tr>
 <td class="asm-label-1">OFLOW_CLR</td>
 <td class="address-2"><span id="3195"></span>3195</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="1">Save the result pointer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3196"></span>3196</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Point to the sign byte in the result.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3197"></span>3197</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="5">The result is moved from <span class="register">D'E'DE</span> to <span class="register">BCDE</span>, and then to <span class="register">ACDE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3198"></span>3198</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3199"></span>3199</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="319A"></span>319A</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="319B"></span>319B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="319C"></span>319C</td>
+<td class="bytes-0"></td>
 <td class="instruction">RLA</td>
 <td class="comment-11" rowspan="3">The sign bit is retrieved from its temporary store and transferred to its correct position of bit 7 of the first byte of the mantissa.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="319D"></span>319D</td>
+<td class="bytes-0"></td>
 <td class="instruction">RL (HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="319F"></span>319F</td>
+<td class="bytes-0"></td>
 <td class="instruction">RRA</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31A0"></span>31A0</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-11" rowspan="1">The first byte is stored.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31A1"></span>31A1</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Next.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31A2"></span>31A2</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),C</td>
 <td class="comment-11" rowspan="1">The second byte is stored.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31A3"></span>31A3</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Next.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31A4"></span>31A4</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),D</td>
 <td class="comment-11" rowspan="1">The third byte is stored.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31A5"></span>31A5</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Next.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31A6"></span>31A6</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),E</td>
 <td class="comment-11" rowspan="1">The fourth byte is stored.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31A7"></span>31A7</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-11" rowspan="1">Restore the pointer to the result.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31A8"></span>31A8</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
 <td class="comment-11" rowspan="1">Restore the pointer to second number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31A9"></span>31A9</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="1">Exchange the register.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31AA"></span>31AA</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-11" rowspan="1">Restore the next literal address.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31AB"></span>31AB</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="1">Exchange the registers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31AC"></span>31AC</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="31AD"></span>
 <div class="comments">
 <div class="paragraph">
@@ -1118,12 +1279,14 @@ Report 6 - Arithmetic overflow.
 <tr>
 <td class="asm-label-1">REPORT_6</td>
 <td class="address-2"><span id="31AD"></span>31AD</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
 <td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31AE"></span>31AE</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $05</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -1136,10 +1299,10 @@ Report 6 - Arithmetic overflow.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/12490.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/12490.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

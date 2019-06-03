@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 13418</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="13385.html">13385</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#13418">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="13422.html">13422</a></span></td>
+</tr>
+</table>
+<div class="description">13418: THE 'ABSOLUTE MAGNITUDE' FUNCTION (offset 42)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="13015.html">table of addresses</a>. It is called via the calculator literal 42 by the routines at <a href="8992.html">CIRCLE</a>, <a href="9090.html">DRAW</a>, <a href="9341.html">CD_PRMS1</a>, <a href="11747.html">PRINT_FP</a>, <a href="14211.html">get_argt</a> and <a href="14250.html">cos</a>. It is also called indirectly via <a href="13218.html">fp_calc_2</a>.
+</div>
+<div class="paragraph">
+This subroutine performs its unary operation by ensuring that the sign bit of a floating-point number is reset.
+</div>
+<div class="paragraph">
+'Small integers' have to be treated separately. Most of the work is shared with the 'unary minus' operation.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the first byte of the number</td>
+</tr>
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">abs</td>
+<td class="address-2"><span id="13418"></span>13418</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,255</td>
+<td class="comment-11" rowspan="1"><span class="register">B</span> is set to 255.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13420"></span>13420</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="13422.html#13428">NEG_TEST</a></td>
+<td class="comment-11" rowspan="1">The jump is made into 'unary minus'.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="13385.html">13385</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#13418">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="13422.html">13422</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/346A.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

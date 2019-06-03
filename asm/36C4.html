@@ -23,7 +23,7 @@
 <div class="description">36C4: THE 'EXPONENTIAL' FUNCTION (offset +26)</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routine at <a href="3851.html">to_power</a>.
@@ -65,11 +65,12 @@ The approximation to EXP X is found as follows:
 <tr>
 <td class="asm-label-1">exp</td>
 <td class="address-2"><span id="36C4"></span>36C4</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
 <td class="comment-11" rowspan="1">X</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="36C5"></span>
 <div class="comments">
 <div class="paragraph">
@@ -81,29 +82,33 @@ Perform step i.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36C5"></span>36C5</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $3D</td>
 <td class="comment-11" rowspan="1"><a href="3297.html">re_stack</a>: X (in full floating-point form)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36C6"></span>36C6</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $34</td>
 <td class="comment-11" rowspan="2"><a href="33C6.html">stk_data</a>: X, 1/LN 2</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36C7"></span>36C7</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $F1,$38,$AA,$3B,$29</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36CC"></span>36CC</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $04</td>
 <td class="comment-11" rowspan="1"><a href="30CA.html">multiply</a>: X/LN 2=Y</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="36CD"></span>
 <div class="comments">
 <div class="paragraph">
@@ -115,23 +120,26 @@ Perform step ii.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36CD"></span>36CD</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $31</td>
 <td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: Y, Y</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36CE"></span>36CE</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $27</td>
 <td class="comment-11" rowspan="1"><a href="36AF.html">int</a>: Y, INT Y=N</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36CF"></span>36CF</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $C3</td>
 <td class="comment-11" rowspan="1"><a href="342D.html">st_mem_3</a>: Y, N (mem-3 holds N)</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="36D0"></span>
 <div class="comments">
 <div class="paragraph">
@@ -143,11 +151,12 @@ Perform step iii.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36D0"></span>36D0</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $03</td>
 <td class="comment-11" rowspan="1"><a href="300F.html">subtract</a>: Y-N=W</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="36D1"></span>
 <div class="comments">
 <div class="paragraph">
@@ -159,29 +168,33 @@ Perform step iv.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36D1"></span>36D1</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $31</td>
 <td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: W, W</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36D2"></span>36D2</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $0F</td>
 <td class="comment-11" rowspan="1"><a href="3014.html">addition</a>: 2*W</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36D3"></span>36D3</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $A1</td>
 <td class="comment-11" rowspan="1"><a href="341B.html">stk_one</a>: 2*W, 1</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36D4"></span>36D4</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $03</td>
 <td class="comment-11" rowspan="1"><a href="300F.html">subtract</a>: 2*W-1=Z</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="36D5"></span>
 <div class="comments">
 <div class="paragraph">
@@ -193,59 +206,68 @@ Perform step v, passing to the <a href="3449.html">series generator</a> the para
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36D5"></span>36D5</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $88</td>
 <td class="comment-11" rowspan="1"><a href="3449.html">series_08</a>: Z</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36D6"></span>36D6</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $13,$36</td>
 <td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36D8"></span>36D8</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $58,$65,$66</td>
 <td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36DB"></span>36DB</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $9D,$78,$65,$40</td>
 <td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36DF"></span>36DF</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $A2,$60,$32,$C9</td>
 <td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36E3"></span>36E3</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $E7,$21,$F7,$AF,$24</td>
 <td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36E8"></span>36E8</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $EB,$2F,$B0,$B0,$14</td>
 <td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36ED"></span>36ED</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $EE,$7E,$BB,$94,$58</td>
 <td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36F2"></span>36F2</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $F1,$3A,$7E,$F8,$CF</td>
 <td class="comment-11" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="36F7"></span>
 <div class="comments">
 <div class="paragraph">
@@ -260,47 +282,54 @@ Perform step vi.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36F7"></span>36F7</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $E3</td>
 <td class="comment-11" rowspan="1"><a href="340F.html">get_mem_3</a>: 2**W, N</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36F8"></span>36F8</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $38</td>
 <td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36F9"></span>36F9</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2DD5.html">FP_TO_A</a></td>
 <td class="comment-11" rowspan="1">The absolute value of N mod 256 is put into the <span class="register">A</span> register.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36FC"></span>36FC</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="36C4.html#3705">N_NEGTV</a></td>
 <td class="comment-11" rowspan="1">Jump forward if N was negative.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="36FE"></span>36FE</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="36C4.html#3703">REPORT_6_2</a></td>
 <td class="comment-11" rowspan="1">Error if ABS N&gt;+FF.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3700"></span>3700</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD A,(HL)</td>
 <td class="comment-11" rowspan="1">Now add ABS N to the exponent.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3701"></span>3701</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="36C4.html#370C">RESULT_OK</a></td>
 <td class="comment-11" rowspan="1">Jump unless e&gt;+FF.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="3703"></span>
 <div class="comments">
 <div class="paragraph">
@@ -312,78 +341,91 @@ Report 6 - Number too big.
 <tr>
 <td class="asm-label-1">REPORT_6_2</td>
 <td class="address-2"><span id="3703"></span>3703</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
 <td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3704"></span>3704</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $05</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">N_NEGTV</td>
 <td class="address-2"><span id="3705"></span>3705</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="36C4.html#370E">RSLT_ZERO</a></td>
 <td class="comment-11" rowspan="1">The result is to be zero if N&lt;-255.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3707"></span>3707</td>
+<td class="bytes-0"></td>
 <td class="instruction">SUB (HL)</td>
 <td class="comment-11" rowspan="1">Subtract ABS N from the exponent as N was negative.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3708"></span>3708</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="36C4.html#370E">RSLT_ZERO</a></td>
 <td class="comment-11" rowspan="1">Zero result if e less than zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="370A"></span>370A</td>
+<td class="bytes-0"></td>
 <td class="instruction">NEG</td>
 <td class="comment-11" rowspan="1">Minus e is changed to e.</td>
 </tr>
 <tr>
 <td class="asm-label-1">RESULT_OK</td>
 <td class="address-2"><span id="370C"></span>370C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-11" rowspan="1">The exponent, e, is entered.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="370D"></span>370D</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Finished: 'last value' is EXP X.</td>
 </tr>
 <tr>
 <td class="asm-label-1">RSLT_ZERO</td>
 <td class="address-2"><span id="370E"></span>370E</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
 <td class="comment-11" rowspan="1">Use the calculator to make the 'last value' zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="370F"></span>370F</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $02</td>
 <td class="comment-11" rowspan="1"><a href="335B.html#33A1">delete</a> (the stack is now empty)</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3710"></span>3710</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $A0</td>
 <td class="comment-11" rowspan="1"><a href="341B.html">stk_zero</a>: 0</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3711"></span>3711</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $38</td>
 <td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3712"></span>3712</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Finished, with EXP X=0.</td>
 </tr>
@@ -396,10 +438,10 @@ Report 6 - Number too big.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/14020.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/14020.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

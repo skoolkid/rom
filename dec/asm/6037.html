@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 06037</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="6035.html">06035</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#6037">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="6133.html">06133</a></span></td>
+</tr>
+</table>
+<div class="description">06037: THE 'LIST and LLIST' COMMAND ROUTINES</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The routines in this part of the 16K program are used to produce listings of the current BASIC program. Each line has to have its line number evaluated, its tokens expanded and the appropriate cursors positioned.
+</div>
+<div class="paragraph">
+The entry point <a href="6037.html">AUTO_LIST</a> is used by both <a href="4770.html">MAIN_EXEC</a> and <a href="4185.html">ED_UP</a> to produce a single page of the listing.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">AUTO_LIST</td>
+<td class="address-2"><span id="6037"></span>06037</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23615),SP</td>
+<td class="comment-11" rowspan="1">The stack pointer is saved at <a href="23615.html">LIST-SP</a> allowing the machine stack to be reset when the listing is finished (see <a href="3157.html">PO_SCR</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6041"></span>06041</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IY+2),16</td>
+<td class="comment-11" rowspan="1">Signal 'automatic listing in the main screen' (set bit 4 of <a href="23612.html">TV-FLAG</a> and reset all other bits).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6045"></span>06045</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="3503.html">CL_ALL</a></td>
+<td class="comment-11" rowspan="1">Clear this part of the screen.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6048"></span>06048</td>
+<td class="bytes-0"></td>
+<td class="instruction">SET 0,(IY+2)</td>
+<td class="comment-11" rowspan="1">Switch to the editing area (set bit 0 of <a href="23612.html">TV-FLAG</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6052"></span>06052</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,(IY+49)</td>
+<td class="comment-11" rowspan="2">Now clear the the lower part of the screen as well (see <a href="23659.html">DF-SZ</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6055"></span>06055</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="3652.html">CL_LINE</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6058"></span>06058</td>
+<td class="bytes-0"></td>
+<td class="instruction">RES 0,(IY+2)</td>
+<td class="comment-11" rowspan="1">Then switch back (reset bit 0 of <a href="23612.html">TV-FLAG</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6062"></span>06062</td>
+<td class="bytes-0"></td>
+<td class="instruction">SET 0,(IY+48)</td>
+<td class="comment-11" rowspan="1">Signal 'screen is clear' (set bit 0 of <a href="23658.html">FLAGS2</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6066"></span>06066</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23625)</td>
+<td class="comment-11" rowspan="2">Now fetch the the 'current' line number (<a href="23625.html">E-PPC</a>) and the 'automatic' line number (<a href="23660.html">S-TOP</a>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6069"></span>06069</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD DE,(23660)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6073"></span>06073</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND A</td>
+<td class="comment-11" rowspan="4">If the 'current' number is less than the 'automatic' number then jump forward to update the 'automatic' number.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6074"></span>06074</td>
+<td class="bytes-0"></td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6076"></span>06076</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6077"></span>06077</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR C,<a href="6037.html#6113">AUTO_L_2</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="6079"></span>
+<div class="comments">
+<div class="paragraph">
+The 'automatic' number has now to be altered to give a listing with the 'current' line appearing near the bottom of the screen.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6079"></span>06079</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-11" rowspan="1">Save the 'automatic' number.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6080"></span>06080</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6510.html">LINE_ADDR</a></td>
+<td class="comment-11" rowspan="4">Find the address of the start of the 'current' line and produce an address roughly a 'screen before it' (negated).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6083"></span>06083</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD DE,704</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6086"></span>06086</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6087"></span>06087</td>
+<td class="bytes-0"></td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6089"></span>06089</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX (SP),HL</td>
+<td class="comment-11" rowspan="2">Save the 'result' on the machine stack whilst the 'automatic' line address is also found (in <span class="register">HL</span>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6090"></span>06090</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6510.html">LINE_ADDR</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6093"></span>06093</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP BC</td>
+<td class="comment-11" rowspan="1">The 'result' goes to the <span class="register">BC</span> register pair.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="6094"></span>
+<div class="comments">
+<div class="paragraph">
+A loop is now entered. The 'automatic' line number is increased on each pass until it is likely that the 'current' line will show on a listing.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">AUTO_L_1</td>
+<td class="address-2"><span id="6094"></span>06094</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-11" rowspan="1">Save the 'result'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6095"></span>06095</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6584.html">NEXT_ONE</a></td>
+<td class="comment-11" rowspan="1">Find the address of the start of the line after the present 'automatic' line (in <span class="register">DE</span>).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6098"></span>06098</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP BC</td>
+<td class="comment-11" rowspan="1">Restore the 'result'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6099"></span>06099</td>
+<td class="bytes-0"></td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-11" rowspan="2">Perform the computation and jump forward if finished.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6100"></span>06100</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR C,<a href="6037.html#6116">AUTO_L_3</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6102"></span>06102</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="5">Move the next line's address to the <span class="register">HL</span> register pair and collect its line number.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6103"></span>06103</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6104"></span>06104</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6105"></span>06105</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6106"></span>06106</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6107"></span>06107</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23660),DE</td>
+<td class="comment-11" rowspan="2">Now <a href="23660.html">S-TOP</a> can be updated and the test repeated with the new line.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6111"></span>06111</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="6037.html#6094">AUTO_L_1</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="6113"></span>
+<div class="comments">
+<div class="paragraph">
+Now the 'automatic' listing can be made.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">AUTO_L_2</td>
+<td class="address-2"><span id="6113"></span>06113</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23660),HL</td>
+<td class="comment-11" rowspan="1">When <a href="23625.html">E-PPC</a> is less than <a href="23660.html">S-TOP</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1">AUTO_L_3</td>
+<td class="address-2"><span id="6116"></span>06116</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23660)</td>
+<td class="comment-11" rowspan="2">Fetch the top line's number (<a href="23660.html">S-TOP</a>) and hence its address.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6119"></span>06119</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6510.html">LINE_ADDR</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6122"></span>06122</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="6037.html#6125">AUTO_L_4</a></td>
+<td class="comment-11" rowspan="2">If the line cannot be found use <span class="register">DE</span> instead.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6124"></span>06124</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">AUTO_L_4</td>
+<td class="address-2"><span id="6125"></span>06125</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6137.html#6195">LIST_ALL</a></td>
+<td class="comment-11" rowspan="1">The listing is produced.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6128"></span>06128</td>
+<td class="bytes-0"></td>
+<td class="instruction">RES 4,(IY+2)</td>
+<td class="comment-11" rowspan="2">The return will be to here unless scrolling was needed to show the current line; reset bit 4 of <a href="23612.html">TV-FLAG</a> before returning.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6132"></span>06132</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="6035.html">06035</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#6037">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="6133.html">06133</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/1795.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

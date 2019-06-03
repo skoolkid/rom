@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 13627</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="13613.html">13613</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#13627">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="13724.html">13724</a></span></td>
+</tr>
+</table>
+<div class="description">13627: THE 'COMPARISON' OPERATIONS (offsets 9 to 14, 17 to 22)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="13015.html">table of addresses</a>. It is called indirectly via <a href="13218.html">fp_calc_2</a>.
+</div>
+<div class="paragraph">
+This subroutine is used to perform the twelve possible comparison operations (offsets 9 to 14 and 17 to 22: '&lt;=', '&gt;=', '&lt;&gt;', '&gt;', '&lt;' and '=' for numbers and strings respectively). The single operation offset is present in the <span class="register">B</span> register at the start of the subroutine.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">Operation offset (9 to 14, 17 to 22)</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Address of the first byte of the second argument</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address of the first byte of the first argument</td>
+</tr>
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">compare</td>
+<td class="address-2"><span id="13627"></span>13627</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,B</td>
+<td class="comment-11" rowspan="1">The single offset goes to the <span class="register">A</span> register.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13628"></span>13628</td>
+<td class="bytes-0"></td>
+<td class="instruction">SUB 8</td>
+<td class="comment-11" rowspan="1">The range is now 1 to 6 and 9 to 14.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13630"></span>13630</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 2,A</td>
+<td class="comment-11" rowspan="3">This range is changed to 0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13632"></span>13632</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="13627.html#13635">EX_OR_NOT</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13634"></span>13634</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC A</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">EX_OR_NOT</td>
+<td class="address-2"><span id="13635"></span>13635</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-11" rowspan="8">Then reduced to 0 to 7 with carry set for 'greater than or equal to' and 'less than'; the operations with carry set are then treated as their complementary operation once their values have been exchanged.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13636"></span>13636</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NC,<a href="13627.html#13646">NU_OR_STR</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13638"></span>13638</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13639"></span>13639</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13640"></span>13640</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="13372.html">exchange</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13643"></span>13643</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13644"></span>13644</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13645"></span>13645</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP AF</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">NU_OR_STR</td>
+<td class="address-2"><span id="13646"></span>13646</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 2,A</td>
+<td class="comment-11" rowspan="2">The numerical comparisons are now separated from the string comparisons by testing bit 2.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13648"></span>13648</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="13627.html#13657">STRINGS</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13650"></span>13650</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-11" rowspan="1">The numerical operations now have the range 0 to 1 with carry set for 'equal' and 'not equal'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13651"></span>13651</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-11" rowspan="1">Save the offset.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13652"></span>13652</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="12303.html">subtract</a></td>
+<td class="comment-11" rowspan="2">The numbers are subtracted for the final tests.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13655"></span>13655</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="13627.html#13708">END_TESTS</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">STRINGS</td>
+<td class="address-2"><span id="13657"></span>13657</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-11" rowspan="1">The string comparisons now have the range 2 to 3 with carry set for 'equal' and 'not equal'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13658"></span>13658</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-11" rowspan="1">Save the offset.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13659"></span>13659</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="11249.html">STK_FETCH</a></td>
+<td class="comment-11" rowspan="4">The lengths and starting addresses of the strings are fetched from the calculator stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13662"></span>13662</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13663"></span>13663</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13664"></span>13664</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="11249.html">STK_FETCH</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13667"></span>13667</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP HL</td>
+<td class="comment-11" rowspan="1">The length of the second string.</td>
+</tr>
+<tr>
+<td class="asm-label-1">BYTE_COMP</td>
+<td class="address-2"><span id="13668"></span>13668</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,H</td>
+<td class="comment-11" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13669"></span>13669</td>
+<td class="bytes-0"></td>
+<td class="instruction">OR L</td>
+<td class="comment-11" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13670"></span>13670</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX (SP),HL</td>
+<td class="comment-11" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13671"></span>13671</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,B</td>
+<td class="comment-11" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13672"></span>13672</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="13627.html#13685">SEC_PLUS</a></td>
+<td class="comment-11" rowspan="1">Jump unless the second string is null.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13674"></span>13674</td>
+<td class="bytes-0"></td>
+<td class="instruction">OR C</td>
+<td class="comment-11" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">SECND_LOW</td>
+<td class="address-2"><span id="13675"></span>13675</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP BC</td>
+<td class="comment-11" rowspan="1">Here the second string is either null or less than the first.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13676"></span>13676</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="13627.html#13682">BOTH_NULL</a></td>
+<td class="comment-11" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13678"></span>13678</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP AF</td>
+<td class="comment-11" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13679"></span>13679</td>
+<td class="bytes-0"></td>
+<td class="instruction">CCF</td>
+<td class="comment-11" rowspan="2">The carry is complemented to give the correct test results.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13680"></span>13680</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="13627.html#13704">STR_TEST</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">BOTH_NULL</td>
+<td class="address-2"><span id="13682"></span>13682</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP AF</td>
+<td class="comment-11" rowspan="2">Here the carry is used as it stands.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13683"></span>13683</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="13627.html#13704">STR_TEST</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">SEC_PLUS</td>
+<td class="address-2"><span id="13685"></span>13685</td>
+<td class="bytes-0"></td>
+<td class="instruction">OR C</td>
+<td class="comment-11" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13686"></span>13686</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR Z,<a href="13627.html#13701">FRST_LESS</a></td>
+<td class="comment-11" rowspan="1">The first string is now null, the second not.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13688"></span>13688</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,(DE)</td>
+<td class="comment-11" rowspan="2">Neither string is null, so their next bytes are compared.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13689"></span>13689</td>
+<td class="bytes-0"></td>
+<td class="instruction">SUB (HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13690"></span>13690</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR C,<a href="13627.html#13701">FRST_LESS</a></td>
+<td class="comment-11" rowspan="1">Jump if the first byte is less.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13692"></span>13692</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="13627.html#13675">SECND_LOW</a></td>
+<td class="comment-11" rowspan="1">Jump if the second byte is less.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13694"></span>13694</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC BC</td>
+<td class="comment-11" rowspan="6">The bytes are equal; so the lengths are decremented and a jump is made to <a href="13627.html#13668">BYTE_COMP</a> to compare the next bytes of the reduced strings.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13695"></span>13695</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13696"></span>13696</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13697"></span>13697</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX (SP),HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13698"></span>13698</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13699"></span>13699</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="13627.html#13668">BYTE_COMP</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1">FRST_LESS</td>
+<td class="address-2"><span id="13701"></span>13701</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP BC</td>
+<td class="comment-11" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13702"></span>13702</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP AF</td>
+<td class="comment-11" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13703"></span>13703</td>
+<td class="bytes-0"></td>
+<td class="instruction">AND A</td>
+<td class="comment-11" rowspan="1">The carry is cleared here for the correct test results.</td>
+</tr>
+<tr>
+<td class="asm-label-1">STR_TEST</td>
+<td class="address-2"><span id="13704"></span>13704</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-11" rowspan="2">For the string tests, a zero is put on to the calculator stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13705"></span>13705</td>
+<td class="bytes-0"></td>
+<td class="instruction">RST <a href="40.html">40</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13706"></span>13706</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 160</td>
+<td class="comment-11" rowspan="1"><a href="13339.html">stk_zero</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13707"></span>13707</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1">END_TESTS</td>
+<td class="address-2"><span id="13708"></span>13708</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP AF</td>
+<td class="comment-11" rowspan="9">These three tests, called as needed, give the correct results for all twelve comparisons. The initial carry is set for 'not equal' and 'equal', and the final carry is set for 'greater than', 'less than' and 'equal'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13709"></span>13709</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13710"></span>13710</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL C,<a href="13569.html">f_not</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13713"></span>13713</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP AF</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13714"></span>13714</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13715"></span>13715</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL NC,<a href="13561.html">greater_0</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13718"></span>13718</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP AF</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13719"></span>13719</td>
+<td class="bytes-0"></td>
+<td class="instruction">RRCA</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13720"></span>13720</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL NC,<a href="13569.html">f_not</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13723"></span>13723</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="13613.html">13613</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#13627">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="13724.html">13724</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/353B.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

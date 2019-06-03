@@ -23,7 +23,7 @@
 <div class="description">100C: THE 'CURSOR RIGHT EDITING' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is derived from an offset found in the <a href="0FA0.html">editing keys table</a>.
@@ -49,29 +49,33 @@ The address of this routine is derived from an offset found in the <a href="0FA0
 <tr>
 <td class="asm-label-1">ED_RIGHT</td>
 <td class="address-2"><span id="100C"></span>100C</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-11" rowspan="3">The current character is tested and if it is 'carriage return' then return.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="100D"></span>100D</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $0D</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="100F"></span>100F</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1010"></span>1010</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Otherwise make the cursor come after the character.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1011"></span>
 <div class="comments">
 <div class="paragraph">
@@ -83,12 +87,14 @@ This entry point is used by the routine at <a href="1007.html">ED_LEFT</a>.
 <tr>
 <td class="asm-label-1">ED_CUR</td>
 <td class="address-2"><span id="1011"></span>1011</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C5B),HL</td>
 <td class="comment-11" rowspan="1">Set the system variable <a href="5C5B.html">K-CUR</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1014"></span>1014</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1"></td>
 </tr>
@@ -101,10 +107,10 @@ This entry point is used by the routine at <a href="1007.html">ED_LEFT</a>.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/4108.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/4108.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

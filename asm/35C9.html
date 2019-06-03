@@ -23,7 +23,7 @@
 <div class="description">35C9: THE 'CHR$' FUNCTION (offset +2F)</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called indirectly via <a href="33A2.html">fp_calc_2</a>.
@@ -49,71 +49,82 @@ This subroutine handles the function CHR$ X and creates a single character strin
 <tr>
 <td class="asm-label-1">chrs</td>
 <td class="address-2"><span id="35C9"></span>35C9</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2DD5.html">FP_TO_A</a></td>
 <td class="comment-11" rowspan="1">The 'last value' is compressed into the <span class="register">A</span> register.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="35CC"></span>35CC</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="35C9.html#35DC">REPORT_B_4</a></td>
 <td class="comment-11" rowspan="2">Give the error report if X is greater than 255, or X is a negative number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="35CE"></span>35CE</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="35C9.html#35DC">REPORT_B_4</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="35D0"></span>35D0</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
 <td class="comment-11" rowspan="1">Save the compressed value of X.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="35D1"></span>35D1</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD BC,$0001</td>
 <td class="comment-11" rowspan="2">Make one space available in the work space.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="35D4"></span>35D4</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0030.html">$30</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="35D5"></span>35D5</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
 <td class="comment-11" rowspan="1">Fetch the value.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="35D6"></span>35D6</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (DE),A</td>
 <td class="comment-11" rowspan="1">Copy the value to the work space.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="35D7"></span>35D7</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2AB1.html#2AB2">STK_STO</a></td>
 <td class="comment-11" rowspan="1">Pass the parameters of the new string to the calculator stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="35DA"></span>35DA</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Reset the pointers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="35DB"></span>35DB</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Finished.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="35DC"></span>
 <div class="comments">
 <div class="paragraph">
@@ -125,12 +136,14 @@ Report B - Integer out of range.
 <tr>
 <td class="asm-label-1">REPORT_B_4</td>
 <td class="address-2"><span id="35DC"></span>35DC</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
 <td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="35DD"></span>35DD</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $0A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -143,10 +156,10 @@ Report B - Integer out of range.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/13769.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/13769.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

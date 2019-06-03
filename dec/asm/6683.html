@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 06683</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="6651.html">06651</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#6683">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="6728.html">06728</a></span></td>
+</tr>
+</table>
+<div class="description">06683: THE 'REPORT AND LINE NUMBER PRINTING' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The entry point <a href="6683.html">OUT_NUM_1</a>, used by the routines at <a href="4770.html">MAIN_EXEC</a> and <a href="11747.html">PRINT_FP</a>, will lead to the number in the <span class="register">BC</span> register pair being printed. Any value over 9,999 will not however be printed correctly.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">BC</td>
+<td class="register-desc">Number to print</td>
+</tr>
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">OUT_NUM_1</td>
+<td class="address-2"><span id="6683"></span>06683</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-11" rowspan="2">Save the other registers throughout the subroutine.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6684"></span>06684</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6685"></span>06685</td>
+<td class="bytes-0"></td>
+<td class="instruction">XOR A</td>
+<td class="comment-11" rowspan="1">Clear the <span class="register">A</span> register.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6686"></span>06686</td>
+<td class="bytes-0"></td>
+<td class="instruction">BIT 7,B</td>
+<td class="comment-11" rowspan="2">Jump forward to print a zero rather than '-2' when reporting on the edit-line.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6688"></span>06688</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR NZ,<a href="6683.html#6722">OUT_NUM_4</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6690"></span>06690</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD H,B</td>
+<td class="comment-11" rowspan="2">Move the number to the <span class="register">HL</span> register pair.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6691"></span>06691</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD L,C</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6692"></span>06692</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD E,255</td>
+<td class="comment-11" rowspan="1">Flag 'no leading spaces'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6694"></span>06694</td>
+<td class="bytes-0"></td>
+<td class="instruction">JR <a href="6683.html#6704">OUT_NUM_3</a></td>
+<td class="comment-11" rowspan="1">Jump forward to print the number.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="6696"></span>
+<div class="comments">
+<div class="paragraph">
+The entry point <a href="6683.html#6696">OUT_NUM_2</a>, used by the routine at <a href="6229.html">OUT_LINE</a>, will lead to the number indirectly addressed by the <span class="register">HL</span> register pair being printed. This time any necessary leading spaces will appear. Again the limit of correctly printed numbers is 9,999.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">OUT_NUM_2</td>
+<td class="address-2"><span id="6696"></span>06696</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-11" rowspan="1">Save the <span class="register">DE</span> register pair.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6697"></span>06697</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-11" rowspan="4">Fetch the number into the <span class="register">DE</span> register pair and save the pointer (updated).</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6698"></span>06698</td>
+<td class="bytes-0"></td>
+<td class="instruction">INC HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6699"></span>06699</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6700"></span>06700</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6701"></span>06701</td>
+<td class="bytes-0"></td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-11" rowspan="2">Move the number to the <span class="register">HL</span> register pair and flag 'leading spaces are to be printed'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6702"></span>06702</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD E,32</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="6704"></span>
+<div class="comments">
+<div class="paragraph">
+Now the integer form of the number in the <span class="register">HL</span> register pair is printed.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">OUT_NUM_3</td>
+<td class="address-2"><span id="6704"></span>06704</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD BC,64536</td>
+<td class="comment-11" rowspan="1">This is '-1,000'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6707"></span>06707</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6437.html#6442">OUT_SP_NO</a></td>
+<td class="comment-11" rowspan="1">Print a first digit.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6710"></span>06710</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD BC,65436</td>
+<td class="comment-11" rowspan="1">This is '-100'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6713"></span>06713</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6437.html#6442">OUT_SP_NO</a></td>
+<td class="comment-11" rowspan="1">Print the second digit.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6716"></span>06716</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD C,246</td>
+<td class="comment-11" rowspan="1">This is '-10'.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6718"></span>06718</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="6437.html#6442">OUT_SP_NO</a></td>
+<td class="comment-11" rowspan="1">Print the third digit.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6721"></span>06721</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD A,L</td>
+<td class="comment-11" rowspan="1">Move any remaining part of the number to the <span class="register">A</span> register.</td>
+</tr>
+<tr>
+<td class="asm-label-1">OUT_NUM_4</td>
+<td class="address-2"><span id="6722"></span>06722</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="5615.html">OUT_CODE</a></td>
+<td class="comment-11" rowspan="1">Print the digit.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6725"></span>06725</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP HL</td>
+<td class="comment-11" rowspan="3">Restore the registers before returning.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6726"></span>06726</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6727"></span>06727</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="6651.html">06651</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#6683">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="6728.html">06728</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/1A1B.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

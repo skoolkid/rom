@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Data at 05551</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-b">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Data</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="5469.html">05469</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#5551">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="5572.html">05572</a></span></td>
+</tr>
+</table>
+<div class="description">05551: THE 'INITIAL CHANNEL INFORMATION'</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="4535.html">NEW</a>, which copies the information from here to <a href="23734.html">CHINFO</a>.
+</div>
+<div class="paragraph">
+Initially there are four channels - 'K', 'S', 'R', and 'P' - for communicating with the 'keyboard', 'screen', 'work space' and 'printer'. For each channel the output routine address comes before the input routine address and the channel's code.
+</div>
+</div>
+<table class="input-0">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">CHANINFO</td>
+<td class="address-1"><span id="5551"></span>05551</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFW <a href="2548.html">PRINT_OUT</a></td>
+<td class="comment-11" rowspan="3">Keyboard.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5553"></span>05553</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFW <a href="4264.html">KEY_INPUT</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5555"></span>05555</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB "K"</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5556"></span>05556</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFW <a href="2548.html">PRINT_OUT</a></td>
+<td class="comment-11" rowspan="3">Screen.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5558"></span>05558</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFW <a href="5572.html">REPORT_J</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5560"></span>05560</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB "S"</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5561"></span>05561</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFW <a href="3884.html#3969">ADD_CHAR</a></td>
+<td class="comment-11" rowspan="3">Work space.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5563"></span>05563</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFW <a href="5572.html">REPORT_J</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5565"></span>05565</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB "R"</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5566"></span>05566</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFW <a href="2548.html">PRINT_OUT</a></td>
+<td class="comment-11" rowspan="3">Printer.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5568"></span>05568</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFW <a href="5572.html">REPORT_J</a></td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5570"></span>05570</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB "P"</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="5571"></span>05571</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 128</td>
+<td class="comment-11" rowspan="1">End marker.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="5469.html">05469</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#5551">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="5572.html">05572</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/15AF.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

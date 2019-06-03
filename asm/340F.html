@@ -23,7 +23,7 @@
 <div class="description">340F: THE 'GET FROM MEMORY AREA' SUBROUTINE (offset +41)</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via a calculator literal (+E0 to +E5) by the routines at <a href="03F8.html">BEEP</a>, <a href="1D03.html">FOR</a>, <a href="1DAB.html">NEXT</a>, <a href="1DDA.html">NEXT_LOOP</a>, <a href="2320.html">CIRCLE</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2D4F.html">e_to_fp</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="3449.html">series</a>, <a href="36A0.html">n_mod_m</a>, <a href="36AF.html">int</a>, <a href="36C4.html">exp</a> and <a href="37AA.html">cos</a>.
@@ -59,36 +59,42 @@ This subroutine is called using the literals +E0 to +E5 and the parameter derive
 <tr>
 <td class="asm-label-1">get_mem</td>
 <td class="address-2"><span id="340F"></span>340F</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-11" rowspan="1">Save the result pointer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3410"></span>3410</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C68)</td>
 <td class="comment-11" rowspan="1">Fetch the pointer to the current memory area (<a href="5C68.html">MEM</a>).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3413"></span>3413</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="3406.html">LOC_MEM</a></td>
 <td class="comment-11" rowspan="1">The base address is found.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3416"></span>3416</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="33C0.html">duplicate</a></td>
 <td class="comment-11" rowspan="1">The five bytes are moved.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3419"></span>3419</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-11" rowspan="1">Set the result pointer.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="341A"></span>341A</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Finished.</td>
 </tr>
@@ -101,10 +107,10 @@ This subroutine is called using the literals +E0 to +E5 and the parameter derive
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/13327.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/13327.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

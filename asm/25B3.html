@@ -23,7 +23,7 @@
 <div class="description">25B3: THE 'SCANNING QUOTE' ROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is derived from an offset found in the <a href="2596.html">scanning function table</a>.
@@ -49,149 +49,173 @@ This routine deals with string quotes, whether simple like "name" or more comple
 <tr>
 <td class="asm-label-1">S_QUOTE</td>
 <td class="address-2"><span id="25B3"></span>25B3</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
 <td class="comment-11" rowspan="1">Fetch the current character.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25B4"></span>25B4</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Point to the start of the string.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25B5"></span>25B5</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="1">Save the start address.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25B6"></span>25B6</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD BC,$0000</td>
 <td class="comment-11" rowspan="1">Set the length to zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25B9"></span>25B9</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="250F.html">S_QUOTE_S</a></td>
 <td class="comment-11" rowspan="1">Call the "matching" subroutine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25BC"></span>25BC</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="25B3.html#25D9">S_Q_PRMS</a></td>
 <td class="comment-11" rowspan="1">Jump if zero reset - no more quotes.</td>
 </tr>
 <tr>
 <td class="asm-label-1">S_Q_AGAIN</td>
 <td class="address-2"><span id="25BE"></span>25BE</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="250F.html">S_QUOTE_S</a></td>
 <td class="comment-11" rowspan="1">Call it again for a third quote.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25C1"></span>25C1</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="25B3.html#25BE">S_Q_AGAIN</a></td>
 <td class="comment-11" rowspan="1">And again for the fifth, seventh etc.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25C3"></span>25C3</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
 <td class="comment-11" rowspan="2">If testing syntax, jump to reset bit 6 of <a href="5C3B.html">FLAGS</a> and to continue scanning.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25C6"></span>25C6</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="25B3.html#25D9">S_Q_PRMS</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25C8"></span>25C8</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0030.html">$30</a></td>
 <td class="comment-11" rowspan="1">Make space in the work space for the string and the terminating quote.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25C9"></span>25C9</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-11" rowspan="1">Get the pointer to the start.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25CA"></span>25CA</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-11" rowspan="1">Save the pointer to the first space.</td>
 </tr>
 <tr>
 <td class="asm-label-1">S_Q_COPY</td>
 <td class="address-2"><span id="25CB"></span>25CB</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-11" rowspan="1">Get a character from the string.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25CC"></span>25CC</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Point to the next one.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25CD"></span>25CD</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD (DE),A</td>
 <td class="comment-11" rowspan="1">Copy last one to work space.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25CE"></span>25CE</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC DE</td>
 <td class="comment-11" rowspan="1">Point to the next space.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25CF"></span>25CF</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP "\""</td>
 <td class="comment-11" rowspan="1">Is last character a '"'?</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25D1"></span>25D1</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="25B3.html#25CB">S_Q_COPY</a></td>
 <td class="comment-11" rowspan="1">If not, jump to copy next one.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25D3"></span>25D3</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-11" rowspan="4">But if it was, do not copy next one; if next one is a '"', jump to copy the one after it; otherwise, finished with copying.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25D4"></span>25D4</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25D5"></span>25D5</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP "\""</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25D7"></span>25D7</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="25B3.html#25CB">S_Q_COPY</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">S_Q_PRMS</td>
 <td class="address-2"><span id="25D9"></span>25D9</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEC BC</td>
 <td class="comment-11" rowspan="1">Get true length to <span class="register">BC</span>.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="25DA"></span>
 <div class="comments">
 <div class="paragraph">
@@ -203,11 +227,12 @@ Note that the first quote was not counted into the length; the final quote was, 
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25DA"></span>25DA</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
 <td class="comment-11" rowspan="1">Restore start of copied string.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="25DB"></span>
 <div class="comments">
 <div class="paragraph">
@@ -219,35 +244,40 @@ This entry point is used by the routine at <a href="2668.html">S_SCREEN</a>.
 <tr>
 <td class="asm-label-1">S_STRING</td>
 <td class="address-2"><span id="25DB"></span>25DB</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,$5C3B</td>
 <td class="comment-11" rowspan="4">This is <a href="5C3B.html">FLAGS</a>; this entry point is used whenever bit 6 is to be reset and a string stacked if executing a line. This is done now.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25DE"></span>25DE</td>
+<td class="bytes-0"></td>
 <td class="instruction">RES 6,(HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25E0"></span>25E0</td>
+<td class="bytes-0"></td>
 <td class="instruction">BIT 7,(HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25E2"></span>25E2</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL NZ,<a href="2AB1.html#2AB2">STK_STO</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="25E5"></span>25E5</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="26C9.html#2712">S_CONT_2</a></td>
 <td class="comment-11" rowspan="1">Jump to continue scanning the line.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 
 <div class="comments">
 <div class="paragraph">
@@ -265,10 +295,10 @@ Note that in copying the string to the work space, every two pairs of string quo
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/9651.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/9651.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

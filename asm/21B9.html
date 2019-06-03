@@ -23,7 +23,7 @@
 <div class="description">21B9: THE 'IN-ASSIGN' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routine at <a href="2089.html">INPUT</a>.
@@ -49,65 +49,75 @@ This subroutine is called twice for each INPUT value: once with the syntax/run f
 <tr>
 <td class="asm-label-1">IN_ASSIGN</td>
 <td class="address-2"><span id="21B9"></span>21B9</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C61)</td>
 <td class="comment-11" rowspan="3">Set <a href="5C5D.html">CH-ADD</a> to point to the first location of the work space (<a href="5C61.html">WORKSP</a>) and fetch the character.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="21BC"></span>21BC</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD ($5C5D),HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="21BF"></span>21BF</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="21C0"></span>21C0</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $E2</td>
 <td class="comment-11" rowspan="1">Is it a 'STOP'?</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="21C2"></span>21C2</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="21B9.html#21D0">IN_STOP</a></td>
 <td class="comment-11" rowspan="1">Jump if it is.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="21C4"></span>21C4</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,($5C71)</td>
 <td class="comment-11" rowspan="2">Otherwise pick up <a href="5C71.html">FLAGX</a> and make the assignment of the 'value' to the variable.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="21C7"></span>21C7</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1C56.html#1C59">VAL_FET_2</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="21CA"></span>21CA</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
 <td class="comment-11" rowspan="2">Get the present character and check it is a 'carriage return'.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="21CB"></span>21CB</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP $0D</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="21CD"></span>21CD</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
 <td class="comment-11" rowspan="1">Return if it is.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="21CE"></span>
 <div class="comments">
 <div class="paragraph">
@@ -119,17 +129,19 @@ Report C - Nonsense in BASIC.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="21CE"></span>21CE</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
 <td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="21CF"></span>21CF</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $0B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="21D0"></span>
 <div class="comments">
 <div class="paragraph">
@@ -141,17 +153,19 @@ Come here if the INPUT line starts with 'STOP'.
 <tr>
 <td class="asm-label-1">IN_STOP</td>
 <td class="address-2"><span id="21D0"></span>21D0</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
 <td class="comment-11" rowspan="2">But do not give the error report on the syntax-pass.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="21D3"></span>21D3</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="21D4"></span>
 <div class="comments">
 <div class="paragraph">
@@ -163,12 +177,14 @@ Report H - STOP in INPUT.
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="21D4"></span>21D4</td>
+<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
 <td class="comment-11" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="21D5"></span>21D5</td>
+<td class="bytes-0"></td>
 <td class="instruction">DEFB $10</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -181,10 +197,10 @@ Report H - STOP in INPUT.
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/8633.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/8633.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

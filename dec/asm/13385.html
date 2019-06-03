@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 13385</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="13372.html">13372</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#13385">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="13418.html">13418</a></span></td>
+</tr>
+</table>
+<div class="description">13385: THE 'SERIES GENERATOR' SUBROUTINE (offset 62)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The address of this routine is found in the <a href="13015.html">table of addresses</a>. It is called via a calculator literal (134, 136 or 140) by the routines at <a href="14020.html">exp</a>, <a href="14099.html">ln</a>, <a href="14261.html">sin</a> and <a href="14306.html">atn</a>.
+</div>
+<div class="paragraph">
+This important subroutine generates the series of Chebyshev polynomials which are used to approximate to SIN, ATN, LN and EXP and hence to derive the other arithmetic functions which depend on these (COS, TAN, ASN, ACS, ** and SQR).
+</div>
+<div class="paragraph">
+The polynomials are generated, for n=1, 2, etc. by the recurrence relation T<sub>n+1</sub>(z)=2zT<sub>n</sub>(z)-T<sub>n-1</sub>(z), where T<sub>n</sub>(z) is the nth Chebyshev polynomial in z.
+</div>
+<div class="paragraph">
+The series in fact generates T<sub>0</sub>, 2T<sub>1</sub>, 2T<sub>2</sub>, ..., 2T<sub>n-1</sub>, where n is 6 for SIN, 8 for EXP, and 12 for LN and ATN.
+</div>
+<div class="paragraph">
+The coefficients of the powers of z in these polynomials may be found in the Handbook of Mathematical Functions by M. Abramowitz and I. A. Stegun (Dover 1965), page 795.
+</div>
+<div class="paragraph">
+In simple terms this subroutine is called with the 'last value' on the calculator stack, say Z, being a number that bears a simple relationship to the argument, say X, when the task is to evaluate, for instance, SIN X. The calling subroutine also supplies the list of constants that are to be required (six constants for SIN). The series generator then manipulates its data and returns to the calling routine a 'last value' that bears a simple relationship to the requested function, for instance, SIN X.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Series parameter (6, 8 or 12)</td>
+</tr>
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="13385"></span>
+<div class="comments">
+<div class="paragraph">
+This subroutine can be considered to have four major parts.
+</div>
+<div class="paragraph">
+i. The setting of the loop counter. The calling subroutine passes its parameters in the <span class="register">A</span> register for use as a counter. The calculator is entered at <a href="13147.html#13150">GEN_ENT_1</a> so that the counter can be set.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">series</td>
+<td class="address-2"><span id="13385"></span>13385</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD B,A</td>
+<td class="comment-11" rowspan="1">Move the parameter to <span class="register">B</span>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13386"></span>13386</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="13147.html#13150">GEN_ENT_1</a></td>
+<td class="comment-11" rowspan="1">In effect a RST 40 instruction but sets the counter.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="13389"></span>
+<div class="comments">
+<div class="paragraph">
+ii. The handling of the 'last value', Z. The loop of the generator requires 2*Z to be placed in mem-0, zero to be placed in mem-2 and the 'last value' to be zero.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13389"></span>13389</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: Z, Z</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13390"></span>13390</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 15</td>
+<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: 2*Z</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13391"></span>13391</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 192</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_0</a>: 2*Z (mem-0 holds 2*Z)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13392"></span>13392</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: -</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13393"></span>13393</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 160</td>
+<td class="comment-11" rowspan="1"><a href="13339.html">stk_zero</a>: 0</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13394"></span>13394</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 194</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_2</a>: 0 (mem-2 holds 0)</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="13395"></span>
+<div class="comments">
+<div class="paragraph">
+iii. The main loop.
+</div>
+<div class="paragraph">
+The series is generated by looping, using <a href="23655.html">BREG</a> as a counter; the constants in the calling subroutine are stacked in turn by calling <a href="13254.html">stk_data</a>; the calculator is re-entered at <a href="13147.html#13154">GEN_ENT_2</a> so as not to disturb the value of <a href="23655.html">BREG</a>; and the series is built up in the form:
+</div>
+<div class="paragraph">
+B(R)=2*Z*B(R-1)-B(R-2)+A(R), for R=1, 2, ..., N, where A(1), A(2)...A(N) are the constants supplied by the calling subroutine (SIN, ATN, LN and EXP) and B(0)=0=B(-1).
+</div>
+<div class="paragraph">
+The (R+1)th loop starts with B(R) on the stack and with 2*Z, B(R-2) and B(R-1) in mem-0, mem-1 and mem-2 respectively.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">G_LOOP</td>
+<td class="address-1"><span id="13395"></span>13395</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 49</td>
+<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: B(R), B(R)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13396"></span>13396</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 224</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_0</a>: B(R), B(R), 2*Z</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13397"></span>13397</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 4</td>
+<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: B(R), 2*B(R)*Z</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13398"></span>13398</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 226</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_2</a>: B(R),2*B(R)*Z, B(R-1)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13399"></span>13399</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 193</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_1</a>: mem-1 holds B(R-1)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13400"></span>13400</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: B(R), 2*B(R)*Z-B(R-1)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13401"></span>13401</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="13402"></span>
+<div class="comments">
+<div class="paragraph">
+The next constant is placed on the calculator stack.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13402"></span>13402</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="13254.html">stk_data</a></td>
+<td class="comment-11" rowspan="1">B(R), 2*B(R)*Z-B(R-1), A(R+1)</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="13405"></span>
+<div class="comments">
+<div class="paragraph">
+The calculator is re-entered without disturbing <a href="23655.html">BREG</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13405"></span>13405</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="13147.html#13154">GEN_ENT_2</a></td>
+<td class="comment-11" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13408"></span>13408</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 15</td>
+<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: B(R), 2*B(R)*Z-B(R-1)+A(R+1)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13409"></span>13409</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: 2*B(R)*Z-B(R-1)+A(R+1), B(R)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13410"></span>13410</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 194</td>
+<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_2</a>: mem-2 holds B(R)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13411"></span>13411</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 2</td>
+<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: 2*B(R)*Z-B(R-1)+A(R+1)=B(R+1)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13412"></span>13412</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 53</td>
+<td class="comment-11" rowspan="2"><a href="13946.html">dec_jr_nz</a> to <a href="13385.html#13395">G_LOOP</a>: B(R+1)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13413"></span>13413</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 238</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="13414"></span>
+<div class="comments">
+<div class="paragraph">
+iv. The subtraction of B(N-2). The loop above leaves B(N) on the stack and the required result is given by B(N)-B(N-2).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13414"></span>13414</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 225</td>
+<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_1</a>: B(N), B(N-2)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13415"></span>13415</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 3</td>
+<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: B(N)-B(N-2)</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13416"></span>13416</td>
+<td class="bytes-0"></td>
+<td class="instruction">DEFB 56</td>
+<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="13417"></span>13417</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-11" rowspan="1">Finished.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="13372.html">13372</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#13385">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="13418.html">13418</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/3449.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

@@ -23,7 +23,7 @@
 <div class="description">31AF: THE 'DIVISION' OPERATION (offset +05)</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is found in the <a href="32D7.html">table of addresses</a>. It is called via the calculator literal +05 by the routines at <a href="03F8.html">BEEP</a>, <a href="2382.html">DRAW</a>, <a href="247D.html">CD_PRMS1</a>, <a href="2C9B.html">DEC_TO_FP</a>, <a href="2D4F.html">e_to_fp</a>, <a href="36A0.html">n_mod_m</a>, <a href="37DA.html">tan</a>, <a href="37E2.html">atn</a>, <a href="3833.html">asn</a> and <a href="3851.html">to_power</a>. It is also called indirectly via <a href="33A2.html">fp_calc_2</a>.
@@ -56,149 +56,173 @@ This subroutine first prepares the divisor by calling <a href="30C0.html">PREP_M
 <tr>
 <td class="asm-label-1">division</td>
 <td class="address-2"><span id="31AF"></span>31AF</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="3293.html">RE_ST_TWO</a></td>
 <td class="comment-11" rowspan="1">Use full floating-point forms.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31B2"></span>31B2</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Exchange the pointers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31B3"></span>31B3</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
 <td class="comment-11" rowspan="1"><span class="register">A</span> is set to 0, so that the sign of the first number will go into <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31B4"></span>31B4</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="30C0.html">PREP_M_D</a></td>
 <td class="comment-11" rowspan="2">Prepare the divisor and give the report for arithmetic overflow if it is zero.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31B7"></span>31B7</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="30CA.html#31AD">REPORT_6</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31B9"></span>31B9</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Exchange the pointers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31BA"></span>31BA</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="30C0.html">PREP_M_D</a></td>
 <td class="comment-11" rowspan="2">Prepare the dividend and return if it is zero (result already zero).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31BD"></span>31BD</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31BE"></span>31BE</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="1">Exchange the pointers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31BF"></span>31BF</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="1">Save the next literal address.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31C0"></span>31C0</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="1">Exchange the registers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31C1"></span>31C1</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-11" rowspan="1">Save pointer to divisor.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31C2"></span>31C2</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="1">Save pointer to dividend.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31C3"></span>31C3</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2FBA.html">FETCH_TWO</a></td>
 <td class="comment-11" rowspan="1">Get the two numbers from the stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31C6"></span>31C6</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-11" rowspan="1">Exchange the registers.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31C7"></span>31C7</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-11" rowspan="1">Save M1 and N1 (the exponent bytes) on the machine stack.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31C8"></span>31C8</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD H,B</td>
 <td class="comment-11" rowspan="5">Copy the four bytes of the dividend from registers <span class="register">B'C'CB</span> (i.e. M2, M3, M4 and M5; see <a href="2FBA.html">FETCH_TWO</a>) to the registers <span class="register">H'L'HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31C9"></span>31C9</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD L,C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31CA"></span>31CA</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31CB"></span>31CB</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD H,C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31CC"></span>31CC</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD L,B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31CD"></span>31CD</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
 <td class="comment-11" rowspan="1">Clear <span class="register">A</span> and reset the carry flag.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31CE"></span>31CE</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,$DF</td>
 <td class="comment-11" rowspan="1"><span class="register">B</span> will count upwards from -33 to -1 (+DF to +FF), looping on minus and will jump again on zero for extra precision.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31D0"></span>31D0</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="31AF.html#31E2">DIV_START</a></td>
 <td class="comment-11" rowspan="1">Jump forward into the division loop for the first trial subtraction.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="31D2"></span>
 <div class="comments">
 <div class="paragraph">
@@ -210,197 +234,229 @@ Now enter the division loop.
 <tr>
 <td class="asm-label-1">DIV_LOOP</td>
 <td class="address-2"><span id="31D2"></span>31D2</td>
+<td class="bytes-0"></td>
 <td class="instruction">RLA</td>
 <td class="comment-11" rowspan="6">Shift the result left into <span class="register">B'C'CA</span>, shifting out the bits already there, picking up 1 from the carry whenever it is set, and rotating left each byte with carry to achieve the 32-bit shift.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31D3"></span>31D3</td>
+<td class="bytes-0"></td>
 <td class="instruction">RL C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31D5"></span>31D5</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31D6"></span>31D6</td>
+<td class="bytes-0"></td>
 <td class="instruction">RL C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31D8"></span>31D8</td>
+<td class="bytes-0"></td>
 <td class="instruction">RL B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31DA"></span>31DA</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">DIV_34TH</td>
 <td class="address-1"><span id="31DB"></span>31DB</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,HL</td>
 <td class="comment-11" rowspan="5">Move what remains of the dividend left in <span class="register">H'L'HL</span> before the next trial subtraction; if a bit drops into the carry, force no restore and a bit for the quotient, thus retrieving the lost bit and allowing a full 32-bit divisor.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31DC"></span>31DC</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31DD"></span>31DD</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADC HL,HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31DF"></span>31DF</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31E0"></span>31E0</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="31AF.html#31F2">SUBN_ONLY</a></td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">DIV_START</td>
 <td class="address-2"><span id="31E2"></span>31E2</td>
+<td class="bytes-0"></td>
 <td class="instruction">SBC HL,DE</td>
 <td class="comment-11" rowspan="4">Trial subtract divisor in <span class="register">D'E'DE</span> from rest of dividend in <span class="register">H'L'HL</span>; there is no initial carry (see previous step).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31E4"></span>31E4</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31E5"></span>31E5</td>
+<td class="bytes-0"></td>
 <td class="instruction">SBC HL,DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31E7"></span>31E7</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31E8"></span>31E8</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="31AF.html#31F9">NO_RSTORE</a></td>
 <td class="comment-11" rowspan="1">Jump forward if there is no carry.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31EA"></span>31EA</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-11" rowspan="5">Otherwise restore, i.e. add back the divisor. Then clear the carry so that there will be no bit for the quotient (the divisor 'did not go').</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31EB"></span>31EB</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31EC"></span>31EC</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADC HL,DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31EE"></span>31EE</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31EF"></span>31EF</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31F0"></span>31F0</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR <a href="31AF.html#31FA">COUNT_ONE</a></td>
 <td class="comment-11" rowspan="1">Jump forward to the counter.</td>
 </tr>
 <tr>
 <td class="asm-label-1">SUBN_ONLY</td>
 <td class="address-2"><span id="31F2"></span>31F2</td>
+<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
 <td class="comment-11" rowspan="5">Just subtract with no restore and go on to set the carry flag because the lost bit of the dividend is to be retrieved and used for the quotient.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31F3"></span>31F3</td>
+<td class="bytes-0"></td>
 <td class="instruction">SBC HL,DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31F5"></span>31F5</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31F6"></span>31F6</td>
+<td class="bytes-0"></td>
 <td class="instruction">SBC HL,DE</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31F8"></span>31F8</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1">NO_RSTORE</td>
 <td class="address-2"><span id="31F9"></span>31F9</td>
+<td class="bytes-0"></td>
 <td class="instruction">SCF</td>
 <td class="comment-11" rowspan="1">One for the quotient in <span class="register">B'C'CA</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1">COUNT_ONE</td>
 <td class="address-2"><span id="31FA"></span>31FA</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC B</td>
 <td class="comment-11" rowspan="1">Step the loop count up by one.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31FB"></span>31FB</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP M,<a href="31AF.html#31D2">DIV_LOOP</a></td>
 <td class="comment-11" rowspan="1">Loop 32 times for all bits.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31FE"></span>31FE</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
 <td class="comment-11" rowspan="1">Save any 33rd bit for extra precision (the present carry).</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="31FF"></span>31FF</td>
+<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="31AF.html#31E2">DIV_START</a></td>
 <td class="comment-11" rowspan="1">Trial subtract yet again for any 34th bit; the 'PUSH AF' above saves this bit too.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="3201"></span>
 <div class="comments">
 <div class="paragraph">
@@ -412,90 +468,105 @@ Note: this jump is made to the wrong place. No 34th bit will ever be obtained wi
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3201"></span>3201</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD E,A</td>
 <td class="comment-11" rowspan="5">Now move the four bytes that form the mantissa of the result from <span class="register">B'C'CA</span> to <span class="register">D'E'DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3202"></span>3202</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3203"></span>3203</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3204"></span>3204</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD E,C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3205"></span>3205</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3206"></span>3206</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
 <td class="comment-11" rowspan="5">Then put the 34th and 33rd bits into <span class="register">B'</span> to be picked up on normalisation.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3207"></span>3207</td>
+<td class="bytes-0"></td>
 <td class="instruction">RR B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3209"></span>3209</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="320A"></span>320A</td>
+<td class="bytes-0"></td>
 <td class="instruction">RR B</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="320C"></span>320C</td>
+<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="320D"></span>320D</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">Restore the exponent bytes M1 and N1.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="320E"></span>320E</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
 <td class="comment-11" rowspan="1">Restore the pointer to the result.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="320F"></span>320F</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
 <td class="comment-11" rowspan="2">Get the difference between the two exponent bytes into <span class="register">A</span> and set the carry flag if required.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3210"></span>3210</td>
+<td class="bytes-0"></td>
 <td class="instruction">SUB C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="3211"></span>3211</td>
+<td class="bytes-0"></td>
 <td class="instruction">JP <a href="30CA.html#313D">DIVN_EXPT</a></td>
 <td class="comment-11" rowspan="1">Exit via <a href="30CA.html#313D">DIVN_EXPT</a>.</td>
 </tr>
@@ -508,10 +579,10 @@ Note: this jump is made to the wrong place. No 34th bit will ever be obtained wi
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/12719.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/12719.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

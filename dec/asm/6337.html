@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Routine at 06337</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="6326.html">06326</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#6337">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="6369.html">06369</a></span></td>
+</tr>
+</table>
+<div class="description">06337: THE 'PRINT A FLASHING CHARACTER' SUBROUTINE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="6229.html">OUT_LINE</a> and <a href="6369.html">OUT_CURS</a>.
+</div>
+<div class="paragraph">
+The 'error cursor' and the 'mode cursors' are printed using this subroutine.
+</div>
+</div>
+<table class="input-1">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Character code ('C', 'E', 'G', 'K', 'L' or '?')</td>
+</tr>
+</table>
+<table class="output-0">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label-1">OUT_FLASH</td>
+<td class="address-2"><span id="6337"></span>06337</td>
+<td class="bytes-0"></td>
+<td class="instruction">EXX</td>
+<td class="comment-11" rowspan="1">Switch to the alternate registers.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6338"></span>06338</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,(23695)</td>
+<td class="comment-11" rowspan="2">Save the values of <a href="23695.html">ATTR-T</a> and <a href="23696.html">MASK-T</a> on the machine stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6341"></span>06341</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6342"></span>06342</td>
+<td class="bytes-0"></td>
+<td class="instruction">RES 7,H</td>
+<td class="comment-11" rowspan="2">Ensure that FLASH is active.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6344"></span>06344</td>
+<td class="bytes-0"></td>
+<td class="instruction">SET 7,L</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6346"></span>06346</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23695),HL</td>
+<td class="comment-11" rowspan="1">Use these modified values for <a href="23695.html">ATTR-T</a> and <a href="23696.html">MASK-T</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6349"></span>06349</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD HL,23697</td>
+<td class="comment-11" rowspan="1">This is <a href="23697.html">P-FLAG</a>.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6352"></span>06352</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-11" rowspan="2">Save <a href="23697.html">P-FLAG</a> also on the machine stack.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6353"></span>06353</td>
+<td class="bytes-0"></td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6354"></span>06354</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (HL),0</td>
+<td class="comment-11" rowspan="1">Ensure INVERSE 0, OVER 0, and not PAPER 9 nor INK 9.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6356"></span>06356</td>
+<td class="bytes-0"></td>
+<td class="instruction">CALL <a href="2548.html">PRINT_OUT</a></td>
+<td class="comment-11" rowspan="1">The character is printed.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6359"></span>06359</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP HL</td>
+<td class="comment-11" rowspan="2">The former value of <a href="23697.html">P-FLAG</a> is restored.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6360"></span>06360</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (IY+87),H</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6363"></span>06363</td>
+<td class="bytes-0"></td>
+<td class="instruction">POP HL</td>
+<td class="comment-11" rowspan="4">The former values of <a href="23695.html">ATTR-T</a> and <a href="23696.html">MASK-T</a> are also restored before returning.</td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6364"></span>06364</td>
+<td class="bytes-0"></td>
+<td class="instruction">LD (23695),HL</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6367"></span>06367</td>
+<td class="bytes-0"></td>
+<td class="instruction">EXX</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label-1"></td>
+<td class="address-1"><span id="6368"></span>06368</td>
+<td class="bytes-0"></td>
+<td class="instruction">RET</td>
+<td class="comment-01" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev"><span class="prev-1">Prev: <a href="6326.html">06326</a></span></td>
+<td class="up">Up: <a href="../maps/all.html#6337">Map</a></td>
+<td class="next"><span class="next-1">Next: <a href="6369.html">06369</a></span></td>
+</tr>
+</table>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../../asm/18C1.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

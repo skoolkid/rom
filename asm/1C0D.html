@@ -23,7 +23,7 @@
 <div class="description">1C0D: THE 'COMMAND CLASSES - +00, +03 and +05'</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 The address of this routine is derived from an offset found in the <a href="1C01.html">command class table</a>.
@@ -56,11 +56,12 @@ The commands of class +03 may, or may not, be followed by a number. e.g. RUN and
 <tr>
 <td class="asm-label-1">CLASS_03</td>
 <td class="address-2"><span id="1C0D"></span>1C0D</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1CDE.html">FETCH_NUM</a></td>
 <td class="comment-11" rowspan="1">A number is fetched but zero is used in cases of default.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1C10"></span>
 <div class="comments">
 <div class="paragraph">
@@ -75,11 +76,12 @@ The commands of class +00 must not have any operands, e.g. COPY and CONTINUE.
 <tr>
 <td class="asm-label-1">CLASS_00</td>
 <td class="address-1"><span id="1C10"></span>1C10</td>
+<td class="bytes-0"></td>
 <td class="instruction">CP A</td>
 <td class="comment-11" rowspan="1">Set the zero flag for later.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1C11"></span>
 <div class="comments">
 <div class="paragraph">
@@ -94,23 +96,26 @@ The commands of class +05 may be followed by a set of items, e.g. PRINT and PRIN
 <tr>
 <td class="asm-label-1">CLASS_05</td>
 <td class="address-1"><span id="1C11"></span>1C11</td>
+<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
 <td class="comment-11" rowspan="1">In all cases drop the address - <a href="1B28.html#1B52">SCAN_LOOP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C12"></span>1C12</td>
+<td class="bytes-0"></td>
 <td class="instruction">CALL Z,<a href="1BEE.html">CHECK_END</a></td>
 <td class="comment-11" rowspan="1">If handling commands of classes +00 and +03 and syntax is being checked move on now to consider the next statement.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C15"></span>1C15</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="1">Save the line pointer in the <span class="register">DE</span> register pair.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="1C16"></span>
 <div class="comments">
 <div class="paragraph">
@@ -122,42 +127,49 @@ After the command class entries and the separator entries in the <a href="1A48.h
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C16"></span>1C16</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C74)</td>
 <td class="comment-11" rowspan="4">Fetch the pointer to the entries in the <a href="1A48.html#1A7A">parameter table</a> from <a href="5C74.html">T-ADDR</a> and fetch the address of the required command routine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C19"></span>1C19</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,(HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C1A"></span>1C1A</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C1B"></span>1C1B</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD B,(HL)</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C1C"></span>1C1C</td>
+<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-11" rowspan="3">Exchange the pointers back and make an indirect jump to the command routine.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C1D"></span>1C1D</td>
+<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="1C1E"></span>1C1E</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
@@ -170,10 +182,10 @@ After the command class entries and the separator entries in the <a href="1A48.h
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/7181.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/7181.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>

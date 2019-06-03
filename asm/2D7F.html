@@ -23,7 +23,7 @@
 <div class="description">2D7F: THE 'INT-FETCH' SUBROUTINE</div>
 <table class="disassembly">
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routines at <a href="2DA2.html">FP_TO_BC</a>, <a href="2DE3.html">PRINT_FP</a>, <a href="30CA.html">multiply</a>, <a href="3297.html">re_stack</a> and <a href="346E.html">negate</a>.
@@ -66,17 +66,19 @@ The subroutine does not itself delete the number from the stack or from memory; 
 <tr>
 <td class="asm-label-1">INT_FETCH</td>
 <td class="address-2"><span id="2D7F"></span>2D7F</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Point to the sign byte of the number.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D80"></span>2D80</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD C,(HL)</td>
 <td class="comment-11" rowspan="1">Copy the sign byte to <span class="register">C</span>.</td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="4">
+<td class="routine-comment" colspan="5">
 <span id="2D81"></span>
 <div class="comments">
 <div class="paragraph">
@@ -88,66 +90,77 @@ The following mechanism will two's complement the number if it is negative (<spa
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D81"></span>2D81</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Point to the less significant byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D82"></span>2D82</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-11" rowspan="1">Collect the byte in <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D83"></span>2D83</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR C</td>
 <td class="comment-11" rowspan="1">One's complement it if negative.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D84"></span>2D84</td>
+<td class="bytes-0"></td>
 <td class="instruction">SUB C</td>
 <td class="comment-11" rowspan="1">This adds 1 for negative numbers; it sets the carry unless the byte was 0.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D85"></span>2D85</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD E,A</td>
 <td class="comment-11" rowspan="1">Less significant byte to <span class="register">E</span> now.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D86"></span>2D86</td>
+<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
 <td class="comment-11" rowspan="1">Point to the more significant byte.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D87"></span>2D87</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-11" rowspan="1">Collect it in <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D88"></span>2D88</td>
+<td class="bytes-0"></td>
 <td class="instruction">ADC A,C</td>
 <td class="comment-11" rowspan="2">Finish two's complementing in the case of a negative number; note that the carry is always left reset.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D89"></span>2D89</td>
+<td class="bytes-0"></td>
 <td class="instruction">XOR C</td>
 <td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D8A"></span>2D8A</td>
+<td class="bytes-0"></td>
 <td class="instruction">LD D,A</td>
 <td class="comment-11" rowspan="1">More significant byte to <span class="register">D</span> now.</td>
 </tr>
 <tr>
 <td class="asm-label-1"></td>
 <td class="address-1"><span id="2D8B"></span>2D8B</td>
+<td class="bytes-0"></td>
 <td class="instruction">RET</td>
 <td class="comment-11" rowspan="1">Finished.</td>
 </tr>
@@ -160,10 +173,10 @@ The following mechanism will two's complement the number if it is negative (<spa
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20181017</div>
-<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2018 Richard Dymond.</div>
-<div class="created">Created using <a href="http://skoolkit.ca/">SkoolKit</a> 7.0.</div>
-<div><a href="http://skoolkit.ca/disassemblies/rom/asm/11647.html">Switch to decimal</a>.</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div><a href="../dec/asm/11647.html">Switch to decimal</a>.</div>
 </footer>
 </body>
 </html>
