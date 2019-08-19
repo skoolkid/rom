@@ -12,8 +12,6 @@ StyleSheet=skoolkit.css;rom.css
 Copyright=&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.
 Release=The Complete Spectrum ROM Disassembly 20190603
 LinkOperands=CALL,DEFW,DJNZ,JP,JR,RST
-TitlePrefix=The Complete
-TitleSuffix=Disassembly
 AddressAnchor={address#IF({base}!=10)(:04X)}
 
 [Paths]
@@ -21,11 +19,12 @@ GameStatusBuffer=buffers/sysvars.html
 CodeFiles={address#IF({base}!=10)(:04#S/X/)}.html
 
 [Titles]
-Asm-g=System variable at
+Asm-g=System variable at {entry[address]}
 GameStatusBuffer=System variables
 
 [PageHeaders]
 Asm-g=System variables
+GameIndex=The Complete<>Disassembly
 
 [MemoryMap:MemoryMap]
 PageByteColumns=#IF({base}==10)(1,0)
