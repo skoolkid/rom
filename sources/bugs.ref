@@ -1,4 +1,4 @@
-; Copyright 2016, 2017 Richard Dymond (rjdymond@gmail.com)
+; Copyright 2016, 2017, 2019 Richard Dymond (rjdymond@gmail.com)
 
 [Bug:noStepForward:No step forward]
 Consider this PRINT command:
@@ -275,7 +275,7 @@ Specifically, when #R$302B is reached, the carry flag is set, #REGa holds &FF
 (the sign byte of the second number), and #REG[(HL)] also holds &FF (the sign
 byte of the first number). Then:
 
-#TABLE(asm,address-1,instruction,comment-11)
+#TABLE(asm,address-1,instruction,comment-1)
 { #h302B | #S/ADC A,(HL)/    | #REGa=&FF (&FF plus &FF plus carry). }
 { #h302C | #S/RRCA/          | #REGa=&FF, carry flag set. }
 { #h302D | #S/ADC A/,#o00    | #REGa=&00. }
