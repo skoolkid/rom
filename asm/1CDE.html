@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 1CDE</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1CDB.html">1CDB</a></span></td>
+<td class="prev">
+Prev: <a href="1CDB.html">1CDB</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1CDE">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1CEE.html">1CEE</a></span></td>
+<td class="next">
+Next: <a href="1CEE.html">1CEE</a>
+</td>
 </tr>
 </table>
 <div class="description">1CDE: THE 'FETCH A NUMBER' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routines at <a href="17F9.html">LIST</a> and <a href="1C0D.html">CLA
 This subroutine leads to a following numeric expression being evaluated but zero being used instead if there is no expression.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,41 +44,29 @@ This subroutine leads to a following numeric expression being evaluated but zero
 <td class="register-desc">Code of the first character of the expression</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">FETCH_NUM</td>
+<td class="asm-label">FETCH_NUM</td>
 <td class="address-2"><span id="1CDE"></span>1CDE</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $0D</td>
-<td class="comment-11" rowspan="2">Jump forward if at the end of a line.</td>
+<td class="comment-1" rowspan="2">Jump forward if at the end of a line.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1CE0"></span>1CE0</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1CDE.html#1CE6">USE_ZERO</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1CE2"></span>1CE2</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ":"</td>
-<td class="comment-11" rowspan="2">But jump to <a href="1C79.html#1C82">CLASS_06</a> unless at the end of a statement.</td>
+<td class="comment-1" rowspan="2">But jump to <a href="1C79.html#1C82">CLASS_06</a> unless at the end of a statement.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1CE4"></span>1CE4</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1C79.html#1C82">CLASS_06</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -91,59 +82,56 @@ The calculator is now used to add the value zero to the calculator stack.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">USE_ZERO</td>
+<td class="asm-label">USE_ZERO</td>
 <td class="address-2"><span id="1CE6"></span>1CE6</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
-<td class="comment-11" rowspan="2">Do not perform the operation if syntax is being checked.</td>
+<td class="comment-1" rowspan="2">Do not perform the operation if syntax is being checked.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1CE9"></span>1CE9</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1CEA"></span>1CEA</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-11" rowspan="1">Use the calculator.</td>
+<td class="comment-1" rowspan="1">Use the calculator.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1CEB"></span>1CEB</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $A0</td>
-<td class="comment-11" rowspan="1"><a href="341B.html">stk_zero</a></td>
+<td class="comment-1" rowspan="1"><a href="341B.html">stk_zero</a></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1CEC"></span>1CEC</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
+<td class="comment-1" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1CED"></span>1CED</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Return with zero added to the stack.</td>
+<td class="comment-1" rowspan="1">Return with zero added to the stack.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1CDB.html">1CDB</a></span></td>
+<td class="prev">
+Prev: <a href="1CDB.html">1CDB</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1CDE">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1CEE.html">1CEE</a></span></td>
+<td class="next">
+Next: <a href="1CEE.html">1CEE</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/7390.html">Switch to decimal</a>.</div>
 </footer>
 </body>

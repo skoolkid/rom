@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 2C9B</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="2C8D.html">2C8D</a></span></td>
+<td class="prev">
+Prev: <a href="2C8D.html">2C8D</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2C9B">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2D1B.html">2D1B</a></span></td>
+<td class="next">
+Next: <a href="2D1B.html">2D1B</a>
+</td>
 </tr>
 </table>
 <div class="description">2C9B: THE 'DECIMAL TO FLOATING POINT' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routine at <a href="268D.html">S_DECIMAL</a>.
 As part of syntax checking decimal numbers that occur in a BASIC line are converted to their floating-point forms. This subroutine reads the decimal number digit by digit and gives its result as a 'last value' on the calculator stack. But first it deals with the alternative notation BIN, which introduces a sequence of 0's and 1's giving the binary representation of the required number.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,125 +44,102 @@ As part of syntax checking decimal numbers that occur in a BASIC line are conver
 <td class="register-desc">Code of the first character in the number</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">DEC_TO_FP</td>
+<td class="asm-label">DEC_TO_FP</td>
 <td class="address-2"><span id="2C9B"></span>2C9B</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $C4</td>
-<td class="comment-11" rowspan="1">Is the character a 'BIN'?</td>
+<td class="comment-1" rowspan="1">Is the character a 'BIN'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2C9D"></span>2C9D</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2C9B.html#2CB8">NOT_BIN</a></td>
-<td class="comment-11" rowspan="1">Jump if it is not 'BIN'.</td>
+<td class="comment-1" rowspan="1">Jump if it is not 'BIN'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2C9F"></span>2C9F</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,$0000</td>
-<td class="comment-11" rowspan="1">Initialise result to zero in <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="1">Initialise result to zero in <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1">BIN_DIGIT</td>
+<td class="asm-label">BIN_DIGIT</td>
 <td class="address-2"><span id="2CA2"></span>2CA2</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Get the next character.</td>
+<td class="comment-1" rowspan="1">Get the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CA3"></span>2CA3</td>
-<td class="bytes-0"></td>
 <td class="instruction">SUB "1"</td>
-<td class="comment-11" rowspan="1">Subtract the character code for '1'.</td>
+<td class="comment-1" rowspan="1">Subtract the character code for '1'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CA5"></span>2CA5</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADC A,$00</td>
-<td class="comment-11" rowspan="1">0 now gives 0 with carry set; 1 gives 0 with carry reset.</td>
+<td class="comment-1" rowspan="1">0 now gives 0 with carry set; 1 gives 0 with carry reset.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CA7"></span>2CA7</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2C9B.html#2CB3">BIN_END</a></td>
-<td class="comment-11" rowspan="1">Any other character causes a jump to <a href="2C9B.html#2CB3">BIN_END</a> and will be checked for syntax during or after scanning.</td>
+<td class="comment-1" rowspan="1">Any other character causes a jump to <a href="2C9B.html#2CB3">BIN_END</a> and will be checked for syntax during or after scanning.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CA9"></span>2CA9</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Result so far to <span class="register">HL</span> now.</td>
+<td class="comment-1" rowspan="1">Result so far to <span class="register">HL</span> now.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CAA"></span>2CAA</td>
-<td class="bytes-0"></td>
 <td class="instruction">CCF</td>
-<td class="comment-11" rowspan="1">Complement the carry flag.</td>
+<td class="comment-1" rowspan="1">Complement the carry flag.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CAB"></span>2CAB</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADC HL,HL</td>
-<td class="comment-11" rowspan="1">Shift the result left, with the carry going to bit 0.</td>
+<td class="comment-1" rowspan="1">Shift the result left, with the carry going to bit 0.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CAD"></span>2CAD</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP C,<a href="30CA.html#31AD">REPORT_6</a></td>
-<td class="comment-11" rowspan="1">Report overflow if more than 65535.</td>
+<td class="comment-1" rowspan="1">Report overflow if more than 65535.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CB0"></span>2CB0</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Return the result so far to <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="1">Return the result so far to <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CB1"></span>2CB1</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="2C9B.html#2CA2">BIN_DIGIT</a></td>
-<td class="comment-11" rowspan="1">Jump back for next 0 or 1.</td>
+<td class="comment-1" rowspan="1">Jump back for next 0 or 1.</td>
 </tr>
 <tr>
-<td class="asm-label-1">BIN_END</td>
+<td class="asm-label">BIN_END</td>
 <td class="address-2"><span id="2CB3"></span>2CB3</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,D</td>
-<td class="comment-11" rowspan="2">Copy result to <span class="register">BC</span> for stacking.</td>
+<td class="comment-1" rowspan="2">Copy result to <span class="register">BC</span> for stacking.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CB4"></span>2CB4</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,E</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CB5"></span>2CB5</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="2D2B.html">STACK_BC</a></td>
-<td class="comment-11" rowspan="1">Jump forward to stack the result.</td>
+<td class="comment-1" rowspan="1">Jump forward to stack the result.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -172,144 +152,123 @@ For other numbers, first any integer part is converted; if the next character is
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">NOT_BIN</td>
+<td class="asm-label">NOT_BIN</td>
 <td class="address-2"><span id="2CB8"></span>2CB8</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "."</td>
-<td class="comment-11" rowspan="1">Is the first character a '.'?</td>
+<td class="comment-1" rowspan="1">Is the first character a '.'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CBA"></span>2CBA</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2C9B.html#2CCB">DECIMAL</a></td>
-<td class="comment-11" rowspan="1">If so, jump forward.</td>
+<td class="comment-1" rowspan="1">If so, jump forward.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CBC"></span>2CBC</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2D3B.html">INT_TO_FP</a></td>
-<td class="comment-11" rowspan="1">Otherwise, form a 'last value' of the integer.</td>
+<td class="comment-1" rowspan="1">Otherwise, form a 'last value' of the integer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CBF"></span>2CBF</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "."</td>
-<td class="comment-11" rowspan="1">Is the next character a '.'?</td>
+<td class="comment-1" rowspan="1">Is the next character a '.'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CC1"></span>2CC1</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2C9B.html#2CEB">E_FORMAT</a></td>
-<td class="comment-11" rowspan="1">Jump forward to see if it is an 'E'.</td>
+<td class="comment-1" rowspan="1">Jump forward to see if it is an 'E'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CC3"></span>2CC3</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Get the next character.</td>
+<td class="comment-1" rowspan="1">Get the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CC4"></span>2CC4</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2D1B.html">NUMERIC</a></td>
-<td class="comment-11" rowspan="1">Is it a digit?</td>
+<td class="comment-1" rowspan="1">Is it a digit?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CC7"></span>2CC7</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="2C9B.html#2CEB">E_FORMAT</a></td>
-<td class="comment-11" rowspan="1">Jump if not (e.g. 1.E4 is allowed).</td>
+<td class="comment-1" rowspan="1">Jump if not (e.g. 1.E4 is allowed).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CC9"></span>2CC9</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="2C9B.html#2CD5">DEC_STO_1</a></td>
-<td class="comment-11" rowspan="1">Jump forward to deal with the digits after the decimal point.</td>
+<td class="comment-1" rowspan="1">Jump forward to deal with the digits after the decimal point.</td>
 </tr>
 <tr>
-<td class="asm-label-1">DECIMAL</td>
+<td class="asm-label">DECIMAL</td>
 <td class="address-2"><span id="2CCB"></span>2CCB</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="2">If the number started with a decimal, see if the next character is a digit.</td>
+<td class="comment-1" rowspan="2">If the number started with a decimal, see if the next character is a digit.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CCC"></span>2CCC</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2D1B.html">NUMERIC</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">DEC_RPT_C</td>
+<td class="asm-label">DEC_RPT_C</td>
 <td class="address-2"><span id="2CCF"></span>2CCF</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP C,<a href="1C79.html#1C8A">REPORT_C</a></td>
-<td class="comment-11" rowspan="1">Report the error if it is not.</td>
+<td class="comment-1" rowspan="1">Report the error if it is not.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CD2"></span>2CD2</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-11" rowspan="1">Use the calculator to stack zero as the integer part of such numbers.</td>
+<td class="comment-1" rowspan="1">Use the calculator to stack zero as the integer part of such numbers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CD3"></span>2CD3</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $A0</td>
-<td class="comment-11" rowspan="1"><a href="341B.html">stk_zero</a></td>
+<td class="comment-1" rowspan="1"><a href="341B.html">stk_zero</a></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CD4"></span>2CD4</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
+<td class="comment-1" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-1">DEC_STO_1</td>
+<td class="asm-label">DEC_STO_1</td>
 <td class="address-2"><span id="2CD5"></span>2CD5</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-11" rowspan="1">Use the calculator to copy the number 1 to mem-0.</td>
+<td class="comment-1" rowspan="1">Use the calculator to copy the number 1 to mem-0.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CD6"></span>2CD6</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $A1</td>
-<td class="comment-11" rowspan="1"><a href="341B.html">stk_one</a></td>
+<td class="comment-1" rowspan="1"><a href="341B.html">stk_one</a></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CD7"></span>2CD7</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $C0</td>
-<td class="comment-11" rowspan="1"><a href="342D.html">st_mem_0</a></td>
+<td class="comment-1" rowspan="1"><a href="342D.html">st_mem_0</a></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CD8"></span>2CD8</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $02</td>
-<td class="comment-11" rowspan="1"><a href="335B.html#33A1">delete</a></td>
+<td class="comment-1" rowspan="1"><a href="335B.html#33A1">delete</a></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CD9"></span>2CD9</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
+<td class="comment-1" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -322,95 +281,82 @@ For each passage of the following loop, the number (N) saved in the memory area 
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">NXT_DGT_1</td>
+<td class="asm-label">NXT_DGT_1</td>
 <td class="address-2"><span id="2CDA"></span>2CDA</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-11" rowspan="1">Get the present character.</td>
+<td class="comment-1" rowspan="1">Get the present character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CDB"></span>2CDB</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2D22.html">STK_DIGIT</a></td>
-<td class="comment-11" rowspan="1">If it is a digit (D) then stack it.</td>
+<td class="comment-1" rowspan="1">If it is a digit (D) then stack it.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CDE"></span>2CDE</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="2C9B.html#2CEB">E_FORMAT</a></td>
-<td class="comment-11" rowspan="1">If not jump forward.</td>
+<td class="comment-1" rowspan="1">If not jump forward.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CE0"></span>2CE0</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-11" rowspan="1">Now use the calculator.</td>
+<td class="comment-1" rowspan="1">Now use the calculator.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CE1"></span>2CE1</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $E0</td>
-<td class="comment-11" rowspan="1"><a href="340F.html">get_mem_0</a>: V, D, N</td>
+<td class="comment-1" rowspan="1"><a href="340F.html">get_mem_0</a>: V, D, N</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CE2"></span>2CE2</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $A4</td>
-<td class="comment-11" rowspan="1"><a href="341B.html">stk_ten</a>: V, D, N, 10</td>
+<td class="comment-1" rowspan="1"><a href="341B.html">stk_ten</a>: V, D, N, 10</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CE3"></span>2CE3</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $05</td>
-<td class="comment-11" rowspan="1"><a href="31AF.html">division</a>: V, D, N/10</td>
+<td class="comment-1" rowspan="1"><a href="31AF.html">division</a>: V, D, N/10</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CE4"></span>2CE4</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $C0</td>
-<td class="comment-11" rowspan="1"><a href="342D.html">st_mem_0</a>: V, D, N/10 (N/10 is copied to mem-0)</td>
+<td class="comment-1" rowspan="1"><a href="342D.html">st_mem_0</a>: V, D, N/10 (N/10 is copied to mem-0)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CE5"></span>2CE5</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $04</td>
-<td class="comment-11" rowspan="1"><a href="30CA.html">multiply</a>: V, D*N/10</td>
+<td class="comment-1" rowspan="1"><a href="30CA.html">multiply</a>: V, D*N/10</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CE6"></span>2CE6</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $0F</td>
-<td class="comment-11" rowspan="1"><a href="3014.html">addition</a>: V+D*N/10</td>
+<td class="comment-1" rowspan="1"><a href="3014.html">addition</a>: V+D*N/10</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CE7"></span>2CE7</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
+<td class="comment-1" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CE8"></span>2CE8</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Get the next character.</td>
+<td class="comment-1" rowspan="1">Get the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CE9"></span>2CE9</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="2C9B.html#2CDA">NXT_DGT_1</a></td>
-<td class="comment-11" rowspan="1">Jump back (one more byte than needed) to consider it.</td>
+<td class="comment-1" rowspan="1">Jump back (one more byte than needed) to consider it.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -423,192 +369,169 @@ Next consider any 'E notation', i.e. the form xEm or xem where m is a positive o
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">E_FORMAT</td>
+<td class="asm-label">E_FORMAT</td>
 <td class="address-2"><span id="2CEB"></span>2CEB</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "E"</td>
-<td class="comment-11" rowspan="1">Is the present character an 'E'?</td>
+<td class="comment-1" rowspan="1">Is the present character an 'E'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CED"></span>2CED</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2C9B.html#2CF2">SIGN_FLAG</a></td>
-<td class="comment-11" rowspan="1">Jump forward if it is.</td>
+<td class="comment-1" rowspan="1">Jump forward if it is.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CEF"></span>2CEF</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "e"</td>
-<td class="comment-11" rowspan="1">Is it an 'e'?</td>
+<td class="comment-1" rowspan="1">Is it an 'e'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CF1"></span>2CF1</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NZ</td>
-<td class="comment-11" rowspan="1">Finished unless it is so.</td>
+<td class="comment-1" rowspan="1">Finished unless it is so.</td>
 </tr>
 <tr>
-<td class="asm-label-1">SIGN_FLAG</td>
+<td class="asm-label">SIGN_FLAG</td>
 <td class="address-2"><span id="2CF2"></span>2CF2</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,$FF</td>
-<td class="comment-11" rowspan="1">Use <span class="register">B</span> as a sign flag, +FF for '+'.</td>
+<td class="comment-1" rowspan="1">Use <span class="register">B</span> as a sign flag, +FF for '+'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CF4"></span>2CF4</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Get the next character.</td>
+<td class="comment-1" rowspan="1">Get the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CF5"></span>2CF5</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "+"</td>
-<td class="comment-11" rowspan="1">Is it a '+'?</td>
+<td class="comment-1" rowspan="1">Is it a '+'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CF7"></span>2CF7</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2C9B.html#2CFE">SIGN_DONE</a></td>
-<td class="comment-11" rowspan="1">Jump forward.</td>
+<td class="comment-1" rowspan="1">Jump forward.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CF9"></span>2CF9</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "-"</td>
-<td class="comment-11" rowspan="1">Is it a '-'?</td>
+<td class="comment-1" rowspan="1">Is it a '-'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CFB"></span>2CFB</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2C9B.html#2CFF">ST_E_PART</a></td>
-<td class="comment-11" rowspan="1">Jump if neither '+' nor '-'.</td>
+<td class="comment-1" rowspan="1">Jump if neither '+' nor '-'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2CFD"></span>2CFD</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC B</td>
-<td class="comment-11" rowspan="1">Change the sign of the flag.</td>
+<td class="comment-1" rowspan="1">Change the sign of the flag.</td>
 </tr>
 <tr>
-<td class="asm-label-1">SIGN_DONE</td>
+<td class="asm-label">SIGN_DONE</td>
 <td class="address-2"><span id="2CFE"></span>2CFE</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Point to the first digit.</td>
+<td class="comment-1" rowspan="1">Point to the first digit.</td>
 </tr>
 <tr>
-<td class="asm-label-1">ST_E_PART</td>
+<td class="asm-label">ST_E_PART</td>
 <td class="address-2"><span id="2CFF"></span>2CFF</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2D1B.html">NUMERIC</a></td>
-<td class="comment-11" rowspan="1">Is it indeed a digit?</td>
+<td class="comment-1" rowspan="1">Is it indeed a digit?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2D02"></span>2D02</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="2C9B.html#2CCF">DEC_RPT_C</a></td>
-<td class="comment-11" rowspan="1">Report the error if not.</td>
+<td class="comment-1" rowspan="1">Report the error if not.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2D04"></span>2D04</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">Save the flag in <span class="register">B</span> briefly.</td>
+<td class="comment-1" rowspan="1">Save the flag in <span class="register">B</span> briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2D05"></span>2D05</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2D3B.html">INT_TO_FP</a></td>
-<td class="comment-11" rowspan="1">Stack ABS m, where m is the exponent.</td>
+<td class="comment-1" rowspan="1">Stack ABS m, where m is the exponent.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2D08"></span>2D08</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2DD5.html">FP_TO_A</a></td>
-<td class="comment-11" rowspan="1">Transfer ABS m to <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">Transfer ABS m to <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2D0B"></span>2D0B</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">Restore the sign flag to <span class="register">B</span>.</td>
+<td class="comment-1" rowspan="1">Restore the sign flag to <span class="register">B</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2D0C"></span>2D0C</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP C,<a href="30CA.html#31AD">REPORT_6</a></td>
-<td class="comment-11" rowspan="3">Report the overflow now if ABS m is greater than 255 or indeed greater than 127 (other values greater than about 39 will be detected later).</td>
+<td class="comment-1" rowspan="3">Report the overflow now if ABS m is greater than 255 or indeed greater than 127 (other values greater than about 39 will be detected later).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2D0F"></span>2D0F</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2D10"></span>2D10</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP M,<a href="30CA.html#31AD">REPORT_6</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2D13"></span>2D13</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC B</td>
-<td class="comment-11" rowspan="1">Test the sign flag in <span class="register">B</span>; '+' (i.e. +FF) will now set the zero flag.</td>
+<td class="comment-1" rowspan="1">Test the sign flag in <span class="register">B</span>; '+' (i.e. +FF) will now set the zero flag.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2D14"></span>2D14</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2C9B.html#2D18">E_FP_JUMP</a></td>
-<td class="comment-11" rowspan="1">Jump if sign of m is '+'.</td>
+<td class="comment-1" rowspan="1">Jump if sign of m is '+'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2D16"></span>2D16</td>
-<td class="bytes-0"></td>
 <td class="instruction">NEG</td>
-<td class="comment-11" rowspan="1">Negate m if sign is '-'.</td>
+<td class="comment-1" rowspan="1">Negate m if sign is '-'.</td>
 </tr>
 <tr>
-<td class="asm-label-1">E_FP_JUMP</td>
+<td class="asm-label">E_FP_JUMP</td>
 <td class="address-2"><span id="2D18"></span>2D18</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="2D4F.html">e_to_fp</a></td>
-<td class="comment-11" rowspan="1">Jump to assign to the 'last value' the result of x*10&#8593;m.</td>
+<td class="comment-1" rowspan="1">Jump to assign to the 'last value' the result of x*10&#8593;m.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="2C8D.html">2C8D</a></span></td>
+<td class="prev">
+Prev: <a href="2C8D.html">2C8D</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2C9B">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2D1B.html">2D1B</a></span></td>
+<td class="next">
+Next: <a href="2D1B.html">2D1B</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/11419.html">Switch to decimal</a>.</div>
 </footer>
 </body>

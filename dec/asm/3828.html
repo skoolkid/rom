@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 03828</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="3807.html">03807</a></span></td>
+<td class="prev">
+Prev: <a href="3807.html">03807</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#3828">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="3884.html">03884</a></span></td>
+<td class="next">
+Next: <a href="3884.html">03884</a>
+</td>
 </tr>
 </table>
 <div class="description">03828: THE 'COPY-LINE' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routines at <a href="3756.html">COPY</a> and <a href="3789.html">COP
 The subroutine is entered with the <span class="register">HL</span> register pair holding the base address of the thirty two bytes that form the pixel-line and the <span class="register">B</span> register holding the pixel-line number.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -45,55 +48,41 @@ The subroutine is entered with the <span class="register">HL</span> register pai
 <td class="register-desc">Display file address or printer buffer address</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">COPY_LINE</td>
+<td class="asm-label">COPY_LINE</td>
 <td class="address-2"><span id="3828"></span>03828</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-11" rowspan="1">Copy the pixel-line number.</td>
+<td class="comment-1" rowspan="1">Copy the pixel-line number.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3829"></span>03829</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 3</td>
-<td class="comment-11" rowspan="3">The <span class="register">A</span> register will hold 0 until the last two lines are being handled.</td>
+<td class="comment-1" rowspan="3">The <span class="register">A</span> register will hold 0 until the last two lines are being handled.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3831"></span>03831</td>
-<td class="bytes-0"></td>
 <td class="instruction">SBC A,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3832"></span>03832</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND 2</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3834"></span>03834</td>
-<td class="bytes-0"></td>
 <td class="instruction">OUT (251),A</td>
-<td class="comment-11" rowspan="1">Slow the motor for the last two pixel lines only.</td>
+<td class="comment-1" rowspan="1">Slow the motor for the last two pixel lines only.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3836"></span>03836</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,A</td>
-<td class="comment-11" rowspan="1">The <span class="register">D</span> register will hold either 0 or 2.</td>
+<td class="comment-1" rowspan="1">The <span class="register">D</span> register will hold either 0 or 2.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -106,95 +95,75 @@ There are three tests to be made before doing any 'printing'.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">COPY_L_1</td>
+<td class="asm-label">COPY_L_1</td>
 <td class="address-2"><span id="3837"></span>03837</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="8020.html">BREAK_KEY</a></td>
-<td class="comment-11" rowspan="2">Jump forward unless the BREAK key is being pressed.</td>
+<td class="comment-1" rowspan="2">Jump forward unless the BREAK key is being pressed.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3840"></span>03840</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="3828.html#3852">COPY_L_2</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3842"></span>03842</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,4</td>
-<td class="comment-11" rowspan="6">But if it is then stop the motor, enable the maskable interrupt, clear the printer buffer and exit via the error handling routine - 'BREAK-CONT repeats'.</td>
+<td class="comment-1" rowspan="6">But if it is then stop the motor, enable the maskable interrupt, clear the printer buffer and exit via the error handling routine - 'BREAK-CONT repeats'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3844"></span>03844</td>
-<td class="bytes-0"></td>
 <td class="instruction">OUT (251),A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3846"></span>03846</td>
-<td class="bytes-0"></td>
 <td class="instruction">EI</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3847"></span>03847</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="3807.html">CLEAR_PRB</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3850"></span>03850</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="8.html">8</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3851"></span>03851</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 12</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">COPY_L_2</td>
+<td class="asm-label">COPY_L_2</td>
 <td class="address-2"><span id="3852"></span>03852</td>
-<td class="bytes-0"></td>
 <td class="instruction">IN A,(251)</td>
-<td class="comment-11" rowspan="2">Fetch the status of the printer.</td>
+<td class="comment-1" rowspan="2">Fetch the status of the printer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3854"></span>03854</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD A,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3855"></span>03855</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET M</td>
-<td class="comment-11" rowspan="1">Make an immediate return if the printer is not present.</td>
+<td class="comment-1" rowspan="1">Make an immediate return if the printer is not present.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3856"></span>03856</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="3828.html#3837">COPY_L_1</a></td>
-<td class="comment-11" rowspan="1">Wait for the stylus.</td>
+<td class="comment-1" rowspan="1">Wait for the stylus.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3858"></span>03858</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,32</td>
-<td class="comment-11" rowspan="1">There are thirty two bytes.</td>
+<td class="comment-1" rowspan="1">There are thirty two bytes.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -207,122 +176,107 @@ Now enter a loop to handle these bytes.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">COPY_L_3</td>
+<td class="asm-label">COPY_L_3</td>
 <td class="address-2"><span id="3860"></span>03860</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-11" rowspan="1">Fetch a byte.</td>
+<td class="comment-1" rowspan="1">Fetch a byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3861"></span>03861</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Update the pointer.</td>
+<td class="comment-1" rowspan="1">Update the pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3862"></span>03862</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,8</td>
-<td class="comment-11" rowspan="1">Eight bits per byte.</td>
+<td class="comment-1" rowspan="1">Eight bits per byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1">COPY_L_4</td>
+<td class="asm-label">COPY_L_4</td>
 <td class="address-2"><span id="3864"></span>03864</td>
-<td class="bytes-0"></td>
 <td class="instruction">RL D</td>
-<td class="comment-11" rowspan="1">Move <span class="register">D</span> left.</td>
+<td class="comment-1" rowspan="1">Move <span class="register">D</span> left.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3866"></span>03866</td>
-<td class="bytes-0"></td>
 <td class="instruction">RL E</td>
-<td class="comment-11" rowspan="1">Move each bit into the carry.</td>
+<td class="comment-1" rowspan="1">Move each bit into the carry.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3868"></span>03868</td>
-<td class="bytes-0"></td>
 <td class="instruction">RR D</td>
-<td class="comment-11" rowspan="1">Move <span class="register">D</span> back again, picking up the carry from <span class="register">E</span>.</td>
+<td class="comment-1" rowspan="1">Move <span class="register">D</span> back again, picking up the carry from <span class="register">E</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1">COPY_L_5</td>
+<td class="asm-label">COPY_L_5</td>
 <td class="address-2"><span id="3870"></span>03870</td>
-<td class="bytes-0"></td>
 <td class="instruction">IN A,(251)</td>
-<td class="comment-11" rowspan="3">Again fetch the status of the printer and wait for the signal from the encoder.</td>
+<td class="comment-1" rowspan="3">Again fetch the status of the printer and wait for the signal from the encoder.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3872"></span>03872</td>
-<td class="bytes-0"></td>
 <td class="instruction">RRA</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3873"></span>03873</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="3828.html#3870">COPY_L_5</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3875"></span>03875</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
-<td class="comment-11" rowspan="2">Now go ahead and pass the 'bit' to the printer. Note: bit 2 low starts the motor, bit 1 high slows the motor, and bit 7 is high for the actual 'printing'.</td>
+<td class="comment-1" rowspan="2">Now go ahead and pass the 'bit' to the printer. Note: bit 2 low starts the motor, bit 1 high slows the motor, and bit 7 is high for the actual 'printing'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3876"></span>03876</td>
-<td class="bytes-0"></td>
 <td class="instruction">OUT (251),A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3878"></span>03878</td>
-<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="3828.html#3864">COPY_L_4</a></td>
-<td class="comment-11" rowspan="1">'Print' each bit.</td>
+<td class="comment-1" rowspan="1">'Print' each bit.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3880"></span>03880</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC C</td>
-<td class="comment-11" rowspan="1">Decrease the byte counter.</td>
+<td class="comment-1" rowspan="1">Decrease the byte counter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3881"></span>03881</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="3828.html#3860">COPY_L_3</a></td>
-<td class="comment-11" rowspan="2">Jump back whilst there are still bytes; otherwise return.</td>
+<td class="comment-1" rowspan="2">Jump back whilst there are still bytes; otherwise return.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3883"></span>03883</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="3807.html">03807</a></span></td>
+<td class="prev">
+Prev: <a href="3807.html">03807</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#3828">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="3884.html">03884</a></span></td>
+<td class="next">
+Next: <a href="3884.html">03884</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/0EF4.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

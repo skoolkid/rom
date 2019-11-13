@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 14250</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="14211.html">14211</a></span></td>
+<td class="prev">
+Prev: <a href="14211.html">14211</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#14250">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="14261.html">14261</a></span></td>
+<td class="next">
+Next: <a href="14261.html">14261</a>
+</td>
 </tr>
 </table>
 <div class="description">14250: THE 'COSINE' FUNCTION (offset 32)</div>
@@ -38,75 +41,54 @@ The subroutine uses the expression COS X=SIN (&#960;W/2), where -1&lt;=W&lt;=1.
 In deriving W for X the subroutine uses the test result obtained in the previous subroutine and stored for this purpose in mem-0. It then jumps to the <a href="14261.html">sin</a> subroutine, entering at <a href="14261.html#14263">C_ENT</a>, to produce a 'last value' of COS X.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">cos</td>
+<td class="asm-label">cos</td>
 <td class="address-2"><span id="14250"></span>14250</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="40.html">40</a></td>
-<td class="comment-11" rowspan="1">X</td>
+<td class="comment-1" rowspan="1">X</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="14251"></span>14251</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 57</td>
-<td class="comment-11" rowspan="1"><a href="14211.html">get_argt</a>: V</td>
+<td class="comment-1" rowspan="1"><a href="14211.html">get_argt</a>: V</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="14252"></span>14252</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 42</td>
-<td class="comment-11" rowspan="1"><a href="13418.html">abs</a>: ABS V</td>
+<td class="comment-1" rowspan="1"><a href="13418.html">abs</a>: ABS V</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="14253"></span>14253</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 161</td>
-<td class="comment-11" rowspan="1"><a href="13339.html">stk_one</a>: ABS V, 1</td>
+<td class="comment-1" rowspan="1"><a href="13339.html">stk_one</a>: ABS V, 1</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="14254"></span>14254</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 3</td>
-<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: ABS V-1</td>
+<td class="comment-1" rowspan="1"><a href="12303.html">subtract</a>: ABS V-1</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="14255"></span>14255</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 224</td>
-<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_0</a>: ABS V-1, (1/0)</td>
+<td class="comment-1" rowspan="1"><a href="13327.html">get_mem_0</a>: ABS V-1, (1/0)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="14256"></span>14256</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 0</td>
-<td class="comment-11" rowspan="2"><a href="13967.html">jump_true</a> to <a href="14261.html#14263">C_ENT</a>: ABS V-1=W</td>
+<td class="comment-1" rowspan="2"><a href="13967.html">jump_true</a> to <a href="14261.html#14263">C_ENT</a>: ABS V-1=W</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="14257"></span>14257</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 6</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -119,38 +101,38 @@ If the jump was not made then continue.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="14258"></span>14258</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 27</td>
-<td class="comment-11" rowspan="1"><a href="13422.html">negate</a>: 1-ABS V</td>
+<td class="comment-1" rowspan="1"><a href="13422.html">negate</a>: 1-ABS V</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="14259"></span>14259</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 51</td>
-<td class="comment-11" rowspan="2"><a href="13958.html">jump</a> to <a href="14261.html#14263">C_ENT</a>: 1-ABS V=W</td>
+<td class="comment-1" rowspan="2"><a href="13958.html">jump</a> to <a href="14261.html#14263">C_ENT</a>: 1-ABS V=W</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="14260"></span>14260</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 3</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="14211.html">14211</a></span></td>
+<td class="prev">
+Prev: <a href="14211.html">14211</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#14250">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="14261.html">14261</a></span></td>
+<td class="next">
+Next: <a href="14261.html">14261</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/37AA.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

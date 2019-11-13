@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 05469</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="5461.html">05461</a></span></td>
+<td class="prev">
+Prev: <a href="5461.html">05461</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#5469">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="5551.html">05551</a></span></td>
+<td class="next">
+Next: <a href="5551.html">05551</a>
+</td>
 </tr>
 </table>
 <div class="description">05469: THE 'MAIN-ADD' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routine at <a href="4770.html">MAIN_EXEC</a>.
 This subroutine allows for a new BASIC line to be added to the existing BASIC program in the program area. If a line has both an old and a new version then the old one is 'reclaimed'. A new line that consists of only a line number does not go into the program area.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,376 +44,303 @@ This subroutine allows for a new BASIC line to be added to the existing BASIC pr
 <td class="register-desc">BASIC line number</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">MAIN_ADD</td>
+<td class="asm-label">MAIN_ADD</td>
 <td class="address-2"><span id="5469"></span>05469</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23625),BC</td>
-<td class="comment-11" rowspan="1">Make the new line number the 'current line' (<a href="23625.html">E-PPC</a>).</td>
+<td class="comment-1" rowspan="1">Make the new line number the 'current line' (<a href="23625.html">E-PPC</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5473"></span>05473</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23645)</td>
-<td class="comment-11" rowspan="2">Fetch <a href="23645.html">CH-ADD</a> and save the address in <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="2">Fetch <a href="23645.html">CH-ADD</a> and save the address in <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5476"></span>05476</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5477"></span>05477</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,5461</td>
-<td class="comment-11" rowspan="2">Push the address of <a href="5461.html">REPORT_G</a> on to the machine stack. <a href="23613.html">ERR-SP</a> will now point to <a href="5461.html">REPORT_G</a>.</td>
+<td class="comment-1" rowspan="2">Push the address of <a href="5461.html">REPORT_G</a> on to the machine stack. <a href="23613.html">ERR-SP</a> will now point to <a href="5461.html">REPORT_G</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5480"></span>05480</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5481"></span>05481</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23649)</td>
-<td class="comment-11" rowspan="1">Fetch <a href="23649.html">WORKSP</a>.</td>
+<td class="comment-1" rowspan="1">Fetch <a href="23649.html">WORKSP</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5484"></span>05484</td>
-<td class="bytes-0"></td>
 <td class="instruction">SCF</td>
-<td class="comment-11" rowspan="2">Find the length of the line from after the line number to the 'carriage return' character inclusively.</td>
+<td class="comment-1" rowspan="2">Find the length of the line from after the line number to the 'carriage return' character inclusively.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5485"></span>05485</td>
-<td class="bytes-0"></td>
 <td class="instruction">SBC HL,DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5487"></span>05487</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the length.</td>
+<td class="comment-1" rowspan="1">Save the length.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5488"></span>05488</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD H,B</td>
-<td class="comment-11" rowspan="2">Move the line number to the <span class="register">HL</span> register pair.</td>
+<td class="comment-1" rowspan="2">Move the line number to the <span class="register">HL</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5489"></span>05489</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD L,C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5490"></span>05490</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="6510.html">LINE_ADDR</a></td>
-<td class="comment-11" rowspan="1">Is there an existing line with this number?</td>
+<td class="comment-1" rowspan="1">Is there an existing line with this number?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5493"></span>05493</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="5469.html#5501">MAIN_ADD1</a></td>
-<td class="comment-11" rowspan="1">Jump if there was not.</td>
+<td class="comment-1" rowspan="1">Jump if there was not.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5495"></span>05495</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="6584.html">NEXT_ONE</a></td>
-<td class="comment-11" rowspan="2">Find the length of the 'old' line and reclaim it.</td>
+<td class="comment-1" rowspan="2">Find the length of the 'old' line and reclaim it.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5498"></span>05498</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="6629.html#6632">RECLAIM_2</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">MAIN_ADD1</td>
+<td class="asm-label">MAIN_ADD1</td>
 <td class="address-2"><span id="5501"></span>05501</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="5">Fetch the length of the 'new' line and jump forward if it is only a 'line number and a carriage return'.</td>
+<td class="comment-1" rowspan="5">Fetch the length of the 'new' line and jump forward if it is only a 'line number and a carriage return'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5502"></span>05502</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5503"></span>05503</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5504"></span>05504</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR B</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5505"></span>05505</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="5469.html#5547">MAIN_ADD2</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5507"></span>05507</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">Save the length.</td>
+<td class="comment-1" rowspan="1">Save the length.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5508"></span>05508</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
-<td class="comment-11" rowspan="4">Four extra locations will be needed, i.e. two for the number and two for the length.</td>
+<td class="comment-1" rowspan="4">Four extra locations will be needed, i.e. two for the number and two for the length.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5509"></span>05509</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5510"></span>05510</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5511"></span>05511</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5512"></span>05512</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="1">Make <span class="register">HL</span> point to the location before the 'destination'.</td>
+<td class="comment-1" rowspan="1">Make <span class="register">HL</span> point to the location before the 'destination'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5513"></span>05513</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,(23635)</td>
-<td class="comment-11" rowspan="2">Save the current value of <a href="23635.html">PROG</a> to avoid corruption when adding a first line.</td>
+<td class="comment-1" rowspan="2">Save the current value of <a href="23635.html">PROG</a> to avoid corruption when adding a first line.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5517"></span>05517</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5518"></span>05518</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="5714.html#5717">MAKE_ROOM</a></td>
-<td class="comment-11" rowspan="1">Space for the new line is created.</td>
+<td class="comment-1" rowspan="1">Space for the new line is created.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5521"></span>05521</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">The old value of <a href="23635.html">PROG</a> is fetched and restored.</td>
+<td class="comment-1" rowspan="2">The old value of <a href="23635.html">PROG</a> is fetched and restored.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5522"></span>05522</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23635),HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5525"></span>05525</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="2">A copy of the line length (without parameters) is taken.</td>
+<td class="comment-1" rowspan="2">A copy of the line length (without parameters) is taken.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5526"></span>05526</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5527"></span>05527</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC DE</td>
-<td class="comment-11" rowspan="4">Make <span class="register">DE</span> point to the end location of the new area and <span class="register">HL</span> to the 'carriage return' character of the new line in the editing area (<a href="23649.html">WORKSP</a>-2).</td>
+<td class="comment-1" rowspan="4">Make <span class="register">DE</span> point to the end location of the new area and <span class="register">HL</span> to the 'carriage return' character of the new line in the editing area (<a href="23649.html">WORKSP</a>-2).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5528"></span>05528</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23649)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5531"></span>05531</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5532"></span>05532</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5533"></span>05533</td>
-<td class="bytes-0"></td>
 <td class="instruction">LDDR</td>
-<td class="comment-11" rowspan="1">Now copy over the line.</td>
+<td class="comment-1" rowspan="1">Now copy over the line.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5535"></span>05535</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23625)</td>
-<td class="comment-11" rowspan="1">Fetch the line's number (<a href="23625.html">E_PPC</a>).</td>
+<td class="comment-1" rowspan="1">Fetch the line's number (<a href="23625.html">E_PPC</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5538"></span>05538</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Destination into <span class="register">HL</span> and number into <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="1">Destination into <span class="register">HL</span> and number into <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5539"></span>05539</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">Fetch the new line's length.</td>
+<td class="comment-1" rowspan="1">Fetch the new line's length.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5540"></span>05540</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),B</td>
-<td class="comment-11" rowspan="2">The high length byte.</td>
+<td class="comment-1" rowspan="2">The high length byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5541"></span>05541</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5542"></span>05542</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),C</td>
-<td class="comment-11" rowspan="2">The low length byte.</td>
+<td class="comment-1" rowspan="2">The low length byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5543"></span>05543</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5544"></span>05544</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),E</td>
-<td class="comment-11" rowspan="2">The low line number byte.</td>
+<td class="comment-1" rowspan="2">The low line number byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5545"></span>05545</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5546"></span>05546</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),D</td>
-<td class="comment-11" rowspan="1">The high line number byte.</td>
+<td class="comment-1" rowspan="1">The high line number byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1">MAIN_ADD2</td>
+<td class="asm-label">MAIN_ADD2</td>
 <td class="address-2"><span id="5547"></span>05547</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="1">Drop the address of <a href="5461.html">REPORT_G</a>.</td>
+<td class="comment-1" rowspan="1">Drop the address of <a href="5461.html">REPORT_G</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5548"></span>05548</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="4770.html">MAIN_EXEC</a></td>
-<td class="comment-11" rowspan="1">Jump back and this time do produce an automatic listing.</td>
+<td class="comment-1" rowspan="1">Jump back and this time do produce an automatic listing.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="5461.html">05461</a></span></td>
+<td class="prev">
+Prev: <a href="5461.html">05461</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#5469">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="5551.html">05551</a></span></td>
+<td class="next">
+Next: <a href="5551.html">05551</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/155D.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

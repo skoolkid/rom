@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 11579</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="11563.html">11563</a></span></td>
+<td class="prev">
+Prev: <a href="11563.html">11563</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#11579">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="11599.html">11599</a></span></td>
+<td class="next">
+Next: <a href="11599.html">11599</a>
+</td>
 </tr>
 </table>
 <div class="description">11579: THE 'INTEGER TO FLOATING-POINT' SUBROUTINE</div>
@@ -35,7 +38,7 @@ This subroutine returns a 'last value' on the calculator stack that is the resul
 Repeated calls to <a href="116.html">CH_ADD_1</a> fetch each digit of the integer in turn. An exit is made when a code that does not represent a digit has been fetched.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -44,7 +47,7 @@ Repeated calls to <a href="116.html">CH_ADD_1</a> fetch each digit of the intege
 <td class="register-desc">Code of the current character</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -56,39 +59,34 @@ Repeated calls to <a href="116.html">CH_ADD_1</a> fetch each digit of the intege
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">INT_TO_FP</td>
+<td class="asm-label">INT_TO_FP</td>
 <td class="address-2"><span id="11579"></span>11579</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1">Save the first digit - in <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">Save the first digit - in <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11580"></span>11580</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="40.html">40</a></td>
-<td class="comment-11" rowspan="1">Use the calculator.</td>
+<td class="comment-1" rowspan="1">Use the calculator.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11581"></span>11581</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 160</td>
-<td class="comment-11" rowspan="1"><a href="13339.html">stk_zero</a>: (the 'last value' is now zero)</td>
+<td class="comment-1" rowspan="1"><a href="13339.html">stk_zero</a>: (the 'last value' is now zero)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11582"></span>11582</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 56</td>
-<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+<td class="comment-1" rowspan="1"><a href="13979.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11583"></span>11583</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="1">Restore the first digit.</td>
+<td class="comment-1" rowspan="1">Restore the first digit.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -101,87 +99,80 @@ Now a loop is set up. As long as the code represents a digit then the floating-p
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">NXT_DGT_2</td>
+<td class="asm-label">NXT_DGT_2</td>
 <td class="address-2"><span id="11584"></span>11584</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="11554.html">STK_DIGIT</a></td>
-<td class="comment-11" rowspan="2">If the code represents a digit (D) then stack the floating-point form; otherwise return.</td>
+<td class="comment-1" rowspan="2">If the code represents a digit (D) then stack the floating-point form; otherwise return.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11587"></span>11587</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11588"></span>11588</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="40.html">40</a></td>
-<td class="comment-11" rowspan="1">Use the calculator.</td>
+<td class="comment-1" rowspan="1">Use the calculator.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11589"></span>11589</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 1</td>
-<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: D, V</td>
+<td class="comment-1" rowspan="1"><a href="13372.html">exchange</a>: D, V</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11590"></span>11590</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 164</td>
-<td class="comment-11" rowspan="1"><a href="13339.html">stk_ten</a>: D, V, 10</td>
+<td class="comment-1" rowspan="1"><a href="13339.html">stk_ten</a>: D, V, 10</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11591"></span>11591</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 4</td>
-<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: D, 10*V</td>
+<td class="comment-1" rowspan="1"><a href="12490.html">multiply</a>: D, 10*V</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11592"></span>11592</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 15</td>
-<td class="comment-11" rowspan="1"><a href="12308.html">addition</a>: D+10*V</td>
+<td class="comment-1" rowspan="1"><a href="12308.html">addition</a>: D+10*V</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11593"></span>11593</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 56</td>
-<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: D+10*V (this is 'V' for the next pass through the loop)</td>
+<td class="comment-1" rowspan="1"><a href="13979.html">end_calc</a>: D+10*V (this is 'V' for the next pass through the loop)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11594"></span>11594</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="116.html">CH_ADD_1</a></td>
-<td class="comment-11" rowspan="1">The next code goes into <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">The next code goes into <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11597"></span>11597</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="11579.html#11584">NXT_DGT_2</a></td>
-<td class="comment-11" rowspan="1">Loop back with this code.</td>
+<td class="comment-1" rowspan="1">Loop back with this code.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="11563.html">11563</a></span></td>
+<td class="prev">
+Prev: <a href="11563.html">11563</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#11579">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="11599.html">11599</a></span></td>
+<td class="next">
+Next: <a href="11599.html">11599</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/2D3B.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

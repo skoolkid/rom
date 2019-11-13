@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 10577</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="10418.html">10418</a></span></td>
+<td class="prev">
+Prev: <a href="10418.html">10418</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#10577">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="10646.html">10646</a></span></td>
+<td class="next">
+Next: <a href="10646.html">10646</a>
+</td>
 </tr>
 </table>
 <div class="description">10577: THE 'STACK FUNCTION ARGUMENT' SUBROUTINE</div>
@@ -29,215 +32,168 @@
 This subroutine is called by <a href="10418.html">LOOK_VARS</a> when <a href="23563.html">DEFADD-hi</a> is non-zero, to make a search of the arguments area of a DEF FN statement, before searching in the variables area. If the variable is found in the DEF FN statement, then the parameters of a string variable are stacked and a signal is given that there is no need to call <a href="10646.html">STK_VAR</a>. But it is left to <a href="9929.html">S_LETTER</a> to stack the value of a numerical variable at <a href="9929.html#9946">9946</a> in the usual way.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">STK_F_ARG</td>
+<td class="asm-label">STK_F_ARG</td>
 <td class="address-2"><span id="10577"></span>10577</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23563)</td>
-<td class="comment-11" rowspan="2">Point to the first character in the arguments area (<a href="23563.html">DEFADD</a>) and put it into <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="2">Point to the first character in the arguments area (<a href="23563.html">DEFADD</a>) and put it into <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10580"></span>10580</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10581"></span>10581</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
-<td class="comment-11" rowspan="1">Is it a ')'?</td>
+<td class="comment-1" rowspan="1">Is it a ')'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10583"></span>10583</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP Z,<a href="10418.html#10479">V_RUN_SYN</a></td>
-<td class="comment-11" rowspan="1">Jump to search the variables area.</td>
+<td class="comment-1" rowspan="1">Jump to search the variables area.</td>
 </tr>
 <tr>
-<td class="asm-label-1">SFA_LOOP</td>
+<td class="asm-label">SFA_LOOP</td>
 <td class="address-2"><span id="10586"></span>10586</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="1">Get the next argument in the loop.</td>
+<td class="comment-1" rowspan="1">Get the next argument in the loop.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10587"></span>10587</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR 96</td>
-<td class="comment-11" rowspan="2">Set bits 5 and 6, assuming a simple numeric variable; copy it to <span class="register">B</span>.</td>
+<td class="comment-1" rowspan="2">Set bits 5 and 6, assuming a simple numeric variable; copy it to <span class="register">B</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10589"></span>10589</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10590"></span>10590</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Point to the next code.</td>
+<td class="comment-1" rowspan="1">Point to the next code.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10591"></span>10591</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="1">Put it into the <span class="register">A</span> register.</td>
+<td class="comment-1" rowspan="1">Put it into the <span class="register">A</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10592"></span>10592</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 14</td>
-<td class="comment-11" rowspan="1">Is it the 'number marker' code, 14?</td>
+<td class="comment-1" rowspan="1">Is it the 'number marker' code, 14?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10594"></span>10594</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="10577.html#10603">SFA_CP_VR</a></td>
-<td class="comment-11" rowspan="1">Jump if so: numeric variable.</td>
+<td class="comment-1" rowspan="1">Jump if so: numeric variable.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10596"></span>10596</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="2">Ensure that <span class="register">HL</span> points to the character, not to a space or control code.</td>
+<td class="comment-1" rowspan="2">Ensure that <span class="register">HL</span> points to the character, not to a space or control code.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10597"></span>10597</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="10411.html">FN_SKPOVR</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10600"></span>10600</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1"><span class="register">HL</span> now points to the 'number marker'.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span> now points to the 'number marker'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10601"></span>10601</td>
-<td class="bytes-0"></td>
 <td class="instruction">RES 5,B</td>
-<td class="comment-11" rowspan="1">Reset bit 5 of <span class="register">B</span>: string variable.</td>
+<td class="comment-1" rowspan="1">Reset bit 5 of <span class="register">B</span>: string variable.</td>
 </tr>
 <tr>
-<td class="asm-label-1">SFA_CP_VR</td>
+<td class="asm-label">SFA_CP_VR</td>
 <td class="address-2"><span id="10603"></span>10603</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-11" rowspan="1">Get the variable name into <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">Get the variable name into <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10604"></span>10604</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP C</td>
-<td class="comment-11" rowspan="1">Is it the one we are looking for?</td>
+<td class="comment-1" rowspan="1">Is it the one we are looking for?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10605"></span>10605</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="10577.html#10625">SFA_MATCH</a></td>
-<td class="comment-11" rowspan="1">Jump if it matches.</td>
+<td class="comment-1" rowspan="1">Jump if it matches.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10607"></span>10607</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="5">Now pass over the 5 bytes of the floating-point number or string parameters to get to the next argument.</td>
+<td class="comment-1" rowspan="5">Now pass over the 5 bytes of the floating-point number or string parameters to get to the next argument.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10608"></span>10608</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10609"></span>10609</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10610"></span>10610</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10611"></span>10611</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10612"></span>10612</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="10411.html">FN_SKPOVR</a></td>
-<td class="comment-11" rowspan="1">Pass on to the next character.</td>
+<td class="comment-1" rowspan="1">Pass on to the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10615"></span>10615</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
-<td class="comment-11" rowspan="1">Is it a ')'?</td>
+<td class="comment-1" rowspan="1">Is it a ')'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10617"></span>10617</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP Z,<a href="10418.html#10479">V_RUN_SYN</a></td>
-<td class="comment-11" rowspan="1">If so, jump to search the variables area.</td>
+<td class="comment-1" rowspan="1">If so, jump to search the variables area.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10620"></span>10620</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="10411.html">FN_SKPOVR</a></td>
-<td class="comment-11" rowspan="1">Point to the next argument.</td>
+<td class="comment-1" rowspan="1">Point to the next argument.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10623"></span>10623</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="10577.html#10586">SFA_LOOP</a></td>
-<td class="comment-11" rowspan="1">Jump back to consider it.</td>
+<td class="comment-1" rowspan="1">Jump back to consider it.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -250,101 +206,90 @@ A match has been found. The parameters of a string variable are stacked, avoidin
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SFA_MATCH</td>
+<td class="asm-label">SFA_MATCH</td>
 <td class="address-2"><span id="10625"></span>10625</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 5,C</td>
-<td class="comment-11" rowspan="1">Test for a numeric variable.</td>
+<td class="comment-1" rowspan="1">Test for a numeric variable.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10627"></span>10627</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="10577.html#10641">SFA_END</a></td>
-<td class="comment-11" rowspan="1">Jump if the variable is numeric; <a href="9467.html">SCANNING</a> will stack it.</td>
+<td class="comment-1" rowspan="1">Jump if the variable is numeric; <a href="9467.html">SCANNING</a> will stack it.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10629"></span>10629</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Point to the first of the 5 bytes to be stacked.</td>
+<td class="comment-1" rowspan="1">Point to the first of the 5 bytes to be stacked.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10630"></span>10630</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,(23653)</td>
-<td class="comment-11" rowspan="1">Point <span class="register">DE</span> to <a href="23653.html">STKEND</a>.</td>
+<td class="comment-1" rowspan="1">Point <span class="register">DE</span> to <a href="23653.html">STKEND</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10634"></span>10634</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="13248.html">duplicate</a></td>
-<td class="comment-11" rowspan="1">Stack the 5 bytes.</td>
+<td class="comment-1" rowspan="1">Stack the 5 bytes.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10637"></span>10637</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="2">Point <span class="register">HL</span> to the new position of <a href="23653.html">STKEND</a>, and reset the system variable.</td>
+<td class="comment-1" rowspan="2">Point <span class="register">HL</span> to the new position of <a href="23653.html">STKEND</a>, and reset the system variable.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10638"></span>10638</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23653),HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">SFA_END</td>
+<td class="asm-label">SFA_END</td>
 <td class="address-2"><span id="10641"></span>10641</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="2">Discard the <a href="10418.html">LOOK_VARS</a> pointers (second and first character pointers).</td>
+<td class="comment-1" rowspan="2">Discard the <a href="10418.html">LOOK_VARS</a> pointers (second and first character pointers).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10642"></span>10642</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10643"></span>10643</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
-<td class="comment-11" rowspan="2">Return from the search with both the carry and zero flags reset - signalling that a call <a href="10646.html">STK_VAR</a> is not required.</td>
+<td class="comment-1" rowspan="2">Return from the search with both the carry and zero flags reset - signalling that a call <a href="10646.html">STK_VAR</a> is not required.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10644"></span>10644</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10645"></span>10645</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished.</td>
+<td class="comment-1" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="10418.html">10418</a></span></td>
+<td class="prev">
+Prev: <a href="10418.html">10418</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#10577">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="10646.html">10646</a></span></td>
+<td class="next">
+Next: <a href="10646.html">10646</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/2951.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

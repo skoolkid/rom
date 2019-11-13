@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 342D</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="341B.html">341B</a></span></td>
+<td class="prev">
+Prev: <a href="341B.html">341B</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#342D">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="343C.html">343C</a></span></td>
+<td class="next">
+Next: <a href="343C.html">343C</a>
+</td>
 </tr>
 </table>
 <div class="description">342D: THE 'STORE IN MEMORY AREA' SUBROUTINE (offset +40)</div>
@@ -32,7 +35,7 @@ The address of this routine is found in the <a href="32D7.html">table of address
 This subroutine is called using the literals +C0 to +C5 and the parameter derived from these literals is held in the <span class="register">A</span> register. This subroutine is very similar to <a href="340F.html">get_mem</a> but the source and destination pointers are exchanged.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -45,80 +48,64 @@ This subroutine is called using the literals +C0 to +C5 and the parameter derive
 <td class="register-desc">Source address</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">st_mem</td>
+<td class="asm-label">st_mem</td>
 <td class="address-2"><span id="342D"></span>342D</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the result pointer.</td>
+<td class="comment-1" rowspan="1">Save the result pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="342E"></span>342E</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Source to <span class="register">DE</span> briefly.</td>
+<td class="comment-1" rowspan="1">Source to <span class="register">DE</span> briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="342F"></span>342F</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C68)</td>
-<td class="comment-11" rowspan="1">Fetch the pointer to the current memory area (<a href="5C68.html">MEM</a>).</td>
+<td class="comment-1" rowspan="1">Fetch the pointer to the current memory area (<a href="5C68.html">MEM</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3432"></span>3432</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="3406.html">LOC_MEM</a></td>
-<td class="comment-11" rowspan="1">The base address is found.</td>
+<td class="comment-1" rowspan="1">The base address is found.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3435"></span>3435</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Exchange source and destination pointers.</td>
+<td class="comment-1" rowspan="1">Exchange source and destination pointers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3436"></span>3436</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="33C0.html">duplicate</a></td>
-<td class="comment-11" rowspan="1">The five bytes are moved.</td>
+<td class="comment-1" rowspan="1">The five bytes are moved.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3439"></span>3439</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">'Last value'+5, i.e. <a href="5C65.html">STKEND</a>, to <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="1">'Last value'+5, i.e. <a href="5C65.html">STKEND</a>, to <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="343A"></span>343A</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Result pointer to <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="1">Result pointer to <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="343B"></span>343B</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished.</td>
+<td class="comment-1" rowspan="1">Finished.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
-
 <div class="comments">
 <div class="paragraph">
 Note that the pointers <span class="register">HL</span> and <span class="register">DE</span> remain as they were, pointing to <a href="5C65.html">STKEND</a>-5 and <a href="5C65.html">STKEND</a> respectively, so that the 'last value' remains on the calculator stack. If required it can be removed by using <a href="335B.html#33A1">delete</a>.
@@ -129,15 +116,19 @@ Note that the pointers <span class="register">HL</span> and <span class="registe
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="341B.html">341B</a></span></td>
+<td class="prev">
+Prev: <a href="341B.html">341B</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#342D">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="343C.html">343C</a></span></td>
+<td class="next">
+Next: <a href="343C.html">343C</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/13357.html">Switch to decimal</a>.</div>
 </footer>
 </body>

@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 359C</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="353B.html">353B</a></span></td>
+<td class="prev">
+Prev: <a href="353B.html">353B</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#359C">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="35BF.html">35BF</a></span></td>
+<td class="next">
+Next: <a href="35BF.html">35BF</a>
+</td>
 </tr>
 </table>
 <div class="description">359C: THE 'STRING CONCATENATION' OPERATION (offset +17)</div>
@@ -32,198 +35,144 @@ The address of this routine is found in the <a href="32D7.html">table of address
 This subroutine performs the binary operation 'A$+B$'. The parameters for these strings are fetched and the total length found. Sufficient room to hold both the strings is made available in the work space and the strings are copied over. The result of this subroutine is therefore to produce a temporary variable A$+B$ that resides in the work space.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">strs_add</td>
+<td class="asm-label">strs_add</td>
 <td class="address-2"><span id="359C"></span>359C</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2BF1.html">STK_FETCH</a></td>
-<td class="comment-11" rowspan="3">The parameters of the second string are fetched and saved.</td>
+<td class="comment-1" rowspan="3">The parameters of the second string are fetched and saved.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="359F"></span>359F</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35A0"></span>35A0</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35A1"></span>35A1</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2BF1.html">STK_FETCH</a></td>
-<td class="comment-11" rowspan="1">The parameters of the first string are fetched.</td>
+<td class="comment-1" rowspan="1">The parameters of the first string are fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35A4"></span>35A4</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">The lengths are now in <span class="register">HL</span> and <span class="register">BC</span>.</td>
+<td class="comment-1" rowspan="2">The lengths are now in <span class="register">HL</span> and <span class="register">BC</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35A5"></span>35A5</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35A6"></span>35A6</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-11" rowspan="2">The parameters of the first string are saved.</td>
+<td class="comment-1" rowspan="2">The parameters of the first string are saved.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35A7"></span>35A7</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35A8"></span>35A8</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-11" rowspan="3">The total length of the two strings is calculated and passed to <span class="register">BC</span>.</td>
+<td class="comment-1" rowspan="3">The total length of the two strings is calculated and passed to <span class="register">BC</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35A9"></span>35A9</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,H</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35AA"></span>35AA</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35AB"></span>35AB</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0030.html">$30</a></td>
-<td class="comment-11" rowspan="1">Sufficient room is made available.</td>
+<td class="comment-1" rowspan="1">Sufficient room is made available.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35AC"></span>35AC</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2AB1.html#2AB2">STK_STO</a></td>
-<td class="comment-11" rowspan="1">The parameters of the new string are passed to the calculator stack.</td>
+<td class="comment-1" rowspan="1">The parameters of the new string are passed to the calculator stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35AF"></span>35AF</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="6">The parameters of the first string are retrieved and the string copied to the work space as long as it is not a null string.</td>
+<td class="comment-1" rowspan="6">The parameters of the first string are retrieved and the string copied to the work space as long as it is not a null string.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35B0"></span>35B0</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35B1"></span>35B1</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35B2"></span>35B2</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35B3"></span>35B3</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="359C.html#35B7">OTHER_STR</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35B5"></span>35B5</td>
-<td class="bytes-0"></td>
 <td class="instruction">LDIR</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">OTHER_STR</td>
+<td class="asm-label">OTHER_STR</td>
 <td class="address-2"><span id="35B7"></span>35B7</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="6">Exactly the same procedure is followed for the second string thereby giving 'A$+B$'.</td>
+<td class="comment-1" rowspan="6">Exactly the same procedure is followed for the second string thereby giving 'A$+B$'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35B8"></span>35B8</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35B9"></span>35B9</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35BA"></span>35BA</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35BB"></span>35BB</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="35BF.html">STK_PNTRS</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35BD"></span>35BD</td>
-<td class="bytes-0"></td>
 <td class="instruction">LDIR</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
-
 <div class="comments">
 <div class="paragraph">
 This routine continues into <a href="35BF.html">STK_PNTRS</a>.
@@ -234,15 +183,19 @@ This routine continues into <a href="35BF.html">STK_PNTRS</a>.
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="353B.html">353B</a></span></td>
+<td class="prev">
+Prev: <a href="353B.html">353B</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#359C">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="35BF.html">35BF</a></span></td>
+<td class="next">
+Next: <a href="35BF.html">35BF</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/13724.html">Switch to decimal</a>.</div>
 </footer>
 </body>

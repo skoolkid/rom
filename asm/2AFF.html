@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 2AFF</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="2AF4.html">2AF4</a></span></td>
+<td class="prev">
+Prev: <a href="2AF4.html">2AF4</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2AFF">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2BF1.html">2BF1</a></span></td>
+<td class="next">
+Next: <a href="2BF1.html">2BF1</a>
+</td>
 </tr>
 </table>
 <div class="description">2AFF: THE 'LET' COMMAND ROUTINE</div>
@@ -41,40 +44,24 @@ However if the destination variable 'exists already' then bit 1 of <a href="5C71
 Bit 0 of <a href="5C71.html">FLAGX</a> is set if the destination variable is a 'complete' simple string variable. (Signalling - delete the old copy.) Initially the current value of <a href="5C4D.html">DEST</a> is collected and bit 1 of <a href="5C3B.html">FLAGS</a> tested.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">LET</td>
+<td class="asm-label">LET</td>
 <td class="address-2"><span id="2AFF"></span>2AFF</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C4D)</td>
-<td class="comment-11" rowspan="1">Fetch the present address in <a href="5C4D.html">DEST</a>.</td>
+<td class="comment-1" rowspan="1">Fetch the present address in <a href="5C4D.html">DEST</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B02"></span>2B02</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 1,(IY+$37)</td>
-<td class="comment-11" rowspan="2">Jump if handling a variable that 'exists already' (bit 1 of <a href="5C71.html">FLAGX</a> reset).</td>
+<td class="comment-1" rowspan="2">Jump if handling a variable that 'exists already' (bit 1 of <a href="5C71.html">FLAGX</a> reset).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B06"></span>2B06</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2AFF.html#2B66">L_EXISTS</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -87,11 +74,10 @@ A 'newly declared variable' is being used. So first the length of its name is fo
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B08"></span>2B08</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD BC,$0005</td>
-<td class="comment-11" rowspan="1">Presume dealing with a numeric variable - 5 bytes.</td>
+<td class="comment-1" rowspan="1">Presume dealing with a numeric variable - 5 bytes.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -104,88 +90,73 @@ Enter a loop to deal with the characters of a long name. Any spaces or colour co
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">L_EACH_CH</td>
+<td class="asm-label">L_EACH_CH</td>
 <td class="address-2"><span id="2B0B"></span>2B0B</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
-<td class="comment-11" rowspan="1">Add '1' to the counter for each character of a name.</td>
+<td class="comment-1" rowspan="1">Add '1' to the counter for each character of a name.</td>
 </tr>
 <tr>
-<td class="asm-label-1">L_NO_SP</td>
+<td class="asm-label">L_NO_SP</td>
 <td class="address-2"><span id="2B0C"></span>2B0C</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Move along the variable's name.</td>
+<td class="comment-1" rowspan="1">Move along the variable's name.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B0D"></span>2B0D</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="1">Fetch the 'present code'.</td>
+<td class="comment-1" rowspan="1">Fetch the 'present code'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B0E"></span>2B0E</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP " "</td>
-<td class="comment-11" rowspan="2">Jump back if it is a 'space', thereby ignoring spaces.</td>
+<td class="comment-1" rowspan="2">Jump back if it is a 'space', thereby ignoring spaces.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B10"></span>2B10</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2AFF.html#2B0C">L_NO_SP</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B12"></span>2B12</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="2AFF.html#2B1F">L_TEST_CH</a></td>
-<td class="comment-11" rowspan="1">Jump forward if the code is +21 to +FF.</td>
+<td class="comment-1" rowspan="1">Jump forward if the code is +21 to +FF.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B14"></span>2B14</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $10</td>
-<td class="comment-11" rowspan="2">Accept, as a final code, those in the range +00 to +0F.</td>
+<td class="comment-1" rowspan="2">Accept, as a final code, those in the range +00 to +0F.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B16"></span>2B16</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="2AFF.html#2B29">L_SPACES</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B18"></span>2B18</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $16</td>
-<td class="comment-11" rowspan="2">Also accept the range +16 to +1F.</td>
+<td class="comment-1" rowspan="2">Also accept the range +16 to +1F.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B1A"></span>2B1A</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="2AFF.html#2B29">L_SPACES</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B1C"></span>2B1C</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Step past the control code after any of INK to OVER.</td>
+<td class="comment-1" rowspan="1">Step past the control code after any of INK to OVER.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B1D"></span>2B1D</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="2AFF.html#2B0C">L_NO_SP</a></td>
-<td class="comment-11" rowspan="1">Jump back as these control codes are treated as spaces.</td>
+<td class="comment-1" rowspan="1">Jump back as these control codes are treated as spaces.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -198,32 +169,28 @@ Separate 'numeric' and 'string' names.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">L_TEST_CH</td>
+<td class="asm-label">L_TEST_CH</td>
 <td class="address-2"><span id="2B1F"></span>2B1F</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2C88.html">ALPHANUM</a></td>
-<td class="comment-11" rowspan="1">Is the code alphanumeric?</td>
+<td class="comment-1" rowspan="1">Is the code alphanumeric?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B22"></span>2B22</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="2AFF.html#2B0B">L_EACH_CH</a></td>
-<td class="comment-11" rowspan="1">If It is so then accept it as a character of a 'long' name.</td>
+<td class="comment-1" rowspan="1">If It is so then accept it as a character of a 'long' name.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B24"></span>2B24</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "$"</td>
-<td class="comment-11" rowspan="1">Is the present code a '$'?</td>
+<td class="comment-1" rowspan="1">Is the present code a '$'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B26"></span>2B26</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP Z,<a href="2AFF.html#2BC0">L_NEW</a></td>
-<td class="comment-11" rowspan="1">Jump forward as handling a 'newly declared' simple string.</td>
+<td class="comment-1" rowspan="1">Jump forward as handling a 'newly declared' simple string.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -236,95 +203,79 @@ The 'newly declared numeric variable' presently being handled will require <span
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">L_SPACES</td>
+<td class="asm-label">L_SPACES</td>
 <td class="address-2"><span id="2B29"></span>2B29</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
-<td class="comment-11" rowspan="1">Copy the 'length' to <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">Copy the 'length' to <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B2A"></span>2B2A</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-11" rowspan="2">Make <span class="register">HL</span> point to the '+80-byte' at the end of the variables area (<a href="5C59.html">E-LINE</a>-1).</td>
+<td class="comment-1" rowspan="2">Make <span class="register">HL</span> point to the '+80-byte' at the end of the variables area (<a href="5C59.html">E-LINE</a>-1).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B2D"></span>2B2D</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B2E"></span>2B2E</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1652.html#1655">MAKE_ROOM</a></td>
-<td class="comment-11" rowspan="1">Now open up the variables area. Note: in effect <span class="register">BC</span> spaces are made before the displaced '+80-byte'.</td>
+<td class="comment-1" rowspan="1">Now open up the variables area. Note: in effect <span class="register">BC</span> spaces are made before the displaced '+80-byte'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B31"></span>2B31</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Point to the first 'new' byte.</td>
+<td class="comment-1" rowspan="1">Point to the first 'new' byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B32"></span>2B32</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="2">Make <span class="register">DE</span> point to the second 'new' byte.</td>
+<td class="comment-1" rowspan="2">Make <span class="register">DE</span> point to the second 'new' byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B33"></span>2B33</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B34"></span>2B34</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-11" rowspan="1">Save this pointer.</td>
+<td class="comment-1" rowspan="1">Save this pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B35"></span>2B35</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C4D)</td>
-<td class="comment-11" rowspan="1">Fetch the pointer to the start of the name (<a href="5C4D.html">DEST</a>).</td>
+<td class="comment-1" rowspan="1">Fetch the pointer to the start of the name (<a href="5C4D.html">DEST</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B38"></span>2B38</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC DE</td>
-<td class="comment-11" rowspan="1">Make <span class="register">DE</span> point to the first 'new' byte.</td>
+<td class="comment-1" rowspan="1">Make <span class="register">DE</span> point to the first 'new' byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B39"></span>2B39</td>
-<td class="bytes-0"></td>
 <td class="instruction">SUB $06</td>
-<td class="comment-11" rowspan="2">Make <span class="register">B</span> hold the 'number of extra letters' that are found in a 'long name'.</td>
+<td class="comment-1" rowspan="2">Make <span class="register">B</span> hold the 'number of extra letters' that are found in a 'long name'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B3B"></span>2B3B</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B3C"></span>2B3C</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2AFF.html#2B4F">L_SINGLE</a></td>
-<td class="comment-11" rowspan="1">Jump forward if dealing with a variable with a 'short name'.</td>
+<td class="comment-1" rowspan="1">Jump forward if dealing with a variable with a 'short name'.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -337,60 +288,50 @@ The 'extra' codes of a long name are passed to the variables area.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">L_CHAR</td>
+<td class="asm-label">L_CHAR</td>
 <td class="address-2"><span id="2B3E"></span>2B3E</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Point to each 'extra' code.</td>
+<td class="comment-1" rowspan="1">Point to each 'extra' code.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B3F"></span>2B3F</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="1">Fetch the code.</td>
+<td class="comment-1" rowspan="1">Fetch the code.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B40"></span>2B40</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $21</td>
-<td class="comment-11" rowspan="2">Accept codes from +21 to +FF; ignore codes +00 to +20.</td>
+<td class="comment-1" rowspan="2">Accept codes from +21 to +FF; ignore codes +00 to +20.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B42"></span>2B42</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="2AFF.html#2B3E">L_CHAR</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B44"></span>2B44</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR $20</td>
-<td class="comment-11" rowspan="1">Set bit 5, as for lower case letters.</td>
+<td class="comment-1" rowspan="1">Set bit 5, as for lower case letters.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B46"></span>2B46</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC DE</td>
-<td class="comment-11" rowspan="2">Transfer the codes in turn to the 2nd 'new' byte onwards.</td>
+<td class="comment-1" rowspan="2">Transfer the codes in turn to the 2nd 'new' byte onwards.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B47"></span>2B47</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (DE),A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B48"></span>2B48</td>
-<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="2AFF.html#2B3E">L_CHAR</a></td>
-<td class="comment-11" rowspan="1">Go round the loop for all the 'extra' codes.</td>
+<td class="comment-1" rowspan="1">Go round the loop for all the 'extra' codes.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -403,18 +344,15 @@ The last code of a 'long' name has to be ORed with +80.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B4A"></span>2B4A</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR $80</td>
-<td class="comment-11" rowspan="2">Mark the code as required and overwrite the last code.</td>
+<td class="comment-1" rowspan="2">Mark the code as required and overwrite the last code.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B4C"></span>2B4C</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (DE),A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -427,39 +365,34 @@ The first letter of the name of the variable being handled is now considered.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B4D"></span>2B4D</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,$C0</td>
-<td class="comment-11" rowspan="1">Prepare to mark the letter of a 'long' name.</td>
+<td class="comment-1" rowspan="1">Prepare to mark the letter of a 'long' name.</td>
 </tr>
 <tr>
-<td class="asm-label-1">L_SINGLE</td>
+<td class="asm-label">L_SINGLE</td>
 <td class="address-2"><span id="2B4F"></span>2B4F</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C4D)</td>
-<td class="comment-11" rowspan="1">Fetch the pointer to the letter (<a href="5C4D.html">DEST</a>).</td>
+<td class="comment-1" rowspan="1">Fetch the pointer to the letter (<a href="5C4D.html">DEST</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B52"></span>2B52</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR (HL)</td>
-<td class="comment-11" rowspan="1"><span class="register">A</span> holds +00 for a 'short' name and +C0 for a 'long' name.</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span> holds +00 for a 'short' name and +C0 for a 'long' name.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B53"></span>2B53</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR $20</td>
-<td class="comment-11" rowspan="1">Set bit 5, as for lower case letters.</td>
+<td class="comment-1" rowspan="1">Set bit 5, as for lower case letters.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B55"></span>2B55</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Drop the pointer now.</td>
+<td class="comment-1" rowspan="1">Drop the pointer now.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -472,11 +405,10 @@ The subroutine <a href="2AFF.html#2BEA">L_FIRST</a> is now called to enter the '
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B56"></span>2B56</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2AFF.html#2BEA">L_FIRST</a></td>
-<td class="comment-11" rowspan="1">Enter the letter and return with <span class="register">HL</span> pointing to 'new +80-byte'.</td>
+<td class="comment-1" rowspan="1">Enter the letter and return with <span class="register">HL</span> pointing to 'new +80-byte'.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -492,67 +424,56 @@ A 'RST $28' instruction is used to call the calculator and the 'last value' is d
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">L_NUMERIC</td>
+<td class="asm-label">L_NUMERIC</td>
 <td class="address-2"><span id="2B59"></span>2B59</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the 'destination' pointer.</td>
+<td class="comment-1" rowspan="1">Save the 'destination' pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B5A"></span>2B5A</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-11" rowspan="1">Use the calculator to move <a href="5C65.html">STKEND</a> back five bytes.</td>
+<td class="comment-1" rowspan="1">Use the calculator to move <a href="5C65.html">STKEND</a> back five bytes.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B5B"></span>2B5B</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $02</td>
-<td class="comment-11" rowspan="1"><a href="335B.html#33A1">delete</a></td>
+<td class="comment-1" rowspan="1"><a href="335B.html#33A1">delete</a></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B5C"></span>2B5C</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
+<td class="comment-1" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B5D"></span>2B5D</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Restore the pointer.</td>
+<td class="comment-1" rowspan="1">Restore the pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B5E"></span>2B5E</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD BC,$0005</td>
-<td class="comment-11" rowspan="1">Give the number a 'length' of five bytes.</td>
+<td class="comment-1" rowspan="1">Give the number a 'length' of five bytes.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B61"></span>2B61</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="3">Make <span class="register">HL</span> point to the first of the five locations and jump forward to make the actual transfer.</td>
+<td class="comment-1" rowspan="3">Make <span class="register">HL</span> point to the first of the five locations and jump forward to make the actual transfer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B62"></span>2B62</td>
-<td class="bytes-0"></td>
 <td class="instruction">SBC HL,BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B64"></span>2B64</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="2AFF.html#2BA6">L_ENTER</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -565,18 +486,15 @@ Come here if considering a variable that 'exists already'. First bit 6 of <a hre
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">L_EXISTS</td>
+<td class="asm-label">L_EXISTS</td>
 <td class="address-2"><span id="2B66"></span>2B66</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 6,(IY+$01)</td>
-<td class="comment-11" rowspan="2">Jump forward if handling any kind of string variable (bit 6 of <a href="5C3B.html">FLAGS</a> reset).</td>
+<td class="comment-1" rowspan="2">Jump forward if handling any kind of string variable (bit 6 of <a href="5C3B.html">FLAGS</a> reset).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B6A"></span>2B6A</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2AFF.html#2B72">L_DELETE</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -589,25 +507,22 @@ For numeric variables the 'new' number overwrites the 'old' number. So first <sp
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B6C"></span>2B6C</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,$0006</td>
-<td class="comment-11" rowspan="1">The five bytes of a number + 1.</td>
+<td class="comment-1" rowspan="1">The five bytes of a number + 1.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B6F"></span>2B6F</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-11" rowspan="1"><span class="register">HL</span> now points 'after'.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span> now points 'after'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B70"></span>2B70</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="2AFF.html#2B59">L_NUMERIC</a></td>
-<td class="comment-11" rowspan="1">Jump back to make the actual transfer.</td>
+<td class="comment-1" rowspan="1">Jump back to make the actual transfer.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -620,32 +535,27 @@ The parameters of the string variable are fetched and complete simple strings se
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">L_DELETE</td>
+<td class="asm-label">L_DELETE</td>
 <td class="address-2"><span id="2B72"></span>2B72</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C4D)</td>
-<td class="comment-11" rowspan="1">Fetch the 'start' (<a href="5C4D.html">DEST</a>). Note: this line is redundant.</td>
+<td class="comment-1" rowspan="1">Fetch the 'start' (<a href="5C4D.html">DEST</a>). Note: this line is redundant.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B75"></span>2B75</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD BC,($5C72)</td>
-<td class="comment-11" rowspan="1">Fetch the 'length' (<a href="5C72.html">STRLEN</a>).</td>
+<td class="comment-1" rowspan="1">Fetch the 'length' (<a href="5C72.html">STRLEN</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B79"></span>2B79</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 0,(IY+$37)</td>
-<td class="comment-11" rowspan="2">Jump if dealing with a complete simple string (bit 0 of <a href="5C71.html">FLAGX</a> set); the old string will need to be 'deleted' in this case only.</td>
+<td class="comment-1" rowspan="2">Jump if dealing with a complete simple string (bit 0 of <a href="5C71.html">FLAGX</a> set); the old string will need to be 'deleted' in this case only.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B7D"></span>2B7D</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2AFF.html#2BAF">L_ADD</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -661,25 +571,20 @@ However do nothing if the string has no 'length'.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B7F"></span>2B7F</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-11" rowspan="3">Return if the string is a null string.</td>
+<td class="comment-1" rowspan="3">Return if the string is a null string.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B80"></span>2B80</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B81"></span>2B81</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -692,67 +597,57 @@ Then make the required number of spaces available in the work space.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B82"></span>2B82</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the 'start' (<a href="5C4D.html">DEST</a>).</td>
+<td class="comment-1" rowspan="1">Save the 'start' (<a href="5C4D.html">DEST</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B83"></span>2B83</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0030.html">$30</a></td>
-<td class="comment-11" rowspan="1">Make the necessary amount of room in the work space.</td>
+<td class="comment-1" rowspan="1">Make the necessary amount of room in the work space.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B84"></span>2B84</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-11" rowspan="1">Save the pointer to the first location.</td>
+<td class="comment-1" rowspan="1">Save the pointer to the first location.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B85"></span>2B85</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">Save the 'length' for use later on.</td>
+<td class="comment-1" rowspan="1">Save the 'length' for use later on.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B86"></span>2B86</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,H</td>
-<td class="comment-11" rowspan="2">Make <span class="register">DE</span> point to the last location.</td>
+<td class="comment-1" rowspan="2">Make <span class="register">DE</span> point to the last location.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B87"></span>2B87</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B88"></span>2B88</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Make <span class="register">HL</span> point 'one past' the new locations.</td>
+<td class="comment-1" rowspan="1">Make <span class="register">HL</span> point 'one past' the new locations.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B89"></span>2B89</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL)," "</td>
-<td class="comment-11" rowspan="1">Enter a 'space' character.</td>
+<td class="comment-1" rowspan="1">Enter a 'space' character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B8B"></span>2B8B</td>
-<td class="bytes-0"></td>
 <td class="instruction">LDDR</td>
-<td class="comment-11" rowspan="1">Copy this character into all the new locations. Finish with <span class="register">HL</span> pointing to the first new location.</td>
+<td class="comment-1" rowspan="1">Copy this character into all the new locations. Finish with <span class="register">HL</span> pointing to the first new location.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -765,25 +660,22 @@ The parameters of the string being handled are now fetched from the calculator s
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B8D"></span>2B8D</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the pointer briefly.</td>
+<td class="comment-1" rowspan="1">Save the pointer briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B8E"></span>2B8E</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2BF1.html">STK_FETCH</a></td>
-<td class="comment-11" rowspan="1">Fetch the 'new' parameters.</td>
+<td class="comment-1" rowspan="1">Fetch the 'new' parameters.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B91"></span>2B91</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Restore the pointer.</td>
+<td class="comment-1" rowspan="1">Restore the pointer.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -802,60 +694,48 @@ The length of the 'new' string is compared to the length of the room made availa
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B92"></span>2B92</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-11" rowspan="1">'Length' of new area to <span class="register">HL</span>. 'Pointer' to new area to stack.</td>
+<td class="comment-1" rowspan="1">'Length' of new area to <span class="register">HL</span>. 'Pointer' to new area to stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B93"></span>2B93</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="4">Compare the two 'lengths' and jump forward if the 'new' string will fit into the room, i.e. no shortening required.</td>
+<td class="comment-1" rowspan="4">Compare the two 'lengths' and jump forward if the 'new' string will fit into the room, i.e. no shortening required.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B94"></span>2B94</td>
-<td class="bytes-0"></td>
 <td class="instruction">SBC HL,BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B96"></span>2B96</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B97"></span>2B97</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="2AFF.html#2B9B">L_LENGTH</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B99"></span>2B99</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,H</td>
-<td class="comment-11" rowspan="2">However modify the 'new' length if it is too long.</td>
+<td class="comment-1" rowspan="2">However modify the 'new' length if it is too long.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B9A"></span>2B9A</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">L_LENGTH</td>
+<td class="asm-label">L_LENGTH</td>
 <td class="address-2"><span id="2B9B"></span>2B9B</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-11" rowspan="1">'Length' of new area to stack. 'Pointer' to new area to <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="1">'Length' of new area to stack. 'Pointer' to new area to <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -868,39 +748,32 @@ As long as the new string is not a 'null string' it is copied into the work spac
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B9C"></span>2B9C</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">'Start' of new string to <span class="register">HL</span>. 'Pointer' to new area to <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="1">'Start' of new string to <span class="register">HL</span>. 'Pointer' to new area to <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B9D"></span>2B9D</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-11" rowspan="3">Jump forward if the 'new' string is a 'null' string.</td>
+<td class="comment-1" rowspan="3">Jump forward if the 'new' string is a 'null' string.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B9E"></span>2B9E</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2B9F"></span>2B9F</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2AFF.html#2BA3">L_IN_W_S</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BA1"></span>2BA1</td>
-<td class="bytes-0"></td>
 <td class="instruction">LDIR</td>
-<td class="comment-11" rowspan="1">Otherwise move the 'new' string to the work space.</td>
+<td class="comment-1" rowspan="1">Otherwise move the 'new' string to the work space.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -913,25 +786,22 @@ The values that have been saved on the machine stack are restored.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">L_IN_W_S</td>
+<td class="asm-label">L_IN_W_S</td>
 <td class="address-2"><span id="2BA3"></span>2BA3</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">'Length' of new area.</td>
+<td class="comment-1" rowspan="1">'Length' of new area.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BA4"></span>2BA4</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="1">'Pointer' to new area.</td>
+<td class="comment-1" rowspan="1">'Pointer' to new area.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BA5"></span>2BA5</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">The start - the pointer to the 'variable in assignment' which was originally in <a href="5C4D.html">DEST</a>. <a href="2AFF.html#2BA6">L_ENTER</a> is now used to pass the 'new' string to the variables area.</td>
+<td class="comment-1" rowspan="1">The start - the pointer to the 'variable in assignment' which was originally in <a href="5C4D.html">DEST</a>. <a href="2AFF.html#2BA6">L_ENTER</a> is now used to pass the 'new' string to the variables area.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -947,60 +817,49 @@ The subroutine is therefore used for all except 'newly declared' simple strings 
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">L_ENTER</td>
+<td class="asm-label">L_ENTER</td>
 <td class="address-2"><span id="2BA6"></span>2BA6</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Change the pointers over.</td>
+<td class="comment-1" rowspan="1">Change the pointers over.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BA7"></span>2BA7</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-11" rowspan="3">Check once again that the length is not zero.</td>
+<td class="comment-1" rowspan="3">Check once again that the length is not zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BA8"></span>2BA8</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BA9"></span>2BA9</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BAA"></span>2BAA</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-11" rowspan="1">Save the destination pointer.</td>
+<td class="comment-1" rowspan="1">Save the destination pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BAB"></span>2BAB</td>
-<td class="bytes-0"></td>
 <td class="instruction">LDIR</td>
-<td class="comment-11" rowspan="1">Move the numeric value or the string.</td>
+<td class="comment-1" rowspan="1">Move the numeric value or the string.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BAD"></span>2BAD</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">Return with the <span class="register">HL</span> register pair pointing to the first byte of the numeric value or the string.</td>
+<td class="comment-1" rowspan="2">Return with the <span class="register">HL</span> register pair pointing to the first byte of the numeric value or the string.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BAE"></span>2BAE</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -1013,95 +872,78 @@ When handling a 'complete and existing' simple string the new string is entered 
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">L_ADD</td>
+<td class="asm-label">L_ADD</td>
 <td class="address-2"><span id="2BAF"></span>2BAF</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="3">Make <span class="register">HL</span> point to the letter of the variable's name, i.e. <a href="5C4D.html">DEST</a>-3.</td>
+<td class="comment-1" rowspan="3">Make <span class="register">HL</span> point to the letter of the variable's name, i.e. <a href="5C4D.html">DEST</a>-3.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BB0"></span>2BB0</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BB1"></span>2BB1</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BB2"></span>2BB2</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="1">Pick up the letter.</td>
+<td class="comment-1" rowspan="1">Pick up the letter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BB3"></span>2BB3</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the pointer to the 'existing version'.</td>
+<td class="comment-1" rowspan="1">Save the pointer to the 'existing version'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BB4"></span>2BB4</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">Save the 'length' of the 'existing string'.</td>
+<td class="comment-1" rowspan="1">Save the 'length' of the 'existing string'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BB5"></span>2BB5</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2AFF.html#2BC6">L_STRING</a></td>
-<td class="comment-11" rowspan="1">Use <a href="2AFF.html#2BC6">L_STRING</a> to add the new string to the variables area.</td>
+<td class="comment-1" rowspan="1">Use <a href="2AFF.html#2BC6">L_STRING</a> to add the new string to the variables area.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BB8"></span>2BB8</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">Restore the 'length'.</td>
+<td class="comment-1" rowspan="1">Restore the 'length'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BB9"></span>2BB9</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Restore the pointer.</td>
+<td class="comment-1" rowspan="1">Restore the pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BBA"></span>2BBA</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
-<td class="comment-11" rowspan="3">Allow one byte for the letter and two bytes for the length.</td>
+<td class="comment-1" rowspan="3">Allow one byte for the letter and two bytes for the length.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BBB"></span>2BBB</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BBC"></span>2BBC</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BBD"></span>2BBD</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="19E5.html#19E8">RECLAIM_2</a></td>
-<td class="comment-11" rowspan="1">Exit by jumping to <a href="19E5.html#19E8">RECLAIM_2</a> which will reclaim the whole of the existing version.</td>
+<td class="comment-1" rowspan="1">Exit by jumping to <a href="19E5.html#19E8">RECLAIM_2</a> which will reclaim the whole of the existing version.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -1114,25 +956,22 @@ When handling a 'complete and existing' simple string the new string is entered 
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">L_NEW</td>
+<td class="asm-label">L_NEW</td>
 <td class="address-2"><span id="2BC0"></span>2BC0</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,$DF</td>
-<td class="comment-11" rowspan="1">Prepare for the marking of the variable's letter.</td>
+<td class="comment-1" rowspan="1">Prepare for the marking of the variable's letter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BC2"></span>2BC2</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C4D)</td>
-<td class="comment-11" rowspan="1">Fetch the pointer to the letter (<a href="5C4D.html">DEST</a>).</td>
+<td class="comment-1" rowspan="1">Fetch the pointer to the letter (<a href="5C4D.html">DEST</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BC5"></span>2BC5</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND (HL)</td>
-<td class="comment-11" rowspan="1">Mark the letter as required. <a href="2AFF.html#2BC6">L_STRING</a> is now used to add the new string to the variables area.</td>
+<td class="comment-1" rowspan="1">Mark the letter as required. <a href="2AFF.html#2BC6">L_STRING</a> is now used to add the new string to the variables area.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -1145,179 +984,149 @@ The parameters of the 'new' string are fetched, sufficient room is made availabl
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">L_STRING</td>
+<td class="asm-label">L_STRING</td>
 <td class="address-2"><span id="2BC6"></span>2BC6</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1">Save the variable's letter.</td>
+<td class="comment-1" rowspan="1">Save the variable's letter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BC7"></span>2BC7</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2BF1.html">STK_FETCH</a></td>
-<td class="comment-11" rowspan="1">Fetch the 'start' and the 'length' of the 'new' string.</td>
+<td class="comment-1" rowspan="1">Fetch the 'start' and the 'length' of the 'new' string.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BCA"></span>2BCA</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Move the 'start' to <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="1">Move the 'start' to <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BCB"></span>2BCB</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-11" rowspan="1">Make <span class="register">HL</span> point one past the string.</td>
+<td class="comment-1" rowspan="1">Make <span class="register">HL</span> point one past the string.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BCC"></span>2BCC</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">Save the 'length'.</td>
+<td class="comment-1" rowspan="1">Save the 'length'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BCD"></span>2BCD</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="1">Make <span class="register">HL</span> point to the end of the string.</td>
+<td class="comment-1" rowspan="1">Make <span class="register">HL</span> point to the end of the string.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BCE"></span>2BCE</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C4D),HL</td>
-<td class="comment-11" rowspan="1">Save the pointer briefly in <a href="5C4D.html">DEST</a>.</td>
+<td class="comment-1" rowspan="1">Save the pointer briefly in <a href="5C4D.html">DEST</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BD1"></span>2BD1</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
-<td class="comment-11" rowspan="3">Allow one byte for the letter and two bytes for the length.</td>
+<td class="comment-1" rowspan="3">Allow one byte for the letter and two bytes for the length.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BD2"></span>2BD2</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BD3"></span>2BD3</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BD4"></span>2BD4</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-11" rowspan="2">Make <span class="register">HL</span> point to the '+80-byte' at the end of the variables area (<a href="5C59.html">E-LINE</a>-1).</td>
+<td class="comment-1" rowspan="2">Make <span class="register">HL</span> point to the '+80-byte' at the end of the variables area (<a href="5C59.html">E-LINE</a>-1).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BD7"></span>2BD7</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BD8"></span>2BD8</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1652.html#1655">MAKE_ROOM</a></td>
-<td class="comment-11" rowspan="1">Now open up the variables area. Note: in effect <span class="register">BC</span> spaces are made before the displaced '+80-byte'.</td>
+<td class="comment-1" rowspan="1">Now open up the variables area. Note: in effect <span class="register">BC</span> spaces are made before the displaced '+80-byte'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BDB"></span>2BDB</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C4D)</td>
-<td class="comment-11" rowspan="1">Restore the pointer to the end of the 'new' string from <a href="5C4D.html">DEST</a>.</td>
+<td class="comment-1" rowspan="1">Restore the pointer to the end of the 'new' string from <a href="5C4D.html">DEST</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BDE"></span>2BDE</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="2">Make a copy of the length of the 'new' string.</td>
+<td class="comment-1" rowspan="2">Make a copy of the length of the 'new' string.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BDF"></span>2BDF</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BE0"></span>2BE0</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
-<td class="comment-11" rowspan="1">Add one to the length in case the 'new' string is a 'null' string.</td>
+<td class="comment-1" rowspan="1">Add one to the length in case the 'new' string is a 'null' string.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BE1"></span>2BE1</td>
-<td class="bytes-0"></td>
 <td class="instruction">LDDR</td>
-<td class="comment-11" rowspan="1">Now copy the 'new' string + one byte.</td>
+<td class="comment-1" rowspan="1">Now copy the 'new' string + one byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BE3"></span>2BE3</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="2">Make <span class="register">HL</span> point to the byte that is to hold the high-length.</td>
+<td class="comment-1" rowspan="2">Make <span class="register">HL</span> point to the byte that is to hold the high-length.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BE4"></span>2BE4</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BE5"></span>2BE5</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">Fetch the 'length'.</td>
+<td class="comment-1" rowspan="1">Fetch the 'length'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BE6"></span>2BE6</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),B</td>
-<td class="comment-11" rowspan="1">Enter the high-length.</td>
+<td class="comment-1" rowspan="1">Enter the high-length.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BE7"></span>2BE7</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="1">Back one.</td>
+<td class="comment-1" rowspan="1">Back one.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BE8"></span>2BE8</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),C</td>
-<td class="comment-11" rowspan="1">Enter the low-length.</td>
+<td class="comment-1" rowspan="1">Enter the low-length.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BE9"></span>2BE9</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="1">Fetch the variable's letter.</td>
+<td class="comment-1" rowspan="1">Fetch the variable's letter.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -1330,52 +1139,50 @@ The following subroutine is entered with the letter of the variable, suitably ma
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">L_FIRST</td>
+<td class="asm-label">L_FIRST</td>
 <td class="address-2"><span id="2BEA"></span>2BEA</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="1">Make <span class="register">HL</span> point to the 'old +80-byte'.</td>
+<td class="comment-1" rowspan="1">Make <span class="register">HL</span> point to the 'old +80-byte'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BEB"></span>2BEB</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-11" rowspan="1">It is overwritten with the letter of the variable.</td>
+<td class="comment-1" rowspan="1">It is overwritten with the letter of the variable.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BEC"></span>2BEC</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-11" rowspan="2">Make <span class="register">HL</span> point to the 'new +80-byte' (<a href="5C59.html">E-LINE</a>-1).</td>
+<td class="comment-1" rowspan="2">Make <span class="register">HL</span> point to the 'new +80-byte' (<a href="5C59.html">E-LINE</a>-1).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BEF"></span>2BEF</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BF0"></span>2BF0</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished with all the 'newly declared variables'.</td>
+<td class="comment-1" rowspan="1">Finished with all the 'newly declared variables'.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="2AF4.html">2AF4</a></span></td>
+<td class="prev">
+Prev: <a href="2AF4.html">2AF4</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2AFF">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2BF1.html">2BF1</a></span></td>
+<td class="next">
+Next: <a href="2BF1.html">2BF1</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/11007.html">Switch to decimal</a>.</div>
 </footer>
 </body>

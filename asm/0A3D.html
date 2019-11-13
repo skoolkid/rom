@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 0A3D</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="0A23.html">0A23</a></span></td>
+<td class="prev">
+Prev: <a href="0A23.html">0A23</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#0A3D">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="0A4F.html">0A4F</a></span></td>
+<td class="next">
+Next: <a href="0A4F.html">0A4F</a>
+</td>
 </tr>
 </table>
 <div class="description">0A3D: THE 'CURSOR RIGHT' SUBROUTINE</div>
@@ -32,7 +35,7 @@ The address of this routine is derived from an offset found in the <a href="0A11
 This subroutine performs an operation identical to the BASIC statement 'PRINT OVER 1;CHR$ 32;'.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -49,82 +52,70 @@ This subroutine performs an operation identical to the BASIC statement 'PRINT OV
 <td class="register-desc">Display file address or printer buffer address</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PO_RIGHT</td>
+<td class="asm-label">PO_RIGHT</td>
 <td class="address-2"><span id="0A3D"></span>0A3D</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,($5C91)</td>
-<td class="comment-11" rowspan="2">Fetch <a href="5C91.html">P-FLAG</a> and save it on the machine stack.</td>
+<td class="comment-1" rowspan="2">Fetch <a href="5C91.html">P-FLAG</a> and save it on the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A40"></span>0A40</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A41"></span>0A41</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (IY+$57),$01</td>
-<td class="comment-11" rowspan="1">Set <a href="5C91.html">P-FLAG</a> to OVER 1.</td>
+<td class="comment-1" rowspan="1">Set <a href="5C91.html">P-FLAG</a> to OVER 1.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A45"></span>0A45</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A," "</td>
-<td class="comment-11" rowspan="1">A 'space'.</td>
+<td class="comment-1" rowspan="1">A 'space'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A47"></span>0A47</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="0B24.html#0B65">PO_CHAR</a></td>
-<td class="comment-11" rowspan="1">Print the character.</td>
+<td class="comment-1" rowspan="1">Print the character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A4A"></span>0A4A</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="2">Fetch the old value of <a href="5C91.html">P-FLAG</a>.</td>
+<td class="comment-1" rowspan="2">Fetch the old value of <a href="5C91.html">P-FLAG</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A4B"></span>0A4B</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C91),A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A4E"></span>0A4E</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished. Note: the programmer has forgotten to exit via <a href="0ADC.html">PO_STORE</a>, which is a <a href="../reference/bugs.html#noStepForward">bug</a>.</td>
+<td class="comment-1" rowspan="1">Finished. Note: the programmer has forgotten to exit via <a href="0ADC.html">PO_STORE</a>, which is a <a href="../reference/bugs.html#noStepForward">bug</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="0A23.html">0A23</a></span></td>
+<td class="prev">
+Prev: <a href="0A23.html">0A23</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#0A3D">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="0A4F.html">0A4F</a></span></td>
+<td class="next">
+Next: <a href="0A4F.html">0A4F</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/2621.html">Switch to decimal</a>.</div>
 </footer>
 </body>

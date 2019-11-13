@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 22CB</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="22AA.html">22AA</a></span></td>
+<td class="prev">
+Prev: <a href="22AA.html">22AA</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#22CB">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="22DC.html">22DC</a></span></td>
+<td class="next">
+Next: <a href="22DC.html">22DC</a>
+</td>
 </tr>
 </table>
 <div class="description">22CB: THE 'POINT' SUBROUTINE</div>
@@ -29,95 +32,75 @@
 This subroutine is called from <a href="267B.html">S_POINT</a>. It is entered with the coordinates of a pixel on the calculator stack, and returns a last value of 1 if that pixel is ink colour, and 0 if it is paper colour.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">POINT_SUB</td>
+<td class="asm-label">POINT_SUB</td>
 <td class="address-2"><span id="22CB"></span>22CB</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2307.html">STK_TO_BC</a></td>
-<td class="comment-11" rowspan="1">y-coordinate to <span class="register">B</span>, x to <span class="register">C</span>.</td>
+<td class="comment-1" rowspan="1">y-coordinate to <span class="register">B</span>, x to <span class="register">C</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="22CE"></span>22CE</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="22AA.html">PIXEL_ADD</a></td>
-<td class="comment-11" rowspan="1">Pixel address to <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="1">Pixel address to <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="22D1"></span>22D1</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
-<td class="comment-11" rowspan="3"><span class="register">B</span> will count <span class="register">A</span>+1 loops to get the wanted bit of (<span class="register">HL</span>) to location 0.</td>
+<td class="comment-1" rowspan="3"><span class="register">B</span> will count <span class="register">A</span>+1 loops to get the wanted bit of (<span class="register">HL</span>) to location 0.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="22D2"></span>22D2</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC B</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="22D3"></span>22D3</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">POINT_LP</td>
+<td class="asm-label">POINT_LP</td>
 <td class="address-2"><span id="22D4"></span>22D4</td>
-<td class="bytes-0"></td>
 <td class="instruction">RLCA</td>
-<td class="comment-11" rowspan="2">The shifts.</td>
+<td class="comment-1" rowspan="2">The shifts.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="22D5"></span>22D5</td>
-<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="22CB.html#22D4">POINT_LP</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="22D7"></span>22D7</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND $01</td>
-<td class="comment-11" rowspan="1">The bit is 1 for ink, 0 for paper.</td>
+<td class="comment-1" rowspan="1">The bit is 1 for ink, 0 for paper.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="22D9"></span>22D9</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="2D28.html">STACK_A</a></td>
-<td class="comment-11" rowspan="1">It is put on the calculator stack.</td>
+<td class="comment-1" rowspan="1">It is put on the calculator stack.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="22AA.html">22AA</a></span></td>
+<td class="prev">
+Prev: <a href="22AA.html">22AA</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#22CB">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="22DC.html">22DC</a></span></td>
+<td class="next">
+Next: <a href="22DC.html">22DC</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/8907.html">Switch to decimal</a>.</div>
 </footer>
 </body>

@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 07254</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7246.html">07246</a></span></td>
+<td class="prev">
+Prev: <a href="7246.html">07246</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7254">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7276.html">07276</a></span></td>
+<td class="next">
+Next: <a href="7276.html">07276</a>
+</td>
 </tr>
 </table>
 <div class="description">07254: THE 'FETCH A VALUE' SUBROUTINE</div>
@@ -35,26 +38,13 @@ This subroutine is used by LET, READ and INPUT statements to first evaluate and 
 The main entry point is used by LET and READ and considers <a href="23611.html">FLAGS</a>, whereas the entry point <a href="7254.html#7257">VAL_FET_2</a> is used by INPUT and considers <a href="23665.html">FLAGX</a>.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">VAL_FET_1</td>
+<td class="asm-label">VAL_FET_1</td>
 <td class="address-2"><span id="7254"></span>07254</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(23611)</td>
-<td class="comment-11" rowspan="1">Use <a href="23611.html">FLAGS</a>.</td>
+<td class="comment-1" rowspan="1">Use <a href="23611.html">FLAGS</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -67,87 +57,78 @@ This entry point is used by the routine at <a href="8633.html">IN_ASSIGN</a> wit
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">VAL_FET_2</td>
+<td class="asm-label">VAL_FET_2</td>
 <td class="address-2"><span id="7257"></span>07257</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1">Save <a href="23611.html">FLAGS</a> or <a href="23665.html">FLAGX</a>.</td>
+<td class="comment-1" rowspan="1">Save <a href="23611.html">FLAGS</a> or <a href="23665.html">FLAGX</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7258"></span>07258</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="9467.html">SCANNING</a></td>
-<td class="comment-11" rowspan="1">Evaluate the next expression.</td>
+<td class="comment-1" rowspan="1">Evaluate the next expression.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7261"></span>07261</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="1">Fetch the old <a href="23611.html">FLAGS</a> or <a href="23665.html">FLAGX</a>.</td>
+<td class="comment-1" rowspan="1">Fetch the old <a href="23611.html">FLAGS</a> or <a href="23665.html">FLAGX</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7262"></span>07262</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,(IY+1)</td>
-<td class="comment-11" rowspan="1">Fetch the new <a href="23611.html">FLAGS</a>.</td>
+<td class="comment-1" rowspan="1">Fetch the new <a href="23611.html">FLAGS</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7265"></span>07265</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR D</td>
-<td class="comment-11" rowspan="2">The nature - numeric or string - of the variable and the expression must match.</td>
+<td class="comment-1" rowspan="2">The nature - numeric or string - of the variable and the expression must match.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7266"></span>07266</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND 64</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7268"></span>07268</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="7289.html#7306">REPORT_C</a></td>
-<td class="comment-11" rowspan="1">Give report C if they do not.</td>
+<td class="comment-1" rowspan="1">Give report C if they do not.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7270"></span>07270</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 7,D</td>
-<td class="comment-11" rowspan="3">Jump forward to make the actual assignment unless checking syntax (in which case simply return).</td>
+<td class="comment-1" rowspan="3">Jump forward to make the actual assignment unless checking syntax (in which case simply return).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7272"></span>07272</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP NZ,<a href="11007.html">LET</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7275"></span>07275</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7246.html">07246</a></span></td>
+<td class="prev">
+Prev: <a href="7246.html">07246</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7254">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7276.html">07276</a></span></td>
+<td class="next">
+Next: <a href="7276.html">07276</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/1C56.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

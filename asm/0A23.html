@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 0A23</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="0A11.html">0A11</a></span></td>
+<td class="prev">
+Prev: <a href="0A11.html">0A11</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#0A23">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="0A3D.html">0A3D</a></span></td>
+<td class="next">
+Next: <a href="0A3D.html">0A3D</a>
+</td>
 </tr>
 </table>
 <div class="description">0A23: THE 'CURSOR LEFT' SUBROUTINE</div>
@@ -29,7 +32,7 @@
 The address of this routine is derived from an offset found in the <a href="0A11.html">control character table</a>.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -42,124 +45,104 @@ The address of this routine is derived from an offset found in the <a href="0A11
 <td class="register-desc">Current column number</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PO_BACK_1</td>
+<td class="asm-label">PO_BACK_1</td>
 <td class="address-2"><span id="0A23"></span>0A23</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC C</td>
-<td class="comment-11" rowspan="1">Move leftwards by one column.</td>
+<td class="comment-1" rowspan="1">Move leftwards by one column.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A24"></span>0A24</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,$22</td>
-<td class="comment-11" rowspan="3">Accept the change unless up against the lefthand side.</td>
+<td class="comment-1" rowspan="3">Accept the change unless up against the lefthand side.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A26"></span>0A26</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A27"></span>0A27</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="0A23.html#0A3A">PO_BACK_3</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A29"></span>0A29</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 1,(IY+$01)</td>
-<td class="comment-11" rowspan="2">If dealing with the printer (bit 1 of <a href="5C3B.html">FLAGS</a> set) jump forward.</td>
+<td class="comment-1" rowspan="2">If dealing with the printer (bit 1 of <a href="5C3B.html">FLAGS</a> set) jump forward.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A2D"></span>0A2D</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="0A23.html#0A38">PO_BACK_2</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A2F"></span>0A2F</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC B</td>
-<td class="comment-11" rowspan="1">Go up one line.</td>
+<td class="comment-1" rowspan="1">Go up one line.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A30"></span>0A30</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,$02</td>
-<td class="comment-11" rowspan="1">Set column value.</td>
+<td class="comment-1" rowspan="1">Set column value.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A32"></span>0A32</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,$18</td>
-<td class="comment-11" rowspan="2">Test against top line. Note: <a href="../reference/bugs.html#noStepBack">this ought to be +19</a>.</td>
+<td class="comment-1" rowspan="2">Test against top line. Note: <a href="../reference/bugs.html#noStepBack">this ought to be +19</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A34"></span>0A34</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP B</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A35"></span>0A35</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="0A23.html#0A3A">PO_BACK_3</a></td>
-<td class="comment-11" rowspan="1">Accept the change unless at the top of the screen.</td>
+<td class="comment-1" rowspan="1">Accept the change unless at the top of the screen.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0A37"></span>0A37</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC B</td>
-<td class="comment-11" rowspan="1">Unacceptable so down a line.</td>
+<td class="comment-1" rowspan="1">Unacceptable so down a line.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PO_BACK_2</td>
+<td class="asm-label">PO_BACK_2</td>
 <td class="address-2"><span id="0A38"></span>0A38</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,$21</td>
-<td class="comment-11" rowspan="1">Set to lefthand column.</td>
+<td class="comment-1" rowspan="1">Set to lefthand column.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PO_BACK_3</td>
+<td class="asm-label">PO_BACK_3</td>
 <td class="address-2"><span id="0A3A"></span>0A3A</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="0DD9.html">CL_SET</a></td>
-<td class="comment-11" rowspan="1">Make an indirect return via <a href="0DD9.html">CL_SET</a> and <a href="0ADC.html">PO_STORE</a>.</td>
+<td class="comment-1" rowspan="1">Make an indirect return via <a href="0DD9.html">CL_SET</a> and <a href="0ADC.html">PO_STORE</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="0A11.html">0A11</a></span></td>
+<td class="prev">
+Prev: <a href="0A11.html">0A11</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#0A23">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="0A3D.html">0A3D</a></span></td>
+<td class="next">
+Next: <a href="0A3D.html">0A3D</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/2595.html">Switch to decimal</a>.</div>
 </footer>
 </body>

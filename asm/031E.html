@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 031E</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="02BF.html">02BF</a></span></td>
+<td class="prev">
+Prev: <a href="02BF.html">02BF</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#031E">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="0333.html">0333</a></span></td>
+<td class="next">
+Next: <a href="0333.html">0333</a>
+</td>
 </tr>
 </table>
 <div class="description">031E: THE 'K-TEST' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routines at <a href="02BF.html">KEYBOARD</a> and <a href="2634.html"
 The key value is tested and a return made if 'no-key' or 'shift-only'; otherwise the 'main code' for that key is found.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -45,7 +48,7 @@ The key value is tested and a return made if 'no-key' or 'shift-only'; otherwise
 <td class="register-desc">Other key pressed (+00 to +27), or +FF if no other key pressed</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -61,67 +64,55 @@ The key value is tested and a return made if 'no-key' or 'shift-only'; otherwise
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">K_TEST</td>
+<td class="asm-label">K_TEST</td>
 <td class="address-2"><span id="031E"></span>031E</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,D</td>
-<td class="comment-11" rowspan="1">Copy the shift byte.</td>
+<td class="comment-1" rowspan="1">Copy the shift byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="031F"></span>031F</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,$00</td>
-<td class="comment-11" rowspan="1">Clear the <span class="register">D</span> register for later.</td>
+<td class="comment-1" rowspan="1">Clear the <span class="register">D</span> register for later.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0321"></span>0321</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,E</td>
-<td class="comment-11" rowspan="1">Move the key number.</td>
+<td class="comment-1" rowspan="1">Move the key number.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0322"></span>0322</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $27</td>
-<td class="comment-11" rowspan="2">Return now if the key was 'CAPS SHIFT' only or 'no-key'.</td>
+<td class="comment-1" rowspan="2">Return now if the key was 'CAPS SHIFT' only or 'no-key'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0324"></span>0324</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0325"></span>0325</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $18</td>
-<td class="comment-11" rowspan="2">Jump forward unless the <span class="register">E</span> key was SYMBOL SHIFT.</td>
+<td class="comment-1" rowspan="2">Jump forward unless the <span class="register">E</span> key was SYMBOL SHIFT.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0327"></span>0327</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="031E.html#032C">K_MAIN</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0329"></span>0329</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 7,B</td>
-<td class="comment-11" rowspan="2">However accept SYMBOL SHIFT and another key; return with SYMBOL SHIFT only.</td>
+<td class="comment-1" rowspan="2">However accept SYMBOL SHIFT and another key; return with SYMBOL SHIFT only.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="032B"></span>032B</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NZ</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -134,52 +125,49 @@ The 'main code' is found by indexing into the main key table.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">K_MAIN</td>
+<td class="asm-label">K_MAIN</td>
 <td class="address-2"><span id="032C"></span>032C</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,$0205</td>
-<td class="comment-11" rowspan="1">The base address of the <a href="0205.html#0205">main key table</a>.</td>
+<td class="comment-1" rowspan="1">The base address of the <a href="0205.html#0205">main key table</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="032F"></span>032F</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-11" rowspan="2">Index into the table and fetch the 'main code'.</td>
+<td class="comment-1" rowspan="2">Index into the table and fetch the 'main code'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0330"></span>0330</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0331"></span>0331</td>
-<td class="bytes-0"></td>
 <td class="instruction">SCF</td>
-<td class="comment-11" rowspan="2">Signal 'valid keystroke' before returning.</td>
+<td class="comment-1" rowspan="2">Signal 'valid keystroke' before returning.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0332"></span>0332</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="02BF.html">02BF</a></span></td>
+<td class="prev">
+Prev: <a href="02BF.html">02BF</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#031E">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="0333.html">0333</a></span></td>
+<td class="next">
+Next: <a href="0333.html">0333</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/798.html">Switch to decimal</a>.</div>
 </footer>
 </body>

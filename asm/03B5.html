@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 03B5</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="0333.html">0333</a></span></td>
+<td class="prev">
+Prev: <a href="0333.html">0333</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#03B5">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="03F8.html">03F8</a></span></td>
+<td class="next">
+Next: <a href="03F8.html">03F8</a>
+</td>
 </tr>
 </table>
 <div class="description">03B5: THE 'BEEPER' SUBROUTINE</div>
@@ -38,7 +41,7 @@ Consider now the note 'middle C' which has the frequency 261.63 Hz. In order to 
 This subroutine is entered with the <span class="register">DE</span> register pair holding the value 'f*t', where a note of given frequency 'f' is to have a duration of 't' seconds, and the <span class="register">HL</span> register pair holding a value equal to the number of T states in the 'timing loop' divided by 4, i.e. for the note 'middle C' to be produced for one second <span class="register">DE</span> holds +0105 (INT(261.3*1)) and <span class="register">HL</span> holds +066A (derived from 6689/4-30.125).
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -51,125 +54,95 @@ This subroutine is entered with the <span class="register">DE</span> register pa
 <td class="register-desc">Loop delay parameter</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">BEEPER</td>
+<td class="asm-label">BEEPER</td>
 <td class="address-2"><span id="03B5"></span>03B5</td>
-<td class="bytes-0"></td>
 <td class="instruction">DI</td>
-<td class="comment-11" rowspan="1">Disable the interrupt for the duration of a 'beep'.</td>
+<td class="comment-1" rowspan="1">Disable the interrupt for the duration of a 'beep'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03B6"></span>03B6</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,L</td>
-<td class="comment-11" rowspan="1">Save <span class="register">L</span> temporarily.</td>
+<td class="comment-1" rowspan="1">Save <span class="register">L</span> temporarily.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03B7"></span>03B7</td>
-<td class="bytes-0"></td>
 <td class="instruction">SRL L</td>
-<td class="comment-11" rowspan="2">Each '1' in the <span class="register">L</span> register is to count 4 T states, but take INT (<span class="register">L</span>/4) and count 16 T states instead.</td>
+<td class="comment-1" rowspan="2">Each '1' in the <span class="register">L</span> register is to count 4 T states, but take INT (<span class="register">L</span>/4) and count 16 T states instead.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03B9"></span>03B9</td>
-<td class="bytes-0"></td>
 <td class="instruction">SRL L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03BB"></span>03BB</td>
-<td class="bytes-0"></td>
 <td class="instruction">CPL</td>
-<td class="comment-11" rowspan="4">Go back to the original value in <span class="register">L</span> and find how many were lost by taking 3-(<span class="register">A</span> mod 4).</td>
+<td class="comment-1" rowspan="4">Go back to the original value in <span class="register">L</span> and find how many were lost by taking 3-(<span class="register">A</span> mod 4).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03BC"></span>03BC</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND $03</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03BE"></span>03BE</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03BF"></span>03BF</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,$00</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03C1"></span>03C1</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD IX,$03D1</td>
-<td class="comment-11" rowspan="1">The base address of the timing loop.</td>
+<td class="comment-1" rowspan="1">The base address of the timing loop.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03C5"></span>03C5</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD IX,BC</td>
-<td class="comment-11" rowspan="1">Alter the length of the timing loop. Use an earlier starting point for each '1' lost by taking INT (<span class="register">L</span>/4).</td>
+<td class="comment-1" rowspan="1">Alter the length of the timing loop. Use an earlier starting point for each '1' lost by taking INT (<span class="register">L</span>/4).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03C7"></span>03C7</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,($5C48)</td>
-<td class="comment-11" rowspan="5">Fetch the present border colour from <a href="5C48.html">BORDCR</a> and move it to bits 2, 1 and 0 of the <span class="register">A</span> register.</td>
+<td class="comment-1" rowspan="5">Fetch the present border colour from <a href="5C48.html">BORDCR</a> and move it to bits 2, 1 and 0 of the <span class="register">A</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03CA"></span>03CA</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND $38</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03CC"></span>03CC</td>
-<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03CD"></span>03CD</td>
-<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03CE"></span>03CE</td>
-<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03CF"></span>03CF</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR $08</td>
-<td class="comment-11" rowspan="1">Ensure the MIC output is 'off'.</td>
+<td class="comment-1" rowspan="1">Ensure the MIC output is 'off'.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -185,74 +158,57 @@ The <span class="register">HL</span> register holds the 'length of the timing lo
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03D1"></span>03D1</td>
-<td class="bytes-0"></td>
 <td class="instruction">NOP</td>
-<td class="comment-11" rowspan="3">Add 4 T states for each earlier entry point that is used.</td>
+<td class="comment-1" rowspan="3">Add 4 T states for each earlier entry point that is used.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03D2"></span>03D2</td>
-<td class="bytes-0"></td>
 <td class="instruction">NOP</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03D3"></span>03D3</td>
-<td class="bytes-0"></td>
 <td class="instruction">NOP</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03D4"></span>03D4</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC B</td>
-<td class="comment-11" rowspan="2">The values in the <span class="register">B</span> and <span class="register">C</span> registers will come from the <span class="register">H</span> and <span class="register">L</span> registers - see below.</td>
+<td class="comment-1" rowspan="2">The values in the <span class="register">B</span> and <span class="register">C</span> registers will come from the <span class="register">H</span> and <span class="register">L</span> registers - see below.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03D5"></span>03D5</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">BE_H_L_LP</td>
+<td class="asm-label">BE_H_L_LP</td>
 <td class="address-2"><span id="03D6"></span>03D6</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC C</td>
-<td class="comment-11" rowspan="5">The 'timing loop', i.e. <span class="register">BC</span>*4 T states. (But note that at the half-cycle point, <span class="register">C</span> will be equal to <span class="register">L</span>+1.)</td>
+<td class="comment-1" rowspan="5">The 'timing loop', i.e. <span class="register">BC</span>*4 T states. (But note that at the half-cycle point, <span class="register">C</span> will be equal to <span class="register">L</span>+1.)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03D7"></span>03D7</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="03B5.html#03D6">BE_H_L_LP</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03D9"></span>03D9</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,$3F</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03DB"></span>03DB</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC B</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03DC"></span>03DC</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP NZ,<a href="03B5.html#03D6">BE_H_L_LP</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -265,46 +221,39 @@ The loudspeaker is now alternately activated and deactivated.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03DF"></span>03DF</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR $10</td>
-<td class="comment-11" rowspan="1">Flip bit 4.</td>
+<td class="comment-1" rowspan="1">Flip bit 4.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03E1"></span>03E1</td>
-<td class="bytes-0"></td>
 <td class="instruction">OUT ($FE),A</td>
-<td class="comment-11" rowspan="1">Perform the 'OUT' operation, leaving the border unchanged.</td>
+<td class="comment-1" rowspan="1">Perform the 'OUT' operation, leaving the border unchanged.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03E3"></span>03E3</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,H</td>
-<td class="comment-11" rowspan="1">Reset the <span class="register">B</span> register.</td>
+<td class="comment-1" rowspan="1">Reset the <span class="register">B</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03E4"></span>03E4</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
-<td class="comment-11" rowspan="1">Save the <span class="register">A</span> register.</td>
+<td class="comment-1" rowspan="1">Save the <span class="register">A</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03E5"></span>03E5</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 4,A</td>
-<td class="comment-11" rowspan="2">Jump if at the half-cycle point.</td>
+<td class="comment-1" rowspan="2">Jump if at the half-cycle point.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03E7"></span>03E7</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="03B5.html#03F2">BE_AGAIN</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -317,53 +266,44 @@ After a full cycle the <span class="register">DE</span> register pair is tested.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03E9"></span>03E9</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
-<td class="comment-11" rowspan="3">Jump forward if the last complete pass has been made already.</td>
+<td class="comment-1" rowspan="3">Jump forward if the last complete pass has been made already.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03EA"></span>03EA</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR E</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03EB"></span>03EB</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="03B5.html#03F6">BE_END</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03ED"></span>03ED</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
-<td class="comment-11" rowspan="1">Fetch the saved value.</td>
+<td class="comment-1" rowspan="1">Fetch the saved value.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03EE"></span>03EE</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,L</td>
-<td class="comment-11" rowspan="1">Reset the <span class="register">C</span> register.</td>
+<td class="comment-1" rowspan="1">Reset the <span class="register">C</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03EF"></span>03EF</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC DE</td>
-<td class="comment-11" rowspan="1">Decrease the pass counter.</td>
+<td class="comment-1" rowspan="1">Decrease the pass counter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03F0"></span>03F0</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP (IX)</td>
-<td class="comment-11" rowspan="1">Jump back to the required starting location of the loop.</td>
+<td class="comment-1" rowspan="1">Jump back to the required starting location of the loop.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -376,25 +316,22 @@ The parameters for the second half-cycle are set up.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">BE_AGAIN</td>
+<td class="asm-label">BE_AGAIN</td>
 <td class="address-2"><span id="03F2"></span>03F2</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,L</td>
-<td class="comment-11" rowspan="1">Reset the <span class="register">C</span> register.</td>
+<td class="comment-1" rowspan="1">Reset the <span class="register">C</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03F3"></span>03F3</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC C</td>
-<td class="comment-11" rowspan="1">Add 16 T states as this path is shorter.</td>
+<td class="comment-1" rowspan="1">Add 16 T states as this path is shorter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03F4"></span>03F4</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP (IX)</td>
-<td class="comment-11" rowspan="1">Jump back.</td>
+<td class="comment-1" rowspan="1">Jump back.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -407,31 +344,33 @@ Upon completion of the 'beep' the maskable interrupt has to be enabled.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">BE_END</td>
+<td class="asm-label">BE_END</td>
 <td class="address-2"><span id="03F6"></span>03F6</td>
-<td class="bytes-0"></td>
 <td class="instruction">EI</td>
-<td class="comment-11" rowspan="1">Enable interrupt.</td>
+<td class="comment-1" rowspan="1">Enable interrupt.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="03F7"></span>03F7</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finally return.</td>
+<td class="comment-1" rowspan="1">Finally return.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="0333.html">0333</a></span></td>
+<td class="prev">
+Prev: <a href="0333.html">0333</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#03B5">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="03F8.html">03F8</a></span></td>
+<td class="next">
+Next: <a href="03F8.html">03F8</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/949.html">Switch to decimal</a>.</div>
 </footer>
 </body>

@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 12253</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="12218.html">12218</a></span></td>
+<td class="prev">
+Prev: <a href="12218.html">12218</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#12253">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="12292.html">12292</a></span></td>
+<td class="next">
+Next: <a href="12292.html">12292</a>
+</td>
 </tr>
 </table>
 <div class="description">12253: THE 'SHIFT ADDEND' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routines at <a href="11747.html">PRINT_FP</a> and <a href="12308.htm
 This subroutine shifts a floating-point number up to 32 places right to line it up properly for addition. The number with the smaller exponent has been put in the addend position before this subroutine is called. Any overflow to the right, into the carry, is added back into the number. If the exponent difference is greater than 32, or the carry ripples right back to the beginning of the number then the number is set to zero so that the addition will not alter the other number (the augend).
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -49,153 +52,120 @@ This subroutine shifts a floating-point number up to 32 places right to line it 
 <td class="register-desc">Sign byte of number to shift right (0 or 255)</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SHIFT_FP</td>
+<td class="asm-label">SHIFT_FP</td>
 <td class="address-2"><span id="12253"></span>12253</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="2">If the exponent difference is zero, the subroutine returns at once.</td>
+<td class="comment-1" rowspan="2">If the exponent difference is zero, the subroutine returns at once.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12254"></span>12254</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12255"></span>12255</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 33</td>
-<td class="comment-11" rowspan="2">If the difference is greater than 32, jump forward.</td>
+<td class="comment-1" rowspan="2">If the difference is greater than 32, jump forward.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12257"></span>12257</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="12253.html#12281">ADDEND_0</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12259"></span>12259</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">Save <span class="register">BC</span> briefly.</td>
+<td class="comment-1" rowspan="1">Save <span class="register">BC</span> briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12260"></span>12260</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
-<td class="comment-11" rowspan="1">Transfer the exponent difference to <span class="register">B</span> to count the shifts right.</td>
+<td class="comment-1" rowspan="1">Transfer the exponent difference to <span class="register">B</span> to count the shifts right.</td>
 </tr>
 <tr>
-<td class="asm-label-1">ONE_SHIFT</td>
+<td class="asm-label">ONE_SHIFT</td>
 <td class="address-2"><span id="12261"></span>12261</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="2">Arithmetic shift right for <span class="register">L'</span>, preserving the sign marker bits.</td>
+<td class="comment-1" rowspan="2">Arithmetic shift right for <span class="register">L'</span>, preserving the sign marker bits.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12262"></span>12262</td>
-<td class="bytes-0"></td>
 <td class="instruction">SRA L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12264"></span>12264</td>
-<td class="bytes-0"></td>
 <td class="instruction">RR D</td>
-<td class="comment-11" rowspan="5">Rotate right with carry <span class="register">D'</span>, <span class="register">E'</span>, <span class="register">D</span> and <span class="register">E</span>, thereby shifting the whole five bytes of the number to the right as many times as <span class="register">B</span> counts.</td>
+<td class="comment-1" rowspan="5">Rotate right with carry <span class="register">D'</span>, <span class="register">E'</span>, <span class="register">D</span> and <span class="register">E</span>, thereby shifting the whole five bytes of the number to the right as many times as <span class="register">B</span> counts.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12266"></span>12266</td>
-<td class="bytes-0"></td>
 <td class="instruction">RR E</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12268"></span>12268</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12269"></span>12269</td>
-<td class="bytes-0"></td>
 <td class="instruction">RR D</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12271"></span>12271</td>
-<td class="bytes-0"></td>
 <td class="instruction">RR E</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12273"></span>12273</td>
-<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="12253.html#12261">ONE_SHIFT</a></td>
-<td class="comment-11" rowspan="1">Loop back until <span class="register">B</span> reaches zero.</td>
+<td class="comment-1" rowspan="1">Loop back until <span class="register">B</span> reaches zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12275"></span>12275</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">Restore the original <span class="register">BC</span>.</td>
+<td class="comment-1" rowspan="1">Restore the original <span class="register">BC</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12276"></span>12276</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
-<td class="comment-11" rowspan="1">Done if no carry to retrieve.</td>
+<td class="comment-1" rowspan="1">Done if no carry to retrieve.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12277"></span>12277</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="12292.html">ADD_BACK</a></td>
-<td class="comment-11" rowspan="1">Retrieve carry.</td>
+<td class="comment-1" rowspan="1">Retrieve carry.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12280"></span>12280</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NZ</td>
-<td class="comment-11" rowspan="1">Return unless the carry rippled right back. (In this case there is nothing to add.)</td>
+<td class="comment-1" rowspan="1">Return unless the carry rippled right back. (In this case there is nothing to add.)</td>
 </tr>
 <tr>
-<td class="asm-label-1">ADDEND_0</td>
+<td class="asm-label">ADDEND_0</td>
 <td class="address-2"><span id="12281"></span>12281</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="1">Fetch <span class="register">L'</span>, <span class="register">D'</span> and <span class="register">E'</span>.</td>
+<td class="comment-1" rowspan="1">Fetch <span class="register">L'</span>, <span class="register">D'</span> and <span class="register">E'</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12282"></span>12282</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
-<td class="comment-11" rowspan="1">Clear the <span class="register">A</span> register.</td>
+<td class="comment-1" rowspan="1">Clear the <span class="register">A</span> register.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -208,59 +178,53 @@ This entry point is used by the routine at <a href="12490.html">multiply</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">ZEROS_4_5</td>
+<td class="asm-label">ZEROS_4_5</td>
 <td class="address-2"><span id="12283"></span>12283</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD L,0</td>
-<td class="comment-11" rowspan="5">Set the addend to zero in <span class="register">D'</span>, <span class="register">E'</span>, <span class="register">D</span> and <span class="register">E</span>, together with its marker byte (sign indicator) <span class="register">L'</span>, which was 0 for a positive number and 255 for a negative number. This produces only 4 zero bytes when called for near underflow by <a href="12490.html">multiply</a>.</td>
+<td class="comment-1" rowspan="5">Set the addend to zero in <span class="register">D'</span>, <span class="register">E'</span>, <span class="register">D</span> and <span class="register">E</span>, together with its marker byte (sign indicator) <span class="register">L'</span>, which was 0 for a positive number and 255 for a negative number. This produces only 4 zero bytes when called for near underflow by <a href="12490.html">multiply</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12285"></span>12285</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12286"></span>12286</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12287"></span>12287</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12288"></span>12288</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,0</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12291"></span>12291</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished.</td>
+<td class="comment-1" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="12218.html">12218</a></span></td>
+<td class="prev">
+Prev: <a href="12218.html">12218</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#12253">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="12292.html">12292</a></span></td>
+<td class="next">
+Next: <a href="12292.html">12292</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/2FDD.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

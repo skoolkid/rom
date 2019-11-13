@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 10996</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="10990.html">10990</a></span></td>
+<td class="prev">
+Prev: <a href="10990.html">10990</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#10996">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="11007.html">11007</a></span></td>
+<td class="next">
+Next: <a href="11007.html">11007</a>
+</td>
 </tr>
 </table>
 <div class="description">10996: THE 'GET-HL*DE' SUBROUTINE</div>
@@ -35,7 +38,7 @@ Unless syntax is being checked this subroutine calls <a href="12457.html">HL_HLx
 Overflow of the 16 bits available in the <span class="register">HL</span> register pair gives the report 'out of memory'. This is not exactly the true situation but it implies that the memory is not large enough for the task envisaged by the programmer.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -48,7 +51,7 @@ Overflow of the 16 bits available in the <span class="register">HL</span> regist
 <td class="register-desc">Second number (N)</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -60,52 +63,50 @@ Overflow of the 16 bits available in the <span class="register">HL</span> regist
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">GET_HLxDE</td>
+<td class="asm-label">GET_HLxDE</td>
 <td class="address-2"><span id="10996"></span>10996</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="9520.html">SYNTAX_Z</a></td>
-<td class="comment-11" rowspan="2">Return directly if syntax is being checked.</td>
+<td class="comment-1" rowspan="2">Return directly if syntax is being checked.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10999"></span>10999</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11000"></span>11000</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="12457.html">HL_HLxDE</a></td>
-<td class="comment-11" rowspan="1">Perform the multiplication.</td>
+<td class="comment-1" rowspan="1">Perform the multiplication.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11003"></span>11003</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP C,<a href="7941.html#7957">REPORT_4</a></td>
-<td class="comment-11" rowspan="1">Report 'Out of memory'.</td>
+<td class="comment-1" rowspan="1">Report 'Out of memory'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11006"></span>11006</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished.</td>
+<td class="comment-1" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="10990.html">10990</a></span></td>
+<td class="prev">
+Prev: <a href="10990.html">10990</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#10996">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="11007.html">11007</a></span></td>
+<td class="next">
+Next: <a href="11007.html">11007</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/2AF4.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

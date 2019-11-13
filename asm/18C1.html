@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 18C1</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="18B6.html">18B6</a></span></td>
+<td class="prev">
+Prev: <a href="18B6.html">18B6</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#18C1">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="18E1.html">18E1</a></span></td>
+<td class="next">
+Next: <a href="18E1.html">18E1</a>
+</td>
 </tr>
 </table>
 <div class="description">18C1: THE 'PRINT A FLASHING CHARACTER' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routines at <a href="1855.html">OUT_LINE</a> and <a href="18E1.html"
 The 'error cursor' and the 'mode cursors' are printed using this subroutine.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,145 +44,119 @@ The 'error cursor' and the 'mode cursors' are printed using this subroutine.
 <td class="register-desc">Character code ('C', 'E', 'G', 'K', 'L' or '?')</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">OUT_FLASH</td>
+<td class="asm-label">OUT_FLASH</td>
 <td class="address-2"><span id="18C1"></span>18C1</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="1">Switch to the alternate registers.</td>
+<td class="comment-1" rowspan="1">Switch to the alternate registers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="18C2"></span>18C2</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C8F)</td>
-<td class="comment-11" rowspan="2">Save the values of <a href="5C8F.html">ATTR-T</a> and <a href="5C90.html">MASK-T</a> on the machine stack.</td>
+<td class="comment-1" rowspan="2">Save the values of <a href="5C8F.html">ATTR-T</a> and <a href="5C90.html">MASK-T</a> on the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="18C5"></span>18C5</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="18C6"></span>18C6</td>
-<td class="bytes-0"></td>
 <td class="instruction">RES 7,H</td>
-<td class="comment-11" rowspan="2">Ensure that FLASH is active.</td>
+<td class="comment-1" rowspan="2">Ensure that FLASH is active.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="18C8"></span>18C8</td>
-<td class="bytes-0"></td>
 <td class="instruction">SET 7,L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="18CA"></span>18CA</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C8F),HL</td>
-<td class="comment-11" rowspan="1">Use these modified values for <a href="5C8F.html">ATTR-T</a> and <a href="5C90.html">MASK-T</a>.</td>
+<td class="comment-1" rowspan="1">Use these modified values for <a href="5C8F.html">ATTR-T</a> and <a href="5C90.html">MASK-T</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="18CD"></span>18CD</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,$5C91</td>
-<td class="comment-11" rowspan="1">This is <a href="5C91.html">P-FLAG</a>.</td>
+<td class="comment-1" rowspan="1">This is <a href="5C91.html">P-FLAG</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="18D0"></span>18D0</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,(HL)</td>
-<td class="comment-11" rowspan="2">Save <a href="5C91.html">P-FLAG</a> also on the machine stack.</td>
+<td class="comment-1" rowspan="2">Save <a href="5C91.html">P-FLAG</a> also on the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="18D1"></span>18D1</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="18D2"></span>18D2</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),$00</td>
-<td class="comment-11" rowspan="1">Ensure INVERSE 0, OVER 0, and not PAPER 9 nor INK 9.</td>
+<td class="comment-1" rowspan="1">Ensure INVERSE 0, OVER 0, and not PAPER 9 nor INK 9.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="18D4"></span>18D4</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="09F4.html">PRINT_OUT</a></td>
-<td class="comment-11" rowspan="1">The character is printed.</td>
+<td class="comment-1" rowspan="1">The character is printed.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="18D7"></span>18D7</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">The former value of <a href="5C91.html">P-FLAG</a> is restored.</td>
+<td class="comment-1" rowspan="2">The former value of <a href="5C91.html">P-FLAG</a> is restored.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="18D8"></span>18D8</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (IY+$57),H</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="18DB"></span>18DB</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="4">The former values of <a href="5C8F.html">ATTR-T</a> and <a href="5C90.html">MASK-T</a> are also restored before returning.</td>
+<td class="comment-1" rowspan="4">The former values of <a href="5C8F.html">ATTR-T</a> and <a href="5C90.html">MASK-T</a> are also restored before returning.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="18DC"></span>18DC</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C8F),HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="18DF"></span>18DF</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="18E0"></span>18E0</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="18B6.html">18B6</a></span></td>
+<td class="prev">
+Prev: <a href="18B6.html">18B6</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#18C1">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="18E1.html">18E1</a></span></td>
+<td class="next">
+Next: <a href="18E1.html">18E1</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/6337.html">Switch to decimal</a>.</div>
 </footer>
 </body>

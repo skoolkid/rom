@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 10956</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="10929.html">10929</a></span></td>
+<td class="prev">
+Prev: <a href="10929.html">10929</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#10956">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="10990.html">10990</a></span></td>
+<td class="next">
+Next: <a href="10990.html">10990</a>
+</td>
 </tr>
 </table>
 <div class="description">10956: THE 'INT-EXP' SUBROUTINE</div>
@@ -35,7 +38,7 @@ This subroutine returns the result of evaluating the 'next expression' as an int
 The <span class="register">A</span> register is used as an 'error register' and holds 0 if there is no 'previous error' and 255 if there has been one.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -44,7 +47,7 @@ The <span class="register">A</span> register is used as an 'error register' and 
 <td class="register-desc">Limit value</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -60,11 +63,10 @@ The <span class="register">A</span> register is used as an 'error register' and 
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">INT_EXP1</td>
+<td class="asm-label">INT_EXP1</td>
 <td class="address-2"><span id="10956"></span>10956</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
-<td class="comment-11" rowspan="1">Clear the 'error register'.</td>
+<td class="comment-1" rowspan="1">Clear the 'error register'.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -77,130 +79,105 @@ This entry point is used by the routine at <a href="10834.html">SLICING</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">INT_EXP2</td>
+<td class="asm-label">INT_EXP2</td>
 <td class="address-2"><span id="10957"></span>10957</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-11" rowspan="2">Save both the <span class="register">DE</span> and <span class="register">HL</span> register pairs throughout.</td>
+<td class="comment-1" rowspan="2">Save both the <span class="register">DE</span> and <span class="register">HL</span> register pairs throughout.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10958"></span>10958</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10959"></span>10959</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1">Save the 'error register' briefly.</td>
+<td class="comment-1" rowspan="1">Save the 'error register' briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10960"></span>10960</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="7289.html#7298">CLASS_06</a></td>
-<td class="comment-11" rowspan="1">The 'next expression' is evaluated to give a 'last value' on the calculator stack.</td>
+<td class="comment-1" rowspan="1">The 'next expression' is evaluated to give a 'last value' on the calculator stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10963"></span>10963</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="1">Restore the 'error register'.</td>
+<td class="comment-1" rowspan="1">Restore the 'error register'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10964"></span>10964</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="9520.html">SYNTAX_Z</a></td>
-<td class="comment-11" rowspan="2">Jump forward if checking syntax.</td>
+<td class="comment-1" rowspan="2">Jump forward if checking syntax.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10967"></span>10967</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="10956.html#10987">I_RESTORE</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10969"></span>10969</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1">Save the error register again.</td>
+<td class="comment-1" rowspan="1">Save the error register again.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10970"></span>10970</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="7828.html#7833">FIND_INT2</a></td>
-<td class="comment-11" rowspan="1">The 'last value' is compressed Into <span class="register">BC</span>.</td>
+<td class="comment-1" rowspan="1">The 'last value' is compressed Into <span class="register">BC</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10973"></span>10973</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="1">Error register to <span class="register">D</span>.</td>
+<td class="comment-1" rowspan="1">Error register to <span class="register">D</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10974"></span>10974</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-11" rowspan="4">A 'next expression' that gives zero is always in error so jump forward if it is so.</td>
+<td class="comment-1" rowspan="4">A 'next expression' that gives zero is always in error so jump forward if it is so.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10975"></span>10975</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10976"></span>10976</td>
-<td class="bytes-0"></td>
 <td class="instruction">SCF</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10977"></span>10977</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="10956.html#10984">I_CARRY</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10979"></span>10979</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">Take a copy of the limit-value. This will be a 'dimension-size', a 'DIM-limit' or a 'string length'.</td>
+<td class="comment-1" rowspan="2">Take a copy of the limit-value. This will be a 'dimension-size', a 'DIM-limit' or a 'string length'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10980"></span>10980</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10981"></span>10981</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="2">Now compare the result of evaluating the expression against the limit.</td>
+<td class="comment-1" rowspan="2">Now compare the result of evaluating the expression against the limit.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10982"></span>10982</td>
-<td class="bytes-0"></td>
 <td class="instruction">SBC HL,BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -213,18 +190,16 @@ The state of the carry flag and the value held in the <span class="register">D</
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">I_CARRY</td>
+<td class="asm-label">I_CARRY</td>
 <td class="address-2"><span id="10984"></span>10984</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
-<td class="comment-11" rowspan="1">Fetch the 'old error value'.</td>
+<td class="comment-1" rowspan="1">Fetch the 'old error value'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10985"></span>10985</td>
-<td class="bytes-0"></td>
 <td class="instruction">SBC A,0</td>
-<td class="comment-11" rowspan="1">Form the 'new error value': 0 if no error at any time, 255 or less if an 'out of range' error on this pass or on previous ones.</td>
+<td class="comment-1" rowspan="1">Form the 'new error value': 0 if no error at any time, 255 or less if an 'out of range' error on this pass or on previous ones.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -237,38 +212,38 @@ Restore the registers before returning.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">I_RESTORE</td>
+<td class="asm-label">I_RESTORE</td>
 <td class="address-2"><span id="10987"></span>10987</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">Restore <span class="register">HL</span> and <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="2">Restore <span class="register">HL</span> and <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10988"></span>10988</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10989"></span>10989</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Return; 'error register' is the <span class="register">A</span> register.</td>
+<td class="comment-1" rowspan="1">Return; 'error register' is the <span class="register">A</span> register.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="10929.html">10929</a></span></td>
+<td class="prev">
+Prev: <a href="10929.html">10929</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#10956">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="10990.html">10990</a></span></td>
+<td class="next">
+Next: <a href="10990.html">10990</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/2ACC.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

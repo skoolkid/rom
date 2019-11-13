@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 07941</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7917.html">07917</a></span></td>
+<td class="prev">
+Prev: <a href="7917.html">07917</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7941">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7962.html">07962</a></span></td>
+<td class="next">
+Next: <a href="7962.html">07962</a>
+</td>
 </tr>
 </table>
 <div class="description">07941: THE 'TEST-ROOM' SUBROUTINE</div>
@@ -35,7 +38,7 @@ The routine at <a href="7917.html">GO_SUB</a> continues here.
 A series of tests is performed to ensure that there is sufficient free memory available for the task being undertaken.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -44,7 +47,7 @@ A series of tests is performed to ensure that there is sufficient free memory av
 <td class="register-desc">Size of the required space</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -56,67 +59,54 @@ A series of tests is performed to ensure that there is sufficient free memory av
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">TEST_ROOM</td>
+<td class="asm-label">TEST_ROOM</td>
 <td class="address-2"><span id="7941"></span>07941</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23653)</td>
-<td class="comment-11" rowspan="2">Increase the value taken from <a href="23653.html">STKEND</a> by the value carried into the routine by the <span class="register">BC</span> register pair.</td>
+<td class="comment-1" rowspan="2">Increase the value taken from <a href="23653.html">STKEND</a> by the value carried into the routine by the <span class="register">BC</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7944"></span>07944</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7945"></span>07945</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="7941.html#7957">REPORT_4</a></td>
-<td class="comment-11" rowspan="1">Jump forward if the result is over 65535.</td>
+<td class="comment-1" rowspan="1">Jump forward if the result is over 65535.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7947"></span>07947</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="4">Try it again allowing for a further eighty bytes.</td>
+<td class="comment-1" rowspan="4">Try it again allowing for a further eighty bytes.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7948"></span>07948</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,80</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7951"></span>07951</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7952"></span>07952</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="7941.html#7957">REPORT_4</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7954"></span>07954</td>
-<td class="bytes-0"></td>
 <td class="instruction">SBC HL,SP</td>
-<td class="comment-11" rowspan="1">Finally test the value against the address of the machine stack.</td>
+<td class="comment-1" rowspan="1">Finally test the value against the address of the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7956"></span>07956</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET C</td>
-<td class="comment-11" rowspan="1">Return if satisfactory.</td>
+<td class="comment-1" rowspan="1">Return if satisfactory.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -132,31 +122,32 @@ Report 4 - Out of memory.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">REPORT_4</td>
+<td class="asm-label">REPORT_4</td>
 <td class="address-2"><span id="7957"></span>07957</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD L,3</td>
-<td class="comment-11" rowspan="2">This is a 'run-time' error and the error marker is not to be used.</td>
+<td class="comment-1" rowspan="2">This is a 'run-time' error and the error marker is not to be used.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7959"></span>07959</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="83.html#85">ERROR_3</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7917.html">07917</a></span></td>
+<td class="prev">
+Prev: <a href="7917.html">07917</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7941">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7962.html">07962</a></span></td>
+<td class="next">
+Next: <a href="7962.html">07962</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/1F05.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 08131</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="8032.html">08032</a></span></td>
+<td class="prev">
+Prev: <a href="8032.html">08032</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#8131">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="8137.html">08137</a></span></td>
+<td class="next">
+Next: <a href="8137.html">08137</a>
+</td>
 </tr>
 </table>
 <div class="description">08131: THE 'UNSTACK-Z' SUBROUTINE</div>
@@ -35,60 +38,47 @@ The routine at <a href="8032.html">DEF_FN</a> continues here.
 This subroutine is called in several instances in order to 'return early' from a subroutine when checking syntax. The reason for this is to avoid actually printing characters or passing values to/from the calculator stack.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">UNSTACK_Z</td>
+<td class="asm-label">UNSTACK_Z</td>
 <td class="address-2"><span id="8131"></span>08131</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="9520.html">SYNTAX_Z</a></td>
-<td class="comment-11" rowspan="1">Is syntax being checked?</td>
+<td class="comment-1" rowspan="1">Is syntax being checked?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8134"></span>08134</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">Fetch the return address but ignore it in 'syntax-time'.</td>
+<td class="comment-1" rowspan="2">Fetch the return address but ignore it in 'syntax-time'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8135"></span>08135</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8136"></span>08136</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP (HL)</td>
-<td class="comment-11" rowspan="1">In 'run-time' make a simple return to the calling routine.</td>
+<td class="comment-1" rowspan="1">In 'run-time' make a simple return to the calling routine.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="8032.html">08032</a></span></td>
+<td class="prev">
+Prev: <a href="8032.html">08032</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#8131">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="8137.html">08137</a></span></td>
+<td class="next">
+Next: <a href="8137.html">08137</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/1FC3.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

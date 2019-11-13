@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 13303</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="13254.html">13254</a></span></td>
+<td class="prev">
+Prev: <a href="13254.html">13254</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#13303">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="13318.html">13318</a></span></td>
+<td class="next">
+Next: <a href="13318.html">13318</a>
+</td>
 </tr>
 </table>
 <div class="description">13303: THE 'SKIP CONSTANTS' SUBROUTINE</div>
@@ -38,7 +41,7 @@ The subroutine performs the null operations of loading the five bytes of each un
 The subroutine returns with the <span class="register">HL'</span> register pair holding the base address of the requested constant within the table of constants.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -51,7 +54,7 @@ The subroutine returns with the <span class="register">HL'</span> register pair 
 <td class="register-desc"><a href="12997.html">CONSTANTS</a></td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -63,87 +66,80 @@ The subroutine returns with the <span class="register">HL'</span> register pair 
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SKIP_CONS</td>
+<td class="asm-label">SKIP_CONS</td>
 <td class="address-2"><span id="13303"></span>13303</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="2">The subroutine returns if the parameter is zero, or when the requested constant has been reached.</td>
+<td class="comment-1" rowspan="2">The subroutine returns if the parameter is zero, or when the requested constant has been reached.</td>
 </tr>
 <tr>
-<td class="asm-label-1">SKIP_NEXT</td>
+<td class="asm-label">SKIP_NEXT</td>
 <td class="address-2"><span id="13304"></span>13304</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13305"></span>13305</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1">Save the parameter.</td>
+<td class="comment-1" rowspan="1">Save the parameter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13306"></span>13306</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-11" rowspan="1">Save the result pointer.</td>
+<td class="comment-1" rowspan="1">Save the result pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13307"></span>13307</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,0</td>
-<td class="comment-11" rowspan="1">The dummy address.</td>
+<td class="comment-1" rowspan="1">The dummy address.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13310"></span>13310</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="13254.html#13256">STK_CONST</a></td>
-<td class="comment-11" rowspan="1">Perform imaginary stacking of an expanded constant.</td>
+<td class="comment-1" rowspan="1">Perform imaginary stacking of an expanded constant.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13313"></span>13313</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="1">Restore the result pointer.</td>
+<td class="comment-1" rowspan="1">Restore the result pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13314"></span>13314</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="1">Restore the parameter.</td>
+<td class="comment-1" rowspan="1">Restore the parameter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13315"></span>13315</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC A</td>
-<td class="comment-11" rowspan="1">Count the loops.</td>
+<td class="comment-1" rowspan="1">Count the loops.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13316"></span>13316</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="13303.html#13304">SKIP_NEXT</a></td>
-<td class="comment-11" rowspan="1">Jump back to consider the value of the counter.</td>
+<td class="comment-1" rowspan="1">Jump back to consider the value of the counter.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="13254.html">13254</a></span></td>
+<td class="prev">
+Prev: <a href="13254.html">13254</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#13303">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="13318.html">13318</a></span></td>
+<td class="next">
+Next: <a href="13318.html">13318</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/33F7.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

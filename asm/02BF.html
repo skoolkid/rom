@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 02BF</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="028E.html">028E</a></span></td>
+<td class="prev">
+Prev: <a href="028E.html">028E</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#02BF">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="031E.html">031E</a></span></td>
+<td class="next">
+Next: <a href="031E.html">031E</a>
+</td>
 </tr>
 </table>
 <div class="description">02BF: THE 'KEYBOARD' SUBROUTINE</div>
@@ -32,33 +35,18 @@ Used by the routine at <a href="0038.html">MASK_INT</a>.
 This subroutine is called on every occasion that a maskable interrupt occurs. In normal operation this will happen once every 20 ms. The purpose of this subroutine is to scan the keyboard and decode the key value. The code produced will, if the 'repeat' status allows it, be passed to the system variable <a href="5C08.html">LAST-K</a>. When a code is put into this system variable bit 5 of <a href="5C3B.html">FLAGS</a> is set to show that a 'new' key has been pressed.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">KEYBOARD</td>
+<td class="asm-label">KEYBOARD</td>
 <td class="address-2"><span id="02BF"></span>02BF</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="028E.html">KEY_SCAN</a></td>
-<td class="comment-11" rowspan="2">Fetch a key value in the <span class="register">DE</span> register pair but return immediately if the zero flag is reset.</td>
+<td class="comment-1" rowspan="2">Fetch a key value in the <span class="register">DE</span> register pair but return immediately if the zero flag is reset.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02C2"></span>02C2</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NZ</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -77,60 +65,47 @@ A set will only become free to handle a new key if the key is held down for abou
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02C3"></span>02C3</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,$5C00</td>
-<td class="comment-11" rowspan="1">Start with <a href="5C00.html">KSTATE0</a>.</td>
+<td class="comment-1" rowspan="1">Start with <a href="5C00.html">KSTATE0</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1">K_ST_LOOP</td>
+<td class="asm-label">K_ST_LOOP</td>
 <td class="address-2"><span id="02C6"></span>02C6</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 7,(HL)</td>
-<td class="comment-11" rowspan="2">Jump forward if a 'set is free', i.e. <a href="5C00.html">KSTATE0/4</a> holds +FF.</td>
+<td class="comment-1" rowspan="2">Jump forward if a 'set is free', i.e. <a href="5C00.html">KSTATE0/4</a> holds +FF.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02C8"></span>02C8</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="02BF.html#02D1">K_CH_SET</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02CA"></span>02CA</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="5">However if the set is not free decrease its '5 call counter' and when it reaches zero signal the set as free.</td>
+<td class="comment-1" rowspan="5">However if the set is not free decrease its '5 call counter' and when it reaches zero signal the set as free.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02CB"></span>02CB</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC (HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02CC"></span>02CC</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02CD"></span>02CD</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="02BF.html#02D1">K_CH_SET</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02CF"></span>02CF</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),$FF</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -143,32 +118,25 @@ After considering the first set change the pointer and consider the second set.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">K_CH_SET</td>
+<td class="asm-label">K_CH_SET</td>
 <td class="address-2"><span id="02D1"></span>02D1</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,L</td>
-<td class="comment-11" rowspan="4">Fetch the low byte of the address and jump back if the second set (<a href="5C00.html#5C04">KSTATE4</a>) has still to be considered.</td>
+<td class="comment-1" rowspan="4">Fetch the low byte of the address and jump back if the second set (<a href="5C00.html#5C04">KSTATE4</a>) has still to be considered.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02D2"></span>02D2</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,$5C04</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02D5"></span>02D5</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02D6"></span>02D6</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="02BF.html#02C6">K_ST_LOOP</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -181,18 +149,15 @@ Return now if the key value indicates 'no-key' or a shift key only.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02D8"></span>02D8</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="031E.html">K_TEST</a></td>
-<td class="comment-11" rowspan="2">Make the necessary tests and return if needed. Also change the key value to a 'main code'.</td>
+<td class="comment-1" rowspan="2">Make the necessary tests and return if needed. Also change the key value to a 'main code'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02DB"></span>02DB</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -205,53 +170,44 @@ A key stroke that is being repeated (held down) is now separated from a new key 
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02DC"></span>02DC</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,$5C00</td>
-<td class="comment-11" rowspan="1">Look first at <a href="5C00.html">KSTATE0</a>.</td>
+<td class="comment-1" rowspan="1">Look first at <a href="5C00.html">KSTATE0</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02DF"></span>02DF</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP (HL)</td>
-<td class="comment-11" rowspan="2">Jump forward if the codes match - indicating a repeat.</td>
+<td class="comment-1" rowspan="2">Jump forward if the codes match - indicating a repeat.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02E0"></span>02E0</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="02BF.html#0310">K_REPEAT</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02E2"></span>02E2</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Save the address of <a href="5C00.html">KSTATE0</a>.</td>
+<td class="comment-1" rowspan="1">Save the address of <a href="5C00.html">KSTATE0</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02E3"></span>02E3</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,$5C04</td>
-<td class="comment-11" rowspan="1">Now look at <a href="5C00.html#5C04">KSTATE4</a>.</td>
+<td class="comment-1" rowspan="1">Now look at <a href="5C00.html#5C04">KSTATE4</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02E6"></span>02E6</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP (HL)</td>
-<td class="comment-11" rowspan="2">Jump forward if the codes match - indicating a repeat.</td>
+<td class="comment-1" rowspan="2">Jump forward if the codes match - indicating a repeat.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02E7"></span>02E7</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="02BF.html#0310">K_REPEAT</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -264,39 +220,33 @@ But a new key will not be accepted unless one of the sets of <a href="5C00.html"
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02E9"></span>02E9</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 7,(HL)</td>
-<td class="comment-11" rowspan="1">Consider the second set.</td>
+<td class="comment-1" rowspan="1">Consider the second set.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02EB"></span>02EB</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="02BF.html#02F1">K_NEW</a></td>
-<td class="comment-11" rowspan="1">Jump forward if 'free'.</td>
+<td class="comment-1" rowspan="1">Jump forward if 'free'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02ED"></span>02ED</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Now consider the first set.</td>
+<td class="comment-1" rowspan="1">Now consider the first set.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02EE"></span>02EE</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 7,(HL)</td>
-<td class="comment-11" rowspan="2">Continue if the set is 'free' but exit if not.</td>
+<td class="comment-1" rowspan="2">Continue if the set is 'free' but exit if not.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02F0"></span>02F0</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -309,60 +259,48 @@ The new key is to be accepted. But before the system variable <a href="5C08.html
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">K_NEW</td>
+<td class="asm-label">K_NEW</td>
 <td class="address-2"><span id="02F1"></span>02F1</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,A</td>
-<td class="comment-11" rowspan="2">The code is passed to the <span class="register">E</span> register and to <a href="5C00.html">KSTATE0/4</a>.</td>
+<td class="comment-1" rowspan="2">The code is passed to the <span class="register">E</span> register and to <a href="5C00.html">KSTATE0/4</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02F2"></span>02F2</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02F3"></span>02F3</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="2">The '5 call counter' for this set is reset to '5'.</td>
+<td class="comment-1" rowspan="2">The '5 call counter' for this set is reset to '5'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02F4"></span>02F4</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),$05</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02F6"></span>02F6</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="3">The third system variable of the set holds the <a href="5C09.html">REPDEL</a> value (normally 0.7 secs.).</td>
+<td class="comment-1" rowspan="3">The third system variable of the set holds the <a href="5C09.html">REPDEL</a> value (normally 0.7 secs.).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02F7"></span>02F7</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,($5C09)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02FA"></span>02FA</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02FB"></span>02FB</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Point to <a href="5C00.html">KSTATE3/7</a>.</td>
+<td class="comment-1" rowspan="1">Point to <a href="5C00.html">KSTATE3/7</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -375,46 +313,38 @@ The decoding of a 'main code' depends upon the present state of <a href="5C41.ht
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02FC"></span>02FC</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,(IY+$07)</td>
-<td class="comment-11" rowspan="1">Fetch <a href="5C41.html">MODE</a>.</td>
+<td class="comment-1" rowspan="1">Fetch <a href="5C41.html">MODE</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02FF"></span>02FF</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,(IY+$01)</td>
-<td class="comment-11" rowspan="1">Fetch <a href="5C3B.html">FLAGS</a>.</td>
+<td class="comment-1" rowspan="1">Fetch <a href="5C3B.html">FLAGS</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0302"></span>0302</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="3">Save the pointer whilst the 'main code' is decoded.</td>
+<td class="comment-1" rowspan="3">Save the pointer whilst the 'main code' is decoded.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0303"></span>0303</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="0333.html">K_DECODE</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0306"></span>0306</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0307"></span>0307</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-11" rowspan="1">The final code value is saved in <a href="5C00.html">KSTATE3/7</a>, from where it is collected in case of a repeat.</td>
+<td class="comment-1" rowspan="1">The final code value is saved in <a href="5C00.html">KSTATE3/7</a>, from where it is collected in case of a repeat.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -427,25 +357,21 @@ The next three instructions are common to the handling of both 'new keys' and 'r
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">K_END</td>
+<td class="asm-label">K_END</td>
 <td class="address-2"><span id="0308"></span>0308</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C08),A</td>
-<td class="comment-11" rowspan="2">Enter the final code value into <a href="5C08.html">LAST-K</a> and signal 'a new key' by setting bit 5 of <a href="5C3B.html">FLAGS</a>.</td>
+<td class="comment-1" rowspan="2">Enter the final code value into <a href="5C08.html">LAST-K</a> and signal 'a new key' by setting bit 5 of <a href="5C3B.html">FLAGS</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="030B"></span>030B</td>
-<td class="bytes-0"></td>
 <td class="instruction">SET 5,(IY+$01)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="030F"></span>030F</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finally return.</td>
+<td class="comment-1" rowspan="1">Finally return.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -458,87 +384,76 @@ A key will 'repeat' on the first occasion after the delay period (<a href="5C09.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">K_REPEAT</td>
+<td class="asm-label">K_REPEAT</td>
 <td class="address-2"><span id="0310"></span>0310</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="2">Point to the '5 call counter' of the set being used and reset it to 5.</td>
+<td class="comment-1" rowspan="2">Point to the '5 call counter' of the set being used and reset it to 5.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0311"></span>0311</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),$05</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0313"></span>0313</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="2">Point to the third system variable - the <a href="5C09.html">REPDEL</a>/<a href="5C0A.html">REPPER</a> value - and decrement it.</td>
+<td class="comment-1" rowspan="2">Point to the third system variable - the <a href="5C09.html">REPDEL</a>/<a href="5C0A.html">REPPER</a> value - and decrement it.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0314"></span>0314</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC (HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0315"></span>0315</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NZ</td>
-<td class="comment-11" rowspan="1">Exit from the <a href="02BF.html">KEYBOARD</a> subroutine if the delay period has not passed.</td>
+<td class="comment-1" rowspan="1">Exit from the <a href="02BF.html">KEYBOARD</a> subroutine if the delay period has not passed.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0316"></span>0316</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,($5C0A)</td>
-<td class="comment-11" rowspan="2">However once it has passed the delay period for the next repeat is to be <a href="5C0A.html">REPPER</a>.</td>
+<td class="comment-1" rowspan="2">However once it has passed the delay period for the next repeat is to be <a href="5C0A.html">REPPER</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0319"></span>0319</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="031A"></span>031A</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="3">The repeat has been accepted so the final code value is fetched from <a href="5C00.html">KSTATE3/7</a> and passed to <a href="02BF.html#0308">K_END</a>.</td>
+<td class="comment-1" rowspan="3">The repeat has been accepted so the final code value is fetched from <a href="5C00.html">KSTATE3/7</a> and passed to <a href="02BF.html#0308">K_END</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="031B"></span>031B</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="031C"></span>031C</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="02BF.html#0308">K_END</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="028E.html">028E</a></span></td>
+<td class="prev">
+Prev: <a href="028E.html">028E</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#02BF">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="031E.html">031E</a></span></td>
+<td class="next">
+Next: <a href="031E.html">031E</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/703.html">Switch to decimal</a>.</div>
 </footer>
 </body>

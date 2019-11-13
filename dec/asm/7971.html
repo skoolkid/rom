@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 07971</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7962.html">07962</a></span></td>
+<td class="prev">
+Prev: <a href="7962.html">07962</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7971">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7994.html">07994</a></span></td>
+<td class="next">
+Next: <a href="7994.html">07994</a>
+</td>
 </tr>
 </table>
 <div class="description">07971: THE 'RETURN' COMMAND ROUTINE</div>
@@ -32,103 +35,78 @@ The address of this routine is found in the <a href="6728.html#6797">parameter t
 The line number and the statement number that are to be made the object of a 'return' are fetched from the GO SUB stack.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">RETURN</td>
+<td class="asm-label">RETURN</td>
 <td class="address-2"><span id="7971"></span>07971</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">Fetch the address - <a href="7030.html">STMT_RET</a>.</td>
+<td class="comment-1" rowspan="1">Fetch the address - <a href="7030.html">STMT_RET</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7972"></span>07972</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Fetch the 'error address'.</td>
+<td class="comment-1" rowspan="1">Fetch the 'error address'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7973"></span>07973</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="1">Fetch the last entry on the GO SUB stack.</td>
+<td class="comment-1" rowspan="1">Fetch the last entry on the GO SUB stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7974"></span>07974</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
-<td class="comment-11" rowspan="2">The entry is tested to see if it is the GO SUB stack end marker.</td>
+<td class="comment-1" rowspan="2">The entry is tested to see if it is the GO SUB stack end marker.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7975"></span>07975</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 62</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7977"></span>07977</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="7971.html#7990">REPORT_7</a></td>
-<td class="comment-11" rowspan="1">Jump if it is.</td>
+<td class="comment-1" rowspan="1">Jump if it is.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7979"></span>07979</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC SP</td>
-<td class="comment-11" rowspan="1">The full entry uses three locations only.</td>
+<td class="comment-1" rowspan="1">The full entry uses three locations only.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7980"></span>07980</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-11" rowspan="1">Exchange the statement number with the 'error address'.</td>
+<td class="comment-1" rowspan="1">Exchange the statement number with the 'error address'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7981"></span>07981</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Move the statement number.</td>
+<td class="comment-1" rowspan="1">Move the statement number.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7982"></span>07982</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23613),SP</td>
-<td class="comment-11" rowspan="1">Reset the error pointer (<a href="23613.html">ERR-SP</a>).</td>
+<td class="comment-1" rowspan="1">Reset the error pointer (<a href="23613.html">ERR-SP</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7986"></span>07986</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">Replace the address <a href="7030.html">STMT_RET</a>.</td>
+<td class="comment-1" rowspan="1">Replace the address <a href="7030.html">STMT_RET</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7987"></span>07987</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="7783.html#7795">GO_TO_2</a></td>
-<td class="comment-11" rowspan="1">Jump back to change <a href="23618.html">NEWPPC</a> and <a href="23620.html">NSPPC</a>.</td>
+<td class="comment-1" rowspan="1">Jump back to change <a href="23618.html">NEWPPC</a> and <a href="23620.html">NSPPC</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -141,45 +119,43 @@ Report 7 - RETURN without GOSUB.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">REPORT_7</td>
+<td class="asm-label">REPORT_7</td>
 <td class="address-2"><span id="7990"></span>07990</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-11" rowspan="2">Replace the end marker and the 'error address'.</td>
+<td class="comment-1" rowspan="2">Replace the end marker and the 'error address'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7991"></span>07991</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7992"></span>07992</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="8.html">8</a></td>
-<td class="comment-11" rowspan="2">Call the error handling routine.</td>
+<td class="comment-1" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7993"></span>07993</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 6</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7962.html">07962</a></span></td>
+<td class="prev">
+Prev: <a href="7962.html">07962</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7971">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7994.html">07994</a></span></td>
+<td class="next">
+Next: <a href="7994.html">07994</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/1F23.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

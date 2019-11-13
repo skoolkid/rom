@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 05775</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="5732.html">05732</a></span></td>
+<td class="prev">
+Prev: <a href="5732.html">05732</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#5775">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="5790.html">05790</a></span></td>
+<td class="next">
+Next: <a href="5790.html">05790</a>
+</td>
 </tr>
 </table>
 <div class="description">05775: THE 'COLLECT A LINE NUMBER' SUBROUTINE</div>
@@ -29,7 +32,7 @@
 On entry the <span class="register">HL</span> register pair points to the location under consideration. If the location holds a value that constitutes a suitable high byte for a line number then the line number is returned in <span class="register">DE</span>. However if this is not so then the location addressed by <span class="register">DE</span> is tried instead; and should this also be unsuccessful line number zero is returned.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -42,7 +45,7 @@ On entry the <span class="register">HL</span> register pair points to the locati
 <td class="register-desc">Address of the first byte of the previous BASIC line number</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -54,25 +57,22 @@ On entry the <span class="register">HL</span> register pair points to the locati
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">LINE_ZERO</td>
+<td class="asm-label">LINE_ZERO</td>
 <td class="address-2"><span id="5775"></span>05775</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 0,0</td>
-<td class="comment-11" rowspan="1">Line number zero.</td>
+<td class="comment-1" rowspan="1">Line number zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1">LINE_NO_A</td>
+<td class="asm-label">LINE_NO_A</td>
 <td class="address-2"><span id="5777"></span>05777</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Consider the other pointer.</td>
+<td class="comment-1" rowspan="1">Consider the other pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5778"></span>05778</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,5775</td>
-<td class="comment-11" rowspan="1">Use line number zero.</td>
+<td class="comment-1" rowspan="1">Use line number zero.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -85,66 +85,59 @@ The main entry point is here, and is used by the routines at <a href="4009.html"
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">LINE_NO</td>
+<td class="asm-label">LINE_NO</td>
 <td class="address-2"><span id="5781"></span>05781</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="2">Fetch the high byte and test it.</td>
+<td class="comment-1" rowspan="2">Fetch the high byte and test it.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5782"></span>05782</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND 192</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5784"></span>05784</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="5775.html#5777">LINE_NO_A</a></td>
-<td class="comment-11" rowspan="1">Jump if not suitable.</td>
+<td class="comment-1" rowspan="1">Jump if not suitable.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5786"></span>05786</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,(HL)</td>
-<td class="comment-11" rowspan="4">Fetch the high byte and low byte and return.</td>
+<td class="comment-1" rowspan="4">Fetch the high byte and low byte and return.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5787"></span>05787</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5788"></span>05788</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5789"></span>05789</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="5732.html">05732</a></span></td>
+<td class="prev">
+Prev: <a href="5732.html">05732</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#5775">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="5790.html">05790</a></span></td>
+<td class="next">
+Next: <a href="5790.html">05790</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/168F.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

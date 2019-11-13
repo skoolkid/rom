@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 16B0</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="169E.html">169E</a></span></td>
+<td class="prev">
+Prev: <a href="169E.html">169E</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#16B0">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="16D4.html">16D4</a></span></td>
+<td class="next">
+Next: <a href="16D4.html">16D4</a>
+</td>
 </tr>
 </table>
 <div class="description">16B0: THE 'SET-MIN' SUBROUTINE</div>
@@ -32,68 +35,45 @@ Used by the routine at <a href="12A2.html">MAIN_EXEC</a>.
 This subroutine resets the editing area and the areas after it to their minimum sizes. In effect it 'clears' the areas.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SET_MIN</td>
+<td class="asm-label">SET_MIN</td>
 <td class="address-2"><span id="16B0"></span>16B0</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C59)</td>
-<td class="comment-11" rowspan="1">Fetch <a href="5C59.html">E-LINE</a>.</td>
+<td class="comment-1" rowspan="1">Fetch <a href="5C59.html">E-LINE</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="16B3"></span>16B3</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),$0D</td>
-<td class="comment-11" rowspan="4">Make the editing area hold only the 'carriage return' character and the end marker, and set <a href="5C5B.html">K-CUR</a> accordingly</td>
+<td class="comment-1" rowspan="4">Make the editing area hold only the 'carriage return' character and the end marker, and set <a href="5C5B.html">K-CUR</a> accordingly</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="16B5"></span>16B5</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C5B),HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="16B8"></span>16B8</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="16B9"></span>16B9</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),$80</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="16BB"></span>16BB</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="2">Reset <a href="5C61.html">WORKSP</a> and move on to clear the work space.</td>
+<td class="comment-1" rowspan="2">Reset <a href="5C61.html">WORKSP</a> and move on to clear the work space.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="16BC"></span>16BC</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C61),HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -109,18 +89,16 @@ Entering here will 'clear' the work space and the calculator stack.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SET_WORK</td>
+<td class="asm-label">SET_WORK</td>
 <td class="address-2"><span id="16BF"></span>16BF</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C61)</td>
-<td class="comment-11" rowspan="1">Fetch the start address of the work space <a href="5C61.html">WORKSP</a>.</td>
+<td class="comment-1" rowspan="1">Fetch the start address of the work space <a href="5C61.html">WORKSP</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="16C2"></span>16C2</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C63),HL</td>
-<td class="comment-11" rowspan="1">Clear the work space by setting <a href="5C63.html">STKBOT</a> equal to <a href="5C61.html">WORKSP</a>.</td>
+<td class="comment-1" rowspan="1">Clear the work space by setting <a href="5C63.html">STKBOT</a> equal to <a href="5C61.html">WORKSP</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -136,18 +114,16 @@ Entering here will 'clear' only the calculator stack.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SET_STK</td>
+<td class="asm-label">SET_STK</td>
 <td class="address-2"><span id="16C5"></span>16C5</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C63)</td>
-<td class="comment-11" rowspan="1">Fetch <a href="5C63.html">STKBOT</a>.</td>
+<td class="comment-1" rowspan="1">Fetch <a href="5C63.html">STKBOT</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="16C8"></span>16C8</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C65),HL</td>
-<td class="comment-11" rowspan="1">Clear the stack by setting <a href="5C65.html">STKEND</a> equal to <a href="5C63.html">STKBOT</a>.</td>
+<td class="comment-1" rowspan="1">Clear the stack by setting <a href="5C65.html">STKEND</a> equal to <a href="5C63.html">STKBOT</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -160,52 +136,50 @@ In all cases make <a href="5C68.html">MEM</a> address the calculator's memory ar
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="16CB"></span>16CB</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save <a href="5C65.html">STKEND</a>.</td>
+<td class="comment-1" rowspan="1">Save <a href="5C65.html">STKEND</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="16CC"></span>16CC</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,$5C92</td>
-<td class="comment-11" rowspan="1">The base of the memory area (<a href="5C92.html">MEMBOT</a>).</td>
+<td class="comment-1" rowspan="1">The base of the memory area (<a href="5C92.html">MEMBOT</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="16CF"></span>16CF</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C68),HL</td>
-<td class="comment-11" rowspan="1">Set <a href="5C68.html">MEM</a> to this address.</td>
+<td class="comment-1" rowspan="1">Set <a href="5C68.html">MEM</a> to this address.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="16D2"></span>16D2</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">Restore <a href="5C65.html">STKEND</a> to the <span class="register">HL</span> register pair before returning.</td>
+<td class="comment-1" rowspan="2">Restore <a href="5C65.html">STKEND</a> to the <span class="register">HL</span> register pair before returning.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="16D3"></span>16D3</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="169E.html">169E</a></span></td>
+<td class="prev">
+Prev: <a href="169E.html">169E</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#16B0">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="16D4.html">16D4</a></span></td>
+<td class="next">
+Next: <a href="16D4.html">16D4</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/5808.html">Switch to decimal</a>.</div>
 </footer>
 </body>

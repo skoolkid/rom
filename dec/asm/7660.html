@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 07660</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7642.html">07642</a></span></td>
+<td class="prev">
+Prev: <a href="7642.html">07642</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7660">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7719.html">07719</a></span></td>
+<td class="next">
+Next: <a href="7719.html">07719</a>
+</td>
 </tr>
 </table>
 <div class="description">07660: THE 'READ' COMMAND ROUTINE</div>
@@ -32,26 +35,13 @@ The READ command allows for the reading of a DATA list and has an effect similar
 Each assignment within a single READ statement is dealt with in turn. The system variable <a href="23647.html">X-PTR</a> is used as a storage location for the pointer to the READ statement whilst <a href="23645.html">CH-ADD</a> is used to step along the DATA list.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">READ_3</td>
+<td class="asm-label">READ_3</td>
 <td class="address-2"><span id="7660"></span>07660</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="32.html">32</a></td>
-<td class="comment-11" rowspan="1">Come here on each pass, after the first, to move along the READ statement.</td>
+<td class="comment-1" rowspan="1">Come here on each pass, after the first, to move along the READ statement.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -64,88 +54,70 @@ The address of this entry point is found in the <a href="6728.html#6857">paramet
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">READ</td>
+<td class="asm-label">READ</td>
 <td class="address-1"><span id="7661"></span>07661</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="7199.html">CLASS_01</a></td>
-<td class="comment-11" rowspan="1">Consider whether the variable has been used before; find the existing entry if it has.</td>
+<td class="comment-1" rowspan="1">Consider whether the variable has been used before; find the existing entry if it has.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7664"></span>07664</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="9520.html">SYNTAX_Z</a></td>
-<td class="comment-11" rowspan="2">Jump forward if checking syntax.</td>
+<td class="comment-1" rowspan="2">Jump forward if checking syntax.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7667"></span>07667</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="7660.html#7710">READ_2</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7669"></span>07669</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="24.html">24</a></td>
-<td class="comment-11" rowspan="2">Save the current pointer <a href="23645.html">CH-ADD</a> in <a href="23647.html">X-PTR</a>.</td>
+<td class="comment-1" rowspan="2">Save the current pointer <a href="23645.html">CH-ADD</a> in <a href="23647.html">X-PTR</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7670"></span>07670</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23647),HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7673"></span>07673</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23639)</td>
-<td class="comment-11" rowspan="4">Fetch the current DATA list pointer (<a href="23639.html">DATADD</a>) and jump forward unless a new DATA statement has to be found.</td>
+<td class="comment-1" rowspan="4">Fetch the current DATA list pointer (<a href="23639.html">DATADD</a>) and jump forward unless a new DATA statement has to be found.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7676"></span>07676</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7677"></span>07677</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ","</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7679"></span>07679</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="7660.html#7690">READ_1</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7681"></span>07681</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,228</td>
-<td class="comment-11" rowspan="1">The search is for 'DATA'.</td>
+<td class="comment-1" rowspan="1">The search is for 'DATA'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7683"></span>07683</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="7558.html">LOOK_PROG</a></td>
-<td class="comment-11" rowspan="2">Jump forward if the search is successful.</td>
+<td class="comment-1" rowspan="2">Jump forward if the search is successful.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7686"></span>07686</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="7660.html#7690">READ_1</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -158,18 +130,15 @@ Report E - Out of DATA.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7688"></span>07688</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="8.html">8</a></td>
-<td class="comment-11" rowspan="2">Call the error handling routine.</td>
+<td class="comment-1" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7689"></span>07689</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 13</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -182,101 +151,88 @@ Continue - picking up a value from the DATA list.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">READ_1</td>
+<td class="asm-label">READ_1</td>
 <td class="address-2"><span id="7690"></span>07690</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="116.html#119">TEMP_PTR1</a></td>
-<td class="comment-11" rowspan="1">Advance the pointer along the DATA list and set <a href="23645.html">CH-ADD</a>.</td>
+<td class="comment-1" rowspan="1">Advance the pointer along the DATA list and set <a href="23645.html">CH-ADD</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7693"></span>07693</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="7254.html">VAL_FET_1</a></td>
-<td class="comment-11" rowspan="1">Fetch the value and assign it to the variable.</td>
+<td class="comment-1" rowspan="1">Fetch the value and assign it to the variable.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7696"></span>07696</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="24.html">24</a></td>
-<td class="comment-11" rowspan="2">Fetch the current value of <a href="23645.html">CH-ADD</a> and store it in <a href="23639.html">DATADD</a>.</td>
+<td class="comment-1" rowspan="2">Fetch the current value of <a href="23645.html">CH-ADD</a> and store it in <a href="23639.html">DATADD</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7697"></span>07697</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23639),HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7700"></span>07700</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23647)</td>
-<td class="comment-11" rowspan="2">Fetch the pointer to the READ statement from <a href="23647.html">X-PTR</a> and clear it.</td>
+<td class="comment-1" rowspan="2">Fetch the pointer to the READ statement from <a href="23647.html">X-PTR</a> and clear it.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7703"></span>07703</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (IY+38),0</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7707"></span>07707</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="116.html#120">TEMP_PTR2</a></td>
-<td class="comment-11" rowspan="1">Make <a href="23645.html">CH-ADD</a> once again point to the READ statement.</td>
+<td class="comment-1" rowspan="1">Make <a href="23645.html">CH-ADD</a> once again point to the READ statement.</td>
 </tr>
 <tr>
-<td class="asm-label-1">READ_2</td>
+<td class="asm-label">READ_2</td>
 <td class="address-2"><span id="7710"></span>07710</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="24.html">24</a></td>
-<td class="comment-11" rowspan="2">Get the present character and see if it is a ','.</td>
+<td class="comment-1" rowspan="2">Get the present character and see if it is a ','.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7711"></span>07711</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ","</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7713"></span>07713</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="7660.html#7660">READ_3</a></td>
-<td class="comment-11" rowspan="3">If it is then jump back as there are further items; otherwise return via either <a href="7150.html">CHECK_END</a> (if checking syntax) or the 'RET' instruction (to <a href="7030.html">STMT_RET</a>).</td>
+<td class="comment-1" rowspan="3">If it is then jump back as there are further items; otherwise return via either <a href="7150.html">CHECK_END</a> (if checking syntax) or the 'RET' instruction (to <a href="7030.html">STMT_RET</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7715"></span>07715</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="7150.html">CHECK_END</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7718"></span>07718</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7642.html">07642</a></span></td>
+<td class="prev">
+Prev: <a href="7642.html">07642</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7660">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7719.html">07719</a></span></td>
+<td class="next">
+Next: <a href="7719.html">07719</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/1DEC.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

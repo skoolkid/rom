@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 05732</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="5714.html">05714</a></span></td>
+<td class="prev">
+Prev: <a href="5714.html">05714</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#5732">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="5775.html">05775</a></span></td>
+<td class="next">
+Next: <a href="5775.html">05775</a>
+</td>
 </tr>
 </table>
 <div class="description">05732: THE 'POINTERS' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routines at <a href="5714.html">ONE_SPACE</a> and <a href="6629.html
 Whenever an area has to be 'made' or 'reclaimed' the system variables that address locations beyond the 'position' of the change have to be amended as required. On entry the <span class="register">BC</span> register pair holds the number of bytes involved and the <span class="register">HL</span> register pair addresses the location before the 'position'.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -45,41 +48,30 @@ Whenever an area has to be 'made' or 'reclaimed' the system variables that addre
 <td class="register-desc">Base address of the area being created or reclaimed</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">POINTERS</td>
+<td class="asm-label">POINTERS</td>
 <td class="address-2"><span id="5732"></span>05732</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1">These registers are saved.</td>
+<td class="comment-1" rowspan="1">These registers are saved.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5733"></span>05733</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Copy the address of the 'position'.</td>
+<td class="comment-1" rowspan="1">Copy the address of the 'position'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5734"></span>05734</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,23627</td>
-<td class="comment-11" rowspan="2">This is <a href="23627.html">VARS</a>, the first of the fourteen system pointers.</td>
+<td class="comment-1" rowspan="2">This is <a href="23627.html">VARS</a>, the first of the fourteen system pointers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5737"></span>05737</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,14</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -92,151 +84,120 @@ A loop is now entered to consider each pointer in turn. Only those pointers that
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PTR_NEXT</td>
+<td class="asm-label">PTR_NEXT</td>
 <td class="address-2"><span id="5739"></span>05739</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-11" rowspan="3">Fetch the two bytes of the current pointer.</td>
+<td class="comment-1" rowspan="3">Fetch the two bytes of the current pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5740"></span>05740</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5741"></span>05741</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5742"></span>05742</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-11" rowspan="1">Exchange the system variable with the address of the 'position'.</td>
+<td class="comment-1" rowspan="1">Exchange the system variable with the address of the 'position'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5743"></span>05743</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="3">The carry flag will become set if the system variable's address is to be updated.</td>
+<td class="comment-1" rowspan="3">The carry flag will become set if the system variable's address is to be updated.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5744"></span>05744</td>
-<td class="bytes-0"></td>
 <td class="instruction">SBC HL,DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5746"></span>05746</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5747"></span>05747</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-11" rowspan="1">Restore the 'position'.</td>
+<td class="comment-1" rowspan="1">Restore the 'position'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5748"></span>05748</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="5732.html#5759">PTR_DONE</a></td>
-<td class="comment-11" rowspan="1">Jump forward if the pointer is to be left; otherwise change it.</td>
+<td class="comment-1" rowspan="1">Jump forward if the pointer is to be left; otherwise change it.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5750"></span>05750</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-11" rowspan="1">Save the old value.</td>
+<td class="comment-1" rowspan="1">Save the old value.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5751"></span>05751</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="3">Now add the value in <span class="register">BC</span> to the old value.</td>
+<td class="comment-1" rowspan="3">Now add the value in <span class="register">BC</span> to the old value.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5752"></span>05752</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5753"></span>05753</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5754"></span>05754</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),D</td>
-<td class="comment-11" rowspan="3">Enter the new value into the system variable - high byte before low byte.</td>
+<td class="comment-1" rowspan="3">Enter the new value into the system variable - high byte before low byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5755"></span>05755</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5756"></span>05756</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),E</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5757"></span>05757</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Point again to the high byte.</td>
+<td class="comment-1" rowspan="1">Point again to the high byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5758"></span>05758</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="1">Fetch the old value.</td>
+<td class="comment-1" rowspan="1">Fetch the old value.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PTR_DONE</td>
+<td class="asm-label">PTR_DONE</td>
 <td class="address-2"><span id="5759"></span>05759</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="3">Point to the next system variable and jump back until all fourteen have been considered.</td>
+<td class="comment-1" rowspan="3">Point to the next system variable and jump back until all fourteen have been considered.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5760"></span>05760</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5761"></span>05761</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="5732.html#5739">PTR_NEXT</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -249,94 +210,80 @@ Now find the size of the block to be moved.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5763"></span>05763</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="3">Put the old value of <a href="23653.html">STKEND</a> in <span class="register">HL</span> and restore the other registers.</td>
+<td class="comment-1" rowspan="3">Put the old value of <a href="23653.html">STKEND</a> in <span class="register">HL</span> and restore the other registers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5764"></span>05764</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5765"></span>05765</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5766"></span>05766</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="2">Now find the difference between the old value of <a href="23653.html">STKEND</a> and the 'position'.</td>
+<td class="comment-1" rowspan="2">Now find the difference between the old value of <a href="23653.html">STKEND</a> and the 'position'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5767"></span>05767</td>
-<td class="bytes-0"></td>
 <td class="instruction">SBC HL,DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5769"></span>05769</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,H</td>
-<td class="comment-11" rowspan="3">Transfer the result to <span class="register">BC</span> and add 1 for the inclusive byte.</td>
+<td class="comment-1" rowspan="3">Transfer the result to <span class="register">BC</span> and add 1 for the inclusive byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5770"></span>05770</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5771"></span>05771</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5772"></span>05772</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-11" rowspan="3">Reform the old value of <a href="23653.html">STKEND</a> and pass it to <span class="register">DE</span> before returning.</td>
+<td class="comment-1" rowspan="3">Reform the old value of <a href="23653.html">STKEND</a> and pass it to <span class="register">DE</span> before returning.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5773"></span>05773</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5774"></span>05774</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="5714.html">05714</a></span></td>
+<td class="prev">
+Prev: <a href="5714.html">05714</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#5732">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="5775.html">05775</a></span></td>
+<td class="next">
+Next: <a href="5775.html">05775</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/1664.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

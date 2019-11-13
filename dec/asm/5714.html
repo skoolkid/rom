@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 05714</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="5709.html">05709</a></span></td>
+<td class="prev">
+Prev: <a href="5709.html">05709</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#5714">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="5732.html">05732</a></span></td>
+<td class="next">
+Next: <a href="5732.html">05732</a>
+</td>
 </tr>
 </table>
 <div class="description">05714: THE 'MAKE-ROOM' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routine at <a href="3884.html">EDITOR</a>.
 This is a very important subroutine. It is called on many occasions to 'open up' an area. In all cases the <span class="register">HL</span> register pair points to the location after the place where 'room' is required and the <span class="register">BC</span> register pair holds the length of the 'room' needed.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,7 +44,7 @@ This is a very important subroutine. It is called on many occasions to 'open up'
 <td class="register-desc">Address at which to create the new space</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -67,11 +70,10 @@ When a single space only is required then the subroutine is entered here.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">ONE_SPACE</td>
+<td class="asm-label">ONE_SPACE</td>
 <td class="address-2"><span id="5714"></span>05714</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD BC,1</td>
-<td class="comment-11" rowspan="1">Just the single extra location is required.</td>
+<td class="comment-1" rowspan="1">Just the single extra location is required.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -84,64 +86,54 @@ This entry point is used by the routines at <a href="2056.html">LD_CONTRL</a>, <
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">MAKE_ROOM</td>
+<td class="asm-label">MAKE_ROOM</td>
 <td class="address-2"><span id="5717"></span>05717</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the pointer.</td>
+<td class="comment-1" rowspan="1">Save the pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5718"></span>05718</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="7941.html">TEST_ROOM</a></td>
-<td class="comment-11" rowspan="1">Make sure that there is sufficient memory available for the task being undertaken.</td>
+<td class="comment-1" rowspan="1">Make sure that there is sufficient memory available for the task being undertaken.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5721"></span>05721</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Restore the pointer.</td>
+<td class="comment-1" rowspan="1">Restore the pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5722"></span>05722</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="5732.html">POINTERS</a></td>
-<td class="comment-11" rowspan="1">Alter all the pointers before making the 'room'.</td>
+<td class="comment-1" rowspan="1">Alter all the pointers before making the 'room'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5725"></span>05725</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23653)</td>
-<td class="comment-11" rowspan="1">Make <span class="register">HL</span> hold the new <a href="23653.html">STKEND</a>.</td>
+<td class="comment-1" rowspan="1">Make <span class="register">HL</span> hold the new <a href="23653.html">STKEND</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5728"></span>05728</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Switch 'old' and 'new'.</td>
+<td class="comment-1" rowspan="1">Switch 'old' and 'new'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5729"></span>05729</td>
-<td class="bytes-0"></td>
 <td class="instruction">LDDR</td>
-<td class="comment-11" rowspan="2">Now make the 'room' and return.</td>
+<td class="comment-1" rowspan="2">Now make the 'room' and return.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5731"></span>05731</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
-
 <div class="comments">
 <div class="paragraph">
 Note: this subroutine returns with the <span class="register">HL</span> register pair pointing to the location before the new 'room' and the <span class="register">DE</span> register pair pointing to the last of the new locations. The new 'room' therefore has the description '(<span class="register">HL</span>)+1' to '(<span class="register">DE</span>)' inclusive.
@@ -158,15 +150,19 @@ In fact the programmer appears to have a preference for the 'second description'
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="5709.html">05709</a></span></td>
+<td class="prev">
+Prev: <a href="5709.html">05709</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#5714">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="5732.html">05732</a></span></td>
+<td class="next">
+Next: <a href="5732.html">05732</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/1652.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

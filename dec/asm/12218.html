@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 12218</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="12187.html">12187</a></span></td>
+<td class="prev">
+Prev: <a href="12187.html">12187</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#12218">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="12253.html">12253</a></span></td>
+<td class="next">
+Next: <a href="12253.html">12253</a>
+</td>
 </tr>
 </table>
 <div class="description">12218: THE 'FETCH TWO NUMBERS' SUBROUTINE</div>
@@ -38,7 +41,7 @@ On entry to the subroutine the <span class="register">HL</span> register pair po
 When the subroutine is called from <a href="12490.html">multiply</a> or <a href="12719.html">division</a> the sign of the result is saved in the second byte of the first number.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -55,7 +58,7 @@ When the subroutine is called from <a href="12490.html">multiply</a> or <a href=
 <td class="register-desc">Address of the first byte of M</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -71,18 +74,16 @@ When the subroutine is called from <a href="12490.html">multiply</a> or <a href=
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">FETCH_TWO</td>
+<td class="asm-label">FETCH_TWO</td>
 <td class="address-2"><span id="12218"></span>12218</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1"><span class="register">HL</span> is preserved.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span> is preserved.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12219"></span>12219</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1"><span class="register">AF</span> is preserved.</td>
+<td class="comment-1" rowspan="1"><span class="register">AF</span> is preserved.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -95,239 +96,205 @@ Call the five bytes of the first number M1, M2, M3, M4 and M5, and the five byte
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12220"></span>12220</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-11" rowspan="1">M1 to <span class="register">C</span>.</td>
+<td class="comment-1" rowspan="1">M1 to <span class="register">C</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12221"></span>12221</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Next.</td>
+<td class="comment-1" rowspan="1">Next.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12222"></span>12222</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-11" rowspan="1">M2 to <span class="register">B</span>.</td>
+<td class="comment-1" rowspan="1">M2 to <span class="register">B</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12223"></span>12223</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-11" rowspan="1">Copy the sign of the result to bit 7 of (<span class="register">HL</span>).</td>
+<td class="comment-1" rowspan="1">Copy the sign of the result to bit 7 of (<span class="register">HL</span>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12224"></span>12224</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Next.</td>
+<td class="comment-1" rowspan="1">Next.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12225"></span>12225</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
-<td class="comment-11" rowspan="1">M1 to <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">M1 to <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12226"></span>12226</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-11" rowspan="1">M3 to <span class="register">C</span>.</td>
+<td class="comment-1" rowspan="1">M3 to <span class="register">C</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12227"></span>12227</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">Save M2 and M3 on the machine stack.</td>
+<td class="comment-1" rowspan="1">Save M2 and M3 on the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12228"></span>12228</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Next.</td>
+<td class="comment-1" rowspan="1">Next.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12229"></span>12229</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-11" rowspan="1">M4 to <span class="register">C</span>.</td>
+<td class="comment-1" rowspan="1">M4 to <span class="register">C</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12230"></span>12230</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Next.</td>
+<td class="comment-1" rowspan="1">Next.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12231"></span>12231</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-11" rowspan="1">M5 to <span class="register">B</span>.</td>
+<td class="comment-1" rowspan="1">M5 to <span class="register">B</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12232"></span>12232</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1"><span class="register">HL</span> now points to N1.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span> now points to N1.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12233"></span>12233</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,A</td>
-<td class="comment-11" rowspan="1">M1 to <span class="register">D</span>.</td>
+<td class="comment-1" rowspan="1">M1 to <span class="register">D</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12234"></span>12234</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-11" rowspan="1">N1 to <span class="register">E</span>.</td>
+<td class="comment-1" rowspan="1">N1 to <span class="register">E</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12235"></span>12235</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-11" rowspan="1">Save M1 and N1 on the machine stack.</td>
+<td class="comment-1" rowspan="1">Save M1 and N1 on the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12236"></span>12236</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Next.</td>
+<td class="comment-1" rowspan="1">Next.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12237"></span>12237</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,(HL)</td>
-<td class="comment-11" rowspan="1">N2 to <span class="register">D</span>.</td>
+<td class="comment-1" rowspan="1">N2 to <span class="register">D</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12238"></span>12238</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Next.</td>
+<td class="comment-1" rowspan="1">Next.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12239"></span>12239</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-11" rowspan="1">N3 to <span class="register">E</span>.</td>
+<td class="comment-1" rowspan="1">N3 to <span class="register">E</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12240"></span>12240</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-11" rowspan="1">Save N2 and N3 on the machine stack.</td>
+<td class="comment-1" rowspan="1">Save N2 and N3 on the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12241"></span>12241</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="1">Get the exchange registers.</td>
+<td class="comment-1" rowspan="1">Get the exchange registers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12242"></span>12242</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="1">N2 to <span class="register">D'</span> and N3 to <span class="register">E'</span>.</td>
+<td class="comment-1" rowspan="1">N2 to <span class="register">D'</span> and N3 to <span class="register">E'</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12243"></span>12243</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">M1 to <span class="register">H'</span> and N1 to <span class="register">L'</span>.</td>
+<td class="comment-1" rowspan="1">M1 to <span class="register">H'</span> and N1 to <span class="register">L'</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12244"></span>12244</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">M2 to <span class="register">B'</span> and M3 to <span class="register">C'</span>.</td>
+<td class="comment-1" rowspan="1">M2 to <span class="register">B'</span> and M3 to <span class="register">C'</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12245"></span>12245</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="1">Get the original set of registers.</td>
+<td class="comment-1" rowspan="1">Get the original set of registers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12246"></span>12246</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Next.</td>
+<td class="comment-1" rowspan="1">Next.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12247"></span>12247</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,(HL)</td>
-<td class="comment-11" rowspan="1">N4 to <span class="register">D</span>.</td>
+<td class="comment-1" rowspan="1">N4 to <span class="register">D</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12248"></span>12248</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Next.</td>
+<td class="comment-1" rowspan="1">Next.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12249"></span>12249</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-11" rowspan="1">N5 to <span class="register">E</span>.</td>
+<td class="comment-1" rowspan="1">N5 to <span class="register">E</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12250"></span>12250</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="1">Restore the original <span class="register">AF</span>.</td>
+<td class="comment-1" rowspan="1">Restore the original <span class="register">AF</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12251"></span>12251</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Restore the original <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="1">Restore the original <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12252"></span>12252</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished.</td>
+<td class="comment-1" rowspan="1">Finished.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
-
 <div class="comments">
 <div class="paragraph">
 Summary:
@@ -345,15 +312,19 @@ Summary:
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="12187.html">12187</a></span></td>
+<td class="prev">
+Prev: <a href="12187.html">12187</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#12218">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="12253.html">12253</a></span></td>
+<td class="next">
+Next: <a href="12253.html">12253</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/2FBA.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

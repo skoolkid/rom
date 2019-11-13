@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 13604</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="13595.html">13595</a></span></td>
+<td class="prev">
+Prev: <a href="13595.html">13595</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#13604">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="13613.html">13613</a></span></td>
+<td class="next">
+Next: <a href="13613.html">13613</a>
+</td>
 </tr>
 </table>
 <div class="description">13604: THE 'NUMBER AND NUMBER' OPERATION (offset 8)</div>
@@ -32,7 +35,7 @@ The address of this routine is found in the <a href="13015.html">table of addres
 This subroutine performs the binary operation 'X AND Y' and returns X if Y is non-zero and the value zero otherwise.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -45,68 +48,59 @@ This subroutine performs the binary operation 'X AND Y' and returns X if Y is no
 <td class="register-desc">Address of the first byte of the first number (X)</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">no_and_no</td>
+<td class="asm-label">no_and_no</td>
 <td class="address-2"><span id="13604"></span>13604</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Point <span class="register">HL</span> at Y, <span class="register">DE</span> at X.</td>
+<td class="comment-1" rowspan="1">Point <span class="register">HL</span> at Y, <span class="register">DE</span> at X.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13605"></span>13605</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="13545.html">TEST_ZERO</a></td>
-<td class="comment-11" rowspan="1">Test whether Y is zero.</td>
+<td class="comment-1" rowspan="1">Test whether Y is zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13608"></span>13608</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Swap the pointers back.</td>
+<td class="comment-1" rowspan="1">Swap the pointers back.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13609"></span>13609</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
-<td class="comment-11" rowspan="1">Return with X as the 'last value' if Y was non-zero.</td>
+<td class="comment-1" rowspan="1">Return with X as the 'last value' if Y was non-zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13610"></span>13610</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="2">Reset the carry flag and jump back to set the 'last value' to zero.</td>
+<td class="comment-1" rowspan="2">Reset the carry flag and jump back to set the 'last value' to zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13611"></span>13611</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="13579.html">FP_0_1</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="13595.html">13595</a></span></td>
+<td class="prev">
+Prev: <a href="13595.html">13595</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#13604">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="13613.html">13613</a></span></td>
+<td class="next">
+Next: <a href="13613.html">13613</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/3524.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

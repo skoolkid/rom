@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 05851</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="5844.html">05844</a></span></td>
+<td class="prev">
+Prev: <a href="5844.html">05844</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#5851">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="5861.html">05861</a></span></td>
+<td class="next">
+Next: <a href="5861.html">05861</a>
+</td>
 </tr>
 </table>
 <div class="description">05851: THE 'INDEXER' SUBROUTINE</div>
@@ -29,7 +32,7 @@
 This subroutine is used on several occasions to look through tables.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -42,7 +45,7 @@ This subroutine is used on several occasions to look through tables.
 <td class="register-desc">Base address of the table</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -58,11 +61,10 @@ This subroutine is used on several occasions to look through tables.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">INDEXER_1</td>
+<td class="asm-label">INDEXER_1</td>
 <td class="address-2"><span id="5851"></span>05851</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Move on to consider the next pair of entries.</td>
+<td class="comment-1" rowspan="1">Move on to consider the next pair of entries.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -75,73 +77,67 @@ The main entry point is here and is used by the routines at <a href="5653.html">
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">INDEXER</td>
+<td class="asm-label">INDEXER</td>
 <td class="address-2"><span id="5852"></span>05852</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="3">Fetch the first of a pair of entries but return if it is zero - the end marker.</td>
+<td class="comment-1" rowspan="3">Fetch the first of a pair of entries but return if it is zero - the end marker.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5853"></span>05853</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5854"></span>05854</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5855"></span>05855</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP C</td>
-<td class="comment-11" rowspan="1">Compare it to the supplied code.</td>
+<td class="comment-1" rowspan="1">Compare it to the supplied code.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5856"></span>05856</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Point to the second entry.</td>
+<td class="comment-1" rowspan="1">Point to the second entry.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5857"></span>05857</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="5851.html#5851">INDEXER_1</a></td>
-<td class="comment-11" rowspan="1">Jump back if the correct entry has not been found.</td>
+<td class="comment-1" rowspan="1">Jump back if the correct entry has not been found.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5859"></span>05859</td>
-<td class="bytes-0"></td>
 <td class="instruction">SCF</td>
-<td class="comment-11" rowspan="1">The carry flag is set upon a successful search.</td>
+<td class="comment-1" rowspan="1">The carry flag is set upon a successful search.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5860"></span>05860</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="5844.html">05844</a></span></td>
+<td class="prev">
+Prev: <a href="5844.html">05844</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#5851">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="5861.html">05861</a></span></td>
+<td class="next">
+Next: <a href="5861.html">05861</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/16DB.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

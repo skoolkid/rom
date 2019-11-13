@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 09506</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="9487.html">09487</a></span></td>
+<td class="prev">
+Prev: <a href="9487.html">09487</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#9506">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="9520.html">09520</a></span></td>
+<td class="next">
+Next: <a href="9520.html">09520</a>
+</td>
 </tr>
 </table>
 <div class="description">09506: THE 'SCANNING TWO CO-ORDINATES' SUBROUTINE</div>
@@ -29,13 +32,7 @@
 This subroutine is called by <a href="9832.html">S_SCREEN</a>, <a href="9842.html">S_ATTR</a> and <a href="9851.html">S_POINT</a> to make sure the required two co-ordinates are given in their proper form.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -47,57 +44,49 @@ This subroutine is called by <a href="9832.html">S_SCREEN</a>, <a href="9842.htm
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">S_2_COORD</td>
+<td class="asm-label">S_2_COORD</td>
 <td class="address-2"><span id="9506"></span>09506</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="32.html">32</a></td>
-<td class="comment-11" rowspan="1">Fetch the next character.</td>
+<td class="comment-1" rowspan="1">Fetch the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="9507"></span>09507</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "("</td>
-<td class="comment-11" rowspan="1">Is it a '('?</td>
+<td class="comment-1" rowspan="1">Is it a '('?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="9509"></span>09509</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="9506.html#9517">S_RPORT_C</a></td>
-<td class="comment-11" rowspan="1">Report the error if it is not.</td>
+<td class="comment-1" rowspan="1">Report the error if it is not.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="9511"></span>09511</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="7289.html">NEXT_2NUM</a></td>
-<td class="comment-11" rowspan="1">Co-ordinates to calculator stack.</td>
+<td class="comment-1" rowspan="1">Co-ordinates to calculator stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="9514"></span>09514</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="24.html">24</a></td>
-<td class="comment-11" rowspan="1">Fetch the current character.</td>
+<td class="comment-1" rowspan="1">Fetch the current character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="9515"></span>09515</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
-<td class="comment-11" rowspan="1">Is it a ')'?</td>
+<td class="comment-1" rowspan="1">Is it a ')'?</td>
 </tr>
 <tr>
-<td class="asm-label-1">S_RPORT_C</td>
+<td class="asm-label">S_RPORT_C</td>
 <td class="address-2"><span id="9517"></span>09517</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP NZ,<a href="7289.html#7306">REPORT_C</a></td>
-<td class="comment-11" rowspan="1">Report the error if it is not.</td>
+<td class="comment-1" rowspan="1">Report the error if it is not.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
-
 <div class="comments">
 <div class="paragraph">
 This routine continues into <a href="9520.html">SYNTAX_Z</a>.
@@ -108,15 +97,19 @@ This routine continues into <a href="9520.html">SYNTAX_Z</a>.
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="9487.html">09487</a></span></td>
+<td class="prev">
+Prev: <a href="9487.html">09487</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#9506">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="9520.html">09520</a></span></td>
+<td class="next">
+Next: <a href="9520.html">09520</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/2522.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

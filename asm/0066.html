@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Unused RAM at 0066</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-u">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="005F.html">005F</a></span></td>
+<td class="prev">
+Prev: <a href="005F.html">005F</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#0066">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="0074.html">0074</a></span></td>
+<td class="next">
+Next: <a href="0074.html">0074</a>
+</td>
 </tr>
 </table>
 <div class="description">0066: THE 'NON-MASKABLE INTERRUPT' ROUTINE</div>
@@ -29,102 +32,79 @@
 This routine is not used in the standard Spectrum but the code allows for a system reset to occur following activation of the NMI line. The system variable at 5CB0, named here <a href="5CB0.html">NMIADD</a>, has to have the value zero for the reset to occur.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">RESET</td>
+<td class="asm-label">RESET</td>
 <td class="address-1"><span id="0066"></span>0066</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="2">Save the current values held in these registers.</td>
+<td class="comment-1" rowspan="2">Save the current values held in these registers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0067"></span>0067</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0068"></span>0068</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5CB0)</td>
-<td class="comment-11" rowspan="3">The two bytes of <a href="5CB0.html">NMIADD</a> must both be zero for the reset to occur.</td>
+<td class="comment-1" rowspan="3">The two bytes of <a href="5CB0.html">NMIADD</a> must both be zero for the reset to occur.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="006B"></span>006B</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,H</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="006C"></span>006C</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="006D"></span>006D</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,$0070</td>
-<td class="comment-11" rowspan="1">Note: this should have been 'JR Z'!</td>
+<td class="comment-1" rowspan="1">Note: this should have been 'JR Z'!</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="006F"></span>006F</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP (HL)</td>
-<td class="comment-11" rowspan="1">Jump to <a href="0000.html">START</a>.</td>
+<td class="comment-1" rowspan="1">Jump to <a href="0000.html">START</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1">NO_RESET</td>
+<td class="asm-label">NO_RESET</td>
 <td class="address-2"><span id="0070"></span>0070</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="3">Restore the current values to these registers and return.</td>
+<td class="comment-1" rowspan="3">Restore the current values to these registers and return.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0071"></span>0071</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0072"></span>0072</td>
-<td class="bytes-0"></td>
 <td class="instruction">RETN</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="005F.html">005F</a></span></td>
+<td class="prev">
+Prev: <a href="005F.html">005F</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#0066">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="0074.html">0074</a></span></td>
+<td class="next">
+Next: <a href="0074.html">0074</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/102.html">Switch to decimal</a>.</div>
 </footer>
 </body>

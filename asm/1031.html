@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 1031</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1024.html">1024</a></span></td>
+<td class="prev">
+Prev: <a href="1024.html">1024</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1031">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1059.html">1059</a></span></td>
+<td class="next">
+Next: <a href="1059.html">1059</a>
+</td>
 </tr>
 </table>
 <div class="description">1031: THE 'ED-EDGE' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routines at <a href="1007.html">ED_LEFT</a> and <a href="1015.html">
 The address of the cursor is in the <span class="register">HL</span> register pair and will be decremented unless the cursor is already at the start of the line. Care is taken not to put the cursor between control characters and their parameters.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,7 +44,7 @@ The address of the cursor is in the <span class="register">HL</span> register pa
 <td class="register-desc">Address of the cursor (<a href="5C5B.html">K-CUR</a>)</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -53,74 +56,61 @@ The address of the cursor is in the <span class="register">HL</span> register pa
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">ED_EDGE</td>
+<td class="asm-label">ED_EDGE</td>
 <td class="address-2"><span id="1031"></span>1031</td>
-<td class="bytes-0"></td>
 <td class="instruction">SCF</td>
-<td class="comment-11" rowspan="2"><span class="register">DE</span> will hold either <a href="5C59.html">E-LINE</a> (for editing) or <a href="5C61.html">WORKSP</a> (for INPUTing).</td>
+<td class="comment-1" rowspan="2"><span class="register">DE</span> will hold either <a href="5C59.html">E-LINE</a> (for editing) or <a href="5C61.html">WORKSP</a> (for INPUTing).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1032"></span>1032</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1190.html#1195">SET_DE</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1035"></span>1035</td>
-<td class="bytes-0"></td>
 <td class="instruction">SBC HL,DE</td>
-<td class="comment-11" rowspan="2">The carry flag will become set if the cursor is already to be at the start of the line.</td>
+<td class="comment-1" rowspan="2">The carry flag will become set if the cursor is already to be at the start of the line.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1037"></span>1037</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1038"></span>1038</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Correct for the subtraction.</td>
+<td class="comment-1" rowspan="1">Correct for the subtraction.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1039"></span>1039</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">Drop the return address.</td>
+<td class="comment-1" rowspan="1">Drop the return address.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="103A"></span>103A</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET C</td>
-<td class="comment-11" rowspan="1">Return via <a href="0F2C.html#0F38">ED_LOOP</a> if the carry flag is set.</td>
+<td class="comment-1" rowspan="1">Return via <a href="0F2C.html#0F38">ED_LOOP</a> if the carry flag is set.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="103B"></span>103B</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">Restore the return address.</td>
+<td class="comment-1" rowspan="1">Restore the return address.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="103C"></span>103C</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,H</td>
-<td class="comment-11" rowspan="2">Move the current address of the cursor to <span class="register">BC</span>.</td>
+<td class="comment-1" rowspan="2">Move the current address of the cursor to <span class="register">BC</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="103D"></span>103D</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -133,150 +123,127 @@ Now enter a loop to check that control characters are not split from their param
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">ED_EDGE_1</td>
+<td class="asm-label">ED_EDGE_1</td>
 <td class="address-2"><span id="103E"></span>103E</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD H,D</td>
-<td class="comment-11" rowspan="3"><span class="register">HL</span> will point to the character in the line after that addressed by <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="3"><span class="register">HL</span> will point to the character in the line after that addressed by <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="103F"></span>103F</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD L,E</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1040"></span>1040</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1041"></span>1041</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-11" rowspan="1">Fetch a character code.</td>
+<td class="comment-1" rowspan="1">Fetch a character code.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1042"></span>1042</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND $F0</td>
-<td class="comment-11" rowspan="3">Jump forward if the code does not represent INK to TAB.</td>
+<td class="comment-1" rowspan="3">Jump forward if the code does not represent INK to TAB.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1044"></span>1044</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $10</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1046"></span>1046</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1031.html#1051">ED_EDGE_2</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1048"></span>1048</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Allow for one parameter.</td>
+<td class="comment-1" rowspan="1">Allow for one parameter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1049"></span>1049</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-11" rowspan="1">Fetch the code anew.</td>
+<td class="comment-1" rowspan="1">Fetch the code anew.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="104A"></span>104A</td>
-<td class="bytes-0"></td>
 <td class="instruction">SUB $17</td>
-<td class="comment-11" rowspan="1">Carry is reset for TAB.</td>
+<td class="comment-1" rowspan="1">Carry is reset for TAB.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="104C"></span>104C</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADC A,$00</td>
-<td class="comment-11" rowspan="1">Note: this splits off AT and TAB but AT and TAB in this form are not implemented anyway so it makes no difference.</td>
+<td class="comment-1" rowspan="1">Note: this splits off AT and TAB but AT and TAB in this form are not implemented anyway so it makes no difference.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="104E"></span>104E</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1031.html#1051">ED_EDGE_2</a></td>
-<td class="comment-11" rowspan="2">Jump forward unless dealing with AT and TAB which would have two parameters, if used.</td>
+<td class="comment-1" rowspan="2">Jump forward unless dealing with AT and TAB which would have two parameters, if used.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1050"></span>1050</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">ED_EDGE_2</td>
+<td class="asm-label">ED_EDGE_2</td>
 <td class="address-2"><span id="1051"></span>1051</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="1">Prepare for true subtraction.</td>
+<td class="comment-1" rowspan="1">Prepare for true subtraction.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1052"></span>1052</td>
-<td class="bytes-0"></td>
 <td class="instruction">SBC HL,BC</td>
-<td class="comment-11" rowspan="2">The carry flag will be reset when the 'updated pointer' reaches <a href="5C5B.html">K-CUR</a>.</td>
+<td class="comment-1" rowspan="2">The carry flag will be reset when the 'updated pointer' reaches <a href="5C5B.html">K-CUR</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1054"></span>1054</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1055"></span>1055</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="3">For the next loop use the 'updated pointer', but if exiting use the 'present pointer' for <a href="5C5B.html">K-CUR</a>. Note: it is the control character that is deleted when using DELETE.</td>
+<td class="comment-1" rowspan="3">For the next loop use the 'updated pointer', but if exiting use the 'present pointer' for <a href="5C5B.html">K-CUR</a>. Note: it is the control character that is deleted when using DELETE.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1056"></span>1056</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="1031.html#103E">ED_EDGE_1</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1058"></span>1058</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1024.html">1024</a></span></td>
+<td class="prev">
+Prev: <a href="1024.html">1024</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1031">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1059.html">1059</a></span></td>
+<td class="next">
+Next: <a href="1059.html">1059</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/4145.html">Switch to decimal</a>.</div>
 </footer>
 </body>

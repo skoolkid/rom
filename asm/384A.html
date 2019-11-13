@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 384A</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="3843.html">3843</a></span></td>
+<td class="prev">
+Prev: <a href="3843.html">3843</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#384A">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="3851.html">3851</a></span></td>
+<td class="next">
+Next: <a href="3851.html">3851</a>
+</td>
 </tr>
 </table>
 <div class="description">384A: THE 'SQUARE ROOT' FUNCTION (offset +28)</div>
@@ -35,54 +38,36 @@ This subroutine handles the function SQR X and returns the positive square root 
 This subroutine treats the square root operation as being X**0.5 and therefore stacks the value 0.5 and proceeds directly into <a href="3851.html">to_power</a>.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">sqr</td>
+<td class="asm-label">sqr</td>
 <td class="address-2"><span id="384A"></span>384A</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-11" rowspan="1">X</td>
+<td class="comment-1" rowspan="1">X</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="384B"></span>384B</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: X, X</td>
+<td class="comment-1" rowspan="1"><a href="33C0.html">duplicate</a>: X, X</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="384C"></span>384C</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $30</td>
-<td class="comment-11" rowspan="1"><a href="3501.html">f_not</a>: X, (1/0)</td>
+<td class="comment-1" rowspan="1"><a href="3501.html">f_not</a>: X, (1/0)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="384D"></span>384D</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $00</td>
-<td class="comment-11" rowspan="2"><a href="368F.html">jump_true</a> to <a href="3851.html#386C">LAST</a>: X</td>
+<td class="comment-1" rowspan="2"><a href="368F.html">jump_true</a> to <a href="3851.html#386C">LAST</a>: X</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="384E"></span>384E</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $1E</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -95,22 +80,19 @@ The jump is made if X=0; otherwise continue with:
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="384F"></span>384F</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $A2</td>
-<td class="comment-11" rowspan="1"><a href="341B.html">stk_half</a>: X, 0.5</td>
+<td class="comment-1" rowspan="1"><a href="341B.html">stk_half</a>: X, 0.5</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3850"></span>3850</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
+<td class="comment-1" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
-
 <div class="comments">
 <div class="paragraph">
 Continue into <a href="3851.html">to_power</a> to find the result of X**0.5.
@@ -121,15 +103,19 @@ Continue into <a href="3851.html">to_power</a> to find the result of X**0.5.
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="3843.html">3843</a></span></td>
+<td class="prev">
+Prev: <a href="3843.html">3843</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#384A">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="3851.html">3851</a></span></td>
+<td class="next">
+Next: <a href="3851.html">3851</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/14410.html">Switch to decimal</a>.</div>
 </footer>
 </body>

@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 10929</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="10834.html">10834</a></span></td>
+<td class="prev">
+Prev: <a href="10834.html">10834</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#10929">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="10956.html">10956</a></span></td>
+<td class="next">
+Next: <a href="10956.html">10956</a>
+</td>
 </tr>
 </table>
 <div class="description">10929: THE 'STK-STORE' SUBROUTINE</div>
@@ -41,7 +44,7 @@ The subroutine is normally used to transfer the parameters of strings but it is 
 Note that when storing the parameters of a string the first value stored (coming from the <span class="register">A</span> register) will be a zero if the string comes from an array of strings or is a 'slice' of a string. The value will be '1' for a complete simple string. This 'flag' is used in the <a href="11007.html">LET</a> command routine when the '1' signals that the old copy of the string is to be 'reclaimed'.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -66,7 +69,7 @@ Note that when storing the parameters of a string the first value stored (coming
 <td class="register-desc">Second byte</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -78,11 +81,10 @@ Note that when storing the parameters of a string the first value stored (coming
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">STK_ST_0</td>
+<td class="asm-label">STK_ST_0</td>
 <td class="address-2"><span id="10929"></span>10929</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
-<td class="comment-11" rowspan="1">Signal - a string from an array of strings or a 'sliced' string.</td>
+<td class="comment-1" rowspan="1">Signal - a string from an array of strings or a 'sliced' string.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -95,11 +97,10 @@ This entry point is used by the routines at <a href="8329.html">INPUT</a>, <a hr
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">STK_STO</td>
+<td class="asm-label">STK_STO</td>
 <td class="address-2"><span id="10930"></span>10930</td>
-<td class="bytes-0"></td>
 <td class="instruction">RES 6,(IY+1)</td>
-<td class="comment-11" rowspan="1">Ensure the flag indicates a string result (reset bit 6 of <a href="23611.html">FLAGS</a>).</td>
+<td class="comment-1" rowspan="1">Ensure the flag indicates a string result (reset bit 6 of <a href="23611.html">FLAGS</a>).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -112,129 +113,112 @@ This entry point is used by the routines at <a href="11563.html">STACK_BC</a> an
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">STK_STORE</td>
+<td class="asm-label">STK_STORE</td>
 <td class="address-2"><span id="10934"></span>10934</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">Save <span class="register">B</span> and <span class="register">C</span> briefly.</td>
+<td class="comment-1" rowspan="1">Save <span class="register">B</span> and <span class="register">C</span> briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10935"></span>10935</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="13225.html">TEST_5_SP</a></td>
-<td class="comment-11" rowspan="1">Is there room for 5 bytes? Do not return here unless there is room available.</td>
+<td class="comment-1" rowspan="1">Is there room for 5 bytes? Do not return here unless there is room available.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10938"></span>10938</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">Restore <span class="register">B</span> and <span class="register">C</span>.</td>
+<td class="comment-1" rowspan="1">Restore <span class="register">B</span> and <span class="register">C</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10939"></span>10939</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23653)</td>
-<td class="comment-11" rowspan="1">Fetch the address of the first location above the present stack (<a href="23653.html">STKEND</a>).</td>
+<td class="comment-1" rowspan="1">Fetch the address of the first location above the present stack (<a href="23653.html">STKEND</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10942"></span>10942</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-11" rowspan="1">Transfer the first byte.</td>
+<td class="comment-1" rowspan="1">Transfer the first byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10943"></span>10943</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Step on.</td>
+<td class="comment-1" rowspan="1">Step on.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10944"></span>10944</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),E</td>
-<td class="comment-11" rowspan="3">Transfer the second and third bytes; for a string these will be the 'start'.</td>
+<td class="comment-1" rowspan="3">Transfer the second and third bytes; for a string these will be the 'start'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10945"></span>10945</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10946"></span>10946</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),D</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10947"></span>10947</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Step on.</td>
+<td class="comment-1" rowspan="1">Step on.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10948"></span>10948</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),C</td>
-<td class="comment-11" rowspan="3">Transfer the fourth and fifth bytes; for a string these will be the 'length'.</td>
+<td class="comment-1" rowspan="3">Transfer the fourth and fifth bytes; for a string these will be the 'length'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10949"></span>10949</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10950"></span>10950</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),B</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10951"></span>10951</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Step on so as to point to the location above the stack.</td>
+<td class="comment-1" rowspan="1">Step on so as to point to the location above the stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10952"></span>10952</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23653),HL</td>
-<td class="comment-11" rowspan="2">Save this address in <a href="23653.html">STKEND</a> and return.</td>
+<td class="comment-1" rowspan="2">Save this address in <a href="23653.html">STKEND</a> and return.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10955"></span>10955</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="10834.html">10834</a></span></td>
+<td class="prev">
+Prev: <a href="10834.html">10834</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#10929">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="10956.html">10956</a></span></td>
+<td class="next">
+Next: <a href="10956.html">10956</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/2AB1.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

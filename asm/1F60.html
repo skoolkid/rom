@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 1F60</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1F54.html">1F54</a></span></td>
+<td class="prev">
+Prev: <a href="1F54.html">1F54</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1F60">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1FC3.html">1FC3</a></span></td>
+<td class="next">
+Next: <a href="1FC3.html">1FC3</a>
+</td>
 </tr>
 </table>
 <div class="description">1F60: THE 'DEF FN' COMMAND ROUTINE</div>
@@ -35,7 +38,7 @@ During syntax checking a DEF FN statement is checked to ensure that it has the c
 But in 'run-time' a DEF FN statement is passed by.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -44,41 +47,29 @@ But in 'run-time' a DEF FN statement is passed by.
 <td class="register-desc">Code of the next character in the statement</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">DEF_FN</td>
+<td class="asm-label">DEF_FN</td>
 <td class="address-2"><span id="1F60"></span>1F60</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
-<td class="comment-11" rowspan="2">Jump forward if checking syntax.</td>
+<td class="comment-1" rowspan="2">Jump forward if checking syntax.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F63"></span>1F63</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1F60.html#1F6A">DEF_FN_1</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F65"></span>1F65</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,$CE</td>
-<td class="comment-11" rowspan="2">Otherwise pass by the 'DEF FN' statement.</td>
+<td class="comment-1" rowspan="2">Otherwise pass by the 'DEF FN' statement.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F67"></span>1F67</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="1E39.html">PASS_BY</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -91,95 +82,79 @@ First consider the variable of the function.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">DEF_FN_1</td>
+<td class="asm-label">DEF_FN_1</td>
 <td class="address-2"><span id="1F6A"></span>1F6A</td>
-<td class="bytes-0"></td>
 <td class="instruction">SET 6,(IY+$01)</td>
-<td class="comment-11" rowspan="1">Signal 'a numeric variable' (set bit 6 of <a href="5C3B.html">FLAGS</a>).</td>
+<td class="comment-1" rowspan="1">Signal 'a numeric variable' (set bit 6 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F6E"></span>1F6E</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2C8D.html">ALPHA</a></td>
-<td class="comment-11" rowspan="1">Check that the present code is a letter.</td>
+<td class="comment-1" rowspan="1">Check that the present code is a letter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F71"></span>1F71</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="1F60.html#1F89">DEF_FN_4</a></td>
-<td class="comment-11" rowspan="1">Jump forward if not.</td>
+<td class="comment-1" rowspan="1">Jump forward if not.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F73"></span>1F73</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Fetch the next character.</td>
+<td class="comment-1" rowspan="1">Fetch the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F74"></span>1F74</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "$"</td>
-<td class="comment-11" rowspan="2">Jump forward unless it is a '$'.</td>
+<td class="comment-1" rowspan="2">Jump forward unless it is a '$'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F76"></span>1F76</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1F60.html#1F7D">DEF_FN_2</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F78"></span>1F78</td>
-<td class="bytes-0"></td>
 <td class="instruction">RES 6,(IY+$01)</td>
-<td class="comment-11" rowspan="1">Reset bit 6 of <a href="5C3B.html">FLAGS</a> as it is a string variable.</td>
+<td class="comment-1" rowspan="1">Reset bit 6 of <a href="5C3B.html">FLAGS</a> as it is a string variable.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F7C"></span>1F7C</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Fetch the next character.</td>
+<td class="comment-1" rowspan="1">Fetch the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-1">DEF_FN_2</td>
+<td class="asm-label">DEF_FN_2</td>
 <td class="address-2"><span id="1F7D"></span>1F7D</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "("</td>
-<td class="comment-11" rowspan="2">A '(' must follow the variable's name.</td>
+<td class="comment-1" rowspan="2">A '(' must follow the variable's name.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F7F"></span>1F7F</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1F60.html#1FBD">DEF_FN_7</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F81"></span>1F81</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Fetch the next character.</td>
+<td class="comment-1" rowspan="1">Fetch the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F82"></span>1F82</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
-<td class="comment-11" rowspan="2">Jump forward if it is a ')' as there are no parameters of the function.</td>
+<td class="comment-1" rowspan="2">Jump forward if it is a ')' as there are no parameters of the function.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F84"></span>1F84</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1F60.html#1FA6">DEF_FN_6</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -192,130 +167,103 @@ A loop is now entered to deal with each parameter in turn.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">DEF_FN_3</td>
+<td class="asm-label">DEF_FN_3</td>
 <td class="address-2"><span id="1F86"></span>1F86</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2C8D.html">ALPHA</a></td>
-<td class="comment-11" rowspan="2">The present code must be a letter.</td>
+<td class="comment-1" rowspan="2">The present code must be a letter.</td>
 </tr>
 <tr>
-<td class="asm-label-1">DEF_FN_4</td>
+<td class="asm-label">DEF_FN_4</td>
 <td class="address-2"><span id="1F89"></span>1F89</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP NC,<a href="1C79.html#1C8A">REPORT_C</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F8C"></span>1F8C</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Save the pointer in <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="1">Save the pointer in <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F8D"></span>1F8D</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Fetch the next character.</td>
+<td class="comment-1" rowspan="1">Fetch the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F8E"></span>1F8E</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "$"</td>
-<td class="comment-11" rowspan="2">Jump forward unless it is a '$'.</td>
+<td class="comment-1" rowspan="2">Jump forward unless it is a '$'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F90"></span>1F90</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1F60.html#1F94">DEF_FN_5</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F92"></span>1F92</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Otherwise save the new pointer in <span class="register">DE</span> instead.</td>
+<td class="comment-1" rowspan="1">Otherwise save the new pointer in <span class="register">DE</span> instead.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F93"></span>1F93</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Fetch the next character.</td>
+<td class="comment-1" rowspan="1">Fetch the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-1">DEF_FN_5</td>
+<td class="asm-label">DEF_FN_5</td>
 <td class="address-2"><span id="1F94"></span>1F94</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Move the pointer to the last character of the name to the <span class="register">HL</span> register pair.</td>
+<td class="comment-1" rowspan="1">Move the pointer to the last character of the name to the <span class="register">HL</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F95"></span>1F95</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD BC,$0006</td>
-<td class="comment-11" rowspan="5">Now make six locations after that last character and enter a 'number marker' into the first of the new locations.</td>
+<td class="comment-1" rowspan="5">Now make six locations after that last character and enter a 'number marker' into the first of the new locations.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F98"></span>1F98</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1652.html#1655">MAKE_ROOM</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F9B"></span>1F9B</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F9C"></span>1F9C</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F9D"></span>1F9D</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),$0E</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1F9F"></span>1F9F</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ","</td>
-<td class="comment-11" rowspan="4">If the present character is a ',' then jump back as there should be a further parameter; otherwise jump out of the loop.</td>
+<td class="comment-1" rowspan="4">If the present character is a ',' then jump back as there should be a further parameter; otherwise jump out of the loop.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FA1"></span>1FA1</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1F60.html#1FA6">DEF_FN_6</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FA3"></span>1FA3</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FA4"></span>1FA4</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="1F60.html#1F86">DEF_FN_3</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -328,106 +276,86 @@ Next the definition of the function is considered.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">DEF_FN_6</td>
+<td class="asm-label">DEF_FN_6</td>
 <td class="address-2"><span id="1FA6"></span>1FA6</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
-<td class="comment-11" rowspan="2">Check that the ')' does exist.</td>
+<td class="comment-1" rowspan="2">Check that the ')' does exist.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FA8"></span>1FA8</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1F60.html#1FBD">DEF_FN_7</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FAA"></span>1FAA</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">The next character is fetched.</td>
+<td class="comment-1" rowspan="1">The next character is fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FAB"></span>1FAB</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "="</td>
-<td class="comment-11" rowspan="2">It must be an '='.</td>
+<td class="comment-1" rowspan="2">It must be an '='.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FAD"></span>1FAD</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1F60.html#1FBD">DEF_FN_7</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FAF"></span>1FAF</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Fetch the next character.</td>
+<td class="comment-1" rowspan="1">Fetch the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FB0"></span>1FB0</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,($5C3B)</td>
-<td class="comment-11" rowspan="2">Save the nature - numeric or string - of the variable (bit 6 of <a href="5C3B.html">FLAGS</a>).</td>
+<td class="comment-1" rowspan="2">Save the nature - numeric or string - of the variable (bit 6 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FB3"></span>1FB3</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FB4"></span>1FB4</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="24FB.html">SCANNING</a></td>
-<td class="comment-11" rowspan="1">Now consider the definition as an expression.</td>
+<td class="comment-1" rowspan="1">Now consider the definition as an expression.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FB7"></span>1FB7</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="3">Fetch the nature of the variable and check that it is of the same type as found for the definition (specified by bit 6 of <a href="5C3B.html">FLAGS</a>).</td>
+<td class="comment-1" rowspan="3">Fetch the nature of the variable and check that it is of the same type as found for the definition (specified by bit 6 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FB8"></span>1FB8</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR (IY+$01)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FBB"></span>1FBB</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND $40</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">DEF_FN_7</td>
+<td class="asm-label">DEF_FN_7</td>
 <td class="address-2"><span id="1FBD"></span>1FBD</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP NZ,<a href="1C79.html#1C8A">REPORT_C</a></td>
-<td class="comment-11" rowspan="1">Give an error report if it is required.</td>
+<td class="comment-1" rowspan="1">Give an error report if it is required.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FC0"></span>1FC0</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1BEE.html">CHECK_END</a></td>
-<td class="comment-11" rowspan="1">Exit via <a href="1BEE.html">CHECK_END</a> (thereby moving on to consider the next statement in the line).</td>
+<td class="comment-1" rowspan="1">Exit via <a href="1BEE.html">CHECK_END</a> (thereby moving on to consider the next statement in the line).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
-
 <div class="comments">
 <div class="paragraph">
 This routine continues into <a href="1FC3.html">UNSTACK_Z</a>.
@@ -438,15 +366,19 @@ This routine continues into <a href="1FC3.html">UNSTACK_Z</a>.
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1F54.html">1F54</a></span></td>
+<td class="prev">
+Prev: <a href="1F54.html">1F54</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1F60">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1FC3.html">1FC3</a></span></td>
+<td class="next">
+Next: <a href="1FC3.html">1FC3</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/8032.html">Switch to decimal</a>.</div>
 </footer>
 </body>

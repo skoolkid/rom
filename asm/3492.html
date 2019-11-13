@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 3492</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="346E.html">346E</a></span></td>
+<td class="prev">
+Prev: <a href="346E.html">346E</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#3492">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="34A5.html">34A5</a></span></td>
+<td class="next">
+Next: <a href="34A5.html">34A5</a>
+</td>
 </tr>
 </table>
 <div class="description">3492: THE 'SIGNUM' FUNCTION (offset +29)</div>
@@ -32,7 +35,7 @@ The address of this routine is found in the <a href="32D7.html">table of address
 This subroutine handles the function SGN X and therefore returns a 'last value' of 1 if X is positive, zero if X is zero and -1 if X is negative.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,110 +44,94 @@ This subroutine handles the function SGN X and therefore returns a 'last value' 
 <td class="register-desc">Address of the first byte of the number</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">sgn</td>
+<td class="asm-label">sgn</td>
 <td class="address-2"><span id="3492"></span>3492</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="34E9.html">TEST_ZERO</a></td>
-<td class="comment-11" rowspan="2">If X is zero, just return with zero as the 'last value'.</td>
+<td class="comment-1" rowspan="2">If X is zero, just return with zero as the 'last value'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3495"></span>3495</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3496"></span>3496</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-11" rowspan="1">Save the pointer to <a href="5C65.html">STKEND</a>.</td>
+<td class="comment-1" rowspan="1">Save the pointer to <a href="5C65.html">STKEND</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3497"></span>3497</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,$0001</td>
-<td class="comment-11" rowspan="1">Store 1 in <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="1">Store 1 in <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="349A"></span>349A</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Point to the second byte of X.</td>
+<td class="comment-1" rowspan="1">Point to the second byte of X.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="349B"></span>349B</td>
-<td class="bytes-0"></td>
 <td class="instruction">RL (HL)</td>
-<td class="comment-11" rowspan="1">Rotate bit 7 into the carry flag.</td>
+<td class="comment-1" rowspan="1">Rotate bit 7 into the carry flag.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="349D"></span>349D</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="1">Point to the destination again.</td>
+<td class="comment-1" rowspan="1">Point to the destination again.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="349E"></span>349E</td>
-<td class="bytes-0"></td>
 <td class="instruction">SBC A,A</td>
-<td class="comment-11" rowspan="2">Set <span class="register">C</span> to zero for positive X and to +FF for negative X.</td>
+<td class="comment-1" rowspan="2">Set <span class="register">C</span> to zero for positive X and to +FF for negative X.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="349F"></span>349F</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="34A0"></span>34A0</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2D8E.html">INT_STORE</a></td>
-<td class="comment-11" rowspan="1">Stack 1 or -1 as required.</td>
+<td class="comment-1" rowspan="1">Stack 1 or -1 as required.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="34A3"></span>34A3</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="1">Restore the pointer to <a href="5C65.html">STKEND</a>.</td>
+<td class="comment-1" rowspan="1">Restore the pointer to <a href="5C65.html">STKEND</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="34A4"></span>34A4</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished.</td>
+<td class="comment-1" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="346E.html">346E</a></span></td>
+<td class="prev">
+Prev: <a href="346E.html">346E</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#3492">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="34A5.html">34A5</a></span></td>
+<td class="next">
+Next: <a href="34A5.html">34A5</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/13458.html">Switch to decimal</a>.</div>
 </footer>
 </body>

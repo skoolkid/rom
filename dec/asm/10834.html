@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 10834</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="10646.html">10646</a></span></td>
+<td class="prev">
+Prev: <a href="10646.html">10646</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#10834">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="10929.html">10929</a></span></td>
+<td class="next">
+Next: <a href="10929.html">10929</a>
+</td>
 </tr>
 </table>
 <div class="description">10834: THE 'SLICING' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routines at <a href="9929.html">S_LETTER</a> and <a href="10646.html
 The present string can be sliced using this subroutine. The subroutine is entered with the parameters of the string being present on the top of the calculator stack and in the registers <span class="register">A</span>, <span class="register">B</span>, <span class="register">C</span>, <span class="register">D</span> and <span class="register">E</span>. Initially the SYNTAX/RUN flag is tested and the parameters of the string are fetched only if a line is being executed.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -45,27 +48,19 @@ The present string can be sliced using this subroutine. The subroutine is entere
 <td class="register-desc">Address of the first character in the string</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SLICING</td>
+<td class="asm-label">SLICING</td>
 <td class="address-2"><span id="10834"></span>10834</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="9520.html">SYNTAX_Z</a></td>
-<td class="comment-11" rowspan="1">Check the flag.</td>
+<td class="comment-1" rowspan="1">Check the flag.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10837"></span>10837</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL NZ,<a href="11249.html">STK_FETCH</a></td>
-<td class="comment-11" rowspan="1">Take the parameters off the stack in 'run-time'.</td>
+<td class="comment-1" rowspan="1">Take the parameters off the stack in 'run-time'.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -78,25 +73,22 @@ The possibility of the 'slice' being '()' has to be considered.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10840"></span>10840</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="32.html">32</a></td>
-<td class="comment-11" rowspan="1">Get the next character.</td>
+<td class="comment-1" rowspan="1">Get the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10841"></span>10841</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
-<td class="comment-11" rowspan="1">Is it a ')'?</td>
+<td class="comment-1" rowspan="1">Is it a ')'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10843"></span>10843</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="10834.html#10925">SL_STORE</a></td>
-<td class="comment-11" rowspan="1">Jump forward if it is so.</td>
+<td class="comment-1" rowspan="1">Jump forward if it is so.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -109,53 +101,45 @@ Before proceeding the registers are manipulated as follows:
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10845"></span>10845</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-11" rowspan="1">The 'start' goes on the machine stack.</td>
+<td class="comment-1" rowspan="1">The 'start' goes on the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10846"></span>10846</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
-<td class="comment-11" rowspan="2">The <span class="register">A</span> register is cleared and saved.</td>
+<td class="comment-1" rowspan="2">The <span class="register">A</span> register is cleared and saved.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10847"></span>10847</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10848"></span>10848</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">The 'length' is saved briefly.</td>
+<td class="comment-1" rowspan="1">The 'length' is saved briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10849"></span>10849</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,1</td>
-<td class="comment-11" rowspan="1">Presume that the 'slice' is to begin with the first character.</td>
+<td class="comment-1" rowspan="1">Presume that the 'slice' is to begin with the first character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10852"></span>10852</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="24.html">24</a></td>
-<td class="comment-11" rowspan="1">Get the first character.</td>
+<td class="comment-1" rowspan="1">Get the first character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10853"></span>10853</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Pass the 'length' to <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="1">Pass the 'length' to <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -168,95 +152,80 @@ The first parameter of the 'slice' is now evaluated.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10854"></span>10854</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 204</td>
-<td class="comment-11" rowspan="1">Is the present character a 'TO'?</td>
+<td class="comment-1" rowspan="1">Is the present character a 'TO'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10856"></span>10856</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="10834.html#10881">SL_SECOND</a></td>
-<td class="comment-11" rowspan="1">The first parameter, by default, will be '1' if the jump is taken.</td>
+<td class="comment-1" rowspan="1">The first parameter, by default, will be '1' if the jump is taken.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10858"></span>10858</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="1">At this stage <span class="register">A</span> is zero.</td>
+<td class="comment-1" rowspan="1">At this stage <span class="register">A</span> is zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10859"></span>10859</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="10956.html#10957">INT_EXP2</a></td>
-<td class="comment-11" rowspan="1"><span class="register">BC</span> is made to hold the first parameter. <span class="register">A</span> will hold 255 if there has been an 'out of range' error.</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span> is made to hold the first parameter. <span class="register">A</span> will hold 255 if there has been an 'out of range' error.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10862"></span>10862</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1">Save the value anyway.</td>
+<td class="comment-1" rowspan="1">Save the value anyway.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10863"></span>10863</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,B</td>
-<td class="comment-11" rowspan="2">Transfer the first parameter to <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="2">Transfer the first parameter to <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10864"></span>10864</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10865"></span>10865</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the 'length' briefly.</td>
+<td class="comment-1" rowspan="1">Save the 'length' briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10866"></span>10866</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="24.html">24</a></td>
-<td class="comment-11" rowspan="1">Get the present character.</td>
+<td class="comment-1" rowspan="1">Get the present character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10867"></span>10867</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Restore the 'length'.</td>
+<td class="comment-1" rowspan="1">Restore the 'length'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10868"></span>10868</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 204</td>
-<td class="comment-11" rowspan="1">Is the present character a 'TO'?</td>
+<td class="comment-1" rowspan="1">Is the present character a 'TO'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10870"></span>10870</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="10834.html#10881">SL_SECOND</a></td>
-<td class="comment-11" rowspan="2">Jump forward to consider the second parameter if it is so; otherwise show that there is a closing bracket.</td>
+<td class="comment-1" rowspan="2">Jump forward to consider the second parameter if it is so; otherwise show that there is a closing bracket.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10872"></span>10872</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -269,11 +238,10 @@ This entry point is used by the routine at <a href="10646.html">STK_VAR</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SL_RPT_C</td>
+<td class="asm-label">SL_RPT_C</td>
 <td class="address-2"><span id="10874"></span>10874</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP NZ,<a href="7289.html#7306">REPORT_C</a></td>
-<td class="comment-11" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -286,25 +254,21 @@ At this point a 'slice' of a single character has been identified. e.g. A$(4).
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10877"></span>10877</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD H,D</td>
-<td class="comment-11" rowspan="2">The last character of the 'slice' is also the first character.</td>
+<td class="comment-1" rowspan="2">The last character of the 'slice' is also the first character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10878"></span>10878</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD L,E</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10879"></span>10879</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="10834.html#10900">SL_DEFINE</a></td>
-<td class="comment-11" rowspan="1">Jump forward.</td>
+<td class="comment-1" rowspan="1">Jump forward.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -317,95 +281,80 @@ The second parameter of a 'slice' is now evaluated.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SL_SECOND</td>
+<td class="asm-label">SL_SECOND</td>
 <td class="address-2"><span id="10881"></span>10881</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the 'length' briefly.</td>
+<td class="comment-1" rowspan="1">Save the 'length' briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10882"></span>10882</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="32.html">32</a></td>
-<td class="comment-11" rowspan="1">Get the next character.</td>
+<td class="comment-1" rowspan="1">Get the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10883"></span>10883</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Restore the 'length'.</td>
+<td class="comment-1" rowspan="1">Restore the 'length'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10884"></span>10884</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
-<td class="comment-11" rowspan="1">Is the present character a ')'?</td>
+<td class="comment-1" rowspan="1">Is the present character a ')'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10886"></span>10886</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="10834.html#10900">SL_DEFINE</a></td>
-<td class="comment-11" rowspan="1">Jump if there is not a second parameter.</td>
+<td class="comment-1" rowspan="1">Jump if there is not a second parameter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10888"></span>10888</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="1">If the first parameter was in range <span class="register">A</span> will hold zero, otherwise 255.</td>
+<td class="comment-1" rowspan="1">If the first parameter was in range <span class="register">A</span> will hold zero, otherwise 255.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10889"></span>10889</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="10956.html#10957">INT_EXP2</a></td>
-<td class="comment-11" rowspan="1">Make <span class="register">BC</span> hold the second parameter.</td>
+<td class="comment-1" rowspan="1">Make <span class="register">BC</span> hold the second parameter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10892"></span>10892</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1">Save the 'error register'.</td>
+<td class="comment-1" rowspan="1">Save the 'error register'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10893"></span>10893</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="24.html">24</a></td>
-<td class="comment-11" rowspan="1">Get the present character.</td>
+<td class="comment-1" rowspan="1">Get the present character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10894"></span>10894</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD H,B</td>
-<td class="comment-11" rowspan="2">Pass the result obtained from <a href="10956.html#10957">INT_EXP2</a> to the <span class="register">HL</span> register pair.</td>
+<td class="comment-1" rowspan="2">Pass the result obtained from <a href="10956.html#10957">INT_EXP2</a> to the <span class="register">HL</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10895"></span>10895</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD L,C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10896"></span>10896</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
-<td class="comment-11" rowspan="2">Check that there is a closing bracket now.</td>
+<td class="comment-1" rowspan="2">Check that there is a closing bracket now.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10898"></span>10898</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="10834.html#10874">SL_RPT_C</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -418,143 +367,126 @@ The 'new' parameters are now defined.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SL_DEFINE</td>
+<td class="asm-label">SL_DEFINE</td>
 <td class="address-2"><span id="10900"></span>10900</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="1">Fetch the 'error register'.</td>
+<td class="comment-1" rowspan="1">Fetch the 'error register'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10901"></span>10901</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-11" rowspan="1">The second parameter goes on the stack and the 'start' goes to <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="1">The second parameter goes on the stack and the 'start' goes to <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10902"></span>10902</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-11" rowspan="1">The first parameter is added to the 'start'.</td>
+<td class="comment-1" rowspan="1">The first parameter is added to the 'start'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10903"></span>10903</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="1">Go back a location to get it correct.</td>
+<td class="comment-1" rowspan="1">Go back a location to get it correct.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10904"></span>10904</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-11" rowspan="1">The 'new start' goes on the stack and the second parameter goes to <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="1">The 'new start' goes on the stack and the second parameter goes to <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10905"></span>10905</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="2">Subtract the first parameters from the second to find the length of the 'slice'.</td>
+<td class="comment-1" rowspan="2">Subtract the first parameters from the second to find the length of the 'slice'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10906"></span>10906</td>
-<td class="bytes-0"></td>
 <td class="instruction">SBC HL,DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10908"></span>10908</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD BC,0</td>
-<td class="comment-11" rowspan="1">Initialise the 'new length'.</td>
+<td class="comment-1" rowspan="1">Initialise the 'new length'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10911"></span>10911</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="10834.html#10920">SL_OVER</a></td>
-<td class="comment-11" rowspan="1">A negative 'slice' is a 'null string' rather than an error condition.</td>
+<td class="comment-1" rowspan="1">A negative 'slice' is a 'null string' rather than an error condition.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10913"></span>10913</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Allow for the inclusive byte.</td>
+<td class="comment-1" rowspan="1">Allow for the inclusive byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10914"></span>10914</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="1">Only now test the 'error register'.</td>
+<td class="comment-1" rowspan="1">Only now test the 'error register'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10915"></span>10915</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP M,<a href="10646.html#10784">REPORT_3</a></td>
-<td class="comment-11" rowspan="1">Jump if either parameter was out of range for the string.</td>
+<td class="comment-1" rowspan="1">Jump if either parameter was out of range for the string.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10918"></span>10918</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,H</td>
-<td class="comment-11" rowspan="2">Transfer the 'new length' to <span class="register">BC</span>.</td>
+<td class="comment-1" rowspan="2">Transfer the 'new length' to <span class="register">BC</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10919"></span>10919</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">SL_OVER</td>
+<td class="asm-label">SL_OVER</td>
 <td class="address-2"><span id="10920"></span>10920</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="1">Get the 'new start'.</td>
+<td class="comment-1" rowspan="1">Get the 'new start'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10921"></span>10921</td>
-<td class="bytes-0"></td>
 <td class="instruction">RES 6,(IY+1)</td>
-<td class="comment-11" rowspan="1">Ensure that a string is still indicated (reset bit 6 of <a href="23611.html">FLAGS</a>).</td>
+<td class="comment-1" rowspan="1">Ensure that a string is still indicated (reset bit 6 of <a href="23611.html">FLAGS</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1">SL_STORE</td>
+<td class="asm-label">SL_STORE</td>
 <td class="address-2"><span id="10925"></span>10925</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="9520.html">SYNTAX_Z</a></td>
-<td class="comment-11" rowspan="2">Return at this point if checking syntax; otherwise continue into <a href="10929.html">STK_ST_0</a>.</td>
+<td class="comment-1" rowspan="2">Return at this point if checking syntax; otherwise continue into <a href="10929.html">STK_ST_0</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="10928"></span>10928</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="10646.html">10646</a></span></td>
+<td class="prev">
+Prev: <a href="10646.html">10646</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#10834">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="10929.html">10929</a></span></td>
+<td class="next">
+Next: <a href="10929.html">10929</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/2A52.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

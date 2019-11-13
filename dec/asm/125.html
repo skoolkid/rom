@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 00125</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="116.html">00116</a></span></td>
+<td class="prev">
+Prev: <a href="116.html">00116</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#125">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="149.html">00149</a></span></td>
+<td class="next">
+Next: <a href="149.html">00149</a>
+</td>
 </tr>
 </table>
 <div class="description">00125: THE 'SKIP-OVER' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routine at <a href="24.html">GET_CHAR</a>.
 The value brought to the subroutine in the <span class="register">A</span> register is tested to see if it is printable. Various special codes lead to <span class="register">HL</span> being incremented once or twice, and <a href="23645.html">CH-ADD</a> amended accordingly.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,138 +44,112 @@ The value brought to the subroutine in the <span class="register">A</span> regis
 <td class="register-desc">Character code</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SKIP_OVER</td>
+<td class="asm-label">SKIP_OVER</td>
 <td class="address-2"><span id="125"></span>00125</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 33</td>
-<td class="comment-11" rowspan="2">Return with the carry flag reset if ordinary character code.</td>
+<td class="comment-1" rowspan="2">Return with the carry flag reset if ordinary character code.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="127"></span>00127</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="128"></span>00128</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 13</td>
-<td class="comment-11" rowspan="2">Return if the end of the line has been reached.</td>
+<td class="comment-1" rowspan="2">Return if the end of the line has been reached.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="130"></span>00130</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="131"></span>00131</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 16</td>
-<td class="comment-11" rowspan="2">Return with codes 0 to 15 but with carry set.</td>
+<td class="comment-1" rowspan="2">Return with codes 0 to 15 but with carry set.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="133"></span>00133</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="134"></span>00134</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 24</td>
-<td class="comment-11" rowspan="3">Return with codes 24 to 32 again with carry set.</td>
+<td class="comment-1" rowspan="3">Return with codes 24 to 32 again with carry set.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="136"></span>00136</td>
-<td class="bytes-0"></td>
 <td class="instruction">CCF</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="137"></span>00137</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="138"></span>00138</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Skip over once.</td>
+<td class="comment-1" rowspan="1">Skip over once.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="139"></span>00139</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 22</td>
-<td class="comment-11" rowspan="2">Jump forward with codes 16 to 21 (INK to OVER).</td>
+<td class="comment-1" rowspan="2">Jump forward with codes 16 to 21 (INK to OVER).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="141"></span>00141</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="125.html#144">SKIPS</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="143"></span>00143</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Skip over once more (AT and TAB).</td>
+<td class="comment-1" rowspan="1">Skip over once more (AT and TAB).</td>
 </tr>
 <tr>
-<td class="asm-label-1">SKIPS</td>
+<td class="asm-label">SKIPS</td>
 <td class="address-2"><span id="144"></span>00144</td>
-<td class="bytes-0"></td>
 <td class="instruction">SCF</td>
-<td class="comment-11" rowspan="3">Return with the carry flag set and <a href="23645.html">CH-ADD</a> holding the appropriate address.</td>
+<td class="comment-1" rowspan="3">Return with the carry flag set and <a href="23645.html">CH-ADD</a> holding the appropriate address.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="145"></span>00145</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23645),HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="148"></span>00148</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="116.html">00116</a></span></td>
+<td class="prev">
+Prev: <a href="116.html">00116</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#125">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="149.html">00149</a></span></td>
+<td class="next">
+Next: <a href="149.html">00149</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/007D.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

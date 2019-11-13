@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 05981</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="5942.html">05942</a></span></td>
+<td class="prev">
+Prev: <a href="5942.html">05942</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#5981">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="6010.html">06010</a></span></td>
+<td class="next">
+Next: <a href="6010.html">06010</a>
+</td>
 </tr>
 </table>
 <div class="description">05981: THE 'OPEN-2' SUBROUTINE</div>
@@ -32,54 +35,35 @@ Used by the routine at <a href="5942.html">OPEN</a>.
 The appropriate stream data bytes for the channel that is associated with the stream being opened are found.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">OPEN_2</td>
+<td class="asm-label">OPEN_2</td>
 <td class="address-2"><span id="5981"></span>05981</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="1">Save <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5982"></span>05982</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="11249.html">STK_FETCH</a></td>
-<td class="comment-11" rowspan="1">Fetch the parameters of the channel code.</td>
+<td class="comment-1" rowspan="1">Fetch the parameters of the channel code.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5985"></span>05985</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-11" rowspan="3">Give an error if the expression supplied is a null expression, e.g. OPEN #5,"".</td>
+<td class="comment-1" rowspan="3">Give an error if the expression supplied is a null expression, e.g. OPEN #5,"".</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5986"></span>05986</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5987"></span>05987</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="5981.html#5991">OPEN_3</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -95,18 +79,15 @@ Report F - Invalid file name.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">REPORT_F</td>
+<td class="asm-label">REPORT_F</td>
 <td class="address-2"><span id="5989"></span>05989</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="8.html">8</a></td>
-<td class="comment-11" rowspan="2">Call the error handling routine.</td>
+<td class="comment-1" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5990"></span>05990</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 14</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -119,101 +100,91 @@ Continue if no error occurred.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">OPEN_3</td>
+<td class="asm-label">OPEN_3</td>
 <td class="address-2"><span id="5991"></span>05991</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">The length of the expression is saved.</td>
+<td class="comment-1" rowspan="1">The length of the expression is saved.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5992"></span>05992</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-11" rowspan="1">Fetch the first character.</td>
+<td class="comment-1" rowspan="1">Fetch the first character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5993"></span>05993</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND 223</td>
-<td class="comment-11" rowspan="1">Convert lower case codes to upper case ones.</td>
+<td class="comment-1" rowspan="1">Convert lower case codes to upper case ones.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5995"></span>05995</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
-<td class="comment-11" rowspan="1">Move code to the <span class="register">C</span> register.</td>
+<td class="comment-1" rowspan="1">Move code to the <span class="register">C</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5996"></span>05996</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,6010</td>
-<td class="comment-11" rowspan="1">The base address of the <a href="6010.html">OPEN stream look-up table</a>.</td>
+<td class="comment-1" rowspan="1">The base address of the <a href="6010.html">OPEN stream look-up table</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5999"></span>05999</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="5851.html#5852">INDEXER</a></td>
-<td class="comment-11" rowspan="1">Index into this table and locate the required offset.</td>
+<td class="comment-1" rowspan="1">Index into this table and locate the required offset.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6002"></span>06002</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="5981.html#5989">REPORT_F</a></td>
-<td class="comment-11" rowspan="1">Jump back if not found.</td>
+<td class="comment-1" rowspan="1">Jump back if not found.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6004"></span>06004</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-11" rowspan="2">Pass the offset to the <span class="register">BC</span> register pair.</td>
+<td class="comment-1" rowspan="2">Pass the offset to the <span class="register">BC</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6005"></span>06005</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,0</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6007"></span>06007</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-11" rowspan="1">Make <span class="register">HL</span> point to the start of the appropriate subroutine.</td>
+<td class="comment-1" rowspan="1">Make <span class="register">HL</span> point to the start of the appropriate subroutine.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6008"></span>06008</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="2">Fetch the length of the expression before jumping to the subroutine.</td>
+<td class="comment-1" rowspan="2">Fetch the length of the expression before jumping to the subroutine.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6009"></span>06009</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP (HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="5942.html">05942</a></span></td>
+<td class="prev">
+Prev: <a href="5942.html">05942</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#5981">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="6010.html">06010</a></span></td>
+<td class="next">
+Next: <a href="6010.html">06010</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/175D.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

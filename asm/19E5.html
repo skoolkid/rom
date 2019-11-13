@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 19E5</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="19DD.html">19DD</a></span></td>
+<td class="prev">
+Prev: <a href="19DD.html">19DD</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#19E5">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="19FB.html">19FB</a></span></td>
+<td class="next">
+Next: <a href="19FB.html">19FB</a>
+</td>
 </tr>
 </table>
 <div class="description">19E5: THE 'RECLAIMING' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routines at <a href="0808.html">LD_CONTRL</a>, <a href="1097.html">C
 The main entry point is used when the address of the first location to be reclaimed is in the <span class="register">DE</span> register pair and the address of the first location to be left alone is in the <span class="register">HL</span> register pair. The entry point <a href="19E5.html#19E8">RECLAIM_2</a> is used when the <span class="register">HL</span> register pair points to the first location to be reclaimed and the <span class="register">BC</span> register pair holds the number of bytes that are to be reclaimed.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -45,7 +48,7 @@ The main entry point is used when the address of the first location to be reclai
 <td class="register-desc">One past the end address of the area to reclaim</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -57,11 +60,10 @@ The main entry point is used when the address of the first location to be reclai
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">RECLAIM_1</td>
+<td class="asm-label">RECLAIM_1</td>
 <td class="address-2"><span id="19E5"></span>19E5</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="19DD.html">DIFFER</a></td>
-<td class="comment-11" rowspan="1">Use the 'difference' subroutine to develop the appropriate values.</td>
+<td class="comment-1" rowspan="1">Use the 'difference' subroutine to develop the appropriate values.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -74,129 +76,106 @@ This entry point is used by the routines at <a href="0808.html">LD_CONTRL</a>, <
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">RECLAIM_2</td>
+<td class="asm-label">RECLAIM_2</td>
 <td class="address-2"><span id="19E8"></span>19E8</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">Save the number of bytes to be reclaimed.</td>
+<td class="comment-1" rowspan="1">Save the number of bytes to be reclaimed.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="19E9"></span>19E9</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-11" rowspan="8">All the system variable pointers above the area have to be reduced by <span class="register">BC</span>, so this number is 2's complemented before the pointers are altered.</td>
+<td class="comment-1" rowspan="8">All the system variable pointers above the area have to be reduced by <span class="register">BC</span>, so this number is 2's complemented before the pointers are altered.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="19EA"></span>19EA</td>
-<td class="bytes-0"></td>
 <td class="instruction">CPL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="19EB"></span>19EB</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="19EC"></span>19EC</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="19ED"></span>19ED</td>
-<td class="bytes-0"></td>
 <td class="instruction">CPL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="19EE"></span>19EE</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="19EF"></span>19EF</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="19F0"></span>19F0</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1664.html">POINTERS</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="19F3"></span>19F3</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="3">Return the 'first location' address to the <span class="register">DE</span> register pair and form the address of the first location to the left.</td>
+<td class="comment-1" rowspan="3">Return the 'first location' address to the <span class="register">DE</span> register pair and form the address of the first location to the left.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="19F4"></span>19F4</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="19F5"></span>19F5</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="19F6"></span>19F6</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-11" rowspan="3">Save the 'first location' whilst the actual reclamation occurs.</td>
+<td class="comment-1" rowspan="3">Save the 'first location' whilst the actual reclamation occurs.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="19F7"></span>19F7</td>
-<td class="bytes-0"></td>
 <td class="instruction">LDIR</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="19F9"></span>19F9</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="19FA"></span>19FA</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Now return.</td>
+<td class="comment-1" rowspan="1">Now return.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="19DD.html">19DD</a></span></td>
+<td class="prev">
+Prev: <a href="19DD.html">19DD</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#19E5">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="19FB.html">19FB</a></span></td>
+<td class="next">
+Next: <a href="19FB.html">19FB</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/6629.html">Switch to decimal</a>.</div>
 </footer>
 </body>

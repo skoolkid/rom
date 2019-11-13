@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 13327</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="13318.html">13318</a></span></td>
+<td class="prev">
+Prev: <a href="13318.html">13318</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#13327">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="13339.html">13339</a></span></td>
+<td class="next">
+Next: <a href="13339.html">13339</a>
+</td>
 </tr>
 </table>
 <div class="description">13327: THE 'GET FROM MEMORY AREA' SUBROUTINE (offset 65)</div>
@@ -32,7 +35,7 @@ The address of this routine is found in the <a href="13015.html">table of addres
 This subroutine is called using the literals 224 to 229 and the parameter derived from these literals is held in the <span class="register">A</span> register. The subroutine calls <a href="13318.html">LOC_MEM</a> to put the required source address into the <span class="register">HL</span> register pair and <a href="13248.html">duplicate</a> to copy the five bytes involved from the calculator's memory area to the top of the calculator stack to form a new 'last value'.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -45,7 +48,7 @@ This subroutine is called using the literals 224 to 229 and the parameter derive
 <td class="register-desc">Destination address</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -57,59 +60,57 @@ This subroutine is called using the literals 224 to 229 and the parameter derive
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">get_mem</td>
+<td class="asm-label">get_mem</td>
 <td class="address-2"><span id="13327"></span>13327</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-11" rowspan="1">Save the result pointer.</td>
+<td class="comment-1" rowspan="1">Save the result pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13328"></span>13328</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23656)</td>
-<td class="comment-11" rowspan="1">Fetch the pointer to the current memory area (<a href="23656.html">MEM</a>).</td>
+<td class="comment-1" rowspan="1">Fetch the pointer to the current memory area (<a href="23656.html">MEM</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13331"></span>13331</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="13318.html">LOC_MEM</a></td>
-<td class="comment-11" rowspan="1">The base address is found.</td>
+<td class="comment-1" rowspan="1">The base address is found.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13334"></span>13334</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="13248.html">duplicate</a></td>
-<td class="comment-11" rowspan="1">The five bytes are moved.</td>
+<td class="comment-1" rowspan="1">The five bytes are moved.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13337"></span>13337</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Set the result pointer.</td>
+<td class="comment-1" rowspan="1">Set the result pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13338"></span>13338</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished.</td>
+<td class="comment-1" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="13318.html">13318</a></span></td>
+<td class="prev">
+Prev: <a href="13318.html">13318</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#13327">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="13339.html">13339</a></span></td>
+<td class="next">
+Next: <a href="13339.html">13339</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/340F.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

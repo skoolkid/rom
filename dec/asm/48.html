@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 00048</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="43.html">00043</a></span></td>
+<td class="prev">
+Prev: <a href="43.html">00043</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#48">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="56.html">00056</a></span></td>
+<td class="next">
+Next: <a href="56.html">00056</a>
+</td>
 </tr>
 </table>
 <div class="description">00048: THE 'MAKE BC SPACES' RESTART</div>
@@ -32,7 +35,7 @@ Used by the routines at <a href="1541.html">SAVE_ETC</a>, <a href="2230.html">ME
 This routine creates free locations in the work space.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,7 +44,7 @@ This routine creates free locations in the work space.
 <td class="register-desc">Number of free locations to create</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -57,45 +60,43 @@ This routine creates free locations in the work space.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">BC_SPACES</td>
+<td class="asm-label">BC_SPACES</td>
 <td class="address-2"><span id="48"></span>00048</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">Save the 'number'.</td>
+<td class="comment-1" rowspan="1">Save the 'number'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49"></span>00049</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23649)</td>
-<td class="comment-11" rowspan="3">Fetch the present address of the start of the work space (<a href="23649.html">WORKSP</a>) and save that also before proceeding.</td>
+<td class="comment-1" rowspan="3">Fetch the present address of the start of the work space (<a href="23649.html">WORKSP</a>) and save that also before proceeding.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="52"></span>00052</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="53"></span>00053</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="5790.html">RESERVE</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="43.html">00043</a></span></td>
+<td class="prev">
+Prev: <a href="43.html">00043</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#48">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="56.html">00056</a></span></td>
+<td class="next">
+Next: <a href="56.html">00056</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/0030.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 1980</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="196E.html">196E</a></span></td>
+<td class="prev">
+Prev: <a href="196E.html">196E</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1980">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1988.html">1988</a></span></td>
+<td class="next">
+Next: <a href="1988.html">1988</a>
+</td>
 </tr>
 </table>
 <div class="description">1980: THE 'COMPARE LINE NUMBERS' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routines at <a href="1855.html">OUT_LINE</a> and <a href="196E.html"
 The given line number in the <span class="register">BC</span> register pair is matched against the addressed line number.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -45,7 +48,7 @@ The given line number in the <span class="register">BC</span> register pair is m
 <td class="register-desc">Address of the second line number</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -61,73 +64,65 @@ The given line number in the <span class="register">BC</span> register pair is m
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">CP_LINES</td>
+<td class="asm-label">CP_LINES</td>
 <td class="address-2"><span id="1980"></span>1980</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="2">Fetch the high byte of the addressed line number and compare it.</td>
+<td class="comment-1" rowspan="2">Fetch the high byte of the addressed line number and compare it.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1981"></span>1981</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP B</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1982"></span>1982</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NZ</td>
-<td class="comment-11" rowspan="1">Return if they do not match.</td>
+<td class="comment-1" rowspan="1">Return if they do not match.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1983"></span>1983</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="4">Next compare the low bytes.</td>
+<td class="comment-1" rowspan="4">Next compare the low bytes.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1984"></span>1984</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1985"></span>1985</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1986"></span>1986</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1987"></span>1987</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Return with the carry flag set if the addressed line number has yet to reach the given line number.</td>
+<td class="comment-1" rowspan="1">Return with the carry flag set if the addressed line number has yet to reach the given line number.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="196E.html">196E</a></span></td>
+<td class="prev">
+Prev: <a href="196E.html">196E</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1980">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1988.html">1988</a></span></td>
+<td class="next">
+Next: <a href="1988.html">1988</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/6528.html">Switch to decimal</a>.</div>
 </footer>
 </body>

@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 2045</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1FFC.html">1FFC</a></span></td>
+<td class="prev">
+Prev: <a href="1FFC.html">1FFC</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2045">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="204E.html">204E</a></span></td>
+<td class="next">
+Next: <a href="204E.html">204E</a>
+</td>
 </tr>
 </table>
 <div class="description">2045: THE 'END OF PRINTING' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routines at <a href="1FDF.html">PRINT_2</a> and <a href="204E.html">
 The zero flag will be set if no further printing is to be done.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,7 +44,7 @@ The zero flag will be set if no further printing is to be done.
 <td class="register-desc">Code of the current character</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -53,18 +56,15 @@ The zero flag will be set if no further printing is to be done.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PR_END_Z</td>
+<td class="asm-label">PR_END_Z</td>
 <td class="address-2"><span id="2045"></span>2045</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
-<td class="comment-11" rowspan="2">Return now if the character is a ')'.</td>
+<td class="comment-1" rowspan="2">Return now if the character is a ')'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2047"></span>2047</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -77,45 +77,43 @@ This entry point is used by the routine at <a href="0605.html">SAVE_ETC</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PR_ST_END</td>
+<td class="asm-label">PR_ST_END</td>
 <td class="address-2"><span id="2048"></span>2048</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $0D</td>
-<td class="comment-11" rowspan="2">Return now if the character is a 'carriage return'.</td>
+<td class="comment-1" rowspan="2">Return now if the character is a 'carriage return'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="204A"></span>204A</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="204B"></span>204B</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ":"</td>
-<td class="comment-11" rowspan="2">Make a final test against ':' before returning.</td>
+<td class="comment-1" rowspan="2">Make a final test against ':' before returning.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="204D"></span>204D</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1FFC.html">1FFC</a></span></td>
+<td class="prev">
+Prev: <a href="1FFC.html">1FFC</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2045">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="204E.html">204E</a></span></td>
+<td class="next">
+Next: <a href="204E.html">204E</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/8261.html">Switch to decimal</a>.</div>
 </footer>
 </body>

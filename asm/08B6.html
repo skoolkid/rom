@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 08B6</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="0808.html">0808</a></span></td>
+<td class="prev">
+Prev: <a href="0808.html">0808</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#08B6">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="092C.html">092C</a></span></td>
+<td class="next">
+Next: <a href="092C.html">092C</a>
+</td>
 </tr>
 </table>
 <div class="description">08B6: THE 'MERGE' CONTROL ROUTINE</div>
@@ -42,7 +45,7 @@ There are three main parts to this routine.
 Start therefore with the loading of the data block.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -51,111 +54,88 @@ Start therefore with the loading of the data block.
 <td class="register-desc">Address of the header loaded from tape</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">ME_CONTRL</td>
+<td class="asm-label">ME_CONTRL</td>
 <td class="address-2"><span id="08B6"></span>08B6</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,(IX+$0B)</td>
-<td class="comment-11" rowspan="2">Fetch the 'length' of the data block.</td>
+<td class="comment-1" rowspan="2">Fetch the 'length' of the data block.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08B9"></span>08B9</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,(IX+$0C)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08BC"></span>08BC</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">Save a copy of the 'length'.</td>
+<td class="comment-1" rowspan="1">Save a copy of the 'length'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08BD"></span>08BD</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
-<td class="comment-11" rowspan="2">Now make 'length+1' locations available in the work space.</td>
+<td class="comment-1" rowspan="2">Now make 'length+1' locations available in the work space.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08BE"></span>08BE</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0030.html">$30</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08BF"></span>08BF</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),$80</td>
-<td class="comment-11" rowspan="1">Place an end marker in the extra location.</td>
+<td class="comment-1" rowspan="1">Place an end marker in the extra location.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08C1"></span>08C1</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Move the 'start' pointer to the <span class="register">HL</span> register pair.</td>
+<td class="comment-1" rowspan="1">Move the 'start' pointer to the <span class="register">HL</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08C2"></span>08C2</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="1">Fetch the original 'length'.</td>
+<td class="comment-1" rowspan="1">Fetch the original 'length'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08C3"></span>08C3</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save a copy of the 'start'.</td>
+<td class="comment-1" rowspan="1">Save a copy of the 'start'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08C4"></span>08C4</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="2">Now set the <span class="register">IX</span> register pair for the actual load.</td>
+<td class="comment-1" rowspan="2">Now set the <span class="register">IX</span> register pair for the actual load.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08C5"></span>08C5</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP IX</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08C7"></span>08C7</td>
-<td class="bytes-0"></td>
 <td class="instruction">SCF</td>
-<td class="comment-11" rowspan="1">Signal 'LOAD'.</td>
+<td class="comment-1" rowspan="1">Signal 'LOAD'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08C8"></span>08C8</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,$FF</td>
-<td class="comment-11" rowspan="1">Signal 'data block only'.</td>
+<td class="comment-1" rowspan="1">Signal 'data block only'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08CA"></span>08CA</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="0802.html">LD_BLOCK</a></td>
-<td class="comment-11" rowspan="1">Load the data block.</td>
+<td class="comment-1" rowspan="1">Load the data block.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -168,18 +148,16 @@ The lines of the new program are merged with the lines of the old program.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08CD"></span>08CD</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Fetch the 'start' of the new program.</td>
+<td class="comment-1" rowspan="1">Fetch the 'start' of the new program.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08CE"></span>08CE</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,($5C53)</td>
-<td class="comment-11" rowspan="1">Initialise <span class="register">DE</span> to the 'start' of the old program (<a href="5C53.html">PROG</a>).</td>
+<td class="comment-1" rowspan="1">Initialise <span class="register">DE</span> to the 'start' of the old program (<a href="5C53.html">PROG</a>).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -192,25 +170,21 @@ Enter a loop to deal with the lines of the new program.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">ME_NEW_LP</td>
+<td class="asm-label">ME_NEW_LP</td>
 <td class="address-2"><span id="08D2"></span>08D2</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="2">Fetch a line number and test it.</td>
+<td class="comment-1" rowspan="2">Fetch a line number and test it.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08D3"></span>08D3</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND $C0</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08D5"></span>08D5</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="08B6.html#08F0">ME_VAR_LP</a></td>
-<td class="comment-11" rowspan="1">Jump when finished with all the lines.</td>
+<td class="comment-1" rowspan="1">Jump when finished with all the lines.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -223,123 +197,96 @@ Now enter an inner loop to deal with the lines of the old program.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">ME_OLD_LP</td>
+<td class="asm-label">ME_OLD_LP</td>
 <td class="address-2"><span id="08D7"></span>08D7</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-11" rowspan="5">Fetch the high line number byte and compare it. Jump forward if it does not match but in any case advance both pointers.</td>
+<td class="comment-1" rowspan="5">Fetch the high line number byte and compare it. Jump forward if it does not match but in any case advance both pointers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08D8"></span>08D8</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08D9"></span>08D9</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP (HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08DA"></span>08DA</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08DB"></span>08DB</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="08B6.html#08DF">ME_OLD_L1</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08DD"></span>08DD</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-11" rowspan="2">Repeat the comparison for the low line number bytes.</td>
+<td class="comment-1" rowspan="2">Repeat the comparison for the low line number bytes.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08DE"></span>08DE</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP (HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">ME_OLD_L1</td>
+<td class="asm-label">ME_OLD_L1</td>
 <td class="address-2"><span id="08DF"></span>08DF</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC DE</td>
-<td class="comment-11" rowspan="2">Now retreat the pointers.</td>
+<td class="comment-1" rowspan="2">Now retreat the pointers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08E0"></span>08E0</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08E1"></span>08E1</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="08B6.html#08EB">ME_NEW_L2</a></td>
-<td class="comment-11" rowspan="1">Jump forward if the correct place has been found for a line of the new program.</td>
+<td class="comment-1" rowspan="1">Jump forward if the correct place has been found for a line of the new program.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08E3"></span>08E3</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="4">Otherwise find the address of the start of the next old line.</td>
+<td class="comment-1" rowspan="4">Otherwise find the address of the start of the next old line.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08E4"></span>08E4</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08E5"></span>08E5</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="19B8.html">NEXT_ONE</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08E8"></span>08E8</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08E9"></span>08E9</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="08B6.html#08D7">ME_OLD_LP</a></td>
-<td class="comment-11" rowspan="1">Go round the loop for each of the 'old lines'.</td>
+<td class="comment-1" rowspan="1">Go round the loop for each of the 'old lines'.</td>
 </tr>
 <tr>
-<td class="asm-label-1">ME_NEW_L2</td>
+<td class="asm-label">ME_NEW_L2</td>
 <td class="address-2"><span id="08EB"></span>08EB</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="092C.html">ME_ENTER</a></td>
-<td class="comment-11" rowspan="2">Enter the 'new line' and go round the outer loop again.</td>
+<td class="comment-1" rowspan="2">Enter the 'new line' and go round the outer loop again.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08EE"></span>08EE</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="08B6.html#08D2">ME_NEW_LP</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -352,46 +299,38 @@ In a similar manner the variables of the new program are merged with the variabl
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">ME_VAR_LP</td>
+<td class="asm-label">ME_VAR_LP</td>
 <td class="address-2"><span id="08F0"></span>08F0</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="2">Fetch each variable name in turn and test it.</td>
+<td class="comment-1" rowspan="2">Fetch each variable name in turn and test it.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08F1"></span>08F1</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08F2"></span>08F2</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $80</td>
-<td class="comment-11" rowspan="2">Return when all the variables have been considered.</td>
+<td class="comment-1" rowspan="2">Return when all the variables have been considered.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08F4"></span>08F4</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08F5"></span>08F5</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the current new pointer.</td>
+<td class="comment-1" rowspan="1">Save the current new pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08F6"></span>08F6</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C4B)</td>
-<td class="comment-11" rowspan="1">Fetch <a href="5C4B.html">VARS</a> (for the old program).</td>
+<td class="comment-1" rowspan="1">Fetch <a href="5C4B.html">VARS</a> (for the old program).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -404,74 +343,60 @@ Now enter an inner loop to search the existing variables area.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">ME_OLD_VP</td>
+<td class="asm-label">ME_OLD_VP</td>
 <td class="address-2"><span id="08F9"></span>08F9</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="2">Fetch each variable name and test it.</td>
+<td class="comment-1" rowspan="2">Fetch each variable name and test it.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08FA"></span>08FA</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $80</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08FC"></span>08FC</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="08B6.html#0923">ME_VAR_L2</a></td>
-<td class="comment-11" rowspan="1">Jump forward once the end marker is found. (Make an 'addition'.)</td>
+<td class="comment-1" rowspan="1">Jump forward once the end marker is found. (Make an 'addition'.)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08FE"></span>08FE</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP C</td>
-<td class="comment-11" rowspan="1">Compare the names (first bytes).</td>
+<td class="comment-1" rowspan="1">Compare the names (first bytes).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="08FF"></span>08FF</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="08B6.html#0909">ME_OLD_V2</a></td>
-<td class="comment-11" rowspan="1">Jump forward to consider it further, returning here if it proves not to match fully.</td>
+<td class="comment-1" rowspan="1">Jump forward to consider it further, returning here if it proves not to match fully.</td>
 </tr>
 <tr>
-<td class="asm-label-1">ME_OLD_V1</td>
+<td class="asm-label">ME_OLD_V1</td>
 <td class="address-2"><span id="0901"></span>0901</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="3">Save the new variable's name whilst the next 'old variable' is located.</td>
+<td class="comment-1" rowspan="3">Save the new variable's name whilst the next 'old variable' is located.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0902"></span>0902</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="19B8.html">NEXT_ONE</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0905"></span>0905</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0906"></span>0906</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="2">Restore the pointer to the <span class="register">DE</span> register pair and go round the loop again.</td>
+<td class="comment-1" rowspan="2">Restore the pointer to the <span class="register">DE</span> register pair and go round the loop again.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0907"></span>0907</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="08B6.html#08F9">ME_OLD_VP</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -484,46 +409,38 @@ The old and new variables match with respect to their first bytes but variables 
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">ME_OLD_V2</td>
+<td class="asm-label">ME_OLD_V2</td>
 <td class="address-2"><span id="0909"></span>0909</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND $E0</td>
-<td class="comment-11" rowspan="1">Consider bits 7, 6 and 5 only.</td>
+<td class="comment-1" rowspan="1">Consider bits 7, 6 and 5 only.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="090B"></span>090B</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $A0</td>
-<td class="comment-11" rowspan="2">Accept all the variable types except 'long named variables'.</td>
+<td class="comment-1" rowspan="2">Accept all the variable types except 'long named variables'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="090D"></span>090D</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="08B6.html#0921">ME_VAR_L1</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="090F"></span>090F</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="2">Make <span class="register">DE</span> point to the first character of the 'new name'.</td>
+<td class="comment-1" rowspan="2">Make <span class="register">DE</span> point to the first character of the 'new name'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0910"></span>0910</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0911"></span>0911</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the pointer to the 'old name'.</td>
+<td class="comment-1" rowspan="1">Save the pointer to the 'old name'.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -536,81 +453,65 @@ Enter a loop to compare the letters of the long names.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">ME_OLD_V3</td>
+<td class="asm-label">ME_OLD_V3</td>
 <td class="address-2"><span id="0912"></span>0912</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="2">Update both the 'old' and the 'new' pointers.</td>
+<td class="comment-1" rowspan="2">Update both the 'old' and the 'new' pointers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0913"></span>0913</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0914"></span>0914</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-11" rowspan="2">Compare the two letters.</td>
+<td class="comment-1" rowspan="2">Compare the two letters.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0915"></span>0915</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP (HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0916"></span>0916</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="08B6.html#091E">ME_OLD_V4</a></td>
-<td class="comment-11" rowspan="1">Jump forward if the match fails.</td>
+<td class="comment-1" rowspan="1">Jump forward if the match fails.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0918"></span>0918</td>
-<td class="bytes-0"></td>
 <td class="instruction">RLA</td>
-<td class="comment-11" rowspan="2">Go round the loop until the 'last character' is found.</td>
+<td class="comment-1" rowspan="2">Go round the loop until the 'last character' is found.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0919"></span>0919</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="08B6.html#0912">ME_OLD_V3</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="091B"></span>091B</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">Fetch the pointer to the start of the 'old' name and jump forward - successful.</td>
+<td class="comment-1" rowspan="2">Fetch the pointer to the start of the 'old' name and jump forward - successful.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="091C"></span>091C</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="08B6.html#0921">ME_VAR_L1</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">ME_OLD_V4</td>
+<td class="asm-label">ME_OLD_V4</td>
 <td class="address-2"><span id="091E"></span>091E</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">Fetch the pointer and jump back - unsuccessful.</td>
+<td class="comment-1" rowspan="2">Fetch the pointer and jump back - unsuccessful.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="091F"></span>091F</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="08B6.html#0901">ME_OLD_V1</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -623,11 +524,10 @@ Come here if the match was found.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">ME_VAR_L1</td>
+<td class="asm-label">ME_VAR_L1</td>
 <td class="address-2"><span id="0921"></span>0921</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,$FF</td>
-<td class="comment-11" rowspan="1">Signal 'replace' variable.</td>
+<td class="comment-1" rowspan="1">Signal 'replace' variable.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -640,59 +540,57 @@ And here if not. (<span class="register">A</span> holds +80 - variable to be 'ad
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">ME_VAR_L2</td>
+<td class="asm-label">ME_VAR_L2</td>
 <td class="address-2"><span id="0923"></span>0923</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="1">Fetch pointer to 'new' name.</td>
+<td class="comment-1" rowspan="1">Fetch pointer to 'new' name.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0924"></span>0924</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Switch over the registers.</td>
+<td class="comment-1" rowspan="1">Switch over the registers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0925"></span>0925</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC A</td>
-<td class="comment-11" rowspan="1">The zero flag is to be set if there is to be a 'replacement', reset for an 'addition'.</td>
+<td class="comment-1" rowspan="1">The zero flag is to be set if there is to be a 'replacement', reset for an 'addition'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0926"></span>0926</td>
-<td class="bytes-0"></td>
 <td class="instruction">SCF</td>
-<td class="comment-11" rowspan="1">Signal 'handling variables'.</td>
+<td class="comment-1" rowspan="1">Signal 'handling variables'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0927"></span>0927</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="092C.html">ME_ENTER</a></td>
-<td class="comment-11" rowspan="1">Now make the entry.</td>
+<td class="comment-1" rowspan="1">Now make the entry.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="092A"></span>092A</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="08B6.html#08F0">ME_VAR_LP</a></td>
-<td class="comment-11" rowspan="1">Go round the loop to consider the next new variable.</td>
+<td class="comment-1" rowspan="1">Go round the loop to consider the next new variable.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="0808.html">0808</a></span></td>
+<td class="prev">
+Prev: <a href="0808.html">0808</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#08B6">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="092C.html">092C</a></span></td>
+<td class="next">
+Next: <a href="092C.html">092C</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/2230.html">Switch to decimal</a>.</div>
 </footer>
 </body>

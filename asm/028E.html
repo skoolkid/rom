@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 028E</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="0205.html">0205</a></span></td>
+<td class="prev">
+Prev: <a href="0205.html">0205</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#028E">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="02BF.html">02BF</a></span></td>
+<td class="next">
+Next: <a href="02BF.html">02BF</a>
+</td>
 </tr>
 </table>
 <div class="description">028E: THE 'KEYBOARD SCANNING' SUBROUTINE</div>
@@ -41,13 +44,7 @@ If no key is being pressed then the <span class="register">DE</span> register pa
 The zero flag is returned reset if more than two keys are being pressed, or neither key of a pair of keys is a shift key.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -67,25 +64,22 @@ The zero flag is returned reset if more than two keys are being pressed, or neit
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">KEY_SCAN</td>
+<td class="asm-label">KEY_SCAN</td>
 <td class="address-2"><span id="028E"></span>028E</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD L,$2F</td>
-<td class="comment-11" rowspan="1">The initial key value for each line will be +2F, +2E,..., +28. (Eight lines.)</td>
+<td class="comment-1" rowspan="1">The initial key value for each line will be +2F, +2E,..., +28. (Eight lines.)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0290"></span>0290</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,$FFFF</td>
-<td class="comment-11" rowspan="1">Initialise <span class="register">DE</span> to 'no-key'.</td>
+<td class="comment-1" rowspan="1">Initialise <span class="register">DE</span> to 'no-key'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0293"></span>0293</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD BC,$FEFE</td>
-<td class="comment-11" rowspan="1"><span class="register">C</span>=port address, <span class="register">B</span>=counter.</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=port address, <span class="register">B</span>=counter.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -98,123 +92,100 @@ Now enter a loop. Eight passes are made with each pass having a different initia
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">KEY_LINE</td>
+<td class="asm-label">KEY_LINE</td>
 <td class="address-2"><span id="0296"></span>0296</td>
-<td class="bytes-0"></td>
 <td class="instruction">IN A,(C)</td>
-<td class="comment-11" rowspan="1">Read from the port specified.</td>
+<td class="comment-1" rowspan="1">Read from the port specified.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0298"></span>0298</td>
-<td class="bytes-0"></td>
 <td class="instruction">CPL</td>
-<td class="comment-11" rowspan="2">A pressed key in the line will set its respective bit, from bit 0 (outer key) to bit 4 (inner key).</td>
+<td class="comment-1" rowspan="2">A pressed key in the line will set its respective bit, from bit 0 (outer key) to bit 4 (inner key).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0299"></span>0299</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND $1F</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="029B"></span>029B</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="028E.html#02AB">KEY_DONE</a></td>
-<td class="comment-11" rowspan="1">Jump forward if none of the five keys in the line are being pressed.</td>
+<td class="comment-1" rowspan="1">Jump forward if none of the five keys in the line are being pressed.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="029D"></span>029D</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD H,A</td>
-<td class="comment-11" rowspan="2">The key-bits go to the <span class="register">H</span> register whilst the initial key value is fetched.</td>
+<td class="comment-1" rowspan="2">The key-bits go to the <span class="register">H</span> register whilst the initial key value is fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="029E"></span>029E</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">KEY_3KEYS</td>
+<td class="asm-label">KEY_3KEYS</td>
 <td class="address-2"><span id="029F"></span>029F</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC D</td>
-<td class="comment-11" rowspan="2">If three keys are being pressed on the keyboard then the <span class="register">D</span> register will no longer hold +FF - so return if this happens.</td>
+<td class="comment-1" rowspan="2">If three keys are being pressed on the keyboard then the <span class="register">D</span> register will no longer hold +FF - so return if this happens.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02A0"></span>02A0</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NZ</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">KEY_BITS</td>
+<td class="asm-label">KEY_BITS</td>
 <td class="address-2"><span id="02A1"></span>02A1</td>
-<td class="bytes-0"></td>
 <td class="instruction">SUB $08</td>
-<td class="comment-11" rowspan="3">Repeatedly subtract 8 from the present key value until a key-bit is found.</td>
+<td class="comment-1" rowspan="3">Repeatedly subtract 8 from the present key value until a key-bit is found.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02A3"></span>02A3</td>
-<td class="bytes-0"></td>
 <td class="instruction">SRL H</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02A5"></span>02A5</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="028E.html#02A1">KEY_BITS</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02A7"></span>02A7</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,E</td>
-<td class="comment-11" rowspan="1">Copy any earlier key value to the <span class="register">D</span> register.</td>
+<td class="comment-1" rowspan="1">Copy any earlier key value to the <span class="register">D</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02A8"></span>02A8</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,A</td>
-<td class="comment-11" rowspan="1">Pass the new key value to the <span class="register">E</span> register.</td>
+<td class="comment-1" rowspan="1">Pass the new key value to the <span class="register">E</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02A9"></span>02A9</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="028E.html#029F">KEY_3KEYS</a></td>
-<td class="comment-11" rowspan="1">If there is a second, or possibly a third, pressed key in this line then jump back.</td>
+<td class="comment-1" rowspan="1">If there is a second, or possibly a third, pressed key in this line then jump back.</td>
 </tr>
 <tr>
-<td class="asm-label-1">KEY_DONE</td>
+<td class="asm-label">KEY_DONE</td>
 <td class="address-2"><span id="02AB"></span>02AB</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC L</td>
-<td class="comment-11" rowspan="1">The line has been scanned so the initial key value is reduced for the next pass.</td>
+<td class="comment-1" rowspan="1">The line has been scanned so the initial key value is reduced for the next pass.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02AC"></span>02AC</td>
-<td class="bytes-0"></td>
 <td class="instruction">RLC B</td>
-<td class="comment-11" rowspan="2">The counter is shifted and the jump taken if there are still lines to be scanned.</td>
+<td class="comment-1" rowspan="2">The counter is shifted and the jump taken if there are still lines to be scanned.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02AE"></span>02AE</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="028E.html#0296">KEY_LINE</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -227,101 +198,86 @@ Four tests are now made.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02B0"></span>02B0</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
-<td class="comment-11" rowspan="3">Accept any key value which still has the <span class="register">D</span> register holding +FF, i.e. a single key pressed or 'no-key'.</td>
+<td class="comment-1" rowspan="3">Accept any key value which still has the <span class="register">D</span> register holding +FF, i.e. a single key pressed or 'no-key'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02B1"></span>02B1</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02B2"></span>02B2</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02B3"></span>02B3</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $28</td>
-<td class="comment-11" rowspan="2">Accept the key value for a pair of keys if the <span class="register">D</span> key is CAPS SHIFT.</td>
+<td class="comment-1" rowspan="2">Accept the key value for a pair of keys if the <span class="register">D</span> key is CAPS SHIFT.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02B5"></span>02B5</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02B6"></span>02B6</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $19</td>
-<td class="comment-11" rowspan="2">Accept the key value for a pair of keys if the <span class="register">D</span> key is SYMBOL SHIFT.</td>
+<td class="comment-1" rowspan="2">Accept the key value for a pair of keys if the <span class="register">D</span> key is SYMBOL SHIFT.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02B8"></span>02B8</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02B9"></span>02B9</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,E</td>
-<td class="comment-11" rowspan="4">It is however possible for the <span class="register">E</span> key of a pair to be SYMBOL SHIFT - so this has to be considered.</td>
+<td class="comment-1" rowspan="4">It is however possible for the <span class="register">E</span> key of a pair to be SYMBOL SHIFT - so this has to be considered.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02BA"></span>02BA</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,D</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02BB"></span>02BB</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02BC"></span>02BC</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $18</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="02BE"></span>02BE</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Return with the zero flag set if it was SYMBOL SHIFT and 'another key'; otherwise reset.</td>
+<td class="comment-1" rowspan="1">Return with the zero flag set if it was SYMBOL SHIFT and 'another key'; otherwise reset.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="0205.html">0205</a></span></td>
+<td class="prev">
+Prev: <a href="0205.html">0205</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#028E">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="02BF.html">02BF</a></span></td>
+<td class="next">
+Next: <a href="02BF.html">02BF</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/654.html">Switch to decimal</a>.</div>
 </footer>
 </body>

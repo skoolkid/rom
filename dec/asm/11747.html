@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 11747</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="11733.html">11733</a></span></td>
+<td class="prev">
+Prev: <a href="11733.html">11733</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#11747">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="12171.html">12171</a></span></td>
+<td class="next">
+Next: <a href="12171.html">12171</a>
+</td>
 </tr>
 </table>
 <div class="description">11747: THE 'PRINT A FLOATING-POINT NUMBER' SUBROUTINE</div>
@@ -51,187 +54,148 @@ i. First the sign of x is taken care of:
 </ul>
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PRINT_FP</td>
+<td class="asm-label">PRINT_FP</td>
 <td class="address-2"><span id="11747"></span>11747</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="40.html">40</a></td>
-<td class="comment-11" rowspan="1">Use the calculator.</td>
+<td class="comment-1" rowspan="1">Use the calculator.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11748"></span>11748</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 49</td>
-<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: x, x</td>
+<td class="comment-1" rowspan="1"><a href="13248.html">duplicate</a>: x, x</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11749"></span>11749</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 54</td>
-<td class="comment-11" rowspan="1"><a href="13574.html">less_0</a>: x, (1/0) Logical value of x.</td>
+<td class="comment-1" rowspan="1"><a href="13574.html">less_0</a>: x, (1/0) Logical value of x.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11750"></span>11750</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 0,11</td>
-<td class="comment-11" rowspan="1"><a href="13967.html">jump_true</a> to <a href="11747.html#11762">PF_NEGTVE</a>: x</td>
+<td class="comment-1" rowspan="1"><a href="13967.html">jump_true</a> to <a href="11747.html#11762">PF_NEGTVE</a>: x</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11752"></span>11752</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 49</td>
-<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: x, x</td>
+<td class="comment-1" rowspan="1"><a href="13248.html">duplicate</a>: x, x</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11753"></span>11753</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 55</td>
-<td class="comment-11" rowspan="1"><a href="13561.html">greater_0</a>: x, (1/0) Logical value of x.</td>
+<td class="comment-1" rowspan="1"><a href="13561.html">greater_0</a>: x, (1/0) Logical value of x.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11754"></span>11754</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 0,13</td>
-<td class="comment-11" rowspan="1"><a href="13967.html">jump_true</a> to <a href="11747.html#11768">PF_POSTVE</a>: x Hereafter x'=ABS x.</td>
+<td class="comment-1" rowspan="1"><a href="13967.html">jump_true</a> to <a href="11747.html#11768">PF_POSTVE</a>: x Hereafter x'=ABS x.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11756"></span>11756</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 2</td>
-<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: -</td>
+<td class="comment-1" rowspan="1"><a href="13147.html#13217">delete</a>: -</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11757"></span>11757</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 56</td>
-<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: -</td>
+<td class="comment-1" rowspan="1"><a href="13979.html">end_calc</a>: -</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11758"></span>11758</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,"0"</td>
-<td class="comment-11" rowspan="1">Enter the character code for '0'.</td>
+<td class="comment-1" rowspan="1">Enter the character code for '0'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11760"></span>11760</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="16.html">16</a></td>
-<td class="comment-11" rowspan="1">Print the '0'.</td>
+<td class="comment-1" rowspan="1">Print the '0'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11761"></span>11761</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished as the 'last value' is zero.</td>
+<td class="comment-1" rowspan="1">Finished as the 'last value' is zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_NEGTVE</td>
+<td class="asm-label">PF_NEGTVE</td>
 <td class="address-1"><span id="11762"></span>11762</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 42</td>
-<td class="comment-11" rowspan="1"><a href="13418.html">abs</a>: x' x'=ABS x.</td>
+<td class="comment-1" rowspan="1"><a href="13418.html">abs</a>: x' x'=ABS x.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11763"></span>11763</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 56</td>
-<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: x'</td>
+<td class="comment-1" rowspan="1"><a href="13979.html">end_calc</a>: x'</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11764"></span>11764</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,"-"</td>
-<td class="comment-11" rowspan="1">Enter the character code for '-'.</td>
+<td class="comment-1" rowspan="1">Enter the character code for '-'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11766"></span>11766</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="16.html">16</a></td>
-<td class="comment-11" rowspan="1">Print the '-'.</td>
+<td class="comment-1" rowspan="1">Print the '-'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11767"></span>11767</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="40.html">40</a></td>
-<td class="comment-11" rowspan="1">Use the calculator again.</td>
+<td class="comment-1" rowspan="1">Use the calculator again.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_POSTVE</td>
+<td class="asm-label">PF_POSTVE</td>
 <td class="address-1"><span id="11768"></span>11768</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 160</td>
-<td class="comment-11" rowspan="2"><a href="13339.html">stk_zero</a>: The 15 bytes of mem-3, mem-4 and mem-5 are now initialised to zero to be used for a print buffer and two counters.</td>
+<td class="comment-1" rowspan="2"><a href="13339.html">stk_zero</a>: The 15 bytes of mem-3, mem-4 and mem-5 are now initialised to zero to be used for a print buffer and two counters.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11769"></span>11769</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 195,196,197</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11772"></span>11772</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 2</td>
-<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: The stack is cleared, except for x'.</td>
+<td class="comment-1" rowspan="1"><a href="13147.html#13217">delete</a>: The stack is cleared, except for x'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11773"></span>11773</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 56</td>
-<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: x'</td>
+<td class="comment-1" rowspan="1"><a href="13979.html">end_calc</a>: x'</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11774"></span>11774</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="3"><span class="register">HL'</span>, which is used to hold calculator offsets (e.g. for 'STR$'), is saved on the machine stack.</td>
+<td class="comment-1" rowspan="3"><span class="register">HL'</span>, which is used to hold calculator offsets (e.g. for 'STR$'), is saved on the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11775"></span>11775</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11776"></span>11776</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -244,193 +208,160 @@ ii. This is the start of a loop which deals with large numbers. Every number x i
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_LOOP</td>
+<td class="asm-label">PF_LOOP</td>
 <td class="address-2"><span id="11777"></span>11777</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="40.html">40</a></td>
-<td class="comment-11" rowspan="1">Use the calculator again.</td>
+<td class="comment-1" rowspan="1">Use the calculator again.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11778"></span>11778</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 49</td>
-<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: x', x'</td>
+<td class="comment-1" rowspan="1"><a href="13248.html">duplicate</a>: x', x'</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11779"></span>11779</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 39</td>
-<td class="comment-11" rowspan="1"><a href="13999.html">int</a>: x', INT (x')=i</td>
+<td class="comment-1" rowspan="1"><a href="13999.html">int</a>: x', INT (x')=i</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11780"></span>11780</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 194</td>
-<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_2</a>: (i is stored in mem-2).</td>
+<td class="comment-1" rowspan="1"><a href="13357.html">st_mem_2</a>: (i is stored in mem-2).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11781"></span>11781</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 3</td>
-<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: x'-i=f</td>
+<td class="comment-1" rowspan="1"><a href="12303.html">subtract</a>: x'-i=f</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11782"></span>11782</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 226</td>
-<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_2</a>: f, i</td>
+<td class="comment-1" rowspan="1"><a href="13327.html">get_mem_2</a>: f, i</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11783"></span>11783</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 1</td>
-<td class="comment-11" rowspan="1"><a href="13372.html">exchange</a>: i, f</td>
+<td class="comment-1" rowspan="1"><a href="13372.html">exchange</a>: i, f</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11784"></span>11784</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 194</td>
-<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_2</a>: (f is stored in mem-2).</td>
+<td class="comment-1" rowspan="1"><a href="13357.html">st_mem_2</a>: (f is stored in mem-2).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11785"></span>11785</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 2</td>
-<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: i</td>
+<td class="comment-1" rowspan="1"><a href="13147.html#13217">delete</a>: i</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11786"></span>11786</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 56</td>
-<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: i</td>
+<td class="comment-1" rowspan="1"><a href="13979.html">end_calc</a>: i</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11787"></span>11787</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="2">Is i a small integer (first byte zero) i.e. is ABS i&lt;=65535?</td>
+<td class="comment-1" rowspan="2">Is i a small integer (first byte zero) i.e. is ABS i&lt;=65535?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11788"></span>11788</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11789"></span>11789</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="11747.html#11862">PF_LARGE</a></td>
-<td class="comment-11" rowspan="1">Jump if it is not.</td>
+<td class="comment-1" rowspan="1">Jump if it is not.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11791"></span>11791</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="11647.html">INT_FETCH</a></td>
-<td class="comment-11" rowspan="1">i is copied to <span class="register">DE</span> (i, like x', &gt;=0).</td>
+<td class="comment-1" rowspan="1">i is copied to <span class="register">DE</span> (i, like x', &gt;=0).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11794"></span>11794</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,16</td>
-<td class="comment-11" rowspan="1"><span class="register">B</span> is set to count 16 bits.</td>
+<td class="comment-1" rowspan="1"><span class="register">B</span> is set to count 16 bits.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11796"></span>11796</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
-<td class="comment-11" rowspan="2"><span class="register">D</span> is copied to <span class="register">A</span> for testing: is it zero?</td>
+<td class="comment-1" rowspan="2"><span class="register">D</span> is copied to <span class="register">A</span> for testing: is it zero?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11797"></span>11797</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11798"></span>11798</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="11747.html#11806">PF_SAVE</a></td>
-<td class="comment-11" rowspan="1">Jump if it is not zero.</td>
+<td class="comment-1" rowspan="1">Jump if it is not zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11800"></span>11800</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR E</td>
-<td class="comment-11" rowspan="1">Now test <span class="register">E</span>.</td>
+<td class="comment-1" rowspan="1">Now test <span class="register">E</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11801"></span>11801</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="11747.html#11812">PF_SMALL</a></td>
-<td class="comment-11" rowspan="1">Jump if <span class="register">DE</span> is zero: x is a pure fraction.</td>
+<td class="comment-1" rowspan="1">Jump if <span class="register">DE</span> is zero: x is a pure fraction.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11803"></span>11803</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,E</td>
-<td class="comment-11" rowspan="2">Move <span class="register">E</span> to <span class="register">D</span> and set <span class="register">B</span> for 8 bits: <span class="register">D</span> was zero and <span class="register">E</span> was not.</td>
+<td class="comment-1" rowspan="2">Move <span class="register">E</span> to <span class="register">D</span> and set <span class="register">B</span> for 8 bits: <span class="register">D</span> was zero and <span class="register">E</span> was not.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11804"></span>11804</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,8</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_SAVE</td>
+<td class="asm-label">PF_SAVE</td>
 <td class="address-2"><span id="11806"></span>11806</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-11" rowspan="4">Transfer <span class="register">DE</span> to <span class="register">DE'</span>, via the machine stack, to be moved into the print buffer at <a href="11747.html#11899">PF_BITS</a>.</td>
+<td class="comment-1" rowspan="4">Transfer <span class="register">DE</span> to <span class="register">DE'</span>, via the machine stack, to be moved into the print buffer at <a href="11747.html#11899">PF_BITS</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11807"></span>11807</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11808"></span>11808</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11809"></span>11809</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11810"></span>11810</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="11747.html#11899">PF_BITS</a></td>
-<td class="comment-11" rowspan="1">Jump forward.</td>
+<td class="comment-1" rowspan="1">Jump forward.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -443,25 +374,22 @@ iii. Pure fractions are multiplied by 10&#8593;n, where n is the approximate num
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_SMALL</td>
+<td class="asm-label">PF_SMALL</td>
 <td class="address-2"><span id="11812"></span>11812</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="40.html">40</a></td>
-<td class="comment-11" rowspan="1">i (i=zero here)</td>
+<td class="comment-1" rowspan="1">i (i=zero here)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11813"></span>11813</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 226</td>
-<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_2</a>: i, f</td>
+<td class="comment-1" rowspan="1"><a href="13327.html">get_mem_2</a>: i, f</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11814"></span>11814</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 56</td>
-<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: i, f</td>
+<td class="comment-1" rowspan="1"><a href="13979.html">end_calc</a>: i, f</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -474,214 +402,174 @@ Note that the stack is now unbalanced. An extra byte 'DEFB 2, delete' is needed 
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11815"></span>11815</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="1">The exponent byte e of f is copied to <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">The exponent byte e of f is copied to <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11816"></span>11816</td>
-<td class="bytes-0"></td>
 <td class="instruction">SUB 126</td>
-<td class="comment-11" rowspan="1"><span class="register">A</span> becomes e minus 126, i.e. e'+2, where e' is the true exponent of f.</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span> becomes e minus 126, i.e. e'+2, where e' is the true exponent of f.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11818"></span>11818</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="11713.html">LOG_2_A</a></td>
-<td class="comment-11" rowspan="2">The construction <span class="register">A</span>=ABS INT (LOG (2&#8593;<span class="register">A</span>)) is performed (LOG is to base 10); i.e. <span class="register">A</span>=n, say: n is copied from <span class="register">A</span> to <span class="register">D</span>.</td>
+<td class="comment-1" rowspan="2">The construction <span class="register">A</span>=ABS INT (LOG (2&#8593;<span class="register">A</span>)) is performed (LOG is to base 10); i.e. <span class="register">A</span>=n, say: n is copied from <span class="register">A</span> to <span class="register">D</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11821"></span>11821</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11822"></span>11822</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(23724)</td>
-<td class="comment-11" rowspan="3">The current count is collected from the second byte of <a href="23698.html#23723">mem-5</a> and n is subtracted from it.</td>
+<td class="comment-1" rowspan="3">The current count is collected from the second byte of <a href="23698.html#23723">mem-5</a> and n is subtracted from it.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11825"></span>11825</td>
-<td class="bytes-0"></td>
 <td class="instruction">SUB D</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11826"></span>11826</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23724),A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11829"></span>11829</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
-<td class="comment-11" rowspan="1">n is copied from <span class="register">D</span> to <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">n is copied from <span class="register">D</span> to <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11830"></span>11830</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="11599.html">e_to_fp</a></td>
-<td class="comment-11" rowspan="1">y=f*10&#8593;n is formed and stacked.</td>
+<td class="comment-1" rowspan="1">y=f*10&#8593;n is formed and stacked.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11833"></span>11833</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="40.html">40</a></td>
-<td class="comment-11" rowspan="1">i, y</td>
+<td class="comment-1" rowspan="1">i, y</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11834"></span>11834</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 49</td>
-<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: i, y, y</td>
+<td class="comment-1" rowspan="1"><a href="13248.html">duplicate</a>: i, y, y</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11835"></span>11835</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 39</td>
-<td class="comment-11" rowspan="1"><a href="13999.html">int</a>: i, y, INT (y)=i2</td>
+<td class="comment-1" rowspan="1"><a href="13999.html">int</a>: i, y, INT (y)=i2</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11836"></span>11836</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 193</td>
-<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_1</a>: (i2 is copied to mem-1).</td>
+<td class="comment-1" rowspan="1"><a href="13357.html">st_mem_1</a>: (i2 is copied to mem-1).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11837"></span>11837</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 3</td>
-<td class="comment-11" rowspan="1"><a href="12303.html">subtract</a>: i, y-i2</td>
+<td class="comment-1" rowspan="1"><a href="12303.html">subtract</a>: i, y-i2</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11838"></span>11838</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 225</td>
-<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_1</a>: i, y-i2, i2</td>
+<td class="comment-1" rowspan="1"><a href="13327.html">get_mem_1</a>: i, y-i2, i2</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11839"></span>11839</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 56</td>
-<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: i, f2, i2 (f2=y-i2)</td>
+<td class="comment-1" rowspan="1"><a href="13979.html">end_calc</a>: i, f2, i2 (f2=y-i2)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11840"></span>11840</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="11733.html">FP_TO_A</a></td>
-<td class="comment-11" rowspan="1">i2 is transferred from the stack to <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">i2 is transferred from the stack to <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11843"></span>11843</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">The pointer to f2 is saved.</td>
+<td class="comment-1" rowspan="1">The pointer to f2 is saved.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11844"></span>11844</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23713),A</td>
-<td class="comment-11" rowspan="1">i2 is stored in the first byte of <a href="23698.html#23713">mem-3</a>: a digit for printing.</td>
+<td class="comment-1" rowspan="1">i2 is stored in the first byte of <a href="23698.html#23713">mem-3</a>: a digit for printing.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11847"></span>11847</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC A</td>
-<td class="comment-11" rowspan="4">i2 will not count as a digit for printing if it is zero; <span class="register">A</span> is manipulated so that zero will produce zero but a non-zero digit will produce 1.</td>
+<td class="comment-1" rowspan="4">i2 will not count as a digit for printing if it is zero; <span class="register">A</span> is manipulated so that zero will produce zero but a non-zero digit will produce 1.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11848"></span>11848</td>
-<td class="bytes-0"></td>
 <td class="instruction">RLA</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11849"></span>11849</td>
-<td class="bytes-0"></td>
 <td class="instruction">SBC A,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11850"></span>11850</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11851"></span>11851</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,23723</td>
-<td class="comment-11" rowspan="5">The zero or one is inserted into the first byte of <a href="23698.html#23723">mem-5</a> (the number of digits for printing) and added to the second byte of mem-5 (the number of digits before the decimal).</td>
+<td class="comment-1" rowspan="5">The zero or one is inserted into the first byte of <a href="23698.html#23723">mem-5</a> (the number of digits for printing) and added to the second byte of mem-5 (the number of digits before the decimal).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11854"></span>11854</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11855"></span>11855</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11856"></span>11856</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD A,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11857"></span>11857</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11858"></span>11858</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">The pointer to f2 is restored.</td>
+<td class="comment-1" rowspan="1">The pointer to f2 is restored.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11859"></span>11859</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="11747.html#11983">PF_FRACTN</a></td>
-<td class="comment-11" rowspan="1">Jump to store f2 in buffer (<span class="register">HL</span> now points to f2, <span class="register">DE</span> to i2).</td>
+<td class="comment-1" rowspan="1">Jump to store f2 in buffer (<span class="register">HL</span> now points to f2, <span class="register">DE</span> to i2).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -694,95 +582,78 @@ iv. Numbers greater than 2&#8593;27 are similarly multiplied by 2&#8593;(-n+7), 
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_LARGE</td>
+<td class="asm-label">PF_LARGE</td>
 <td class="address-2"><span id="11862"></span>11862</td>
-<td class="bytes-0"></td>
 <td class="instruction">SUB 128</td>
-<td class="comment-11" rowspan="1">e minus 128 is e', the true exponent of i.</td>
+<td class="comment-1" rowspan="1">e minus 128 is e', the true exponent of i.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11864"></span>11864</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 28</td>
-<td class="comment-11" rowspan="1">Is e' less than 28?</td>
+<td class="comment-1" rowspan="1">Is e' less than 28?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11866"></span>11866</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="11747.html#11887">PF_MEDIUM</a></td>
-<td class="comment-11" rowspan="1">Jump if it is less.</td>
+<td class="comment-1" rowspan="1">Jump if it is less.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11868"></span>11868</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="11713.html">LOG_2_A</a></td>
-<td class="comment-11" rowspan="1">n is formed in <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">n is formed in <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11871"></span>11871</td>
-<td class="bytes-0"></td>
 <td class="instruction">SUB 7</td>
-<td class="comment-11" rowspan="1">And reduced to n-7.</td>
+<td class="comment-1" rowspan="1">And reduced to n-7.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11873"></span>11873</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
-<td class="comment-11" rowspan="1">Then copied to <span class="register">B</span>.</td>
+<td class="comment-1" rowspan="1">Then copied to <span class="register">B</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11874"></span>11874</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,23724</td>
-<td class="comment-11" rowspan="3">n-7 is added in to the second byte of <a href="23698.html#23723">mem-5</a>, the number of digits required before the decimal in x.</td>
+<td class="comment-1" rowspan="3">n-7 is added in to the second byte of <a href="23698.html#23723">mem-5</a>, the number of digits required before the decimal in x.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11877"></span>11877</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD A,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11878"></span>11878</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11879"></span>11879</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-11" rowspan="3">Then i is multiplied by 10&#8593;(-n+7). This will bring it into medium range for printing.</td>
+<td class="comment-1" rowspan="3">Then i is multiplied by 10&#8593;(-n+7). This will bring it into medium range for printing.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11880"></span>11880</td>
-<td class="bytes-0"></td>
 <td class="instruction">NEG</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11882"></span>11882</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="11599.html">e_to_fp</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11885"></span>11885</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="11747.html#11777">PF_LOOP</a></td>
-<td class="comment-11" rowspan="1">Round the loop again to deal with the now medium-sized number.</td>
+<td class="comment-1" rowspan="1">Round the loop again to deal with the now medium-sized number.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -795,60 +666,52 @@ v. The integer part of x is now stored in the print buffer in mem-3 and mem-4.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_MEDIUM</td>
+<td class="asm-label">PF_MEDIUM</td>
 <td class="address-2"><span id="11887"></span>11887</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1"><span class="register">DE</span> now points to i, <span class="register">HL</span> to f.</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span> now points to i, <span class="register">HL</span> to f.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11888"></span>11888</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="12218.html">FETCH_TWO</a></td>
-<td class="comment-11" rowspan="1">The mantissa of i is now in <span class="register">D'</span>, <span class="register">E'</span>, <span class="register">D</span>, <span class="register">E</span>.</td>
+<td class="comment-1" rowspan="1">The mantissa of i is now in <span class="register">D'</span>, <span class="register">E'</span>, <span class="register">D</span>, <span class="register">E</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11891"></span>11891</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="1">Get the exchange registers.</td>
+<td class="comment-1" rowspan="1">Get the exchange registers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11892"></span>11892</td>
-<td class="bytes-0"></td>
 <td class="instruction">SET 7,D</td>
-<td class="comment-11" rowspan="1">True numerical bit 7 to <span class="register">D'</span>.</td>
+<td class="comment-1" rowspan="1">True numerical bit 7 to <span class="register">D'</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11894"></span>11894</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,L</td>
-<td class="comment-11" rowspan="1">Exponent byte e of i to <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">Exponent byte e of i to <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11895"></span>11895</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="1">Back to the main registers.</td>
+<td class="comment-1" rowspan="1">Back to the main registers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11896"></span>11896</td>
-<td class="bytes-0"></td>
 <td class="instruction">SUB 128</td>
-<td class="comment-11" rowspan="1">True exponent e'=e minus 128 to <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">True exponent e'=e minus 128 to <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11898"></span>11898</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
-<td class="comment-11" rowspan="1">This gives the required bit count.</td>
+<td class="comment-1" rowspan="1">This gives the required bit count.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -861,116 +724,95 @@ Note that the case where i is a small integer (less than 65536) re-enters here.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_BITS</td>
+<td class="asm-label">PF_BITS</td>
 <td class="address-2"><span id="11899"></span>11899</td>
-<td class="bytes-0"></td>
 <td class="instruction">SLA E</td>
-<td class="comment-11" rowspan="5">The mantissa of i is now rotated left and all the bits of i are thus shifted into mem-4 and each byte of mem-4 is decimal adjusted at each shift.</td>
+<td class="comment-1" rowspan="5">The mantissa of i is now rotated left and all the bits of i are thus shifted into mem-4 and each byte of mem-4 is decimal adjusted at each shift.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11901"></span>11901</td>
-<td class="bytes-0"></td>
 <td class="instruction">RL D</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11903"></span>11903</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11904"></span>11904</td>
-<td class="bytes-0"></td>
 <td class="instruction">RL E</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11906"></span>11906</td>
-<td class="bytes-0"></td>
 <td class="instruction">RL D</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11908"></span>11908</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="1">Back to the main registers.</td>
+<td class="comment-1" rowspan="1">Back to the main registers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11909"></span>11909</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,23722</td>
-<td class="comment-11" rowspan="2">Address of fifth byte of <a href="23698.html#23718">mem-4</a> to <span class="register">HL</span>; count of 5 bytes to <span class="register">C</span>.</td>
+<td class="comment-1" rowspan="2">Address of fifth byte of <a href="23698.html#23718">mem-4</a> to <span class="register">HL</span>; count of 5 bytes to <span class="register">C</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11912"></span>11912</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,5</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_BYTES</td>
+<td class="asm-label">PF_BYTES</td>
 <td class="address-2"><span id="11914"></span>11914</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="1">Get the byte of mem-4.</td>
+<td class="comment-1" rowspan="1">Get the byte of mem-4.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11915"></span>11915</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADC A,A</td>
-<td class="comment-11" rowspan="1">Shift it left, taking in the new bit.</td>
+<td class="comment-1" rowspan="1">Shift it left, taking in the new bit.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11916"></span>11916</td>
-<td class="bytes-0"></td>
 <td class="instruction">DAA</td>
-<td class="comment-11" rowspan="1">Decimal adjust the byte.</td>
+<td class="comment-1" rowspan="1">Decimal adjust the byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11917"></span>11917</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-11" rowspan="1">Restore it to mem-4.</td>
+<td class="comment-1" rowspan="1">Restore it to mem-4.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11918"></span>11918</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="1">Point to next byte of mem-4.</td>
+<td class="comment-1" rowspan="1">Point to next byte of mem-4.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11919"></span>11919</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC C</td>
-<td class="comment-11" rowspan="1">Decrease the byte count by one.</td>
+<td class="comment-1" rowspan="1">Decrease the byte count by one.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11920"></span>11920</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="11747.html#11914">PF_BYTES</a></td>
-<td class="comment-11" rowspan="1">Jump for each byte of mem-4.</td>
+<td class="comment-1" rowspan="1">Jump for each byte of mem-4.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11922"></span>11922</td>
-<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="11747.html#11899">PF_BITS</a></td>
-<td class="comment-11" rowspan="1">Jump for each bit of INT (x).</td>
+<td class="comment-1" rowspan="1">Jump for each bit of INT (x).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -983,221 +825,184 @@ Decimal adjusting each byte of mem-4 gave 2 decimal digits per byte, there being
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11924"></span>11924</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
-<td class="comment-11" rowspan="1"><span class="register">A</span> is cleared to receive the digits.</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span> is cleared to receive the digits.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11925"></span>11925</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,23718</td>
-<td class="comment-11" rowspan="1">Source address: first byte of <a href="23698.html#23718">mem-4</a>.</td>
+<td class="comment-1" rowspan="1">Source address: first byte of <a href="23698.html#23718">mem-4</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11928"></span>11928</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,23713</td>
-<td class="comment-11" rowspan="1">Destination: first byte of <a href="23698.html#23713">mem-3</a>.</td>
+<td class="comment-1" rowspan="1">Destination: first byte of <a href="23698.html#23713">mem-3</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11931"></span>11931</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,9</td>
-<td class="comment-11" rowspan="1">There are at most 9 digits.</td>
+<td class="comment-1" rowspan="1">There are at most 9 digits.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11933"></span>11933</td>
-<td class="bytes-0"></td>
 <td class="instruction">RLD</td>
-<td class="comment-11" rowspan="1">The left nibble of mem-4 is discarded.</td>
+<td class="comment-1" rowspan="1">The left nibble of mem-4 is discarded.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11935"></span>11935</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,255</td>
-<td class="comment-11" rowspan="1">255 in <span class="register">C</span> will signal a leading zero, 0 will signal a non-leading zero.</td>
+<td class="comment-1" rowspan="1">255 in <span class="register">C</span> will signal a leading zero, 0 will signal a non-leading zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_DIGITS</td>
+<td class="asm-label">PF_DIGITS</td>
 <td class="address-2"><span id="11937"></span>11937</td>
-<td class="bytes-0"></td>
 <td class="instruction">RLD</td>
-<td class="comment-11" rowspan="1">Left nibble of (<span class="register">HL</span>) to <span class="register">A</span>, right nibble of (<span class="register">HL</span>) to left.</td>
+<td class="comment-1" rowspan="1">Left nibble of (<span class="register">HL</span>) to <span class="register">A</span>, right nibble of (<span class="register">HL</span>) to left.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11939"></span>11939</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="11747.html#11945">PF_INSERT</a></td>
-<td class="comment-11" rowspan="1">Jump if digit in <span class="register">A</span> is not zero.</td>
+<td class="comment-1" rowspan="1">Jump if digit in <span class="register">A</span> is not zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11941"></span>11941</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC C</td>
-<td class="comment-11" rowspan="2">Test for a leading zero: it will now give zero reset.</td>
+<td class="comment-1" rowspan="2">Test for a leading zero: it will now give zero reset.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11942"></span>11942</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11943"></span>11943</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="11747.html#11955">PF_TEST_2</a></td>
-<td class="comment-11" rowspan="1">Jump if it was a leading zero.</td>
+<td class="comment-1" rowspan="1">Jump if it was a leading zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_INSERT</td>
+<td class="asm-label">PF_INSERT</td>
 <td class="address-2"><span id="11945"></span>11945</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (DE),A</td>
-<td class="comment-11" rowspan="1">Insert the digit now.</td>
+<td class="comment-1" rowspan="1">Insert the digit now.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11946"></span>11946</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC DE</td>
-<td class="comment-11" rowspan="1">Point to next destination.</td>
+<td class="comment-1" rowspan="1">Point to next destination.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11947"></span>11947</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC (IY+113)</td>
-<td class="comment-11" rowspan="2">One more digit for printing, and one more before the decimal.</td>
+<td class="comment-1" rowspan="2">One more digit for printing, and one more before the decimal.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11950"></span>11950</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC (IY+114)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11953"></span>11953</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,0</td>
-<td class="comment-11" rowspan="1">Change the flag from leading zero to other zero.</td>
+<td class="comment-1" rowspan="1">Change the flag from leading zero to other zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_TEST_2</td>
+<td class="asm-label">PF_TEST_2</td>
 <td class="address-2"><span id="11955"></span>11955</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 0,B</td>
-<td class="comment-11" rowspan="3">The source pointer needs to be incremented on every second passage through the loop, when <span class="register">B</span> is odd.</td>
+<td class="comment-1" rowspan="3">The source pointer needs to be incremented on every second passage through the loop, when <span class="register">B</span> is odd.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11957"></span>11957</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="11747.html#11960">PF_ALL_9</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11959"></span>11959</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_ALL_9</td>
+<td class="asm-label">PF_ALL_9</td>
 <td class="address-2"><span id="11960"></span>11960</td>
-<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="11747.html#11937">PF_DIGITS</a></td>
-<td class="comment-11" rowspan="1">Jump back for all 9 digits.</td>
+<td class="comment-1" rowspan="1">Jump back for all 9 digits.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11962"></span>11962</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(23723)</td>
-<td class="comment-11" rowspan="2">Get counter from the first byte of <a href="23698.html#23723">mem-5</a>: were there 9 digits excluding leading zeros?</td>
+<td class="comment-1" rowspan="2">Get counter from the first byte of <a href="23698.html#23723">mem-5</a>: were there 9 digits excluding leading zeros?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11965"></span>11965</td>
-<td class="bytes-0"></td>
 <td class="instruction">SUB 9</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11967"></span>11967</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="11747.html#11979">PF_MORE</a></td>
-<td class="comment-11" rowspan="1">If not, jump to get more digits.</td>
+<td class="comment-1" rowspan="1">If not, jump to get more digits.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11969"></span>11969</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC (IY+113)</td>
-<td class="comment-11" rowspan="1">Prepare to round: reduce count to 8.</td>
+<td class="comment-1" rowspan="1">Prepare to round: reduce count to 8.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11972"></span>11972</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,4</td>
-<td class="comment-11" rowspan="2">Compare 9th digit, byte 4 of <a href="23698.html#23718">mem-4</a>, with 4 to set carry for rounding up.</td>
+<td class="comment-1" rowspan="2">Compare 9th digit, byte 4 of <a href="23698.html#23718">mem-4</a>, with 4 to set carry for rounding up.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11974"></span>11974</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP (IY+111)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11977"></span>11977</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="11747.html#12044">PF_ROUND</a></td>
-<td class="comment-11" rowspan="1">Jump forward to round up.</td>
+<td class="comment-1" rowspan="1">Jump forward to round up.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_MORE</td>
+<td class="asm-label">PF_MORE</td>
 <td class="address-2"><span id="11979"></span>11979</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="40.html">40</a></td>
-<td class="comment-11" rowspan="1">Use the calculator again.</td>
+<td class="comment-1" rowspan="1">Use the calculator again.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11980"></span>11980</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 2</td>
-<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: - (i is now deleted).</td>
+<td class="comment-1" rowspan="1"><a href="13147.html#13217">delete</a>: - (i is now deleted).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11981"></span>11981</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 226</td>
-<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_2</a>: f</td>
+<td class="comment-1" rowspan="1"><a href="13327.html">get_mem_2</a>: f</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11982"></span>11982</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 56</td>
-<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: f</td>
+<td class="comment-1" rowspan="1"><a href="13979.html">end_calc</a>: f</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -1210,242 +1015,197 @@ vi. The fractional part of x is now stored in the print buffer.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_FRACTN</td>
+<td class="asm-label">PF_FRACTN</td>
 <td class="address-2"><span id="11983"></span>11983</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1"><span class="register">DE</span> now points to f.</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span> now points to f.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11984"></span>11984</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="12218.html">FETCH_TWO</a></td>
-<td class="comment-11" rowspan="1">The mantissa of f is now in <span class="register">D'</span>, <span class="register">E'</span>, <span class="register">D</span>, <span class="register">E</span>.</td>
+<td class="comment-1" rowspan="1">The mantissa of f is now in <span class="register">D'</span>, <span class="register">E'</span>, <span class="register">D</span>, <span class="register">E</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11987"></span>11987</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="1">Get the exchange registers.</td>
+<td class="comment-1" rowspan="1">Get the exchange registers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11988"></span>11988</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,128</td>
-<td class="comment-11" rowspan="3">The exponent of f is reduced to zero, by shifting the bits of f 128 minus e places right, where <span class="register">L'</span> contained e.</td>
+<td class="comment-1" rowspan="3">The exponent of f is reduced to zero, by shifting the bits of f 128 minus e places right, where <span class="register">L'</span> contained e.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11990"></span>11990</td>
-<td class="bytes-0"></td>
 <td class="instruction">SUB L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11991"></span>11991</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD L,0</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11993"></span>11993</td>
-<td class="bytes-0"></td>
 <td class="instruction">SET 7,D</td>
-<td class="comment-11" rowspan="1">True numerical bit to bit 7 of <span class="register">D'</span>.</td>
+<td class="comment-1" rowspan="1">True numerical bit to bit 7 of <span class="register">D'</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11995"></span>11995</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="1">Restore the main registers.</td>
+<td class="comment-1" rowspan="1">Restore the main registers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11996"></span>11996</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="12253.html">SHIFT_FP</a></td>
-<td class="comment-11" rowspan="1">Now make the shift.</td>
+<td class="comment-1" rowspan="1">Now make the shift.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_FRN_LP</td>
+<td class="asm-label">PF_FRN_LP</td>
 <td class="address-2"><span id="11999"></span>11999</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(IY+113)</td>
-<td class="comment-11" rowspan="1">Get the digit count.</td>
+<td class="comment-1" rowspan="1">Get the digit count.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12002"></span>12002</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 8</td>
-<td class="comment-11" rowspan="1">Are there already 8 digits?</td>
+<td class="comment-1" rowspan="1">Are there already 8 digits?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12004"></span>12004</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="11747.html#12012">PF_FR_DGT</a></td>
-<td class="comment-11" rowspan="1">If not, jump forward.</td>
+<td class="comment-1" rowspan="1">If not, jump forward.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12006"></span>12006</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="2">If 8 digits, just use f to round i up, rotating <span class="register">D'</span> left to set the carry.</td>
+<td class="comment-1" rowspan="2">If 8 digits, just use f to round i up, rotating <span class="register">D'</span> left to set the carry.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12007"></span>12007</td>
-<td class="bytes-0"></td>
 <td class="instruction">RL D</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12009"></span>12009</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="2">Restore main registers and jump forward to round up.</td>
+<td class="comment-1" rowspan="2">Restore main registers and jump forward to round up.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12010"></span>12010</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="11747.html#12044">PF_ROUND</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_FR_DGT</td>
+<td class="asm-label">PF_FR_DGT</td>
 <td class="address-2"><span id="12012"></span>12012</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD BC,512</td>
-<td class="comment-11" rowspan="1">Initial zero to <span class="register">C</span>, count of 2 to <span class="register">B</span>.</td>
+<td class="comment-1" rowspan="1">Initial zero to <span class="register">C</span>, count of 2 to <span class="register">B</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_FR_EXX</td>
+<td class="asm-label">PF_FR_EXX</td>
 <td class="address-2"><span id="12015"></span>12015</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,E</td>
-<td class="comment-11" rowspan="6"><span class="register">D'E'DE</span> is multiplied by 10 in 2 stages, first <span class="register">DE</span> then <span class="register">DE'</span>, each byte by byte in 2 steps, and the integer part of the result is obtained in <span class="register">C</span> to be passed into the print buffer.</td>
+<td class="comment-1" rowspan="6"><span class="register">D'E'DE</span> is multiplied by 10 in 2 stages, first <span class="register">DE</span> then <span class="register">DE'</span>, each byte by byte in 2 steps, and the integer part of the result is obtained in <span class="register">C</span> to be passed into the print buffer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12016"></span>12016</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="12171.html">CA_10A_C</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12019"></span>12019</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12020"></span>12020</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12021"></span>12021</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="12171.html">CA_10A_C</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12024"></span>12024</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12025"></span>12025</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="3">The count and the result alternate between <span class="register">BC</span> and <span class="register">BC'</span>.</td>
+<td class="comment-1" rowspan="3">The count and the result alternate between <span class="register">BC</span> and <span class="register">BC'</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12026"></span>12026</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12027"></span>12027</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12028"></span>12028</td>
-<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="11747.html#12015">PF_FR_EXX</a></td>
-<td class="comment-11" rowspan="1">Loop back once through the exchange registers.</td>
+<td class="comment-1" rowspan="1">Loop back once through the exchange registers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12030"></span>12030</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,23713</td>
-<td class="comment-11" rowspan="1">The start - 1st byte of <a href="23698.html#23713">mem-3</a>.</td>
+<td class="comment-1" rowspan="1">The start - 1st byte of <a href="23698.html#23713">mem-3</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12033"></span>12033</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
-<td class="comment-11" rowspan="1">Result to <span class="register">A</span> for storing.</td>
+<td class="comment-1" rowspan="1">Result to <span class="register">A</span> for storing.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12034"></span>12034</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,(IY+113)</td>
-<td class="comment-11" rowspan="1">Count of digits so far in number to <span class="register">C</span>.</td>
+<td class="comment-1" rowspan="1">Count of digits so far in number to <span class="register">C</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12037"></span>12037</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-11" rowspan="1">Address the first empty byte.</td>
+<td class="comment-1" rowspan="1">Address the first empty byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12038"></span>12038</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-11" rowspan="1">Store the next digit.</td>
+<td class="comment-1" rowspan="1">Store the next digit.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12039"></span>12039</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC (IY+113)</td>
-<td class="comment-11" rowspan="1">Step up the count of digits.</td>
+<td class="comment-1" rowspan="1">Step up the count of digits.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12042"></span>12042</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="11747.html#11999">PF_FRN_LP</a></td>
-<td class="comment-11" rowspan="1">Loop back until there are 8 digits.</td>
+<td class="comment-1" rowspan="1">Loop back until there are 8 digits.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -1458,193 +1218,160 @@ vii. The digits stored in the print buffer are rounded to a maximum of 8 digits 
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_ROUND</td>
+<td class="asm-label">PF_ROUND</td>
 <td class="address-2"><span id="12044"></span>12044</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1">Save the carry flag for the rounding.</td>
+<td class="comment-1" rowspan="1">Save the carry flag for the rounding.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12045"></span>12045</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,23713</td>
-<td class="comment-11" rowspan="1">Base address of number: <a href="23698.html#23713">mem-3</a>, byte 1.</td>
+<td class="comment-1" rowspan="1">Base address of number: <a href="23698.html#23713">mem-3</a>, byte 1.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12048"></span>12048</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,(IY+113)</td>
-<td class="comment-11" rowspan="2">Offset (number of digits in number) to <span class="register">BC</span>.</td>
+<td class="comment-1" rowspan="2">Offset (number of digits in number) to <span class="register">BC</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12051"></span>12051</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,0</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12053"></span>12053</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-11" rowspan="1">Address the last byte of the number.</td>
+<td class="comment-1" rowspan="1">Address the last byte of the number.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12054"></span>12054</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,C</td>
-<td class="comment-11" rowspan="1">Copy <span class="register">C</span> to <span class="register">B</span> as the counter.</td>
+<td class="comment-1" rowspan="1">Copy <span class="register">C</span> to <span class="register">B</span> as the counter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12055"></span>12055</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="1">Restore the carry flag.</td>
+<td class="comment-1" rowspan="1">Restore the carry flag.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_RND_LP</td>
+<td class="asm-label">PF_RND_LP</td>
 <td class="address-2"><span id="12056"></span>12056</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="1">This is the last byte of the number.</td>
+<td class="comment-1" rowspan="1">This is the last byte of the number.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12057"></span>12057</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="1">Get the byte into <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">Get the byte into <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12058"></span>12058</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADC A,0</td>
-<td class="comment-11" rowspan="1">Add in the carry i.e. round up.</td>
+<td class="comment-1" rowspan="1">Add in the carry i.e. round up.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12060"></span>12060</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-11" rowspan="1">Store the rounded byte in the buffer.</td>
+<td class="comment-1" rowspan="1">Store the rounded byte in the buffer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12061"></span>12061</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="3">If the byte is 0 or 10, <span class="register">B</span> will be decremented and the final zero (or the 10) will not be counted for printing.</td>
+<td class="comment-1" rowspan="3">If the byte is 0 or 10, <span class="register">B</span> will be decremented and the final zero (or the 10) will not be counted for printing.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12062"></span>12062</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="11747.html#12069">PF_R_BACK</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12064"></span>12064</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 10</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12066"></span>12066</td>
-<td class="bytes-0"></td>
 <td class="instruction">CCF</td>
-<td class="comment-11" rowspan="1">Reset the carry for a valid digit.</td>
+<td class="comment-1" rowspan="1">Reset the carry for a valid digit.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12067"></span>12067</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="11747.html#12077">PF_COUNT</a></td>
-<td class="comment-11" rowspan="1">Jump if carry reset.</td>
+<td class="comment-1" rowspan="1">Jump if carry reset.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_R_BACK</td>
+<td class="asm-label">PF_R_BACK</td>
 <td class="address-2"><span id="12069"></span>12069</td>
-<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="11747.html#12056">PF_RND_LP</a></td>
-<td class="comment-11" rowspan="1">Jump back for more rounding or more final zeros.</td>
+<td class="comment-1" rowspan="1">Jump back for more rounding or more final zeros.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12071"></span>12071</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),1</td>
-<td class="comment-11" rowspan="2">There is overflow to the left; an extra 1 is needed here.</td>
+<td class="comment-1" rowspan="2">There is overflow to the left; an extra 1 is needed here.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12073"></span>12073</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC B</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12074"></span>12074</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC (IY+114)</td>
-<td class="comment-11" rowspan="1">It is also an extra digit before the decimal.</td>
+<td class="comment-1" rowspan="1">It is also an extra digit before the decimal.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_COUNT</td>
+<td class="asm-label">PF_COUNT</td>
 <td class="address-2"><span id="12077"></span>12077</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (IY+113),B</td>
-<td class="comment-11" rowspan="1"><span class="register">B</span> now sets the count of the digits to be printed (final zeros will not be printed).</td>
+<td class="comment-1" rowspan="1"><span class="register">B</span> now sets the count of the digits to be printed (final zeros will not be printed).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12080"></span>12080</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="40.html">40</a></td>
-<td class="comment-11" rowspan="1">f is to be deleted.</td>
+<td class="comment-1" rowspan="1">f is to be deleted.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12081"></span>12081</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 2</td>
-<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a>: -</td>
+<td class="comment-1" rowspan="1"><a href="13147.html#13217">delete</a>: -</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12082"></span>12082</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 56</td>
-<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: -</td>
+<td class="comment-1" rowspan="1"><a href="13979.html">end_calc</a>: -</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12083"></span>12083</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="3">The calculator offset saved on the stack is restored to <span class="register">HL'</span>.</td>
+<td class="comment-1" rowspan="3">The calculator offset saved on the stack is restored to <span class="register">HL'</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12084"></span>12084</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12085"></span>12085</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -1657,67 +1384,54 @@ viii. The number can now be printed. First <span class="register">C</span> will 
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12086"></span>12086</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD BC,(23723)</td>
-<td class="comment-11" rowspan="1">The counters are set (first two bytes of <a href="23698.html#23723">mem-5</a>).</td>
+<td class="comment-1" rowspan="1">The counters are set (first two bytes of <a href="23698.html#23723">mem-5</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12090"></span>12090</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,23713</td>
-<td class="comment-11" rowspan="1">The start of the digits (first byte of <a href="23698.html#23713">mem-3</a>).</td>
+<td class="comment-1" rowspan="1">The start of the digits (first byte of <a href="23698.html#23713">mem-3</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12093"></span>12093</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-11" rowspan="3">If more than 9, or fewer than minus 4, digits are required before the decimal, then E-format will be needed.</td>
+<td class="comment-1" rowspan="3">If more than 9, or fewer than minus 4, digits are required before the decimal, then E-format will be needed.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12094"></span>12094</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 9</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12096"></span>12096</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="11747.html#12102">PF_NOT_E</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12098"></span>12098</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 252</td>
-<td class="comment-11" rowspan="2">Fewer than 4 means more than 4 leading zeros after the decimal.</td>
+<td class="comment-1" rowspan="2">Fewer than 4 means more than 4 leading zeros after the decimal.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12100"></span>12100</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="11747.html#12140">PF_E_FRMT</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_NOT_E</td>
+<td class="asm-label">PF_NOT_E</td>
 <td class="address-2"><span id="12102"></span>12102</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="2">Are there no digits before the decimal? If so, print an initial zero.</td>
+<td class="comment-1" rowspan="2">Are there no digits before the decimal? If so, print an initial zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12103"></span>12103</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL Z,<a href="5615.html">OUT_CODE</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -1730,304 +1444,262 @@ The next entry point is also used to print the digits needed for E-format printi
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_E_SBRN</td>
+<td class="asm-label">PF_E_SBRN</td>
 <td class="address-2"><span id="12106"></span>12106</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
-<td class="comment-11" rowspan="1">Start by setting <span class="register">A</span> to zero.</td>
+<td class="comment-1" rowspan="1">Start by setting <span class="register">A</span> to zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12107"></span>12107</td>
-<td class="bytes-0"></td>
 <td class="instruction">SUB B</td>
-<td class="comment-11" rowspan="2">Subtract <span class="register">B</span>: minus will mean there are digits before the decimal; jump forward to print them.</td>
+<td class="comment-1" rowspan="2">Subtract <span class="register">B</span>: minus will mean there are digits before the decimal; jump forward to print them.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12108"></span>12108</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP M,<a href="11747.html#12114">PF_OUT_LP</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12111"></span>12111</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
-<td class="comment-11" rowspan="1"><span class="register">A</span> is now required as a counter.</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span> is now required as a counter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12112"></span>12112</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="11747.html#12126">PF_DC_OUT</a></td>
-<td class="comment-11" rowspan="1">Jump forward to print the decimal part.</td>
+<td class="comment-1" rowspan="1">Jump forward to print the decimal part.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_OUT_LP</td>
+<td class="asm-label">PF_OUT_LP</td>
 <td class="address-2"><span id="12114"></span>12114</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
-<td class="comment-11" rowspan="3">Copy the number of digits to be printed to <span class="register">A</span>. If <span class="register">A</span> is 0, there are still final zeros to print (<span class="register">B</span> is non-zero), so jump.</td>
+<td class="comment-1" rowspan="3">Copy the number of digits to be printed to <span class="register">A</span>. If <span class="register">A</span> is 0, there are still final zeros to print (<span class="register">B</span> is non-zero), so jump.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12115"></span>12115</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12116"></span>12116</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="11747.html#12121">PF_OUT_DT</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12118"></span>12118</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="1">Get a digit from the print buffer.</td>
+<td class="comment-1" rowspan="1">Get a digit from the print buffer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12119"></span>12119</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Point to the next digit.</td>
+<td class="comment-1" rowspan="1">Point to the next digit.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12120"></span>12120</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC C</td>
-<td class="comment-11" rowspan="1">Decrease the count by one.</td>
+<td class="comment-1" rowspan="1">Decrease the count by one.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_OUT_DT</td>
+<td class="asm-label">PF_OUT_DT</td>
 <td class="address-2"><span id="12121"></span>12121</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="5615.html">OUT_CODE</a></td>
-<td class="comment-11" rowspan="1">Print the appropriate digit.</td>
+<td class="comment-1" rowspan="1">Print the appropriate digit.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12124"></span>12124</td>
-<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="11747.html#12114">PF_OUT_LP</a></td>
-<td class="comment-11" rowspan="1">Loop back until <span class="register">B</span> is zero.</td>
+<td class="comment-1" rowspan="1">Loop back until <span class="register">B</span> is zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_DC_OUT</td>
+<td class="asm-label">PF_DC_OUT</td>
 <td class="address-2"><span id="12126"></span>12126</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
-<td class="comment-11" rowspan="3">It is time to print the decimal, unless <span class="register">C</span> is now zero; in that case, return - finished.</td>
+<td class="comment-1" rowspan="3">It is time to print the decimal, unless <span class="register">C</span> is now zero; in that case, return - finished.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12127"></span>12127</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12128"></span>12128</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12129"></span>12129</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC B</td>
-<td class="comment-11" rowspan="1">Add 1 to <span class="register">B</span> - include the decimal.</td>
+<td class="comment-1" rowspan="1">Add 1 to <span class="register">B</span> - include the decimal.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12130"></span>12130</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,"."</td>
-<td class="comment-11" rowspan="1">Put the code for '.' into <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">Put the code for '.' into <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_DEC_0S</td>
+<td class="asm-label">PF_DEC_0S</td>
 <td class="address-2"><span id="12132"></span>12132</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="16.html">16</a></td>
-<td class="comment-11" rowspan="1">Print the '.'.</td>
+<td class="comment-1" rowspan="1">Print the '.'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12133"></span>12133</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,"0"</td>
-<td class="comment-11" rowspan="1">Enter the character code for '0'.</td>
+<td class="comment-1" rowspan="1">Enter the character code for '0'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12135"></span>12135</td>
-<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="11747.html#12132">PF_DEC_0S</a></td>
-<td class="comment-11" rowspan="1">Loop back to print all needed zeros.</td>
+<td class="comment-1" rowspan="1">Loop back to print all needed zeros.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12137"></span>12137</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,C</td>
-<td class="comment-11" rowspan="1">Set the count for all remaining digits.</td>
+<td class="comment-1" rowspan="1">Set the count for all remaining digits.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12138"></span>12138</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="11747.html#12114">PF_OUT_LP</a></td>
-<td class="comment-11" rowspan="1">Jump back to print them.</td>
+<td class="comment-1" rowspan="1">Jump back to print them.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_E_FRMT</td>
+<td class="asm-label">PF_E_FRMT</td>
 <td class="address-2"><span id="12140"></span>12140</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,B</td>
-<td class="comment-11" rowspan="1">The count of digits is copied to <span class="register">D</span>.</td>
+<td class="comment-1" rowspan="1">The count of digits is copied to <span class="register">D</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12141"></span>12141</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC D</td>
-<td class="comment-11" rowspan="1">It is decremented to give the exponent.</td>
+<td class="comment-1" rowspan="1">It is decremented to give the exponent.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12142"></span>12142</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,1</td>
-<td class="comment-11" rowspan="1">One digit is required before the decimal in E-format.</td>
+<td class="comment-1" rowspan="1">One digit is required before the decimal in E-format.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12144"></span>12144</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="11747.html#12106">PF_E_SBRN</a></td>
-<td class="comment-11" rowspan="1">All the part of the number before the 'E' is now printed.</td>
+<td class="comment-1" rowspan="1">All the part of the number before the 'E' is now printed.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12147"></span>12147</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,"E"</td>
-<td class="comment-11" rowspan="1">Enter the character code for 'E'.</td>
+<td class="comment-1" rowspan="1">Enter the character code for 'E'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12149"></span>12149</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="16.html">16</a></td>
-<td class="comment-11" rowspan="1">Print the 'E'.</td>
+<td class="comment-1" rowspan="1">Print the 'E'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12150"></span>12150</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,D</td>
-<td class="comment-11" rowspan="1">Exponent to <span class="register">C</span> now for printing.</td>
+<td class="comment-1" rowspan="1">Exponent to <span class="register">C</span> now for printing.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12151"></span>12151</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
-<td class="comment-11" rowspan="1">And to <span class="register">A</span> for testing.</td>
+<td class="comment-1" rowspan="1">And to <span class="register">A</span> for testing.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12152"></span>12152</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="1">Its sign is tested.</td>
+<td class="comment-1" rowspan="1">Its sign is tested.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12153"></span>12153</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP P,<a href="11747.html#12163">PF_E_POS</a></td>
-<td class="comment-11" rowspan="1">Jump if it is positive.</td>
+<td class="comment-1" rowspan="1">Jump if it is positive.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12156"></span>12156</td>
-<td class="bytes-0"></td>
 <td class="instruction">NEG</td>
-<td class="comment-11" rowspan="1">Otherwise, negate it in <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">Otherwise, negate it in <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12158"></span>12158</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
-<td class="comment-11" rowspan="1">Then copy it back to <span class="register">C</span> for printing.</td>
+<td class="comment-1" rowspan="1">Then copy it back to <span class="register">C</span> for printing.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12159"></span>12159</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,"-"</td>
-<td class="comment-11" rowspan="1">Enter the character code for '-'.</td>
+<td class="comment-1" rowspan="1">Enter the character code for '-'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12161"></span>12161</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="11747.html#12165">PF_E_SIGN</a></td>
-<td class="comment-11" rowspan="1">Jump to print the sign.</td>
+<td class="comment-1" rowspan="1">Jump to print the sign.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_E_POS</td>
+<td class="asm-label">PF_E_POS</td>
 <td class="address-2"><span id="12163"></span>12163</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,"+"</td>
-<td class="comment-11" rowspan="1">Enter the character code for '+'.</td>
+<td class="comment-1" rowspan="1">Enter the character code for '+'.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PF_E_SIGN</td>
+<td class="asm-label">PF_E_SIGN</td>
 <td class="address-2"><span id="12165"></span>12165</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="16.html">16</a></td>
-<td class="comment-11" rowspan="1">Now print the sign: '+' or '-'.</td>
+<td class="comment-1" rowspan="1">Now print the sign: '+' or '-'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12166"></span>12166</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,0</td>
-<td class="comment-11" rowspan="1"><span class="register">BC</span> holds the exponent for printing.</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span> holds the exponent for printing.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12168"></span>12168</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="6683.html">OUT_NUM_1</a></td>
-<td class="comment-11" rowspan="1">Jump back to print it and finish.</td>
+<td class="comment-1" rowspan="1">Jump back to print it and finish.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="11733.html">11733</a></span></td>
+<td class="prev">
+Prev: <a href="11733.html">11733</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#11747">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="12171.html">12171</a></span></td>
+<td class="next">
+Next: <a href="12171.html">12171</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/2DE3.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

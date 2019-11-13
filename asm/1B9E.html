@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 1B9E</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1B8A.html">1B8A</a></span></td>
+<td class="prev">
+Prev: <a href="1B8A.html">1B8A</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1B9E">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1BB2.html">1BB2</a></span></td>
+<td class="next">
+Next: <a href="1BB2.html">1BB2</a>
+</td>
 </tr>
 </table>
 <div class="description">1B9E: THE 'LINE-NEW' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routine at <a href="1B76.html">STMT_RET</a>.
 There has been a jump in the program and the starting address of the new line has to be found.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,83 +44,62 @@ There has been a jump in the program and the starting address of the new line ha
 <td class="register-desc">Number of the new line</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">LINE_NEW</td>
+<td class="asm-label">LINE_NEW</td>
 <td class="address-2"><span id="1B9E"></span>1B9E</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="196E.html">LINE_ADDR</a></td>
-<td class="comment-11" rowspan="1">The starting address of the line, or the 'first line after' is found.</td>
+<td class="comment-1" rowspan="1">The starting address of the line, or the 'first line after' is found.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BA1"></span>1BA1</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,($5C44)</td>
-<td class="comment-11" rowspan="1">Collect the statement number (<a href="5C44.html">NSPPC</a>).</td>
+<td class="comment-1" rowspan="1">Collect the statement number (<a href="5C44.html">NSPPC</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BA4"></span>1BA4</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1BBF.html">LINE_USE</a></td>
-<td class="comment-11" rowspan="3">Jump forward if the required line was found; otherwise check the validity of the statement number - must be zero.</td>
+<td class="comment-1" rowspan="3">Jump forward if the required line was found; otherwise check the validity of the statement number - must be zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BA6"></span>1BA6</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BA7"></span>1BA7</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="1BD1.html#1BEC">REPORT_N</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BA9"></span>1BA9</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
-<td class="comment-11" rowspan="4">Also check that the 'first line after' is not after the actual 'end of program'.</td>
+<td class="comment-1" rowspan="4">Also check that the 'first line after' is not after the actual 'end of program'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BAA"></span>1BAA</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BAB"></span>1BAB</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND $C0</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BAD"></span>1BAD</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BAE"></span>1BAE</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1BBF.html">LINE_USE</a></td>
-<td class="comment-11" rowspan="1">Jump forward with valid addresses; otherwise signal the error 'OK'.</td>
+<td class="comment-1" rowspan="1">Jump forward with valid addresses; otherwise signal the error 'OK'.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -130,22 +112,18 @@ Report 0 - OK.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BB0"></span>1BB0</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
-<td class="comment-11" rowspan="2">Use the error handling routine.</td>
+<td class="comment-1" rowspan="2">Use the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BB1"></span>1BB1</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $FF</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
-
 <div class="comments">
 <div class="paragraph">
 Note: obviously not an error in the normal sense - but rather a jump past the program.
@@ -156,15 +134,19 @@ Note: obviously not an error in the normal sense - but rather a jump past the pr
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1B8A.html">1B8A</a></span></td>
+<td class="prev">
+Prev: <a href="1B8A.html">1B8A</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1B9E">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1BB2.html">1BB2</a></span></td>
+<td class="next">
+Next: <a href="1BB2.html">1BB2</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/7070.html">Switch to decimal</a>.</div>
 </footer>
 </body>

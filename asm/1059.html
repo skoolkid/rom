@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 1059</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1031.html">1031</a></span></td>
+<td class="prev">
+Prev: <a href="1031.html">1031</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1059">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1076.html">1076</a></span></td>
+<td class="next">
+Next: <a href="1076.html">1076</a>
+</td>
 </tr>
 </table>
 <div class="description">1059: THE 'CURSOR UP EDITING' SUBROUTINE</div>
@@ -29,75 +32,53 @@
 The address of this routine is derived from an offset found in the <a href="0FA0.html">editing keys table</a>.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">ED_UP</td>
+<td class="asm-label">ED_UP</td>
 <td class="address-2"><span id="1059"></span>1059</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 5,(IY+$37)</td>
-<td class="comment-11" rowspan="2">Return if in 'INPUT mode' (bit 5 of <a href="5C71.html">FLAGX</a> set).</td>
+<td class="comment-1" rowspan="2">Return if in 'INPUT mode' (bit 5 of <a href="5C71.html">FLAGX</a> set).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="105D"></span>105D</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NZ</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="105E"></span>105E</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C49)</td>
-<td class="comment-11" rowspan="2">Fetch the current line number (<a href="5C49.html">E-PPC</a>) and its start address.</td>
+<td class="comment-1" rowspan="2">Fetch the current line number (<a href="5C49.html">E-PPC</a>) and its start address.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1061"></span>1061</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="196E.html">LINE_ADDR</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1064"></span>1064</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1"><span class="register">HL</span> now points to the previous line.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span> now points to the previous line.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1065"></span>1065</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="168F.html#1695">LINE_NO</a></td>
-<td class="comment-11" rowspan="1">This line's number is fetched.</td>
+<td class="comment-1" rowspan="1">This line's number is fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1068"></span>1068</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,$5C4A</td>
-<td class="comment-11" rowspan="1">This is <a href="5C49.html">E-PPC-hi</a>.</td>
+<td class="comment-1" rowspan="1">This is <a href="5C49.html">E-PPC-hi</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="106B"></span>106B</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="190F.html#191C">LN_STORE</a></td>
-<td class="comment-11" rowspan="1">The line number is stored.</td>
+<td class="comment-1" rowspan="1">The line number is stored.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -110,38 +91,37 @@ This entry point is used by the routine at <a href="0FF3.html">ED_DOWN</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">ED_LIST</td>
+<td class="asm-label">ED_LIST</td>
 <td class="address-2"><span id="106E"></span>106E</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1795.html">AUTO_LIST</a></td>
-<td class="comment-11" rowspan="3">A new automatic listing is now produced and channel 'K' re-opened before returning to <a href="0F2C.html#0F38">ED_LOOP</a>.</td>
+<td class="comment-1" rowspan="3">A new automatic listing is now produced and channel 'K' re-opened before returning to <a href="0F2C.html#0F38">ED_LOOP</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1071"></span>1071</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,$00</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1073"></span>1073</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="1601.html">CHAN_OPEN</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1031.html">1031</a></span></td>
+<td class="prev">
+Prev: <a href="1031.html">1031</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1059">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1076.html">1076</a></span></td>
+<td class="next">
+Next: <a href="1076.html">1076</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/4185.html">Switch to decimal</a>.</div>
 </footer>
 </body>

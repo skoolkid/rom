@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 06621</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="6584.html">06584</a></span></td>
+<td class="prev">
+Prev: <a href="6584.html">06584</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#6621">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="6629.html">06629</a></span></td>
+<td class="next">
+Next: <a href="6629.html">06629</a>
+</td>
 </tr>
 </table>
 <div class="description">06621: THE 'DIFFERENCE' SUBROUTINE</div>
@@ -35,7 +38,7 @@ The routine at <a href="6584.html">NEXT_ONE</a> continues here.
 The 'length' between two 'starts' is formed in the <span class="register">BC</span> register pair. The pointers are reformed but returned exchanged.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -48,7 +51,7 @@ The 'length' between two 'starts' is formed in the <span class="register">BC</sp
 <td class="register-desc">Second address</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -68,66 +71,59 @@ The 'length' between two 'starts' is formed in the <span class="register">BC</sp
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">DIFFER</td>
+<td class="asm-label">DIFFER</td>
 <td class="address-2"><span id="6621"></span>06621</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="1">Prepare for a true subtraction.</td>
+<td class="comment-1" rowspan="1">Prepare for a true subtraction.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6622"></span>06622</td>
-<td class="bytes-0"></td>
 <td class="instruction">SBC HL,DE</td>
-<td class="comment-11" rowspan="3">Find the length from one 'start' to the next and pass it to the <span class="register">BC</span> register pair.</td>
+<td class="comment-1" rowspan="3">Find the length from one 'start' to the next and pass it to the <span class="register">BC</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6624"></span>06624</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,H</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6625"></span>06625</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6626"></span>06626</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-11" rowspan="3">Reform the address and exchange them before returning.</td>
+<td class="comment-1" rowspan="3">Reform the address and exchange them before returning.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6627"></span>06627</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6628"></span>06628</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="6584.html">06584</a></span></td>
+<td class="prev">
+Prev: <a href="6584.html">06584</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#6621">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="6629.html">06629</a></span></td>
+<td class="next">
+Next: <a href="6629.html">06629</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/19DD.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

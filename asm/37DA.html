@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 37DA</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="37B5.html">37B5</a></span></td>
+<td class="prev">
+Prev: <a href="37B5.html">37B5</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#37DA">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="37E2.html">37E2</a></span></td>
+<td class="next">
+Next: <a href="37E2.html">37E2</a>
+</td>
 </tr>
 </table>
 <div class="description">37DA: THE 'TAN' FUNCTION (offset +21)</div>
@@ -32,88 +35,72 @@ The address of this routine is found in the <a href="32D7.html">table of address
 This subroutine handles the function TAN X. It simply returns SIN X/COS X, with arithmetic overflow if COS X=0.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">tan</td>
+<td class="asm-label">tan</td>
 <td class="address-2"><span id="37DA"></span>37DA</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-11" rowspan="1">X</td>
+<td class="comment-1" rowspan="1">X</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37DB"></span>37DB</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: X, X</td>
+<td class="comment-1" rowspan="1"><a href="33C0.html">duplicate</a>: X, X</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37DC"></span>37DC</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $1F</td>
-<td class="comment-11" rowspan="1"><a href="37B5.html">sin</a>: X, SIN X</td>
+<td class="comment-1" rowspan="1"><a href="37B5.html">sin</a>: X, SIN X</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37DD"></span>37DD</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $01</td>
-<td class="comment-11" rowspan="1"><a href="343C.html">exchange</a>: SIN X, X</td>
+<td class="comment-1" rowspan="1"><a href="343C.html">exchange</a>: SIN X, X</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37DE"></span>37DE</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $20</td>
-<td class="comment-11" rowspan="1"><a href="37AA.html">cos</a>: SIN X, COS X</td>
+<td class="comment-1" rowspan="1"><a href="37AA.html">cos</a>: SIN X, COS X</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37DF"></span>37DF</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $05</td>
-<td class="comment-11" rowspan="1"><a href="31AF.html">division</a>: SIN X/COS X=TAN X (report arithmetic overflow if needed)</td>
+<td class="comment-1" rowspan="1"><a href="31AF.html">division</a>: SIN X/COS X=TAN X (report arithmetic overflow if needed)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37E0"></span>37E0</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a>: TAN X</td>
+<td class="comment-1" rowspan="1"><a href="369B.html">end_calc</a>: TAN X</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37E1"></span>37E1</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished: 'last value'=TAN X.</td>
+<td class="comment-1" rowspan="1">Finished: 'last value'=TAN X.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="37B5.html">37B5</a></span></td>
+<td class="prev">
+Prev: <a href="37B5.html">37B5</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#37DA">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="37E2.html">37E2</a></span></td>
+<td class="next">
+Next: <a href="37E2.html">37E2</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/14298.html">Switch to decimal</a>.</div>
 </footer>
 </body>

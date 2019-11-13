@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 12303</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="12292.html">12292</a></span></td>
+<td class="prev">
+Prev: <a href="12292.html">12292</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#12303">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="12308.html">12308</a></span></td>
+<td class="next">
+Next: <a href="12308.html">12308</a>
+</td>
 </tr>
 </table>
 <div class="description">12303: THE 'SUBTRACTION' OPERATION (offset 3)</div>
@@ -38,7 +41,7 @@ This subroutine simply changes the sign of the subtrahend and carries on into <a
 Note that <span class="register">HL</span> points to the minuend and <span class="register">DE</span> points to the subtrahend. (See <a href="12308.html">addition</a> for more details.)
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -51,47 +54,42 @@ Note that <span class="register">HL</span> points to the minuend and <span class
 <td class="register-desc">Address of the first byte of the minuend</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">subtract</td>
+<td class="asm-label">subtract</td>
 <td class="address-2"><span id="12303"></span>12303</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Exchange the pointers.</td>
+<td class="comment-1" rowspan="1">Exchange the pointers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12304"></span>12304</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="13422.html">negate</a></td>
-<td class="comment-11" rowspan="1">Change the sign of the subtrahend.</td>
+<td class="comment-1" rowspan="1">Change the sign of the subtrahend.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="12307"></span>12307</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Exchange the pointers back and continue into <a href="12308.html">addition</a>.</td>
+<td class="comment-1" rowspan="1">Exchange the pointers back and continue into <a href="12308.html">addition</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="12292.html">12292</a></span></td>
+<td class="prev">
+Prev: <a href="12292.html">12292</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#12303">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="12308.html">12308</a></span></td>
+<td class="next">
+Next: <a href="12308.html">12308</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/300F.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

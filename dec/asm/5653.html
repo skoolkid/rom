@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 05653</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="5633.html">05633</a></span></td>
+<td class="prev">
+Prev: <a href="5633.html">05633</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#5653">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="5677.html">05677</a></span></td>
+<td class="next">
+Next: <a href="5677.html">05677</a>
+</td>
 </tr>
 </table>
 <div class="description">05653: THE 'CHAN-FLAG' SUBROUTINE</div>
@@ -35,7 +38,7 @@ The routine at <a href="5633.html">CHAN_OPEN</a> continues here.
 The appropriate flags for the different channels are set by this subroutine.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -44,104 +47,80 @@ The appropriate flags for the different channels are set by this subroutine.
 <td class="register-desc">Base address of the channel (see <a href="23734.html">CHINFO</a>)</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">CHAN_FLAG</td>
+<td class="asm-label">CHAN_FLAG</td>
 <td class="address-2"><span id="5653"></span>05653</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23633),HL</td>
-<td class="comment-11" rowspan="1">The <span class="register">HL</span> register pair holds the base address for a particular channel; set <a href="23633.html">CURCHL</a> accordingly.</td>
+<td class="comment-1" rowspan="1">The <span class="register">HL</span> register pair holds the base address for a particular channel; set <a href="23633.html">CURCHL</a> accordingly.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5656"></span>05656</td>
-<td class="bytes-0"></td>
 <td class="instruction">RES 4,(IY+48)</td>
-<td class="comment-11" rowspan="1">Signal 'using other than channel 'K'' (reset bit 4 of <a href="23658.html">FLAGS2</a>).</td>
+<td class="comment-1" rowspan="1">Signal 'using other than channel 'K'' (reset bit 4 of <a href="23658.html">FLAGS2</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5660"></span>05660</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="4">Step past the output and the input addresses and make <span class="register">HL</span> point to the channel code.</td>
+<td class="comment-1" rowspan="4">Step past the output and the input addresses and make <span class="register">HL</span> point to the channel code.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5661"></span>05661</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5662"></span>05662</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5663"></span>05663</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5664"></span>05664</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-11" rowspan="1">Fetch the code.</td>
+<td class="comment-1" rowspan="1">Fetch the code.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5665"></span>05665</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,5677</td>
-<td class="comment-11" rowspan="1">The base address of the <a href="5677.html">channel code look-up table</a>.</td>
+<td class="comment-1" rowspan="1">The base address of the <a href="5677.html">channel code look-up table</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5668"></span>05668</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="5851.html#5852">INDEXER</a></td>
-<td class="comment-11" rowspan="2">Index into this table and locate the required offset, but return if there is not a matching channel code.</td>
+<td class="comment-1" rowspan="2">Index into this table and locate the required offset, but return if there is not a matching channel code.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5671"></span>05671</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5672"></span>05672</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,0</td>
-<td class="comment-11" rowspan="2">Pass the offset to the <span class="register">DE</span> register pair.</td>
+<td class="comment-1" rowspan="2">Pass the offset to the <span class="register">DE</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5674"></span>05674</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5675"></span>05675</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-11" rowspan="1">Point <span class="register">HL</span> at the appropriate flag setting routine.</td>
+<td class="comment-1" rowspan="1">Point <span class="register">HL</span> at the appropriate flag setting routine.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -154,24 +133,27 @@ This entry point is used by the routine at <a href="5615.html">OUT_CODE</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">CALL_JUMP</td>
+<td class="asm-label">CALL_JUMP</td>
 <td class="address-2"><span id="5676"></span>05676</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP (HL)</td>
-<td class="comment-11" rowspan="1">Jump to the routine.</td>
+<td class="comment-1" rowspan="1">Jump to the routine.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="5633.html">05633</a></span></td>
+<td class="prev">
+Prev: <a href="5633.html">05633</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#5653">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="5677.html">05677</a></span></td>
+<td class="next">
+Next: <a href="5677.html">05677</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/1615.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

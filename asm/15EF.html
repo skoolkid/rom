@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 15EF</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="15E6.html">15E6</a></span></td>
+<td class="prev">
+Prev: <a href="15E6.html">15E6</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#15EF">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1601.html">1601</a></span></td>
+<td class="next">
+Next: <a href="1601.html">1601</a>
+</td>
 </tr>
 </table>
 <div class="description">15EF: THE 'MAIN PRINTING' SUBROUTINE</div>
@@ -29,7 +32,7 @@
 Used by the routines at <a href="12A2.html">MAIN_EXEC</a>, <a href="1925.html">OUT_SP_2</a>, <a href="1A1B.html">OUT_NUM_1</a> and <a href="2DE3.html">PRINT_FP</a>.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -38,27 +41,18 @@ Used by the routines at <a href="12A2.html">MAIN_EXEC</a>, <a href="1925.html">O
 <td class="register-desc">Value from +00 to +09 (for digits) or +11 to +22 (for the letters A-R)</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">OUT_CODE</td>
+<td class="asm-label">OUT_CODE</td>
 <td class="address-2"><span id="15EF"></span>15EF</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,$30</td>
-<td class="comment-11" rowspan="2">Increase the value in the <span class="register">A</span> register by +30.</td>
+<td class="comment-1" rowspan="2">Increase the value in the <span class="register">A</span> register by +30.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15F1"></span>15F1</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD A,E</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -71,25 +65,21 @@ This entry point is used by the routine at <a href="0010.html">PRINT_A_1</a> wit
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PRINT_A_2</td>
+<td class="asm-label">PRINT_A_2</td>
 <td class="address-2"><span id="15F2"></span>15F2</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="2">Save the registers.</td>
+<td class="comment-1" rowspan="2">Save the registers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15F3"></span>15F3</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15F4"></span>15F4</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C51)</td>
-<td class="comment-11" rowspan="1">Fetch the base address for the current channel (<a href="5C51.html">CURCHL</a>). This will point to an output address.</td>
+<td class="comment-1" rowspan="1">Fetch the base address for the current channel (<a href="5C51.html">CURCHL</a>). This will point to an output address.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -105,73 +95,67 @@ Now call the actual subroutine. <span class="register">HL</span> points to the o
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">CALL_SUB</td>
+<td class="asm-label">CALL_SUB</td>
 <td class="address-2"><span id="15F7"></span>15F7</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-11" rowspan="1">Fetch the low byte.</td>
+<td class="comment-1" rowspan="1">Fetch the low byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15F8"></span>15F8</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="2">Fetch the high byte.</td>
+<td class="comment-1" rowspan="2">Fetch the high byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15F9"></span>15F9</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15FA"></span>15FA</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Move the address to the <span class="register">HL</span> register pair.</td>
+<td class="comment-1" rowspan="1">Move the address to the <span class="register">HL</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15FB"></span>15FB</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1615.html#162C">CALL_JUMP</a></td>
-<td class="comment-11" rowspan="1">Call the actual subroutine.</td>
+<td class="comment-1" rowspan="1">Call the actual subroutine.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15FE"></span>15FE</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">Restore the registers.</td>
+<td class="comment-1" rowspan="2">Restore the registers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15FF"></span>15FF</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1600"></span>1600</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Return will be from here unless an error occurred.</td>
+<td class="comment-1" rowspan="1">Return will be from here unless an error occurred.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="15E6.html">15E6</a></span></td>
+<td class="prev">
+Prev: <a href="15E6.html">15E6</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#15EF">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1601.html">1601</a></span></td>
+<td class="next">
+Next: <a href="1601.html">1601</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/5615.html">Switch to decimal</a>.</div>
 </footer>
 </body>

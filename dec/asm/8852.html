@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 08852</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="8673.html">08673</a></span></td>
+<td class="prev">
+Prev: <a href="8673.html">08673</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#8852">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="8874.html">08874</a></span></td>
+<td class="next">
+Next: <a href="8874.html">08874</a>
+</td>
 </tr>
 </table>
 <div class="description">08852: THE 'BORDER' COMMAND ROUTINE</div>
@@ -32,116 +35,91 @@ The address of this routine is found in the <a href="6728.html#6901">parameter t
 The parameter of the BORDER command is used with an 'OUT' command to actually alter the colour of the border. The parameter is then saved in the system variable <a href="23624.html">BORDCR</a>.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">BORDER</td>
+<td class="asm-label">BORDER</td>
 <td class="address-2"><span id="8852"></span>08852</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="7828.html">FIND_INT1</a></td>
-<td class="comment-11" rowspan="3">The parameter is fetched and its range is tested.</td>
+<td class="comment-1" rowspan="3">The parameter is fetched and its range is tested.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8855"></span>08855</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 8</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8857"></span>08857</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="8673.html#8772">REPORT_K</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8859"></span>08859</td>
-<td class="bytes-0"></td>
 <td class="instruction">OUT (254),A</td>
-<td class="comment-11" rowspan="1">The 'OUT' instruction is then used to set the border colour.</td>
+<td class="comment-1" rowspan="1">The 'OUT' instruction is then used to set the border colour.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8861"></span>08861</td>
-<td class="bytes-0"></td>
 <td class="instruction">RLCA</td>
-<td class="comment-11" rowspan="3">The parameter is then multiplied by eight.</td>
+<td class="comment-1" rowspan="3">The parameter is then multiplied by eight.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8862"></span>08862</td>
-<td class="bytes-0"></td>
 <td class="instruction">RLCA</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8863"></span>08863</td>
-<td class="bytes-0"></td>
 <td class="instruction">RLCA</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8864"></span>08864</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 5,A</td>
-<td class="comment-11" rowspan="1">Is the border colour a 'light' colour?</td>
+<td class="comment-1" rowspan="1">Is the border colour a 'light' colour?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8866"></span>08866</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="8852.html#8870">BORDER_1</a></td>
-<td class="comment-11" rowspan="1">Jump if so (the INK colour will be black).</td>
+<td class="comment-1" rowspan="1">Jump if so (the INK colour will be black).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8868"></span>08868</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR 7</td>
-<td class="comment-11" rowspan="1">Change the INK colour to white.</td>
+<td class="comment-1" rowspan="1">Change the INK colour to white.</td>
 </tr>
 <tr>
-<td class="asm-label-1">BORDER_1</td>
+<td class="asm-label">BORDER_1</td>
 <td class="address-2"><span id="8870"></span>08870</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23624),A</td>
-<td class="comment-11" rowspan="2">Set the system variable (<a href="23624.html">BORDCR</a>) as required and return.</td>
+<td class="comment-1" rowspan="2">Set the system variable (<a href="23624.html">BORDCR</a>) as required and return.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8873"></span>08873</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="8673.html">08673</a></span></td>
+<td class="prev">
+Prev: <a href="8673.html">08673</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#8852">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="8874.html">08874</a></span></td>
+<td class="next">
+Next: <a href="8874.html">08874</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/2294.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

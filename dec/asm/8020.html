@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 08020</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7994.html">07994</a></span></td>
+<td class="prev">
+Prev: <a href="7994.html">07994</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#8020">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="8032.html">08032</a></span></td>
+<td class="next">
+Next: <a href="8032.html">08032</a>
+</td>
 </tr>
 </table>
 <div class="description">08020: THE 'BREAK-KEY' SUBROUTINE</div>
@@ -32,88 +35,70 @@ Used by the routines at <a href="3828.html">COPY_LINE</a> and <a href="7030.html
 This subroutine is called in several instances to read the BREAK key. The carry flag is returned reset only if the SHIFT and the BREAK keys are both being pressed.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">BREAK_KEY</td>
+<td class="asm-label">BREAK_KEY</td>
 <td class="address-2"><span id="8020"></span>08020</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,127</td>
-<td class="comment-11" rowspan="2">Form the port address 32766 and read in a byte.</td>
+<td class="comment-1" rowspan="2">Form the port address 32766 and read in a byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8022"></span>08022</td>
-<td class="bytes-0"></td>
 <td class="instruction">IN A,(254)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8024"></span>08024</td>
-<td class="bytes-0"></td>
 <td class="instruction">RRA</td>
-<td class="comment-11" rowspan="1">Examine only bit 0 by shifting it into the carry position.</td>
+<td class="comment-1" rowspan="1">Examine only bit 0 by shifting it into the carry position.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8025"></span>08025</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET C</td>
-<td class="comment-11" rowspan="1">Return if the BREAK key is not being pressed.</td>
+<td class="comment-1" rowspan="1">Return if the BREAK key is not being pressed.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8026"></span>08026</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,254</td>
-<td class="comment-11" rowspan="2">Form the port address 65278 and read in a byte.</td>
+<td class="comment-1" rowspan="2">Form the port address 65278 and read in a byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8028"></span>08028</td>
-<td class="bytes-0"></td>
 <td class="instruction">IN A,(254)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8030"></span>08030</td>
-<td class="bytes-0"></td>
 <td class="instruction">RRA</td>
-<td class="comment-11" rowspan="1">Again examine bit 0.</td>
+<td class="comment-1" rowspan="1">Again examine bit 0.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8031"></span>08031</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Return with carry reset if both keys are being pressed.</td>
+<td class="comment-1" rowspan="1">Return with carry reset if both keys are being pressed.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7994.html">07994</a></span></td>
+<td class="prev">
+Prev: <a href="7994.html">07994</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#8020">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="8032.html">08032</a></span></td>
+<td class="next">
+Next: <a href="8032.html">08032</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/1F54.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

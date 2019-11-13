@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 1E67</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1E5F.html">1E5F</a></span></td>
+<td class="prev">
+Prev: <a href="1E5F.html">1E5F</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1E67">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1E7A.html">1E7A</a></span></td>
+<td class="next">
+Next: <a href="1E7A.html">1E7A</a>
+</td>
 </tr>
 </table>
 <div class="description">1E67: THE 'GO TO' COMMAND ROUTINE</div>
@@ -35,68 +38,45 @@ The address of this routine is found in the <a href="1A48.html#1A7D">parameter t
 The operand of a GO TO ought to be a line number in the range 1-9999 but the actual test is against an upper value of 61439.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">GO_TO</td>
+<td class="asm-label">GO_TO</td>
 <td class="address-2"><span id="1E67"></span>1E67</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1E94.html#1E99">FIND_INT2</a></td>
-<td class="comment-11" rowspan="3">Fetch the operand and transfer it to the <span class="register">HL</span> register pair.</td>
+<td class="comment-1" rowspan="3">Fetch the operand and transfer it to the <span class="register">HL</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1E6A"></span>1E6A</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD H,B</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1E6B"></span>1E6B</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD L,C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1E6C"></span>1E6C</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,$00</td>
-<td class="comment-11" rowspan="1">Set the statement number to zero.</td>
+<td class="comment-1" rowspan="1">Set the statement number to zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1E6E"></span>1E6E</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,H</td>
-<td class="comment-11" rowspan="3">Give the error message 'Integer out of range' with line numbers over 61439.</td>
+<td class="comment-1" rowspan="3">Give the error message 'Integer out of range' with line numbers over 61439.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1E6F"></span>1E6F</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $F0</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1E71"></span>1E71</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="1E94.html#1E9F">REPORT_B_2</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -109,38 +89,38 @@ This entry point is used by the routines at <a href="1DAB.html">NEXT</a>, <a hre
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">GO_TO_2</td>
+<td class="asm-label">GO_TO_2</td>
 <td class="address-2"><span id="1E73"></span>1E73</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C42),HL</td>
-<td class="comment-11" rowspan="2">Enter the line number (<a href="5C42.html">NEWPPC</a>) and then the statement number (<a href="5C44.html">NSPPC</a>).</td>
+<td class="comment-1" rowspan="2">Enter the line number (<a href="5C42.html">NEWPPC</a>) and then the statement number (<a href="5C44.html">NSPPC</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1E76"></span>1E76</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (IY+$0A),D</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1E79"></span>1E79</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Return - to <a href="1B76.html">STMT_RET</a>.</td>
+<td class="comment-1" rowspan="1">Return - to <a href="1B76.html">STMT_RET</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1E5F.html">1E5F</a></span></td>
+<td class="prev">
+Prev: <a href="1E5F.html">1E5F</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1E67">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1E7A.html">1E7A</a></span></td>
+<td class="next">
+Next: <a href="1E7A.html">1E7A</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/7783.html">Switch to decimal</a>.</div>
 </footer>
 </body>

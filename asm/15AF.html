@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Data at 15AF</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-b">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="155D.html">155D</a></span></td>
+<td class="prev">
+Prev: <a href="155D.html">155D</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#15AF">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="15C4.html">15C4</a></span></td>
+<td class="next">
+Next: <a href="15C4.html">15C4</a>
+</td>
 </tr>
 </table>
 <div class="description">15AF: THE 'INITIAL CHANNEL INFORMATION'</div>
@@ -32,123 +35,94 @@ Used by the routine at <a href="11B7.html">NEW</a>, which copies the information
 Initially there are four channels - 'K', 'S', 'R', and 'P' - for communicating with the 'keyboard', 'screen', 'work space' and 'printer'. For each channel the output routine address comes before the input routine address and the channel's code.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">CHANINFO</td>
+<td class="asm-label">CHANINFO</td>
 <td class="address-1"><span id="15AF"></span>15AF</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFW <a href="09F4.html">PRINT_OUT</a></td>
-<td class="comment-11" rowspan="3">Keyboard.</td>
+<td class="comment-1" rowspan="3">Keyboard.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15B1"></span>15B1</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFW <a href="10A8.html">KEY_INPUT</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15B3"></span>15B3</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB "K"</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15B4"></span>15B4</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFW <a href="09F4.html">PRINT_OUT</a></td>
-<td class="comment-11" rowspan="3">Screen.</td>
+<td class="comment-1" rowspan="3">Screen.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15B6"></span>15B6</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFW <a href="15C4.html">REPORT_J</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15B8"></span>15B8</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB "S"</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15B9"></span>15B9</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFW <a href="0F2C.html#0F81">ADD_CHAR</a></td>
-<td class="comment-11" rowspan="3">Work space.</td>
+<td class="comment-1" rowspan="3">Work space.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15BB"></span>15BB</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFW <a href="15C4.html">REPORT_J</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15BD"></span>15BD</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB "R"</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15BE"></span>15BE</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFW <a href="09F4.html">PRINT_OUT</a></td>
-<td class="comment-11" rowspan="3">Printer.</td>
+<td class="comment-1" rowspan="3">Printer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15C0"></span>15C0</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFW <a href="15C4.html">REPORT_J</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15C2"></span>15C2</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB "P"</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="15C3"></span>15C3</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $80</td>
-<td class="comment-11" rowspan="1">End marker.</td>
+<td class="comment-1" rowspan="1">End marker.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="155D.html">155D</a></span></td>
+<td class="prev">
+Prev: <a href="155D.html">155D</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#15AF">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="15C4.html">15C4</a></span></td>
+<td class="next">
+Next: <a href="15C4.html">15C4</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/5551.html">Switch to decimal</a>.</div>
 </footer>
 </body>

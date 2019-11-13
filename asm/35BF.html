@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 35BF</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="359C.html">359C</a></span></td>
+<td class="prev">
+Prev: <a href="359C.html">359C</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#35BF">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="35C9.html">35C9</a></span></td>
+<td class="next">
+Next: <a href="35C9.html">35C9</a>
+</td>
 </tr>
 </table>
 <div class="description">35BF: THE 'STK-PNTRS' SUBROUTINE</div>
@@ -32,13 +35,7 @@ Used by the routines at <a href="335B.html">CALCULATE</a>, <a href="359C.html">s
 This subroutine resets the <span class="register">HL</span> register pair to point to the first byte of the 'last value', i.e. <a href="5C65.html">STKEND</a>-5, and the <span class="register">DE</span> register pair to point one past the 'last value', i.e. <a href="5C65.html">STKEND</a>.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -54,59 +51,57 @@ This subroutine resets the <span class="register">HL</span> register pair to poi
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">STK_PNTRS</td>
+<td class="asm-label">STK_PNTRS</td>
 <td class="address-2"><span id="35BF"></span>35BF</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C65)</td>
-<td class="comment-11" rowspan="1">Fetch the current value of <a href="5C65.html">STKEND</a>.</td>
+<td class="comment-1" rowspan="1">Fetch the current value of <a href="5C65.html">STKEND</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35C2"></span>35C2</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,$FFFB</td>
-<td class="comment-11" rowspan="1">Set <span class="register">DE</span> to -5, two's complement.</td>
+<td class="comment-1" rowspan="1">Set <span class="register">DE</span> to -5, two's complement.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35C5"></span>35C5</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Stack the value for <a href="5C65.html">STKEND</a>.</td>
+<td class="comment-1" rowspan="1">Stack the value for <a href="5C65.html">STKEND</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35C6"></span>35C6</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-11" rowspan="1">Calculate <a href="5C65.html">STKEND</a>-5.</td>
+<td class="comment-1" rowspan="1">Calculate <a href="5C65.html">STKEND</a>-5.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35C7"></span>35C7</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="1"><span class="register">DE</span> now holds <a href="5C65.html">STKEND</a> and <span class="register">HL</span> holds <a href="5C65.html">STKEND</a>-5.</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span> now holds <a href="5C65.html">STKEND</a> and <span class="register">HL</span> holds <a href="5C65.html">STKEND</a>-5.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35C8"></span>35C8</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="359C.html">359C</a></span></td>
+<td class="prev">
+Prev: <a href="359C.html">359C</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#35BF">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="35C9.html">35C9</a></span></td>
+<td class="next">
+Next: <a href="35C9.html">35C9</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/13759.html">Switch to decimal</a>.</div>
 </footer>
 </body>

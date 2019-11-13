@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 13484</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="13477.html">13477</a></span></td>
+<td class="prev">
+Prev: <a href="13477.html">13477</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#13484">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="13491.html">13491</a></span></td>
+<td class="next">
+Next: <a href="13491.html">13491</a>
+</td>
 </tr>
 </table>
 <div class="description">13484: THE 'PEEK' FUNCTION (offset 43)</div>
@@ -32,33 +35,19 @@ The address of this routine is found in the <a href="13015.html">table of addres
 This subroutine handles the function PEEK X. The 'last value' is unstacked by calling <a href="7828.html#7833">FIND_INT2</a> and replaced by the value of the contents of the required location.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">peek</td>
+<td class="asm-label">peek</td>
 <td class="address-2"><span id="13484"></span>13484</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="7828.html#7833">FIND_INT2</a></td>
-<td class="comment-11" rowspan="1">Evaluate the 'last value', rounded to the nearest integer; test that it is in range and return it in <span class="register">BC</span>.</td>
+<td class="comment-1" rowspan="1">Evaluate the 'last value', rounded to the nearest integer; test that it is in range and return it in <span class="register">BC</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13487"></span>13487</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(BC)</td>
-<td class="comment-11" rowspan="1">Fetch the required byte.</td>
+<td class="comment-1" rowspan="1">Fetch the required byte.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -71,24 +60,27 @@ This entry point is used by the routine at <a href="13477.html">f_in</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">IN_PK_STK</td>
+<td class="asm-label">IN_PK_STK</td>
 <td class="address-2"><span id="13488"></span>13488</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="11560.html">STACK_A</a></td>
-<td class="comment-11" rowspan="1">Exit by jumping to <a href="11560.html">STACK_A</a>.</td>
+<td class="comment-1" rowspan="1">Exit by jumping to <a href="11560.html">STACK_A</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="13477.html">13477</a></span></td>
+<td class="prev">
+Prev: <a href="13477.html">13477</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#13484">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="13491.html">13491</a></span></td>
+<td class="next">
+Next: <a href="13491.html">13491</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/34AC.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

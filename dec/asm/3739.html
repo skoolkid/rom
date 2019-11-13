@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 03739</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="3720.html">03720</a></span></td>
+<td class="prev">
+Prev: <a href="3720.html">03720</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#3739">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="3756.html">03756</a></span></td>
+<td class="next">
+Next: <a href="3756.html">03756</a>
+</td>
 </tr>
 </table>
 <div class="description">03739: THE 'CL-ADDR' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routines at <a href="3157.html">PO_SCR</a>, <a href="3545.html">CL_S
 For a given line number, in the <span class="register">B</span> register, the appropriate display file address is formed in the <span class="register">HL</span> register pair.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,7 +44,7 @@ For a given line number, in the <span class="register">B</span> register, the ap
 <td class="register-desc">Line number</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -53,108 +56,94 @@ For a given line number, in the <span class="register">B</span> register, the ap
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">CL_ADDR</td>
+<td class="asm-label">CL_ADDR</td>
 <td class="address-2"><span id="3739"></span>03739</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,24</td>
-<td class="comment-11" rowspan="2">The line number has to be reversed.</td>
+<td class="comment-1" rowspan="2">The line number has to be reversed.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3741"></span>03741</td>
-<td class="bytes-0"></td>
 <td class="instruction">SUB B</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3742"></span>03742</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,A</td>
-<td class="comment-11" rowspan="1">The result is saved in <span class="register">D</span>.</td>
+<td class="comment-1" rowspan="1">The result is saved in <span class="register">D</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3743"></span>03743</td>
-<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
-<td class="comment-11" rowspan="4">In effect '(<span class="register">A</span> mod 8)*32'. In a 'third' of the display the low byte for the first line is 0, for the second line 32, etc.</td>
+<td class="comment-1" rowspan="4">In effect '(<span class="register">A</span> mod 8)*32'. In a 'third' of the display the low byte for the first line is 0, for the second line 32, etc.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3744"></span>03744</td>
-<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3745"></span>03745</td>
-<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3746"></span>03746</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND 224</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3748"></span>03748</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD L,A</td>
-<td class="comment-11" rowspan="1">The low byte goes into <span class="register">L</span>.</td>
+<td class="comment-1" rowspan="1">The low byte goes into <span class="register">L</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3749"></span>03749</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,D</td>
-<td class="comment-11" rowspan="1">The true line number is fetched.</td>
+<td class="comment-1" rowspan="1">The true line number is fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3750"></span>03750</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND 24</td>
-<td class="comment-11" rowspan="2">In effect '64+8*INT (<span class="register">A</span>/8)'. For the upper 'third' of the display the high byte is 64, for the middle 'third' 72, and for the lower 'third' 80.</td>
+<td class="comment-1" rowspan="2">In effect '64+8*INT (<span class="register">A</span>/8)'. For the upper 'third' of the display the high byte is 64, for the middle 'third' 72, and for the lower 'third' 80.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3752"></span>03752</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR 64</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3754"></span>03754</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD H,A</td>
-<td class="comment-11" rowspan="1">The high byte goes to <span class="register">H</span>.</td>
+<td class="comment-1" rowspan="1">The high byte goes to <span class="register">H</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3755"></span>03755</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished.</td>
+<td class="comment-1" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="3720.html">03720</a></span></td>
+<td class="prev">
+Prev: <a href="3720.html">03720</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#3739">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="3756.html">03756</a></span></td>
+<td class="next">
+Next: <a href="3756.html">03756</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/0E9B.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

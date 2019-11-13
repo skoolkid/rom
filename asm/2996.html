@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 2996</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="2951.html">2951</a></span></td>
+<td class="prev">
+Prev: <a href="2951.html">2951</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2996">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2A52.html">2A52</a></span></td>
+<td class="next">
+Next: <a href="2A52.html">2A52</a>
+</td>
 </tr>
 </table>
 <div class="description">2996: THE 'STK-VAR' SUBROUTINE</div>
@@ -38,7 +41,7 @@ Note that the parameters that define a string may be altered by calling <a href=
 Initially the <span class="register">A</span> and the <span class="register">B</span> registers are cleared and bit 7 of the <span class="register">C</span> register is tested to determine whether syntax is being checked.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -59,41 +62,30 @@ Initially the <span class="register">A</span> and the <span class="register">B</
 <td class="register-desc">Address of the last letter of the variable's name (in the variables area)</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">STK_VAR</td>
+<td class="asm-label">STK_VAR</td>
 <td class="address-2"><span id="2996"></span>2996</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
-<td class="comment-11" rowspan="1">Clear the array flag.</td>
+<td class="comment-1" rowspan="1">Clear the array flag.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2997"></span>2997</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
-<td class="comment-11" rowspan="1">Clear the <span class="register">B</span> register for later.</td>
+<td class="comment-1" rowspan="1">Clear the <span class="register">B</span> register for later.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2998"></span>2998</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 7,C</td>
-<td class="comment-11" rowspan="2">Jump forward if syntax is being checked.</td>
+<td class="comment-1" rowspan="2">Jump forward if syntax is being checked.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="299A"></span>299A</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2996.html#29E7">SV_COUNT</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -106,18 +98,15 @@ Next, simple strings are separated from array variables.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="299C"></span>299C</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 7,(HL)</td>
-<td class="comment-11" rowspan="2">Jump forward if dealing with an array variable.</td>
+<td class="comment-1" rowspan="2">Jump forward if dealing with an array variable.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="299E"></span>299E</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2996.html#29AE">SV_ARRAYS</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -130,74 +119,63 @@ The parameters for a simple string are readily found.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29A0"></span>29A0</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC A</td>
-<td class="comment-11" rowspan="1">Signal 'a simple string'.</td>
+<td class="comment-1" rowspan="1">Signal 'a simple string'.</td>
 </tr>
 <tr>
-<td class="asm-label-1">SV_SIMPLE</td>
+<td class="asm-label">SV_SIMPLE</td>
 <td class="address-2"><span id="29A1"></span>29A1</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Move along the entry.</td>
+<td class="comment-1" rowspan="1">Move along the entry.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29A2"></span>29A2</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-11" rowspan="1">Pick up the low length counter.</td>
+<td class="comment-1" rowspan="1">Pick up the low length counter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29A3"></span>29A3</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Advance the pointer.</td>
+<td class="comment-1" rowspan="1">Advance the pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29A4"></span>29A4</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-11" rowspan="1">Pick up the high length pointer.</td>
+<td class="comment-1" rowspan="1">Pick up the high length pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29A5"></span>29A5</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Advance the pointer.</td>
+<td class="comment-1" rowspan="1">Advance the pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29A6"></span>29A6</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Transfer the pointer to the actual string.</td>
+<td class="comment-1" rowspan="1">Transfer the pointer to the actual string.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29A7"></span>29A7</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2AB1.html#2AB2">STK_STO</a></td>
-<td class="comment-11" rowspan="1">Pass these parameters to the calculator stack.</td>
+<td class="comment-1" rowspan="1">Pass these parameters to the calculator stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29AA"></span>29AA</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-11" rowspan="2">Fetch the present character and jump forward to see if a 'slice' is required.</td>
+<td class="comment-1" rowspan="2">Fetch the present character and jump forward to see if a 'slice' is required.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29AB"></span>29AB</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="2996.html#2A49">SV_SLICE2</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -210,46 +188,37 @@ The base address of an element in an array is now found. Initially the 'number o
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SV_ARRAYS</td>
+<td class="asm-label">SV_ARRAYS</td>
 <td class="address-2"><span id="29AE"></span>29AE</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="3">Step past the length bytes.</td>
+<td class="comment-1" rowspan="3">Step past the length bytes.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29AF"></span>29AF</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29B0"></span>29B0</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29B1"></span>29B1</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-11" rowspan="1">Collect the 'number of dimensions'.</td>
+<td class="comment-1" rowspan="1">Collect the 'number of dimensions'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29B2"></span>29B2</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 6,C</td>
-<td class="comment-11" rowspan="2">Jump forward if handling an array of numbers.</td>
+<td class="comment-1" rowspan="2">Jump forward if handling an array of numbers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29B4"></span>29B4</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2996.html#29C0">SV_PTR</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -262,18 +231,15 @@ If an array of strings has its 'number of dimensions' equal to '1' then such an 
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29B6"></span>29B6</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC B</td>
-<td class="comment-11" rowspan="2">Decrease the 'number of dimensions' and jump if the number is now zero.</td>
+<td class="comment-1" rowspan="2">Decrease the 'number of dimensions' and jump if the number is now zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29B7"></span>29B7</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2996.html#29A1">SV_SIMPLE</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -286,39 +252,34 @@ Next a check is made to ensure that in the BASIC line the variable is followed b
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29B9"></span>29B9</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Save the pointer in <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="1">Save the pointer in <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29BA"></span>29BA</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-11" rowspan="1">Get the present character.</td>
+<td class="comment-1" rowspan="1">Get the present character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29BB"></span>29BB</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "("</td>
-<td class="comment-11" rowspan="1">Is it a '('?</td>
+<td class="comment-1" rowspan="1">Is it a '('?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29BD"></span>29BD</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2996.html#2A20">REPORT_3</a></td>
-<td class="comment-11" rowspan="1">Report the error if it is not so.</td>
+<td class="comment-1" rowspan="1">Report the error if it is not so.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29BF"></span>29BF</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Restore the pointer.</td>
+<td class="comment-1" rowspan="1">Restore the pointer.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -331,18 +292,16 @@ For both numeric arrays and arrays of strings the variable pointer is transferre
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SV_PTR</td>
+<td class="asm-label">SV_PTR</td>
 <td class="address-2"><span id="29C0"></span>29C0</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Pass the pointer to <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="1">Pass the pointer to <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29C1"></span>29C1</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="2996.html#29E7">SV_COUNT</a></td>
-<td class="comment-11" rowspan="1">Jump forward.</td>
+<td class="comment-1" rowspan="1">Jump forward.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -358,95 +317,80 @@ The loop is accessed <span class="register">B</span> times, this being, for a nu
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SV_COMMA</td>
+<td class="asm-label">SV_COMMA</td>
 <td class="address-2"><span id="29C3"></span>29C3</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the counter.</td>
+<td class="comment-1" rowspan="1">Save the counter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29C4"></span>29C4</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-11" rowspan="1">Get the present character.</td>
+<td class="comment-1" rowspan="1">Get the present character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29C5"></span>29C5</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Restore the counter.</td>
+<td class="comment-1" rowspan="1">Restore the counter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29C6"></span>29C6</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ","</td>
-<td class="comment-11" rowspan="1">Is the present character a ','?</td>
+<td class="comment-1" rowspan="1">Is the present character a ','?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29C8"></span>29C8</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2996.html#29EA">SV_LOOP</a></td>
-<td class="comment-11" rowspan="1">Jump forward to consider another subscript.</td>
+<td class="comment-1" rowspan="1">Jump forward to consider another subscript.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29CA"></span>29CA</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 7,C</td>
-<td class="comment-11" rowspan="2">If a line is being executed then there is an error.</td>
+<td class="comment-1" rowspan="2">If a line is being executed then there is an error.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29CC"></span>29CC</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2996.html#2A20">REPORT_3</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29CE"></span>29CE</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 6,C</td>
-<td class="comment-11" rowspan="2">Jump forward if dealing with an array of strings.</td>
+<td class="comment-1" rowspan="2">Jump forward if dealing with an array of strings.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29D0"></span>29D0</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2996.html#29D8">SV_CLOSE</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29D2"></span>29D2</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
-<td class="comment-11" rowspan="1">Is the present character a ')'?</td>
+<td class="comment-1" rowspan="1">Is the present character a ')'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29D4"></span>29D4</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2996.html#2A12">SV_RPT_C</a></td>
-<td class="comment-11" rowspan="1">Report an error if not so.</td>
+<td class="comment-1" rowspan="1">Report an error if not so.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29D6"></span>29D6</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a>.</td>
+<td class="comment-1" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29D7"></span>29D7</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Return as the syntax is correct.</td>
+<td class="comment-1" rowspan="1">Return as the syntax is correct.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -459,60 +403,51 @@ For an array of strings the present subscript may represent a 'slice', or the su
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SV_CLOSE</td>
+<td class="asm-label">SV_CLOSE</td>
 <td class="address-2"><span id="29D8"></span>29D8</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
-<td class="comment-11" rowspan="1">Is the present character a ')'?</td>
+<td class="comment-1" rowspan="1">Is the present character a ')'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29DA"></span>29DA</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2996.html#2A48">SV_DIM</a></td>
-<td class="comment-11" rowspan="1">Jump forward and check whether there is another subscript.</td>
+<td class="comment-1" rowspan="1">Jump forward and check whether there is another subscript.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29DC"></span>29DC</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $CC</td>
-<td class="comment-11" rowspan="1">Is the present character a 'TO'?</td>
+<td class="comment-1" rowspan="1">Is the present character a 'TO'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29DE"></span>29DE</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2996.html#2A12">SV_RPT_C</a></td>
-<td class="comment-11" rowspan="1">It must not be otherwise.</td>
+<td class="comment-1" rowspan="1">It must not be otherwise.</td>
 </tr>
 <tr>
-<td class="asm-label-1">SV_CH_ADD</td>
+<td class="asm-label">SV_CH_ADD</td>
 <td class="address-2"><span id="29E0"></span>29E0</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-11" rowspan="1">Get the present character.</td>
+<td class="comment-1" rowspan="1">Get the present character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29E1"></span>29E1</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="2">Point to the preceding character and set <a href="5C5D.html">CH-ADD</a>.</td>
+<td class="comment-1" rowspan="2">Point to the preceding character and set <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29E2"></span>29E2</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C5D),HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29E5"></span>29E5</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="2996.html#2A45">SV_SLICE</a></td>
-<td class="comment-11" rowspan="1">Evaluate the 'slice'.</td>
+<td class="comment-1" rowspan="1">Evaluate the 'slice'.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -525,179 +460,153 @@ Enter the loop here.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SV_COUNT</td>
+<td class="asm-label">SV_COUNT</td>
 <td class="address-2"><span id="29E7"></span>29E7</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,$0000</td>
-<td class="comment-11" rowspan="1">Set the counter to zero.</td>
+<td class="comment-1" rowspan="1">Set the counter to zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1">SV_LOOP</td>
+<td class="asm-label">SV_LOOP</td>
 <td class="address-2"><span id="29EA"></span>29EA</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the counter briefly.</td>
+<td class="comment-1" rowspan="1">Save the counter briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29EB"></span>29EB</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a>.</td>
+<td class="comment-1" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29EC"></span>29EC</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Restore the counter.</td>
+<td class="comment-1" rowspan="1">Restore the counter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29ED"></span>29ED</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,C</td>
-<td class="comment-11" rowspan="1">Fetch the discriminator byte.</td>
+<td class="comment-1" rowspan="1">Fetch the discriminator byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29EE"></span>29EE</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $C0</td>
-<td class="comment-11" rowspan="2">Jump unless checking the syntax for an array of strings.</td>
+<td class="comment-1" rowspan="2">Jump unless checking the syntax for an array of strings.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29F0"></span>29F0</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2996.html#29FB">SV_MULT</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29F2"></span>29F2</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-11" rowspan="1">Get the present character.</td>
+<td class="comment-1" rowspan="1">Get the present character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29F3"></span>29F3</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
-<td class="comment-11" rowspan="1">Is it a ')'?</td>
+<td class="comment-1" rowspan="1">Is it a ')'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29F5"></span>29F5</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2996.html#2A48">SV_DIM</a></td>
-<td class="comment-11" rowspan="1">Jump forward as finished counting elements.</td>
+<td class="comment-1" rowspan="1">Jump forward as finished counting elements.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29F7"></span>29F7</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $CC</td>
-<td class="comment-11" rowspan="1">Is to 'TO'?</td>
+<td class="comment-1" rowspan="1">Is to 'TO'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29F9"></span>29F9</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2996.html#29E0">SV_CH_ADD</a></td>
-<td class="comment-11" rowspan="1">Jump back if dealing with a 'slice'.</td>
+<td class="comment-1" rowspan="1">Jump back if dealing with a 'slice'.</td>
 </tr>
 <tr>
-<td class="asm-label-1">SV_MULT</td>
+<td class="asm-label">SV_MULT</td>
 <td class="address-2"><span id="29FB"></span>29FB</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">Save the dimension-number counter and the discriminator byte.</td>
+<td class="comment-1" rowspan="1">Save the dimension-number counter and the discriminator byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29FC"></span>29FC</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the element-counter.</td>
+<td class="comment-1" rowspan="1">Save the element-counter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="29FD"></span>29FD</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2AEE.html">DE_DE_1</a></td>
-<td class="comment-11" rowspan="1">Get a dimension-size into <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="1">Get a dimension-size into <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A00"></span>2A00</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-11" rowspan="1">The counter moves to <span class="register">HL</span> and the variable pointer is stacked.</td>
+<td class="comment-1" rowspan="1">The counter moves to <span class="register">HL</span> and the variable pointer is stacked.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A01"></span>2A01</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">The counter moves to <span class="register">DE</span> and the dimension-size to <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="1">The counter moves to <span class="register">DE</span> and the dimension-size to <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A02"></span>2A02</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2ACC.html">INT_EXP1</a></td>
-<td class="comment-11" rowspan="1">Evaluate the next subscript.</td>
+<td class="comment-1" rowspan="1">Evaluate the next subscript.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A05"></span>2A05</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="2996.html#2A20">REPORT_3</a></td>
-<td class="comment-11" rowspan="1">Give an error if out of range.</td>
+<td class="comment-1" rowspan="1">Give an error if out of range.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A07"></span>2A07</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC BC</td>
-<td class="comment-11" rowspan="1">The result of the evaluation is decremented as the counter is to count the elements occurring before the specified element.</td>
+<td class="comment-1" rowspan="1">The result of the evaluation is decremented as the counter is to count the elements occurring before the specified element.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A08"></span>2A08</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2AF4.html">GET_HLxDE</a></td>
-<td class="comment-11" rowspan="1">Multiply the counter by the dimension-size.</td>
+<td class="comment-1" rowspan="1">Multiply the counter by the dimension-size.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A0B"></span>2A0B</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-11" rowspan="1">Add the result of <a href="2ACC.html">INT_EXP1</a> to the present counter.</td>
+<td class="comment-1" rowspan="1">Add the result of <a href="2ACC.html">INT_EXP1</a> to the present counter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A0C"></span>2A0C</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="1">Fetch the variable pointer.</td>
+<td class="comment-1" rowspan="1">Fetch the variable pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A0D"></span>2A0D</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">Fetch the dimension-number and the discriminator byte.</td>
+<td class="comment-1" rowspan="1">Fetch the dimension-number and the discriminator byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A0E"></span>2A0E</td>
-<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="2996.html#29C3">SV_COMMA</a></td>
-<td class="comment-11" rowspan="1">Keep going round the loop until <span class="register">B</span> equals zero.</td>
+<td class="comment-1" rowspan="1">Keep going round the loop until <span class="register">B</span> equals zero.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -710,39 +619,32 @@ The SYNTAX/RUN flag is checked before arrays of strings are separated from array
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A10"></span>2A10</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 7,C</td>
-<td class="comment-11" rowspan="2">Report an error if checking syntax at this point.</td>
+<td class="comment-1" rowspan="2">Report an error if checking syntax at this point.</td>
 </tr>
 <tr>
-<td class="asm-label-1">SV_RPT_C</td>
+<td class="asm-label">SV_RPT_C</td>
 <td class="address-2"><span id="2A12"></span>2A12</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2A52.html#2A7A">SL_RPT_C</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A14"></span>2A14</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the counter.</td>
+<td class="comment-1" rowspan="1">Save the counter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A15"></span>2A15</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 6,C</td>
-<td class="comment-11" rowspan="2">Jump forward if handling an array of strings.</td>
+<td class="comment-1" rowspan="2">Jump forward if handling an array of strings.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A17"></span>2A17</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2996.html#2A2C">SV_ELEM</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -755,39 +657,33 @@ When dealing with an array of numbers the present character must be a ')'.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A19"></span>2A19</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,D</td>
-<td class="comment-11" rowspan="2">Transfer the variable pointer to the <span class="register">BC</span> register pair.</td>
+<td class="comment-1" rowspan="2">Transfer the variable pointer to the <span class="register">BC</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A1A"></span>2A1A</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,E</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A1B"></span>2A1B</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-11" rowspan="1">Fetch the present character.</td>
+<td class="comment-1" rowspan="1">Fetch the present character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A1C"></span>2A1C</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
-<td class="comment-11" rowspan="1">Is it a ')'?</td>
+<td class="comment-1" rowspan="1">Is it a ')'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A1E"></span>2A1E</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2996.html#2A22">SV_NUMBER</a></td>
-<td class="comment-11" rowspan="1">Jump past the error report unless it is needed.</td>
+<td class="comment-1" rowspan="1">Jump past the error report unless it is needed.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -803,18 +699,15 @@ Report 3 - Subscript out of range.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">REPORT_3</td>
+<td class="asm-label">REPORT_3</td>
 <td class="address-2"><span id="2A20"></span>2A20</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
-<td class="comment-11" rowspan="2">Call the error handling routine.</td>
+<td class="comment-1" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A21"></span>2A21</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $02</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -827,46 +720,40 @@ The address of the location before the actual floating-point form can now be cal
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SV_NUMBER</td>
+<td class="asm-label">SV_NUMBER</td>
 <td class="address-2"><span id="2A22"></span>2A22</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a>.</td>
+<td class="comment-1" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A23"></span>2A23</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Fetch the counter.</td>
+<td class="comment-1" rowspan="1">Fetch the counter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A24"></span>2A24</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,$0005</td>
-<td class="comment-11" rowspan="1">There are 5 bytes to each element in an array of numbers.</td>
+<td class="comment-1" rowspan="1">There are 5 bytes to each element in an array of numbers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A27"></span>2A27</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2AF4.html">GET_HLxDE</a></td>
-<td class="comment-11" rowspan="1">Compute the total number of bytes before the required element.</td>
+<td class="comment-1" rowspan="1">Compute the total number of bytes before the required element.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A2A"></span>2A2A</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-11" rowspan="1">Make <span class="register">HL</span> point to the location before the required element.</td>
+<td class="comment-1" rowspan="1">Make <span class="register">HL</span> point to the location before the required element.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A2B"></span>2A2B</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Return with this address.</td>
+<td class="comment-1" rowspan="1">Return with this address.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -879,74 +766,63 @@ When dealing with an array of strings the length of an element is given by the l
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SV_ELEM</td>
+<td class="asm-label">SV_ELEM</td>
 <td class="address-2"><span id="2A2C"></span>2A2C</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2AEE.html">DE_DE_1</a></td>
-<td class="comment-11" rowspan="1">Fetch the last dimension-size.</td>
+<td class="comment-1" rowspan="1">Fetch the last dimension-size.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A2F"></span>2A2F</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX (SP),HL</td>
-<td class="comment-11" rowspan="1">The variable pointer goes on the stack and the counter to <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="1">The variable pointer goes on the stack and the counter to <span class="register">HL</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A30"></span>2A30</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2AF4.html">GET_HLxDE</a></td>
-<td class="comment-11" rowspan="1">Multiply 'counter' by 'dimension-size'.</td>
+<td class="comment-1" rowspan="1">Multiply 'counter' by 'dimension-size'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A33"></span>2A33</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">Fetch the variable pointer.</td>
+<td class="comment-1" rowspan="1">Fetch the variable pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A34"></span>2A34</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-11" rowspan="1">This gives <span class="register">HL</span> pointing to the location before the string.</td>
+<td class="comment-1" rowspan="1">This gives <span class="register">HL</span> pointing to the location before the string.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A35"></span>2A35</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">So point to the actual 'start'.</td>
+<td class="comment-1" rowspan="1">So point to the actual 'start'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A36"></span>2A36</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,D</td>
-<td class="comment-11" rowspan="2">Transfer the last dimension-size to <span class="register">BC</span> to form the 'length'.</td>
+<td class="comment-1" rowspan="2">Transfer the last dimension-size to <span class="register">BC</span> to form the 'length'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A37"></span>2A37</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,E</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A38"></span>2A38</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Move the 'start' to <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="1">Move the 'start' to <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A39"></span>2A39</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2AB1.html">STK_ST_0</a></td>
-<td class="comment-11" rowspan="1">Pass these parameters to the calculator stack. Note: the first parameter is zero indicating a string from an 'array of strings' and hence the existing entry is not to be reclaimed.</td>
+<td class="comment-1" rowspan="1">Pass these parameters to the calculator stack. Note: the first parameter is zero indicating a string from an 'array of strings' and hence the existing entry is not to be reclaimed.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -969,67 +845,58 @@ The last of these is the default form and indicates that the whole string is req
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A3C"></span>2A3C</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-11" rowspan="1">Get the present character.</td>
+<td class="comment-1" rowspan="1">Get the present character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A3D"></span>2A3D</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
-<td class="comment-11" rowspan="1">Is it a ')'?</td>
+<td class="comment-1" rowspan="1">Is it a ')'?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A3F"></span>2A3F</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2996.html#2A48">SV_DIM</a></td>
-<td class="comment-11" rowspan="1">Jump if it is so.</td>
+<td class="comment-1" rowspan="1">Jump if it is so.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A41"></span>2A41</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ","</td>
-<td class="comment-11" rowspan="1">Is it a ','?</td>
+<td class="comment-1" rowspan="1">Is it a ','?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A43"></span>2A43</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2996.html#2A20">REPORT_3</a></td>
-<td class="comment-11" rowspan="1">Report the error if not so.</td>
+<td class="comment-1" rowspan="1">Report the error if not so.</td>
 </tr>
 <tr>
-<td class="asm-label-1">SV_SLICE</td>
+<td class="asm-label">SV_SLICE</td>
 <td class="address-2"><span id="2A45"></span>2A45</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2A52.html">SLICING</a></td>
-<td class="comment-11" rowspan="1">Use <a href="2A52.html">SLICING</a> to modify the set of parameters.</td>
+<td class="comment-1" rowspan="1">Use <a href="2A52.html">SLICING</a> to modify the set of parameters.</td>
 </tr>
 <tr>
-<td class="asm-label-1">SV_DIM</td>
+<td class="asm-label">SV_DIM</td>
 <td class="address-2"><span id="2A48"></span>2A48</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Fetch the next character.</td>
+<td class="comment-1" rowspan="1">Fetch the next character.</td>
 </tr>
 <tr>
-<td class="asm-label-1">SV_SLICE2</td>
+<td class="asm-label">SV_SLICE2</td>
 <td class="address-2"><span id="2A49"></span>2A49</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "("</td>
-<td class="comment-11" rowspan="1">Is It a '('?</td>
+<td class="comment-1" rowspan="1">Is It a '('?</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A4B"></span>2A4B</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2996.html#2A45">SV_SLICE</a></td>
-<td class="comment-11" rowspan="1">Jump back if there is a 'slice' to be considered.</td>
+<td class="comment-1" rowspan="1">Jump back if there is a 'slice' to be considered.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -1042,31 +909,33 @@ When finished considering the last subscript a return can be made.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A4D"></span>2A4D</td>
-<td class="bytes-0"></td>
 <td class="instruction">RES 6,(IY+$01)</td>
-<td class="comment-11" rowspan="1">Signal - string result (reset bit 6 of <a href="5C3B.html">FLAGS</a>).</td>
+<td class="comment-1" rowspan="1">Signal - string result (reset bit 6 of <a href="5C3B.html">FLAGS</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2A51"></span>2A51</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Return with the parameters of the required string forming a 'last value' on the calculator stack.</td>
+<td class="comment-1" rowspan="1">Return with the parameters of the required string forming a 'last value' on the calculator stack.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="2951.html">2951</a></span></td>
+<td class="prev">
+Prev: <a href="2951.html">2951</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2996">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2A52.html">2A52</a></span></td>
+<td class="next">
+Next: <a href="2A52.html">2A52</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/10646.html">Switch to decimal</a>.</div>
 </footer>
 </body>

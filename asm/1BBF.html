@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 1BBF</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1BB3.html">1BB3</a></span></td>
+<td class="prev">
+Prev: <a href="1BB3.html">1BB3</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1BBF">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1BD1.html">1BD1</a></span></td>
+<td class="next">
+Next: <a href="1BD1.html">1BD1</a>
+</td>
 </tr>
 </table>
 <div class="description">1BBF: THE 'LINE-USE' ROUTINE</div>
@@ -42,7 +45,7 @@ This short routine has three functions:
 </ul>
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -55,108 +58,80 @@ This short routine has three functions:
 <td class="register-desc">Start address of the line</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">LINE_USE</td>
+<td class="asm-label">LINE_USE</td>
 <td class="address-2"><span id="1BBF"></span>1BBF</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $01</td>
-<td class="comment-11" rowspan="2">Statement zero becomes statement '1'.</td>
+<td class="comment-1" rowspan="2">Statement zero becomes statement '1'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BC1"></span>1BC1</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADC A,$00</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BC3"></span>1BC3</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,(HL)</td>
-<td class="comment-11" rowspan="4">The line number of the line to be used is collected and passed to <a href="5C45.html">PPC</a>.</td>
+<td class="comment-1" rowspan="4">The line number of the line to be used is collected and passed to <a href="5C45.html">PPC</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BC4"></span>1BC4</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BC5"></span>1BC5</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BC6"></span>1BC6</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C45),DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BCA"></span>1BCA</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="4">Now find the 'length' of the line.</td>
+<td class="comment-1" rowspan="4">Now find the 'length' of the line.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BCB"></span>1BCB</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BCC"></span>1BCC</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BCD"></span>1BCD</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BCE"></span>1BCE</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Switch over the values.</td>
+<td class="comment-1" rowspan="1">Switch over the values.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BCF"></span>1BCF</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-11" rowspan="2">Form the address of the start of the line after in <span class="register">HL</span> and the location before the 'next' line's first character in <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="2">Form the address of the start of the line after in <span class="register">HL</span> and the location before the 'next' line's first character in <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BD0"></span>1BD0</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
-
 <div class="comments">
 <div class="paragraph">
 This routine continues into <a href="1BD1.html">NEXT_LINE</a>.
@@ -167,15 +142,19 @@ This routine continues into <a href="1BD1.html">NEXT_LINE</a>.
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1BB3.html">1BB3</a></span></td>
+<td class="prev">
+Prev: <a href="1BB3.html">1BB3</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1BBF">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1BD1.html">1BD1</a></span></td>
+<td class="next">
+Next: <a href="1BD1.html">1BD1</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/7103.html">Switch to decimal</a>.</div>
 </footer>
 </body>

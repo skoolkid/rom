@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 07318</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7289.html">07289</a></span></td>
+<td class="prev">
+Prev: <a href="7289.html">07289</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7318">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7358.html">07358</a></span></td>
+<td class="next">
+Next: <a href="7358.html">07358</a>
+</td>
 </tr>
 </table>
 <div class="description">07318: THE 'SET PERMANENT COLOURS' SUBROUTINE</div>
@@ -32,103 +35,76 @@ The address of this routine is derived from an offset found in the <a href="7169
 This subroutine allows for the current temporary colours to be made permanent. As command class 7 it is in effect the command routine for the six colour item commands.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">CLASS_07</td>
+<td class="asm-label">CLASS_07</td>
 <td class="address-2"><span id="7318"></span>07318</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 7,(IY+1)</td>
-<td class="comment-11" rowspan="1">The syntax/run flag (bit 7 of <a href="23611.html">FLAGS</a>) is read.</td>
+<td class="comment-1" rowspan="1">The syntax/run flag (bit 7 of <a href="23611.html">FLAGS</a>) is read.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7322"></span>07322</td>
-<td class="bytes-0"></td>
 <td class="instruction">RES 0,(IY+2)</td>
-<td class="comment-11" rowspan="1">Signal 'main screen' (reset bit 0 of <a href="23612.html">TV-FLAG</a>).</td>
+<td class="comment-1" rowspan="1">Signal 'main screen' (reset bit 0 of <a href="23612.html">TV-FLAG</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7326"></span>07326</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL NZ,<a href="3405.html">TEMPS</a></td>
-<td class="comment-11" rowspan="1">Only during a 'run' call <a href="3405.html">TEMPS</a> to ensure the temporary colours are the main screen colours.</td>
+<td class="comment-1" rowspan="1">Only during a 'run' call <a href="3405.html">TEMPS</a> to ensure the temporary colours are the main screen colours.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7329"></span>07329</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="1">Drop the return address <a href="6952.html#6994">SCAN_LOOP</a>.</td>
+<td class="comment-1" rowspan="1">Drop the return address <a href="6952.html#6994">SCAN_LOOP</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7330"></span>07330</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(23668)</td>
-<td class="comment-11" rowspan="2">Fetch the low byte of <a href="23668.html">T-ADDR</a> and subtract 19 to give the range 217 to 222 which are the token codes for INK to OVER.</td>
+<td class="comment-1" rowspan="2">Fetch the low byte of <a href="23668.html">T-ADDR</a> and subtract 19 to give the range 217 to 222 which are the token codes for INK to OVER.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7333"></span>07333</td>
-<td class="bytes-0"></td>
 <td class="instruction">SUB 19</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7335"></span>07335</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="8673.html#8700">CO_TEMP_4</a></td>
-<td class="comment-11" rowspan="1">Change the temporary colours as directed by the BASIC statement.</td>
+<td class="comment-1" rowspan="1">Change the temporary colours as directed by the BASIC statement.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7338"></span>07338</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="7150.html">CHECK_END</a></td>
-<td class="comment-11" rowspan="1">Move on to the next statement if checking syntax.</td>
+<td class="comment-1" rowspan="1">Move on to the next statement if checking syntax.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7341"></span>07341</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23695)</td>
-<td class="comment-11" rowspan="2">Now the temporary colour values (<a href="23695.html">ATTR-T</a> and <a href="23696.html">MASK-T</a>) are made permanent (<a href="23693.html">ATTR-P</a> and <a href="23694.html">MASK-P</a>).</td>
+<td class="comment-1" rowspan="2">Now the temporary colour values (<a href="23695.html">ATTR-T</a> and <a href="23696.html">MASK-T</a>) are made permanent (<a href="23693.html">ATTR-P</a> and <a href="23694.html">MASK-P</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7344"></span>07344</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23693),HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7347"></span>07347</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,23697</td>
-<td class="comment-11" rowspan="2">This is <a href="23697.html">P-FLAG</a>, and that too has to be considered.</td>
+<td class="comment-1" rowspan="2">This is <a href="23697.html">P-FLAG</a>, and that too has to be considered.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7350"></span>07350</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -141,59 +117,55 @@ The following instructions cleverly copy the even bits of the supplied byte to t
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7351"></span>07351</td>
-<td class="bytes-0"></td>
 <td class="instruction">RLCA</td>
-<td class="comment-11" rowspan="1">Move the mask leftwards.</td>
+<td class="comment-1" rowspan="1">Move the mask leftwards.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7352"></span>07352</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR (HL)</td>
-<td class="comment-11" rowspan="3">Impress onto the mask only the even bits of the other byte.</td>
+<td class="comment-1" rowspan="3">Impress onto the mask only the even bits of the other byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7353"></span>07353</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND %10101010</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7355"></span>07355</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR (HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7356"></span>07356</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-11" rowspan="1">Restore the result.</td>
+<td class="comment-1" rowspan="1">Restore the result.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7357"></span>07357</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7289.html">07289</a></span></td>
+<td class="prev">
+Prev: <a href="7289.html">07289</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7318">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7358.html">07358</a></span></td>
+<td class="next">
+Next: <a href="7358.html">07358</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/1C96.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

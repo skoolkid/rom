@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 1FDF</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1FC9.html">1FC9</a></span></td>
+<td class="prev">
+Prev: <a href="1FC9.html">1FC9</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1FDF">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1FF5.html">1FF5</a></span></td>
+<td class="next">
+Next: <a href="1FF5.html">1FF5</a>
+</td>
 </tr>
 </table>
 <div class="description">1FDF: THE 'PRINT CONTROLLING' SUBROUTINE</div>
@@ -29,40 +32,24 @@
 This subroutine is called by the <a href="1FC9.html">LPRINT</a> and <a href="2089.html">INPUT</a> command routines.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PRINT_2</td>
+<td class="asm-label">PRINT_2</td>
 <td class="address-2"><span id="1FDF"></span>1FDF</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0018.html">$18</a></td>
-<td class="comment-11" rowspan="1">Get the first character.</td>
+<td class="comment-1" rowspan="1">Get the first character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FE0"></span>1FE0</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2045.html">PR_END_Z</a></td>
-<td class="comment-11" rowspan="2">Jump forward if already at the end of the item list.</td>
+<td class="comment-1" rowspan="2">Jump forward if already at the end of the item list.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FE3"></span>1FE3</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1FDF.html#1FF2">PRINT_4</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -75,57 +62,46 @@ Now enter a loop to deal with the 'position controllers' and the print items.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PRINT_3</td>
+<td class="asm-label">PRINT_3</td>
 <td class="address-2"><span id="1FE5"></span>1FE5</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="204E.html">PR_POSN_1</a></td>
-<td class="comment-11" rowspan="2">Deal with any consecutive position controllers.</td>
+<td class="comment-1" rowspan="2">Deal with any consecutive position controllers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FE8"></span>1FE8</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1FDF.html#1FE5">PRINT_3</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FEA"></span>1FEA</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1FFC.html">PR_ITEM_1</a></td>
-<td class="comment-11" rowspan="1">Deal with a single print item.</td>
+<td class="comment-1" rowspan="1">Deal with a single print item.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FED"></span>1FED</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="204E.html">PR_POSN_1</a></td>
-<td class="comment-11" rowspan="2">Check for further position controllers and print items until there are none left.</td>
+<td class="comment-1" rowspan="2">Check for further position controllers and print items until there are none left.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FF0"></span>1FF0</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1FDF.html#1FE5">PRINT_3</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">PRINT_4</td>
+<td class="asm-label">PRINT_4</td>
 <td class="address-2"><span id="1FF2"></span>1FF2</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ")"</td>
-<td class="comment-11" rowspan="2">Return now if the present character is a ')'; otherwise consider performing a 'carriage return'.</td>
+<td class="comment-1" rowspan="2">Return now if the present character is a ')'; otherwise consider performing a 'carriage return'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1FF4"></span>1FF4</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
-
 <div class="comments">
 <div class="paragraph">
 This routine continues into <a href="1FF5.html">PRINT_CR</a>.
@@ -136,15 +112,19 @@ This routine continues into <a href="1FF5.html">PRINT_CR</a>.
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1FC9.html">1FC9</a></span></td>
+<td class="prev">
+Prev: <a href="1FC9.html">1FC9</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1FDF">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1FF5.html">1FF5</a></span></td>
+<td class="next">
+Next: <a href="1FF5.html">1FF5</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/8159.html">Switch to decimal</a>.</div>
 </footer>
 </body>

@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 05790</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="5775.html">05775</a></span></td>
+<td class="prev">
+Prev: <a href="5775.html">05775</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#5790">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="5808.html">05808</a></span></td>
+<td class="next">
+Next: <a href="5808.html">05808</a>
+</td>
 </tr>
 </table>
 <div class="description">05790: THE 'RESERVE' SUBROUTINE</div>
@@ -35,7 +38,7 @@ On entry here the last value on the machine stack is <a href="23649.html">WORKSP
 This subroutine always makes 'room' between the existing work space and the calculator stack.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -44,7 +47,7 @@ This subroutine always makes 'room' between the existing work space and the calc
 <td class="register-desc">Number of spaces to reserve</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -60,85 +63,70 @@ This subroutine always makes 'room' between the existing work space and the calc
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">RESERVE</td>
+<td class="asm-label">RESERVE</td>
 <td class="address-2"><span id="5790"></span>05790</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23651)</td>
-<td class="comment-11" rowspan="2">Fetch the current value of <a href="23651.html">STKBOT</a> and decrement it to get the last location of the work space.</td>
+<td class="comment-1" rowspan="2">Fetch the current value of <a href="23651.html">STKBOT</a> and decrement it to get the last location of the work space.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5793"></span>05793</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5794"></span>05794</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="5714.html#5717">MAKE_ROOM</a></td>
-<td class="comment-11" rowspan="1">Now make '<span class="register">BC</span> spaces'.</td>
+<td class="comment-1" rowspan="1">Now make '<span class="register">BC</span> spaces'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5797"></span>05797</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="2">Point to the first new space and then the second.</td>
+<td class="comment-1" rowspan="2">Point to the first new space and then the second.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5798"></span>05798</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5799"></span>05799</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="2">Fetch the old value of <a href="23649.html">WORKSP</a> and restore it.</td>
+<td class="comment-1" rowspan="2">Fetch the old value of <a href="23649.html">WORKSP</a> and restore it.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5800"></span>05800</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23649),BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5804"></span>05804</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">Restore <span class="register">BC</span> - number of spaces.</td>
+<td class="comment-1" rowspan="1">Restore <span class="register">BC</span> - number of spaces.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5805"></span>05805</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Switch the pointers.</td>
+<td class="comment-1" rowspan="1">Switch the pointers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5806"></span>05806</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Make <span class="register">HL</span> point to the first of the displaced bytes.</td>
+<td class="comment-1" rowspan="1">Make <span class="register">HL</span> point to the first of the displaced bytes.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5807"></span>05807</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Now return.</td>
+<td class="comment-1" rowspan="1">Now return.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
-
 <div class="comments">
 <div class="paragraph">
 Note: it can also be considered that the subroutine returns with the <span class="register">DE</span> register pair pointing to a 'first extra byte' and the <span class="register">HL</span> register pair pointing to a 'last extra byte', these extra bytes having been added after the original '(<span class="register">HL</span>)+1' location.
@@ -149,15 +137,19 @@ Note: it can also be considered that the subroutine returns with the <span class
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="5775.html">05775</a></span></td>
+<td class="prev">
+Prev: <a href="5775.html">05775</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#5790">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="5808.html">05808</a></span></td>
+<td class="next">
+Next: <a href="5808.html">05808</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/169E.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

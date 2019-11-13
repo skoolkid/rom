@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 2070</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="204E.html">204E</a></span></td>
+<td class="prev">
+Prev: <a href="204E.html">204E</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2070">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2089.html">2089</a></span></td>
+<td class="next">
+Next: <a href="2089.html">2089</a>
+</td>
 </tr>
 </table>
 <div class="description">2070: THE 'ALTER STREAM' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routines at <a href="17F9.html">LIST</a> and <a href="1FFC.html">PR_
 This subroutine is called whenever there is the need to consider whether the user wishes to use a different stream.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,7 +44,7 @@ This subroutine is called whenever there is the need to consider whether the use
 <td class="register-desc">Code of the current character</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -53,108 +56,95 @@ This subroutine is called whenever there is the need to consider whether the use
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">STR_ALTER</td>
+<td class="asm-label">STR_ALTER</td>
 <td class="address-2"><span id="2070"></span>2070</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "#"</td>
-<td class="comment-11" rowspan="3">Unless the present character is a '#' return with the carry flag set.</td>
+<td class="comment-1" rowspan="3">Unless the present character is a '#' return with the carry flag set.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2072"></span>2072</td>
-<td class="bytes-0"></td>
 <td class="instruction">SCF</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2073"></span>2073</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NZ</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2074"></span>2074</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-11" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a>.</td>
+<td class="comment-1" rowspan="1">Advance <a href="5C5D.html">CH-ADD</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2075"></span>2075</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1C79.html#1C82">CLASS_06</a></td>
-<td class="comment-11" rowspan="1">Pass the parameter to the calculator stack.</td>
+<td class="comment-1" rowspan="1">Pass the parameter to the calculator stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2078"></span>2078</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="1">Clear the carry flag.</td>
+<td class="comment-1" rowspan="1">Clear the carry flag.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2079"></span>2079</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1FC3.html">UNSTACK_Z</a></td>
-<td class="comment-11" rowspan="1">Return now if checking syntax.</td>
+<td class="comment-1" rowspan="1">Return now if checking syntax.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="207C"></span>207C</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1E94.html">FIND_INT1</a></td>
-<td class="comment-11" rowspan="1">The value is passed to the <span class="register">A</span> register.</td>
+<td class="comment-1" rowspan="1">The value is passed to the <span class="register">A</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="207F"></span>207F</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP $10</td>
-<td class="comment-11" rowspan="2">Give report O if the value is over +0F.</td>
+<td class="comment-1" rowspan="2">Give report O if the value is over +0F.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2081"></span>2081</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP NC,<a href="1601.html#160E">REPORT_O</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2084"></span>2084</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1601.html">CHAN_OPEN</a></td>
-<td class="comment-11" rowspan="1">Use the channel for the stream in question.</td>
+<td class="comment-1" rowspan="1">Use the channel for the stream in question.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2087"></span>2087</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND A</td>
-<td class="comment-11" rowspan="2">Clear the carry flag and return.</td>
+<td class="comment-1" rowspan="2">Clear the carry flag and return.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2088"></span>2088</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="204E.html">204E</a></span></td>
+<td class="prev">
+Prev: <a href="204E.html">204E</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2070">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2089.html">2089</a></span></td>
+<td class="next">
+Next: <a href="2089.html">2089</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/8304.html">Switch to decimal</a>.</div>
 </footer>
 </body>

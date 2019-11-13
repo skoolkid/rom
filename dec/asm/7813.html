@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 07813</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7808.html">07808</a></span></td>
+<td class="prev">
+Prev: <a href="7808.html">07808</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7813">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7828.html">07828</a></span></td>
+<td class="next">
+Next: <a href="7828.html">07828</a>
+</td>
 </tr>
 </table>
 <div class="description">07813: THE 'TWO-PARAM' SUBROUTINE</div>
@@ -32,88 +35,69 @@ Used by the routines at <a href="7802.html">OUT_CMD</a> and <a href="7808.html">
 The topmost parameter on the calculator stack must be compressible into a single register. It is two's complemented if it is negative. The second parameter must be compressible into a register pair.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">TWO_PARAM</td>
+<td class="asm-label">TWO_PARAM</td>
 <td class="address-2"><span id="7813"></span>07813</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="11733.html">FP_TO_A</a></td>
-<td class="comment-11" rowspan="1">The parameter is fetched.</td>
+<td class="comment-1" rowspan="1">The parameter is fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7816"></span>07816</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="7828.html#7839">REPORT_B_2</a></td>
-<td class="comment-11" rowspan="1">Give an error if it is too high a number.</td>
+<td class="comment-1" rowspan="1">Give an error if it is too high a number.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7818"></span>07818</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="7813.html#7822">TWO_P_1</a></td>
-<td class="comment-11" rowspan="2">Jump forward with positive numbers but two's complement negative numbers.</td>
+<td class="comment-1" rowspan="2">Jump forward with positive numbers but two's complement negative numbers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7820"></span>07820</td>
-<td class="bytes-0"></td>
 <td class="instruction">NEG</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">TWO_P_1</td>
+<td class="asm-label">TWO_P_1</td>
 <td class="address-2"><span id="7822"></span>07822</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="2">Save the first parameter whilst the second is fetched.</td>
+<td class="comment-1" rowspan="2">Save the first parameter whilst the second is fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7823"></span>07823</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="7828.html#7833">FIND_INT2</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7826"></span>07826</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="2">The first parameter is restored before returning.</td>
+<td class="comment-1" rowspan="2">The first parameter is restored before returning.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7827"></span>07827</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7808.html">07808</a></span></td>
+<td class="prev">
+Prev: <a href="7808.html">07808</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7813">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7828.html">07828</a></span></td>
+<td class="next">
+Next: <a href="7828.html">07828</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/1E85.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

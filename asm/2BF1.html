@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 2BF1</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="2AFF.html">2AFF</a></span></td>
+<td class="prev">
+Prev: <a href="2AFF.html">2AFF</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2BF1">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2C02.html">2C02</a></span></td>
+<td class="next">
+Next: <a href="2C02.html">2C02</a>
+</td>
 </tr>
 </table>
 <div class="description">2BF1: THE 'STK-FETCH' SUBROUTINE</div>
@@ -32,13 +35,7 @@ Used by the routines at <a href="04AA.html">PROGNAME</a>, <a href="0605.html">SA
 This important subroutine collects the 'last value' from the calculator stack. The five bytes can be either a floating-point number, in 'short' or 'long' form, or a set of parameters that define a string.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -66,108 +63,99 @@ This important subroutine collects the 'last value' from the calculator stack. T
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">STK_FETCH</td>
+<td class="asm-label">STK_FETCH</td>
 <td class="address-2"><span id="2BF1"></span>2BF1</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C65)</td>
-<td class="comment-11" rowspan="1">Get <a href="5C65.html">STKEND</a>.</td>
+<td class="comment-1" rowspan="1">Get <a href="5C65.html">STKEND</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BF4"></span>2BF4</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="1">Back one.</td>
+<td class="comment-1" rowspan="1">Back one.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BF5"></span>2BF5</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-11" rowspan="1">The fifth value.</td>
+<td class="comment-1" rowspan="1">The fifth value.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BF6"></span>2BF6</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="1">Back one.</td>
+<td class="comment-1" rowspan="1">Back one.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BF7"></span>2BF7</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-11" rowspan="1">The fourth value.</td>
+<td class="comment-1" rowspan="1">The fourth value.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BF8"></span>2BF8</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="1">Back one.</td>
+<td class="comment-1" rowspan="1">Back one.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BF9"></span>2BF9</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,(HL)</td>
-<td class="comment-11" rowspan="1">The third value.</td>
+<td class="comment-1" rowspan="1">The third value.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BFA"></span>2BFA</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="1">Back one.</td>
+<td class="comment-1" rowspan="1">Back one.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BFB"></span>2BFB</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-11" rowspan="1">The second value.</td>
+<td class="comment-1" rowspan="1">The second value.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BFC"></span>2BFC</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="1">Back one.</td>
+<td class="comment-1" rowspan="1">Back one.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BFD"></span>2BFD</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="1">The first value.</td>
+<td class="comment-1" rowspan="1">The first value.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2BFE"></span>2BFE</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C65),HL</td>
-<td class="comment-11" rowspan="1">Reset <a href="5C65.html">STKEND</a> to its new position.</td>
+<td class="comment-1" rowspan="1">Reset <a href="5C65.html">STKEND</a> to its new position.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2C01"></span>2C01</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished.</td>
+<td class="comment-1" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="2AFF.html">2AFF</a></span></td>
+<td class="prev">
+Prev: <a href="2AFF.html">2AFF</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2BF1">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2C02.html">2C02</a></span></td>
+<td class="next">
+Next: <a href="2C02.html">2C02</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/11249.html">Switch to decimal</a>.</div>
 </footer>
 </body>

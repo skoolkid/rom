@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 1BD1</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1BBF.html">1BBF</a></span></td>
+<td class="prev">
+Prev: <a href="1BBF.html">1BBF</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1BD1">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1BEE.html">1BEE</a></span></td>
+<td class="next">
+Next: <a href="1BEE.html">1BEE</a>
+</td>
 </tr>
 </table>
 <div class="description">1BD1: THE 'NEXT-LINE' ROUTINE</div>
@@ -35,7 +38,7 @@ The routine at <a href="1BBF.html">LINE_USE</a> continues here.
 On entry the <span class="register">HL</span> register pair points to the location after the end of the 'next' line to be handled and the <span class="register">DE</span> register pair to the location before the first character of the line. This applies to lines in the program area and also to a line in the editing area - where the next line will be the same line again whilst there are still statements to be interpreted.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -48,97 +51,76 @@ On entry the <span class="register">HL</span> register pair points to the locati
 <td class="register-desc">Start address of the following line</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">NEXT_LINE</td>
+<td class="asm-label">NEXT_LINE</td>
 <td class="address-2"><span id="1BD1"></span>1BD1</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C55),HL</td>
-<td class="comment-11" rowspan="1">Set <a href="5C55.html">NXTLIN</a> for use once the current line has been completed.</td>
+<td class="comment-1" rowspan="1">Set <a href="5C55.html">NXTLIN</a> for use once the current line has been completed.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BD4"></span>1BD4</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="2">As usual <a href="5C5D.html">CH-ADD</a> points to the location before the first character to be considered.</td>
+<td class="comment-1" rowspan="2">As usual <a href="5C5D.html">CH-ADD</a> points to the location before the first character to be considered.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BD5"></span>1BD5</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C5D),HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BD8"></span>1BD8</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,A</td>
-<td class="comment-11" rowspan="1">The statement number is fetched.</td>
+<td class="comment-1" rowspan="1">The statement number is fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BD9"></span>1BD9</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,$00</td>
-<td class="comment-11" rowspan="1">The <span class="register">E</span> register is cleared in case <a href="198B.html">EACH_STMT</a> is used.</td>
+<td class="comment-1" rowspan="1">The <span class="register">E</span> register is cleared in case <a href="198B.html">EACH_STMT</a> is used.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BDB"></span>1BDB</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (IY+$0A),$FF</td>
-<td class="comment-11" rowspan="1">Signal 'no jump' by setting <a href="5C44.html">NSPPC</a> to +FF.</td>
+<td class="comment-1" rowspan="1">Signal 'no jump' by setting <a href="5C44.html">NSPPC</a> to +FF.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BDF"></span>1BDF</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC D</td>
-<td class="comment-11" rowspan="2">The statement number minus one goes into <a href="5C47.html">SUBPPC</a>.</td>
+<td class="comment-1" rowspan="2">The statement number minus one goes into <a href="5C47.html">SUBPPC</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BE0"></span>1BE0</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (IY+$0D),D</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BE3"></span>1BE3</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP Z,<a href="1B28.html">STMT_LOOP</a></td>
-<td class="comment-11" rowspan="1">A first statement can now be considered.</td>
+<td class="comment-1" rowspan="1">A first statement can now be considered.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BE6"></span>1BE6</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC D</td>
-<td class="comment-11" rowspan="2">However for later statements the 'starting address' has to be found.</td>
+<td class="comment-1" rowspan="2">However for later statements the 'starting address' has to be found.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BE7"></span>1BE7</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="198B.html">EACH_STMT</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BEA"></span>1BEA</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="1BF4.html">STMT_NEXT</a></td>
-<td class="comment-11" rowspan="1">Jump forward unless the statement does not exist.</td>
+<td class="comment-1" rowspan="1">Jump forward unless the statement does not exist.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -154,31 +136,32 @@ Report N - Statement lost.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">REPORT_N</td>
+<td class="asm-label">REPORT_N</td>
 <td class="address-2"><span id="1BEC"></span>1BEC</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0008.html">$08</a></td>
-<td class="comment-11" rowspan="2">Call the error handling routine.</td>
+<td class="comment-1" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BED"></span>1BED</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $16</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1BBF.html">1BBF</a></span></td>
+<td class="prev">
+Prev: <a href="1BBF.html">1BBF</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1BD1">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1BEE.html">1BEE</a></span></td>
+<td class="next">
+Next: <a href="1BEE.html">1BEE</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/7121.html">Switch to decimal</a>.</div>
 </footer>
 </body>

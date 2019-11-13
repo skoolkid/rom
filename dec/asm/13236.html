@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 13236</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="13225.html">13225</a></span></td>
+<td class="prev">
+Prev: <a href="13225.html">13225</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#13236">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="13248.html">13248</a></span></td>
+<td class="next">
+Next: <a href="13248.html">13248</a>
+</td>
 </tr>
 </table>
 <div class="description">13236: THE 'STACK NUMBER' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routines at <a href="1016.html">BEEP</a>, <a href="9869.html">S_DECI
 This subroutine is called by <a href="1016.html">BEEP</a>, <a href="9647.html">S_U_PLUS</a> and <a href="9929.html">S_LETTER</a> to copy <a href="23653.html">STKEND</a> to <span class="register">DE</span>, move a floating-point number to the calculator stack, and reset <a href="23653.html">STKEND</a> from <span class="register">DE</span>. It calls <a href="13248.html">duplicate</a> to do the actual move.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,54 +44,48 @@ This subroutine is called by <a href="1016.html">BEEP</a>, <a href="9647.html">S
 <td class="register-desc">Address of the first byte of the number to stack</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">STACK_NUM</td>
+<td class="asm-label">STACK_NUM</td>
 <td class="address-2"><span id="13236"></span>13236</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,(23653)</td>
-<td class="comment-11" rowspan="1">Copy <a href="23653.html">STKEND</a> to <span class="register">DE</span> as destination address.</td>
+<td class="comment-1" rowspan="1">Copy <a href="23653.html">STKEND</a> to <span class="register">DE</span> as destination address.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13240"></span>13240</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="13248.html">duplicate</a></td>
-<td class="comment-11" rowspan="1">Move the number.</td>
+<td class="comment-1" rowspan="1">Move the number.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13243"></span>13243</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23653),DE</td>
-<td class="comment-11" rowspan="1">Reset <a href="23653.html">STKEND</a> from <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="1">Reset <a href="23653.html">STKEND</a> from <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13247"></span>13247</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished.</td>
+<td class="comment-1" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="13225.html">13225</a></span></td>
+<td class="prev">
+Prev: <a href="13225.html">13225</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#13236">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="13248.html">13248</a></span></td>
+<td class="next">
+Next: <a href="13248.html">13248</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/33B4.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

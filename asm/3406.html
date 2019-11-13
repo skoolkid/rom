@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 3406</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="33F7.html">33F7</a></span></td>
+<td class="prev">
+Prev: <a href="33F7.html">33F7</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#3406">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="340F.html">340F</a></span></td>
+<td class="next">
+Next: <a href="340F.html">340F</a>
+</td>
 </tr>
 </table>
 <div class="description">3406: THE 'MEMORY LOCATION' SUBROUTINE</div>
@@ -35,7 +38,7 @@ This subroutine finds the base address for each five-byte portion of the calcula
 Note that when a FOR-NEXT variable is being handled then the pointers are changed so that the variable is treated as if it were the calculator's memory area.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -48,7 +51,7 @@ Note that when a FOR-NEXT variable is being handled then the pointers are change
 <td class="register-desc">Base address (<a href="046E.html">SEMITONES</a> or <a href="5C68.html">MEM</a>)</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -60,73 +63,68 @@ Note that when a FOR-NEXT variable is being handled then the pointers are change
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">LOC_MEM</td>
+<td class="asm-label">LOC_MEM</td>
 <td class="address-2"><span id="3406"></span>3406</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
-<td class="comment-11" rowspan="1">Copy the parameter to <span class="register">C</span>.</td>
+<td class="comment-1" rowspan="1">Copy the parameter to <span class="register">C</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3407"></span>3407</td>
-<td class="bytes-0"></td>
 <td class="instruction">RLCA</td>
-<td class="comment-11" rowspan="1">Double the parameter.</td>
+<td class="comment-1" rowspan="1">Double the parameter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3408"></span>3408</td>
-<td class="bytes-0"></td>
 <td class="instruction">RLCA</td>
-<td class="comment-11" rowspan="1">Double the result.</td>
+<td class="comment-1" rowspan="1">Double the result.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3409"></span>3409</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD A,C</td>
-<td class="comment-11" rowspan="1">Add the value of the parameter to give five times the original value.</td>
+<td class="comment-1" rowspan="1">Add the value of the parameter to give five times the original value.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="340A"></span>340A</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
-<td class="comment-11" rowspan="2">This result is wanted in the <span class="register">BC</span> register pair.</td>
+<td class="comment-1" rowspan="2">This result is wanted in the <span class="register">BC</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="340B"></span>340B</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,$00</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="340D"></span>340D</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-11" rowspan="1">Produce the new base address.</td>
+<td class="comment-1" rowspan="1">Produce the new base address.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="340E"></span>340E</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished.</td>
+<td class="comment-1" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="33F7.html">33F7</a></span></td>
+<td class="prev">
+Prev: <a href="33F7.html">33F7</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#3406">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="340F.html">340F</a></span></td>
+<td class="next">
+Next: <a href="340F.html">340F</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/13318.html">Switch to decimal</a>.</div>
 </footer>
 </body>

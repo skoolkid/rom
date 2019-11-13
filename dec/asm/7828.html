@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 07828</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7813.html">07813</a></span></td>
+<td class="prev">
+Prev: <a href="7813.html">07813</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7828">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7841.html">07841</a></span></td>
+<td class="next">
+Next: <a href="7841.html">07841</a>
+</td>
 </tr>
 </table>
 <div class="description">07828: THE 'FIND INTEGERS' SUBROUTINE</div>
@@ -32,33 +35,19 @@ Used by the routines at <a href="1016.html">BEEP</a>, <a href="5918.html">STR_DA
 The 'last value' on the calculator stack is fetched and compressed into a single register or a register pair by entering at <a href="7828.html">FIND_INT1</a> and <a href="7828.html#7833">FIND_INT2</a> respectively.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">FIND_INT1</td>
+<td class="asm-label">FIND_INT1</td>
 <td class="address-2"><span id="7828"></span>07828</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="11733.html">FP_TO_A</a></td>
-<td class="comment-11" rowspan="1">Fetch the 'last value'.</td>
+<td class="comment-1" rowspan="1">Fetch the 'last value'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7831"></span>07831</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="7828.html#7836">FIND_I_1</a></td>
-<td class="comment-11" rowspan="1">Jump forward.</td>
+<td class="comment-1" rowspan="1">Jump forward.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -71,25 +60,22 @@ This entry point is used by the routines at <a href="1016.html">BEEP</a>, <a hre
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">FIND_INT2</td>
+<td class="asm-label">FIND_INT2</td>
 <td class="address-2"><span id="7833"></span>07833</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="11682.html">FP_TO_BC</a></td>
-<td class="comment-11" rowspan="1">Fetch the 'last value'.</td>
+<td class="comment-1" rowspan="1">Fetch the 'last value'.</td>
 </tr>
 <tr>
-<td class="asm-label-1">FIND_I_1</td>
+<td class="asm-label">FIND_I_1</td>
 <td class="address-2"><span id="7836"></span>07836</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="7828.html#7839">REPORT_B_2</a></td>
-<td class="comment-11" rowspan="1">In both cases overflow is indicated by a set carry flag.</td>
+<td class="comment-1" rowspan="1">In both cases overflow is indicated by a set carry flag.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7838"></span>07838</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-11" rowspan="1">Return with all positive numbers that are in range.</td>
+<td class="comment-1" rowspan="1">Return with all positive numbers that are in range.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -105,31 +91,32 @@ Report B - Integer out of range.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">REPORT_B_2</td>
+<td class="asm-label">REPORT_B_2</td>
 <td class="address-2"><span id="7839"></span>07839</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="8.html">8</a></td>
-<td class="comment-11" rowspan="2">Call the error handling routine.</td>
+<td class="comment-1" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7840"></span>07840</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 10</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7813.html">07813</a></span></td>
+<td class="prev">
+Prev: <a href="7813.html">07813</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7828">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7841.html">07841</a></span></td>
+<td class="next">
+Next: <a href="7841.html">07841</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/1E94.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

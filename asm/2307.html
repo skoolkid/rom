@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 2307</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="22DC.html">22DC</a></span></td>
+<td class="prev">
+Prev: <a href="22DC.html">22DC</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2307">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2314.html">2314</a></span></td>
+<td class="next">
+Next: <a href="2314.html">2314</a>
+</td>
 </tr>
 </table>
 <div class="description">2307: THE 'STK-TO-BC' SUBROUTINE</div>
@@ -32,13 +35,7 @@ Used by the routines at <a href="1FFC.html">PR_ITEM_1</a>, <a href="22CB.html">P
 This subroutine loads two floating point numbers into the <span class="register">BC</span> register pair. It is thus used to pick up parameters in the range +00 to +FF. It also obtains in <span class="register">DE</span> the 'diagonal move' values (+/-1,+/-1) which are used in <a href="24B7.html">DRAW_LINE</a>.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -62,80 +59,75 @@ This subroutine loads two floating point numbers into the <span class="register"
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">STK_TO_BC</td>
+<td class="asm-label">STK_TO_BC</td>
 <td class="address-2"><span id="2307"></span>2307</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2314.html">STK_TO_A</a></td>
-<td class="comment-11" rowspan="1">First number to <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">First number to <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="230A"></span>230A</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
-<td class="comment-11" rowspan="1">Hence to <span class="register">B</span>.</td>
+<td class="comment-1" rowspan="1">Hence to <span class="register">B</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="230B"></span>230B</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">Save it briefly.</td>
+<td class="comment-1" rowspan="1">Save it briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="230C"></span>230C</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2314.html">STK_TO_A</a></td>
-<td class="comment-11" rowspan="1">Second number to <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">Second number to <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="230F"></span>230F</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,C</td>
-<td class="comment-11" rowspan="1">Its sign indicator to <span class="register">E</span>.</td>
+<td class="comment-1" rowspan="1">Its sign indicator to <span class="register">E</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2310"></span>2310</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">Restore first number.</td>
+<td class="comment-1" rowspan="1">Restore first number.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2311"></span>2311</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,C</td>
-<td class="comment-11" rowspan="1">Its sign indicator to <span class="register">D</span>.</td>
+<td class="comment-1" rowspan="1">Its sign indicator to <span class="register">D</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2312"></span>2312</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,A</td>
-<td class="comment-11" rowspan="1">Second number to <span class="register">C</span>.</td>
+<td class="comment-1" rowspan="1">Second number to <span class="register">C</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2313"></span>2313</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1"><span class="register">BC</span>, <span class="register">DE</span> are now as required.</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>, <span class="register">DE</span> are now as required.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="22DC.html">22DC</a></span></td>
+<td class="prev">
+Prev: <a href="22DC.html">22DC</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2307">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2314.html">2314</a></span></td>
+<td class="next">
+Next: <a href="2314.html">2314</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/8967.html">Switch to decimal</a>.</div>
 </footer>
 </body>

@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 1BB3</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1BB2.html">1BB2</a></span></td>
+<td class="prev">
+Prev: <a href="1BB2.html">1BB2</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1BB3">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1BBF.html">1BBF</a></span></td>
+<td class="next">
+Next: <a href="1BBF.html">1BBF</a>
+</td>
 </tr>
 </table>
 <div class="description">1BB3: THE 'LINE-END' ROUTINE</div>
@@ -35,72 +38,48 @@ The routine at <a href="1BB2.html">REM</a> continues here.
 If checking syntax a simple return is made but when 'running' the address held by <a href="5C55.html">NXTLIN</a> has to be checked before it can be used.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">LINE_END</td>
+<td class="asm-label">LINE_END</td>
 <td class="address-2"><span id="1BB3"></span>1BB3</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2530.html">SYNTAX_Z</a></td>
-<td class="comment-11" rowspan="3">Return if syntax is being checked; otherwise fetch the address in <a href="5C55.html">NXTLIN</a>.</td>
+<td class="comment-1" rowspan="3">Return if syntax is being checked; otherwise fetch the address in <a href="5C55.html">NXTLIN</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BB6"></span>1BB6</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BB7"></span>1BB7</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C55)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BBA"></span>1BBA</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,$C0</td>
-<td class="comment-11" rowspan="3">Return also if the address is after the end of the program - the 'run' is finished.</td>
+<td class="comment-1" rowspan="3">Return also if the address is after the end of the program - the 'run' is finished.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BBC"></span>1BBC</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND (HL)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BBD"></span>1BBD</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NZ</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="1BBE"></span>1BBE</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
-<td class="comment-11" rowspan="1">Signal 'statement zero' before proceeding.</td>
+<td class="comment-1" rowspan="1">Signal 'statement zero' before proceeding.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
-
 <div class="comments">
 <div class="paragraph">
 This routine continues into <a href="1BBF.html">LINE_USE</a>.
@@ -111,15 +90,19 @@ This routine continues into <a href="1BBF.html">LINE_USE</a>.
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="1BB2.html">1BB2</a></span></td>
+<td class="prev">
+Prev: <a href="1BB2.html">1BB2</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#1BB3">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="1BBF.html">1BBF</a></span></td>
+<td class="next">
+Next: <a href="1BBF.html">1BBF</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/7091.html">Switch to decimal</a>.</div>
 </footer>
 </body>

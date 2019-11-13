@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 13946</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="13940.html">13940</a></span></td>
+<td class="prev">
+Prev: <a href="13940.html">13940</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#13946">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="13958.html">13958</a></span></td>
+<td class="next">
+Next: <a href="13958.html">13958</a>
+</td>
 </tr>
 </table>
 <div class="description">13946: THE 'DECREASE THE COUNTER' SUBROUTINE (offset 53)</div>
@@ -32,7 +35,7 @@ The address of this routine is found in the <a href="13015.html">table of addres
 This subroutine is only called by the <a href="13385.html">series generator</a> and in effect is a 'DJNZ' operation but the counter is the system variable, <a href="23655.html">BREG</a>, rather than the <span class="register">B</span> register.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,7 +44,7 @@ This subroutine is only called by the <a href="13385.html">series generator</a> 
 <td class="register-desc">Address of the jump offset</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -53,80 +56,74 @@ This subroutine is only called by the <a href="13385.html">series generator</a> 
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">dec_jr_nz</td>
+<td class="asm-label">dec_jr_nz</td>
 <td class="address-2"><span id="13946"></span>13946</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="2">Go to the alternative register set and save the next literal pointer on the machine stack.</td>
+<td class="comment-1" rowspan="2">Go to the alternative register set and save the next literal pointer on the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13947"></span>13947</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13948"></span>13948</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,23655</td>
-<td class="comment-11" rowspan="1">Make <span class="register">HL</span> point to <a href="23655.html">BREG</a>.</td>
+<td class="comment-1" rowspan="1">Make <span class="register">HL</span> point to <a href="23655.html">BREG</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13951"></span>13951</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC (HL)</td>
-<td class="comment-11" rowspan="1">Decrease <a href="23655.html">BREG</a>.</td>
+<td class="comment-1" rowspan="1">Decrease <a href="23655.html">BREG</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13952"></span>13952</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">Restore the next literal pointer.</td>
+<td class="comment-1" rowspan="1">Restore the next literal pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13953"></span>13953</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="13958.html#13959">JUMP_2</a></td>
-<td class="comment-11" rowspan="1">The jump is made on non-zero.</td>
+<td class="comment-1" rowspan="1">The jump is made on non-zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13955"></span>13955</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">The next literal is passed over.</td>
+<td class="comment-1" rowspan="1">The next literal is passed over.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13956"></span>13956</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="1">Return to the main register set.</td>
+<td class="comment-1" rowspan="1">Return to the main register set.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13957"></span>13957</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished.</td>
+<td class="comment-1" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="13940.html">13940</a></span></td>
+<td class="prev">
+Prev: <a href="13940.html">13940</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#13946">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="13958.html">13958</a></span></td>
+<td class="next">
+Next: <a href="13958.html">13958</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/367A.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

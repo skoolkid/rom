@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 0DAF</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="0D6B.html">0D6B</a></span></td>
+<td class="prev">
+Prev: <a href="0D6B.html">0D6B</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#0DAF">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="0DD9.html">0DD9</a></span></td>
+<td class="next">
+Next: <a href="0DD9.html">0DD9</a>
+</td>
 </tr>
 </table>
 <div class="description">0DAF: THE 'CLEARING THE WHOLE DISPLAY AREA' SUBROUTINE</div>
@@ -29,135 +32,99 @@
 Used by the routines at <a href="0D6B.html">CLS</a>, <a href="12A2.html">MAIN_EXEC</a> and <a href="1795.html">AUTO_LIST</a>.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">CL_ALL</td>
+<td class="asm-label">CL_ALL</td>
 <td class="address-2"><span id="0DAF"></span>0DAF</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,$0000</td>
-<td class="comment-11" rowspan="2">The system variable <a href="5C7D.html">COORDS</a> is reset to zero.</td>
+<td class="comment-1" rowspan="2">The system variable <a href="5C7D.html">COORDS</a> is reset to zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0DB2"></span>0DB2</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD ($5C7D),HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0DB5"></span>0DB5</td>
-<td class="bytes-0"></td>
 <td class="instruction">RES 0,(IY+$30)</td>
-<td class="comment-11" rowspan="1">Signal 'the screen is clear' (reset bit 0 of <a href="5C6A.html">FLAGS2</a>).</td>
+<td class="comment-1" rowspan="1">Signal 'the screen is clear' (reset bit 0 of <a href="5C6A.html">FLAGS2</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0DB9"></span>0DB9</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="0D6B.html#0D94">CL_CHAN</a></td>
-<td class="comment-11" rowspan="1">Perform the 'house keeping' tasks.</td>
+<td class="comment-1" rowspan="1">Perform the 'house keeping' tasks.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0DBC"></span>0DBC</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,$FE</td>
-<td class="comment-11" rowspan="2">Open channel 'S'.</td>
+<td class="comment-1" rowspan="2">Open channel 'S'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0DBE"></span>0DBE</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="1601.html">CHAN_OPEN</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0DC1"></span>0DC1</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="0D4D.html">TEMPS</a></td>
-<td class="comment-11" rowspan="1">Use the 'permanent' values.</td>
+<td class="comment-1" rowspan="1">Use the 'permanent' values.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0DC4"></span>0DC4</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,$18</td>
-<td class="comment-11" rowspan="2">Now 'clear' the 24 lines of the display.</td>
+<td class="comment-1" rowspan="2">Now 'clear' the 24 lines of the display.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0DC6"></span>0DC6</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="0E44.html">CL_LINE</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0DC9"></span>0DC9</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,($5C51)</td>
-<td class="comment-11" rowspan="5">Ensure that the current output address (at (<a href="5C51.html">CURCHL</a>)) is <a href="09F4.html">PRINT_OUT</a>.</td>
+<td class="comment-1" rowspan="5">Ensure that the current output address (at (<a href="5C51.html">CURCHL</a>)) is <a href="09F4.html">PRINT_OUT</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0DCC"></span>0DCC</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,$09F4</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0DCF"></span>0DCF</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),E</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0DD0"></span>0DD0</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0DD1"></span>0DD1</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),D</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0DD2"></span>0DD2</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (IY+$52),$01</td>
-<td class="comment-11" rowspan="1">Reset the scroll counter (<a href="5C8C.html">SCR-CT</a>).</td>
+<td class="comment-1" rowspan="1">Reset the scroll counter (<a href="5C8C.html">SCR-CT</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0DD6"></span>0DD6</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD BC,$1821</td>
-<td class="comment-11" rowspan="1">As the upper part of the display is being handled the 'upper print line' will be line 0.</td>
+<td class="comment-1" rowspan="1">As the upper part of the display is being handled the 'upper print line' will be line 0.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
-
 <div class="comments">
 <div class="paragraph">
 This routine continues into <a href="0DD9.html">CL_SET</a>.
@@ -168,15 +135,19 @@ This routine continues into <a href="0DD9.html">CL_SET</a>.
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="0D6B.html">0D6B</a></span></td>
+<td class="prev">
+Prev: <a href="0D6B.html">0D6B</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#0DAF">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="0DD9.html">0DD9</a></span></td>
+<td class="next">
+Next: <a href="0DD9.html">0DD9</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/3503.html">Switch to decimal</a>.</div>
 </footer>
 </body>

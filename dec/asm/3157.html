@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 03157</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="3137.html">03137</a></span></td>
+<td class="prev">
+Prev: <a href="3137.html">03137</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#3157">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="3405.html">03405</a></span></td>
+<td class="next">
+Next: <a href="3405.html">03405</a>
+</td>
 </tr>
 </table>
 <div class="description">03157: THE 'TEST FOR SCROLL' SUBROUTINE</div>
@@ -39,7 +42,7 @@ This subroutine is called whenever there might be the need to scroll the display
 </ul>
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -48,153 +51,117 @@ This subroutine is called whenever there might be the need to scroll the display
 <td class="register-desc">Current line number</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PO_SCR</td>
+<td class="asm-label">PO_SCR</td>
 <td class="address-2"><span id="3157"></span>03157</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 1,(IY+1)</td>
-<td class="comment-11" rowspan="2">Return immediately if the printer is being used (bit 1 of <a href="23611.html">FLAGS</a> set).</td>
+<td class="comment-1" rowspan="2">Return immediately if the printer is being used (bit 1 of <a href="23611.html">FLAGS</a> set).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3161"></span>03161</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NZ</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3162"></span>03162</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,3545</td>
-<td class="comment-11" rowspan="2">Pre-load the machine stack with the address of <a href="3545.html">CL_SET</a>.</td>
+<td class="comment-1" rowspan="2">Pre-load the machine stack with the address of <a href="3545.html">CL_SET</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3165"></span>03165</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3166"></span>03166</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-11" rowspan="1">Transfer the line number.</td>
+<td class="comment-1" rowspan="1">Transfer the line number.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3167"></span>03167</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 0,(IY+2)</td>
-<td class="comment-11" rowspan="2">Jump forward if considering 'INPUT ... AT ...' (bit 0 of <a href="23612.html">TV-FLAG</a> set).</td>
+<td class="comment-1" rowspan="2">Jump forward if considering 'INPUT ... AT ...' (bit 0 of <a href="23612.html">TV-FLAG</a> set).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3171"></span>03171</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP NZ,<a href="3157.html#3330">PO_SCR_4</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3174"></span>03174</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP (IY+49)</td>
-<td class="comment-11" rowspan="3">Return, via <a href="3545.html">CL_SET</a>, if the line number is greater than the value of <a href="23659.html">DF-SZ</a>; give report 5 if it is less; otherwise continue.</td>
+<td class="comment-1" rowspan="3">Return, via <a href="3545.html">CL_SET</a>, if the line number is greater than the value of <a href="23659.html">DF-SZ</a>; give report 5 if it is less; otherwise continue.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3177"></span>03177</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="3157.html#3206">REPORT_5</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3179"></span>03179</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NZ</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3180"></span>03180</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 4,(IY+2)</td>
-<td class="comment-11" rowspan="2">Jump forward unless dealing with an 'automatic listing' (bit 4 of <a href="23612.html">TV-FLAG</a> set).</td>
+<td class="comment-1" rowspan="2">Jump forward unless dealing with an 'automatic listing' (bit 4 of <a href="23612.html">TV-FLAG</a> set).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3184"></span>03184</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="3157.html#3208">PO_SCR_2</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3186"></span>03186</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,(IY+45)</td>
-<td class="comment-11" rowspan="1">Fetch the line counter from <a href="23655.html">BREG</a>.</td>
+<td class="comment-1" rowspan="1">Fetch the line counter from <a href="23655.html">BREG</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3189"></span>03189</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC E</td>
-<td class="comment-11" rowspan="1">Decrease this counter.</td>
+<td class="comment-1" rowspan="1">Decrease this counter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3190"></span>03190</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="3157.html#3282">PO_SCR_3</a></td>
-<td class="comment-11" rowspan="1">Jump forward if the listing is to be scrolled.</td>
+<td class="comment-1" rowspan="1">Jump forward if the listing is to be scrolled.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3192"></span>03192</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,0</td>
-<td class="comment-11" rowspan="5">Otherwise open channel 'K', restore the stack pointer, flag that the automatic listing has finished (reset bit 4 of <a href="23612.html">TV-FLAG</a>) and return via <a href="3545.html">CL_SET</a>.</td>
+<td class="comment-1" rowspan="5">Otherwise open channel 'K', restore the stack pointer, flag that the automatic listing has finished (reset bit 4 of <a href="23612.html">TV-FLAG</a>) and return via <a href="3545.html">CL_SET</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3194"></span>03194</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="5633.html">CHAN_OPEN</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3197"></span>03197</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD SP,(23615)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3201"></span>03201</td>
-<td class="bytes-0"></td>
 <td class="instruction">RES 4,(IY+2)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3205"></span>03205</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -210,18 +177,15 @@ Report 5 - Out of screen.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">REPORT_5</td>
+<td class="asm-label">REPORT_5</td>
 <td class="address-2"><span id="3206"></span>03206</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="8.html">8</a></td>
-<td class="comment-11" rowspan="2">Call the error handling routine.</td>
+<td class="comment-1" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3207"></span>03207</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 4</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -234,18 +198,15 @@ Now consider if the prompt 'scroll?' is required.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PO_SCR_2</td>
+<td class="asm-label">PO_SCR_2</td>
 <td class="address-2"><span id="3208"></span>03208</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC (IY+82)</td>
-<td class="comment-11" rowspan="2">Decrease the scroll counter (<a href="23692.html">SCR-CT</a>) and proceed to give the prompt only if it becomes zero.</td>
+<td class="comment-1" rowspan="2">Decrease the scroll counter (<a href="23692.html">SCR-CT</a>) and proceed to give the prompt only if it becomes zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3211"></span>03211</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="3157.html#3282">PO_SCR_3</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -258,228 +219,180 @@ Proceed to give the prompt message.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3213"></span>03213</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,24</td>
-<td class="comment-11" rowspan="3">The scroll counter (<a href="23692.html">SCR-CT</a>) is reset.</td>
+<td class="comment-1" rowspan="3">The scroll counter (<a href="23692.html">SCR-CT</a>) is reset.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3215"></span>03215</td>
-<td class="bytes-0"></td>
 <td class="instruction">SUB B</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3216"></span>03216</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23692),A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3219"></span>03219</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23695)</td>
-<td class="comment-11" rowspan="2">The current values of <a href="23695.html">ATTR-T</a> and <a href="23696.html">MASK-T</a> are saved.</td>
+<td class="comment-1" rowspan="2">The current values of <a href="23695.html">ATTR-T</a> and <a href="23696.html">MASK-T</a> are saved.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3222"></span>03222</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3223"></span>03223</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(23697)</td>
-<td class="comment-11" rowspan="2">The current value of <a href="23697.html">P-FLAG</a> is saved.</td>
+<td class="comment-1" rowspan="2">The current value of <a href="23697.html">P-FLAG</a> is saved.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3226"></span>03226</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3227"></span>03227</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,253</td>
-<td class="comment-11" rowspan="2">Channel 'K' is opened.</td>
+<td class="comment-1" rowspan="2">Channel 'K' is opened.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3229"></span>03229</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="5633.html">CHAN_OPEN</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3232"></span>03232</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
-<td class="comment-11" rowspan="3">The message 'scroll?' is message '0'. This message is now printed.</td>
+<td class="comment-1" rowspan="3">The message 'scroll?' is message '0'. This message is now printed.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3233"></span>03233</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,3320</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3236"></span>03236</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="3082.html">PO_MSG</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3239"></span>03239</td>
-<td class="bytes-0"></td>
 <td class="instruction">SET 5,(IY+2)</td>
-<td class="comment-11" rowspan="1">Signal 'clear the lower screen after a keystroke' (set bit 5 of <a href="23612.html">TV-FLAG</a>).</td>
+<td class="comment-1" rowspan="1">Signal 'clear the lower screen after a keystroke' (set bit 5 of <a href="23612.html">TV-FLAG</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3243"></span>03243</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,23611</td>
-<td class="comment-11" rowspan="1">This is <a href="23611.html">FLAGS</a>.</td>
+<td class="comment-1" rowspan="1">This is <a href="23611.html">FLAGS</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3246"></span>03246</td>
-<td class="bytes-0"></td>
 <td class="instruction">SET 3,(HL)</td>
-<td class="comment-11" rowspan="1">Signal 'L mode'.</td>
+<td class="comment-1" rowspan="1">Signal 'L mode'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3248"></span>03248</td>
-<td class="bytes-0"></td>
 <td class="instruction">RES 5,(HL)</td>
-<td class="comment-11" rowspan="1">Signal 'no key yet'.</td>
+<td class="comment-1" rowspan="1">Signal 'no key yet'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3250"></span>03250</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="1">Note: <span class="register">DE</span> <a href="../reference/bugs.html#scrollingTokens">should be pushed also</a>.</td>
+<td class="comment-1" rowspan="1">Note: <span class="register">DE</span> <a href="../reference/bugs.html#scrollingTokens">should be pushed also</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3251"></span>03251</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="5588.html">WAIT_KEY</a></td>
-<td class="comment-11" rowspan="1">Fetch a single key code.</td>
+<td class="comment-1" rowspan="1">Fetch a single key code.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3254"></span>03254</td>
-<td class="bytes-0"></td>
 <td class="instruction">EXX</td>
-<td class="comment-11" rowspan="1">Restore the registers.</td>
+<td class="comment-1" rowspan="1">Restore the registers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3255"></span>03255</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP " "</td>
-<td class="comment-11" rowspan="7">There is a jump forward to <a href="3157.html#3328">REPORT_D</a> - 'BREAK - CONT repeats' - if the keystroke was 'BREAK', 'STOP', 'N' or 'n'; otherwise accept the keystroke as indicating the need to scroll the display.</td>
+<td class="comment-1" rowspan="7">There is a jump forward to <a href="3157.html#3328">REPORT_D</a> - 'BREAK - CONT repeats' - if the keystroke was 'BREAK', 'STOP', 'N' or 'n'; otherwise accept the keystroke as indicating the need to scroll the display.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3257"></span>03257</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="3157.html#3328">REPORT_D</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3259"></span>03259</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 226</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3261"></span>03261</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="3157.html#3328">REPORT_D</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3263"></span>03263</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR 32</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3265"></span>03265</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "n"</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3267"></span>03267</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="3157.html#3328">REPORT_D</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3269"></span>03269</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,254</td>
-<td class="comment-11" rowspan="2">Open channel 'S'.</td>
+<td class="comment-1" rowspan="2">Open channel 'S'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3271"></span>03271</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="5633.html">CHAN_OPEN</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3274"></span>03274</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="2">Restore the value of <a href="23697.html">P-FLAG</a>.</td>
+<td class="comment-1" rowspan="2">Restore the value of <a href="23697.html">P-FLAG</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3275"></span>03275</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23697),A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3278"></span>03278</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">Restore the values of <a href="23695.html">ATTR-T</a> and <a href="23696.html">MASK-T</a>.</td>
+<td class="comment-1" rowspan="2">Restore the values of <a href="23695.html">ATTR-T</a> and <a href="23696.html">MASK-T</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3279"></span>03279</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23695),HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -492,95 +405,72 @@ The display is now scrolled.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PO_SCR_3</td>
+<td class="asm-label">PO_SCR_3</td>
 <td class="address-2"><span id="3282"></span>03282</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="3582.html">CL_SC_ALL</a></td>
-<td class="comment-11" rowspan="1">The whole display is scrolled.</td>
+<td class="comment-1" rowspan="1">The whole display is scrolled.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3285"></span>03285</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,(IY+49)</td>
-<td class="comment-11" rowspan="4">The line (<a href="23659.html">DF-SZ</a>) and column numbers for the start of the line above the lower part of the display are found and saved.</td>
+<td class="comment-1" rowspan="4">The line (<a href="23659.html">DF-SZ</a>) and column numbers for the start of the line above the lower part of the display are found and saved.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3288"></span>03288</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC B</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3289"></span>03289</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,33</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3291"></span>03291</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3292"></span>03292</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="3739.html">CL_ADDR</a></td>
-<td class="comment-11" rowspan="8">The corresponding attribute byte for this character area is then found. The <span class="register">HL</span> register pair holds the address of the byte.</td>
+<td class="comment-1" rowspan="8">The corresponding attribute byte for this character area is then found. The <span class="register">HL</span> register pair holds the address of the byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3295"></span>03295</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,H</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3296"></span>03296</td>
-<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3297"></span>03297</td>
-<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3298"></span>03298</td>
-<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3299"></span>03299</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND 3</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3301"></span>03301</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR 88</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3303"></span>03303</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD H,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -593,88 +483,71 @@ The line in question will have 'lower part' attribute values and the new line at
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3304"></span>03304</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,23264</td>
-<td class="comment-11" rowspan="1"><span class="register">DE</span> points to the first attribute byte of the bottom line.</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span> points to the first attribute byte of the bottom line.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3307"></span>03307</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-11" rowspan="1">The value is fetched.</td>
+<td class="comment-1" rowspan="1">The value is fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3308"></span>03308</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-11" rowspan="1">The 'lower part' value.</td>
+<td class="comment-1" rowspan="1">The 'lower part' value.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3309"></span>03309</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,32</td>
-<td class="comment-11" rowspan="1">There are thirty two bytes.</td>
+<td class="comment-1" rowspan="1">There are thirty two bytes.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3311"></span>03311</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Exchange the pointers.</td>
+<td class="comment-1" rowspan="1">Exchange the pointers.</td>
 </tr>
 <tr>
-<td class="asm-label-1">PO_SCR_3A</td>
+<td class="asm-label">PO_SCR_3A</td>
 <td class="address-2"><span id="3312"></span>03312</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (DE),A</td>
-<td class="comment-11" rowspan="5">Make the first exchange and then proceed to use the same values for the thirty two attribute bytes of the two lines being handled.</td>
+<td class="comment-1" rowspan="5">Make the first exchange and then proceed to use the same values for the thirty two attribute bytes of the two lines being handled.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3313"></span>03313</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),C</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3314"></span>03314</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3315"></span>03315</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3316"></span>03316</td>
-<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="3157.html#3312">PO_SCR_3A</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3318"></span>03318</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="2">The line and column numbers of the bottom line of the 'upper part' are fetched before returning.</td>
+<td class="comment-1" rowspan="2">The line and column numbers of the bottom line of the 'upper part' are fetched before returning.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3319"></span>03319</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -687,25 +560,22 @@ The 'scroll?' message.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">SCROLL</td>
+<td class="asm-label">SCROLL</td>
 <td class="address-1"><span id="3320"></span>03320</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 128</td>
-<td class="comment-11" rowspan="1">Initial marker - stepped over.</td>
+<td class="comment-1" rowspan="1">Initial marker - stepped over.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3321"></span>03321</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFM "scroll"</td>
-<td class="comment-11" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3327"></span>03327</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFM "?"+128</td>
-<td class="comment-11" rowspan="1">The '?' is inverted.</td>
+<td class="comment-1" rowspan="1">The '?' is inverted.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -718,18 +588,15 @@ Report D - BREAK - CONT repeats.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">REPORT_D</td>
+<td class="asm-label">REPORT_D</td>
 <td class="address-2"><span id="3328"></span>03328</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="8.html">8</a></td>
-<td class="comment-11" rowspan="2">Call the error handling routine.</td>
+<td class="comment-1" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3329"></span>03329</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 12</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -742,102 +609,80 @@ The lower part of the display is handled as follows:
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PO_SCR_4</td>
+<td class="asm-label">PO_SCR_4</td>
 <td class="address-2"><span id="3330"></span>03330</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 2</td>
-<td class="comment-11" rowspan="5">The 'out of screen' error is given if the lower part is going to be 'too large' (see <a href="23659.html">DF-SZ</a>) and a return made if scrolling is unnecessary.</td>
+<td class="comment-1" rowspan="5">The 'out of screen' error is given if the lower part is going to be 'too large' (see <a href="23659.html">DF-SZ</a>) and a return made if scrolling is unnecessary.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3332"></span>03332</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="3157.html#3206">REPORT_5</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3334"></span>03334</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD A,(IY+49)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3337"></span>03337</td>
-<td class="bytes-0"></td>
 <td class="instruction">SUB 25</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3339"></span>03339</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3340"></span>03340</td>
-<td class="bytes-0"></td>
 <td class="instruction">NEG</td>
-<td class="comment-11" rowspan="1">The <span class="register">A</span> register will now hold 'the number of scrolls to be made'.</td>
+<td class="comment-1" rowspan="1">The <span class="register">A</span> register will now hold 'the number of scrolls to be made'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3342"></span>03342</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1">The line and column numbers are now saved.</td>
+<td class="comment-1" rowspan="1">The line and column numbers are now saved.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3343"></span>03343</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,A</td>
-<td class="comment-11" rowspan="5">The 'scroll number', <a href="23695.html">ATTR-T</a>, <a href="23696.html">MASK-T</a> and <a href="23697.html">P-FLAG</a> are all saved.</td>
+<td class="comment-1" rowspan="5">The 'scroll number', <a href="23695.html">ATTR-T</a>, <a href="23696.html">MASK-T</a> and <a href="23697.html">P-FLAG</a> are all saved.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3344"></span>03344</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23695)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3347"></span>03347</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3348"></span>03348</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23697)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3351"></span>03351</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3352"></span>03352</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="3405.html">TEMPS</a></td>
-<td class="comment-11" rowspan="1">The 'permanent' colour items are to be used.</td>
+<td class="comment-1" rowspan="1">The 'permanent' colour items are to be used.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3355"></span>03355</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-11" rowspan="1">The 'scroll number' is fetched.</td>
+<td class="comment-1" rowspan="1">The 'scroll number' is fetched.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -850,192 +695,159 @@ The lower part of the screen is now scrolled <span class="register">A</span> num
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PO_SCR_4A</td>
+<td class="asm-label">PO_SCR_4A</td>
 <td class="address-2"><span id="3356"></span>03356</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1">Save the 'number'.</td>
+<td class="comment-1" rowspan="1">Save the 'number'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3357"></span>03357</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,23659</td>
-<td class="comment-11" rowspan="1">This is <a href="23659.html">DF-SZ</a>.</td>
+<td class="comment-1" rowspan="1">This is <a href="23659.html">DF-SZ</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3360"></span>03360</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-11" rowspan="4">The value in <a href="23659.html">DF-SZ</a> is incremented; the <span class="register">B</span> register set to hold the former value and the <span class="register">A</span> register the new value.</td>
+<td class="comment-1" rowspan="4">The value in <a href="23659.html">DF-SZ</a> is incremented; the <span class="register">B</span> register set to hold the former value and the <span class="register">A</span> register the new value.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3361"></span>03361</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3362"></span>03362</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3363"></span>03363</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3364"></span>03364</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,23689</td>
-<td class="comment-11" rowspan="1">This is <a href="23688.html">S-POSN-hi</a>.</td>
+<td class="comment-1" rowspan="1">This is <a href="23688.html">S-POSN-hi</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3367"></span>03367</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP (HL)</td>
-<td class="comment-11" rowspan="2">The jump is taken if only the lower part of the display is to be scrolled (<span class="register">B</span>=old <a href="23659.html">DF-SZ</a>).</td>
+<td class="comment-1" rowspan="2">The jump is taken if only the lower part of the display is to be scrolled (<span class="register">B</span>=old <a href="23659.html">DF-SZ</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3368"></span>03368</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="3157.html#3373">PO_SCR_4B</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3370"></span>03370</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC (HL)</td>
-<td class="comment-11" rowspan="2">Otherwise <a href="23688.html">S-POSN-hi</a> is incremented and the whole display scrolled (<span class="register">B</span>=24).</td>
+<td class="comment-1" rowspan="2">Otherwise <a href="23688.html">S-POSN-hi</a> is incremented and the whole display scrolled (<span class="register">B</span>=24).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3371"></span>03371</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,24</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">PO_SCR_4B</td>
+<td class="asm-label">PO_SCR_4B</td>
 <td class="address-2"><span id="3373"></span>03373</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="3582.html#3584">CL_SCROLL</a></td>
-<td class="comment-11" rowspan="1">Scroll <span class="register">B</span> lines.</td>
+<td class="comment-1" rowspan="1">Scroll <span class="register">B</span> lines.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3376"></span>03376</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="2">Fetch and decrement the 'scroll number'.</td>
+<td class="comment-1" rowspan="2">Fetch and decrement the 'scroll number'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3377"></span>03377</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3378"></span>03378</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="3157.html#3356">PO_SCR_4A</a></td>
-<td class="comment-11" rowspan="1">Jump back until finished.</td>
+<td class="comment-1" rowspan="1">Jump back until finished.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3380"></span>03380</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">Restore the value of <a href="23697.html">P-FLAG</a>.</td>
+<td class="comment-1" rowspan="2">Restore the value of <a href="23697.html">P-FLAG</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3381"></span>03381</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (IY+87),L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3384"></span>03384</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">Restore the values of <a href="23695.html">ATTR-T</a> and <a href="23696.html">MASK-T</a>.</td>
+<td class="comment-1" rowspan="2">Restore the values of <a href="23695.html">ATTR-T</a> and <a href="23696.html">MASK-T</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3385"></span>03385</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23695),HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3388"></span>03388</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD BC,(23688)</td>
-<td class="comment-11" rowspan="3">In case <a href="23688.html">S-POSN</a> has been changed <a href="3545.html">CL_SET</a> is called to give a matching value to <a href="23684.html">DF-CC</a> (after resetting bit 0 of <a href="23612.html">TV-FLAG</a>).</td>
+<td class="comment-1" rowspan="3">In case <a href="23688.html">S-POSN</a> has been changed <a href="3545.html">CL_SET</a> is called to give a matching value to <a href="23684.html">DF-CC</a> (after resetting bit 0 of <a href="23612.html">TV-FLAG</a>).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3392"></span>03392</td>
-<td class="bytes-0"></td>
 <td class="instruction">RES 0,(IY+2)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3396"></span>03396</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="3545.html">CL_SET</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3399"></span>03399</td>
-<td class="bytes-0"></td>
 <td class="instruction">SET 0,(IY+2)</td>
-<td class="comment-11" rowspan="3">Set bit 0 of <a href="23612.html">TV-FLAG</a> to indicate that the lower screen is being handled, fetch the line and column numbers, and then return.</td>
+<td class="comment-1" rowspan="3">Set bit 0 of <a href="23612.html">TV-FLAG</a> to indicate that the lower screen is being handled, fetch the line and column numbers, and then return.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3403"></span>03403</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3404"></span>03404</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="3137.html">03137</a></span></td>
+<td class="prev">
+Prev: <a href="3137.html">03137</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#3157">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="3405.html">03405</a></span></td>
+<td class="next">
+Next: <a href="3405.html">03405</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/0C55.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

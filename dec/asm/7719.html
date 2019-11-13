@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 07719</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7660.html">07660</a></span></td>
+<td class="prev">
+Prev: <a href="7660.html">07660</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7719">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7737.html">07737</a></span></td>
+<td class="next">
+Next: <a href="7737.html">07737</a>
+</td>
 </tr>
 </table>
 <div class="description">07719: THE 'DATA' COMMAND ROUTINE</div>
@@ -32,33 +35,18 @@ The address of this routine is found in the <a href="6728.html#6860">parameter t
 During syntax checking a DATA statement is checked to ensure that it contains a series of valid expressions, separated by commas. But in 'run-time' the statement is passed by.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">DATA</td>
+<td class="asm-label">DATA</td>
 <td class="address-2"><span id="7719"></span>07719</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="9520.html">SYNTAX_Z</a></td>
-<td class="comment-11" rowspan="2">Jump forward unless checking syntax.</td>
+<td class="comment-1" rowspan="2">Jump forward unless checking syntax.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7722"></span>07722</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="7719.html#7735">DATA_2</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -71,39 +59,33 @@ A loop is now entered to deal with each expression in the DATA statement.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">DATA_1</td>
+<td class="asm-label">DATA_1</td>
 <td class="address-2"><span id="7724"></span>07724</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="9467.html">SCANNING</a></td>
-<td class="comment-11" rowspan="1">Scan the next expression.</td>
+<td class="comment-1" rowspan="1">Scan the next expression.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7727"></span>07727</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ","</td>
-<td class="comment-11" rowspan="1">Check for a comma separator.</td>
+<td class="comment-1" rowspan="1">Check for a comma separator.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7729"></span>07729</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL NZ,<a href="7150.html">CHECK_END</a></td>
-<td class="comment-11" rowspan="1">Move on to the next statement if not matched.</td>
+<td class="comment-1" rowspan="1">Move on to the next statement if not matched.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7732"></span>07732</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="32.html">32</a></td>
-<td class="comment-11" rowspan="2">Whilst there are still expressions to be checked go around the loop.</td>
+<td class="comment-1" rowspan="2">Whilst there are still expressions to be checked go around the loop.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7733"></span>07733</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="7719.html#7724">DATA_1</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -116,15 +98,13 @@ The DATA statement has to be passed by in 'run-time'.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">DATA_2</td>
+<td class="asm-label">DATA_2</td>
 <td class="address-2"><span id="7735"></span>07735</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,228</td>
-<td class="comment-11" rowspan="1">It is a 'DATA' statement that is to be passed by.</td>
+<td class="comment-1" rowspan="1">It is a 'DATA' statement that is to be passed by.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
-
 <div class="comments">
 <div class="paragraph">
 This routine continues into <a href="7737.html">PASS_BY</a>.
@@ -135,15 +115,19 @@ This routine continues into <a href="7737.html">PASS_BY</a>.
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7660.html">07660</a></span></td>
+<td class="prev">
+Prev: <a href="7660.html">07660</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7719">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7737.html">07737</a></span></td>
+<td class="next">
+Next: <a href="7737.html">07737</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/1E27.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

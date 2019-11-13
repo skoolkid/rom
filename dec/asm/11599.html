@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 11599</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="11579.html">11579</a></span></td>
+<td class="prev">
+Prev: <a href="11579.html">11579</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#11599">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="11647.html">11647</a></span></td>
+<td class="next">
+Next: <a href="11647.html">11647</a>
+</td>
 </tr>
 </table>
 <div class="description">11599: THE 'E-FORMAT TO FLOATING-POINT' SUBROUTINE (offset 60)</div>
@@ -41,7 +44,7 @@ The method used is to find the absolute value of m, say p, and to multiply or di
 To achieve this, p is shifted right until it is zero, and x is multiplied or divided by 10&#8593;(2&#8593;n) for each set bit b(n) of p. Since p is never much more than 39, bits 6 and 7 of p will not normally be set.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -50,299 +53,252 @@ To achieve this, p is shifted right until it is zero, and x is multiplied or div
 <td class="register-desc">Exponent (m)</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">e_to_fp</td>
+<td class="asm-label">e_to_fp</td>
 <td class="address-2"><span id="11599"></span>11599</td>
-<td class="bytes-0"></td>
 <td class="instruction">RLCA</td>
-<td class="comment-11" rowspan="2">Test the sign of m by rotating bit 7 of <span class="register">A</span> into the carry without changing <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="2">Test the sign of m by rotating bit 7 of <span class="register">A</span> into the carry without changing <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11600"></span>11600</td>
-<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11601"></span>11601</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="11599.html#11605">E_SAVE</a></td>
-<td class="comment-11" rowspan="1">Jump if m is positive.</td>
+<td class="comment-1" rowspan="1">Jump if m is positive.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11603"></span>11603</td>
-<td class="bytes-0"></td>
 <td class="instruction">CPL</td>
-<td class="comment-11" rowspan="2">Negate m in <span class="register">A</span> without disturbing the carry flag.</td>
+<td class="comment-1" rowspan="2">Negate m in <span class="register">A</span> without disturbing the carry flag.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11604"></span>11604</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">E_SAVE</td>
+<td class="asm-label">E_SAVE</td>
 <td class="address-2"><span id="11605"></span>11605</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1">Save m in <span class="register">A</span> briefly.</td>
+<td class="comment-1" rowspan="1">Save m in <span class="register">A</span> briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11606"></span>11606</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,23698</td>
-<td class="comment-11" rowspan="2">This is <a href="23698.html">MEMBOT</a>; a sign flag is now stored in the first byte of mem-0, i.e. 0 for '+' and 1 for '-'.</td>
+<td class="comment-1" rowspan="2">This is <a href="23698.html">MEMBOT</a>; a sign flag is now stored in the first byte of mem-0, i.e. 0 for '+' and 1 for '-'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11609"></span>11609</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="13579.html">FP_0_1</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11612"></span>11612</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="40.html">40</a></td>
-<td class="comment-11" rowspan="1">The stack holds x.</td>
+<td class="comment-1" rowspan="1">The stack holds x.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11613"></span>11613</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 164</td>
-<td class="comment-11" rowspan="1"><a href="13339.html">stk_ten</a>: x, 10</td>
+<td class="comment-1" rowspan="1"><a href="13339.html">stk_ten</a>: x, 10</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11614"></span>11614</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 56</td>
-<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: x, 10</td>
+<td class="comment-1" rowspan="1"><a href="13979.html">end_calc</a>: x, 10</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11615"></span>11615</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="1">Restore m in <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">Restore m in <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1">E_LOOP</td>
+<td class="asm-label">E_LOOP</td>
 <td class="address-2"><span id="11616"></span>11616</td>
-<td class="bytes-0"></td>
 <td class="instruction">SRL A</td>
-<td class="comment-11" rowspan="2">In the loop, shift out the next bit of m, modifying the carry and zero flags appropriately; jump if carry reset.</td>
+<td class="comment-1" rowspan="2">In the loop, shift out the next bit of m, modifying the carry and zero flags appropriately; jump if carry reset.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11618"></span>11618</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="11599.html#11633">E_TST_END</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11620"></span>11620</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1">Save the rest of m and the flags.</td>
+<td class="comment-1" rowspan="1">Save the rest of m and the flags.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11621"></span>11621</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="40.html">40</a></td>
-<td class="comment-11" rowspan="1">The stack holds x' and 10&#8593;(2&#8593;n), where x' is an interim stage in the multiplication of x by 10&#8593;m, and n=0, 1, 2, 3, 4 or 5.</td>
+<td class="comment-1" rowspan="1">The stack holds x' and 10&#8593;(2&#8593;n), where x' is an interim stage in the multiplication of x by 10&#8593;m, and n=0, 1, 2, 3, 4 or 5.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11622"></span>11622</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 193</td>
-<td class="comment-11" rowspan="1"><a href="13357.html">st_mem_1</a>: (10&#8593;(2&#8593;n) is copied to mem-1)</td>
+<td class="comment-1" rowspan="1"><a href="13357.html">st_mem_1</a>: (10&#8593;(2&#8593;n) is copied to mem-1)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11623"></span>11623</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 224</td>
-<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_0</a>: x', 10&#8593;(2&#8593;n), (1/0)</td>
+<td class="comment-1" rowspan="1"><a href="13327.html">get_mem_0</a>: x', 10&#8593;(2&#8593;n), (1/0)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11624"></span>11624</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 0</td>
-<td class="comment-11" rowspan="2"><a href="13967.html">jump_true</a> to <a href="11599.html#11629">E_DIVSN</a>: x', 10&#8593;(2&#8593;n)</td>
+<td class="comment-1" rowspan="2"><a href="13967.html">jump_true</a> to <a href="11599.html#11629">E_DIVSN</a>: x', 10&#8593;(2&#8593;n)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11625"></span>11625</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 4</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11626"></span>11626</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 4</td>
-<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: x'*10&#8593;(2&#8593;n)=x"</td>
+<td class="comment-1" rowspan="1"><a href="12490.html">multiply</a>: x'*10&#8593;(2&#8593;n)=x"</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11627"></span>11627</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 51</td>
-<td class="comment-11" rowspan="2"><a href="13958.html">jump</a> to <a href="11599.html#11630">E_FETCH</a>: x''</td>
+<td class="comment-1" rowspan="2"><a href="13958.html">jump</a> to <a href="11599.html#11630">E_FETCH</a>: x''</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11628"></span>11628</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 2</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">E_DIVSN</td>
+<td class="asm-label">E_DIVSN</td>
 <td class="address-1"><span id="11629"></span>11629</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 5</td>
-<td class="comment-11" rowspan="1"><a href="12719.html">division</a>: x/10&#8593;(2&#8593;n)=x'' (x'' is x'*10&#8593;(2&#8593;n) or x'/10&#8593;(2&#8593;n) according as m is '+' or '-')</td>
+<td class="comment-1" rowspan="1"><a href="12719.html">division</a>: x/10&#8593;(2&#8593;n)=x'' (x'' is x'*10&#8593;(2&#8593;n) or x'/10&#8593;(2&#8593;n) according as m is '+' or '-')</td>
 </tr>
 <tr>
-<td class="asm-label-1">E_FETCH</td>
+<td class="asm-label">E_FETCH</td>
 <td class="address-1"><span id="11630"></span>11630</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 225</td>
-<td class="comment-11" rowspan="1"><a href="13327.html">get_mem_1</a>: x'', 10&#8593;(2&#8593;n)</td>
+<td class="comment-1" rowspan="1"><a href="13327.html">get_mem_1</a>: x'', 10&#8593;(2&#8593;n)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11631"></span>11631</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 56</td>
-<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: x'', 10&#8593;(2&#8593;n)</td>
+<td class="comment-1" rowspan="1"><a href="13979.html">end_calc</a>: x'', 10&#8593;(2&#8593;n)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11632"></span>11632</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="1">Restore the rest of m in <span class="register">A</span>, and the flags.</td>
+<td class="comment-1" rowspan="1">Restore the rest of m in <span class="register">A</span>, and the flags.</td>
 </tr>
 <tr>
-<td class="asm-label-1">E_TST_END</td>
+<td class="asm-label">E_TST_END</td>
 <td class="address-2"><span id="11633"></span>11633</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="11599.html#11643">E_END</a></td>
-<td class="comment-11" rowspan="1">Jump if m has been reduced to zero.</td>
+<td class="comment-1" rowspan="1">Jump if m has been reduced to zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11635"></span>11635</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1">Save the rest of m in <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">Save the rest of m in <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11636"></span>11636</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="40.html">40</a></td>
-<td class="comment-11" rowspan="1">x'', 10&#8593;(2&#8593;n)</td>
+<td class="comment-1" rowspan="1">x'', 10&#8593;(2&#8593;n)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11637"></span>11637</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 49</td>
-<td class="comment-11" rowspan="1"><a href="13248.html">duplicate</a>: x'', 10&#8593;(2&#8593;n), 10&#8593;(2&#8593;n)</td>
+<td class="comment-1" rowspan="1"><a href="13248.html">duplicate</a>: x'', 10&#8593;(2&#8593;n), 10&#8593;(2&#8593;n)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11638"></span>11638</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 4</td>
-<td class="comment-11" rowspan="1"><a href="12490.html">multiply</a>: x'', 10&#8593;(2&#8593;(n+1))</td>
+<td class="comment-1" rowspan="1"><a href="12490.html">multiply</a>: x'', 10&#8593;(2&#8593;(n+1))</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11639"></span>11639</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 56</td>
-<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a>: x'', 10&#8593;(2&#8593;(n+1))</td>
+<td class="comment-1" rowspan="1"><a href="13979.html">end_calc</a>: x'', 10&#8593;(2&#8593;(n+1))</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11640"></span>11640</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="1">Restore the rest of m in <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">Restore the rest of m in <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11641"></span>11641</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="11599.html#11616">E_LOOP</a></td>
-<td class="comment-11" rowspan="1">Jump back for all bits of m.</td>
+<td class="comment-1" rowspan="1">Jump back for all bits of m.</td>
 </tr>
 <tr>
-<td class="asm-label-1">E_END</td>
+<td class="asm-label">E_END</td>
 <td class="address-2"><span id="11643"></span>11643</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="40.html">40</a></td>
-<td class="comment-11" rowspan="1">Use the calculator to delete the final power of 10 reached leaving the 'last value' x*10&#8593;m on the stack.</td>
+<td class="comment-1" rowspan="1">Use the calculator to delete the final power of 10 reached leaving the 'last value' x*10&#8593;m on the stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11644"></span>11644</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 2</td>
-<td class="comment-11" rowspan="1"><a href="13147.html#13217">delete</a></td>
+<td class="comment-1" rowspan="1"><a href="13147.html#13217">delete</a></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11645"></span>11645</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 56</td>
-<td class="comment-11" rowspan="1"><a href="13979.html">end_calc</a></td>
+<td class="comment-1" rowspan="1"><a href="13979.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="11646"></span>11646</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="11579.html">11579</a></span></td>
+<td class="prev">
+Prev: <a href="11579.html">11579</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#11599">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="11647.html">11647</a></span></td>
+<td class="next">
+Next: <a href="11647.html">11647</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/2D4F.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

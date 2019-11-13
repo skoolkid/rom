@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 2634</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="2627.html">2627</a></span></td>
+<td class="prev">
+Prev: <a href="2627.html">2627</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2634">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2668.html">2668</a></span></td>
+<td class="next">
+Next: <a href="2668.html">2668</a>
+</td>
 </tr>
 </table>
 <div class="description">2634: THE' SCANNING INKEY$' ROUTINE</div>
@@ -29,207 +32,170 @@
 The address of this routine is derived from an offset found in the <a href="2596.html">scanning function table</a>.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">S_INKEY</td>
+<td class="asm-label">S_INKEY</td>
 <td class="address-2"><span id="2634"></span>2634</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD BC,$105A</td>
-<td class="comment-11" rowspan="2">Priority +10, operation code +5A for the 'read-in' subroutine.</td>
+<td class="comment-1" rowspan="2">Priority +10, operation code +5A for the 'read-in' subroutine.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2637"></span>2637</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0020.html">$20</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2638"></span>2638</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP "#"</td>
-<td class="comment-11" rowspan="2">If next char. is '#', jump. There will be a numerical argument.</td>
+<td class="comment-1" rowspan="2">If next char. is '#', jump. There will be a numerical argument.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="263A"></span>263A</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP Z,<a href="26C9.html#270D">S_PUSH_PO</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="263D"></span>263D</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,$5C3B</td>
-<td class="comment-11" rowspan="1">This is <a href="5C3B.html">FLAGS</a>.</td>
+<td class="comment-1" rowspan="1">This is <a href="5C3B.html">FLAGS</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2640"></span>2640</td>
-<td class="bytes-0"></td>
 <td class="instruction">RES 6,(HL)</td>
-<td class="comment-11" rowspan="1">Reset bit 6 for a string result.</td>
+<td class="comment-1" rowspan="1">Reset bit 6 for a string result.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2642"></span>2642</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 7,(HL)</td>
-<td class="comment-11" rowspan="1">Test for syntax checking.</td>
+<td class="comment-1" rowspan="1">Test for syntax checking.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2644"></span>2644</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="2634.html#2665">S_INK_EN</a></td>
-<td class="comment-11" rowspan="1">Jump if required.</td>
+<td class="comment-1" rowspan="1">Jump if required.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2646"></span>2646</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="028E.html">KEY_SCAN</a></td>
-<td class="comment-11" rowspan="1">Fetch a key-value in <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="1">Fetch a key-value in <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2649"></span>2649</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,$00</td>
-<td class="comment-11" rowspan="2">Prepare empty string; stack it if too many keys pressed.</td>
+<td class="comment-1" rowspan="2">Prepare empty string; stack it if too many keys pressed.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="264B"></span>264B</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="2634.html#2660">S_IK_STK</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="264D"></span>264D</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="031E.html">K_TEST</a></td>
-<td class="comment-11" rowspan="2">Test the key value; stack empty string if unsatisfactory.</td>
+<td class="comment-1" rowspan="2">Test the key value; stack empty string if unsatisfactory.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2650"></span>2650</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="2634.html#2660">S_IK_STK</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2652"></span>2652</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC D</td>
-<td class="comment-11" rowspan="1">+FF to <span class="register">D</span> for 'L' mode (bit 3 set).</td>
+<td class="comment-1" rowspan="1">+FF to <span class="register">D</span> for 'L' mode (bit 3 set).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2653"></span>2653</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,A</td>
-<td class="comment-11" rowspan="1">Key-value to <span class="register">E</span> for decoding.</td>
+<td class="comment-1" rowspan="1">Key-value to <span class="register">E</span> for decoding.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2654"></span>2654</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="0333.html">K_DECODE</a></td>
-<td class="comment-11" rowspan="1">Decode the key-value.</td>
+<td class="comment-1" rowspan="1">Decode the key-value.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2657"></span>2657</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1">Save the ASCII value briefly.</td>
+<td class="comment-1" rowspan="1">Save the ASCII value briefly.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2658"></span>2658</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD BC,$0001</td>
-<td class="comment-11" rowspan="1">One space is needed in the work space.</td>
+<td class="comment-1" rowspan="1">One space is needed in the work space.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="265B"></span>265B</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0030.html">$30</a></td>
-<td class="comment-11" rowspan="1">Make it now.</td>
+<td class="comment-1" rowspan="1">Make it now.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="265C"></span>265C</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="1">Restore the ASCII value.</td>
+<td class="comment-1" rowspan="1">Restore the ASCII value.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="265D"></span>265D</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (DE),A</td>
-<td class="comment-11" rowspan="1">Prepare to stack it as a string.</td>
+<td class="comment-1" rowspan="1">Prepare to stack it as a string.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="265E"></span>265E</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,$01</td>
-<td class="comment-11" rowspan="1">Its length is one.</td>
+<td class="comment-1" rowspan="1">Its length is one.</td>
 </tr>
 <tr>
-<td class="asm-label-1">S_IK_STK</td>
+<td class="asm-label">S_IK_STK</td>
 <td class="address-2"><span id="2660"></span>2660</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,$00</td>
-<td class="comment-11" rowspan="1">Complete the length parameter.</td>
+<td class="comment-1" rowspan="1">Complete the length parameter.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2662"></span>2662</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="2AB1.html#2AB2">STK_STO</a></td>
-<td class="comment-11" rowspan="1">Stack the required string.</td>
+<td class="comment-1" rowspan="1">Stack the required string.</td>
 </tr>
 <tr>
-<td class="asm-label-1">S_INK_EN</td>
+<td class="asm-label">S_INK_EN</td>
 <td class="address-2"><span id="2665"></span>2665</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="26C9.html#2712">S_CONT_2</a></td>
-<td class="comment-11" rowspan="1">Jump forward.</td>
+<td class="comment-1" rowspan="1">Jump forward.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="2627.html">2627</a></span></td>
+<td class="prev">
+Prev: <a href="2627.html">2627</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2634">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2668.html">2668</a></span></td>
+<td class="next">
+Next: <a href="2668.html">2668</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/9780.html">Switch to decimal</a>.</div>
 </footer>
 </body>

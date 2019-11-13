@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 02639</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="2621.html">02621</a></span></td>
+<td class="prev">
+Prev: <a href="2621.html">02621</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2639">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2655.html">02655</a></span></td>
+<td class="next">
+Next: <a href="2655.html">02655</a>
+</td>
 </tr>
 </table>
 <div class="description">02639: THE 'CARRIAGE RETURN' SUBROUTINE</div>
@@ -32,7 +35,7 @@ The address of this routine is derived from an offset found in the <a href="2577
 If the printing being handled is going to the printer then a carriage return character leads to the printer buffer being emptied. If the printing is to the screen then a test for 'scroll?' is made before decreasing the line number.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,68 +44,59 @@ If the printing being handled is going to the printer then a carriage return cha
 <td class="register-desc">Current line number</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PO_ENTER</td>
+<td class="asm-label">PO_ENTER</td>
 <td class="address-2"><span id="2639"></span>02639</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 1,(IY+1)</td>
-<td class="comment-11" rowspan="2">Jump if handling the printer (bit 1 of <a href="23611.html">FLAGS</a> set).</td>
+<td class="comment-1" rowspan="2">Jump if handling the printer (bit 1 of <a href="23611.html">FLAGS</a> set).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2643"></span>02643</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP NZ,<a href="3789.html">COPY_BUFF</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2646"></span>02646</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,33</td>
-<td class="comment-11" rowspan="1">Set to lefthand column.</td>
+<td class="comment-1" rowspan="1">Set to lefthand column.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2648"></span>02648</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="3157.html">PO_SCR</a></td>
-<td class="comment-11" rowspan="1">Scroll if necessary.</td>
+<td class="comment-1" rowspan="1">Scroll if necessary.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2651"></span>02651</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC B</td>
-<td class="comment-11" rowspan="1">Now down a line.</td>
+<td class="comment-1" rowspan="1">Now down a line.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2652"></span>02652</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP <a href="3545.html">CL_SET</a></td>
-<td class="comment-11" rowspan="1">Make an indirect return via <a href="3545.html">CL_SET</a> and <a href="2780.html">PO_STORE</a>.</td>
+<td class="comment-1" rowspan="1">Make an indirect return via <a href="3545.html">CL_SET</a> and <a href="2780.html">PO_STORE</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="2621.html">02621</a></span></td>
+<td class="prev">
+Prev: <a href="2621.html">02621</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2639">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2655.html">02655</a></span></td>
+<td class="next">
+Next: <a href="2655.html">02655</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/0A4F.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

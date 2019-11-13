@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 0BDB</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="0B24.html">0B24</a></span></td>
+<td class="prev">
+Prev: <a href="0B24.html">0B24</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#0BDB">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="0C0A.html">0C0A</a></span></td>
+<td class="next">
+Next: <a href="0C0A.html">0C0A</a>
+</td>
 </tr>
 </table>
 <div class="description">0BDB: THE 'SET ATTRIBUTE BYTE' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routines at <a href="0B24.html">PO_ANY</a> and <a href="22DC.html">P
 The appropriate attribute byte is identified and fetched. The new value is formed by manipulating the old value, <a href="5C8F.html">ATTR-T</a>, <a href="5C90.html">MASK-T</a> and <a href="5C91.html">P-FLAG</a>. Finally this new value is copied to the attribute area.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,208 +44,164 @@ The appropriate attribute byte is identified and fetched. The new value is forme
 <td class="register-desc">Display file address</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">PO_ATTR</td>
+<td class="asm-label">PO_ATTR</td>
 <td class="address-2"><span id="0BDB"></span>0BDB</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,H</td>
-<td class="comment-11" rowspan="5">The high byte of the destination address is divided by eight and ANDed with +03 to determine which third of the screen is being addressed, i.e. +00, +01 or +02.</td>
+<td class="comment-1" rowspan="5">The high byte of the destination address is divided by eight and ANDed with +03 to determine which third of the screen is being addressed, i.e. +00, +01 or +02.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BDC"></span>0BDC</td>
-<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BDD"></span>0BDD</td>
-<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BDE"></span>0BDE</td>
-<td class="bytes-0"></td>
 <td class="instruction">RRCA</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BDF"></span>0BDF</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND $03</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BE1"></span>0BE1</td>
-<td class="bytes-0"></td>
 <td class="instruction">OR $58</td>
-<td class="comment-11" rowspan="2">The high byte for the attribute area is then formed.</td>
+<td class="comment-1" rowspan="2">The high byte for the attribute area is then formed.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BE3"></span>0BE3</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD H,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BE4"></span>0BE4</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD DE,($5C8F)</td>
-<td class="comment-11" rowspan="1"><span class="register">E</span> holds <a href="5C8F.html">ATTR-T</a>, and <span class="register">D</span> holds <a href="5C90.html">MASK-T</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">E</span> holds <a href="5C8F.html">ATTR-T</a>, and <span class="register">D</span> holds <a href="5C90.html">MASK-T</a>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BE8"></span>0BE8</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-11" rowspan="1">The old attribute value.</td>
+<td class="comment-1" rowspan="1">The old attribute value.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BE9"></span>0BE9</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR E</td>
-<td class="comment-11" rowspan="3">The values of <a href="5C90.html">MASK-T</a> and <a href="5C8F.html">ATTR-T</a> are taken into account.</td>
+<td class="comment-1" rowspan="3">The values of <a href="5C90.html">MASK-T</a> and <a href="5C8F.html">ATTR-T</a> are taken into account.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BEA"></span>0BEA</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND D</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BEB"></span>0BEB</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR E</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BEC"></span>0BEC</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 6,(IY+$57)</td>
-<td class="comment-11" rowspan="2">Jump forward unless dealing with PAPER 9 (bit 6 of <a href="5C91.html">P-FLAG</a> set).</td>
+<td class="comment-1" rowspan="2">Jump forward unless dealing with PAPER 9 (bit 6 of <a href="5C91.html">P-FLAG</a> set).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BF0"></span>0BF0</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="0BDB.html#0BFA">PO_ATTR_1</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BF2"></span>0BF2</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND $C7</td>
-<td class="comment-11" rowspan="4">The old paper colour is ignored and depending on whether the ink colour is light or dark the new paper colour will be black (000) or white (111).</td>
+<td class="comment-1" rowspan="4">The old paper colour is ignored and depending on whether the ink colour is light or dark the new paper colour will be black (000) or white (111).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BF4"></span>0BF4</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 2,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BF6"></span>0BF6</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="0BDB.html#0BFA">PO_ATTR_1</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BF8"></span>0BF8</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR $38</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">PO_ATTR_1</td>
+<td class="asm-label">PO_ATTR_1</td>
 <td class="address-2"><span id="0BFA"></span>0BFA</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 4,(IY+$57)</td>
-<td class="comment-11" rowspan="2">Jump forward unless dealing with INK 9 (bit 4 of <a href="5C91.html">P-FLAG</a> set).</td>
+<td class="comment-1" rowspan="2">Jump forward unless dealing with INK 9 (bit 4 of <a href="5C91.html">P-FLAG</a> set).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0BFE"></span>0BFE</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR Z,<a href="0BDB.html#0C08">PO_ATTR_2</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0C00"></span>0C00</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND $F8</td>
-<td class="comment-11" rowspan="4">The old ink colour is ignored and depending on whether the paper colour is light or dark the new ink colour will be black (000) or white (111).</td>
+<td class="comment-1" rowspan="4">The old ink colour is ignored and depending on whether the paper colour is light or dark the new ink colour will be black (000) or white (111).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0C02"></span>0C02</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 5,A</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0C04"></span>0C04</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="0BDB.html#0C08">PO_ATTR_2</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0C06"></span>0C06</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR $07</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">PO_ATTR_2</td>
+<td class="asm-label">PO_ATTR_2</td>
 <td class="address-2"><span id="0C08"></span>0C08</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-11" rowspan="2">Enter the new attribute value and return.</td>
+<td class="comment-1" rowspan="2">Enter the new attribute value and return.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="0C09"></span>0C09</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="0B24.html">0B24</a></span></td>
+<td class="prev">
+Prev: <a href="0B24.html">0B24</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#0BDB">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="0C0A.html">0C0A</a></span></td>
+<td class="next">
+Next: <a href="0C0A.html">0C0A</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/3035.html">Switch to decimal</a>.</div>
 </footer>
 </body>

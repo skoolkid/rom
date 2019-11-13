@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 13790</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="13769.html">13769</a></span></td>
+<td class="prev">
+Prev: <a href="13769.html">13769</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#13790">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="13855.html">13855</a></span></td>
+<td class="next">
+Next: <a href="13855.html">13855</a>
+</td>
 </tr>
 </table>
 <div class="description">13790: THE 'VAL' AND 'VAL$' FUNCTIONS (offsets 24, 29)</div>
@@ -32,7 +35,7 @@ The address of this routine is found in the <a href="13015.html">table of addres
 This subroutine handles the functions VAL X$ and VAL$ X$. When handling VAL X$, it returns a 'last value' that is the result of evaluating the string (without its bounding quotes) as a numerical expression. when handling VAL$ X$, it evaluates X$ (without its bounding quotes) as a string expression, and returns the parameters of that string expression as a 'last value' on the calculator stack.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,257 +44,212 @@ This subroutine handles the functions VAL X$ and VAL$ X$. When handling VAL X$, 
 <td class="register-desc">Offset (24 or 29)</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">val</td>
+<td class="asm-label">val</td>
 <td class="address-2"><span id="13790"></span>13790</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23645)</td>
-<td class="comment-11" rowspan="2">The current value of <a href="23645.html">CH-ADD</a> is preserved on the machine stack.</td>
+<td class="comment-1" rowspan="2">The current value of <a href="23645.html">CH-ADD</a> is preserved on the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13793"></span>13793</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13794"></span>13794</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,B</td>
-<td class="comment-11" rowspan="1">The 'offset' for 'val' or 'val$' must be in the <span class="register">B</span> register; it is now copied to <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">The 'offset' for 'val' or 'val$' must be in the <span class="register">B</span> register; it is now copied to <span class="register">A</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13795"></span>13795</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD A,227</td>
-<td class="comment-11" rowspan="1">Produce 0 and carry set for 'val', 251 and carry reset for 'val$'.</td>
+<td class="comment-1" rowspan="1">Produce 0 and carry set for 'val', 251 and carry reset for 'val$'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13797"></span>13797</td>
-<td class="bytes-0"></td>
 <td class="instruction">SBC A,A</td>
-<td class="comment-11" rowspan="1">Produce 255 (bit 6 therefore set) for 'val', but 0 (bit 6 reset) for 'val$'.</td>
+<td class="comment-1" rowspan="1">Produce 255 (bit 6 therefore set) for 'val', but 0 (bit 6 reset) for 'val$'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13798"></span>13798</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-11" rowspan="1">Save this 'flag' on the machine stack.</td>
+<td class="comment-1" rowspan="1">Save this 'flag' on the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13799"></span>13799</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="11249.html">STK_FETCH</a></td>
-<td class="comment-11" rowspan="4">The parameters of the string are fetched; the starting address is saved; one byte is added to the length and room made available for the string (+1) in the work space.</td>
+<td class="comment-1" rowspan="4">The parameters of the string are fetched; the starting address is saved; one byte is added to the length and room made available for the string (+1) in the work space.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13802"></span>13802</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13803"></span>13803</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13804"></span>13804</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="48.html">48</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13805"></span>13805</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">The starting address of the string goes to <span class="register">HL</span> as a source address.</td>
+<td class="comment-1" rowspan="1">The starting address of the string goes to <span class="register">HL</span> as a source address.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13806"></span>13806</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23645),DE</td>
-<td class="comment-11" rowspan="2">The pointer to the first new space goes to <a href="23645.html">CH-ADD</a> and to the machine stack.</td>
+<td class="comment-1" rowspan="2">The pointer to the first new space goes to <a href="23645.html">CH-ADD</a> and to the machine stack.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13810"></span>13810</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13811"></span>13811</td>
-<td class="bytes-0"></td>
 <td class="instruction">LDIR</td>
-<td class="comment-11" rowspan="1">The string is copied to the work space, together with an extra byte.</td>
+<td class="comment-1" rowspan="1">The string is copied to the work space, together with an extra byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13813"></span>13813</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Switch the pointers.</td>
+<td class="comment-1" rowspan="1">Switch the pointers.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13814"></span>13814</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC HL</td>
-<td class="comment-11" rowspan="2">The extra byte is replaced by a 'carriage return' character.</td>
+<td class="comment-1" rowspan="2">The extra byte is replaced by a 'carriage return' character.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13815"></span>13815</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (HL),13</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13817"></span>13817</td>
-<td class="bytes-0"></td>
 <td class="instruction">RES 7,(IY+1)</td>
-<td class="comment-11" rowspan="2">The syntax flag (bit 7 of <a href="23611.html">FLAGS</a>) is reset and the string is scanned for correct syntax.</td>
+<td class="comment-1" rowspan="2">The syntax flag (bit 7 of <a href="23611.html">FLAGS</a>) is reset and the string is scanned for correct syntax.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13821"></span>13821</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="9467.html">SCANNING</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13824"></span>13824</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="24.html">24</a></td>
-<td class="comment-11" rowspan="1">The character after the string is fetched.</td>
+<td class="comment-1" rowspan="1">The character after the string is fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13825"></span>13825</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP 13</td>
-<td class="comment-11" rowspan="1">A check is made that the end of the expression has been reached.</td>
+<td class="comment-1" rowspan="1">A check is made that the end of the expression has been reached.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13827"></span>13827</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="13790.html#13836">V_RPORT_C</a></td>
-<td class="comment-11" rowspan="1">If not, the error is reported.</td>
+<td class="comment-1" rowspan="1">If not, the error is reported.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13829"></span>13829</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="1">The starting address of the string is fetched.</td>
+<td class="comment-1" rowspan="1">The starting address of the string is fetched.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13830"></span>13830</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP AF</td>
-<td class="comment-11" rowspan="3">The 'flag' for 'val/val$' is fetched and bit 6 is compared with bit 6 of the result (<a href="23611.html">FLAGS</a>) of the syntax scan.</td>
+<td class="comment-1" rowspan="3">The 'flag' for 'val/val$' is fetched and bit 6 is compared with bit 6 of the result (<a href="23611.html">FLAGS</a>) of the syntax scan.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13831"></span>13831</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR (IY+1)</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13834"></span>13834</td>
-<td class="bytes-0"></td>
 <td class="instruction">AND 64</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1">V_RPORT_C</td>
+<td class="asm-label">V_RPORT_C</td>
 <td class="address-2"><span id="13836"></span>13836</td>
-<td class="bytes-0"></td>
 <td class="instruction">JP NZ,<a href="7289.html#7306">REPORT_C</a></td>
-<td class="comment-11" rowspan="1">Report the error if they do not match.</td>
+<td class="comment-1" rowspan="1">Report the error if they do not match.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13839"></span>13839</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23645),HL</td>
-<td class="comment-11" rowspan="1">Start address to <a href="23645.html">CH-ADD</a> again.</td>
+<td class="comment-1" rowspan="1">Start address to <a href="23645.html">CH-ADD</a> again.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13842"></span>13842</td>
-<td class="bytes-0"></td>
 <td class="instruction">SET 7,(IY+1)</td>
-<td class="comment-11" rowspan="1">The flag (bit 7 of <a href="23611.html">FLAGS</a>) is set for line execution.</td>
+<td class="comment-1" rowspan="1">The flag (bit 7 of <a href="23611.html">FLAGS</a>) is set for line execution.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13846"></span>13846</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="9467.html">SCANNING</a></td>
-<td class="comment-11" rowspan="1">The string is treated as a 'next expression' and a 'last value' produced.</td>
+<td class="comment-1" rowspan="1">The string is treated as a 'next expression' and a 'last value' produced.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13849"></span>13849</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP HL</td>
-<td class="comment-11" rowspan="2">The original value of <a href="23645.html">CH-ADD</a> is restored.</td>
+<td class="comment-1" rowspan="2">The original value of <a href="23645.html">CH-ADD</a> is restored.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13850"></span>13850</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (23645),HL</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="13853"></span>13853</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="13759.html">STK_PNTRS</a></td>
-<td class="comment-11" rowspan="1">The subroutine exits via <a href="13759.html">STK_PNTRS</a> which resets the pointers.</td>
+<td class="comment-1" rowspan="1">The subroutine exits via <a href="13759.html">STK_PNTRS</a> which resets the pointers.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="13769.html">13769</a></span></td>
+<td class="prev">
+Prev: <a href="13769.html">13769</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#13790">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="13855.html">13855</a></span></td>
+<td class="next">
+Next: <a href="13855.html">13855</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/35DE.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

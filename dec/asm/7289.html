@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 07289</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7276.html">07276</a></span></td>
+<td class="prev">
+Prev: <a href="7276.html">07276</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7289">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7318.html">07318</a></span></td>
+<td class="next">
+Next: <a href="7318.html">07318</a>
+</td>
 </tr>
 </table>
 <div class="description">07289: THE 'EXPECT NUMERIC/STRING EXPRESSIONS' SUBROUTINE</div>
@@ -32,18 +35,6 @@ Used by the routines at <a href="8188.html">PR_ITEM_1</a> and <a href="9506.html
 There is a series of short subroutines that are used to fetch the result of evaluating the next expression. The result from a single expression is returned as a 'last value' on the calculator stack.
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
@@ -57,11 +48,10 @@ This entry point is used when <a href="23645.html">CH-ADD</a> needs updating to 
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">NEXT_2NUM</td>
+<td class="asm-label">NEXT_2NUM</td>
 <td class="address-2"><span id="7289"></span>07289</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="32.html">32</a></td>
-<td class="comment-11" rowspan="1">Advance <a href="23645.html">CH-ADD</a>.</td>
+<td class="comment-1" rowspan="1">Advance <a href="23645.html">CH-ADD</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -80,32 +70,27 @@ This entry point allows for two numeric expressions, separated by a comma, to be
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">CLASS_08</td>
+<td class="asm-label">CLASS_08</td>
 <td class="address-2"><span id="7290"></span>07290</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="7289.html#7298">CLASS_06</a></td>
-<td class="comment-11" rowspan="1">Evaluate each expression in turn - so evaluate the first.</td>
+<td class="comment-1" rowspan="1">Evaluate each expression in turn - so evaluate the first.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7293"></span>07293</td>
-<td class="bytes-0"></td>
 <td class="instruction">CP ","</td>
-<td class="comment-11" rowspan="2">Give an error report if the separator is not a comma.</td>
+<td class="comment-1" rowspan="2">Give an error report if the separator is not a comma.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7295"></span>07295</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NZ,<a href="7289.html#7306">REPORT_C</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7297"></span>07297</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="32.html">32</a></td>
-<td class="comment-11" rowspan="1">Advance <a href="23645.html">CH-ADD</a>.</td>
+<td class="comment-1" rowspan="1">Advance <a href="23645.html">CH-ADD</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -124,25 +109,21 @@ This entry point allows for a single numeric expression to be evaluated.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">CLASS_06</td>
+<td class="asm-label">CLASS_06</td>
 <td class="address-2"><span id="7298"></span>07298</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="9467.html">SCANNING</a></td>
-<td class="comment-11" rowspan="1">Evaluate the next expression.</td>
+<td class="comment-1" rowspan="1">Evaluate the next expression.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7301"></span>07301</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 6,(IY+1)</td>
-<td class="comment-11" rowspan="2">Return as long as the result was numeric (bit 6 of <a href="23611.html">FLAGS</a> set); otherwise it is an error.</td>
+<td class="comment-1" rowspan="2">Return as long as the result was numeric (bit 6 of <a href="23611.html">FLAGS</a> set); otherwise it is an error.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7305"></span>07305</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NZ</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -158,18 +139,15 @@ Report C - Nonsense in BASIC.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">REPORT_C</td>
+<td class="asm-label">REPORT_C</td>
 <td class="address-2"><span id="7306"></span>07306</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="8.html">8</a></td>
-<td class="comment-11" rowspan="2">Call the error handling routine.</td>
+<td class="comment-1" rowspan="2">Call the error handling routine.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7307"></span>07307</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB 11</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -188,45 +166,43 @@ This entry point allows for a single string expression to be evaluated.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">CLASS_0A</td>
+<td class="asm-label">CLASS_0A</td>
 <td class="address-2"><span id="7308"></span>07308</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="9467.html">SCANNING</a></td>
-<td class="comment-11" rowspan="1">Evaluate the next expression.</td>
+<td class="comment-1" rowspan="1">Evaluate the next expression.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7311"></span>07311</td>
-<td class="bytes-0"></td>
 <td class="instruction">BIT 6,(IY+1)</td>
-<td class="comment-11" rowspan="3">This time return if the result indicates a string (bit 6 of <a href="23611.html">FLAGS</a> reset); otherwise give an error report.</td>
+<td class="comment-1" rowspan="3">This time return if the result indicates a string (bit 6 of <a href="23611.html">FLAGS</a> reset); otherwise give an error report.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7315"></span>07315</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET Z</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="7316"></span>07316</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="7289.html#7306">REPORT_C</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="7276.html">07276</a></span></td>
+<td class="prev">
+Prev: <a href="7276.html">07276</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#7289">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="7318.html">07318</a></span></td>
+<td class="next">
+Next: <a href="7318.html">07318</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/1C79.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

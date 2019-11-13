@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 37B5</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="37AA.html">37AA</a></span></td>
+<td class="prev">
+Prev: <a href="37AA.html">37AA</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#37B5">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="37DA.html">37DA</a></span></td>
+<td class="next">
+Next: <a href="37DA.html">37DA</a>
+</td>
 </tr>
 </table>
 <div class="description">37B5: THE 'SINE' FUNCTION (offset +1F)</div>
@@ -43,26 +46,13 @@ The approximation to SIN X is found as follows:
 </ul>
 </div>
 </div>
-<table class="input-0">
-<tr class="asm-input-header">
-<th colspan="2">Input</th>
-</tr>
-
-</table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">sin</td>
+<td class="asm-label">sin</td>
 <td class="address-2"><span id="37B5"></span>37B5</td>
-<td class="bytes-0"></td>
 <td class="instruction">RST <a href="0028.html">$28</a></td>
-<td class="comment-11" rowspan="1">X</td>
+<td class="comment-1" rowspan="1">X</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -75,11 +65,10 @@ Perform step i.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37B6"></span>37B6</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $39</td>
-<td class="comment-11" rowspan="1"><a href="3783.html">get_argt</a>: W</td>
+<td class="comment-1" rowspan="1"><a href="3783.html">get_argt</a>: W</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -92,53 +81,46 @@ Perform step ii. The subroutine from now on is common to both the SINE and COSIN
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">C_ENT</td>
+<td class="asm-label">C_ENT</td>
 <td class="address-1"><span id="37B7"></span>37B7</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: W, W</td>
+<td class="comment-1" rowspan="1"><a href="33C0.html">duplicate</a>: W, W</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37B8"></span>37B8</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: W, W, W</td>
+<td class="comment-1" rowspan="1"><a href="33C0.html">duplicate</a>: W, W, W</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37B9"></span>37B9</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $04</td>
-<td class="comment-11" rowspan="1"><a href="30CA.html">multiply</a>: W, W*W</td>
+<td class="comment-1" rowspan="1"><a href="30CA.html">multiply</a>: W, W*W</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37BA"></span>37BA</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $31</td>
-<td class="comment-11" rowspan="1"><a href="33C0.html">duplicate</a>: W, W*W, W*W</td>
+<td class="comment-1" rowspan="1"><a href="33C0.html">duplicate</a>: W, W*W, W*W</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37BB"></span>37BB</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $0F</td>
-<td class="comment-11" rowspan="1"><a href="3014.html">addition</a>: W, 2*W*W</td>
+<td class="comment-1" rowspan="1"><a href="3014.html">addition</a>: W, 2*W*W</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37BC"></span>37BC</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $A1</td>
-<td class="comment-11" rowspan="1"><a href="341B.html">stk_one</a>: W, 2*W*W, 1</td>
+<td class="comment-1" rowspan="1"><a href="341B.html">stk_one</a>: W, 2*W*W, 1</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37BD"></span>37BD</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $03</td>
-<td class="comment-11" rowspan="1"><a href="300F.html">subtract</a>: W, 2*W*W-1=Z</td>
+<td class="comment-1" rowspan="1"><a href="300F.html">subtract</a>: W, 2*W*W-1=Z</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -151,53 +133,46 @@ Perform step iii, passing to the <a href="3449.html">series generator</a> the pa
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37BE"></span>37BE</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $86</td>
-<td class="comment-11" rowspan="1"><a href="3449.html">series_06</a>: W, Z</td>
+<td class="comment-1" rowspan="1"><a href="3449.html">series_06</a>: W, Z</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37BF"></span>37BF</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $14,$E6</td>
-<td class="comment-11" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37C1"></span>37C1</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $5C,$1F,$0B</td>
-<td class="comment-11" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37C4"></span>37C4</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $A3,$8F,$38,$EE</td>
-<td class="comment-11" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37C8"></span>37C8</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $E9,$15,$63,$BB,$23</td>
-<td class="comment-11" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37CD"></span>37CD</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $EE,$92,$0D,$CD,$ED</td>
-<td class="comment-11" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37D2"></span>37D2</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $F1,$23,$5D,$1B,$EA</td>
-<td class="comment-11" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -213,38 +188,39 @@ Perform step iv.
 </td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37D7"></span>37D7</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $04</td>
-<td class="comment-11" rowspan="1"><a href="30CA.html">multiply</a>: SIN (&#960;*W/2)=SIN X (or COS X)</td>
+<td class="comment-1" rowspan="1"><a href="30CA.html">multiply</a>: SIN (&#960;*W/2)=SIN X (or COS X)</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37D8"></span>37D8</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEFB $38</td>
-<td class="comment-11" rowspan="1"><a href="369B.html">end_calc</a></td>
+<td class="comment-1" rowspan="1"><a href="369B.html">end_calc</a></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37D9"></span>37D9</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished: 'last value'=SIN X (or COS X).</td>
+<td class="comment-1" rowspan="1">Finished: 'last value'=SIN X (or COS X).</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="37AA.html">37AA</a></span></td>
+<td class="prev">
+Prev: <a href="37AA.html">37AA</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#37B5">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="37DA.html">37DA</a></span></td>
+<td class="next">
+Next: <a href="37DA.html">37DA</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/14261.html">Switch to decimal</a>.</div>
 </footer>
 </body>

@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 2AEE</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="2ACC.html">2ACC</a></span></td>
+<td class="prev">
+Prev: <a href="2ACC.html">2ACC</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2AEE">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2AF4.html">2AF4</a></span></td>
+<td class="next">
+Next: <a href="2AF4.html">2AF4</a>
+</td>
 </tr>
 </table>
 <div class="description">2AEE: THE 'DE,(DE+1)' SUBROUTINE</div>
@@ -32,7 +35,7 @@ Used by the routine at <a href="2996.html">STK_VAR</a>.
 This subroutine performs the construction 'LD DE,(DE+1)' and returns <span class="register">HL</span> pointing to '<span class="register">DE</span>+2'.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,7 +44,7 @@ This subroutine performs the construction 'LD DE,(DE+1)' and returns <span class
 <td class="register-desc">Target address minus one</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -57,59 +60,57 @@ This subroutine performs the construction 'LD DE,(DE+1)' and returns <span class
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">DE_DE_1</td>
+<td class="asm-label">DE_DE_1</td>
 <td class="address-2"><span id="2AEE"></span>2AEE</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Use <span class="register">HL</span> for the construction.</td>
+<td class="comment-1" rowspan="1">Use <span class="register">HL</span> for the construction.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2AEF"></span>2AEF</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Point to '<span class="register">DE</span>+1'.</td>
+<td class="comment-1" rowspan="1">Point to '<span class="register">DE</span>+1'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2AF0"></span>2AF0</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-11" rowspan="1">In effect - LD E,(DE+1).</td>
+<td class="comment-1" rowspan="1">In effect - LD E,(DE+1).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2AF1"></span>2AF1</td>
-<td class="bytes-0"></td>
 <td class="instruction">INC HL</td>
-<td class="comment-11" rowspan="1">Point to '<span class="register">DE</span>+2'.</td>
+<td class="comment-1" rowspan="1">Point to '<span class="register">DE</span>+2'.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2AF2"></span>2AF2</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,(HL)</td>
-<td class="comment-11" rowspan="1">In effect - LD D,(DE+2).</td>
+<td class="comment-1" rowspan="1">In effect - LD D,(DE+2).</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="2AF3"></span>2AF3</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished.</td>
+<td class="comment-1" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="2ACC.html">2ACC</a></span></td>
+<td class="prev">
+Prev: <a href="2ACC.html">2ACC</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#2AEE">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="2AF4.html">2AF4</a></span></td>
+<td class="next">
+Next: <a href="2AF4.html">2AF4</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/10990.html">Switch to decimal</a>.</div>
 </footer>
 </body>

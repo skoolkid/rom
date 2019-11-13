@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 352D</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="3524.html">3524</a></span></td>
+<td class="prev">
+Prev: <a href="3524.html">3524</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#352D">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="353B.html">353B</a></span></td>
+<td class="next">
+Next: <a href="353B.html">353B</a>
+</td>
 </tr>
 </table>
 <div class="description">352D: THE 'STRING AND NUMBER' OPERATION (offset +10)</div>
@@ -32,7 +35,7 @@ The address of this routine is found in the <a href="32D7.html">table of address
 This subroutine performs the binary operation 'X$ AND Y' and returns X$ if Y is non-zero and a null string otherwise.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -41,110 +44,96 @@ This subroutine performs the binary operation 'X$ AND Y' and returns X$ if Y is 
 <td class="register-desc">Address of the first byte of the number (Y)</td>
 </tr>
 </table>
-<table class="output-0">
-<tr class="asm-output-header">
-<th colspan="2">Output</th>
-</tr>
-
-</table>
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">str_no</td>
+<td class="asm-label">str_no</td>
 <td class="address-2"><span id="352D"></span>352D</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Point <span class="register">HL</span> at Y, <span class="register">DE</span> at X$.</td>
+<td class="comment-1" rowspan="1">Point <span class="register">HL</span> at Y, <span class="register">DE</span> at X$.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="352E"></span>352E</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="34E9.html">TEST_ZERO</a></td>
-<td class="comment-11" rowspan="1">Test whether Y is zero.</td>
+<td class="comment-1" rowspan="1">Test whether Y is zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3531"></span>3531</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="1">Swap the pointers back.</td>
+<td class="comment-1" rowspan="1">Swap the pointers back.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3532"></span>3532</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
-<td class="comment-11" rowspan="1">Return with X$ as the 'last value' if Y was non-zero.</td>
+<td class="comment-1" rowspan="1">Return with X$ as the 'last value' if Y was non-zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3533"></span>3533</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-11" rowspan="1">Save the pointer to the number.</td>
+<td class="comment-1" rowspan="1">Save the pointer to the number.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3534"></span>3534</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC DE</td>
-<td class="comment-11" rowspan="1">Point to the fifth byte of the string parameters, i.e. length-high.</td>
+<td class="comment-1" rowspan="1">Point to the fifth byte of the string parameters, i.e. length-high.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3535"></span>3535</td>
-<td class="bytes-0"></td>
 <td class="instruction">XOR A</td>
-<td class="comment-11" rowspan="1">Clear the <span class="register">A</span> register.</td>
+<td class="comment-1" rowspan="1">Clear the <span class="register">A</span> register.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3536"></span>3536</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (DE),A</td>
-<td class="comment-11" rowspan="1">Length-high is now set to zero.</td>
+<td class="comment-1" rowspan="1">Length-high is now set to zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3537"></span>3537</td>
-<td class="bytes-0"></td>
 <td class="instruction">DEC DE</td>
-<td class="comment-11" rowspan="1">Point to length-low.</td>
+<td class="comment-1" rowspan="1">Point to length-low.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3538"></span>3538</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD (DE),A</td>
-<td class="comment-11" rowspan="1">Length-low is now set to zero.</td>
+<td class="comment-1" rowspan="1">Length-low is now set to zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="3539"></span>3539</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP DE</td>
-<td class="comment-11" rowspan="1">Restore the pointer.</td>
+<td class="comment-1" rowspan="1">Restore the pointer.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="353A"></span>353A</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Return with the string parameters being the 'last value'.</td>
+<td class="comment-1" rowspan="1">Return with the string parameters being the 'last value'.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="3524.html">3524</a></span></td>
+<td class="prev">
+Prev: <a href="3524.html">3524</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#352D">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="353B.html">353B</a></span></td>
+<td class="next">
+Next: <a href="353B.html">353B</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/13613.html">Switch to decimal</a>.</div>
 </footer>
 </body>

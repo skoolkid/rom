@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 06510</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="6437.html">06437</a></span></td>
+<td class="prev">
+Prev: <a href="6437.html">06437</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#6510">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="6528.html">06528</a></span></td>
+<td class="next">
+Next: <a href="6528.html">06528</a>
+</td>
 </tr>
 </table>
 <div class="description">06510: THE 'LINE-ADDR' SUBROUTINE</div>
@@ -35,7 +38,7 @@ For a given line number, in the <span class="register">HL</span> register pair, 
 If the line number is being used the zero flag will be set. However if the 'first line after' is substituted then the zero flag is returned reset.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -44,7 +47,7 @@ If the line number is being used the zero flag will be set. However if the 'firs
 <td class="register-desc">Target line number</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -64,32 +67,26 @@ If the line number is being used the zero flag will be set. However if the 'firs
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">LINE_ADDR</td>
+<td class="asm-label">LINE_ADDR</td>
 <td class="address-2"><span id="6510"></span>06510</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-11" rowspan="1">Save the given line number.</td>
+<td class="comment-1" rowspan="1">Save the given line number.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6511"></span>06511</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,(23635)</td>
-<td class="comment-11" rowspan="3">Fetch the system variable <a href="23635.html">PROG</a> and transfer the address to the <span class="register">DE</span> register pair.</td>
+<td class="comment-1" rowspan="3">Fetch the system variable <a href="23635.html">PROG</a> and transfer the address to the <span class="register">DE</span> register pair.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6514"></span>06514</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD D,H</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6515"></span>06515</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD E,L</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -102,66 +99,60 @@ Now enter a loop to test the line number of each line of the program against the
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">LINE_AD_1</td>
+<td class="asm-label">LINE_AD_1</td>
 <td class="address-2"><span id="6516"></span>06516</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">The given line number.</td>
+<td class="comment-1" rowspan="1">The given line number.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6517"></span>06517</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="6528.html">CP_LINES</a></td>
-<td class="comment-11" rowspan="1">Compare the given line number against the addressed line number</td>
+<td class="comment-1" rowspan="1">Compare the given line number against the addressed line number</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6520"></span>06520</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET NC</td>
-<td class="comment-11" rowspan="3">Return if carry reset; otherwise address the next line's number.</td>
+<td class="comment-1" rowspan="3">Return if carry reset; otherwise address the next line's number.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6521"></span>06521</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6522"></span>06522</td>
-<td class="bytes-0"></td>
 <td class="instruction">CALL <a href="6584.html">NEXT_ONE</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6525"></span>06525</td>
-<td class="bytes-0"></td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-11" rowspan="2">Switch the pointers and jump back to consider the next line of the program.</td>
+<td class="comment-1" rowspan="2">Switch the pointers and jump back to consider the next line of the program.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6526"></span>06526</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR <a href="6510.html#6516">LINE_AD_1</a></td>
-<td class="comment-01" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="6437.html">06437</a></span></td>
+<td class="prev">
+Prev: <a href="6437.html">06437</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#6510">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="6528.html">06528</a></span></td>
+<td class="next">
+Next: <a href="6528.html">06528</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../../asm/196E.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

@@ -4,7 +4,6 @@
 <title>Spectrum ROM: Routine at 30A9</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
-
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -15,9 +14,13 @@
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="3014.html">3014</a></span></td>
+<td class="prev">
+Prev: <a href="3014.html">3014</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#30A9">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="30C0.html">30C0</a></span></td>
+<td class="next">
+Next: <a href="30C0.html">30C0</a>
+</td>
 </tr>
 </table>
 <div class="description">30A9: THE 'HL=HL*DE' SUBROUTINE</div>
@@ -32,7 +35,7 @@ This subroutine is called by <a href="2AF4.html">GET_HLxDE</a> and by <a href="3
 Any overflow of the 16 bits available is dealt with on return from the subroutine.
 </div>
 </div>
-<table class="input-1">
+<table class="input">
 <tr class="asm-input-header">
 <th colspan="2">Input</th>
 </tr>
@@ -45,7 +48,7 @@ Any overflow of the 16 bits available is dealt with on return from the subroutin
 <td class="register-desc">Second number (N)</td>
 </tr>
 </table>
-<table class="output-1">
+<table class="output">
 <tr class="asm-output-header">
 <th colspan="2">Output</th>
 </tr>
@@ -57,122 +60,111 @@ Any overflow of the 16 bits available is dealt with on return from the subroutin
 </td>
 </tr>
 <tr>
-<td class="asm-label-1">HL_HLxDE</td>
+<td class="asm-label">HL_HLxDE</td>
 <td class="address-2"><span id="30A9"></span>30A9</td>
-<td class="bytes-0"></td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-11" rowspan="1"><span class="register">BC</span> is saved.</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span> is saved.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="30AA"></span>30AA</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD B,$10</td>
-<td class="comment-11" rowspan="1">It is to be a 16-bit multiplication.</td>
+<td class="comment-1" rowspan="1">It is to be a 16-bit multiplication.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="30AC"></span>30AC</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD A,H</td>
-<td class="comment-11" rowspan="1"><span class="register">A</span> holds the high byte.</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span> holds the high byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="30AD"></span>30AD</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD C,L</td>
-<td class="comment-11" rowspan="1"><span class="register">C</span> holds the low byte.</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span> holds the low byte.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="30AE"></span>30AE</td>
-<td class="bytes-0"></td>
 <td class="instruction">LD HL,$0000</td>
-<td class="comment-11" rowspan="1">Initialise the result to zero.</td>
+<td class="comment-1" rowspan="1">Initialise the result to zero.</td>
 </tr>
 <tr>
-<td class="asm-label-1">HL_LOOP</td>
+<td class="asm-label">HL_LOOP</td>
 <td class="address-2"><span id="30B1"></span>30B1</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,HL</td>
-<td class="comment-11" rowspan="1">Double the result.</td>
+<td class="comment-1" rowspan="1">Double the result.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="30B2"></span>30B2</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="30A9.html#30BE">HL_END</a></td>
-<td class="comment-11" rowspan="1">Jump if overflow.</td>
+<td class="comment-1" rowspan="1">Jump if overflow.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="30B4"></span>30B4</td>
-<td class="bytes-0"></td>
 <td class="instruction">RL C</td>
-<td class="comment-11" rowspan="1">Rotate bit 7 of <span class="register">C</span> into the carry.</td>
+<td class="comment-1" rowspan="1">Rotate bit 7 of <span class="register">C</span> into the carry.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="30B6"></span>30B6</td>
-<td class="bytes-0"></td>
 <td class="instruction">RLA</td>
-<td class="comment-11" rowspan="1">Rotate the carry bit into bit 0 and bit 7 into the carry flag.</td>
+<td class="comment-1" rowspan="1">Rotate the carry bit into bit 0 and bit 7 into the carry flag.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="30B7"></span>30B7</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR NC,<a href="30A9.html#30BC">HL_AGAIN</a></td>
-<td class="comment-11" rowspan="1">Jump if the carry flag is reset.</td>
+<td class="comment-1" rowspan="1">Jump if the carry flag is reset.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="30B9"></span>30B9</td>
-<td class="bytes-0"></td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-11" rowspan="1">Otherwise add <span class="register">DE</span> in once.</td>
+<td class="comment-1" rowspan="1">Otherwise add <span class="register">DE</span> in once.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="30BA"></span>30BA</td>
-<td class="bytes-0"></td>
 <td class="instruction">JR C,<a href="30A9.html#30BE">HL_END</a></td>
-<td class="comment-11" rowspan="1">Jump if overflow.</td>
+<td class="comment-1" rowspan="1">Jump if overflow.</td>
 </tr>
 <tr>
-<td class="asm-label-1">HL_AGAIN</td>
+<td class="asm-label">HL_AGAIN</td>
 <td class="address-2"><span id="30BC"></span>30BC</td>
-<td class="bytes-0"></td>
 <td class="instruction">DJNZ <a href="30A9.html#30B1">HL_LOOP</a></td>
-<td class="comment-11" rowspan="1">Repeat until 16 passes have been made.</td>
+<td class="comment-1" rowspan="1">Repeat until 16 passes have been made.</td>
 </tr>
 <tr>
-<td class="asm-label-1">HL_END</td>
+<td class="asm-label">HL_END</td>
 <td class="address-2"><span id="30BE"></span>30BE</td>
-<td class="bytes-0"></td>
 <td class="instruction">POP BC</td>
-<td class="comment-11" rowspan="1">Restore <span class="register">BC</span>.</td>
+<td class="comment-1" rowspan="1">Restore <span class="register">BC</span>.</td>
 </tr>
 <tr>
-<td class="asm-label-1"></td>
+<td class="asm-label"></td>
 <td class="address-1"><span id="30BF"></span>30BF</td>
-<td class="bytes-0"></td>
 <td class="instruction">RET</td>
-<td class="comment-11" rowspan="1">Finished.</td>
+<td class="comment-1" rowspan="1">Finished.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
-<td class="prev"><span class="prev-1">Prev: <a href="3014.html">3014</a></span></td>
+<td class="prev">
+Prev: <a href="3014.html">3014</a>
+</td>
 <td class="up">Up: <a href="../maps/all.html#30A9">Map</a></td>
-<td class="next"><span class="next-1">Next: <a href="30C0.html">30C0</a></span></td>
+<td class="next">
+Next: <a href="30C0.html">30C0</a>
+</td>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20190603</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20191113</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2019 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 7.2.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.0.</div>
 <div><a href="../dec/asm/12457.html">Switch to decimal</a>.</div>
 </footer>
 </body>
