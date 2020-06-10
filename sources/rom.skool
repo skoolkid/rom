@@ -24,7 +24,7 @@
 ;
 ; Copyright 1982 Amstrad
 ; Copyright 1983 Dr Ian Logan & Dr Frank O'Hara
-; Copyright 2013-2019 Richard Dymond
+; Copyright 2013-2020 Richard Dymond
 @bfix+begin
 ;
 ; This disassembly contains fixes for the following bugs:
@@ -1027,6 +1027,7 @@ c$03B5 DI            ; Disable the interrupt for the duration of a 'beep'.
 ; The subroutine is entered with two numbers on the calculator stack. The
 ; topmost number (P) represents the 'pitch' of the note and the number
 ; underneath it (t) represents the 'duration'.
+@refs=$1C0D
 @label=BEEP
 c$03F8 RST $28                  ; The floating-point calculator is used to
                                 ; manipulate the two values: t, P.
@@ -1332,6 +1333,7 @@ c$04C2 LD HL,$053F   ; {Pre-load the machine stack with the address #R$053F.
 ; time.
 ;
 ; F Carry flag reset if there was a loading error
+@refs=$04C2,$0556
 @label=SA_LD_RET
 c$053F PUSH AF       ; Save the carry flag. (It is reset after a loading
                      ; error.)
@@ -2315,6 +2317,7 @@ t$09A1 DEFB $80                                      ; Initial byte is stepped
 ; control character, a printable character or a token.
 ;
 ; A Character code
+@refs=$15EF
 @label=PRINT_OUT
 c$09F4 CALL $0B03    ; The current print position.
  $09F7 CP " "        ; {If the code represents a printable character then jump.
@@ -2364,6 +2367,7 @@ b$0A11 DEFB $4E      ; &06: PRINT comma (#R$0A5F)
 ;
 ; B Current line number
 ; C Current column number
+@refs=$09F4
 @label=PO_BACK_1
 c$0A23 INC C          ; Move leftwards by one column.
  $0A24 LD A,$22       ; {Accept the change unless up against the lefthand side.
@@ -2395,6 +2399,7 @@ c$0A23 INC C          ; Move leftwards by one column.
 ; B Current line number
 ; C Current column number
 ; HL Display file address or printer buffer address
+@refs=$09F4
 @label=PO_RIGHT
 c$0A3D LD A,($5C91)    ; {Fetch #SYSVAR(P-FLAG) and save it on the machine
  $0A40 PUSH AF         ; stack.}
@@ -2417,6 +2422,7 @@ c$0A3D LD A,($5C91)    ; {Fetch #SYSVAR(P-FLAG) and save it on the machine
 ; number.
 ;
 ; B Current line number
+@refs=$09F4
 @label=PO_ENTER
 c$0A4F BIT 1,(IY+$01) ; {Jump if handling the printer (bit 1 of #SYSVAR(FLAGS)
  $0A53 JP NZ,$0ECD    ; set).}
@@ -2432,6 +2438,7 @@ c$0A4F BIT 1,(IY+$01) ; {Jump if handling the printer (bit 1 of #SYSVAR(FLAGS)
 ; .
 ; The current column value is manipulated and the #REGa register set to hold
 ; &00 (for TAB 0) or &10 (for TAB 16).
+@refs=$09F4
 @label=PO_COMMA
 c$0A5F CALL $0B03    ; Why again?
  $0A62 LD A,C        ; Current column number.
@@ -2449,6 +2456,7 @@ c$0A5F CALL $0B03    ; Why again?
 ; .
 ; A question mark is printed whenever an attempt is made to print an
 ; unprintable code.
+@refs=$09F4
 @label=PO_QUEST
 c$0A69 LD A,"?"      ; The character '?'.
  $0A6B JR $0AD9      ; Now print this character instead.
@@ -2464,6 +2472,7 @@ c$0A69 LD A,"?"      ; The character '?'.
 ; in the #REGa register.
 ;
 ; A Control character code (&10 to &17)
+@refs=$15EF
 @nowarn
 @label=PO_TV_2
 c$0A6D LD DE,$0A87    ; {Save the first operand in #SYSVAR(TVDATA-hi) and
@@ -2475,18 +2484,20 @@ c$0A6D LD DE,$0A87    ; {Save the first operand in #SYSVAR(TVDATA-hi) and
 ; #R$0A11(control character table).
 ; .
 ; Enter here when handling the characters AT and TAB.
+@refs=$09F4
 @nowarn
 @label=PO_2_OPER
- $0A75 LD DE,$0A6D    ; {The character code will be saved in #SYSVAR(TVDATA-lo)
+*$0A75 LD DE,$0A6D    ; {The character code will be saved in #SYSVAR(TVDATA-lo)
  $0A78 JR $0A7D       ; and the address of the 'output' routine changed to
                       ; #R$0A6D.}
 ; The address of this entry point is derived from an offset found in the
 ; #R$0A11(control character table).
 ; .
 ; Enter here when handling the colour items - INK to OVER.
+@refs=$09F4
 @nowarn
 @label=PO_1_OPER
- $0A7A LD DE,$0A87    ; The 'output' routine is to be changed to #R$0A87.
+*$0A7A LD DE,$0A87    ; The 'output' routine is to be changed to #R$0A87.
 @label=PO_TV_1
 *$0A7D LD ($5C0E),A   ; Save the control character code in #SYSVAR(TVDATA-hi).
 ; The current 'output' routine address is changed temporarily.
@@ -3129,6 +3140,7 @@ c$0D4D XOR A          ; #REGa is set to hold &00.
 ; In the first instance the whole of the display is 'cleared' - the 'pixels'
 ; are all reset and the attribute bytes are set to equal the value in
 ; #SYSVAR(ATTR-P) - then the lower part of the display is reformed.
+@refs=$1C0D
 @label=CLS
 c$0D6B CALL $0DAF      ; The whole of the display is 'cleared'.
 ; This entry point is used by the routines at #R$10A8, #R$12A2 and #R$2089.
@@ -3463,6 +3475,7 @@ c$0E9B LD A,$18      ; {The line number has to be reversed.
 ; .
 ; The one hundred and seventy six pixel lines of the display are dealt with one
 ; by one.
+@refs=$1C0D
 @label=COPY
 c$0EAC DI            ; The maskable interrupt is disabled during COPY.
  $0EAD LD B,$B0      ; The 176 lines.
@@ -3663,6 +3676,7 @@ c$0F2C LD HL,($5C3D)  ; {The current value of #SYSVAR(ERR-SP) is saved on the
 ; .
 ; The following subroutine actually adds a code to the current EDIT or INPUT
 ; line.
+@refs=$15EF
 @label=ADD_CHAR
 *$0F81 RES 0,(IY+$07) ; Signal 'K mode' (reset bit 0 of #SYSVAR(MODE)).
  $0F85 LD HL,($5C5B)  ; Fetch the cursor position (#SYSVAR(K-CUR)).
@@ -3708,6 +3722,7 @@ b$0FA0 DEFB $09      ; EDIT (#R$0FA9)
 ; When in 'editing mode' pressing the EDIT key will bring down the 'current
 ; BASIC line'. However in 'INPUT mode' the action of the EDIT key is to clear
 ; the current reply and allow a fresh one.
+@refs=$0F2C
 @label=ED_EDIT
 c$0FA9 LD HL,($5C49)  ; Fetch the current line number (#SYSVAR(E-PPC)).
  $0FAC BIT 5,(IY+$37) ; {But jump forward if in 'INPUT mode' (bit 5 of
@@ -3757,6 +3772,7 @@ c$0FA9 LD HL,($5C49)  ; Fetch the current line number (#SYSVAR(E-PPC)).
 ;
 ; The address of this routine is derived from an offset found in the
 ; #R$0FA0(editing keys table).
+@refs=$0F2C
 @label=ED_DOWN
 c$0FF3 BIT 5,(IY+$37)  ; {Jump forward if in 'INPUT mode' (bit 5 of
  $0FF7 JR NZ,$1001     ; #SYSVAR(FLAGX) set).}
@@ -3773,6 +3789,7 @@ c$0FF3 BIT 5,(IY+$37)  ; {Jump forward if in 'INPUT mode' (bit 5 of
 ; #R$0FA0(editing keys table).
 ;
 ; HL Address of the cursor (#SYSVAR(K-CUR))
+@refs=$0F2C
 @label=ED_LEFT
 c$1007 CALL $1031    ; The cursor is moved.
  $100A JR $1011      ; Jump forward.
@@ -3783,6 +3800,7 @@ c$1007 CALL $1031    ; The cursor is moved.
 ; #R$0FA0(editing keys table).
 ;
 ; HL Address of the cursor (#SYSVAR(K-CUR))
+@refs=$0F2C
 @label=ED_RIGHT
 c$100C LD A,(HL)     ; {The current character is tested and if it is 'carriage
  $100D CP $0D        ; return' then return.
@@ -3799,6 +3817,7 @@ c$100C LD A,(HL)     ; {The current character is tested and if it is 'carriage
 ; #R$0FA0(editing keys table).
 ;
 ; HL Address of the cursor (#SYSVAR(K-CUR))
+@refs=$0F2C
 @label=ED_DELETE
 c$1015 CALL $1031    ; Move the cursor leftwards.
 @keep
@@ -3821,6 +3840,7 @@ c$101E CALL $15D4    ; {The next two codes from the key-input routine are
 ; .
 ; The address of this routine is derived from an offset found in the
 ; #R$0FA0(editing keys table).
+@refs=$0F2C
 @label=ED_ENTER
 c$1024 POP HL         ; {The addresses of #R$0F38 and #R$107F are discarded.
  $1025 POP HL         ; }
@@ -3885,6 +3905,7 @@ c$1031 SCF           ; {#REGde will hold either #SYSVAR(E-LINE) (for editing)
 ;
 ; The address of this routine is derived from an offset found in the
 ; #R$0FA0(editing keys table).
+@refs=$0F2C
 @label=ED_UP
 c$1059 BIT 5,(IY+$37) ; {Return if in 'INPUT mode' (bit 5 of #SYSVAR(FLAGX)
  $105D RET NZ         ; set).}
@@ -3910,6 +3931,7 @@ c$1059 BIT 5,(IY+$37) ; {Return if in 'INPUT mode' (bit 5 of #SYSVAR(FLAGX)
 ; A Code of the last key pressed
 ;
 ; If SYMBOL and GRAPHICS codes were used they would be handled as follows:
+@refs=$0F2C
 @label=ED_SYMBOL
 c$1076 BIT 7,(IY+$37) ; {Jump back unless dealing with INPUT LINE (bit 7 of
  $107A JR Z,$1024     ; #SYSVAR(FLAGX) set).}
@@ -3923,6 +3945,7 @@ c$1076 BIT 7,(IY+$37) ; {Jump back unless dealing with INPUT LINE (bit 7 of
 ; Used by the routine at #R$0F2C.
 ; .
 ; Come here when there has been some kind of error.
+@refs=$0F2C
 @label=ED_ERROR
 c$107F BIT 4,(IY+$30)  ; {Jump back if using other than channel 'K' (bit 4 of
  $1083 JR Z,$1026      ; #R$5C6A(FLAGS2) reset).}
@@ -3959,6 +3982,7 @@ c$1097 PUSH HL         ; Save the pointer to the space.
 ;
 ; O:A Code of the last key pressed
 ; O:F Carry flag set if a key was pressed
+@refs=$15E6
 @label=KEY_INPUT
 c$10A8 BIT 3,(IY+$02) ; {Copy the edit-line or the INPUT-line to the screen if
  $10AC CALL NZ,$111D  ; the mode has changed (bit 3 of #SYSVAR(TV-FLAG) set).}
@@ -4167,6 +4191,7 @@ c$11A7 LD A,(HL)     ; Each character in turn is examined.
 ; THE 'NEW' COMMAND ROUTINE
 ;
 ; The address of this routine is found in the #R$1AA8(parameter table).
+@refs=$1C0D
 @label=NEW
 c$11B7 DI              ; Disable the maskable interrupt.
  $11B8 LD A,$FF        ; The NEW flag.
@@ -4502,6 +4527,7 @@ t$1539 DEFM $7F," 1982 Sinclair Research Lt","d"+$80 ; #CHR169 1982 Sinclair
 ; Report G - No room for line
 ;
 ; Used by the routine at #R$155D.
+@refs=$155D
 @label=REPORT_G
 c$1555 LD A,$10      ; 'G' has the code &10 plus &37.
 @keep
@@ -4603,6 +4629,7 @@ b$15AF DEFW $09F4    ; {Keyboard.
 ;
 ; The address of this routine is found in the #R$15AF(initial channel
 ; information table).
+@refs=$15E6
 @label=REPORT_J
 c$15C4 RST $08       ; {Call the error handling routine.
  $15C5 DEFB $12      ; }
@@ -4771,6 +4798,7 @@ b$162D DEFB "K",$06  ; Channel 'K', offset &06 (#R$1634).
 ;
 ; The address of this routine is derived from an offset found in the
 ; #R$162D(channel code lookup table).
+@refs=$1615
 @label=CHAN_K
 c$1634 SET 0,(IY+$02) ; Signal 'using lower screen' (set bit 0 of
                       ; #SYSVAR(TV-FLAG)).
@@ -4784,6 +4812,7 @@ c$1634 SET 0,(IY+$02) ; Signal 'using lower screen' (set bit 0 of
 ;
 ; The address of this routine is derived from an offset found in the
 ; #R$162D(channel code lookup table).
+@refs=$1615
 @label=CHAN_S
 c$1642 RES 0,(IY+$02) ; Signal 'using main screen' (reset bit 0 of
                       ; #SYSVAR(TV-FLAG)).
@@ -4798,6 +4827,7 @@ c$1642 RES 0,(IY+$02) ; Signal 'using main screen' (reset bit 0 of
 ;
 ; The address of this routine is derived from an offset found in the
 ; #R$162D(channel code lookup table).
+@refs=$1615
 @label=CHAN_P
 c$164D SET 1,(IY+$01) ; Signal 'printer in use' (set bit 1 of #SYSVAR(FLAGS)).
  $1651 RET            ;
@@ -5033,6 +5063,7 @@ c$16DB INC HL        ; Move on to consider the next pair of entries.
 ; This command allows the user to close streams. However for streams &00 to &03
 ; the 'initial' stream data is restored and these streams cannot therefore be
 ; closed.
+@refs=$1C0D
 @label=CLOSE
 c$16E5 CALL $171E    ; The existing data for the stream is fetched.
  $16E8 CALL $1701    ; Check the code in that stream's channel.
@@ -5099,6 +5130,7 @@ b$1716 DEFB "K",$05  ; Channel 'K', offset &05 (#R$171C)
 ; #R$1716(close stream lookup table).
 ;
 ; O:HL Address of the offset in the stream data table (see #SYSVAR(STRMS))
+@refs=$1701
 @label=CLOSE_STR
 c$171C POP HL        ; {Fetch the channel information pointer and return.
  $171D RET           ; }
@@ -5145,6 +5177,7 @@ c$171E CALL $1E94    ; The given stream number is taken off the calculator
 ; and it must be 'K', 'k', 'S', 's', 'P', or 'p'.
 ; .
 ; Note that no attempt is made to give streams &00 to &03 their initial data.
+@refs=$1C0D
 @label=OPEN
 c$1736 RST $28       ; Use the calculator to exchange the stream number and the
                      ; channel code.
@@ -5225,6 +5258,7 @@ b$177A DEFB "K",$06  ; Channel 'K', offset &06 (#R$1781)
 ; #R$177A(open stream lookup table).
 ;
 ; BC Length of the expression specifying the channel code
+@refs=$175D
 @label=OPEN_K
 c$1781 LD E,$01      ; The data bytes will be &01 and &00.
  $1783 JR $178B      ;
@@ -5235,6 +5269,7 @@ c$1781 LD E,$01      ; The data bytes will be &01 and &00.
 ; #R$177A(open stream lookup table).
 ;
 ; BC Length of the expression specifying the channel code
+@refs=$175D
 @label=OPEN_S
 c$1785 LD E,$06      ; The data bytes will be &06 and &00.
  $1787 JR $178B      ;
@@ -5245,6 +5280,7 @@ c$1785 LD E,$06      ; The data bytes will be &06 and &00.
 ; #R$177A(open stream lookup table).
 ;
 ; BC Length of the expression specifying the channel code
+@refs=$175D
 @label=OPEN_P
 c$1789 LD E,$10      ; The data bytes will be &10 and &00.
 ; This entry point is used by the routines at #R$1781 and #R$1785.
@@ -5263,6 +5299,7 @@ c$1789 LD E,$10      ; The data bytes will be &10 and &00.
 ; .
 ; In the standard Spectrum system the use of these commands leads to the
 ; production of report O - Invalid stream.
+@refs=$1C0D
 @label=CAT_ETC
 c$1793 JR $1725      ; Give this report.
 
@@ -5341,6 +5378,7 @@ c$1795 LD ($5C3F),SP   ; The stack pointer is saved at #SYSVAR(LIST-SP)
 ; The address of this routine is found in the #R$1ADC(parameter table).
 ; .
 ; The printer channel will need to be opened.
+@refs=$1C0D
 @label=LLIST
 c$17F5 LD A,$03      ; Use stream &03.
  $17F7 JR $17FB      ; Jump forward.
@@ -5350,6 +5388,7 @@ c$17F5 LD A,$03      ; Use stream &03.
 ; The address of this routine is found in the #R$1AAE(parameter table).
 ; .
 ; The 'main screen' channel will need to be opened.
+@refs=$1C0D
 @label=LIST
 c$17F9 LD A,$02        ; Use stream &02.
 ; This entry point is used by the routine at #R$17F5.
@@ -6333,6 +6372,7 @@ c$1B6F RST $18       ; {The current character is fetched and compared to the
 ; .
 ; After the correct interpretation of a statement a return is made to this
 ; entry point.
+@refs=$1E67,$1EED,$1F23,$1D03,$1DAB,$1FC9,$2089,$2C02,$1EA1,$17F9,$1E80,$1E4F,$1E5F,$1EAC,$0D6B,$22DC,$1F3A,$1DEC,$1E27,$1E42,$2382,$0EAC,$17F5,$03F8,$2320,$1E7A,$2294,$1F60,$1736,$16E5
 @label=STMT_RET
 c$1B76 CALL $1F54     ; The BREAK key is tested after every statement.
  $1B79 JR C,$1B7D     ; Jump forward unless it has been pressed.
@@ -6403,6 +6443,7 @@ c$1B9E CALL $196E    ; The starting address of the line, or the 'first line
 ; .
 ; The return address to #R$1B76 is dropped which has the effect of forcing the
 ; rest of the line to be ignored.
+@refs=$1C0D
 @label=REM
 c$1BB2 POP BC        ; Drop the address - #R$1B76.
 ; This routine continues into #R$1BB3.
@@ -6552,6 +6593,7 @@ b$1C01 DEFB $0F      ; #R$1C10
 ;
 ; A Code of the first character after the command
 ; HL Address of the first character after the command
+@refs=$1B28
 @label=CLASS_03
 c$1C0D CALL $1CDE    ; A number is fetched but zero is used in cases of
                      ; default.
@@ -6559,15 +6601,17 @@ c$1C0D CALL $1CDE    ; A number is fetched but zero is used in cases of
 ; #R$1C01(command class table).
 ; .
 ; The commands of class &00 must not have any operands, e.g. COPY and CONTINUE.
+@refs=$1B28
 @label=CLASS_00
- $1C10 CP A          ; Set the zero flag for later.
+*$1C10 CP A          ; Set the zero flag for later.
 ; The address of this entry point is derived from an offset found in the
 ; #R$1C01(command class table).
 ; .
 ; The commands of class &05 may be followed by a set of items, e.g. PRINT and
 ; PRINT "222".
+@refs=$1B28
 @label=CLASS_05
- $1C11 POP BC        ; In all cases drop the address - #R$1B52.
+*$1C11 POP BC        ; In all cases drop the address - #R$1B52.
  $1C12 CALL Z,$1BEE  ; If handling commands of classes &00 and &03 and syntax
                      ; is being checked move on now to consider the next
                      ; statement.
@@ -6592,6 +6636,7 @@ c$1C0D CALL $1CDE    ; A number is fetched but zero is used in cases of
 ; .
 ; Command class &01 is concerned with the identification of the variable in a
 ; LET, READ or INPUT statement.
+@refs=$1B28
 @label=CLASS_01
 c$1C1F CALL $28B2    ; Look in the variables area to determine whether or not
                      ; the variable has been used already.
@@ -6659,6 +6704,7 @@ c$1C22 LD (IY+$37),$00 ; Initialise #SYSVAR(FLAGX) to &00.
 ; .
 ; Command class &02 is concerned with the actual calculation of the value to be
 ; assigned in a LET statement.
+@refs=$1B28
 @label=CLASS_02
 c$1C4E POP BC        ; The address #R$1B52 is dropped.
  $1C4F CALL $1C56    ; The assignment is made.
@@ -6697,6 +6743,7 @@ c$1C56 LD A,($5C3B)  ; Use #SYSVAR(FLAGS).
 ; #R$1C01(command class table).
 ; .
 ; The command class &04 entry point is used by FOR and NEXT statements.
+@refs=$1B28
 @label=CLASS_04
 c$1C6C CALL $28B2    ; Look in the variables area for the variable being used.
  $1C6F PUSH AF       ; {Save the #REGaf register pair whilst the discriminator
@@ -6729,6 +6776,7 @@ c$1C79 RST $20        ; Advance #SYSVAR(CH-ADD).
 ; .
 ; This entry point allows for two numeric expressions, separated by a comma, to
 ; be evaluated.
+@refs=$1B28
 @label=CLASS_08
 *$1C7A CALL $1C82     ; Evaluate each expression in turn - so evaluate the
                       ; first.
@@ -6742,6 +6790,7 @@ c$1C79 RST $20        ; Advance #SYSVAR(CH-ADD).
 ; #R$1C01(command class table).
 ; .
 ; This entry point allows for a single numeric expression to be evaluated.
+@refs=$1B28
 @label=CLASS_06
 *$1C82 CALL $24FB     ; Evaluate the next expression.
  $1C85 BIT 6,(IY+$01) ; {Return as long as the result was numeric (bit 6 of
@@ -6761,6 +6810,7 @@ c$1C79 RST $20        ; Advance #SYSVAR(CH-ADD).
 ; #R$1C01(command class table).
 ; .
 ; This entry point allows for a single string expression to be evaluated.
+@refs=$1B28
 @label=CLASS_0A
 *$1C8C CALL $24FB     ; Evaluate the next expression.
  $1C8F BIT 6,(IY+$01) ; {This time return if the result indicates a string (bit
@@ -6775,6 +6825,7 @@ c$1C79 RST $20        ; Advance #SYSVAR(CH-ADD).
 ; This subroutine allows for the current temporary colours to be made
 ; permanent. As command class &07 it is in effect the command routine for the
 ; six colour item commands.
+@refs=$1B28
 @label=CLASS_07
 c$1C96 BIT 7,(IY+$01) ; The syntax/run flag (bit 7 of #SYSVAR(FLAGS)) is read.
  $1C9A RES 0,(IY+$02) ; Signal 'main screen' (reset bit 0 of #SYSVAR(TV-FLAG)).
@@ -6810,6 +6861,7 @@ c$1C96 BIT 7,(IY+$01) ; The syntax/run flag (bit 7 of #SYSVAR(FLAGS)) is read.
 ; This routine is used by PLOT, DRAW and CIRCLE statements in order to specify
 ; the default conditions of 'FLASH 8; BRIGHT 8; PAPER 8;' that are set up
 ; before any embedded colour items are considered.
+@refs=$1B28
 @label=CLASS_09
 c$1CBE CALL $2530     ; {Jump forward if checking syntax.
  $1CC1 JR Z,$1CD6     ; }
@@ -6835,6 +6887,7 @@ c$1CBE CALL $2530     ; {Jump forward if checking syntax.
 ; #R$1C01(command class table).
 ; .
 ; This routine is used by SAVE, LOAD, VERIFY and MERGE statements.
+@refs=$1B28
 @label=CLASS_0B
 c$1CDB JP $0605      ; Jump to the cassette handling routine.
 
@@ -6868,6 +6921,7 @@ c$1CDE CP $0D        ; {Jump forward if at the end of a line.
 ; .
 ; The command routine for STOP contains only a call to the error handling
 ; routine.
+@refs=$1C0D
 @label=STOP
 c$1CEE RST $08       ; {Call the error handling routine.
  $1CEF DEFB $08      ; }
@@ -6880,6 +6934,7 @@ c$1CEE RST $08       ; {Call the error handling routine.
 ; value' on the calculator stack. If this is logically true then the next
 ; statement is considered; otherwise the line is considered to have been
 ; finished.
+@refs=$1C0D
 @label=IF_CMD
 c$1CF0 POP BC        ; Drop the return address - #R$1B76.
  $1CF1 CALL $2530    ; {Jump forward if checking syntax.
@@ -6904,6 +6959,7 @@ c$1CF0 POP BC        ; Drop the return address - #R$1B76.
 ; statement already on the top of the calculator stack.
 ;
 ; A Code of the next character in the statement
+@refs=$1C0D
 @label=FOR
 c$1D03 CP $CD        ; {Jump forward unless a 'STEP' is given.
  $1D05 JR NZ,$1D10   ; }
@@ -7057,6 +7113,7 @@ c$1D86 LD A,(HL)     ; Fetch the present character.
 ; .
 ; The 'variable in assignment' has already been determined (see #R$1C6C), and
 ; it remains to change the VALUE as required.
+@refs=$1C0D
 @label=NEXT
 c$1DAB BIT 1,(IY+$37) ; {Jump to give the error report if the variable was not
  $1DAF JP NZ,$1C2E    ; found (bit 1 of #SYSVAR(FLAGX) set).}
@@ -7139,8 +7196,9 @@ c$1DDA RST $28       ; -
 c$1DEC RST $20         ; Come here on each pass, after the first, to move along
                        ; the READ statement.
 ; The address of this entry point is found in the #R$1AC9(parameter table).
+@refs=$1C0D
 @label=READ
- $1DED CALL $1C1F      ; Consider whether the variable has been used before;
+*$1DED CALL $1C1F      ; Consider whether the variable has been used before;
                        ; find the existing entry if it has.
  $1DF0 CALL $2530      ; {Jump forward if checking syntax.
  $1DF3 JR Z,$1E1E      ; }
@@ -7181,6 +7239,7 @@ c$1DEC RST $20         ; Come here on each pass, after the first, to move along
 ; During syntax checking a DATA statement is checked to ensure that it contains
 ; a series of valid expressions, separated by commas. But in 'run-time' the
 ; statement is passed by.
+@refs=$1C0D
 @label=DATA
 c$1E27 CALL $2530    ; {Jump forward unless checking syntax.
  $1E2A JR NZ,$1E37   ; }
@@ -7219,6 +7278,7 @@ c$1E39 LD B,A        ; Make the #REGbc register pair hold a very high number.
 ; .
 ; The operand for a RESTORE command is taken as a line number, zero being used
 ; if no operand is given.
+@refs=$1C0D
 @label=RESTORE
 c$1E42 CALL $1E99    ; Compress the operand into the #REGbc register pair.
 ; This entry point is used by the routine at #R$1EA1.
@@ -7238,6 +7298,7 @@ c$1E42 CALL $1E99    ; Compress the operand into the #REGbc register pair.
 ; The operand is compressed into the #REGbc register pair and transferred to
 ; the required system variable. However if the operand is zero the value in
 ; #R$5C78(FRAMES1 and FRAMES2) is used instead.
+@refs=$1C0D
 @label=RANDOMIZE
 c$1E4F CALL $1E99    ; Fetch the operand.
  $1E52 LD A,B        ; {Jump forward unless the value of the operand is zero.
@@ -7255,6 +7316,7 @@ c$1E4F CALL $1E99    ; Fetch the operand.
 ; .
 ; The required line number and statement number within that line are made the
 ; object of a jump.
+@refs=$1C0D
 @label=CONTINUE
 c$1E5F LD HL,($5C6E) ; The line number (#SYSVAR(OLDPPC)).
  $1E62 LD D,(IY+$36) ; The statement number (#SYSVAR(OSPCC)).
@@ -7268,6 +7330,7 @@ c$1E5F LD HL,($5C6E) ; The line number (#SYSVAR(OLDPPC)).
 ; .
 ; The operand of a GO TO ought to be a line number in the range 1-9999 but the
 ; actual test is against an upper value of 61439.
+@refs=$1C0D
 @label=GO_TO
 c$1E67 CALL $1E99    ; {Fetch the operand and transfer it to the #REGhl
  $1E6A LD H,B        ; register pair.
@@ -7289,6 +7352,7 @@ c$1E67 CALL $1E99    ; {Fetch the operand and transfer it to the #REGhl
 ; .
 ; The two parameters for the '#S/OUT/' instruction are fetched from the
 ; calculator stack and used as directed.
+@refs=$1C0D
 @label=OUT_CMD
 c$1E7A CALL $1E85    ; The operands are fetched.
  $1E7D OUT (C),A     ; The actual '#S/OUT/' instruction.
@@ -7299,6 +7363,7 @@ c$1E7A CALL $1E85    ; The operands are fetched.
 ; The address of this routine is found in the #R$1AB1(parameter table).
 ; .
 ; In a similar manner to #R$1E7A(OUT), the POKE operation is performed.
+@refs=$1C0D
 @label=POKE
 c$1E80 CALL $1E85    ; The operands are fetched.
  $1E83 LD (BC),A     ; The actual POKE operation.
@@ -7356,6 +7421,7 @@ c$1E94 CALL $2DD5    ; Fetch the 'last value'.
 ; The parameter of the RUN command is passed to #SYSVAR(NEWPPC) by calling
 ; #R$1E67. The operations of 'RESTORE 0' and 'CLEAR 0' are then performed
 ; before a return is made.
+@refs=$1C0D
 @label=RUN
 c$1EA1 CALL $1E67    ; Set #SYSVAR(NEWPPC) as required.
 @keep
@@ -7371,6 +7437,7 @@ c$1EA1 CALL $1E67    ; Set #SYSVAR(NEWPPC) as required.
 ; cleared and #SYSVAR(RAMTOP) moved. In consequence of the last operation the
 ; machine stack is rebuilt thereby having the effect of also clearing the GO
 ; SUB stack.
+@refs=$1C0D
 @label=CLEAR
 c$1EAC CALL $1E99    ; Fetch the operand - using zero by default.
 ; This entry point is used by the routine at #R$1EA1.
@@ -7426,6 +7493,7 @@ c$1EAC CALL $1E99    ; Fetch the operand - using zero by default.
 ; .
 ; The present value of #SYSVAR(PPC) and the incremented value of
 ; #SYSVAR(SUBPPC) are stored on the GO SUB stack.
+@refs=$1C0D
 @label=GO_SUB
 c$1EED POP DE        ; Save the address - #R$1B76.
  $1EEE LD H,(IY+$0D) ; {Fetch the statement number (#SYSVAR(SUBPPC)) and
@@ -7498,6 +7566,7 @@ u$1F1A LD BC,$0000   ; Do not allow any overhead.
 ; .
 ; The line number and the statement number that are to be made the object of a
 ; 'return' are fetched from the GO SUB stack.
+@refs=$1C0D
 @label=RETURN
 c$1F23 POP BC        ; Fetch the address - #R$1B76.
  $1F24 POP HL        ; Fetch the 'error address'.
@@ -7527,6 +7596,7 @@ c$1F23 POP BC        ; Fetch the address - #R$1B76.
 ; .
 ; A pause is finished either after the appropriate number of interrupts or by
 ; the system variable #SYSVAR(FLAGS) indicating that a key has been pressed.
+@refs=$1C0D
 @label=PAUSE
 c$1F3A CALL $1E99     ; Fetch the operand.
 @label=PAUSE_1
@@ -7578,6 +7648,7 @@ c$1F54 LD A,$7F      ; {Form the port address &7FFE and read in a byte.
 ; But in 'run-time' a DEF FN statement is passed by.
 ;
 ; A Code of the next character in the statement
+@refs=$1C0D
 @label=DEF_FN
 c$1F60 CALL $2530     ; {Jump forward if checking syntax.
  $1F63 JR Z,$1F6A     ; }
@@ -7667,12 +7738,14 @@ c$1FC3 CALL $2530    ; Is syntax being checked?
 ; .
 ; The appropriate channel is opened as necessary and the items to be printed
 ; are considered in turn.
+@refs=$1C0D
 @label=LPRINT
 c$1FC9 LD A,$03      ; Prepare to open channel 'P'.
  $1FCB JR $1FCF      ; Jump forward.
 ; The address of this entry point is found in the #R$1A9C(parameter table).
+@refs=$1C0D
 @label=PRINT
- $1FCD LD A,$02      ; Prepare to open channel 'S'.
+*$1FCD LD A,$02      ; Prepare to open channel 'S'.
 @label=PRINT_1
 *$1FCF CALL $2530    ; {Unless syntax is being checked open a channel.
  $1FD2 CALL NZ,$1601 ; }
@@ -7854,6 +7927,7 @@ c$2070 CP "#"        ; {Unless the present character is a '#' return with the
 ; This routine allows for values entered from the keyboard to be assigned to
 ; variables. It is also possible to have print items embedded in the INPUT
 ; statement and these items are printed in the lower part of the display.
+@refs=$1C0D
 @label=INPUT
 c$2089 CALL $2530      ; {Jump forward if syntax is being checked.
  $208C JR Z,$2096      ; }
@@ -8249,6 +8323,7 @@ c$21E1 RST $20       ; Consider the next character in the BASIC statement.
 ; The parameter of the BORDER command is used with an '#S/OUT/' command to
 ; actually alter the colour of the border. The parameter is then saved in the
 ; system variable #SYSVAR(BORDCR).
+@refs=$1C0D
 @label=BORDER
 c$2294 CALL $1E94    ; {The parameter is fetched and its range is tested.
  $2297 CP $08        ;
@@ -8332,6 +8407,7 @@ c$22CB CALL $2307    ; y-coordinate to #REGb, x to #REGc.
 ; of a pixel on the calculator stack. It finds the address of that pixel and
 ; plots it, taking account of the status of INVERSE and OVER held in the
 ; #SYSVAR(P-FLAG).
+@refs=$1C0D
 @label=PLOT
 c$22DC CALL $2307    ; y-coordinate to #REGb, x to #REGc.
  $22DF CALL $22E5    ; The subroutine is called.
@@ -8432,6 +8508,7 @@ c$2314 CALL $2DD5    ; {Modulus of rounded last value to #REGa if possible;
 ; i. The radius, say Z', is obtained from the calculator stack. Its modulus Z
 ; is formed and used from now on. If Z is less than 1, it is deleted from the
 ; stack and the point X,Y is plotted by a jump to PLOT.
+@refs=$1C0D
 @label=CIRCLE
 c$2320 RST $18       ; Get the present character.
  $2321 CP ","        ; Test for comma.
@@ -8560,6 +8637,7 @@ c$2320 RST $18       ; Get the present character.
 ; drawn if the quantity Z=(ABS X+ABS Y)/ABS SIN(G/2) is less than 1. Z lies
 ; between 1 and 1.5 times the diameter of the implied circle. In this section
 ; mem-0 is set to SIN (G/2), mem-1 to Y, and mem-5 to G.
+@refs=$1C0D
 @label=DRAW
 c$2382 RST $18       ; Get the current character.
  $2383 CP ","        ; {If it is a comma, then jump.
@@ -9219,6 +9297,7 @@ b$2596 DEFB "\"",$1C ; #R$25B3
 ;
 ; The address of this routine is derived from an offset found in the
 ; #R$2596(scanning function table).
+@refs=$24FB
 @label=S_U_PLUS
 c$25AF RST $20       ; {For unary plus, simply move on to the next character
  $25B0 JP $24FF      ; and jump back to the main re-entry of #R$24FB.}
@@ -9230,6 +9309,7 @@ c$25AF RST $20       ; {For unary plus, simply move on to the next character
 ; .
 ; This routine deals with string quotes, whether simple like "name" or more
 ; complex like "a ""white"" lie" or the seemingly redundant VAL$ """a""".
+@refs=$24FB
 @label=S_QUOTE
 c$25B3 RST $18       ; Fetch the current character.
  $25B4 INC HL        ; Point to the start of the string.
@@ -9279,6 +9359,7 @@ c$25B3 RST $18       ; Fetch the current character.
 ;
 ; The address of this routine is derived from an offset found in the
 ; #R$2596(scanning function table).
+@refs=$24FB
 @label=S_BRACKET
 c$25E8 RST $20       ; {This routine simply gets the character and calls
  $25E9 CALL $24FB    ; #R$24FB recursively.}
@@ -9294,6 +9375,7 @@ c$25E8 RST $20       ; {This routine simply gets the character and calls
 ; .
 ; This routine, for user-defined functions, just jumps to the #R$27BD('scanning
 ; FN' subroutine).
+@refs=$24FB
 @label=S_FN
 c$25F5 JP $27BD      ;
 
@@ -9301,6 +9383,7 @@ c$25F5 JP $27BD      ;
 ;
 ; The address of this routine is derived from an offset found in the
 ; #R$2596(scanning function table).
+@refs=$24FB
 @label=S_RND
 c$25F8 CALL $2530               ; {Unless syntax is being checked, jump to
  $25FB JR Z,$2625               ; calculate a random number.}
@@ -9341,6 +9424,7 @@ c$25F8 CALL $2530               ; {Unless syntax is being checked, jump to
 ; .
 ; Unless syntax is being checked the value of 'PI' is calculated and forms the
 ; 'last value' on the calculator stack.
+@refs=$24FB
 @label=S_PI
 c$2627 CALL $2530    ; Test for syntax checking.
  $262A JR Z,$2630    ; Jump if required.
@@ -9359,6 +9443,7 @@ c$2627 CALL $2530    ; Test for syntax checking.
 ;
 ; The address of this routine is derived from an offset found in the
 ; #R$2596(scanning function table).
+@refs=$24FB
 @keep
 @label=S_INKEY
 c$2634 LD BC,$105A   ; {Priority &10, operation code &5A for the 'read-in'
@@ -9394,6 +9479,7 @@ c$2634 LD BC,$105A   ; {Priority &10, operation code &5A for the 'read-in'
 ;
 ; The address of this routine is derived from an offset found in the
 ; #R$2596(scanning function table).
+@refs=$24FB
 @label=S_SCREEN
 c$2668 CALL $2522    ; Check that 2 co-ordinates are given.
  $266B CALL NZ,$2535 ; Call the subroutine unless checking syntax.
@@ -9404,6 +9490,7 @@ c$2668 CALL $2522    ; Check that 2 co-ordinates are given.
 ;
 ; The address of this routine is derived from an offset found in the
 ; #R$2596(scanning function table).
+@refs=$24FB
 @label=S_ATTR
 c$2672 CALL $2522    ; Check that 2 co-ordinates are given.
  $2675 CALL NZ,$2580 ; Call the subroutine unless checking syntax.
@@ -9414,6 +9501,7 @@ c$2672 CALL $2522    ; Check that 2 co-ordinates are given.
 ;
 ; The address of this routine is derived from an offset found in the
 ; #R$2596(scanning function table).
+@refs=$24FB
 @label=S_POINT
 c$267B CALL $2522    ; Check that 2 co-ordinates are given.
  $267E CALL NZ,$22CB ; Call the subroutine unless checking syntax.
@@ -9443,6 +9531,7 @@ c$2684 CALL $2C88    ; Is the character alphanumeric?
 ; 'decimal to floating-point' subroutine.
 ;
 ; A Code of the first character in the number
+@refs=$24FB
 @label=S_DECIMAL
 c$268D CALL $2530     ; {Jump forward if a line is being executed.
  $2690 JR NZ,$26B5    ; }
@@ -10984,6 +11073,7 @@ c$2BF1 LD HL,($5C65) ; Get #SYSVAR(STKEND).
 ; .
 ; A new array will have all its elements set to zero if it is a numeric array,
 ; or to 'spaces' if it is an array of strings.
+@refs=$1C0D
 @label=DIM
 c$2C02 CALL $28B2    ; Search the variables area.
 @label=D_RPORT_C
@@ -11388,6 +11478,7 @@ c$2D3B PUSH AF       ; Save the first digit - in #REGa.
 ; much more than 39, bits 6 and 7 of p will not normally be set.
 ;
 ; A Exponent (m)
+@refs=$335B
 @label=e_to_fp
 c$2D4F RLCA          ; {Test the sign of m by rotating bit 7 of #REGa into the
  $2D50 RRCA          ; carry without changing #REGa.}
@@ -12260,6 +12351,7 @@ c$3004 INC E         ; Add carry to rightmost byte.
 ;
 ; DE Address of the first byte of the subtrahend
 ; HL Address of the first byte of the minuend
+@refs=$335B
 @label=subtract
 c$300F EX DE,HL      ; Exchange the pointers.
  $3010 CALL $346E    ; Change the sign of the subtrahend.
@@ -12293,6 +12385,7 @@ c$300F EX DE,HL      ; Exchange the pointers.
 ;
 ; DE Address of the first byte of the addend/multiplicand/divisor
 ; HL Address of the first byte of the augend/multiplier/dividend
+@refs=$335B
 @label=addition
 c$3014 LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
  $3015 OR (HL)       ; }
@@ -12520,6 +12613,7 @@ c$30C0 CALL $34E9    ; {If the number is zero, return with the carry flag set.
 ;
 ; DE Address of the first byte of the second number
 ; HL Address of the first byte of the first number
+@refs=$335B
 @label=multiply
 c$30CA LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
  $30CB OR (HL)       ; }
@@ -12753,6 +12847,7 @@ c$30CA LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
 ;
 ; DE Address of the first byte of the second number (divisor)
 ; HL Address of the first byte of the first number (dividend)
+@refs=$335B
 @label=division
 c$31AF CALL $3293    ; Use full floating-point forms.
  $31B2 EX DE,HL      ; Exchange the pointers.
@@ -12862,6 +12957,7 @@ c$31AF CALL $3293    ; Use full floating-point forms.
 ; zero and, if needed, one more byte is split with a mask.
 ;
 ; HL Address of the first byte of the number
+@refs=$335B
 @label=truncate
 c$3214 LD A,(HL)     ; Get the exponent byte of x into #REGa.
  $3215 AND A         ; {If #REGa is zero, return since x is already a small
@@ -13015,6 +13111,7 @@ c$3293 CALL $3296    ; Call the subroutine and then continue into it for the
 ; integer') in full five-byte floating-point form.
 ;
 ; HL Address of the first byte of the number
+@refs=$335B
 @label=re_stack
 c$3297 LD A,(HL)     ; {If the first byte is not zero, return - the number
  $3298 AND A         ; cannot be a 'small integer'.
@@ -13317,6 +13414,7 @@ c$335B CALL $35BF    ; Presume a unary operation and therefore set #REGhl to
 ; .
 ; The effect of calling this subroutine is essentially to make a jump to the
 ; appropriate subroutine for the single operation.
+@refs=$335B
 @label=fp_calc_2
 c$33A2 POP AF        ; Discard the #R$3365 address.
  $33A3 LD A,($5C67)  ; Transfer the offset from #SYSVAR(BREG) to #REGa.
@@ -13377,6 +13475,7 @@ c$33B4 LD DE,($5C65) ; Copy #SYSVAR(STKEND) to #REGde as destination address.
 ;
 ; DE Destination address
 ; HL Address of the first byte of the number to move
+@refs=$335B
 @label=duplicate
 c$33C0 CALL $33A9    ; A test is made for room.
  $33C3 LDIR          ; Move the five bytes involved.
@@ -13412,6 +13511,7 @@ c$33C0 CALL $33A9    ; A test is made for room.
 ;
 ; DE #SYSVAR(STKEND)
 ; HL' Address of the next literal
+@refs=$335B
 @label=stk_data
 c$33C6 LD H,D        ; {This subroutine performs the manipulatory operation of
  $33C7 LD L,E        ; adding a 'last value' to the calculator stack; hence
@@ -13539,6 +13639,7 @@ c$3406 LD C,A        ; Copy the parameter to #REGc.
 ;   A Index of the required memory area (&00 to &05)
 ;   DE Destination address
 ; O:HL Destination address (as #REGde on entry)
+@refs=$335B
 @label=get_mem
 c$340F PUSH DE       ; Save the result pointer.
  $3410 LD HL,($5C68) ; Fetch the pointer to the current memory area
@@ -13564,6 +13665,7 @@ c$340F PUSH DE       ; Save the result pointer.
 ;
 ; A Index of the required constant (&00 to &04)
 ; DE #SYSVAR(STKEND)
+@refs=$335B
 @label=stk_con
 c$341B LD H,D        ; {Set #REGhl to hold the result pointer.
  $341C LD L,E        ; }
@@ -13593,6 +13695,7 @@ c$341B LD H,D        ; {Set #REGhl to hold the result pointer.
 ;
 ; A Index of the required memory area (&00 to &05)
 ; HL Source address
+@refs=$335B
 @label=st_mem
 c$342D PUSH HL       ; Save the result pointer.
  $342E EX DE,HL      ; Source to #REGde briefly.
@@ -13624,6 +13727,7 @@ c$342D PUSH HL       ; Save the result pointer.
 ;   DE Address of the first byte of the second number
 ;   HL Address of the first byte of the first number
 ; O:HL Address of the first byte of the second number
+@refs=$335B
 @label=exchange
 c$343C LD B,$05      ; There are five bytes involved.
 @label=SWAP_BYTE
@@ -13675,6 +13779,7 @@ c$343C LD B,$05      ; There are five bytes involved.
 ; i. The setting of the loop counter. The calling subroutine passes its
 ; parameters in the #REGa register for use as a counter. The calculator is
 ; entered at #R$335E so that the counter can be set.
+@refs=$335B
 @label=series
 c$3449 LD B,A        ; Move the parameter to #REGb.
  $344A CALL $335E    ; In effect a RST #o28 instruction but sets the counter.
@@ -13739,6 +13844,7 @@ c$3449 LD B,A        ; Move the parameter to #REGb.
 ; with the 'unary minus' operation.
 ;
 ; HL Address of the first byte of the number
+@refs=$335B
 @label=abs
 c$346A LD B,$FF      ; #REGb is set to &FF.
  $346C JR $3474      ; The jump is made into 'unary minus'.
@@ -13761,6 +13867,7 @@ c$346A LD B,$FF      ; #REGb is set to &FF.
 ; or changed (for 'negate').
 ;
 ; HL Address of the first byte of the number
+@refs=$335B
 @label=negate
 c$346E CALL $34E9    ; {If the number is zero, the subroutine returns leaving
  $3471 RET C         ; 00 00 00 00 00 unchanged.}
@@ -13804,6 +13911,7 @@ c$346E CALL $34E9    ; {If the number is zero, the subroutine returns leaving
 ; value' of 1 if X is positive, zero if X is zero and -1 if X is negative.
 ;
 ; HL Address of the first byte of the number
+@refs=$335B
 @label=sgn
 c$3492 CALL $34E9    ; {If X is zero, just return with zero as the 'last
  $3495 RET C         ; value'.}
@@ -13826,6 +13934,7 @@ c$3492 CALL $34E9    ; {If X is zero, just return with zero as the 'last
 ; .
 ; This subroutine handles the function IN X. It inputs at processor level from
 ; port X, loading #REGbc with X and performing the instruction '#S/IN A,(C)/'.
+@refs=$335B
 @label=f_in
 c$34A5 CALL $1E99    ; The 'last value', X, is compressed into #REGbc.
  $34A8 IN A,(C)      ; The signal is received.
@@ -13839,6 +13948,7 @@ c$34A5 CALL $1E99    ; The 'last value', X, is compressed into #REGbc.
 ; This subroutine handles the function PEEK X. The 'last value' is unstacked by
 ; calling #R$1E99 and replaced by the value of the contents of the required
 ; location.
+@refs=$335B
 @label=peek
 c$34AC CALL $1E99    ; Evaluate the 'last value', rounded to the nearest
                      ; integer; test that it is in range and return it in
@@ -13856,6 +13966,7 @@ c$34AC CALL $1E99    ; Evaluate the 'last value', rounded to the nearest
 ; This subroutine ('USR number' as distinct from 'USR string') handles the
 ; function USR X, where X is a number. The value of X is obtained in #REGbc, a
 ; return address is stacked and the machine code is executed from location X.
+@refs=$335B
 @label=usr_no
 c$34B3 CALL $1E99    ; Evaluate the 'last value', rounded to the nearest
                      ; integer; test that it is in range and return it in
@@ -13881,6 +13992,7 @@ c$34B3 CALL $1E99    ; Evaluate the 'last value', rounded to the nearest
 ; subroutine returns in #REGbc the address of the bit pattern for the
 ; user-defined graphic corresponding to X$. It reports error A if X$ is not a
 ; single letter between 'a' and 'u' or a user-defined graphic.
+@refs=$335B
 @label=usr
 c$34BC CALL $2BF1    ; Fetch the parameters of the string X$.
  $34BF DEC BC        ; Decrease the length by 1 to test it.
@@ -13960,6 +14072,7 @@ c$34E9 PUSH HL       ; Save #REGhl on the stack.
 ; 'jump on plus'.
 ;
 ; HL Address of the first byte of the number
+@refs=$335B
 @label=greater_0
 c$34F9 CALL $34E9    ; Is the 'last-value' zero?
  $34FC RET C         ; If so, return.
@@ -13979,6 +14092,7 @@ c$34F9 CALL $34E9    ; Is the 'last-value' zero?
 ; zero'.
 ;
 ; HL Address of the first byte of the number
+@refs=$335B
 @label=f_not
 c$3501 CALL $34E9    ; The carry flag will be set only if the 'last value' is
                      ; zero; this gives the correct result.
@@ -13995,6 +14109,7 @@ c$3501 CALL $34E9    ; The carry flag will be set only if the 'last value' is
 ; 'jump on minus'.
 ;
 ; HL Address of the first byte of the number
+@refs=$335B
 @label=less_0
 c$3506 XOR A         ; Clear the #REGa register.
 ; This entry point is used by the routine at #R$34F9 with #REGa=&FF.
@@ -14045,6 +14160,7 @@ c$350B PUSH HL       ; Save the result pointer.
 ;
 ; DE Address of the first byte of the second number (Y)
 ; HL Address of the first byte of the first number (X)
+@refs=$335B
 @label=no_or_no
 c$351B EX DE,HL      ; Point #REGhl at Y, the second number.
  $351C CALL $34E9    ; Test whether Y is zero.
@@ -14063,6 +14179,7 @@ c$351B EX DE,HL      ; Point #REGhl at Y, the second number.
 ;
 ; DE Address of the first byte of the second number (Y)
 ; HL Address of the first byte of the first number (X)
+@refs=$335B
 @label=no_and_no
 c$3524 EX DE,HL      ; Point #REGhl at Y, #REGde at X.
  $3525 CALL $34E9    ; Test whether Y is zero.
@@ -14080,6 +14197,7 @@ c$3524 EX DE,HL      ; Point #REGhl at Y, #REGde at X.
 ; is non-zero and a null string otherwise.
 ;
 ; DE Address of the first byte of the number (Y)
+@refs=$335B
 @label=str_no
 c$352D EX DE,HL      ; Point #REGhl at Y, #REGde at X$.
  $352E CALL $34E9    ; Test whether Y is zero.
@@ -14109,6 +14227,7 @@ c$352D EX DE,HL      ; Point #REGhl at Y, #REGde at X$.
 ; B Operation offset (&09 to &0E, &11 to &16)
 ; DE Address of the first byte of the second argument
 ; HL Address of the first byte of the first argument
+@refs=$335B
 @label=compare
 c$353B LD A,B        ; The single offset goes to the #REGa register.
  $353C SUB $08       ; The range is now &01 to &06 and &09 to &0E.
@@ -14202,6 +14321,7 @@ c$353B LD A,B        ; The single offset goes to the #REGa register.
 ; both the strings is made available in the work space and the strings are
 ; copied over. The result of this subroutine is therefore to produce a
 ; temporary variable A$+B$ that resides in the work space.
+@refs=$335B
 @label=strs_add
 c$359C CALL $2BF1    ; {The parameters of the second string are fetched and
  $359F PUSH DE       ; saved.
@@ -14258,6 +14378,7 @@ c$35BF LD HL,($5C65) ; Fetch the current value of #SYSVAR(STKEND).
 ; .
 ; This subroutine handles the function CHR$ X and creates a single character
 ; string in the work space.
+@refs=$335B
 @label=chrs
 c$35C9 CALL $2DD5    ; The 'last value' is compressed into the #REGa register.
  $35CC JR C,$35DC    ; {Give the error report if X is greater than 255, or X is
@@ -14290,6 +14411,7 @@ c$35C9 CALL $2DD5    ; The 'last value' is compressed into the #REGa register.
 ; calculator stack.
 ;
 ; B Offset (&18 or &1D)
+@refs=$335B
 @label=val
 c$35DE LD HL,($5C5D)  ; {The current value of #SYSVAR(CH-ADD) is preserved on
  $35E1 PUSH HL        ; the machine stack.}
@@ -14343,6 +14465,7 @@ c$35DE LD HL,($5C5D)  ; {The current value of #SYSVAR(CH-ADD) is preserved on
 ; This subroutine handles the function STR$ X and returns a 'last value' which
 ; is a set of parameters that define a string containing what would appear on
 ; the screen if X were displayed by a PRINT command.
+@refs=$335B
 @keep
 @label=str
 c$361F LD BC,$0001   ; {One space is made in the work space and its address is
@@ -14379,6 +14502,7 @@ c$361F LD BC,$0001   ; {One space is made in the work space and its address is
 ; line of #R$2634. It appears to provide for the reading in of data through
 ; different streams from those available on the standard Spectrum. Like #R$2634
 ; the subroutine returns a string.
+@refs=$335B
 @label=read_in
 c$3645 CALL $1E94    ; The numerical parameter is compressed into the #REGa
                      ; register.
@@ -14408,6 +14532,7 @@ c$3645 CALL $1E94    ; The numerical parameter is compressed into the #REGa
 ; .
 ; This subroutine handles the function CODE A$ and returns the Spectrum code of
 ; the first character in A$, or zero if A$ is null.
+@refs=$335B
 @label=code
 c$3669 CALL $2BF1    ; The parameters of the string are fetched.
  $366C LD A,B        ; {The length is tested and the #REGa register holding
@@ -14426,6 +14551,7 @@ c$3669 CALL $2BF1    ; The parameters of the string are fetched.
 ; .
 ; This subroutine handles the function LEN A$ and returns a 'last value' that
 ; is equal to the length of the string.
+@refs=$335B
 @label=len
 c$3674 CALL $2BF1    ; The parameters of the string are fetched.
  $3677 JP $2D2B      ; The subroutine exits via #R$2D2B which gives the correct
@@ -14442,6 +14568,7 @@ c$3674 CALL $2BF1    ; The parameters of the string are fetched.
 ;
 ;   HL' Address of the jump offset
 ; O:HL' Address of the next calculator literal to execute
+@refs=$335B
 @label=dec_jr_nz
 c$367A EXX           ; {Go to the alternative register set and save the next
  $367B PUSH HL       ; literal pointer on the machine stack.}
@@ -14466,6 +14593,7 @@ c$367A EXX           ; {Go to the alternative register set and save the next
 ;
 ;   HL' Address of the jump offset
 ; O:HL' Address of the next calculator literal to execute
+@refs=$335B
 @label=jump
 c$3686 EXX           ; Go to the next alternate register set.
 ; This entry point is used by the routine at #R$367A.
@@ -14494,6 +14622,7 @@ c$3686 EXX           ; Go to the next alternate register set.
 ;   DE Address of the first byte of the last value on the calculator stack
 ;   HL' Address of the jump offset
 ; O:HL' Address of the next calculator literal to execute
+@refs=$335B
 @label=jump_true
 c$368F INC DE        ; {Point to the third byte, which is zero or one.
  $3690 INC DE        ; }
@@ -14519,6 +14648,7 @@ c$368F INC DE        ; {Point to the third byte, which is zero or one.
 ; #R$3851.
 ; .
 ; This subroutine ends a RST #o28 operation.
+@refs=$335B
 @label=end_calc
 c$369B POP AF        ; The return address to the calculator (#R$3365) is
                      ; discarded.
@@ -14543,6 +14673,7 @@ c$369B POP AF        ; The return address to the calculator (#R$3365) is
 ; .
 ; This subroutine is called during the calculation of a random number to reduce
 ; N mod 65537.
+@refs=$335B
 @label=n_mod_m
 c$36A0 RST $28       ; N, M
  $36A1 DEFB $C0      ; #R$342D(st_mem_0): N, M (mem-0 holds M)
@@ -14576,6 +14707,7 @@ c$36A0 RST $28       ; N, M
 ; I(-2.4)=-2. Thus, INT X is given by I(X) when X>=0, and by I(X)-1 for
 ; negative values of X that are not already integers, when the result is, of
 ; course, I(X).
+@refs=$335B
 @label=int
 c$36AF RST $28       ; X
  $36B0 DEFB $31      ; #R$33C0: X, X
@@ -14630,6 +14762,7 @@ c$36AF RST $28       ; X
 ; { vi. Finally N is added to the exponent, giving 2**(N+W), which is 2**Y and
 ; therefore the required answer. }
 ; LIST#
+@refs=$335B
 @label=exp
 c$36C4 RST $28                  ; X
 ; Perform step i.
@@ -14718,6 +14851,7 @@ c$36C4 RST $28                  ; X
 ; { vii. Finally a simple multiplication and addition leads to LN X being
 ; returned as the 'last value'. }
 ; LIST#
+@refs=$335B
 @label=ln
 c$3713 RST $28                  ; X
 ; Perform step i.
@@ -14835,6 +14969,7 @@ c$3713 RST $28                  ; X
 ; LIST#
 ; .
 ; In each case, -1<=V<=1 and SIN (#piV/2)=SIN X.
+@refs=$335B
 @label=get_argt
 c$3783 RST $28                  ; X
  $3784 DEFB $3D                 ; #R$3297: X (in full floating-point form)
@@ -14892,6 +15027,7 @@ c$3783 RST $28                  ; X
 ; previous subroutine and stored for this purpose in mem-0. It then jumps to
 ; the #R$37B5 subroutine, entering at #R$37B7, to produce a 'last value' of COS
 ; X.
+@refs=$335B
 @label=cos
 c$37AA RST $28       ; X
  $37AB DEFB $39      ; #R$3783: V
@@ -14925,6 +15061,7 @@ c$37AA RST $28       ; X
 ; { iii. The #R$3449(series generator) is used to return (SIN (#pi*W/2))/W. }
 ; { iv. Finally a simple multiplication by W gives SIN X. }
 ; LIST#
+@refs=$335B
 @label=sin
 c$37B5 RST $28                  ; X
 ; Perform step i.
@@ -14962,6 +15099,7 @@ c$37B5 RST $28                  ; X
 ; .
 ; This subroutine handles the function TAN X. It simply returns SIN X/COS X,
 ; with arithmetic overflow if COS X=0.
+@refs=$335B
 @label=tan
 c$37DA RST $28       ; X
  $37DB DEFB $31      ; #R$33C0: X, X
@@ -15010,6 +15148,7 @@ c$37DA RST $28       ; X
 ; HL Address of the first byte of the number (X)
 ;
 ; Perform step i.
+@refs=$335B
 @label=atn
 c$37E2 CALL $3297               ; Use the full floating-point form of X.
  $37E5 LD A,(HL)                ; Fetch the exponent of X.
@@ -15084,6 +15223,7 @@ c$37E2 CALL $3297               ; Use the full floating-point form of X.
 ; .
 ; This subroutine uses the trigonometric identity TAN (Y/2)=SIN Y/(1+COS Y) to
 ; obtain TAN (Y/2) and hence (using ATN) Y/2 and finally Y.
+@refs=$335B
 @label=asn
 c$3833 RST $28       ; X
  $3834 DEFB $31      ; #R$33C0: X, X
@@ -15112,6 +15252,7 @@ c$3833 RST $28       ; X
 ; cosine is X.
 ; .
 ; This subroutine uses the relation ACS X=#pi/2-ASN X.
+@refs=$335B
 @label=acs
 c$3843 RST $28       ; X
  $3844 DEFB $22      ; #R$3833: ASN X
@@ -15133,6 +15274,7 @@ c$3843 RST $28       ; X
 ; .
 ; This subroutine treats the square root operation as being X**0.5 and
 ; therefore stacks the value 0.5 and proceeds directly into #R$3851.
+@refs=$335B
 @label=sqr
 c$384A RST $28       ; X
  $384B DEFB $31      ; #R$33C0: X, X
@@ -15156,6 +15298,7 @@ c$384A RST $28       ; X
 ; returns this value unless X is zero, in which case it returns 1 if Y is also
 ; zero (0**0=1), returns zero if Y is positive, and reports arithmetic overflow
 ; if Y is negative.
+@refs=$335B
 @label=to_power
 c$3851 RST $28       ; X, Y
  $3852 DEFB $01      ; #R$343C: Y, X
