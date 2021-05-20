@@ -1,4 +1,4 @@
-# Copyright 2017-2019 Richard Dymond (rjdymond@gmail.com)
+# Copyright 2017-2019, 2021 Richard Dymond (rjdymond@gmail.com)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -90,12 +90,6 @@ SYSVARS = {
 }
 
 class ROMWriter:
-    def expand_s(self, text, index, cwd=None):
-        # #S/text/
-        sep = text[index]
-        end, s = parse_brackets(text, index, '', sep, sep)
-        return end, s.lower() if self.case == 1 else s
-
     def expand_sysvar(self, text, index, cwd=None):
         # #SYSVAR(varname)
         varname = parse_brackets(text, index)[1]

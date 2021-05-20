@@ -3,6 +3,7 @@
 @expand=#DEFINE2,1(LOGO,#UDGARRAY(12,#EVAL(56+7*{0}-48*{1}),3,12,tindex=2,alpha=#IF({1})(0,255));$8000-$800B({{ImagePath}}/{2}|Spectrum ROM))
 @expand=#DEFINE0(BUG,#LINK:Bugs)
 @expand=#DEFINE1(CHAR,#UDG{0}(char#EVAL(({0}-$3C00)/8,16)))
+@expand=#DEFINE0(S,#FORMAT({{mode[case]}}))
 @replace=/#pi/#CHR(960)
 @replace=/#power/#CHR(8593)
 @replace=/#i([xy][+-])(\$..)/#REGi\1#N(\2,,,1,1)($)
@@ -25,7 +26,7 @@
 ;
 ; Copyright 1982 Amstrad
 ; Copyright 1983 Dr Ian Logan & Dr Frank O'Hara
-; Copyright 2013-2020 Richard Dymond
+; Copyright 2013-2021 Richard Dymond
 @bfix+begin
 ;
 ; This disassembly contains fixes for the following bugs:
