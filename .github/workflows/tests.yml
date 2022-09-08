@@ -1,0 +1,38 @@
+name: tests
+
+on:
+  push:
+    branches:
+    - master
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.7', '3.8', '3.9', '3.10']
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install nose2 & lxml
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install nose2 lxml
+
+    - name: Install SkoolKit
+      run: |
+        wget https://github.com/skoolkid/skoolkit/archive/refs/heads/master.zip
+        unzip master.zip
+
+    - name: Test with nose2
+      run: |
+        export SKOOLKIT_HOME=$(pwd)/skoolkit-master
+        make write-tests
+        nose2
