@@ -1,6 +1,7 @@
-; Copyright 2013-2021 Richard Dymond (rjdymond@gmail.com)
+; Copyright 2013-2022 Richard Dymond (rjdymond@gmail.com)
 
 [Config]
+Expand=#INCLUDE(Expand)
 GameDir=rom
 RefFiles=bugs.ref;changelog.ref
 
@@ -39,3 +40,8 @@ PageByteColumns=#IF({base}==10)(1,0)
 
 [MemoryMap:GameStatusBuffer]
 EntryDescriptions=0
+
+[Expand]
+#DEF(#LOGO(dark,trans)(fname)
+  #UDGARRAY(12,#EVAL(56+7*$dark-48*$trans),3,12,tindex=2,alpha=#IF($trans)(0,255));$8000-$800B({ImagePath}/$fname|Spectrum ROM)
+)
