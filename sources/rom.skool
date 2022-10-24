@@ -102,7 +102,7 @@
 ;
 ; Copyright 1982 Amstrad
 ; Copyright 1983 Dr Ian Logan & Dr Frank O'Hara
-; Copyright 2013-2021 Richard Dymond
+; Copyright 2013-2022 Richard Dymond
 @bfix+begin
 ;
 ; This disassembly contains fixes for the following bugs:
@@ -16323,6 +16323,8 @@ g$5C36 DEFW $3C00
 ; Initialised by the routine at #R$11B7, and read by the routines at #R$107F
 ; and #R$111D. This system variable is accessed by some routines via the #REGiy
 ; register at #iy-$02.
+; .
+; #AUDIO(rasp.wav)([27318]*129)
 @label=RASP
 g$5C38 DEFB $40
 
@@ -16330,6 +16332,8 @@ g$5C38 DEFB $40
 ;
 ; Initialised by the routine at #R$11B7, and read by the routine at #R$0F2C
 ; (via the #REGiy register at #iy-$01).
+; .
+; #AUDIO(pip.wav)(918)
 @label=PIP
 g$5C39 DEFB $00
 
