@@ -7,8 +7,8 @@ ROM, created using [SkoolKit](https://skoolkit.ca).
 Decide which number base you prefer and then click the corresponding link below
 to browse the latest release:
 
-* [The Complete Spectrum ROM Disassembly](https://skoolkid.github.io/rom/) (hexadecimal; mirror [here](https://skoolkid.gitlab.io/rom/))
-* [The Complete Spectrum ROM Disassembly](https://skoolkid.github.io/rom/dec/) (decimal; mirror [here](https://skoolkid.gitlab.io/rom/dec/))
+* [The Complete Spectrum ROM Disassembly](https://skoolkid.github.io/rom/) (hexadecimal)
+* [The Complete Spectrum ROM Disassembly](https://skoolkid.github.io/rom/dec/) (decimal)
 
 To build the current development version of the disassembly, first obtain the
 development version of [SkoolKit](https://github.com/skoolkid/skoolkit). Then:
