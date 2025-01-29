@@ -1,5 +1,5 @@
 @start
-@expand=#DEF(#BUG #LINK:Bugs)
+@expand=#DEF(#BUG()(a) #LINK(Bugs#$a))
 @expand=#DEF(#CHAR(addr) #UDG$addr(char#EVAL(($addr-$3C00)/8,16)))
 @expand=#DEF(#S #FORMAT({mode[case]}))
 @expand=#DEF(#SYSVAR()(name) #R({$name})($name))
@@ -102,7 +102,7 @@
 ;
 ; Copyright 1982 Amstrad
 ; Copyright 1983 Dr Ian Logan & Dr Frank O'Hara
-; Copyright 2013-2022 Richard Dymond
+; Copyright 2013-2022, 2025 Richard Dymond
 @bfix+begin
 ;
 ; This disassembly contains fixes for the following bugs:
@@ -1721,7 +1721,7 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
  $0671 DEFB $01        ; }
 ; Continue with the handling of an existing array.
 @label=SA_V_OLD
-*$0672 JP NZ,$1C8A     ; Note: #BUG#savingASimpleString(this fails to exclude
+*$0672 JP NZ,$1C8A     ; Note: #BUG(savingASimpleString)(this fails to exclude
                        ; simple strings).
  $0675 CALL $2530      ; {Jump forward if checking syntax.
  $0678 JR Z,$0692      ; }
@@ -2456,7 +2456,7 @@ c$0A23 INC C          ; Move leftwards by one column.
  $0A2F INC B          ; Go up one line.
  $0A30 LD C,$02       ; Set column value.
 @bfix=LD A,$19        ; {Test against top line.
- $0A32 LD A,$18       ; {Test against top line. Note: #BUG#noStepBack(this
+ $0A32 LD A,$18       ; {Test against top line. Note: #BUG(noStepBack)(this
 @bfix=CP B            ; }
  $0A34 CP B           ; ought to be &19).}
  $0A35 JR NZ,$0A3A    ; Accept the change unless at the top of the screen.
@@ -2487,7 +2487,7 @@ c$0A3D LD A,($5C91)    ; {Fetch #SYSVAR(P-FLAG) and save it on the machine
  $0A4A POP AF          ; {Fetch the old value of #SYSVAR(P-FLAG).
  $0A4B LD ($5C91),A    ; }
  $0A4E RET             ; Finished. Note: the programmer has forgotten to exit
-                       ; via #R$0ADC, which is a #BUG#noStepForward(bug).
+                       ; via #R$0ADC, which is a #BUG(noStepForward)(bug).
 
 ; THE 'CARRIAGE RETURN' SUBROUTINE
 ;
@@ -3072,7 +3072,7 @@ c$0C55 BIT 1,(IY+$01) ; {Return immediately if the printer is being used (bit 1
  $0CAB LD HL,$5C3B    ; This is #SYSVAR(FLAGS).
  $0CAE SET 3,(HL)     ; Signal 'L mode'.
  $0CB0 RES 5,(HL)     ; Signal 'no key yet'.
- $0CB2 EXX            ; Note: #REGde #BUG#scrollingTokens(should be pushed
+ $0CB2 EXX            ; Note: #REGde #BUG(scrollingTokens)(should be pushed
                       ; also).
  $0CB3 CALL $15D4     ; Fetch a single key code.
  $0CB6 EXX            ; Restore the registers.
@@ -3834,7 +3834,7 @@ c$0FA9 LD HL,($5C49)  ; Fetch the current line number (#SYSVAR(E-PPC)).
  $0FDE CALL $1855     ; Print the BASIC line.
  $0FE1 INC (IY+$0F)   ; Increment the current line number (#SYSVAR(E-PPC)).
                       ; Note: the decrementing of the line number
-                      ; #BUG#curseTheCursor(does not always stop the cursor
+                      ; #BUG(curseTheCursor)(does not always stop the cursor
                       ; from being printed).
  $0FE4 LD HL,($5C59)  ; {Fetch the start of the line in the editing area
  $0FE7 INC HL         ; (#SYSVAR(E-LINE)) and step past the line number and the
@@ -5200,7 +5200,7 @@ b$1716 DEFB "K",$05  ; Channel 'K', offset &05 (#R$171C)
  $1718 DEFB "S",$03  ; Channel 'S', offset &03 (#R$171C)
  $171A DEFB "P",$01  ; Channel 'P', offset &01 (#R$171C)
 ; Note: there is no end marker at the end of this table, which is a
-; #BUG#dontCloseTheStreams(bug).
+; #BUG(dontCloseTheStreams)(bug).
 
 ; THE 'CLOSE STREAM' SUBROUTINE
 ;
@@ -9326,7 +9326,7 @@ c$2535 CALL $2307    ; x to #REGc, y to #REGb; 0<=x<=23; 0<=y<=31.
 *$257D JP $2AB2      ; Jump to stack the matching character, or the null string
                      ; if no match is found.
 ; #IF({fix}<2)||Note: this exit, via #R$2AB2, is a
-; #BUG#anythingEqualsSCREEN$xy(mistake) as it leads to 'double storing' of the
+; #BUG(anythingEqualsSCREEN$xy)(mistake) as it leads to 'double storing' of the
 ; string result (see #R$25DB). The instruction line should be '#S/RET/'.||
 
 ; THE 'SCANNING ATTRIBUTES' SUBROUTINE
