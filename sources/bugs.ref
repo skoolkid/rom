@@ -1,4 +1,4 @@
-; Copyright 2016, 2017, 2019 Richard Dymond (rjdymond@gmail.com)
+; © 2016, 2017, 2019, 2026 Richard Dymond (rjdymond@gmail.com)
 
 [Bug:noStepForward:No step forward]
 Consider this PRINT command:
@@ -144,8 +144,8 @@ The command 'GO TO <i>n</i>' (appropriately) gives a 'B Integer out of range'
 error when <i>n</i>&gt;=61440. (See the check at #R$1E6E.)
 
 [Bug:dontCloseTheStreams:Don't close the streams]
-It can be dangerous to close a stream, especially if it's aleady been closed or
-was never opened. For example, on a freshly booted Spectrum:
+It can be dangerous to close a stream, especially if it's already been closed
+or was never opened. For example, on a freshly booted Spectrum:
 
 <code>CLOSE #4</code>
 
@@ -166,7 +166,7 @@ be closed successfully.
 
 [Bug:pressAlmostAnyKey:Press (almost) any key]
 Not every key besides 'n', 'N', BREAK and STOP will work at the 'scroll?' and
-'Start tape then press any key.' prompts: pressing CAPS LOCK, or GRAPHICS, or
+'Start tape, then press any key.' prompts: pressing CAPS LOCK, or GRAPHICS, or
 CAPS SHIFT and SYMBOL SHIFT together at these prompts causes the previous edit
 line to appear at the bottom of the screen instead.
 
@@ -190,7 +190,7 @@ code at #R$203C to hold the address of the next character to be printed - is
 corrupted during the call to #R$0010 (made by the '#S/RST/ #o10' instruction at
 #R$2042) and ends up pointing at #R$00B8 after CAPS LOCK and ENTER are pressed
 at the 'scroll?' prompt. #REGde is then incremented through the #R$0095(token
-table) until it reaches #h01F4 and the 'scroll?'  prompt is printed again.
+table) until it reaches #h01F4 and the 'scroll?' prompt is printed again.
 After ENTER is pressed at this prompt, #REGde is incremented through the
 remainder of the token table, and then through the #R$0205(key tables), and
 then into the routine at #R$028E, until it reaches #h0290, where it finds the
@@ -208,7 +208,7 @@ When the program
 
 is RUN, pressing TRUE VIDEO or INV. VIDEO at the 'scroll?' prompt causes the
 screen to scroll once, prints a 'scroll?' prompt, scrolls the screen again
-without waiting for a keypress, and then prints another 'scroll?'  prompt
+without waiting for a keypress, and then prints another 'scroll?' prompt
 indented by 7 spaces.
 
 This happens because when TRUE VIDEO or INV. VIDEO is pressed at the initial
@@ -218,7 +218,7 @@ from #R$10A8 to #R$110D (see #R$1105). This means that after the next 'scroll?'
 prompt is printed and #R$15D4 is called, #R$110D (which picks up the parameter
 for the INVERSE control code instead of waiting for a keypress, and does not
 reset the print position for the lower part of the display in preparation for
-the next 'scroll?'  prompt) is executed instead of #R$10A8 (which would wait
+the next 'scroll?' prompt) is executed instead of #R$10A8 (which would wait
 for a keypress, and then reset the print position for the lower part of the
 display).
 
