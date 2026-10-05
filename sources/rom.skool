@@ -1029,8 +1029,8 @@ c$0333 LD A,E         ; Copy the 'main code'.
 ; 'f*t', where a note of given frequency 'f' is to have a duration of 't'
 ; seconds, and the #REGhl register pair holding a value equal to the number of
 ; T states in the 'timing loop' divided by 4, i.e. for the note 'middle C' to
-; be produced for one second #REGde holds &0105 (INT(261.3*1)) and #REGhl holds
-; &066A (derived from 6689/4-30.125).
+; be produced for one second #REGde holds &0105 (INT(261.63*1)) and #REGhl
+; holds &066A (derived from 6689/4-30.125).
 ;
 ; DE Number of passes to make through the sound generation loop
 ; HL Loop delay parameter
@@ -1116,7 +1116,7 @@ c$03F8 RST $28                  ; The floating-point calculator is used to
                                 ; of P)
  $03FD DEFB $34                 ; {#R$33C6: Stack the decimal value
  $03FE DEFB $EC,$6C,$98,$1F,$F5 ; K=0.0577622606 (which is a little below
-                                ; 12*(2#power0.5)-1)}
+                                ; 2#power(1/12)-1)}
  $0403 DEFB $04                 ; #R$30CA: t, pK
  $0404 DEFB $A1                 ; #R$341B(stk_one): t, pK, 1
  $0405 DEFB $0F                 ; #R$3014: t, pK+1
@@ -1312,7 +1312,7 @@ c$04C2 LD HL,$053F   ; {Pre-load the machine stack with the address #R$053F.
  $04EC OUT ($FE),A   ; MIC on and red.
  $04EE LD A,$0D      ; Signal 'MIC off and cyan'.
 @ignoreua
- $04F0 LD B,$37      ; {MIC on for 735 T States from '#S/OUT/ to #S/OUT/'.
+ $04F0 LD B,$37      ; {MIC on for 735 T states from '#S/OUT/ to #S/OUT/'.
 @label=SA_SYNC_2
 *$04F2 DJNZ $04F2    ; }
  $04F4 OUT ($FE),A   ; Now MIC off and border cyan.
@@ -1929,7 +1929,7 @@ c$0605 POP AF          ; Drop the address - #R$1B52.
  $07A7 LD A,(DE)       ; }
  $07A8 CP (HL)         ; {Match it against the appropriate character of the
  $07A9 INC HL          ; 'old name'.}
- $07AA JR NZ,$07AD     ; {Do not count it if it does not does not match.
+ $07AA JR NZ,$07AD     ; {Do not count it if it does not match.
  $07AC INC C           ; }
 @label=LD_CH_PR
 *$07AD RST $10         ; Print the 'new' character.
@@ -3190,7 +3190,7 @@ c$0C55 BIT 1,(IY+$01) ; {Return immediately if the printer is being used (bit 1
 c$0D4D XOR A          ; #REGa is set to hold &00.
  $0D4E LD HL,($5C8D)  ; The current values of #SYSVAR(ATTR-P) and
                       ; #SYSVAR(MASK-P) are fetched.
- $0D51 BIT 0,(IY+$02) ; {Jump forward if handing the main part of the screen
+ $0D51 BIT 0,(IY+$02) ; {Jump forward if handling the main part of the screen
  $0D55 JR Z,$0D5B     ; (bit 0 of #SYSVAR(TV-FLAG) reset).}
  $0D57 LD H,A         ; {Otherwise use &00 and the value in #SYSVAR(BORDCR)
  $0D58 LD L,(IY+$0E)  ; instead.}
@@ -3507,7 +3507,7 @@ c$0E88 LD A,H        ; Fetch the high byte.
  $0E89 RRCA          ; {Multiply this value by thirty two.
  $0E8A RRCA          ;
  $0E8B RRCA          ; }
- $0E8C DEC A         ; Go back to the 'eight' line.
+ $0E8C DEC A         ; Go back to the 'eighth' line.
  $0E8D OR $50        ; Address the attribute area.
  $0E8F LD H,A        ; {Restore to the high byte and transfer the address to
  $0E90 EX DE,HL      ; #REGde.}
@@ -4196,7 +4196,7 @@ c$111D CALL $0D4D      ; Use the permanent colours.
  $1161 CALL $09F4      ; Print it.
  $1164 POP DE          ; Fetch the old values.
  $1165 JR $1150        ; Back again.
-; New deal with any errors.
+; Now deal with any errors.
 @label=ED_FULL
  $1167 LD D,$00        ; {Give out a 'rasp' (see #SYSVAR(RASP)).
  $1169 LD E,(IY-$02)   ;
@@ -4377,8 +4377,8 @@ c$11B7 DI              ; Disable the maskable interrupt.
  $1244 EX DE,HL        ; {The system variable #SYSVAR(DATADD) is made to point
  $1245 DEC HL          ; to the last location of the channel data.
  $1246 LD ($5C57),HL   ; }
- $1249 INC HL          ; {And #SYSVAR(PROG) and #SYSVAR(VARS) to the the
- $124A LD ($5C53),HL   ; location after that.
+ $1249 INC HL          ; {And #SYSVAR(PROG) and #SYSVAR(VARS) to the location
+ $124A LD ($5C53),HL   ; after that.
  $124D LD ($5C4B),HL   ; }
  $1250 LD (HL),$80     ; The end-marker of the variables area.
  $1252 INC HL          ; {Move on one location to find the value for
@@ -4414,7 +4414,7 @@ c$11B7 DI              ; Disable the maskable interrupt.
 @ssub=LD DE,$1539-$01
  $1296 LD DE,$1538     ; Ltd' on the bottom line.
  $1299 CALL $0C0A      ; }
- $129C SET 5,(IY+$02)  ; Signal 'the lower part will required to be cleared'
+ $129C SET 5,(IY+$02)  ; Signal 'the lower part will require to be cleared'
                        ; (set bit 5 of #SYSVAR(TV-FLAG)).
  $12A0 JR $12A9        ; Jump forward into the main execution loop.
 
@@ -4467,7 +4467,7 @@ c$12A2 LD (IY+$31),$02 ; The lower part of the screen is to be two lines in
  $12E9 CALL $0D6E      ; Clear the lower part anyway.
  $12EC LD A,$19        ; {Set the appropriate value for the scroll counter
  $12EE SUB (IY+$4F)    ; (#SYSVAR(SCR-CT)) by subtracting the second byte of
- $12F1 LD ($5C8C),A    ; #SYSVAR(S-POSN) from &19).}
+ $12F1 LD ($5C8C),A    ; #SYSVAR(S-POSN) from &19.}
  $12F4 SET 7,(IY+$01)  ; Signal 'line execution' (set bit 7 of #SYSVAR(FLAGS)).
  $12F8 LD (IY+$00),$FF ; Ensure #SYSVAR(ERR-NR) is correct.
  $12FC LD (IY+$0A),$01 ; Deal with the first statement in the line (set
@@ -5079,7 +5079,7 @@ c$169E LD HL,($5C63) ; {Fetch the current value of #SYSVAR(STKBOT) and
 c$16B0 LD HL,($5C59) ; Fetch #SYSVAR(E-LINE).
  $16B3 LD (HL),$0D   ; {Make the editing area hold only the 'carriage return'
  $16B5 LD ($5C5B),HL ; character and the end marker, and set #SYSVAR(K-CUR)
- $16B8 INC HL        ; accordingly
+ $16B8 INC HL        ; accordingly.
  $16B9 LD (HL),$80   ; }
  $16BB INC HL        ; {Reset #SYSVAR(WORKSP) and move on to clear the work
  $16BC LD ($5C61),HL ; space.}
@@ -5240,8 +5240,8 @@ c$171E CALL $1E94    ; The given stream number is taken off the calculator
  $172A LD HL,$5C10   ; The base address of the #R$5C10(stream data area).
  $172D LD C,A        ; {Move the stream code to the #REGbc register pair.
  $172E LD B,$00      ; }
- $1730 ADD HL,BC     ; {Index into the data area and fetch the the two data
- $1731 LD C,(HL)     ; bytes into the #REGbc register pair.
+ $1730 ADD HL,BC     ; {Index into the data area and fetch the two data bytes
+ $1731 LD C,(HL)     ; into the #REGbc register pair.
  $1732 INC HL        ;
  $1733 LD B,(HL)     ; }
  $1734 DEC HL        ; {Make the pointer address the first of the data bytes
@@ -5398,14 +5398,13 @@ c$1795 LD ($5C3F),SP   ; The stack pointer is saved at #SYSVAR(LIST-SP)
  $179D CALL $0DAF      ; Clear this part of the screen.
  $17A0 SET 0,(IY+$02)  ; Switch to the editing area (set bit 0 of
                        ; #SYSVAR(TV-FLAG)).
- $17A4 LD B,(IY+$31)   ; {Now clear the the lower part of the screen as well
- $17A7 CALL $0E44      ; (see #SYSVAR(DF-SZ)).}
+ $17A4 LD B,(IY+$31)   ; {Now clear the lower part of the screen as well (see
+ $17A7 CALL $0E44      ; #SYSVAR(DF-SZ)).}
  $17AA RES 0,(IY+$02)  ; Then switch back (reset bit 0 of #SYSVAR(TV-FLAG)).
  $17AE SET 0,(IY+$30)  ; Signal 'screen is clear' (set bit 0 of
                        ; #R$5C6A(FLAGS2)).
- $17B2 LD HL,($5C49)   ; {Now fetch the the 'current' line number
- $17B5 LD DE,($5C6C)   ; (#SYSVAR(E-PPC)) and the 'automatic' line number
-                       ; (#SYSVAR(S-TOP)).}
+ $17B2 LD HL,($5C49)   ; {Now fetch the 'current' line number (#SYSVAR(E-PPC))
+ $17B5 LD DE,($5C6C)   ; and the 'automatic' line number (#SYSVAR(S-TOP)).}
  $17B9 AND A           ; {If the 'current' number is less than the 'automatic'
  $17BA SBC HL,DE       ; number then jump forward to update the 'automatic'
  $17BC ADD HL,DE       ; number.
@@ -5818,7 +5817,7 @@ c$196E PUSH HL       ; Save the given line number.
 @label=LINE_AD_1
 *$1974 POP BC        ; The given line number.
  $1975 CALL $1980    ; Compare the given line number against the addressed line
-                     ; number
+                     ; number.
  $1978 RET NC        ; {Return if carry reset; otherwise address the next
  $1979 PUSH BC       ; line's number.
  $197A CALL $19B8    ; }
@@ -6480,7 +6479,7 @@ c$1B76 CALL $1F54     ; The BREAK key is tested after every statement.
 ; reset).
 @label=LINE_RUN
 c$1B8A LD HL,$FFFE   ; {A line in the editing area is considered as line '-2';
- $1B8D LD ($5C45),HL ; set #SYSVAR(PPC) accordingly}
+ $1B8D LD ($5C45),HL ; set #SYSVAR(PPC) accordingly.}
  $1B90 LD HL,($5C61) ; {Make #REGhl point to the end marker of the editing area
  $1B93 DEC HL        ; (#SYSVAR(WORKSP)-1) and #REGde to the location before
  $1B94 LD DE,($5C59) ; the start of that area (#SYSVAR(E-LINE)-1).
@@ -7101,7 +7100,7 @@ c$1D03 CP $CD        ; {Jump forward unless a 'STEP' is given.
  $1D4A INC HL        ;
  $1D4B LD (HL),D     ; }
 ; The #R$1DDA subroutine is called to test the possibility of a 'pass' and a
-; return is made if one is possible; otherwise the statement after for FOR -
+; return is made if one is possible; otherwise the statement after the FOR -
 ; NEXT loop has to be identified.
  $1D4C CALL $1DDA    ; Is a 'pass' possible?
  $1D4F RET NC        ; Return now if it is.
@@ -7243,7 +7242,7 @@ c$1DDA RST $28       ; -
  $1DDB DEFB $E1      ; #R$340F(get_mem_1): l
  $1DDC DEFB $E0      ; #R$340F(get_mem_0): l, v
  $1DDD DEFB $E2      ; #R$340F(get_mem_2): l, v, s
- $1DDE DEFB $36      ; #R$3506: l, v,( 1/0)
+ $1DDE DEFB $36      ; #R$3506: l, v, (1/0)
  $1DDF DEFB $00      ; {#R$368F to #R$1DE2: l, v, (1/0)
  $1DE0 DEFB $02      ; }
  $1DE1 DEFB $01      ; #R$343C: v, l
@@ -8218,7 +8217,7 @@ c$21D6 LD HL,($5C51) ; {The base address of the channel information for the
 ; This set of routines can be readily divided into two parts:
 ; .
 ; #LIST
-; { i. The embedded colour item' handler. }
+; { i. The 'embedded colour item' handler. }
 ; { ii. The 'colour system variable' handler. }
 ; LIST#
 ; .
@@ -8420,7 +8419,7 @@ c$2294 CALL $1E94    ; {The parameter is fetched and its range is tested.
 
 ; THE 'PIXEL ADDRESS' SUBROUTINE
 ;
-; This subroutine is called by #R$22CB and by #R$22DC. Is is entered with the
+; This subroutine is called by #R$22CB and by #R$22DC. It is entered with the
 ; co-ordinates of a pixel in the #REGbc register pair and returns with #REGhl
 ; holding the address of the display file byte which contains that pixel and
 ; #REGa pointing to the position of the pixel within the byte.
@@ -8626,7 +8625,7 @@ c$2320 RST $18       ; Get the present character.
 ; set: X+Z and X-Z*SIN (#pi/A) are stacked twice as start and end point, and
 ; copied to #SYSVAR(COORDS) as well; zero and 2*Z*SIN (#pi/A) are stored in
 ; mem-1 and mem-2 as initial increments, giving as first 'arc' the vertical
-; straight line joining X+Z, y-Z*SIN (#pi/A) and X+Z, Y+Z*SIN (#pi/A). The
+; straight line joining X+Z, Y-Z*SIN (#pi/A) and X+Z, Y+Z*SIN (#pi/A). The
 ; arc-drawing loop at #R$2420 will ensure that all subsequent points remain on
 ; the same circle as these two points, with incremental angle 2#pi/A. But it is
 ; clear that these 2 points in fact subtend this angle at the point X+Z*(1-COS
@@ -8776,7 +8775,7 @@ c$2382 RST $18       ; Get the current character.
 ; 0, COS (G/A), SIN (G/A).
 @label=DR_PRMS
 *$23C1 CALL $247D    ; The subroutine is called.
-; iii. Sets up the rest of the parameters as follow. The stack will hold these
+; iii. Sets up the rest of the parameters as follows. The stack will hold these
 ; 4 items, reading up to the top: X0+X and Y0+Y as end of last arc; then X0 and
 ; Y0 as beginning of first arc. Mem-0 will hold X0 and mem-5 Y0. Mem-1 and
 ; mem-2 will hold the initial displacements for the first arc, U and V; and
@@ -8791,7 +8790,7 @@ c$2382 RST $18       ; Get the current character.
 ; .
 ; #LIST
 ; { U=Y*W*SIN (G/2-G/2*A)+X*W*COS (G/2-G/2*A) }
-; { Y=Y*W*COS (G/2-G/2*A)-X*W*SIN (G/2-G/2*A) }
+; { V=Y*W*COS (G/2-G/2*A)-X*W*SIN (G/2-G/2*A) }
 ; LIST#
 ; .
 ; These formulae can be checked from a diagram, using the normal expansion of
@@ -8815,7 +8814,7 @@ c$2382 RST $18       ; Get the current character.
  $23D4 DEFB $E1      ; #R$340F(get_mem_1): X, Y, Y, W
  $23D5 DEFB $04      ; #R$30CA: X, Y, Y*W
  $23D6 DEFB $E2      ; #R$340F(get_mem_2): X, Y, Y*W, X*W
- $23D7 DEFB $E5      ; #R$340F(get_mem_5): X, Y, Y*W, X*W,G
+ $23D7 DEFB $E5      ; #R$340F(get_mem_5): X, Y, Y*W, X*W, G
  $23D8 DEFB $E0      ; #R$340F(get_mem_0): X, Y, Y*W, X*W, G, G/A
  $23D9 DEFB $03      ; #R$300F: X, Y, Y*W, X*W, G-G/A
  $23DA DEFB $A2      ; #R$341B(stk_half): X, Y, Y*W, X*W, G-G/A, 1/2
@@ -8823,7 +8822,7 @@ c$2382 RST $18       ; Get the current character.
  $23DC DEFB $31      ; #R$33C0: X, Y, Y*W, X*W, F, F
  $23DD DEFB $1F      ; #R$37B5: X, Y, Y*W, X*W, F, SIN F
  $23DE DEFB $C5      ; #R$342D(st_mem_5): (SIN F is copied to mem-5).
- $23DF DEFB $02      ; #R$33A1: X, Y, Y*W, X*W,F
+ $23DF DEFB $02      ; #R$33A1: X, Y, Y*W, X*W, F
  $23E0 DEFB $20      ; #R$37AA: X, Y, Y*W, X*W, COS F
  $23E1 DEFB $C0      ; #R$342D(st_mem_0): (COS F is copied to mem-0).
  $23E2 DEFB $02      ; #R$33A1: X, Y, Y*W, X*W
@@ -8924,7 +8923,7 @@ c$2382 RST $18       ; Get the current character.
  $2438 DEFB $38      ; #R$369B
 @label=ARC_START
 *$2439 PUSH BC       ; Save the arc-counter.
- $243A RST $28       ; X0+X, Y0+y, Xn, Yn
+ $243A RST $28       ; X0+X, Y0+Y, Xn, Yn
  $243B DEFB $C0      ; #R$342D(st_mem_0): (Yn is copied to mem-0).
  $243C DEFB $02      ; #R$33A1: X0+X, Y0+Y, Xn
  $243D DEFB $E1      ; #R$340F(get_mem_1): X0+X, Y0+Y, Xn, Un
@@ -8935,7 +8934,7 @@ c$2382 RST $18       ; Get the current character.
  $2444 CALL $2D28    ; line-drawing subroutine is copied from #SYSVAR(COORDS)
                      ; to #REGa and hence to the stack.}
  $2447 RST $28       ; X0+X, Y0+Y, Xn+1, Xn'
- $2448 DEFB $03      ; #R$300F: X0+X, Y0+Y, Xn+1, Xn+1, Xn'-Xn'=Un'
+ $2448 DEFB $03      ; #R$300F: X0+X, Y0+Y, Xn+1, Xn+1-Xn'=Un'
  $2449 DEFB $E0      ; #R$340F(get_mem_0): X0+X, Y0+Y, Xn+1, Un', Yn
  $244A DEFB $E2      ; #R$340F(get_mem_2): X0+X, Y0+Y, Xn+1, Un', Yn, Vn
  $244B DEFB $0F      ; #R$3014: X0+X, Y0+Y, Xn+1, Un', Yn+Vn=Yn+1
@@ -9092,7 +9091,7 @@ c$24B7 CALL $2307    ; ABS Y to #REGb; ABS X to #REGc; SGN Y to #REGd; SGN X to
 @label=D_L_DIAG
 *$24D4 SUB H         ; Reduce #REGa by #REGh.
  $24D5 LD C,A        ; Restore it to #REGc.
- $24D6 EXX           ; Now use the exchange resisters.
+ $24D6 EXX           ; Now use the exchange registers.
  $24D7 POP BC        ; Diagonal step to #REGbc'.
  $24D8 PUSH BC       ; Save it too.
  $24D9 JR $24DF      ; Jump to take the step.
@@ -9431,7 +9430,7 @@ c$25B3 RST $18       ; Fetch the current character.
  $25E5 JP $2712      ; Jump to continue scanning the line.
 ; Note that in copying the string to the work space, every two pairs of string
 ; quotes inside the string ("") have been reduced to one pair of string
-; quotes(").
+; quotes (").
 
 ; THE 'SCANNING BRACKET' ROUTINE
 ;
@@ -9517,7 +9516,7 @@ c$2627 CALL $2530    ; Test for syntax checking.
 *$2630 RST $20       ; Move on to the next character.
  $2631 JP $26C3      ; Jump forward.
 
-; THE' SCANNING INKEY$' ROUTINE
+; THE 'SCANNING INKEY$' ROUTINE
 ;
 ; The address of this routine is derived from an offset found in the
 ; #R$2596(scanning function table).
@@ -10187,7 +10186,7 @@ c$28B2 SET 6,(IY+$01) ; Presume a numeric variable (set bit 6 of
 ; This entry point is used by the routine at #R$2951.
 ; .
 ; Otherwise (or if the variable was not found in the DEF FN statement) a search
-; of variables area will be made, unless syntax is being checked.
+; of the variables area will be made, unless syntax is being checked.
 @label=V_RUN_SYN
 *$28EF LD B,C         ; Copy the discriminator byte to the #REGb register.
  $28F0 CALL $2530     ; {Jump forward if in 'run-time'.
@@ -10365,7 +10364,7 @@ c$2951 LD HL,($5C0B) ; {Point to the first character in the arguments area
 *$2991 POP DE        ; {Discard the #R$28B2 pointers (second and first
  $2992 POP DE        ; character pointers).}
  $2993 XOR A         ; {Return from the search with both the carry and zero
- $2994 INC A         ; flags reset - signalling that a call #R$2996 is not
+ $2994 INC A         ; flags reset - signalling that a call to #R$2996 is not
                      ; required.}
  $2995 RET           ; Finished.
 
@@ -10375,7 +10374,7 @@ c$2951 LD HL,($5C0B) ; {Point to the first character in the arguments area
 ; .
 ; This subroutine is used either to find the parameters that define an existing
 ; string entry in the variables area, or to return in the #REGhl register pair
-; the base address of a particular element or an array of numbers. When called
+; the base address of a particular element of an array of numbers. When called
 ; from #R$2C02 the subroutine only checks the syntax of the BASIC statement.
 ; .
 ; Note that the parameters that define a string may be altered by calling
@@ -10402,7 +10401,7 @@ c$2996 XOR A          ; Clear the array flag.
 *$29A1 INC HL         ; Move along the entry.
  $29A2 LD C,(HL)      ; Pick up the low length counter.
  $29A3 INC HL         ; Advance the pointer.
- $29A4 LD B,(HL)      ; Pick up the high length pointer.
+ $29A4 LD B,(HL)      ; Pick up the high length counter.
  $29A5 INC HL         ; Advance the pointer.
  $29A6 EX DE,HL       ; Transfer the pointer to the actual string.
  $29A7 CALL $2AB2     ; Pass these parameters to the calculator stack.
@@ -10482,7 +10481,7 @@ c$2996 XOR A          ; Clear the array flag.
  $29F2 RST $18        ; Get the present character.
  $29F3 CP ")"         ; Is it a ')'?
  $29F5 JR Z,$2A48     ; Jump forward as finished counting elements.
- $29F7 CP $CC         ; Is to 'TO'?
+ $29F7 CP $CC         ; Is it 'TO'?
  $29F9 JR Z,$29E0     ; Jump back if dealing with a 'slice'.
 @label=SV_MULT
 *$29FB PUSH BC        ; Save the dimension-number counter and the discriminator
@@ -10575,7 +10574,7 @@ c$2996 XOR A          ; Clear the array flag.
 @label=SV_DIM
 *$2A48 RST $20        ; Fetch the next character.
 @label=SV_SLICE2
-*$2A49 CP "("         ; Is It a '('?
+*$2A49 CP "("         ; Is it a '('?
  $2A4B JR Z,$2A45     ; Jump back if there is a 'slice' to be considered.
 ; When finished considering the last subscript a return can be made.
  $2A4D RES 6,(IY+$01) ; Signal - string result (reset bit 6 of #SYSVAR(FLAGS)).
@@ -10660,7 +10659,7 @@ c$2A52 CALL $2530     ; Check the flag.
  $2A97 DEC HL         ; Go back a location to get it correct.
  $2A98 EX (SP),HL     ; The 'new start' goes on the stack and the second
                       ; parameter goes to #REGhl.
- $2A99 AND A          ; {Subtract the first parameters from the second to find
+ $2A99 AND A          ; {Subtract the first parameter from the second to find
  $2A9A SBC HL,DE      ; the length of the 'slice'.}
 @keep
  $2A9C LD BC,$0000    ; Initialise the 'new length'.
@@ -10763,7 +10762,7 @@ c$2ACC XOR A         ; Clear the 'error register'.
  $2AD4 CALL $2530    ; {Jump forward if checking syntax.
  $2AD7 JR Z,$2AEB    ; }
  $2AD9 PUSH AF       ; Save the error register again.
- $2ADA CALL $1E99    ; The 'last value' is compressed Into #REGbc.
+ $2ADA CALL $1E99    ; The 'last value' is compressed into #REGbc.
  $2ADD POP DE        ; Error register to #REGd.
  $2ADE LD A,B        ; {A 'next expression' that gives zero is always in error
  $2ADF OR C          ; so jump forward if it is so.
@@ -10844,7 +10843,7 @@ c$2AF4 CALL $2530    ; {Return directly if syntax is being checked.
 ; .
 ; Bit 0 of #SYSVAR(FLAGX) is set if the destination variable is a 'complete'
 ; simple string variable. (Signalling - delete the old copy.) Initially the
-; current value of #SYSVAR(DEST) is collected and bit 1 of #SYSVAR(FLAGS)
+; current value of #SYSVAR(DEST) is collected and bit 1 of #SYSVAR(FLAGX)
 ; tested.
 @label=LET
 c$2AFF LD HL,($5C4D)  ; Fetch the present address in #SYSVAR(DEST).
@@ -10873,7 +10872,7 @@ c$2AFF LD HL,($5C4D)  ; Fetch the present address in #SYSVAR(DEST).
 ; Separate 'numeric' and 'string' names.
 @label=L_TEST_CH
 *$2B1F CALL $2C88     ; Is the code alphanumeric?
- $2B22 JR C,$2B0B     ; If It is so then accept it as a character of a 'long'
+ $2B22 JR C,$2B0B     ; If it is so then accept it as a character of a 'long'
                       ; name.
  $2B24 CP "$"         ; Is the present code a '$'?
  $2B26 JP Z,$2BC0     ; Jump forward as handling a 'newly declared' simple
@@ -11584,11 +11583,11 @@ c$2D4F RLCA          ; {Test the sign of m by rotating bit 7 of #REGa into the
  $2D67 DEFB $E0      ; #R$340F(get_mem_0): x', 10#power(2#powern), (1/0)
  $2D68 DEFB $00      ; {#R$368F to #R$2D6D: x', 10#power(2#powern)
  $2D69 DEFB $04      ; }
- $2D6A DEFB $04      ; #R$30CA: x'*10#power(2#powern)=x"
+ $2D6A DEFB $04      ; #R$30CA: x'*10#power(2#powern)=x''
  $2D6B DEFB $33      ; {#R$3686 to #R$2D6E: x''
  $2D6C DEFB $02      ; }
 @label=E_DIVSN
- $2D6D DEFB $05      ; #R$31AF: x/10#power(2#powern)=x'' (x'' is
+ $2D6D DEFB $05      ; #R$31AF: x'/10#power(2#powern)=x'' (x'' is
                      ; x'*10#power(2#powern) or x'/10#power(2#powern) according
                      ; as m is '+' or '-')
 @label=E_FETCH
@@ -12509,7 +12508,7 @@ c$3014 LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
 ; system cannot handle this number.
 ; .
 ; Most functions treat it as zero, and it is printed as -1E-38, obtained by
-; treating is as 'minus zero' in an illegitimate format.
+; treating it as 'minus zero' in an illegitimate format.
 ; .
 ; One possible remedy would be to test for this number at about byte
 ; #R$3032(#h3032) and, if it is present, to make the second byte &80 and the
@@ -12812,7 +12811,7 @@ c$30CA LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
  $314B EXX           ; {If there is no carry set and the result is already in
  $314C BIT 7,D       ; normal form (bit 7 of #REGd' set) then there is overflow
  $314E EXX           ; to report; but if bit 7 of #REGd' is reset, the result
- $314F JR NZ,$31AD   ; in just in range, i.e. just under 2**127.}
+ $314F JR NZ,$31AD   ; is just in range, i.e. just under 2**127.}
 @label=OFLW2_CLR
 *$3151 LD (HL),A     ; Store the exponent byte, at last.
  $3152 EXX           ; {Pass the fifth result byte to #REGa for the
@@ -12896,7 +12895,7 @@ c$30CA LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
  $31A6 LD (HL),E     ; The fourth byte is stored.
  $31A7 POP HL        ; Restore the pointer to the result.
  $31A8 POP DE        ; Restore the pointer to second number.
- $31A9 EXX           ; Exchange the register.
+ $31A9 EXX           ; Exchange the registers.
  $31AA POP HL        ; Restore the next literal address.
  $31AB EXX           ; Exchange the registers.
  $31AC RET           ; Finished.
@@ -13612,7 +13611,7 @@ c$33C6 LD H,D        ; {This subroutine performs the manipulatory operation of
  $33D6 INC C         ; incremented, thereby giving the range 1, 2, 3 or 4 for
                      ; the number of literals that will be needed.}
  $33D7 LD A,(HL)     ; {The literal is fetched anew, reduced mod &40 and
- $33D8 AND $3F       ; discarded as inappropriate if the remainder if zero; in
+ $33D8 AND $3F       ; discarded as inappropriate if the remainder is zero; in
  $33DA JR NZ,$33DE   ; which case the next literal is fetched and used
  $33DC INC HL        ; unreduced.
  $33DD LD A,(HL)     ; }
@@ -14079,7 +14078,7 @@ c$34BC CALL $2BF1    ; Fetch the parameters of the string X$.
  $34C2 JR NZ,$34E7   ; }
  $34C4 LD A,(DE)     ; Fetch the single code of the string.
  $34C5 CALL $2C8D    ; Does it denote a letter?
- $34C8 JR C,$34D3    ; If so, jump to gets its address.
+ $34C8 JR C,$34D3    ; If so, jump to get its address.
  $34CA SUB $90       ; Reduce range for actual user-defined graphics to 0-20.
  $34CC JR C,$34E7    ; Give report A if out of range.
  $34CE CP $15        ; Test the range again.
@@ -14483,7 +14482,7 @@ c$35C9 CALL $2DD5    ; The 'last value' is compressed into the #REGa register.
 ; .
 ; This subroutine handles the functions VAL X$ and VAL$ X$. When handling VAL
 ; X$, it returns a 'last value' that is the result of evaluating the string
-; (without its bounding quotes) as a numerical expression. when handling VAL$
+; (without its bounding quotes) as a numerical expression. When handling VAL$
 ; X$, it evaluates X$ (without its bounding quotes) as a string expression, and
 ; returns the parameters of that string expression as a 'last value' on the
 ; calculator stack.
@@ -14987,7 +14986,7 @@ c$3713 RST $28                  ; X
                                 ; 2*X'-.5, .5
  $3749 DEFB $03                 ; #R$300F: Y1, X'-1 or Y2, 2*X'-1
 ; Perform step v.
- $374A DEFB $31                 ; #R$33C0: Y, X'-1, X'-1 or Y2, 2*X'-1, 2*X'-1
+ $374A DEFB $31                 ; #R$33C0: Y1, X'-1, X'-1 or Y2, 2*X'-1, 2*X'-1
  $374B DEFB $34                 ; {#R$33C6: Y1, X'-1, X'-1, 2.5 or Y2, 2*X'-1,
  $374C DEFB $32,$20             ; 2*X'-1, 2.5}
  $374E DEFB $04                 ; #R$30CA: Y1, X'-1, 2.5*X'-2.5 or Y2, 2*X'-1,
@@ -15022,7 +15021,7 @@ c$3713 RST $28                  ; X
 ; Perform step vii.
  $377F DEFB $04                 ; #R$30CA: Y1=LN (2**e'), LN X' or Y2=LN
                                 ; (2**(e'-1)), LN (2*X')
- $3780 DEFB $0F                 ; #R$3014: LN (2**e')*X')=LN X or LN
+ $3780 DEFB $0F                 ; #R$3014: LN (2**e'*X')=LN X or LN
                                 ; (2**(e'-1)*2*X')=LN X
  $3781 DEFB $38                 ; #R$369B: LN X
  $3782 RET                      ; Finished: 'last value' is LN X.
@@ -15096,8 +15095,8 @@ c$3783 RST $28                  ; X
 ; is called via the calculator literal &20 by the routines at #R$2382 and
 ; #R$37DA. It is also called indirectly via #R$33A2.
 ; .
-; This subroutine handles the function COS X and returns a 'last value' 'that
-; is an approximation to COS X.
+; This subroutine handles the function COS X and returns a 'last value' that is
+; an approximation to COS X.
 ; .
 ; The subroutine uses the expression COS X=SIN (#piW/2), where -1<=W<=1.
 ; .
@@ -16355,8 +16354,8 @@ g$5C3A DEFB $00
 ; and updated by the routines at #R$02BF, #R$0A6D, #R$0B24, #R$0C55, #R$10A8,
 ; #R$12A2, #R$1634, #R$1642, #R$164D, #R$1855, #R$18E1, #R$1925, #R$1B17,
 ; #R$1F3A, #R$25B3, #R$2634, #R$268D, #R$27BD, #R$28B2, #R$2996, #R$2A52,
-; #R$2AB and #R$35DE. This system variable is accessed by some routines via the
-; #REGiy register at #iy+$01.
+; #R$2AB1 and #R$35DE. This system variable is accessed by some routines via
+; the #REGiy register at #iy+$01.
 ; .
 ; #TABLE(default,centre)
 ; { =h Bit | =h Description }
@@ -16854,7 +16853,7 @@ g$5C90 DEFB $00
 ; { 2      | INVERSE bit (temporary) }
 ; { 3      | INVERSE bit (permanent) }
 ; { 4      | INK 9 if set (temporary) }
-; { 5      | INK 9  if set (permanent) }
+; { 5      | INK 9 if set (permanent) }
 ; { 6      | PAPER 9 if set (temporary) }
 ; { 7      | PAPER 9 if set (permanent) }
 ; TABLE#
