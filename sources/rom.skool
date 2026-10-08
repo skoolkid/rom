@@ -8887,14 +8887,15 @@ c$2382 RST $18       ; Get the current character.
 ; first two, subtending the same angle at the centre. It can be shown that if 2
 ; points X1, Y1 and X2, Y2 lie on a circle and subtend an angle N at the
 ; centre, which is also the origin of co-ordinates, then X2=X1*COS N-Y1*SIN N,
-; and Y2=X1*SIN N+Y1*COS N. But because the origin is here at the increments,
-; say Un=Xn+1-Xn and Vn=Yn+1-Yn, thus achieving the desired result. The stack
-; is shown below on the (n+1)th pass through the loop, as Xn and Yn are
-; incremented by Un and Vn, after these are obtained from Un-1 and Vn-1. The 4
-; values on the top of the stack at #R$2425 are, in DRAW, reading upwards,
-; X0+X, Y0+Y, Xn and Yn but to save space these are not shown until #R$2439.
-; For the initial values in CIRCLE, see the end of CIRCLE, above. In CIRCLE
-; too, the angle G must be taken to be 2#pi.
+; and Y2=X1*SIN N+Y1*COS N. But because the origin is here at the bottom
+; left-hand corner of the screen, the arc-drawing loop applies these relations
+; to increments, say Un=Xn+1-Xn and Vn=Yn+1-Yn, thus achieving the desired
+; result. The stack is shown below on the (n+1)th pass through the loop, as Xn
+; and Yn are incremented by Un and Vn, after these are obtained from Un-1 and
+; Vn-1. The 4 values on the top of the stack at #R$2425 are, in DRAW, reading
+; upwards, X0+X, Y0+Y, Xn and Yn but to save space these are not shown until
+; #R$2439. For the initial values in CIRCLE, see the end of CIRCLE, above. In
+; CIRCLE too, the angle G must be taken to be 2#pi.
 @label=DRW_STEPS
 *$2420 DEC B         ; #REGb counts the passes through the loop.
  $2421 JR Z,$245F    ; Jump when #REGb has reached zero.
