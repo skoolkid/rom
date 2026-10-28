@@ -12505,8 +12505,8 @@ c$3014 LD A,(DE)     ; {Test whether the first bytes of both numbers are zero.
 @ignoreua
 ; Note that the number -65536 can arise here in the form 00 #S/FF/ 00 00 00 as
 ; the result of the addition of two smaller negative integers, e.g. -65000 and
-; -536. It is simply stacked in this form. This is a mistake. The Spectrum
-; system cannot handle this number.
+; -536. It is simply stacked in this form. #BUG(troubleWith-65536)(This is a
+; mistake). The Spectrum system cannot handle this number.
 ; .
 ; Most functions treat it as zero, and it is printed as -1E-38, obtained by
 ; treating it as 'minus zero' in an illegitimate format.
@@ -12999,11 +12999,12 @@ c$31AF CALL $3293    ; Use full floating-point forms.
  $31FF JR Z,$31E2    ; Trial subtract yet again for any 34th bit; the '#S/PUSH
                      ; AF/' above saves this bit too.
 @ignoreua
-; #IF({fix}<2)!!Note: this jump is made to the wrong place. No 34th bit will
-; ever be obtained without first shifting the dividend. Hence important results
-; like 1/10 and 1/1000 are not rounded up as they should be. Rounding up never
-; occurs when it depends on the 34th bit. The jump should have been to #R$31DB
-; above, i.e. byte &3200 in the ROM should read &DA instead of &E1.!!
+; #IF({fix}<2)!!Note: #BUG(34thBitOfDivision)(this jump is made to the wrong
+; place). No 34th bit will ever be obtained without first shifting the
+; dividend. Hence important results like 1/10 and 1/1000 are not rounded up as
+; they should be. Rounding up never occurs when it depends on the 34th bit. The
+; jump should have been to #R$31DB above, i.e. byte &3200 in the ROM should
+; read &DA instead of &E1.!!
  $3201 LD E,A        ; {Now move the four bytes that form the mantissa of the
  $3202 LD D,C        ; result from #REG(b'c'ca) to #REG(d'e'de).
  $3203 EXX           ;
