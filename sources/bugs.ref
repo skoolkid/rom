@@ -291,3 +291,51 @@ section of code at #R$3225 checks whether the argument <i>x</i> satisfies
 (erroneously) modified to 00 #S/FF/ 00 00 00. (-65537 in floating point form is
 91 80 00 80 00, which explains why the mask &80 is used when testing the fourth
 byte of <i>x</i> at #R$3230.)
+
+[Bug:executableREMarks:Executable REMarks]
+The ZX Spectrum manual claims that when a REM statement is encountered, the
+computer will ignore it and anything that follows right up to the end of the
+line. But that's not quite true. For example, consider the following program:
+
+<div><code>10 READ a: PRINT a</code></div>
+<div><code>20 REM : DATA 1</code></div>
+
+If the manual is to be believed, you would expect it to give an 'Out of DATA'
+error. Otherwise, you might expect it to print '1'. But it actually prints
+'1.7973767E-16'. The reason for this is that READ scans the memory after the
+DATA statement for a number in floating-point form, but there is none: text
+after a REM is not processed before a line is entered. So READ scans past the
+end of the BASIC program until it finds anything that can be interpreted as a
+number. In this particular case it scans the entire RAM and then past the 64K
+boundary and into the ROM, where the first number marker (&0E) is at #R$021D.
+To end the scan before this happens we could ensure that there is a number
+somewhere not far beyond the DATA statement; for example:
+
+<div><code>10 READ a: PRINT a</code></div>
+<div><code>20 REM : DATA 1</code></div>
+<div><code>30 LET b=2</code></div>
+
+will print '2'. Note that the colon (:) in the REM statement can be replaced by
+a THEN keyword, and that will produce the same effect.
+
+READ is not the only command that violates the ignore-REM rule: FN also turns a
+blind eye to it. For example:
+
+<div><code>10 REM : DEF FN a()=1</code></div>
+<div><code>20 PRINT FN a()</code></div>
+
+When run, this program prints '1.7973767E-16' (for the same reason as the
+READ/DATA program above) instead of giving a 'FN without DEF' error or printing
+'1'.
+
+But perhaps worse than these two examples is the zero-iteration FOR loop, which
+enables arbitrary commands in a REM statement to be executed. For example:
+
+<div><code>10 FOR n=1 TO 0</code></div>
+<div><code>20 REM : NEXT n: PRINT PI</code></div>
+
+prints '3.1415927'.
+
+The root cause of all of these violations of the stated rules of Sinclair BASIC
+is that the #R$1D86 routine looks for DATA, DEF FN and NEXT keywords without
+checking whether the line (or statement) they're in begins with REM.
