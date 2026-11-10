@@ -308,6 +308,21 @@ evaluate 10↑32 × 10↑32, which is far beyond the largest number that can be
 represented in floating-point form, so it reports overflow before the result
 can be used.
 
+[Bug:theUnloadableTapeBlock:The unloadable tape block]
+When the length of a tape block is 0, the byte-loading loop in #R$0556 stops
+after the flag byte, and never reads the parity byte. The 'parity matching'
+byte in #REGh is then &FF, and so the parity check (which expects #REGh to be
+0) fails, leading to 'Tape loading error'.
+
+For example:
+
+<code>SAVE "x"CODE 32768,0</code>
+
+successfully saves an empty block, but then 'LOAD ""CODE' or 'VERIFY ""CODE'
+gives an error. The same happens with 'SAVE "x"' on a freshly booted machine:
+the absence of a program and variables gives a zero-length data block, and any
+attempt to LOAD or VERIFY it gives 'Tape loading error'.
+
 [Bug:executableREMarks:Executable REMarks]
 The ZX Spectrum manual claims that when a REM statement is encountered, the
 computer will ignore it and anything that follows right up to the end of the
