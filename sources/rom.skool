@@ -1,5 +1,6 @@
 @start
 @expand=#DEF(#BUG()(a) #LINK(Bugs#$a))
+@expand=#DEF(#FACT()(a) #LINK(Facts#$a))
 @expand=#DEF(#CHAR(addr) #UDG$addr(char#EVAL(($addr-$3C00)/8,16)))
 @expand=#DEF(#S #FORMAT({mode[case]}))
 @expand=#DEF(#SYSVAR()(name) #R({$name})($name))
