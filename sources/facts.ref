@@ -1,0 +1,10 @@
+; © 2026 Richard Dymond (rjdymond@gmail.com)
+
+[Fact:negativeBases:The ↑ operator and negative bases]
+Expressions such as 'X↑Y' give an 'Invalid argument' error when X is negative,
+even when Y is an integer. For example:
+
+<code>PRINT (-1)↑2</code>
+
+This is because the #R$3851 routine computes the value as EXP (Y*LN X), and
+LN X is undefined for negative values of X.
