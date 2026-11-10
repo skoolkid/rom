@@ -8,3 +8,25 @@ even when Y is an integer. For example:
 
 This is because the #R$3851 routine computes the value as EXP (Y*LN X), and
 LN X is undefined for negative values of X.
+
+[Fact:comparingNumbers:Comparing numbers can overflow (or underflow)]
+Numeric comparisons work by subtracting one number from the other (see the
+#R$300F call at #R$3554). This means that:
+
+<code>PRINT 1e38&gt;-1e38</code>
+
+gives a 'Number too big' error instead of the expected '1'. Any comparison
+whose difference exceeds the largest number that can be represented in
+floating-point form (about 1.7e38) fails the same way.
+
+For the same reason, slightly different very small numbers are regarded as
+equal when compared (because their difference rounds down to zero). For
+example:
+
+<code>PRINT 5e-39,6e-39</code>
+
+prints two different values, but:
+
+<code>PRINT 5e-39=6e-39</code>
+
+prints '1' (as if the values were equal).
