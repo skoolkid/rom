@@ -292,6 +292,22 @@ section of code at #R$3225 checks whether the argument <i>x</i> satisfies
 91 80 00 80 00, which explains why the mask &80 is used when testing the fourth
 byte of <i>x</i> at #R$3230.)
 
+[Bug:largeValuesOfZero:Large values of zero]
+The ROM naturally rounds some very small numbers down to zero; for example:
+
+<code>PRINT VAL "1e-63"</code>
+
+prints '0'. But for some even smaller numbers, it fails to do so; for example:
+
+<code>PRINT VAL "1e-64"</code>
+
+gives a 'Number too big' error instead of the expected '0'. The reason for this
+is that the #R$30CA operation at #R$2D76 squares the power of ten before it
+checks whether any exponent bits are left. An exponent from 64 to 127 makes it
+evaluate 10↑32 × 10↑32, which is far beyond the largest number that can be
+represented in floating-point form, so it reports overflow before the result
+can be used.
+
 [Bug:executableREMarks:Executable REMarks]
 The ZX Spectrum manual claims that when a REM statement is encountered, the
 computer will ignore it and anything that follows right up to the end of the
