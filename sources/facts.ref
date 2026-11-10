@@ -30,3 +30,31 @@ prints two different values, but:
 <code>PRINT 5e-39=6e-39</code>
 
 prints '1' (as if the values were equal).
+
+[Fact:negativeCoordinates:Negative coordinates can lose their sign]
+Consider the following program:
+
+<div><code>10 PLOT -10,-20</code></div>
+<div><code>20 PRINT POINT (-10,-20)</code></div>
+
+The negative coordinates apparently make no sense, but the result is a pixel
+plotted at (10,20), which the POINT command correctly identifies.
+
+Likewise:
+
+<div><code>10 PRINT AT 1,2; INK 3;"a"</code></div>
+<div><code>20 PRINT ATTR (-1,-2)</code></div>
+<div><code>30 PRINT SCREEN$ (-1,-2)</code></div>
+
+prints '59' and 'a' (as if the minus signs were not present).
+
+Also:
+
+<code>CIRCLE -100,50,0.9</code>
+
+results in a dark pixel at (100,50) - because the radius is less than 1 and so
+it just PLOTs the point. But:
+
+<code>CIRCLE -100,50,1</code>
+
+gives a more sensible 'Integer out of range' error.
