@@ -1,7 +1,7 @@
 ; © 2026 Richard Dymond (rjdymond@gmail.com)
 
 [Fact:negativeBases:The ↑ operator and negative bases]
-Expressions such as 'X↑Y' give an 'Invalid argument' error when X is negative,
+Expressions such as X↑Y give an 'A Invalid argument' error when X is negative,
 even when Y is an integer. For example:
 
 <code>PRINT (-1)↑2</code>
@@ -15,7 +15,7 @@ Numeric comparisons work by subtracting one number from the other (see the
 
 <code>PRINT 1e38&gt;-1e38</code>
 
-gives a 'Number too big' error instead of the expected '1'. Any comparison
+gives a '6 Number too big' error instead of the expected '1'. Any comparison
 whose difference exceeds the largest number that can be represented in
 floating-point form (about 1.7e38) fails the same way.
 
@@ -52,12 +52,12 @@ Also:
 
 <code>CIRCLE -100,50,0.9</code>
 
-results in a dark pixel at (100,50) - because the radius is less than 1 and so
-it just PLOTs the point. But:
+results in a pixel plotted at (100,50) - because the radius is less than 1 and
+so it just PLOTs the point. But:
 
 <code>CIRCLE -100,50,1</code>
 
-gives a more sensible 'Integer out of range' error.
+gives a more sensible 'B Integer out of range' error.
 
 [Fact:screen$AndAttr:SCREEN$ and ATTR don't check their arguments]
 We've already seen that ATTR and SCREEN$ are blind to negative coordinates, but
@@ -66,7 +66,7 @@ they also don't care about coordinates that are out of range. For example:
 <div><code>10 POKE 23296,255</code></div>
 <div><code>20 PRINT ATTR (24,0)</code></div>
 
-prints '255', because the attribute file address for '24,0' is computed as
+prints '255', because the attribute file address for (24,0) is computed as
 23296, the first byte of the printer buffer (where the '25th line' of the
 attribute file would naturally be, if it existed).
 

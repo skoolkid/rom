@@ -16,7 +16,7 @@ SNAPSHOT = 'build/rom+sysvars.bin'
 
 SKOOL = 'rom.skool'
 
-OUTPUT = """Using ref files: {reffile}, bugs.ref, changelog.ref
+OUTPUT = """Using ref files: {reffile}, bugs.ref, changelog.ref, facts.ref
 Parsing {skoolfile}
 Output directory: {odir}/rom
 Copying {SKOOLKIT_HOME}/skoolkit/resources/skoolkit.css to skoolkit.css
@@ -30,6 +30,7 @@ Writing maps/unused.html
 Writing buffers/sysvars.html
 Writing reference/bugs.html
 Writing reference/changelog.html
+Writing reference/facts.html
 Writing index.html"""
 
 write_tests(SKOOL, SNAPSHOT, OUTPUT, '-Ho 0')

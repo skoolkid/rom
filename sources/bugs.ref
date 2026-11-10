@@ -106,7 +106,7 @@ down for editing is one less than its current value.
 
 [Bug:str$AndSmallNumbers:STR$ and small numbers]
 Because of a bug in the handling of the calculator stack at #R$2E24, a binary
-expression with STR$ on the right hand side is evaluated as if its left hand
+expression with STR$ on the right-hand side is evaluated as if its left-hand
 side is empty. For example:
 
 <code>PRINT "2"+STR$ 0.5</code>
@@ -234,7 +234,7 @@ The reason is that the routine at #R$2535 exits via #R$2AB2, which results in
 the character found at (0,0) being stored on the calculator stack twice instead
 of just once. So when the '=' operation above is performed, the last two items
 on the stack - the two copies of SCREEN$ (0,0) - are equal, and the result of
-the operation is always true, regardless of what's on the left hand side of the
+the operation is always true, regardless of what's on the left-hand side of the
 equation.
 
 Note that the calculator stack is cleared before each statement of a BASIC
@@ -251,7 +251,7 @@ they should be. For example:
 prints '2.3283064E-10' instead of '0', because while '1/2' is calculated
 correctly, '.5' is evaluated as '5 * 1/10', which is not calculated correctly.
 Specifically, '1/10' is represented as #S/7D 4C CC CC CC/ (0.0999999999767) in
-floating point form, but if the 34th bit were included, it would be rounded up
+floating-point form, but if the 34th bit were included, it would be rounded up
 to #S/7D 4C CC CC CD/ (0.100000000006), which is more accurate.
 
 The problem is caused by the jump at #R$31FF, which should be to #R$31DB
@@ -259,7 +259,7 @@ instead of #R$31E2.
 
 [Bug:troubleWith-65536:The trouble with -65536]
 In some circumstances, the number -65536 is stored in short form instead of
-full floating point form, which causes problems. For example:
+full floating-point form, which causes problems. For example:
 
 <code>PRINT -65535-1</code>
 
@@ -287,8 +287,8 @@ not always handle correctly.
 
 The second problem is caused by the routine at #R$3214. Specifically, the
 section of code at #R$3225 checks whether the argument <i>x</i> satisfies
--65537&lt;<i>x</i>&lt;=-65536; if it does, its floating point form is
-(erroneously) modified to 00 #S/FF/ 00 00 00. (-65537 in floating point form is
+-65537&lt;<i>x</i>&lt;=-65536; if it does, its floating-point form is
+(erroneously) modified to 00 #S/FF/ 00 00 00. (-65537 in floating-point form is
 91 80 00 80 00, which explains why the mask &80 is used when testing the fourth
 byte of <i>x</i> at #R$3230.)
 
@@ -301,10 +301,10 @@ prints '0'. But for some even smaller numbers, it fails to do so; for example:
 
 <code>PRINT VAL "1e-64"</code>
 
-gives a 'Number too big' error instead of the expected '0'. The reason for this
-is that the #R$30CA operation at #R$2D76 squares the power of ten before it
-checks whether any exponent bits are left. An exponent from 64 to 127 makes it
-evaluate 10↑32 × 10↑32, which is far beyond the largest number that can be
+gives a '6 Number too big' error instead of the expected '0'. The reason for
+this is that the #R$30CA operation at #R$2D76 squares the power of ten before
+it checks whether any exponent bits are left. An exponent from 64 to 127 makes
+it evaluate 10↑32 × 10↑32, which is far beyond the largest number that can be
 represented in floating-point form, so it reports overflow before the result
 can be used.
 
@@ -312,16 +312,20 @@ can be used.
 When the length of a tape block is 0, the byte-loading loop in #R$0556 stops
 after the flag byte, and never reads the parity byte. The 'parity matching'
 byte in #REGh is then &FF, and so the parity check (which expects #REGh to be
-0) fails, leading to 'Tape loading error'.
+0) fails, leading to 'R Tape loading error'.
 
 For example:
 
 <code>SAVE "x"CODE 32768,0</code>
 
-successfully saves an empty block, but then 'LOAD ""CODE' or 'VERIFY ""CODE'
-gives an error. The same happens with 'SAVE "x"' on a freshly booted machine:
-the absence of a program and variables gives a zero-length data block, and any
-attempt to LOAD or VERIFY it gives 'Tape loading error'.
+successfully saves an empty block, but then trying to LOAD or VERIFY it gives
+an error. The same happens with
+
+<code>SAVE "x"</code>
+
+on a freshly booted machine: the absence of a program and variables gives a
+zero-length data block, and any attempt to LOAD or VERIFY it gives 'R Tape
+loading error'.
 
 [Bug:noParametersNonsense:No parameters? Nonsense!]
 Consider the following function definition:
@@ -329,7 +333,7 @@ Consider the following function definition:
 <code>DEF FN a(x,y)=x*y</code>
 
 As expected and makes sense, if you supply too few or too many arguments to
-this function, the result is (usually) 'Parameter error':
+this function, the result is (usually) 'Q Parameter error':
 
 <div><code>PRINT FN a(1)</code></div>
 <div><code>PRINT FN a(1,2,3)</code></div>
@@ -338,9 +342,9 @@ But if you supply no arguments:
 
 <code>PRINT FN a()</code>
 
-the result is a 'Nonsense in BASIC' error. The reason for this is that 'FN a()'
-passes syntax checking, but then #R$24FB is called (by #R$27BD) to evaluate the
-')' as if it were the first argument.
+the result is a 'C Nonsense in BASIC' error. The reason for this is that
+'FN a()' passes syntax checking, but then #R$24FB is called (by #R$27BD) to
+evaluate the ')' as if it were the first argument.
 
 [Bug:executableREMarks:Executable REMarks]
 The ZX Spectrum manual claims that when a REM statement is encountered, the
@@ -350,7 +354,7 @@ line. But that's not quite true. For example, consider the following program:
 <div><code>10 READ a: PRINT a</code></div>
 <div><code>20 REM : DATA 1</code></div>
 
-If the manual is to be believed, you would expect it to give an 'Out of DATA'
+If the manual is to be believed, you would expect it to give an 'E Out of DATA'
 error. Otherwise, you might expect it to print '1'. But it actually prints
 '1.7973767E-16'. The reason for this is that READ scans the memory after the
 DATA statement for a number in floating-point form, but there is none: text
@@ -365,8 +369,8 @@ somewhere not far beyond the DATA statement; for example:
 <div><code>20 REM : DATA 1</code></div>
 <div><code>30 LET b=2</code></div>
 
-will print '2'. Note that the colon (:) in the REM statement can be replaced by
-a THEN keyword, and that will produce the same effect.
+will print '2'. Note that the colon in the REM statement can be replaced by a
+THEN keyword, and that will produce the same effect.
 
 READ is not the only command that violates the ignore-REM rule: FN also turns a
 blind eye to it. For example:
@@ -375,8 +379,8 @@ blind eye to it. For example:
 <div><code>20 PRINT FN a()</code></div>
 
 When run, this program prints '1.7973767E-16' (for the same reason as the
-READ/DATA program above) instead of giving a 'FN without DEF' error or printing
-'1'.
+READ/DATA program above) instead of giving a 'P FN without DEF' error or
+printing '1'.
 
 But perhaps worse than these two examples is the zero-iteration FOR loop, which
 enables arbitrary commands in a REM statement to be executed. For example:
