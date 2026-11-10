@@ -58,3 +58,22 @@ it just PLOTs the point. But:
 <code>CIRCLE -100,50,1</code>
 
 gives a more sensible 'Integer out of range' error.
+
+[Fact:screen$AndAttr:SCREEN$ and ATTR don't check their arguments]
+We've already seen that ATTR and SCREEN$ are blind to negative coordinates, but
+they also don't care about coordinates that are out of range. For example:
+
+<div><code>10 POKE 23296,255</code></div>
+<div><code>20 PRINT ATTR (24,0)</code></div>
+
+prints '255', because the attribute file address for '24,0' is computed as
+23296, the first byte of the printer buffer (where the '25th line' of the
+attribute file would naturally be, if it existed).
+
+Similarly:
+
+<div><code>10 PRINT AT 1,0; INK 3;"a"</code></div>
+<div><code>20 PRINT ATTR (0,32)</code></div>
+<div><code>30 PRINT SCREEN$ (0,32)</code></div>
+
+prints '59' and 'a', because (0,32) effectively resolves to (1,0).
