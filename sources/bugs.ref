@@ -323,6 +323,25 @@ gives an error. The same happens with 'SAVE "x"' on a freshly booted machine:
 the absence of a program and variables gives a zero-length data block, and any
 attempt to LOAD or VERIFY it gives 'Tape loading error'.
 
+[Bug:noParametersNonsense:No parameters? Nonsense!]
+Consider the following function definition:
+
+<code>DEF FN a(x,y)=x*y</code>
+
+As expected and makes sense, if you supply too few or too many arguments to
+this function, the result is (usually) 'Parameter error':
+
+<div><code>PRINT FN a(1)</code></div>
+<div><code>PRINT FN a(1,2,3)</code></div>
+
+But if you supply no arguments:
+
+<code>PRINT FN a()</code>
+
+the result is a 'Nonsense in BASIC' error. The reason for this is that 'FN a()'
+passes syntax checking, but then #R$24FB is called (by #R$27BD) to evaluate the
+')' as if it were the first argument.
+
 [Bug:executableREMarks:Executable REMarks]
 The ZX Spectrum manual claims that when a REM statement is encountered, the
 computer will ignore it and anything that follows right up to the end of the
