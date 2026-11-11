@@ -3,6 +3,7 @@
 <head>
 <title>Spectrum ROM: Routine at 10646</title>
 <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
 </head>
 <body class="Asm-c">
@@ -32,7 +33,7 @@ Next: <a href="10834.html">10834</a>
 Used by the routines at <a href="7202.html">VAR_A_1</a>, <a href="9929.html">S_LETTER</a> and <a href="11266.html">DIM</a>.
 </div>
 <div class="paragraph">
-This subroutine is used either to find the parameters that define an existing string entry in the variables area, or to return in the <span class="register">HL</span> register pair the base address of a particular element or an array of numbers. When called from <a href="11266.html">DIM</a> the subroutine only checks the syntax of the BASIC statement.
+This subroutine is used either to find the parameters that define an existing string entry in the variables area, or to return in the <span class="register">HL</span> register pair the base address of a particular element of an array of numbers. When called from <a href="11266.html">DIM</a> the subroutine only checks the syntax of the BASIC statement.
 </div>
 <div class="paragraph">
 Note that the parameters that define a string may be altered by calling <a href="10834.html">SLICING</a> if this should be specified.
@@ -146,7 +147,7 @@ The parameters for a simple string are readily found.
 <td class="asm-label"></td>
 <td class="address-1"><span id="10660"></span>10660</td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-1" rowspan="1">Pick up the high length pointer.</td>
+<td class="comment-1" rowspan="1">Pick up the high length counter.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -522,7 +523,7 @@ Enter the loop here.
 <td class="asm-label"></td>
 <td class="address-1"><span id="10743"></span>10743</td>
 <td class="instruction">CP 204</td>
-<td class="comment-1" rowspan="1">Is to 'TO'?</td>
+<td class="comment-1" rowspan="1">Is it 'TO'?</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -890,7 +891,7 @@ The last of these is the default form and indicates that the whole string is req
 <td class="asm-label">SV_SLICE2</td>
 <td class="address-2"><span id="10825"></span>10825</td>
 <td class="instruction">CP "("</td>
-<td class="comment-1" rowspan="1">Is It a '('?</td>
+<td class="comment-1" rowspan="1">Is it a '('?</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -933,9 +934,9 @@ Next: <a href="10834.html">10834</a>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20260409</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20261111</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2026 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.0.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.2.</div>
 <div><a href="../../asm/2996.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

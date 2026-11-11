@@ -3,6 +3,7 @@
 <head>
 <title>Spectrum ROM: Routine at 09090</title>
 <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
 </head>
 <body class="Asm-c">
@@ -355,7 +356,7 @@ ii. Just calls <a href="9341.html">CD_PRMS1</a>. This subroutine saves in the <s
 <span id="9156"></span>
 <div class="comments">
 <div class="paragraph">
-iii. Sets up the rest of the parameters as follow. The stack will hold these 4 items, reading up to the top: X0+X and Y0+Y as end of last arc; then X0 and Y0 as beginning of first arc. Mem-0 will hold X0 and mem-5 Y0. Mem-1 and mem-2 will hold the initial displacements for the first arc, U and V; and mem-3 and mem-4 will hold COS (G/A) and SIN (G/A) for use in the arc-drawing loop.
+iii. Sets up the rest of the parameters as follows. The stack will hold these 4 items, reading up to the top: X0+X and Y0+Y as end of last arc; then X0 and Y0 as beginning of first arc. Mem-0 will hold X0 and mem-5 Y0. Mem-1 and mem-2 will hold the initial displacements for the first arc, U and V; and mem-3 and mem-4 will hold COS (G/A) and SIN (G/A) for use in the arc-drawing loop.
 </div>
 <div class="paragraph">
 The formulae for U and V can be explained as follows. Instead of stepping along the final chord, of length L, say, with displacements X and Y, we want to step along an initial chord (which may be longer) of length L*W, where W=SIN (G/2*A)/SIN (G/2), with displacements X*W and Y*W, but turned through an angle (G/2-G/2*A), hence with true displacements:
@@ -363,7 +364,7 @@ The formulae for U and V can be explained as follows. Instead of stepping along 
 <div class="paragraph">
 <ul class="">
 <li>U=Y*W*SIN (G/2-G/2*A)+X*W*COS (G/2-G/2*A)</li>
-<li>Y=Y*W*COS (G/2-G/2*A)-X*W*SIN (G/2-G/2*A)</li>
+<li>V=Y*W*COS (G/2-G/2*A)-X*W*SIN (G/2-G/2*A)</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -490,7 +491,7 @@ These formulae can be checked from a diagram, using the normal expansion of COS 
 <td class="asm-label"></td>
 <td class="address-1"><span id="9175"></span>09175</td>
 <td class="instruction">DEFB 229</td>
-<td class="comment-1" rowspan="1"><a href="13327.html">get_mem_5</a>: X, Y, Y*W, X*W,G</td>
+<td class="comment-1" rowspan="1"><a href="13327.html">get_mem_5</a>: X, Y, Y*W, X*W, G</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -538,7 +539,7 @@ These formulae can be checked from a diagram, using the normal expansion of COS 
 <td class="asm-label"></td>
 <td class="address-1"><span id="9183"></span>09183</td>
 <td class="instruction">DEFB 2</td>
-<td class="comment-1" rowspan="1"><a href="13147.html#13217">delete</a>: X, Y, Y*W, X*W,F</td>
+<td class="comment-1" rowspan="1"><a href="13147.html#13217">delete</a>: X, Y, Y*W, X*W, F</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -861,7 +862,7 @@ These formulae can be checked from a diagram, using the normal expansion of COS 
 This entry point is used by the routine at <a href="8992.html">CIRCLE</a>.
 </div>
 <div class="paragraph">
-iv. The arc-drawing loop. This is entered at <a href="9090.html#9273">ARC_START</a> with the co-ordinates of the starting point on top of the stack, and the initial displacements for the first arc in mem-1 and mem-2. It uses simple trigonometry to ensure that all subsequent arcs will be drawn to points that lie on the same circle as the first two, subtending the same angle at the centre. It can be shown that if 2 points X1, Y1 and X2, Y2 lie on a circle and subtend an angle N at the centre, which is also the origin of co-ordinates, then X2=X1*COS N-Y1*SIN N, and Y2=X1*SIN N+Y1*COS N. But because the origin is here at the increments, say Un=Xn+1-Xn and Vn=Yn+1-Yn, thus achieving the desired result. The stack is shown below on the (n+1)th pass through the loop, as Xn and Yn are incremented by Un and Vn, after these are obtained from Un-1 and Vn-1. The 4 values on the top of the stack at <a href="9090.html#9253">ARC_LOOP</a> are, in DRAW, reading upwards, X0+X, Y0+Y, Xn and Yn but to save space these are not shown until <a href="9090.html#9273">ARC_START</a>. For the initial values in CIRCLE, see the end of CIRCLE, above. In CIRCLE too, the angle G must be taken to be 2&#960;.
+iv. The arc-drawing loop. This is entered at <a href="9090.html#9273">ARC_START</a> with the co-ordinates of the starting point on top of the stack, and the initial displacements for the first arc in mem-1 and mem-2. It uses simple trigonometry to ensure that all subsequent arcs will be drawn to points that lie on the same circle as the first two, subtending the same angle at the centre. It can be shown that if 2 points X1, Y1 and X2, Y2 lie on a circle and subtend an angle N at the centre, which is also the origin of co-ordinates, then X2=X1*COS N-Y1*SIN N, and Y2=X1*SIN N+Y1*COS N. But because the origin is here at the bottom left-hand corner of the screen, the arc-drawing loop applies these relations to increments, say Un=Xn+1-Xn and Vn=Yn+1-Yn, thus achieving the desired result. The stack is shown below on the (n+1)th pass through the loop, as Xn and Yn are incremented by Un and Vn, after these are obtained from Un-1 and Vn-1. The 4 values on the top of the stack at <a href="9090.html#9253">ARC_LOOP</a> are, in DRAW, reading upwards, X0+X, Y0+Y, Xn and Yn but to save space these are not shown until <a href="9090.html#9273">ARC_START</a>. For the initial values in CIRCLE, see the end of CIRCLE, above. In CIRCLE too, the angle G must be taken to be 2&#960;.
 </div>
 </div>
 </td>
@@ -1014,7 +1015,7 @@ iv. The arc-drawing loop. This is entered at <a href="9090.html#9273">ARC_START<
 <td class="asm-label"></td>
 <td class="address-1"><span id="9274"></span>09274</td>
 <td class="instruction">RST <a href="40.html">40</a></td>
-<td class="comment-1" rowspan="1">X0+X, Y0+y, Xn, Yn</td>
+<td class="comment-1" rowspan="1">X0+X, Y0+Y, Xn, Yn</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -1073,7 +1074,7 @@ iv. The arc-drawing loop. This is entered at <a href="9090.html#9273">ARC_START<
 <td class="asm-label"></td>
 <td class="address-1"><span id="9288"></span>09288</td>
 <td class="instruction">DEFB 3</td>
-<td class="comment-1" rowspan="1"><a href="12303.html">subtract</a>: X0+X, Y0+Y, Xn+1, Xn+1, Xn'-Xn'=Un'</td>
+<td class="comment-1" rowspan="1"><a href="12303.html">subtract</a>: X0+X, Y0+Y, Xn+1, Xn+1-Xn'=Un'</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -1281,9 +1282,9 @@ Next: <a href="9341.html">09341</a>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20260409</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20261111</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2026 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.0.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.2.</div>
 <div><a href="../../asm/2382.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

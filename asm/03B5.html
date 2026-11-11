@@ -3,6 +3,7 @@
 <head>
 <title>Spectrum ROM: Routine at 03B5</title>
 <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
 </head>
 <body class="Asm-c">
@@ -38,7 +39,7 @@ The loudspeaker is activated by having D4 low during an 'OUT' instruction that i
 Consider now the note 'middle C' which has the frequency 261.63 Hz. In order to get this note the loudspeaker will have to be alternately activated and deactivated every 1/523.26th of a second. In the Spectrum the system clock is set to run at 3.5 MHz. and the note of 'middle C' will require that the requisite 'OUT' instruction be executed as close as possible to every 6689 T states. This last value, when reduced slightly for unavoidable overheads, represents the 'length of the timing loop' in this subroutine.
 </div>
 <div class="paragraph">
-This subroutine is entered with the <span class="register">DE</span> register pair holding the value 'f*t', where a note of given frequency 'f' is to have a duration of 't' seconds, and the <span class="register">HL</span> register pair holding a value equal to the number of T states in the 'timing loop' divided by 4, i.e. for the note 'middle C' to be produced for one second <span class="register">DE</span> holds +0105 (INT(261.3*1)) and <span class="register">HL</span> holds +066A (derived from 6689/4-30.125).
+This subroutine is entered with the <span class="register">DE</span> register pair holding the value 'f*t', where a note of given frequency 'f' is to have a duration of 't' seconds, and the <span class="register">HL</span> register pair holding a value equal to the number of T states in the 'timing loop' divided by 4, i.e. for the note 'middle C' to be produced for one second <span class="register">DE</span> holds +0105 (INT(261.63*1)) and <span class="register">HL</span> holds +066A (derived from 6689/4-30.125).
 </div>
 </div>
 <table class="input">
@@ -368,9 +369,9 @@ Next: <a href="03F8.html">03F8</a>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20260409</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20261111</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2026 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.0.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.2.</div>
 <div><a href="../dec/asm/949.html">Switch to decimal</a>.</div>
 </footer>
 </body>

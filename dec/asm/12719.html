@@ -3,6 +3,7 @@
 <head>
 <title>Spectrum ROM: Routine at 12719</title>
 <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
 </head>
 <body class="Asm-c">
@@ -375,7 +376,7 @@ Now enter the division loop.
 <span id="12801"></span>
 <div class="comments">
 <div class="paragraph">
-Note: this jump is made to the wrong place. No 34th bit will ever be obtained without first shifting the dividend. Hence important results like 1/10 and 1/1000 are not rounded up as they should be. Rounding up never occurs when it depends on the 34th bit. The jump should have been to <a href="12719.html#12763">DIV_34TH</a> above, i.e. byte 12800 in the ROM should read 218 instead of 225.
+Note: <a href="../reference/bugs.html#34thBitOfDivision">this jump is made to the wrong place</a>. No 34th bit will ever be obtained without first shifting the dividend. Hence important results like 1/10 and 1/1000 are not rounded up as they should be. Rounding up never occurs when it depends on the 34th bit. The jump should have been to <a href="12719.html#12763">DIV_34TH</a> above, i.e. byte 12800 in the ROM should read 218 instead of 225.
 </div>
 </div>
 </td>
@@ -474,9 +475,9 @@ Next: <a href="12820.html">12820</a>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20260409</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20261111</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2026 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.0.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.2.</div>
 <div><a href="../../asm/31AF.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

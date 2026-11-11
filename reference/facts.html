@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spectrum ROM: Trivia</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+</head>
+<body class="Facts">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="Spectrum ROM" src="../images/logo-hex.png" /></a></td>
+<td class="page-header">Trivia</td>
+</tr>
+</table>
+<ul class="contents">
+<li><a href="#negativeBases">The ↑ operator and negative bases</a></li>
+<li><a href="#comparingNumbers">Comparing numbers can overflow (or underflow)</a></li>
+<li><a href="#negativeCoordinates">Negative coordinates can lose their sign</a></li>
+<li><a href="#screen$AndAttr">SCREEN$ and ATTR don't check their arguments</a></li>
+</ul>
+<div><span id="negativeBases"></span></div>
+<div class="box box-1">
+<div class="box-title">The ↑ operator and negative bases</div>
+<div class="paragraph">
+Expressions such as X↑Y give an 'A Invalid argument' error when X is negative,
+even when Y is an integer. For example:
+</div>
+<div class="paragraph">
+<code>PRINT (-1)↑2</code>
+</div>
+<div class="paragraph">
+This is because the <a href="../asm/3851.html">to_power</a> routine computes the value as EXP (Y*LN X), and
+LN X is undefined for negative values of X.
+</div>
+</div>
+<div><span id="comparingNumbers"></span></div>
+<div class="box box-2">
+<div class="box-title">Comparing numbers can overflow (or underflow)</div>
+<div class="paragraph">
+Numeric comparisons work by subtracting one number from the other (see the
+<a href="../asm/300F.html">subtract</a> call at <a href="../asm/353B.html#3554">3554</a>). This means that:
+</div>
+<div class="paragraph">
+<code>PRINT 1e38&gt;-1e38</code>
+</div>
+<div class="paragraph">
+gives a '6 Number too big' error instead of the expected '1'. Any comparison
+whose difference exceeds the largest number that can be represented in
+floating-point form (about 1.7e38) fails the same way.
+</div>
+<div class="paragraph">
+For the same reason, slightly different very small numbers are regarded as
+equal when compared (because their difference rounds down to zero). For
+example:
+</div>
+<div class="paragraph">
+<code>PRINT 5e-39,6e-39</code>
+</div>
+<div class="paragraph">
+prints two different values, but:
+</div>
+<div class="paragraph">
+<code>PRINT 5e-39=6e-39</code>
+</div>
+<div class="paragraph">
+prints '1' (as if the values were equal).
+</div>
+</div>
+<div><span id="negativeCoordinates"></span></div>
+<div class="box box-1">
+<div class="box-title">Negative coordinates can lose their sign</div>
+<div class="paragraph">
+Consider the following program:
+</div>
+<div class="paragraph">
+<div><code>10 PLOT -10,-20</code></div>
+<div><code>20 PRINT POINT (-10,-20)</code></div>
+</div>
+<div class="paragraph">
+The negative coordinates apparently make no sense, but the result is a pixel
+plotted at (10,20), which the POINT command correctly identifies.
+</div>
+<div class="paragraph">
+Likewise:
+</div>
+<div class="paragraph">
+<div><code>10 PRINT AT 1,2; INK 3;"a"</code></div>
+<div><code>20 PRINT ATTR (-1,-2)</code></div>
+<div><code>30 PRINT SCREEN$ (-1,-2)</code></div>
+</div>
+<div class="paragraph">
+prints '59' and 'a' (as if the minus signs were not present).
+</div>
+<div class="paragraph">
+Also:
+</div>
+<div class="paragraph">
+<code>CIRCLE -100,50,0.9</code>
+</div>
+<div class="paragraph">
+results in a pixel plotted at (100,50) - because the radius is less than 1 and
+so it just PLOTs the point. But:
+</div>
+<div class="paragraph">
+<code>CIRCLE -100,50,1</code>
+</div>
+<div class="paragraph">
+gives a more sensible 'B Integer out of range' error.
+</div>
+</div>
+<div><span id="screen$AndAttr"></span></div>
+<div class="box box-2">
+<div class="box-title">SCREEN$ and ATTR don't check their arguments</div>
+<div class="paragraph">
+We've already seen that ATTR and SCREEN$ are blind to negative coordinates, but
+they also don't care about coordinates that are out of range. For example:
+</div>
+<div class="paragraph">
+<div><code>10 POKE 23296,255</code></div>
+<div><code>20 PRINT ATTR (24,0)</code></div>
+</div>
+<div class="paragraph">
+prints '255', because the attribute file address for (24,0) is computed as
+23296, the first byte of the printer buffer (where the '25th line' of the
+attribute file would naturally be, if it existed).
+</div>
+<div class="paragraph">
+Similarly:
+</div>
+<div class="paragraph">
+<div><code>10 PRINT AT 1,0; INK 3;"a"</code></div>
+<div><code>20 PRINT ATTR (0,32)</code></div>
+<div><code>30 PRINT SCREEN$ (0,32)</code></div>
+</div>
+<div class="paragraph">
+prints '59' and 'a', because (0,32) effectively resolves to (1,0).
+</div>
+</div>
+<footer>
+<div class="release">The Complete Spectrum ROM Disassembly 20261111</div>
+<div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2026 Richard Dymond.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.2.</div>
+<div><a href="../dec/reference/facts.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

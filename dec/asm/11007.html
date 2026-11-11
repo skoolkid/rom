@@ -3,6 +3,7 @@
 <head>
 <title>Spectrum ROM: Routine at 11007</title>
 <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
 </head>
 <body class="Asm-c">
@@ -41,7 +42,7 @@ When the destination variable is a 'newly declared variable' then <a href="23629
 However if the destination variable 'exists already' then bit 1 of <a href="23665.html">FLAGX</a> will be reset and <a href="23629.html">DEST</a> will point for a numeric variable to the location before the five bytes of the 'old number', and for a string variable to the first location of the 'old string'. The use of <a href="23629.html">DEST</a> in this manner applies to simple variables and to elements of arrays.
 </div>
 <div class="paragraph">
-Bit 0 of <a href="23665.html">FLAGX</a> is set if the destination variable is a 'complete' simple string variable. (Signalling - delete the old copy.) Initially the current value of <a href="23629.html">DEST</a> is collected and bit 1 of <a href="23611.html">FLAGS</a> tested.
+Bit 0 of <a href="23665.html">FLAGX</a> is set if the destination variable is a 'complete' simple string variable. (Signalling - delete the old copy.) Initially the current value of <a href="23629.html">DEST</a> is collected and bit 1 of <a href="23665.html">FLAGX</a> tested.
 </div>
 </div>
 </td>
@@ -178,7 +179,7 @@ Separate 'numeric' and 'string' names.
 <td class="asm-label"></td>
 <td class="address-1"><span id="11042"></span>11042</td>
 <td class="instruction">JR C,<a href="11007.html#11019">L_EACH_CH</a></td>
-<td class="comment-1" rowspan="1">If It is so then accept it as a character of a 'long' name.</td>
+<td class="comment-1" rowspan="1">If it is so then accept it as a character of a 'long' name.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -1180,9 +1181,9 @@ Next: <a href="11249.html">11249</a>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20260409</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20261111</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2026 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.0.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.2.</div>
 <div><a href="../../asm/2AFF.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

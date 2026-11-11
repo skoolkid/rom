@@ -3,6 +3,7 @@
 <head>
 <title>Spectrum ROM: Bugs</title>
 <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
 </head>
 <body class="Bugs">
@@ -28,6 +29,10 @@
 <li><a href="#anythingEqualsSCREEN$xy">Anything equals SCREEN$ (x,y)</a></li>
 <li><a href="#34thBitOfDivision">The 34th bit of division</a></li>
 <li><a href="#troubleWith-65536">The trouble with -65536</a></li>
+<li><a href="#largeValuesOfZero">Large values of zero</a></li>
+<li><a href="#theUnloadableTapeBlock">The unloadable tape block</a></li>
+<li><a href="#noParametersNonsense">No parameters? Nonsense!</a></li>
+<li><a href="#executableREMarks">Executable REMarks</a></li>
 </ul>
 <div><span id="noStepForward"></span></div>
 <div class="box box-1">
@@ -186,7 +191,7 @@ down for editing is one less than its current value.
 <div class="box-title">STR$ and small numbers</div>
 <div class="paragraph">
 Because of a bug in the handling of the calculator stack at <a href="../asm/11747.html#11812">PF_SMALL</a>, a binary
-expression with STR$ on the right hand side is evaluated as if its left hand
+expression with STR$ on the right-hand side is evaluated as if its left-hand
 side is empty. For example:
 </div>
 <div class="paragraph">
@@ -241,8 +246,8 @@ error when <i>n</i>&gt;=61440. (See the check at <a href="../asm/7783.html#7790"
 <div class="box box-1">
 <div class="box-title">Don't close the streams</div>
 <div class="paragraph">
-It can be dangerous to close a stream, especially if it's aleady been closed or
-was never opened. For example, on a freshly booted Spectrum:
+It can be dangerous to close a stream, especially if it's already been closed
+or was never opened. For example, on a freshly booted Spectrum:
 </div>
 <div class="paragraph">
 <code>CLOSE #4</code>
@@ -271,7 +276,7 @@ be closed successfully.
 <div class="box-title">Press (almost) any key</div>
 <div class="paragraph">
 Not every key besides 'n', 'N', BREAK and STOP will work at the 'scroll?' and
-'Start tape then press any key.' prompts: pressing CAPS LOCK, or GRAPHICS, or
+'Start tape, then press any key.' prompts: pressing CAPS LOCK, or GRAPHICS, or
 CAPS SHIFT and SYMBOL SHIFT together at these prompts causes the previous edit
 line to appear at the bottom of the screen instead.
 </div>
@@ -303,7 +308,7 @@ code at <a href="../asm/8188.html#8252">PR_STRING</a> to hold the address of the
 corrupted during the call to <a href="../asm/16.html">PRINT_A_1</a> (made by the 'RST 16' instruction at
 <a href="../asm/8188.html#8258">8258</a>) and ends up pointing at <a href="../asm/149.html#184">184</a> after CAPS LOCK and ENTER are pressed
 at the 'scroll?' prompt. <span class="register">DE</span> is then incremented through the <a href="../asm/149.html">token
-table</a> until it reaches 500 and the 'scroll?'  prompt is printed again.
+table</a> until it reaches 500 and the 'scroll?' prompt is printed again.
 After ENTER is pressed at this prompt, <span class="register">DE</span> is incremented through the
 remainder of the token table, and then through the <a href="../asm/517.html">key tables</a>, and
 then into the routine at <a href="../asm/654.html">KEY_SCAN</a>, until it reaches 656, where it finds the
@@ -328,7 +333,7 @@ When the program
 <div class="paragraph">
 is RUN, pressing TRUE VIDEO or INV. VIDEO at the 'scroll?' prompt causes the
 screen to scroll once, prints a 'scroll?' prompt, scrolls the screen again
-without waiting for a keypress, and then prints another 'scroll?'  prompt
+without waiting for a keypress, and then prints another 'scroll?' prompt
 indented by 7 spaces.
 </div>
 <div class="paragraph">
@@ -339,7 +344,7 @@ from <a href="../asm/4264.html">KEY_INPUT</a> to <a href="../asm/4264.html#4365"
 prompt is printed and <a href="../asm/5588.html">WAIT_KEY</a> is called, <a href="../asm/4264.html#4365">KEY_NEXT</a> (which picks up the parameter
 for the INVERSE control code instead of waiting for a keypress, and does not
 reset the print position for the lower part of the display in preparation for
-the next 'scroll?'  prompt) is executed instead of <a href="../asm/4264.html">KEY_INPUT</a> (which would wait
+the next 'scroll?' prompt) is executed instead of <a href="../asm/4264.html">KEY_INPUT</a> (which would wait
 for a keypress, and then reset the print position for the lower part of the
 display).
 </div>
@@ -362,7 +367,7 @@ The reason is that the routine at <a href="../asm/9525.html">S_SCRN_S</a> exits 
 the character found at (0,0) being stored on the calculator stack twice instead
 of just once. So when the '=' operation above is performed, the last two items
 on the stack - the two copies of SCREEN$ (0,0) - are equal, and the result of
-the operation is always true, regardless of what's on the left hand side of the
+the operation is always true, regardless of what's on the left-hand side of the
 equation.
 </div>
 <div class="paragraph">
@@ -386,7 +391,7 @@ they should be. For example:
 prints '2.3283064E-10' instead of '0', because while '1/2' is calculated
 correctly, '.5' is evaluated as '5 * 1/10', which is not calculated correctly.
 Specifically, '1/10' is represented as 7D 4C CC CC CC (0.0999999999767) in
-floating point form, but if the 34th bit were included, it would be rounded up
+floating-point form, but if the 34th bit were included, it would be rounded up
 to 7D 4C CC CC CD (0.100000000006), which is more accurate.
 </div>
 <div class="paragraph">
@@ -399,7 +404,7 @@ instead of <a href="../asm/12719.html#12770">DIV_START</a>.
 <div class="box-title">The trouble with -65536</div>
 <div class="paragraph">
 In some circumstances, the number -65536 is stored in short form instead of
-full floating point form, which causes problems. For example:
+full floating-point form, which causes problems. For example:
 </div>
 <div class="paragraph">
 <code>PRINT -65535-1</code>
@@ -451,16 +456,160 @@ not always handle correctly.
 <div class="paragraph">
 The second problem is caused by the routine at <a href="../asm/12820.html">truncate</a>. Specifically, the
 section of code at <a href="../asm/12820.html#12837">12837</a> checks whether the argument <i>x</i> satisfies
--65537&lt;<i>x</i>&lt;=-65536; if it does, its floating point form is
-(erroneously) modified to 00 FF 00 00 00. (-65537 in floating point form is
+-65537&lt;<i>x</i>&lt;=-65536; if it does, its floating-point form is
+(erroneously) modified to 00 FF 00 00 00. (-65537 in floating-point form is
 91 80 00 80 00, which explains why the mask 128 is used when testing the fourth
 byte of <i>x</i> at <a href="../asm/12820.html#12848">12848</a>.)
 </div>
 </div>
+<div><span id="largeValuesOfZero"></span></div>
+<div class="box box-2">
+<div class="box-title">Large values of zero</div>
+<div class="paragraph">
+The ROM naturally rounds some very small numbers down to zero; for example:
+</div>
+<div class="paragraph">
+<code>PRINT VAL "1e-63"</code>
+</div>
+<div class="paragraph">
+prints '0'. But for some even smaller numbers, it fails to do so; for example:
+</div>
+<div class="paragraph">
+<code>PRINT VAL "1e-64"</code>
+</div>
+<div class="paragraph">
+gives a '6 Number too big' error instead of the expected '0'. The reason for
+this is that the <a href="../asm/12490.html">multiply</a> operation at <a href="../asm/11599.html#11638">11638</a> squares the power of ten before
+it checks whether any exponent bits are left. An exponent from 64 to 127 makes
+it evaluate 10↑32 × 10↑32, which is far beyond the largest number that can be
+represented in floating-point form, so it reports overflow before the result
+can be used.
+</div>
+</div>
+<div><span id="theUnloadableTapeBlock"></span></div>
+<div class="box box-1">
+<div class="box-title">The unloadable tape block</div>
+<div class="paragraph">
+When the length of a tape block is 0, the byte-loading loop in <a href="../asm/1366.html">LD_BYTES</a> stops
+after the flag byte, and never reads the parity byte. The 'parity matching'
+byte in <span class="register">H</span> is then 255, and so the parity check (which expects <span class="register">H</span> to be
+0) fails, leading to 'R Tape loading error'.
+</div>
+<div class="paragraph">
+For example:
+</div>
+<div class="paragraph">
+<code>SAVE "x"CODE 32768,0</code>
+</div>
+<div class="paragraph">
+successfully saves an empty block, but then trying to LOAD or VERIFY it gives
+an error. The same happens with
+</div>
+<div class="paragraph">
+<code>SAVE "x"</code>
+</div>
+<div class="paragraph">
+on a freshly booted machine: the absence of a program and variables gives a
+zero-length data block, and any attempt to LOAD or VERIFY it gives 'R Tape
+loading error'.
+</div>
+</div>
+<div><span id="noParametersNonsense"></span></div>
+<div class="box box-2">
+<div class="box-title">No parameters? Nonsense!</div>
+<div class="paragraph">
+Consider the following function definition:
+</div>
+<div class="paragraph">
+<code>DEF FN a(x,y)=x*y</code>
+</div>
+<div class="paragraph">
+As expected and makes sense, if you supply too few or too many arguments to
+this function, the result is (usually) 'Q Parameter error':
+</div>
+<div class="paragraph">
+<div><code>PRINT FN a(1)</code></div>
+<div><code>PRINT FN a(1,2,3)</code></div>
+</div>
+<div class="paragraph">
+But if you supply no arguments:
+</div>
+<div class="paragraph">
+<code>PRINT FN a()</code>
+</div>
+<div class="paragraph">
+the result is a 'C Nonsense in BASIC' error. The reason for this is that
+'FN a()' passes syntax checking, but then <a href="../asm/9467.html">SCANNING</a> is called (by <a href="../asm/10173.html">S_FN_SBRN</a>) to
+evaluate the ')' as if it were the first argument.
+</div>
+</div>
+<div><span id="executableREMarks"></span></div>
+<div class="box box-1">
+<div class="box-title">Executable REMarks</div>
+<div class="paragraph">
+The ZX Spectrum manual claims that when a REM statement is encountered, the
+computer will ignore it and anything that follows right up to the end of the
+line. But that's not quite true. For example, consider the following program:
+</div>
+<div class="paragraph">
+<div><code>10 READ a: PRINT a</code></div>
+<div><code>20 REM : DATA 1</code></div>
+</div>
+<div class="paragraph">
+If the manual is to be believed, you would expect it to give an 'E Out of DATA'
+error. Otherwise, you might expect it to print '1'. But it actually prints
+'1.7973767E-16'. The reason for this is that READ scans the memory after the
+DATA statement for a number in floating-point form, but there is none: text
+after a REM is not processed before a line is entered. So READ scans past the
+end of the BASIC program until it finds anything that can be interpreted as a
+number. In this particular case it scans the entire RAM and then past the 64K
+boundary and into the ROM, where the first number marker (14) is at <a href="../asm/517.html#541">541</a>.
+To end the scan before this happens we could ensure that there is a number
+somewhere not far beyond the DATA statement; for example:
+</div>
+<div class="paragraph">
+<div><code>10 READ a: PRINT a</code></div>
+<div><code>20 REM : DATA 1</code></div>
+<div><code>30 LET b=2</code></div>
+</div>
+<div class="paragraph">
+will print '2'. Note that the colon in the REM statement can be replaced by a
+THEN keyword, and that will produce the same effect.
+</div>
+<div class="paragraph">
+READ is not the only command that violates the ignore-REM rule: FN also turns a
+blind eye to it. For example:
+</div>
+<div class="paragraph">
+<div><code>10 REM : DEF FN a()=1</code></div>
+<div><code>20 PRINT FN a()</code></div>
+</div>
+<div class="paragraph">
+When run, this program prints '1.7973767E-16' (for the same reason as the
+READ/DATA program above) instead of giving a 'P FN without DEF' error or
+printing '1'.
+</div>
+<div class="paragraph">
+But perhaps worse than these two examples is the zero-iteration FOR loop, which
+enables arbitrary commands in a REM statement to be executed. For example:
+</div>
+<div class="paragraph">
+<div><code>10 FOR n=1 TO 0</code></div>
+<div><code>20 REM : NEXT n: PRINT PI</code></div>
+</div>
+<div class="paragraph">
+prints '3.1415927'.
+</div>
+<div class="paragraph">
+The root cause of all of these violations of the stated rules of Sinclair BASIC
+is that the <a href="../asm/7558.html">LOOK_PROG</a> routine looks for DATA, DEF FN and NEXT keywords without
+checking whether the line (or statement) they're in begins with REM.
+</div>
+</div>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20260409</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20261111</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2026 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.0.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.2.</div>
 <div><a href="../../reference/bugs.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

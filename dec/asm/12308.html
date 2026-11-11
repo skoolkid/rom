@@ -3,6 +3,7 @@
 <head>
 <title>Spectrum ROM: Routine at 12308</title>
 <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
 </head>
 <body class="Asm-c">
@@ -275,10 +276,10 @@ But the addition subroutine first tests whether the 2 numbers to be added are 's
 <span id="12348"></span>
 <div class="comments">
 <div class="paragraph">
-Note that the number -65536 can arise here in the form 00 FF 00 00 00 as the result of the addition of two smaller negative integers, e.g. -65000 and -536. It is simply stacked in this form. This is a mistake. The Spectrum system cannot handle this number.
+Note that the number -65536 can arise here in the form 00 FF 00 00 00 as the result of the addition of two smaller negative integers, e.g. -65000 and -536. It is simply stacked in this form. <a href="../reference/bugs.html#troubleWith-65536">This is a mistake</a>. The Spectrum system cannot handle this number.
 </div>
 <div class="paragraph">
-Most functions treat it as zero, and it is printed as -1E-38, obtained by treating is as 'minus zero' in an illegitimate format.
+Most functions treat it as zero, and it is printed as -1E-38, obtained by treating it as 'minus zero' in an illegitimate format.
 </div>
 <div class="paragraph">
 One possible remedy would be to test for this number at about byte <a href="12308.html#12338">12338</a> and, if it is present, to make the second byte 128 and the first byte 145, so producing the full five-byte floating-point form of the number, i.e. 91 80 00 00 00, which causes no problems. See also the <a href="12820.html#12837">remarks in 'truncate'</a>.
@@ -771,9 +772,9 @@ Next: <a href="12457.html">12457</a>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20260409</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20261111</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2026 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.0.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.2.</div>
 <div><a href="../../asm/3014.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

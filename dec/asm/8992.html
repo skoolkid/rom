@@ -3,6 +3,7 @@
 <head>
 <title>Spectrum ROM: Routine at 08992</title>
 <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="../style.css" />
 </head>
 <body class="Asm-c">
@@ -225,7 +226,7 @@ ii. 2&#960; is stored in mem-5 and <a href="9341.html">CD_PRMS1</a> is called. T
 <span id="9031"></span>
 <div class="comments">
 <div class="paragraph">
-iii. A test is made to see whether the initial 'arc' length is less than 1. If it is, a jump is made simply to plot X, Y. Otherwise, the parameters are set: X+Z and X-Z*SIN (&#960;/A) are stacked twice as start and end point, and copied to <a href="23677.html">COORDS</a> as well; zero and 2*Z*SIN (&#960;/A) are stored in mem-1 and mem-2 as initial increments, giving as first 'arc' the vertical straight line joining X+Z, y-Z*SIN (&#960;/A) and X+Z, Y+Z*SIN (&#960;/A). The arc-drawing loop at <a href="9090.html#9248">DRW_STEPS</a> will ensure that all subsequent points remain on the same circle as these two points, with incremental angle 2&#960;/A. But it is clear that these 2 points in fact subtend this angle at the point X+Z*(1-COS (&#960;/A)), Y not at X, Y. Hence the end points of each arc of the circle are displaced right by an amount 2*(1-COS (&#960;/A)), which is less than half a pixel, and rounds to one pixel at most.
+iii. A test is made to see whether the initial 'arc' length is less than 1. If it is, a jump is made simply to plot X, Y. Otherwise, the parameters are set: X+Z and X-Z*SIN (&#960;/A) are stacked twice as start and end point, and copied to <a href="23677.html">COORDS</a> as well; zero and 2*Z*SIN (&#960;/A) are stored in mem-1 and mem-2 as initial increments, giving as first 'arc' the vertical straight line joining X+Z, Y-Z*SIN (&#960;/A) and X+Z, Y+Z*SIN (&#960;/A). The arc-drawing loop at <a href="9090.html#9248">DRW_STEPS</a> will ensure that all subsequent points remain on the same circle as these two points, with incremental angle 2&#960;/A. But it is clear that these 2 points in fact subtend this angle at the point X+Z*(1-COS (&#960;/A)), Y not at X, Y. Hence the end points of each arc of the circle are displaced right by an amount 2*(1-COS (&#960;/A)), which is less than half a pixel, and rounds to one pixel at most.
 </div>
 </div>
 </td>
@@ -528,9 +529,9 @@ Next: <a href="9090.html">09090</a>
 </tr>
 </table>
 <footer>
-<div class="release">The Complete Spectrum ROM Disassembly 20260409</div>
+<div class="release">The Complete Spectrum ROM Disassembly 20261111</div>
 <div class="copyright">&#169; 1982 Amstrad. &#169; 1983 Dr Ian Logan &amp; Dr Frank O'Hara. &#169; 2026 Richard Dymond.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.0.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.2.</div>
 <div><a href="../../asm/2320.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>
